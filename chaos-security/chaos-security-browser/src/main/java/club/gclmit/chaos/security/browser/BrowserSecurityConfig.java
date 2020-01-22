@@ -97,8 +97,8 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
         tokenRepository.setDataSource(dataSource);
         /**
          * 自动建表，若存在表则报错
-         * tokenRepository.setCreateTableOnStartup(true);
          */
+//        tokenRepository.setCreateTableOnStartup(true);
         return tokenRepository;
     }
 }

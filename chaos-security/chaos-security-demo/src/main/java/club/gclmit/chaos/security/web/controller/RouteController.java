@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 1.8
  */
 @Controller
-@RequestMapping("/")
 public class RouteController {
 
     @GetMapping("/demo-signIn")
@@ -29,7 +28,7 @@ public class RouteController {
         return "demo-signUp";
     }
 
-    @GetMapping("/")
+    @GetMapping("/index")
     public String index(){
         return "index";
     }

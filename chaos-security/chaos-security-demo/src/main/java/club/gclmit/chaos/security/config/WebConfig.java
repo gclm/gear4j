@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+//import org.thymeleaf.templatemode.TemplateMode;
+//import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 /**
  * <p>
@@ -44,21 +44,21 @@ public class WebConfig implements WebMvcConfigurer{
 //        return filter;
 //    }
 
-      @Bean
-      public ClassLoaderTemplateResolver yourTemplateResolver() {
-            Logger.info(LoggerServer.SPRING_BOOT,"加载 template 模板");
-            ClassLoaderTemplateResolver configurer = new ClassLoaderTemplateResolver();
-            configurer.setPrefix("template/");
-            configurer.setSuffix(".html");
-            configurer.setTemplateMode(TemplateMode.HTML);
-            configurer.setCharacterEncoding("UTF-8");
-            /**
-             * this is important. This way spring //boot will listen to both places 0 and 1
-             */
-            configurer.setOrder(0);
-            configurer.setCacheable(false);
-            configurer.setCheckExistence(true);
-            return configurer;
-      }
+//      @Bean
+//      public ClassLoaderTemplateResolver yourTemplateResolver() {
+//            Logger.info(LoggerServer.SPRING_BOOT,"加载 template 模板");
+//            ClassLoaderTemplateResolver configurer = new ClassLoaderTemplateResolver();
+//            configurer.setPrefix("template/");
+//            configurer.setSuffix(".html");
+//            configurer.setTemplateMode(TemplateMode.HTML);
+//            configurer.setCharacterEncoding("UTF-8");
+//            /**
+//             * this is important. This way spring //boot will listen to both places 0 and 1
+//             */
+//            configurer.setOrder(0);
+//            configurer.setCacheable(false);
+//            configurer.setCheckExistence(true);
+//            return configurer;
+//      }
 
 }
