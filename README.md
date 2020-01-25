@@ -3,15 +3,26 @@
 ##  项目如下
 ```text
 
-├── LICENSE             
-├── chaos              common模块
-├── chaos-logger       日志模块
-├── chaos-parent       项目父类
-├── chaos-security     权限模块
-├── chaos-storage      存储模块
-├── docs               使用文档
-└── README.md          说明
+├── LICENSE
+├── README.md                       说明
+├── chaos                           common模块
+├── chaos-dependencies              Jar版本管理
+├── chaos-logger                    日志模块
+├── chaos-parent                    项目父类   
+├── chaos-security                  权限模块
+│   ├── chaos-security-app          APP/小程序模块
+│   ├── chaos-security-browser      浏览器模块 
+│   ├── chaos-security-core         security 核心
+│   └── chaos-security-demo         security-demo
+├── chaos-storage
+└── docs                            使用文档
+    ├── LICENSE
+    ├── README.md
+    └── chaos.sql                   项目SQL
 ```
+**项目结构示意图**
+![1579929751198ydEx5A](https://cdn.jsdelivr.net/gh/gclm/images@master/2020/01/25/1579929751198ydEx5A.png)
+
 
 ## 组件建表语句
 
