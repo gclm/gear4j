@@ -1,9 +1,10 @@
-package club.gclmit.chaos.storage;
+package club.gclmit.chaos.starter;
 
+import club.gclmit.chaos.storage.CloudStorageFactory;
+import club.gclmit.chaos.storage.StorageClient;
 import club.gclmit.chaos.storage.properties.CloudStorage;
 import club.gclmit.chaos.storage.properties.Storage;
 import club.gclmit.chaos.storage.properties.StorageServer;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +79,7 @@ public class StotageClientTest {
         cloudStorage.setRegion("Region");
         cloudStorage.setPrefix("prefix");
 
-       Storage storage = new Storage();
+        Storage storage = new Storage();
         storage.setType(StorageServer.QUCLOUD.getValue());
         storage.setConfig(cloudStorage);
         StorageClient client = CloudStorageFactory.build(storage);
