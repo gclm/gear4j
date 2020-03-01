@@ -1,24 +1,19 @@
-# chaos-projects
+/*
+ Navicat Premium Data Transfer
 
-##  项目如下
-```text
-.
-├── LICENSE
-├── README.md                       说明
-├── chaos-boot-starter             
-├── chaos-core                      核心模块
-├── chaos-logger                    日志模块
-├── chaos-parent                    项目父类   
-├── chaos-storage                   存储模块
-├── chaos-swagger                   文档模块
-└── chaos-web                       web模块
-```
-**项目结构示意图**
+ Source Server         : ucloud
+ Source Server Type    : MariaDB
+ Source Server Version : 100412
+ Source Host           : 106.75.191.109:3306
+ Source Schema         : chaos
 
+ Target Server Type    : MariaDB
+ Target Server Version : 100412
+ File Encoding         : 65001
 
-## 组件建表语句
+ Date: 01/03/2020 17:26:50
+*/
 
-```sql
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -78,5 +73,3 @@ CREATE TABLE `persistent_logins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 SET FOREIGN_KEY_CHECKS = 1;
-
-```
