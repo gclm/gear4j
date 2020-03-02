@@ -1,5 +1,6 @@
 package club.gclmit.chaos.storage;
 
+import club.gclmit.chaos.core.helper.id.IDHelper;
 import club.gclmit.chaos.storage.properties.CloudStorage;
 import club.gclmit.chaos.storage.properties.Storage;
 import club.gclmit.chaos.storage.properties.StorageServer;
@@ -20,7 +21,7 @@ import java.util.List;
  */
 public class StotageClientTest {
 
-    public static final  String FILE_URL = "/Users/gclm/Downloads/index.png";
+    public static final  String FILE_URL = "/Users/gclm/Desktop/Xnip2020-03-01_13-22-58.jpg";
 
     /**
      * 阿里云配置
@@ -109,8 +110,57 @@ public class StotageClientTest {
     }
 
 
+    /**
+     * minio
+     */
+    public static void minio(){
+        CloudStorage cloudStorage = new CloudStorage();
+        cloudStorage.setAccessKeyId("minio-access-key");
+        cloudStorage.setAccessKeySecret("23096c92-af55-422d-be21-f1d989a2446b");
+        cloudStorage.setBucket("data");
+        cloudStorage.setEndpoint("https://minio.gclmit.club");
+        cloudStorage.setPrefix("image");
+//        cloudStorage.setAccessKeyId("access-key-id");
+//        cloudStorage.setAccessKeySecret("access-key-secret");
+//        cloudStorage.setBucket("bucket-name");
+//        cloudStorage.setEndpoint("Region");
+//        cloudStorage.setPrefix("prefix");
+
+        Storage storage = new Storage();
+        storage.setType(StorageServer.MINIO.getValue());
+        storage.setConfig(cloudStorage);
+        StorageClient client = CloudStorageFactory.build(storage);
+        File file = new File(FILE_URL);
+
+//        System.out.println("=================================");
+//        System.out.println("文件上传");
+//        String url = client.upload(file);
+//        System.out.println(url);
+//
+//        System.out.println("=================================");
+//        System.out.println("字节上传");
+//        String str = "test" + IDHelper.getStringId();
+//        String upload = client.upload(str.getBytes(), IDHelper.getStringId()+".txt");
+//        System.out.println(upload);
+
+//        System.out.println("=================================");
+//        System.out.println("文件单个删除");
+//        client.delete("image/20200302/684057091001810944.jpg");
+
+        List<String> urls = new ArrayList<>();
+        urls.add("684022056676753408.txt");
+        urls.add("684010010136543232.txt");
+        urls.add("111.jpg");
+        urls.add("684004172953026560.txt");
+        urls.add("684003838465671168.txt");
+        client.delete(urls);
+    }
+
+
     public static void main(String[] args) {
 //        aliyun();
-          qcloud();
+//          qcloud();
+        minio();
+
     }
 }

@@ -1,6 +1,7 @@
 package club.gclmit.chaos.storage.client;
 
 import club.gclmit.chaos.core.helper.file.FileHelper;
+import club.gclmit.chaos.core.helper.file.MimeType;
 import club.gclmit.chaos.core.helper.logger.Logger;
 import club.gclmit.chaos.core.helper.logger.LoggerServer;
 import club.gclmit.chaos.storage.StorageClient;
@@ -8,33 +9,31 @@ import club.gclmit.chaos.storage.exception.ChaosStorageException;
 import club.gclmit.chaos.storage.properties.CloudStorage;
 import club.gclmit.chaos.storage.properties.Storage;
 import club.gclmit.chaos.storage.properties.StorageServer;
-import com.aliyun.oss.OSS;
-import com.aliyun.oss.OSSClientBuilder;
-import com.aliyun.oss.model.DeleteObjectsRequest;
-import com.aliyun.oss.model.PutObjectRequest;
+import io.minio.MinioClient;
+import io.minio.Result;
+import io.minio.messages.DeleteError;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
-
 import java.io.*;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * <p>
- * aliyun 服务实现
+ *  Minio
  * </p>
  *
  * @author: gclm
- * @date: 2019-10-23 18:57:00
+ * @date: 2020/3/2 9:15 上午
  * @version: V1.0
- * @since JDK1.8
+ * @since 1.8
  */
-public class AliyunStorageClient extends StorageClient {
+public class MinioStorageClient  extends StorageClient {
 
     /**
-     * 阿里云 OSS客户端
+     * Minio OSS客户端
      */
-    private OSS ossClient;
+    private MinioClient minioClient;
 
     private CloudStorage cloudStorage;
 
@@ -48,15 +47,19 @@ public class AliyunStorageClient extends StorageClient {
      * @date 2019/10/23 19:12
      * @throws
      */
-    public AliyunStorageClient(Storage storage) {
-        Assert.notNull(storage,"[阿里云OSS]配置参数不能为空");
-        if(storage.getType() == StorageServer.ALIYUN.getValue()) {
+    public MinioStorageClient(Storage storage) {
+        Assert.notNull(storage,"[Minio]配置参数不能为空");
+        if(storage.getType() == StorageServer.MINIO.getValue()) {
             cloudStorage = storage.getConfig();
-            Logger.debug(LoggerServer.OSS,"阿里云配置参数:[{}]",storage);
-            // 创建OSSClient实例
-            ossClient = new OSSClientBuilder().build(cloudStorage.getEndpoint(),cloudStorage.getAccessKeyId(),cloudStorage.getAccessKeySecret());
+            Logger.debug(LoggerServer.OSS,"Minio配置参数:[{}]",storage);
+            // 创建minioClient实例
+            try {
+                minioClient = new MinioClient(cloudStorage.getEndpoint(), cloudStorage.getAccessKeyId(),cloudStorage.getAccessKeySecret());
+            } catch (Exception e) {
+                throw new ChaosStorageException("[Minio]上传文件失败，请检查 Minio 配置",e);
+            }
         } else {
-            throw new ChaosStorageException("[阿里云OSS]上传文件失败，请检查 阿里云OSS 配置");
+            throw new ChaosStorageException("[Minio]上传文件失败，请检查 Minio 配置");
         }
     }
 
@@ -72,8 +75,16 @@ public class AliyunStorageClient extends StorageClient {
      */
     @Override
     public void delete(List<String> keys) {
-         Assert.notEmpty(keys,"[阿里云OSS]批量删除文件的 keys 不能为空");
-         ossClient.deleteObjects(new DeleteObjectsRequest(cloudStorage.getBucket()).withKeys(keys));
+        Assert.notEmpty(keys,"[Minio]批量删除文件的 keys 不能为空");
+        StringBuilder message = new StringBuilder();
+        try {
+            for (Result<DeleteError> errorResult: minioClient.removeObjects(cloudStorage.getBucket(),keys)) {
+                DeleteError error = errorResult.get();
+                message.append("Failed to remove ").append(error.objectName()).append(" Error:").append(error.message()).append("\n");
+            }
+        } catch (Exception e) {
+            throw new ChaosStorageException("[Minio] 批量删除文件失败,原因："+ message,e);
+        }
     }
 
     /**
@@ -88,8 +99,12 @@ public class AliyunStorageClient extends StorageClient {
      */
     @Override
     public void delete(String key) {
-        Assert.hasLength(key,"[阿里云OSS]删除文件的key不能为空");
-        ossClient.deleteObject(cloudStorage.getBucket(),key);
+        Assert.hasLength(key,"[Minio]删除文件的key不能为空");
+        try {
+            minioClient.removeObject(cloudStorage.getBucket(),key);
+        } catch (Exception e) {
+            throw new ChaosStorageException("[Minio] 删除文件失败",e);
+        } 
     }
 
     /**
@@ -105,14 +120,14 @@ public class AliyunStorageClient extends StorageClient {
      */
     @Override
     public String upload(File file) {
-        Assert.isTrue(file.exists(),"[阿里云OSS]上传文件不能为空");
+        Assert.isTrue(file.exists(),"[Minio]上传文件不能为空");
         FileInputStream fileInputStream = null;
         try {
             fileInputStream = new FileInputStream(file);
         } catch (FileNotFoundException e) {
-            throw new ChaosStorageException("[阿里云OSS]上传失败，上传文件不存在");
+            throw new ChaosStorageException("[Minio]上传失败，上传文件不存在");
         }
-        return upload(fileInputStream,getPath(cloudStorage.getPrefix(), FileHelper.getSuffix(file)),"");
+        return upload(fileInputStream,getPath(cloudStorage.getPrefix(), FileHelper.getSuffix(file)),FileHelper.getContentType(file));
     }
 
     /**
@@ -129,11 +144,10 @@ public class AliyunStorageClient extends StorageClient {
      */
     @Override
     public String upload(byte[] data, String key) {
-        Assert.notEmpty(Collections.singleton(data),"[阿里云OSS]上传文件失败，请检查 byte[] 是否正常");
-        Assert.hasLength(key,"[阿里云OSS]上传文件失败，请检查上传文件的 key 是否正常");
-        return upload(new ByteArrayInputStream(data),key,"");
+        Assert.notEmpty(Collections.singleton(data),"[Minio]上传文件失败，请检查 byte[] 是否正常");
+        Assert.hasLength(key,"[Minio]上传文件失败，请检查上传文件的 key 是否正常");
+        return upload(new ByteArrayInputStream(data),key, MimeType.TXT.getMimeType());
     }
-
 
     /**
      * <p>
@@ -149,23 +163,26 @@ public class AliyunStorageClient extends StorageClient {
      */
     @Override
     public String upload(InputStream inputStream , String key,String contentType) {
-        Assert.notNull(inputStream,"[阿里云OSS]上传文件失败，请检查 inputStream 是否正常");
-        Assert.hasLength(key,"[阿里云OSS]上传文件失败，请检查上传文件的 key 是否正常");
-
+        Assert.notNull(inputStream,"[Minio]上传文件失败，请检查 inputStream 是否正常");
+        Assert.hasLength(key,"[Minio]上传文件失败，请检查上传文件的 key 是否正常");
         String url = null;
         try {
             // 简单上传
-            ossClient.putObject(new PutObjectRequest(cloudStorage.getBucket(), key, inputStream));
+            minioClient.putObject(cloudStorage.getBucket(), key, inputStream, Long.valueOf(inputStream.available()), null, null, contentType);
         } catch (Exception e) {
-            throw new ChaosStorageException("[阿里云OSS]上传文件失败，请检查配置信息", e);
+            throw new ChaosStorageException("[Minio]上传文件失败，请检查配置信息", e);
         } finally {
-            ossClient.shutdown();
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         if (key != null) {
             // 拼接文件访问路径。由于拼接的字符串大多为String对象，而不是""的形式，所以直接用+拼接的方式没有优势
             StringBuffer path = new StringBuffer();
-            path.append(cloudStorage.getProtocol()).append("://").append(cloudStorage.getBucket()).append(".").append(cloudStorage.getEndpoint()).append("/").append(key);
+            path.append(cloudStorage.getEndpoint()).append("/").append(cloudStorage.getBucket()).append("/").append(key);
             if (StringUtils.isNotBlank(cloudStorage.getStyleName())) {
                 path.append(cloudStorage.getStyleName());
             }
@@ -173,5 +190,5 @@ public class AliyunStorageClient extends StorageClient {
         }
         return url;
     }
-
 }
+

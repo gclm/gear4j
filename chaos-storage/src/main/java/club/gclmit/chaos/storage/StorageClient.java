@@ -91,6 +91,6 @@ public abstract class StorageClient {
     /**
      * 上传文件使用默认配置
      */
-    public abstract String upload(InputStream inputStream, String key);
+    public abstract String upload(InputStream inputStream,String key,String contentType);
 
 }

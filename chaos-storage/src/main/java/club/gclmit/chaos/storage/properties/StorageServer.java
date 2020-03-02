@@ -27,7 +27,12 @@ public enum StorageServer {
     /**
      * 又拍云
      */
-    UPYUN(4);
+    UPYUN(4),
+
+    /**
+     * minio
+     */
+    MINIO(5);
 
     private int value;
 

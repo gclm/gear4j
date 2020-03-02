@@ -69,8 +69,8 @@ public class QCloudStorageClient extends StorageClient {
         Assert.notNull(storage,"[腾讯云OSS]配置参数不能为空");
         if(storage.getType() == StorageServer.QUCLOUD.getValue()) {
             cloudStorage = storage.getConfig();
-            Logger.info(LoggerServer.OSS,"腾讯云配置参数:[{}]",storage);
-            cosClient = build(cloudStorage.getAccessKeyId(), cloudStorage.getAccessKeySecret(), cloudStorage.getRegion());
+            Logger.debug(LoggerServer.OSS,"腾讯云配置参数:[{}]",storage);
+            cosClient = build(cloudStorage.getAccessKeyId(), cloudStorage.getAccessKeySecret(), cloudStorage.getEndpoint());
         } else {
             throw new ChaosStorageException("[腾讯云OSS]上传文件失败，请检查配置参数");
         }
@@ -124,7 +124,7 @@ public class QCloudStorageClient extends StorageClient {
         } catch (FileNotFoundException e) {
             throw new ChaosStorageException("[腾讯云OSS]上传失败，上传文件不存在");
         }
-        return upload(fileInputStream,getPath(cloudStorage.getPrefix(), FileHelper.getSuffix(file)));
+        return upload(fileInputStream,getPath(cloudStorage.getPrefix(), FileHelper.getSuffix(file)),"");
     }
 
     /**
@@ -143,11 +143,11 @@ public class QCloudStorageClient extends StorageClient {
     public String upload(byte[] data, String key) {
         Assert.notEmpty(Collections.singleton(data),"[腾讯云OSS]上传文件失败，请检查 byte[] 是否正常");
         Assert.hasLength(key,"[腾讯云OSS]上传文件失败，请检查上传文件的 key 是否正常");
-        return upload(new ByteArrayInputStream(data),key);
+        return upload(new ByteArrayInputStream(data),key,"");
     }
 
     @Override
-    public String upload(InputStream inputStream, String key) {
+    public String upload(InputStream inputStream , String key,String contentType) {
         Assert.notNull(inputStream,"[腾讯云OSS]上传文件失败，请检查 inputStream 是否正常");
         Assert.hasLength(key,"[腾讯云OSS]上传文件失败，请检查上传文件的 key 是否正常");
         String url = null;
@@ -176,7 +176,7 @@ public class QCloudStorageClient extends StorageClient {
         if (key != null) {
             // 拼接文件访问路径。由于拼接的字符串大多为String对象，而不是""的形式，所以直接用+拼接的方式没有优势
             StringBuffer path = new StringBuffer();
-            path.append(cloudStorage.getProtocol()).append("://").append(cloudStorage.getBucket()).append(".cos.").append(cloudStorage.getRegion()).append(".myqcloud.com").append("/").append(key);
+            path.append(cloudStorage.getProtocol()).append("://").append(cloudStorage.getBucket()).append(".cos.").append(cloudStorage.getEndpoint()).append(".myqcloud.com").append("/").append(key);
             if (StringUtils.isNotBlank(cloudStorage.getStyleName())) {
                 path.append(cloudStorage.getStyleName());
             }

@@ -38,12 +38,12 @@ public class QiniuStorageClient extends StorageClient {
     }
 
     @Override
-    public String upload(InputStream inputStream, String key) {
+    public String upload(byte[] data, String key) {
         return null;
     }
 
     @Override
-    public String upload(byte[] data, String key) {
+    public String upload(InputStream inputStream, String key, String contentType) {
         return null;
     }
 }

@@ -28,6 +28,11 @@ public class CloudStorage {
     private String bucket;
 
     /**
+     * 对象存储服务的URL
+     */
+    private String endpoint;
+
+    /**
      * 地域节点
      */
     private String region;
@@ -51,11 +56,11 @@ public class CloudStorage {
     public CloudStorage() {
     }
 
-    public CloudStorage(String accessKeyId, String accessKeySecret, String bucket, String region) {
+    public CloudStorage(String accessKeyId, String accessKeySecret, String bucket, String endpoint) {
         this.accessKeyId = accessKeyId;
         this.accessKeySecret = accessKeySecret;
         this.bucket = bucket;
-        this.region = region;
+        this.endpoint = endpoint;
     }
 
     public String getAccessKeyId() {
@@ -82,14 +87,6 @@ public class CloudStorage {
         this.bucket = bucket;
     }
 
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
     public String getPrefix() {
         return prefix;
     }
@@ -114,12 +111,29 @@ public class CloudStorage {
         this.protocol = protocol;
     }
 
+    public String getEndpoint() {
+        return endpoint;
+    }
+
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
     @Override
     public String toString() {
         return "CloudStorage{" +
                 "accessKeyId='" + accessKeyId + '\'' +
                 ", accessKeySecret='" + accessKeySecret + '\'' +
                 ", bucket='" + bucket + '\'' +
+                ", endpoint='" + endpoint + '\'' +
                 ", region='" + region + '\'' +
                 ", prefix='" + prefix + '\'' +
                 ", styleName='" + styleName + '\'' +
