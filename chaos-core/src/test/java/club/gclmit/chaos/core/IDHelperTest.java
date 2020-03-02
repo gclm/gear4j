@@ -1,4 +1,4 @@
-package club.gclmit.chaos.web;
+package club.gclmit.chaos.core;
 
 import club.gclmit.chaos.core.helper.id.IDHelper;
 

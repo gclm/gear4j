@@ -1,6 +1,7 @@
 
 package club.gclmit.chaos.core.helper.file;
 
+import club.gclmit.chaos.core.exception.ChaosCoreException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,8 +21,6 @@ import java.util.Properties;
  * @since 1.8
  */
 public class FileHelper {
-
-    public static final String DEFAULT_FILE_CONTENT_TYPE = "application/octet-stream";
 
     /**
      * 效验文件器 --> 功能如果判断文件是否存在，如果不存在先创建文件多层目录，然后创建文件
@@ -145,34 +144,6 @@ public class FileHelper {
         return suffix;
     }
 
-
-    /**
-     * 获取文件类型
-     * @author 孤城落寞
-     * @param filePath
-     * @date: 2019/9/23
-     * @return: java.lang.String
-     */
-    public static FileType getFileType(String filePath) throws IOException {
-        Assert.notNull(filePath,"文件路径不能为空");
-        String fileHeader = getFileHeader(filePath);
-        if (null == fileHeader || fileHeader.length() == 0){
-            return null;
-        }
-
-        /**
-         * 魔数判断
-         */
-        fileHeader = fileHeader.toUpperCase();
-        FileType[] fileTypes = FileType.values();
-        for (FileType type: fileTypes) {
-            if (fileHeader.startsWith(type.getValue())) {
-                return type;
-            }
-        }
-        return null;
-    }
-
     /**
      *  获取文件内容
      *
@@ -182,7 +153,7 @@ public class FileHelper {
      * @return: java.lang.String
      * @throws
      */
-    public static String getFileContent(File file){
+    public static String getContent(File file){
         StringBuilder str = new StringBuilder();
         try(
                 FileReader fileReader = new FileReader(file);
@@ -206,7 +177,7 @@ public class FileHelper {
      * @return: java.lang.String
      * @throws
      */
-    public static String getFileContentNotTrim(File file){
+    public static String getContentNotTrim(File file){
         StringBuilder str = new StringBuilder();
         try(
                 FileReader fileReader = new FileReader(file);
@@ -222,33 +193,47 @@ public class FileHelper {
     }
 
     /**
-     * <p>
-     *  文件内容类型
-     * </p>
-     *
+     * 基于魔数和文件后缀获取内容类型
+     * 1. 先进行魔数筛选
+     * 2. 根据魔数筛选结果,进行后缀获取内容类型
+     * @author 孤城落寞
+     * @param file
+     * @date: 2019/9/23
+     * @return: java.lang.String
+     */
+    public static String getContentType(File file){
+        Assert.notNull(file,"文件不能为空");
+        String fileHeader = getFileHeader(file);
+
+        if (!StringUtils.isEmpty(fileHeader)){
+            /**
+             * 魔数判断
+             */
+            String mimeType = FileType.getMimeType(fileHeader.toUpperCase());
+            if (MimeType.DEFAULT_FILE_CONTENT_TYPE.equals(mimeType)) {
+                String suffix = getSuffix(file);
+                mimeType = MimeType.getMime(suffix);
+            }
+            return mimeType;
+        }
+        return MimeType.DEFAULT_FILE_CONTENT_TYPE;
+    }
+
+    /**
+     *  效验文件类型
      * @author gclm
-     * @param: path
-     * @date 2019/12/3 9:07 上午
+     * @param: file
+     * @date 2020/3/2 2:49 下午
      * @return: java.lang.String
      * @throws
      */
-    public static String getFileContentType(String path) {
-        Assert.notNull(path,"文件路径不能为空");
-        String suffix = path.substring(path.indexOf("."));
-        Properties props = new Properties();
-        ResourcesPath resourcesPath = new ResourcesPath();
-
-        try {
-            props.load(resourcesPath.read("content-type.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static String judgeFileType(File file) {
+        Assert.notNull(file,"文件不能为空");
+        String fileHeader = getFileHeader(file);
+        if (!StringUtils.isEmpty(fileHeader)){
+            return FileType.getKey(fileHeader.toUpperCase());
         }
-
-        Object result = props.get(suffix);
-        if (result == null) {
-            return DEFAULT_FILE_CONTENT_TYPE;
-        }
-        return result.toString();
+        return null;
     }
 
     /**
@@ -263,11 +248,15 @@ public class FileHelper {
      * @return: java.lang.String
      * @throws
      */
-    private static String getFileHeader(String filePath) throws IOException {
+    private static String getFileHeader(File file){
         byte[] b = new byte[28];
-        InputStream inputStream = new FileInputStream(filePath);
-        inputStream.read(b,0,28);
-        inputStream.close();
+        try (
+            InputStream inputStream = new FileInputStream(file);
+        ){
+            inputStream.read(b,0,28);
+        } catch (Exception e) {
+           throw new ChaosCoreException("读取文件失败",e);
+        }
         return byteToHex(b);
     }
 

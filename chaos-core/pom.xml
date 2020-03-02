@@ -12,7 +12,7 @@
 
     <groupId>club.gclmit</groupId>
     <artifactId>chaos-core</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <name>${project.artifactId}</name>
     <description>核心工具类</description>
@@ -27,6 +27,11 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>

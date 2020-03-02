@@ -1,4 +1,4 @@
-package club.gclmit.chaos.web;
+package club.gclmit.chaos.core;
 
 import club.gclmit.chaos.core.helper.code.QRCodeConfig;
 import club.gclmit.chaos.core.helper.code.QRCode;
@@ -25,11 +25,9 @@ import java.net.URL;
 public class QRCodeHelperTest {
 
     public static void main(String[] args) throws IOException, WriterException, NotFoundException {
-
         generateQrCodeTest();
         parseQRCodeByURLTest();
         parseQRCodeByFileTest();
-        
     }
 
     public static void generateQrCodeTest() throws IOException, WriterException {
