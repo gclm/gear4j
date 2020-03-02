@@ -8,4 +8,4 @@
  * @version: V1.0
  * @since JDK1.8
  */
-package club.gclmit.chaos.web.starter;
+package club.gclmit.chaos.starter;

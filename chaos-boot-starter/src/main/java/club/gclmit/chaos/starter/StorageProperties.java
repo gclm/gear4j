@@ -19,10 +19,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class StorageProperties {
 
     /**
-     * 类型   1：阿里云  2：七牛
-     *        3：腾讯云 4: 又拍云
+     * 类型
+     * 1：阿里云    2：七牛
+     * 3：腾讯云    4：又拍云
+     * 5：MinIO
      */
-    @Range(min = 1,max =4 ,message = "服务商类型错误")
+    @Range(min = 1,max =5 ,message = "服务商类型错误")
     private int type;
 
     /**
@@ -49,7 +51,7 @@ public class StorageProperties {
 
     @Override
     public String toString() {
-        return "StorageProperties{" +
+        return "Storage{" +
                 "type=" + type +
                 ", config=" + config +
                 '}';
