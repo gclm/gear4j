@@ -126,7 +126,7 @@ public class FileHelper {
      * @return: java.lang.String
      */
     public static String getSuffix(File file){
-        Assert.notNull(file,"文件不能为空");
+        Assert.isTrue(file.exists(),"文件不能为空");
         String fileName = file.getName();
         return fileName.substring(fileName.lastIndexOf(".")+1);
     }
@@ -139,6 +139,7 @@ public class FileHelper {
      */
     public static String getSuffix(MultipartFile multipartFile){
         Assert.notNull(multipartFile,"文件不能为空");
+
         String fileName = multipartFile.getOriginalFilename();
         String suffix = fileName.substring(fileName.indexOf(".")+1);
         return suffix;
@@ -154,6 +155,7 @@ public class FileHelper {
      * @throws
      */
     public static String getContent(File file){
+        Assert.isTrue(file.exists(),"文件不能为空");
         StringBuilder str = new StringBuilder();
         try(
                 FileReader fileReader = new FileReader(file);
@@ -178,6 +180,7 @@ public class FileHelper {
      * @throws
      */
     public static String getContentNotTrim(File file){
+        Assert.isTrue(file.exists(),"文件不能为空");
         StringBuilder str = new StringBuilder();
         try(
                 FileReader fileReader = new FileReader(file);
@@ -202,7 +205,7 @@ public class FileHelper {
      * @return: java.lang.String
      */
     public static String getContentType(File file){
-        Assert.notNull(file,"文件不能为空");
+        Assert.isTrue(file.exists(),"文件不能为空");
         String fileHeader = getFileHeader(file);
 
         if (!StringUtils.isEmpty(fileHeader)){
@@ -228,7 +231,7 @@ public class FileHelper {
      * @throws
      */
     public static String judgeFileType(File file) {
-        Assert.notNull(file,"文件不能为空");
+        Assert.isTrue(file.exists(),"文件不能为空");
         String fileHeader = getFileHeader(file);
         if (!StringUtils.isEmpty(fileHeader)){
             return FileType.getKey(fileHeader.toUpperCase());
