@@ -5,6 +5,7 @@ import club.gclmit.chaos.core.helper.logger.Logger;
 import club.gclmit.chaos.storage.CloudStorageFactory;
 import club.gclmit.chaos.storage.StorageClient;
 import club.gclmit.chaos.storage.properties.Storage;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -29,15 +30,13 @@ public class ChaosAutoConfiguration {
     @Autowired
     private StorageProperties properties;
 
-    @Autowired
-    private ConvertHandler convertHandler;
-
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnProperty(prefix = "chaos.storage",value = "enabled",havingValue = "true")
     public StorageClient storageClient (){
         Logger.debug(LoggerServer.OSS,"读取 properties的数据:{}",properties);
-        Storage storage = convertHandler.from(properties);
+        Storage storage = new Storage();
+        BeanUtils.copyProperties(properties,storage);
         Logger.debug(LoggerServer.OSS,"自动注入的storage:{}",storage);
         return CloudStorageFactory.build(storage);
     }
