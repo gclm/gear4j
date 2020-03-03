@@ -1,6 +1,6 @@
-package club.gclmit.chaos.web.logger.service;
+package club.gclmit.chaos.logger.service;
 
-import club.gclmit.chaos.web.logger.pojo.HttpTrace;
+import club.gclmit.chaos.logger.pojo.HttpTrace;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

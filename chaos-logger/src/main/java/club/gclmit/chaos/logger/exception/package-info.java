@@ -8,4 +8,4 @@
  * @version: V1.0
  * @since 1.8
  */
-package club.gclmit.chaos.web.logger.exception;
+package club.gclmit.chaos.logger.exception;

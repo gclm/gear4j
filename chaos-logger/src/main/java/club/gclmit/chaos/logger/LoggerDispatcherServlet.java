@@ -1,13 +1,13 @@
-package club.gclmit.chaos.web.logger;
+package club.gclmit.chaos.logger;
 
 import club.gclmit.chaos.core.helper.ObjectHelper;
 import club.gclmit.chaos.core.helper.TimeHelper;
 import club.gclmit.chaos.core.helper.NetHelper;
 import club.gclmit.chaos.core.helper.logger.Logger;
 import club.gclmit.chaos.core.helper.logger.LoggerServer;
-import club.gclmit.chaos.web.logger.exception.ChaosLoggerException;
-import club.gclmit.chaos.web.logger.pojo.HttpTrace;
-import club.gclmit.chaos.web.logger.service.LoggerService;
+import club.gclmit.chaos.logger.exception.ChaosLoggerException;
+import club.gclmit.chaos.logger.pojo.HttpTrace;
+import club.gclmit.chaos.logger.service.LoggerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -20,10 +20,7 @@ import org.springframework.web.util.ContentCachingResponseWrapper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -45,12 +42,17 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
     private static final String DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
 
     /**
+     * 忽略请求内容类型
+     */
+    private static final String IGNORE_CONTENT_TYPE = "multipart/form-data";
+
+    /**
      * 设置默认编码格式解决 中文乱码问题
      */
     private static final String DEFAULT_CHARACTER_ENCODING = "UTF-8";
 
     @Autowired
-    private ChaosLoggerProperties loggerProperties;
+    private ChaosLoggerProperties logger;
 
     @Override
     protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -60,7 +62,7 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
         /**
          * 默认拦截 /api 开头的接口
          */
-        if (uri.startsWith(loggerProperties.getTracePathPrefix())) {
+        if (uri.startsWith(logger.getPrefix()) && !Objects.equals(IGNORE_CONTENT_TYPE,request.getContentType())) {
 
             /**
              * 缓冲 request 和 response

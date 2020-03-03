@@ -1,8 +1,8 @@
-package club.gclmit.chaos.web.logger.service.impl;
+package club.gclmit.chaos.logger.service.impl;
 
-import club.gclmit.chaos.web.logger.mapper.LoggerMapper;
-import club.gclmit.chaos.web.logger.pojo.HttpTrace;
-import club.gclmit.chaos.web.logger.service.LoggerService;
+import club.gclmit.chaos.logger.mapper.LoggerMapper;
+import club.gclmit.chaos.logger.pojo.HttpTrace;
+import club.gclmit.chaos.logger.service.LoggerService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 

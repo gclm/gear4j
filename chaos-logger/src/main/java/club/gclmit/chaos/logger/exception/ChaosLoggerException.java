@@ -1,4 +1,4 @@
-package club.gclmit.chaos.web.logger.exception;
+package club.gclmit.chaos.logger.exception;
 
 import club.gclmit.chaos.core.exception.AbstractChaosException;
 

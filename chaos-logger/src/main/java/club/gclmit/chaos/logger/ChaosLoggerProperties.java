@@ -1,4 +1,4 @@
-package club.gclmit.chaos.web.logger;
+package club.gclmit.chaos.logger;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -18,13 +18,13 @@ public class ChaosLoggerProperties {
     /**
      * 需要记录日志的前缀
      */
-    private String tracePathPrefix = "/api";
+    private String prefix = "/api";
 
-    public String getTracePathPrefix() {
-        return tracePathPrefix;
+    public String getPrefix() {
+        return prefix;
     }
 
-    public void setTracePathPrefix(String tracePathPrefix) {
-        this.tracePathPrefix = tracePathPrefix;
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
     }
 }

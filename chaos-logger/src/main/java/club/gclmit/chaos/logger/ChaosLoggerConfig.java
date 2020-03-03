@@ -1,4 +1,4 @@
-package club.gclmit.chaos.web.logger;
+package club.gclmit.chaos.logger;
 
 import club.gclmit.chaos.core.helper.logger.Logger;
 import club.gclmit.chaos.core.helper.logger.LoggerServer;
