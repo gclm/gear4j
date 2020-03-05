@@ -60,11 +60,10 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
         String uri = request.getRequestURI();
         String contentType = request.getContentType();
 
-        Logger.info(LoggerServer.CHAOS_LOGGER,"当前请求的URI：{}\tContent-Type：{}",uri,contentType);
         /**
          * 默认拦截 /api 开头的接口
          */
-        if (uri.startsWith(logger.getPrefix()) && !contentType.startsWith(IGNORE_CONTENT_TYPE)) {
+        if (uri.startsWith(logger.getPrefix())) {
 
             /**
              * 缓冲 request 和 response
@@ -97,12 +96,15 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
                 super.doDispatch(request,response);
             } finally {
 
+                String requestStr = "";
                 /**
                  *  判断请求是否是get,如果是 get 从 request 里面获取，否则从 body 里面获取
                  */
-                String requestStr = objectMapper.writeValueAsString(requestWrapper.getParameterMap());
-                if (StringUtils.isEmpty(requestStr) || "{}".equals(requestStr)){
-                    requestStr = getRequestBody(requestWrapper);
+                if (!contentType.startsWith(IGNORE_CONTENT_TYPE)){
+                    requestStr = objectMapper.writeValueAsString(requestWrapper.getParameterMap());
+                    if (StringUtils.isEmpty(requestStr) || "{}".equals(requestStr)){
+                        requestStr = getRequestBody(requestWrapper);
+                    }
                 }
 
                 /**
@@ -140,13 +142,6 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
                 Logger.info(LoggerServer.CHAOS_LOGGER,"当前请求日志，插入数据库：{}", save);
             }
         }  else {
-            if (StringUtils.isEmpty(contentType)) {
-                Logger.info(LoggerServer.CHAOS_LOGGER,"记录当前日志失败,当前 URI：[{}]\tContent-Type：[{}]\t(API URL前缀不是 /api/* 或 正在进行文件上传)",uri,contentType);
-            } else if (contentType.startsWith(IGNORE_CONTENT_TYPE)){
-                Logger.info(LoggerServer.CHAOS_LOGGER,"记录当前日志失败, 正在进行文件上传，当前 URI：[{}]\tContent-Type：[{}]",uri,contentType);
-            } else {
-                Logger.info(LoggerServer.CHAOS_LOGGER,"记录当前日志失败,URL前缀不是/api/*, 当前URI：[{}]\tContent-Type：[{}]",uri,contentType);
-            }
             super.doDispatch(request,response);
         }
     }
