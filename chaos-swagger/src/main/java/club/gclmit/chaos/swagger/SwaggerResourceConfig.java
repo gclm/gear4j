@@ -19,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @since 1.8
  */
 @Configuration
-public class SwaggerWebConfig implements WebMvcConfigurer {
+public class SwaggerResourceConfig implements WebMvcConfigurer {
 
     @Value("${server.port}")
     private String port;
