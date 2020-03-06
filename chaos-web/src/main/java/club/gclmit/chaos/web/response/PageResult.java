@@ -26,7 +26,7 @@ public class PageResult extends Result {
     }
 
     public static PageResult ok(Long count,Object data) {
-        return result(StatusCode.SUCCESS,count,data);
+        return result(StatusCode.OK,count,data);
     }
 
     public PageResult(Integer code, String message, Long count ,Object data) {

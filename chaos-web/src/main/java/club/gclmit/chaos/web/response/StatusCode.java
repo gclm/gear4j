@@ -12,14 +12,15 @@ package club.gclmit.chaos.web.response;
  */
 public enum StatusCode {
 
-    SUCCESS(0, "操作成功"),
+    OK(0, "操作成功"),
+    FAIL(500, "操作失败"),
+
 
     UNAUTHORIZED(401, "非法访问"),
     NOT_PERMISSION(403, "没有权限"),
     NOT_FOUND(404, "你请求的资源不存在"),
     PARAMETER_PARSE_EXCEPTION(405,"请求参数解析异常"),
     HTTP_MEDIA_TYPE_EXCEPTION(415,"HTTP Media 类型异常"),
-    FAIL(500, "操作失败"),
 
     LOGIN_EXCEPTION(5001,"登陆失败"),
     SYSTEM_EXCEPTION(5002,"系统异常!"),
@@ -71,7 +72,7 @@ public enum StatusCode {
                 return statusCode;
             }
         }
-        return SUCCESS;
+        return OK;
     }
 
     public Integer getCode() {

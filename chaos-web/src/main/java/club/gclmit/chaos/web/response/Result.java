@@ -74,11 +74,11 @@ public class Result {
     }
 
     public static Result ok(Object data) {
-        return result(StatusCode.SUCCESS, data);
+        return result(StatusCode.OK, data);
     }
 
     public static Result ok(String message,Object data) {
-        return result(StatusCode.SUCCESS, message, data);
+        return result(StatusCode.OK, message, data);
     }
 
     public static Result ok(Integer code, String message,Object data) {
@@ -104,7 +104,7 @@ public class Result {
     }
 
     public static Result fail(StatusCode statusCode, Object data) {
-        if (StatusCode.SUCCESS == statusCode) {
+        if (StatusCode.OK == statusCode) {
             throw new RuntimeException("失败结果状态码不能为：" + statusCode.getCode());
         }
         return result(statusCode, data);
