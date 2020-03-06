@@ -125,6 +125,7 @@ public abstract class DefaultRestApiController<Service extends IService<T>, T>  
      * @throws
      */
     @Override
+    @ApiOperation(value = "批量删除",notes = "批量删除")
     @DeleteMapping("/batch")
     public Result batchDelete(@RequestBody String ids){
         Assert.notNull(ids,"ids不能为空");

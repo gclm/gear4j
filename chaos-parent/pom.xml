@@ -66,7 +66,7 @@
     <chaos.annotation.version>1.0.0</chaos.annotation.version>
     <chaos.logger.version>1.0.1</chaos.logger.version>
     <chaos.storage.version>1.1.0</chaos.storage.version>
-    <chaos.web.version>1.0.1</chaos.web.version>
+    <chaos.web.version>1.0.2</chaos.web.version>
     <chaos.swagger.version>1.0.2</chaos.swagger.version>
 
   </properties>
