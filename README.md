@@ -8,13 +8,13 @@
 ├── chaos-boot-starter             
 ├── chaos-core                      核心模块
 ├── chaos-logger                    日志模块
-├── chaos-parent                    项目父类   
+├── chaos-parent                    项目父类
+├── chaos-dependencies              三方依赖
 ├── chaos-storage                   存储模块
 ├── chaos-swagger                   文档模块
 └── chaos-web                       web模块
 ```
 **项目结构示意图**
-
 
 ## 组件建表语句
 

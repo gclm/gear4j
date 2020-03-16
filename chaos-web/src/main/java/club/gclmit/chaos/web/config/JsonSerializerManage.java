@@ -1,7 +1,7 @@
 package club.gclmit.chaos.web.config;
 
-import club.gclmit.chaos.core.helper.logger.Logger;
-import club.gclmit.chaos.core.helper.logger.LoggerServer;
+import club.gclmit.chaos.core.helper.LoggerHelper;
+import club.gclmit.chaos.core.constants.LoggerServer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -25,7 +25,7 @@ public class JsonSerializerManage {
 
     @Bean
     public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
-        Logger.debug(LoggerServer.SPRING_BOOT, "jackson 配置，解决前端 Long 类型精度丢失");
+        LoggerHelper.debug(LoggerServer.SPRING_BOOT, "jackson 配置，解决前端 Long 类型精度丢失");
         ObjectMapper objectMapper = builder.createXmlMapper(false).build();
         //忽略value为null 时 key的输出
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
