@@ -1,6 +1,8 @@
-package club.gclmit.chaos.core.helper.logger;
+package club.gclmit.chaos.core.helper;
 
 
+import club.gclmit.chaos.core.constants.LoggerServer;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MessageFormatter;
@@ -15,7 +17,7 @@ import org.slf4j.helpers.MessageFormatter;
  * @version: V1.0
  * @since 1.8
  */
-public class Logger {
+public class LoggerHelper {
 
     // 当前日志类名
     private final static String logClassName = Logger.class.getName();

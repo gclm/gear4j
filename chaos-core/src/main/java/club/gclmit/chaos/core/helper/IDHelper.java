@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.helper.id;
+package club.gclmit.chaos.core.helper;
 
 import java.time.Clock;
 
@@ -22,7 +22,7 @@ import java.time.Clock;
  * @since JDK1.8
  * @version: V1.0
  */
-public class SnowflakeDistributeId {
+public class IDHelper {
 
     // ==============================Fields===========================================
     /**
@@ -103,7 +103,7 @@ public class SnowflakeDistributeId {
      * @param workerId     工作ID (0~31)
      * @param datacenterId 数据中心ID (0~31)
      */
-    public SnowflakeDistributeId(long workerId, long datacenterId) {
+    public IDHelper(long workerId, long datacenterId) {
         if (workerId > maxWorkerId || workerId < 0) {
             throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
         }
@@ -175,5 +175,36 @@ public class SnowflakeDistributeId {
      */
     protected long timeGen() {
         return Clock.systemUTC().millis();
+    }
+
+
+    /**
+     * <p>
+     *  根据选择生成器类型，生成唯一ID
+     * </p>
+     *
+     * @author 孤城落寞
+     * @param: type 证书类型
+     * @date 2019/10/22 21:16
+     * @return: java.lang.Long
+     * @throws
+     */
+    public static Long getLongId() {
+        return new IDHelper(0, 0).nextId();
+    }
+
+    /**
+     * <p>
+     *  根据选择生成器类型，生成唯一ID
+     * </p>
+     *
+     * @author 孤城落寞
+     * @param: type 证书类型
+     * @date 2019/10/22 21:15
+     * @return: java.lang.String
+     * @throws
+     */
+    public static String getStringId() {
+        return String.valueOf(new IDHelper(0, 0).nextId());
     }
 }

@@ -1,9 +1,7 @@
 package club.gclmit.chaos.core;
 
-import club.gclmit.chaos.core.helper.file.MimeType;
-import com.alibaba.fastjson.JSON;
+import club.gclmit.chaos.core.constants.MimeType;
 import org.apache.commons.lang3.StringUtils;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;

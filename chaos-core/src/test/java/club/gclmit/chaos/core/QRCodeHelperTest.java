@@ -1,14 +1,12 @@
 package club.gclmit.chaos.core;
 
-import club.gclmit.chaos.core.helper.code.QRCodeConfig;
-import club.gclmit.chaos.core.helper.code.QRCode;
-import club.gclmit.chaos.core.helper.code.QRCodeHelper;
-import club.gclmit.chaos.core.helper.logger.Logger;
-import club.gclmit.chaos.core.helper.logger.LoggerServer;
+import club.gclmit.chaos.core.constants.QRCodeConfig;
+import club.gclmit.chaos.core.helper.LoggerHelper;
+import club.gclmit.chaos.core.helper.QRCodeHelper;
+import club.gclmit.chaos.core.constants.LoggerServer;
 import com.google.zxing.NotFoundException;
 import com.google.zxing.WriterException;
 import org.springframework.util.Assert;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -31,7 +29,7 @@ public class QRCodeHelperTest {
     }
 
     public static void generateQrCodeTest() throws IOException, WriterException {
-        QRCode qrCode = QRCode.getInstance();
+        QRCodeHelper.QRCode qrCode = QRCodeHelper.getInstance();
         qrCode.setContent("https://blog.gclmit.club/");
         qrCode.setType(QRCodeConfig.IMAGE_TYPE_FILE);
         System.out.println(QRCodeHelper.generateQRCode(qrCode));
@@ -48,7 +46,7 @@ public class QRCodeHelperTest {
 
         String path = System.getProperty("user.dir");
         String filePath = new StringBuilder(path).append("//src//test//resources//").toString();
-        Logger.info(LoggerServer.File,"当前项目路径:{}\t文件路径:{}",path,filePath);
+        LoggerHelper.info(LoggerServer.File,"当前项目路径:{}\t文件路径:{}",path,filePath);
 
         File file = new File(filePath, "alipay.jpg");
         System.out.println();

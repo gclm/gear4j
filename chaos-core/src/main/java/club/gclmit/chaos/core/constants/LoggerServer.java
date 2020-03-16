@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.helper.logger;
+package club.gclmit.chaos.core.constants;
 
 /**
  * <p>
@@ -28,7 +28,6 @@ public enum LoggerServer {
     SPRING_SOCIAL("Spring Social"),
     SPRING_SHELL("Spring Shell"),
 
-
     // ~ 其他组件
     // ===================================================================================================
 
@@ -54,10 +53,13 @@ public enum LoggerServer {
     // ~ MVC 架构
     // ===================================================================================================
 
-    CONTROLLER("Controller 层"),
-    SERVICE("Service 层"),
-    MAPPER("Mapper 层"),
-    DAO("Dao 层"),
+    CONTROLLER("Controller"),
+    SERVICE("Service"),
+    MAPPER("Mapper"),
+    INTERCETOR("Intercetor"),
+    FILTER("Filter"),
+    ASPECT("Aspect"),
+
 
     // ~ 文件管理相关业务
     // ===================================================================================================

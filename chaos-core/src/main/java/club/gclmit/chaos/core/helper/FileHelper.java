@@ -1,6 +1,8 @@
 
-package club.gclmit.chaos.core.helper.file;
+package club.gclmit.chaos.core.helper;
 
+import club.gclmit.chaos.core.constants.FileType;
+import club.gclmit.chaos.core.constants.MimeType;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
@@ -8,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.time.Clock;
-import java.util.Properties;
 
 /**
  * <p>
@@ -29,7 +30,7 @@ public class FileHelper {
      * @date: 2019-08-19
      * @return: java.io.File
      */
-    public static File autoJudgeFile(String filePath) throws IOException {
+    public static File autoJudgeFile(String filePath){
         Assert.notNull(filePath,"文件路径不能为空");
 
         /**
@@ -49,7 +50,11 @@ public class FileHelper {
          * 如果文件不存在则开始创建文件
          */
         if(!file.exists()){
-            file.createNewFile();
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+               throw new ChaosCoreException("创建文件失败,文件不存在",e);
+            }
             return file;
         }
 
@@ -105,7 +110,7 @@ public class FileHelper {
      * @param multipartFile
      * @return java.io.File
      */
-    public static File multipartFileToFile(String folder,MultipartFile multipartFile) throws IOException {
+    public static File multipartFileToFile(String folder,MultipartFile multipartFile){
         Assert.notNull(multipartFile.isEmpty(),"multipartFile 不能为空");
 
         if (StringUtils.isEmpty(folder)) {
@@ -114,7 +119,11 @@ public class FileHelper {
 
         File localFile = new File(folder, new StringBuilder().append(Clock.systemDefaultZone().millis()).append(".").append(getSuffix(multipartFile)).toString());
 
-        multipartFile.transferTo(localFile);
+        try {
+            multipartFile.transferTo(localFile);
+        } catch (IOException e) {
+            throw new ChaosCoreException("MultipartFile To File 失败",e);
+        }
 
         return localFile;
     }
@@ -180,19 +189,7 @@ public class FileHelper {
      * @throws
      */
     public static String getContentNotTrim(File file){
-        Assert.isTrue(file.exists(),"文件不能为空");
-        StringBuilder str = new StringBuilder();
-        try(
-                FileReader fileReader = new FileReader(file);
-                BufferedReader reader = new BufferedReader(fileReader);
-        ){
-            String line;
-            while ((line = reader.readLine()) != null){
-                str.append(line);
-            }
-        } catch (Exception e) {
-        }
-        return str.toString().replaceAll("\\s*", "");
+        return getContent(file).replaceAll("\\s*", "");
     }
 
     /**

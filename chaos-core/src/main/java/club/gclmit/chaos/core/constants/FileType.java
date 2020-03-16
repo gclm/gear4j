@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.helper.file;
+package club.gclmit.chaos.core.constants;
 
 
 import org.apache.commons.lang3.StringUtils;
