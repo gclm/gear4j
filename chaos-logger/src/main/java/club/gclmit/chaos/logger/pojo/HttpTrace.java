@@ -257,6 +257,26 @@ public class HttpTrace implements Serializable {
     public void setResponse(String response) {
         this.response = response;
     }
+
+    @Override
+    public String toString() {
+        return "HttpTrace{" +
+                "clientIp='" + clientIp + '\'' +
+                ", uri='" + uri + '\'' +
+                ", contentType='" + contentType + '\'' +
+                ", method='" + method + '\'' +
+                ", sessionId='" + sessionId + '\'' +
+                ", requestTime=" + requestTime +
+                ", httpStatusCode=" + httpStatusCode +
+                ", consumingTime=" + consumingTime +
+                ", responseTime=" + responseTime +
+                ", request='" + request + '\'' +
+                ", response='" + response + '\'' +
+                ", requestHeader='" + requestHeader + '\'' +
+                ", responseHeader='" + responseHeader + '\'' +
+                ", userAgent='" + userAgent + '\'' +
+                '}';
+    }
 }
 
 

@@ -1,10 +1,9 @@
 package club.gclmit.chaos.logger;
 
-import club.gclmit.chaos.core.helper.ObjectHelper;
+import club.gclmit.chaos.core.helper.LoggerHelper;
 import club.gclmit.chaos.core.helper.TimeHelper;
 import club.gclmit.chaos.core.helper.NetHelper;
-import club.gclmit.chaos.core.helper.logger.Logger;
-import club.gclmit.chaos.core.helper.logger.LoggerServer;
+import club.gclmit.chaos.core.constants.LoggerServer;
 import club.gclmit.chaos.logger.exception.ChaosLoggerException;
 import club.gclmit.chaos.logger.pojo.HttpTrace;
 import club.gclmit.chaos.logger.service.LoggerService;
@@ -132,14 +131,16 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
                 trace.setResponseTime(responseTime);
                 trace.setHttpStatusCode(status);
 
-                Logger.debug(LoggerServer.CHAOS_LOGGER,"当前请求的 HttpTrace :{}", ObjectHelper.toString(trace));
-
                 /**
                  * 保存到数据库
                  */
-                LoggerService loggerService = getMapper(LoggerService.class, requestWrapper);
-                boolean save = loggerService.save(trace);
-                Logger.info(LoggerServer.CHAOS_LOGGER,"当前请求日志，插入数据库：{}", save);
+                if (logger.isWriteDB()) {
+                    LoggerService loggerService = getMapper(LoggerService.class, requestWrapper);
+                    boolean save = loggerService.save(trace);
+                    LoggerHelper.info(LoggerServer.CHAOS_LOGGER,"当前请求日志入库：{}", save);
+                } else {
+                    LoggerHelper.info(LoggerServer.CHAOS_LOGGER,"当前请求日志：{}", trace);
+                }
             }
         }  else {
             super.doDispatch(request,response);

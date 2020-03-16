@@ -20,11 +20,24 @@ public class ChaosLoggerProperties {
      */
     private String prefix = "/api";
 
+    /**
+     * 是否保存日志到数据库中
+     */
+    private boolean writeDB = true;
+
     public String getPrefix() {
         return prefix;
     }
 
     public void setPrefix(String prefix) {
         this.prefix = prefix;
+    }
+
+    public boolean isWriteDB() {
+        return writeDB;
+    }
+
+    public void setWriteDB(boolean writeDB) {
+        this.writeDB = writeDB;
     }
 }

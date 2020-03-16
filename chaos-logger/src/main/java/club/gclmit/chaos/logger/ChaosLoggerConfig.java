@@ -1,7 +1,7 @@
 package club.gclmit.chaos.logger;
 
-import club.gclmit.chaos.core.helper.logger.Logger;
-import club.gclmit.chaos.core.helper.logger.LoggerServer;
+import club.gclmit.chaos.core.helper.LoggerHelper;
+import club.gclmit.chaos.core.constants.LoggerServer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -27,7 +27,7 @@ public class ChaosLoggerConfig {
 
     @Bean
     public ServletRegistrationBean dispatcherRegistration() {
-        Logger.info(LoggerServer.CHAOS_LOGGER,"开始加载 dispatcherServlet 组件,默认拦截的 API 前缀为：/api");
+        LoggerHelper.info(LoggerServer.CHAOS_LOGGER,"开始加载 dispatcherServlet 组件,默认拦截的 API 前缀为：/api");
         return new ServletRegistrationBean(dispatcherServlet());
     }
 
