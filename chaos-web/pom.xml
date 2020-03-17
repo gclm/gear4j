@@ -7,7 +7,7 @@
     <parent>
         <groupId>club.gclmit</groupId>
         <artifactId>chaos-parent</artifactId>
-        <version>1.0.2</version>
+        <version>1.0.3</version>
     </parent>
 
     <groupId>club.gclmit</groupId>
@@ -37,11 +37,6 @@
         <dependency>
             <groupId>club.gclmit</groupId>
             <artifactId>chaos-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
         </dependency>
 
     </dependencies>
