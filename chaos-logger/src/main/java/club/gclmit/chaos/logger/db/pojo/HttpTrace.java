@@ -1,4 +1,4 @@
-package club.gclmit.chaos.logger.pojo;
+package club.gclmit.chaos.logger.db.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

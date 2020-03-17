@@ -1,6 +1,6 @@
-package club.gclmit.chaos.logger.mapper;
+package club.gclmit.chaos.logger.db.mapper;
 
-import club.gclmit.chaos.logger.pojo.HttpTrace;
+import club.gclmit.chaos.logger.db.pojo.HttpTrace;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
