@@ -7,12 +7,12 @@
     <parent>
         <groupId>club.gclmit</groupId>
         <artifactId>chaos-parent</artifactId>
-        <version>1.0.2</version>
+        <version>1.0.3</version>
     </parent>
 
     <groupId>club.gclmit</groupId>
     <artifactId>chaos-boot-starter</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.3</version>
 
     <name>${project.artifactId}</name>
     <description>chaos-spring-boot-starter</description>
@@ -41,11 +41,12 @@
         <dependency>
             <groupId>club.gclmit</groupId>
             <artifactId>chaos-storage</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>club.gclmit</groupId>
-            <artifactId>chaos-swagger</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jsr305</artifactId>
+                    <groupId>com.google.code.findbugs</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
