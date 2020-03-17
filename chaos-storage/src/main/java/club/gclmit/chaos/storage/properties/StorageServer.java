@@ -23,7 +23,7 @@ public enum StorageServer {
     /**
      *  腾讯云
      */
-    QUCLOUD(3),
+    QCLOUD(3),
     /**
      * 又拍云
      */

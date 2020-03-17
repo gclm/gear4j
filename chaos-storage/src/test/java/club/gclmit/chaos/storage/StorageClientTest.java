@@ -1,5 +1,6 @@
 package club.gclmit.chaos.storage;
 
+import club.gclmit.chaos.storage.client.StorageClient;
 import club.gclmit.chaos.storage.properties.CloudStorage;
 import club.gclmit.chaos.storage.properties.Storage;
 import club.gclmit.chaos.storage.properties.StorageServer;
@@ -18,7 +19,7 @@ import java.util.List;
  * @version: V1.0
  * @since 1.8
  */
-public class StotageClientTest {
+public class StorageClientTest {
 
     public static final  String FILE_URL = "/Users/gclm/Downloads/index.png";
 
@@ -78,8 +79,8 @@ public class StotageClientTest {
         cloudStorage.setRegion("Region");
         cloudStorage.setPrefix("prefix");
 
-       Storage storage = new Storage();
-        storage.setType(StorageServer.QUCLOUD.getValue());
+        Storage storage = new Storage();
+        storage.setType(StorageServer.QCLOUD.getValue());
         storage.setConfig(cloudStorage);
         StorageClient client = CloudStorageFactory.build(storage);
         File file = new File(FILE_URL);

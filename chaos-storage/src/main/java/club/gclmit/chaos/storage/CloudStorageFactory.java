@@ -33,7 +33,7 @@ public class CloudStorageFactory {
             return new AliyunStorageClient(storage);
         } else if (storage.getType() == StorageServer.QINIU.getValue()) {
             return new QiniuStorageClient(storage);
-        } else if (storage.getType() == StorageServer.QUCLOUD.getValue()) {
+        } else if (storage.getType() == StorageServer.QCLOUD.getValue()) {
             return new QCloudStorageClient(storage);
         } else if (storage.getType() == StorageServer.MINIO.getValue()) {
             return new MinioStorageClient(storage);

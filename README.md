@@ -10,7 +10,7 @@
 ├── chaos-logger                    日志模块
 ├── chaos-parent                    项目父类
 ├── chaos-dependencies              三方依赖
-├── chaos-storage                   存储模块
+├── chaos-storage                   OSS-SDK
 ├── chaos-swagger                   文档模块
 └── chaos-web                       web模块
 ```
@@ -21,26 +21,6 @@
 ```sql
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for chaos_UserConnection
--- ----------------------------
-DROP TABLE IF EXISTS `chaos_UserConnection`;
-CREATE TABLE `chaos_UserConnection` (
-  `userId` varchar(255) NOT NULL,
-  `providerId` varchar(255) NOT NULL,
-  `providerUserId` varchar(255) NOT NULL,
-  `rank` int(11) NOT NULL,
-  `displayName` varchar(255) DEFAULT NULL,
-  `profileUrl` varchar(512) DEFAULT NULL,
-  `imageUrl` varchar(512) DEFAULT NULL,
-  `accessToken` varchar(512) NOT NULL,
-  `secret` varchar(512) DEFAULT NULL,
-  `refreshToken` varchar(512) DEFAULT NULL,
-  `expireTime` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`userId`,`providerId`,`providerUserId`),
-  UNIQUE KEY `UserConnectionRank` (`userId`,`providerId`,`rank`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for chaos_trace_info
@@ -66,17 +46,20 @@ CREATE TABLE `chaos_trace_info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='chaos_trace_info';
 
 -- ----------------------------
--- Table structure for persistent_logins
+-- Table structure for chaos_file_info
 -- ----------------------------
-DROP TABLE IF EXISTS `persistent_logins`;
-CREATE TABLE `persistent_logins` (
-  `username` varchar(64) NOT NULL,
-  `series` varchar(64) NOT NULL,
-  `token` varchar(64) NOT NULL,
-  `last_used` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`series`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-SET FOREIGN_KEY_CHECKS = 1;
+DROP TABLE IF EXISTS `chaos_file_info`;
+CREATE TABLE `chaos_file_info`(
+  `id` bigint(22) NOT NULL COMMENT '主键',
+  `name` VARCHAR (100) NOT NULL DEFAULT '' COMMENT '文件名',
+  `content_type` VARCHAR (50) NOT NULL DEFAULT '' COMMENT '文件类型',
+  `url` VARCHAR (255) NOT NULL DEFAULT '' COMMENT '文件路径',
+  `size` BIGINT (22) NOT NULL DEFAULT -1 COMMENT '文件大小',
+  `md5` VARCHAR (50) NOT NULL DEFAULT '' COMMENT 'md5',
+  `e_tag` VARCHAR (50) NOT NULL DEFAULT '' COMMENT 'ETag',
+  `key` VARCHAR (50) NOT NULL DEFAULT '' COMMENT 'OSS key',
+  `status` INT (11) NOT NULL DEFAULT -1 COMMENT '文件状态',
+  PRIMARY KEY (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT 'chaos_file_info';
 
 ```

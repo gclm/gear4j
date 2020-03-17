@@ -1,13 +1,14 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.core.helper.file.FileHelper;
-import club.gclmit.chaos.core.helper.logger.Logger;
-import club.gclmit.chaos.core.helper.logger.LoggerServer;
-import club.gclmit.chaos.storage.StorageClient;
-import club.gclmit.chaos.storage.exception.ChaosStorageException;
+import club.gclmit.chaos.core.helper.LoggerHelper;
+import club.gclmit.chaos.core.constants.LoggerServer;
+import club.gclmit.chaos.core.helper.TimeHelper;
+import club.gclmit.chaos.storage.db.pojo.FileInfo;
+import club.gclmit.chaos.storage.db.pojo.FileStatus;
 import club.gclmit.chaos.storage.properties.CloudStorage;
 import club.gclmit.chaos.storage.properties.Storage;
 import club.gclmit.chaos.storage.properties.StorageServer;
+import club.gclmit.chaos.storage.exception.ChaosStorageException;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
@@ -15,20 +16,15 @@ import com.qcloud.cos.auth.COSCredentials;
 import com.qcloud.cos.exception.CosClientException;
 import com.qcloud.cos.exception.CosServiceException;
 import com.qcloud.cos.exception.MultiObjectDeleteException;
-import com.qcloud.cos.model.DeleteObjectsRequest;
-import com.qcloud.cos.model.DeleteObjectsResult;
-import com.qcloud.cos.model.ObjectMetadata;
-import com.qcloud.cos.model.PutObjectRequest;
+import com.qcloud.cos.model.*;
 import com.qcloud.cos.region.Region;
 import com.qcloud.cos.transfer.TransferManager;
 import com.qcloud.cos.transfer.Upload;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.springframework.util.Assert;
-
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -56,6 +52,11 @@ public class QCloudStorageClient extends StorageClient {
     private CloudStorage cloudStorage;
 
     /**
+     * 判断是否操作数据库
+     */
+    private boolean flag;
+
+    /**
      * <p>
      *  初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
      * </p>
@@ -66,11 +67,12 @@ public class QCloudStorageClient extends StorageClient {
      * @throws
      */
     public QCloudStorageClient(Storage storage) {
-        Assert.notNull(storage,"[腾讯云OSS]配置参数不能为空");
-        if(storage.getType() == StorageServer.QUCLOUD.getValue()) {
+        super(storage);
+        if(storage.getType() == StorageServer.QCLOUD.getValue()) {
             cloudStorage = storage.getConfig();
-            Logger.debug(LoggerServer.OSS,"腾讯云配置参数:[{}]",storage);
-            cosClient = build(cloudStorage.getAccessKeyId(), cloudStorage.getAccessKeySecret(), cloudStorage.getEndpoint());
+            LoggerHelper.info(LoggerServer.OSS,"腾讯云配置参数:[{}]",storage);
+            cosClient = build(cloudStorage.getAccessKeyId(), cloudStorage.getAccessKeySecret(), cloudStorage.getRegion());
+            flag = storage.getWriteDB();
         } else {
             throw new ChaosStorageException("[腾讯云OSS]上传文件失败，请检查配置参数");
         }
@@ -96,61 +98,28 @@ public class QCloudStorageClient extends StorageClient {
         } catch (CosClientException e) { // 如果是客户端错误，例如连接不上COS
             throw new ChaosStorageException("[腾讯云OSS]客户端错误，例如连接不上COS");
         }
+        writeDB(flag,null,keys);
     }
 
     @Override
     public void delete(String key) {
         Assert.hasLength(key,"[腾讯云OSS]删除文件的key不能为空");
         cosClient.deleteObject(cloudStorage.getBucket(),key);
-    }
-
-    /**
-     * <p>
-     *  上传文件
-     * </p>
-     *
-     * @author 孤城落寞
-     * @param: file 文件
-     * @date 2019/10/23 19:54
-     * @return: java.lang.String
-     * @throws
-     */
-    @Override
-    public String upload(File file) {
-        Assert.isTrue(file.exists(),"[腾讯云OSS]上传文件不能为空");
-        FileInputStream fileInputStream = null;
-        try {
-            fileInputStream = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            throw new ChaosStorageException("[腾讯云OSS]上传失败，上传文件不存在");
-        }
-        return upload(fileInputStream,getPath(cloudStorage.getPrefix(), FileHelper.getSuffix(file)),"");
-    }
-
-    /**
-     * <p>
-     *  上传字节数组
-     * </p>
-     *
-     * @author 孤城落寞
-     * @param: data 字节数组
-     * @param: key  文件路径
-     * @date 2019/10/23 19:52
-     * @return: java.lang.String 文件路径
-     * @throws
-     */
-    @Override
-    public String upload(byte[] data, String key) {
-        Assert.notEmpty(Collections.singleton(data),"[腾讯云OSS]上传文件失败，请检查 byte[] 是否正常");
-        Assert.hasLength(key,"[腾讯云OSS]上传文件失败，请检查上传文件的 key 是否正常");
-        return upload(new ByteArrayInputStream(data),key,"");
+        List<String> list = new ArrayList<>();
+        list.add(key);
+        writeDB(flag,null,list);
     }
 
     @Override
-    public String upload(InputStream inputStream , String key,String contentType) {
+    public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {
         Assert.notNull(inputStream,"[腾讯云OSS]上传文件失败，请检查 inputStream 是否正常");
-        Assert.hasLength(key,"[腾讯云OSS]上传文件失败，请检查上传文件的 key 是否正常");
+        Assert.hasLength(fileInfo.getOssKey(),"[腾讯云OSS]上传文件失败，请检查上传文件的 key 是否正常");
+
+
+        String key = fileInfo.getOssKey();
         String url = null;
+        String eTag = null;
+
         /**
          *  创建线程池
          */
@@ -165,7 +134,8 @@ public class QCloudStorageClient extends StorageClient {
 
             PutObjectRequest putObjectRequest = new PutObjectRequest(cloudStorage.getBucket(),key,inputStream,objectMetadata);
             Upload upload = transferManager.upload(putObjectRequest);
-            upload.waitForUploadResult();
+            UploadResult uploadResult = upload.waitForUploadResult();
+            eTag = uploadResult.getETag();
 
         } catch (Exception e) {
             throw new ChaosStorageException("[腾讯云OSS]上传文件失败，请检查配置信息", e);
@@ -176,13 +146,20 @@ public class QCloudStorageClient extends StorageClient {
         if (key != null) {
             // 拼接文件访问路径。由于拼接的字符串大多为String对象，而不是""的形式，所以直接用+拼接的方式没有优势
             StringBuffer path = new StringBuffer();
-            path.append(cloudStorage.getProtocol()).append("://").append(cloudStorage.getBucket()).append(".cos.").append(cloudStorage.getEndpoint()).append(".myqcloud.com").append("/").append(key);
+            path.append(cloudStorage.getProtocol()).append("://").append(cloudStorage.getBucket()).append(".cos.").append(cloudStorage.getRegion()).append(".myqcloud.com").append("/").append(key);
             if (StringUtils.isNotBlank(cloudStorage.getStyleName())) {
                 path.append(cloudStorage.getStyleName());
             }
             url = path.toString();
         }
-        return url;
+
+        fileInfo.setUrl(url);
+        fileInfo.seteTag(eTag);
+        fileInfo.setUploadTime(TimeHelper.toMillis());
+        fileInfo.setStatus(FileStatus.UPLOAD_SUCCESS.getId());
+        // 写入数据库
+        writeDB(flag,fileInfo,null);
+        return fileInfo;
     }
 
 

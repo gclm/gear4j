@@ -1,5 +1,7 @@
 package club.gclmit.chaos.storage.properties;
 
+import java.io.Serializable;
+
 /**
  * <p>
  *  云存储客户端封装 (支持七牛、阿里云、腾讯云、又拍云)
@@ -10,7 +12,9 @@ package club.gclmit.chaos.storage.properties;
  * @version: V1.0
  * @since JDK1.8
  */
-public class CloudStorage {
+public class CloudStorage implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * AccessKey ID
@@ -51,7 +55,6 @@ public class CloudStorage {
      * 当前网络协议
      */
     private String protocol = "https";
-
 
     public CloudStorage() {
     }

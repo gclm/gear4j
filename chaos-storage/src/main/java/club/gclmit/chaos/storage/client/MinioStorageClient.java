@@ -1,21 +1,21 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.core.helper.file.FileHelper;
-import club.gclmit.chaos.core.helper.file.MimeType;
-import club.gclmit.chaos.core.helper.logger.Logger;
-import club.gclmit.chaos.core.helper.logger.LoggerServer;
-import club.gclmit.chaos.storage.StorageClient;
-import club.gclmit.chaos.storage.exception.ChaosStorageException;
+import club.gclmit.chaos.core.constants.LoggerServer;
+import club.gclmit.chaos.core.helper.LoggerHelper;
+import club.gclmit.chaos.core.helper.TimeHelper;
+import club.gclmit.chaos.storage.db.pojo.FileInfo;
+import club.gclmit.chaos.storage.db.pojo.FileStatus;
 import club.gclmit.chaos.storage.properties.CloudStorage;
 import club.gclmit.chaos.storage.properties.Storage;
 import club.gclmit.chaos.storage.properties.StorageServer;
+import club.gclmit.chaos.storage.exception.ChaosStorageException;
 import io.minio.MinioClient;
 import io.minio.Result;
 import io.minio.messages.DeleteError;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 import java.io.*;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,6 +38,11 @@ public class MinioStorageClient  extends StorageClient {
     private CloudStorage cloudStorage;
 
     /**
+     * 判断是否操作数据库
+     */
+    private boolean flag;
+
+    /**
      * <p>
      *  初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
      * </p>
@@ -48,16 +53,18 @@ public class MinioStorageClient  extends StorageClient {
      * @throws
      */
     public MinioStorageClient(Storage storage) {
-        Assert.notNull(storage,"[Minio]配置参数不能为空");
+        super(storage);
+
         if(storage.getType() == StorageServer.MINIO.getValue()) {
             cloudStorage = storage.getConfig();
-            Logger.debug(LoggerServer.OSS,"Minio配置参数:[{}]",storage);
+            LoggerHelper.debug(LoggerServer.OSS,"Minio配置参数:[{}]",storage);
             // 创建minioClient实例
             try {
                 minioClient = new MinioClient(cloudStorage.getEndpoint(), cloudStorage.getAccessKeyId(),cloudStorage.getAccessKeySecret());
             } catch (Exception e) {
                 throw new ChaosStorageException("[Minio]上传文件失败，请检查 Minio 配置",e);
             }
+            flag = storage.getWriteDB();
         } else {
             throw new ChaosStorageException("[Minio]上传文件失败，请检查 Minio 配置");
         }
@@ -85,6 +92,7 @@ public class MinioStorageClient  extends StorageClient {
         } catch (Exception e) {
             throw new ChaosStorageException("[Minio] 批量删除文件失败,原因："+ message,e);
         }
+        writeDB(flag,null,keys);
     }
 
     /**
@@ -104,49 +112,10 @@ public class MinioStorageClient  extends StorageClient {
             minioClient.removeObject(cloudStorage.getBucket(),key);
         } catch (Exception e) {
             throw new ChaosStorageException("[Minio] 删除文件失败",e);
-        } 
-    }
-
-    /**
-     * <p>
-     *  上传文件
-     * </p>
-     *
-     * @author 孤城落寞
-     * @param: file 文件
-     * @date 2019/10/23 19:54
-     * @return: java.lang.String
-     * @throws
-     */
-    @Override
-    public String upload(File file) {
-        Assert.isTrue(file.exists(),"[Minio]上传文件不能为空");
-        FileInputStream fileInputStream = null;
-        try {
-            fileInputStream = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            throw new ChaosStorageException("[Minio]上传失败，上传文件不存在");
         }
-        return upload(fileInputStream,getPath(cloudStorage.getPrefix(), FileHelper.getSuffix(file)),FileHelper.getContentType(file));
-    }
-
-    /**
-     * <p>
-     *  上传字节数组
-     * </p>
-     *
-     * @author 孤城落寞
-     * @param: data 字节数组
-     * @param: key  文件路径
-     * @date 2019/10/23 19:52
-     * @return: java.lang.String 文件路径
-     * @throws
-     */
-    @Override
-    public String upload(byte[] data, String key) {
-        Assert.notEmpty(Collections.singleton(data),"[Minio]上传文件失败，请检查 byte[] 是否正常");
-        Assert.hasLength(key,"[Minio]上传文件失败，请检查上传文件的 key 是否正常");
-        return upload(new ByteArrayInputStream(data),key, MimeType.TXT.getMimeType());
+        List<String> list = new ArrayList<>();
+        list.add(key);
+        writeDB(flag,null,list);
     }
 
     /**
@@ -162,13 +131,16 @@ public class MinioStorageClient  extends StorageClient {
      * @throws
      */
     @Override
-    public String upload(InputStream inputStream , String key,String contentType) {
+    public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {
         Assert.notNull(inputStream,"[Minio]上传文件失败，请检查 inputStream 是否正常");
-        Assert.hasLength(key,"[Minio]上传文件失败，请检查上传文件的 key 是否正常");
+        Assert.hasLength(fileInfo.getOssKey(),"[Minio]上传文件失败，请检查上传文件的 key 是否正常");
+
+        String key = fileInfo.getOssKey();
         String url = null;
+
         try {
             // 简单上传
-            minioClient.putObject(cloudStorage.getBucket(), key, inputStream, Long.valueOf(inputStream.available()), null, null, contentType);
+            minioClient.putObject(cloudStorage.getBucket(), key, inputStream, Long.valueOf(inputStream.available()), null, null, fileInfo.getContentType());
         } catch (Exception e) {
             throw new ChaosStorageException("[Minio]上传文件失败，请检查配置信息", e);
         } finally {
@@ -188,7 +160,13 @@ public class MinioStorageClient  extends StorageClient {
             }
             url = path.toString();
         }
-        return url;
+
+        fileInfo.setUrl(url);
+        fileInfo.setUploadTime(TimeHelper.toMillis());
+        fileInfo.setStatus(FileStatus.UPLOAD_SUCCESS.getId());
+        // 写入数据库
+        writeDB(flag,fileInfo,null);
+        return fileInfo;
     }
 }
 

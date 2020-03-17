@@ -1,9 +1,7 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.storage.StorageClient;
+import club.gclmit.chaos.storage.db.pojo.FileInfo;
 import club.gclmit.chaos.storage.properties.Storage;
-
-import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
@@ -19,7 +17,8 @@ import java.util.List;
  */
 public class QiniuStorageClient extends StorageClient {
 
-    public QiniuStorageClient(Storage storageConfig) {
+    public QiniuStorageClient(Storage storage) {
+        super(storage);
     }
 
     @Override
@@ -33,17 +32,7 @@ public class QiniuStorageClient extends StorageClient {
     }
 
     @Override
-    public String upload(File file){
-        return null;
-    }
-
-    @Override
-    public String upload(byte[] data, String key) {
-        return null;
-    }
-
-    @Override
-    public String upload(InputStream inputStream, String key, String contentType) {
+    public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {
         return null;
     }
 }

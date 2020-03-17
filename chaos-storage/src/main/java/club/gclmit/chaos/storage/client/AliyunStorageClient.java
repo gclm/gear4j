@@ -1,22 +1,23 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.core.helper.file.FileHelper;
-import club.gclmit.chaos.core.helper.logger.Logger;
-import club.gclmit.chaos.core.helper.logger.LoggerServer;
-import club.gclmit.chaos.storage.StorageClient;
-import club.gclmit.chaos.storage.exception.ChaosStorageException;
+import club.gclmit.chaos.core.constants.LoggerServer;
+import club.gclmit.chaos.core.helper.LoggerHelper;
+import club.gclmit.chaos.core.helper.TimeHelper;
+import club.gclmit.chaos.storage.db.pojo.FileInfo;
+import club.gclmit.chaos.storage.db.pojo.FileStatus;
 import club.gclmit.chaos.storage.properties.CloudStorage;
 import club.gclmit.chaos.storage.properties.Storage;
 import club.gclmit.chaos.storage.properties.StorageServer;
+import club.gclmit.chaos.storage.exception.ChaosStorageException;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.DeleteObjectsRequest;
 import com.aliyun.oss.model.PutObjectRequest;
+import com.aliyun.oss.model.PutObjectResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
-
 import java.io.*;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,6 +40,11 @@ public class AliyunStorageClient extends StorageClient {
     private CloudStorage cloudStorage;
 
     /**
+     * 判断是否操作数据库
+     */
+    private boolean flag;
+
+    /**
      * <p>
      *  初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
      * </p>
@@ -49,12 +55,13 @@ public class AliyunStorageClient extends StorageClient {
      * @throws
      */
     public AliyunStorageClient(Storage storage) {
-        Assert.notNull(storage,"[阿里云OSS]配置参数不能为空");
+        super(storage);
         if(storage.getType() == StorageServer.ALIYUN.getValue()) {
             cloudStorage = storage.getConfig();
-            Logger.debug(LoggerServer.OSS,"阿里云配置参数:[{}]",storage);
+            LoggerHelper.debug(LoggerServer.OSS,"阿里云配置参数:[{}]",storage);
             // 创建OSSClient实例
             ossClient = new OSSClientBuilder().build(cloudStorage.getEndpoint(),cloudStorage.getAccessKeyId(),cloudStorage.getAccessKeySecret());
+            flag = storage.getWriteDB();
         } else {
             throw new ChaosStorageException("[阿里云OSS]上传文件失败，请检查 阿里云OSS 配置");
         }
@@ -74,6 +81,7 @@ public class AliyunStorageClient extends StorageClient {
     public void delete(List<String> keys) {
          Assert.notEmpty(keys,"[阿里云OSS]批量删除文件的 keys 不能为空");
          ossClient.deleteObjects(new DeleteObjectsRequest(cloudStorage.getBucket()).withKeys(keys));
+         writeDB(flag,null,keys);
     }
 
     /**
@@ -90,50 +98,10 @@ public class AliyunStorageClient extends StorageClient {
     public void delete(String key) {
         Assert.hasLength(key,"[阿里云OSS]删除文件的key不能为空");
         ossClient.deleteObject(cloudStorage.getBucket(),key);
+        List<String> list = new ArrayList<>();
+        list.add(key);
+        writeDB(flag,null,list);
     }
-
-    /**
-     * <p>
-     *  上传文件
-     * </p>
-     *
-     * @author 孤城落寞
-     * @param: file 文件
-     * @date 2019/10/23 19:54
-     * @return: java.lang.String
-     * @throws
-     */
-    @Override
-    public String upload(File file) {
-        Assert.isTrue(file.exists(),"[阿里云OSS]上传文件不能为空");
-        FileInputStream fileInputStream = null;
-        try {
-            fileInputStream = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            throw new ChaosStorageException("[阿里云OSS]上传失败，上传文件不存在");
-        }
-        return upload(fileInputStream,getPath(cloudStorage.getPrefix(), FileHelper.getSuffix(file)),"");
-    }
-
-    /**
-     * <p>
-     *  上传字节数组
-     * </p>
-     *
-     * @author 孤城落寞
-     * @param: data 字节数组
-     * @param: key  文件路径
-     * @date 2019/10/23 19:52
-     * @return: java.lang.String 文件路径
-     * @throws
-     */
-    @Override
-    public String upload(byte[] data, String key) {
-        Assert.notEmpty(Collections.singleton(data),"[阿里云OSS]上传文件失败，请检查 byte[] 是否正常");
-        Assert.hasLength(key,"[阿里云OSS]上传文件失败，请检查上传文件的 key 是否正常");
-        return upload(new ByteArrayInputStream(data),key,"");
-    }
-
 
     /**
      * <p>
@@ -148,14 +116,19 @@ public class AliyunStorageClient extends StorageClient {
      * @throws
      */
     @Override
-    public String upload(InputStream inputStream , String key,String contentType) {
+    public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {
         Assert.notNull(inputStream,"[阿里云OSS]上传文件失败，请检查 inputStream 是否正常");
-        Assert.hasLength(key,"[阿里云OSS]上传文件失败，请检查上传文件的 key 是否正常");
+        Assert.hasLength(fileInfo.getOssKey(),"[阿里云OSS]上传文件失败，请检查上传文件的 key 是否正常");
+
+
+        String key = fileInfo.getOssKey();
 
         String url = null;
+        String eTag = null;
         try {
             // 简单上传
-            ossClient.putObject(new PutObjectRequest(cloudStorage.getBucket(), key, inputStream));
+            PutObjectResult putObject = ossClient.putObject(new PutObjectRequest(cloudStorage.getBucket(), key, inputStream));
+            eTag = putObject.getETag();
         } catch (Exception e) {
             throw new ChaosStorageException("[阿里云OSS]上传文件失败，请检查配置信息", e);
         } finally {
@@ -171,7 +144,13 @@ public class AliyunStorageClient extends StorageClient {
             }
             url = path.toString();
         }
-        return url;
-    }
 
+        fileInfo.seteTag(eTag);
+        fileInfo.setUrl(url);
+        fileInfo.setUploadTime(TimeHelper.toMillis());
+        fileInfo.setStatus(FileStatus.UPLOAD_SUCCESS.getId());
+        // 写入数据库
+        writeDB(flag,fileInfo,null);
+        return fileInfo;
+    }
 }

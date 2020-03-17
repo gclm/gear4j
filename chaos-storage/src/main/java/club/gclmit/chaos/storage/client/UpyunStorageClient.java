@@ -1,10 +1,8 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.storage.StorageClient;
+import club.gclmit.chaos.storage.db.pojo.FileInfo;
 import club.gclmit.chaos.storage.properties.CloudStorage;
 import club.gclmit.chaos.storage.properties.Storage;
-
-import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
@@ -25,7 +23,13 @@ public class UpyunStorageClient extends StorageClient {
      */
     private CloudStorage storage;
 
-    public UpyunStorageClient(Storage storageConfig) {
+    public UpyunStorageClient(Storage storage) {
+        super(storage);
+    }
+
+    @Override
+    public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {
+        return null;
     }
 
     @Override
@@ -36,20 +40,5 @@ public class UpyunStorageClient extends StorageClient {
     @Override
     public void delete(String key) {
 
-    }
-
-    @Override
-    public String upload(File file){
-        return null;
-    }
-
-    @Override
-    public String upload(byte[] data, String key) {
-        return null;
-    }
-
-    @Override
-    public String upload(InputStream inputStream, String key, String contentType) {
-        return null;
     }
 }

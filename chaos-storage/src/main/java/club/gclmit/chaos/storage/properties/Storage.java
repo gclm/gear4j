@@ -2,6 +2,8 @@ package club.gclmit.chaos.storage.properties;
 
 import org.hibernate.validator.constraints.Range;
 
+import java.io.Serializable;
+
 /**
  * <p>
  *  storage 配置
@@ -12,7 +14,9 @@ import org.hibernate.validator.constraints.Range;
  * @version: V1.0
  * @since 1.8
  */
-public class Storage {
+public class Storage implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 类型
@@ -28,6 +32,10 @@ public class Storage {
      */
     private CloudStorage config = new CloudStorage();
 
+    /**
+     * 是否保存日志到数据库中
+     */
+    private boolean writeDB = true;
 
     public int getType() {
         return type;
@@ -45,11 +53,20 @@ public class Storage {
         this.config = config;
     }
 
+    public boolean getWriteDB() {
+        return writeDB;
+    }
+
+    public void setWriteDB(boolean writeDB) {
+        this.writeDB = writeDB;
+    }
+
     @Override
     public String toString() {
         return "Storage{" +
                 "type=" + type +
                 ", config=" + config +
+                ", writeDB=" + writeDB +
                 '}';
     }
 }
