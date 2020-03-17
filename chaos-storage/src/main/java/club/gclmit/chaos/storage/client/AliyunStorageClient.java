@@ -131,8 +131,6 @@ public class AliyunStorageClient extends StorageClient {
             eTag = putObject.getETag();
         } catch (Exception e) {
             throw new ChaosStorageException("[阿里云OSS]上传文件失败，请检查配置信息", e);
-        } finally {
-            ossClient.shutdown();
         }
 
         if (key != null) {
