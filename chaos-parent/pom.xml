@@ -28,7 +28,7 @@
     <chaos.security.version>1.0.0-SNAPSHOT</chaos.security.version>
     <chaos.core.version>1.0.2</chaos.core.version>
     <chaos.logger.version>1.0.2</chaos.logger.version>
-    <chaos.storage.version>1.2.0</chaos.storage.version>
+    <chaos.storage.version>1.3.0</chaos.storage.version>
     <chaos.web.version>1.0.3</chaos.web.version>
 
     <!-- Spring Boot/Cloud -->

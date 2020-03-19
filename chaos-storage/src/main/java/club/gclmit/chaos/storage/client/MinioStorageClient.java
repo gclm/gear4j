@@ -55,7 +55,7 @@ public class MinioStorageClient  extends StorageClient {
     public MinioStorageClient(Storage storage) {
         super(storage);
 
-        if(storage.getType() == StorageServer.MINIO.getValue()) {
+        if(storage.getType() == StorageServer.MINIO) {
             cloudStorage = storage.getConfig();
             LoggerHelper.debug(LoggerServer.OSS,"Minio配置参数:[{}]",storage);
             // 创建minioClient实例

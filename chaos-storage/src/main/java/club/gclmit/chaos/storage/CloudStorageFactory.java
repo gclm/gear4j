@@ -2,7 +2,6 @@ package club.gclmit.chaos.storage;
 
 import club.gclmit.chaos.storage.client.*;
 import club.gclmit.chaos.storage.properties.Storage;
-import club.gclmit.chaos.storage.properties.StorageServer;
 
 /**
  * <p>
@@ -29,16 +28,28 @@ public class CloudStorageFactory {
      * @throws
      */
     public static StorageClient build(Storage storage) {
-        if (storage.getType() == StorageServer.ALIYUN.getValue()) {
-            return new AliyunStorageClient(storage);
-        } else if (storage.getType() == StorageServer.QINIU.getValue()) {
-            return new QiniuStorageClient(storage);
-        } else if (storage.getType() == StorageServer.QCLOUD.getValue()) {
-            return new QCloudStorageClient(storage);
-        } else if (storage.getType() == StorageServer.MINIO.getValue()) {
-            return new MinioStorageClient(storage);
-        } else {
-            return new UpyunStorageClient(storage);
+        StorageClient client = null;
+        switch (storage.getType()){
+            case MINIO:
+                client = new MinioStorageClient(storage);
+                break;
+            case QINIU:
+                client = new QiniuStorageClient(storage);
+                break;
+            case UFILE:
+                client = new UfileStorageClient(storage);
+                break;
+            case ALIYUN:
+                client = new AliyunStorageClient(storage);
+                break;
+            case UPYUN:
+                client = new UpyunStorageClient(storage);
+                break;
+            case QCLOUD:
+                client = new QCloudStorageClient(storage);
+                break;
+
         }
+        return client;
     }
 }

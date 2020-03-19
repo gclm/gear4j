@@ -68,7 +68,7 @@ public class QCloudStorageClient extends StorageClient {
      */
     public QCloudStorageClient(Storage storage) {
         super(storage);
-        if(storage.getType() == StorageServer.QCLOUD.getValue()) {
+        if(storage.getType() == StorageServer.QCLOUD) {
             cloudStorage = storage.getConfig();
             LoggerHelper.info(LoggerServer.OSS,"腾讯云配置参数:[{}]",storage);
             cosClient = build(cloudStorage.getAccessKeyId(), cloudStorage.getAccessKeySecret(), cloudStorage.getRegion());

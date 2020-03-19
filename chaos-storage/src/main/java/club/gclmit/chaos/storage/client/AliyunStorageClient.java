@@ -56,7 +56,7 @@ public class AliyunStorageClient extends StorageClient {
      */
     public AliyunStorageClient(Storage storage) {
         super(storage);
-        if(storage.getType() == StorageServer.ALIYUN.getValue()) {
+        if(storage.getType() == StorageServer.ALIYUN) {
             cloudStorage = storage.getConfig();
             LoggerHelper.debug(LoggerServer.OSS,"阿里云配置参数:[{}]",storage);
             // 创建OSSClient实例

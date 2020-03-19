@@ -36,7 +36,7 @@ public class StorageClientTest {
         cloudStorage.setPrefix("prefix");
 
         Storage storage = new Storage();
-        storage.setType(StorageServer.ALIYUN.getValue());
+        storage.setType(StorageServer.ALIYUN);
         storage.setConfig(cloudStorage);
         StorageClient client = CloudStorageFactory.build(storage);
         File file = new File(FILE_URL);
@@ -80,7 +80,7 @@ public class StorageClientTest {
         cloudStorage.setPrefix("prefix");
 
         Storage storage = new Storage();
-        storage.setType(StorageServer.QCLOUD.getValue());
+        storage.setType(StorageServer.QCLOUD);
         storage.setConfig(cloudStorage);
         StorageClient client = CloudStorageFactory.build(storage);
         File file = new File(FILE_URL);
@@ -122,7 +122,7 @@ public class StorageClientTest {
         cloudStorage.setPrefix("prefix");
 
         Storage storage = new Storage();
-        storage.setType(StorageServer.MINIO.getValue());
+        storage.setType(StorageServer.MINIO);
         storage.setConfig(cloudStorage);
         StorageClient client = CloudStorageFactory.build(storage);
         File file = new File(FILE_URL);

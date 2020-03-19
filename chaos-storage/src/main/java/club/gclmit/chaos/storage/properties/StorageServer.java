@@ -15,32 +15,37 @@ public enum StorageServer {
     /**
      *  阿里云
      */
-    ALIYUN(1),
+    ALIYUN(0),
     /**
      * 七牛云
      */
-    QINIU(2),
+    QINIU(1),
     /**
      *  腾讯云
      */
-    QCLOUD(3),
+    QCLOUD(2),
     /**
      * 又拍云
      */
-    UPYUN(4),
+    UPYUN(3),
 
     /**
      * minio
      */
-    MINIO(5);
+    MINIO(4),
 
-    private int value;
+    /**
+     * UFile
+     */
+    UFILE(5);
 
-    StorageServer(int value) {
-        this.value = value;
+    private Integer id;
+
+    public Integer getId() {
+        return id;
     }
 
-    public int getValue() {
-        return value;
+    StorageServer(Integer id) {
+        this.id = id;
     }
 }

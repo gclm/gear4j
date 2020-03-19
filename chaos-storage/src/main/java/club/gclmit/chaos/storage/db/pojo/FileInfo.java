@@ -1,5 +1,6 @@
 package club.gclmit.chaos.storage.db.pojo;
 
+import club.gclmit.chaos.storage.properties.StorageServer;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -74,6 +75,12 @@ public class FileInfo implements Serializable {
     private String ossKey;
 
     /**
+     * OSS type
+     */
+    @ApiModelProperty(value = "OSS类型")
+    private Integer ossType = StorageServer.ALIYUN.getId();
+
+    /**
      * 上传时间
      */
     @ApiModelProperty(value = "上传时间")
@@ -93,12 +100,13 @@ public class FileInfo implements Serializable {
         this.status = status;
     }
 
-    public FileInfo(String name, String contentType, Long size, String md5, String ossKey) {
+    public FileInfo(String name, String contentType, Long size, String md5, String ossKey, Integer ossType) {
         this.name = name;
         this.contentType = contentType;
         this.size = size;
         this.md5 = md5;
         this.ossKey = ossKey;
+        this.ossType = ossType;
     }
 
     public Long getId() {
@@ -181,6 +189,14 @@ public class FileInfo implements Serializable {
         this.ossKey = ossKey;
     }
 
+    public Integer getOssType() {
+        return ossType;
+    }
+
+    public void setOssType(Integer ossType) {
+        this.ossType = ossType;
+    }
+
     @Override
     public String toString() {
         return "FileInfo{" +
@@ -192,6 +208,7 @@ public class FileInfo implements Serializable {
                 ", md5='" + md5 + '\'' +
                 ", eTag='" + eTag + '\'' +
                 ", ossKey='" + ossKey + '\'' +
+                ", ossType=" + ossType +
                 ", uploadTime=" + uploadTime +
                 ", status=" + status +
                 '}';

@@ -1,7 +1,5 @@
 package club.gclmit.chaos.storage.properties;
 
-import org.hibernate.validator.constraints.Range;
-
 import java.io.Serializable;
 
 /**
@@ -24,8 +22,7 @@ public class Storage implements Serializable {
      * 3：腾讯云    4：又拍云
      * 5：MinIO
      */
-    @Range(min = 1,max =5 ,message = "服务商类型错误")
-    private int type;
+    private StorageServer type = StorageServer.ALIYUN;
 
     /**
      *  OSS 厂商配置
@@ -37,11 +34,12 @@ public class Storage implements Serializable {
      */
     private boolean writeDB = true;
 
-    public int getType() {
+
+    public StorageServer getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(StorageServer type) {
         this.type = type;
     }
 

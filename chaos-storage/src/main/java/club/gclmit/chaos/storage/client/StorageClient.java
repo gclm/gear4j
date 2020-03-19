@@ -115,7 +115,7 @@ public abstract class StorageClient {
         String contentType = FileHelper.getContentType(file);
         String md5 = SecureUtil.md5(file);
 
-        return upload(fileInputStream,new FileInfo(file.getName(),contentType,file.length(), md5,key));
+        return upload(fileInputStream,new FileInfo(file.getName(),contentType,file.length(), md5,key,storage.getType().getId()));
     }
 
     /**
@@ -148,7 +148,7 @@ public abstract class StorageClient {
             fileName = key;
         }
 
-        return upload(new ByteArrayInputStream(data),new FileInfo(fileName,contentType,size, md5,key));
+        return upload(new ByteArrayInputStream(data),new FileInfo(fileName,contentType,size, md5,key,storage.getType().getId()));
     }
 
     /**
