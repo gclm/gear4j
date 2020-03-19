@@ -1,17 +1,11 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : ucloud
- Source Server Type    : MariaDB
- Source Server Version : 100412
- Source Host           : 106.75.191.109:3306
- Source Schema         : chaos
-
  Target Server Type    : MariaDB
  Target Server Version : 100412
  File Encoding         : 65001
 
- Date: 01/03/2020 17:26:50
+ Date: 19/03/2020 11:43:06
 */
 
 SET NAMES utf8mb4;
@@ -36,6 +30,25 @@ CREATE TABLE `chaos_UserConnection` (
   PRIMARY KEY (`userId`,`providerId`,`providerUserId`),
   UNIQUE KEY `UserConnectionRank` (`userId`,`providerId`,`rank`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for chaos_file_info
+-- ----------------------------
+DROP TABLE IF EXISTS `chaos_file_info`;
+CREATE TABLE `chaos_file_info` (
+  `id` bigint(22) NOT NULL COMMENT '主键',
+  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '文件名',
+  `content_type` varchar(50) NOT NULL DEFAULT '' COMMENT '文件类型',
+  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '文件路径',
+  `size` bigint(22) NOT NULL DEFAULT -1 COMMENT '文件大小',
+  `md5` varchar(50) NOT NULL DEFAULT '' COMMENT 'md5',
+  `e_tag` varchar(50) NOT NULL DEFAULT '' COMMENT 'ETag',
+  `oss_key` varchar(50) NOT NULL DEFAULT '' COMMENT 'OSS key',
+  `status` int(11) NOT NULL DEFAULT -1 COMMENT '文件状态',
+  `upload_time` bigint(16) DEFAULT NULL COMMENT '上传时间',
+  `oss_type` int(5) DEFAULT NULL COMMENT '对象存储类型',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='chaos_file_info';
 
 -- ----------------------------
 -- Table structure for chaos_trace_info

@@ -23,6 +23,25 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
+-- Table structure for chaos_file_info
+-- ----------------------------
+DROP TABLE IF EXISTS `chaos_file_info`;
+CREATE TABLE `chaos_file_info` (
+  `id` bigint(22) NOT NULL COMMENT '主键',
+  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '文件名',
+  `content_type` varchar(50) NOT NULL DEFAULT '' COMMENT '文件类型',
+  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '文件路径',
+  `size` bigint(22) NOT NULL DEFAULT -1 COMMENT '文件大小',
+  `md5` varchar(50) NOT NULL DEFAULT '' COMMENT 'md5',
+  `e_tag` varchar(50) NOT NULL DEFAULT '' COMMENT 'ETag',
+  `oss_key` varchar(50) NOT NULL DEFAULT '' COMMENT 'OSS key',
+  `status` int(11) NOT NULL DEFAULT -1 COMMENT '文件状态',
+  `upload_time` bigint(16) DEFAULT NULL COMMENT '上传时间',
+  `oss_type` int(5) DEFAULT NULL COMMENT '对象存储类型',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='chaos_file_info';
+
+-- ----------------------------
 -- Table structure for chaos_trace_info
 -- ----------------------------
 DROP TABLE IF EXISTS `chaos_trace_info`;
@@ -44,22 +63,5 @@ CREATE TABLE `chaos_trace_info` (
   `consuming_time` bigint(15) DEFAULT NULL COMMENT '请求耗时（秒）',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='chaos_trace_info';
-
--- ----------------------------
--- Table structure for chaos_file_info
--- ----------------------------
-DROP TABLE IF EXISTS `chaos_file_info`;
-CREATE TABLE `chaos_file_info`(
-  `id` bigint(22) NOT NULL COMMENT '主键',
-  `name` VARCHAR (100) NOT NULL DEFAULT '' COMMENT '文件名',
-  `content_type` VARCHAR (50) NOT NULL DEFAULT '' COMMENT '文件类型',
-  `url` VARCHAR (255) NOT NULL DEFAULT '' COMMENT '文件路径',
-  `size` BIGINT (22) NOT NULL DEFAULT -1 COMMENT '文件大小',
-  `md5` VARCHAR (50) NOT NULL DEFAULT '' COMMENT 'md5',
-  `e_tag` VARCHAR (50) NOT NULL DEFAULT '' COMMENT 'ETag',
-  `key` VARCHAR (50) NOT NULL DEFAULT '' COMMENT 'OSS key',
-  `status` INT (11) NOT NULL DEFAULT -1 COMMENT '文件状态',
-  PRIMARY KEY (id)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT 'chaos_file_info';
 
 ```
