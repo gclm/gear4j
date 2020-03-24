@@ -46,6 +46,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
         File tempFile = FileHelper.multipartFileToFile("", file);
         FileInfo fileInfo = storageClient.upload(tempFile);
         save(fileInfo);
+        FileHelper.deleteFile(tempFile);
         return fileInfo;
     }
 
