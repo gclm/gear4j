@@ -67,11 +67,7 @@
   <dependencyManagement>
     <dependencies>
 
-      <dependency>
-        <groupId>cn.ucloud.ufile</groupId>
-        <artifactId>ufile-client-java</artifactId>
-        <version>${ufile.version}</version>
-      </dependency>
+
 
       <dependency>
         <groupId>cn.hutool</groupId>
@@ -304,6 +300,12 @@
         <groupId>io.minio</groupId>
         <artifactId>minio</artifactId>
         <version>${minio.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>cn.ucloud.ufile</groupId>
+        <artifactId>ufile-client-java</artifactId>
+        <version>${ufile.version}</version>
       </dependency>
 
     </dependencies>
