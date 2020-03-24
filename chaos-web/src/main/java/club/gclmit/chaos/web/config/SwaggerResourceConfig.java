@@ -35,7 +35,7 @@ public class SwaggerResourceConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         LoggerHelper.info(LoggerServer.SPRING_BOOT,"开启 Swagger 映射\nAPI文档地址：http://localhost:{}/doc.html",port);
-        registry.addResourceHandler("doc.html").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 }

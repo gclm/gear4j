@@ -7,12 +7,12 @@
     <parent>
         <groupId>club.gclmit</groupId>
         <artifactId>chaos-parent</artifactId>
-        <version>1.0.3</version>
+        <version>1.0.4</version>
     </parent>
 
     <groupId>club.gclmit</groupId>
     <artifactId>chaos-annotations</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

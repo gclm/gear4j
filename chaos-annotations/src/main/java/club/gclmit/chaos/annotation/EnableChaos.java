@@ -19,7 +19,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @MapperScan(basePackages= {
-        "club.gclmit.chaos.*.db.mapper"
+        "club.gclmit.chaos.*.db.mapper",
+        "club.gclmit.chaos.*.mapper"
 })
 @ComponentScan(basePackages={
         "club.gclmit.chaos"
