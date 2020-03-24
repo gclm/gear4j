@@ -1,4 +1,4 @@
-package club.gclmit.chaos.storage.db.pojo;
+package club.gclmit.chaos.storage.properties;
 
 /**
  * <p>

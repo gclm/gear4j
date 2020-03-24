@@ -1,6 +1,6 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.storage.db.pojo.FileInfo;
+import club.gclmit.chaos.storage.properties.FileInfo;
 import club.gclmit.chaos.storage.properties.Storage;
 import java.io.InputStream;
 import java.util.List;

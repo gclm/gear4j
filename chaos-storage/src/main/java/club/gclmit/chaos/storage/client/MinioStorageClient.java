@@ -3,11 +3,7 @@ package club.gclmit.chaos.storage.client;
 import club.gclmit.chaos.core.constants.LoggerServer;
 import club.gclmit.chaos.core.helper.LoggerHelper;
 import club.gclmit.chaos.core.helper.TimeHelper;
-import club.gclmit.chaos.storage.db.pojo.FileInfo;
-import club.gclmit.chaos.storage.db.pojo.FileStatus;
-import club.gclmit.chaos.storage.properties.CloudStorage;
-import club.gclmit.chaos.storage.properties.Storage;
-import club.gclmit.chaos.storage.properties.StorageServer;
+import club.gclmit.chaos.storage.properties.*;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
 import io.minio.MinioClient;
 import io.minio.Result;
@@ -38,11 +34,6 @@ public class MinioStorageClient  extends StorageClient {
     private CloudStorage cloudStorage;
 
     /**
-     * 判断是否操作数据库
-     */
-    private boolean flag;
-
-    /**
      * <p>
      *  初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
      * </p>
@@ -64,7 +55,6 @@ public class MinioStorageClient  extends StorageClient {
             } catch (Exception e) {
                 throw new ChaosStorageException("[Minio]上传文件失败，请检查 Minio 配置",e);
             }
-            flag = storage.getWriteDB();
         } else {
             throw new ChaosStorageException("[Minio]上传文件失败，请检查 Minio 配置");
         }
@@ -92,7 +82,6 @@ public class MinioStorageClient  extends StorageClient {
         } catch (Exception e) {
             throw new ChaosStorageException("[Minio] 批量删除文件失败,原因："+ message,e);
         }
-        writeDB(flag,null,keys);
     }
 
     /**
@@ -115,7 +104,6 @@ public class MinioStorageClient  extends StorageClient {
         }
         List<String> list = new ArrayList<>();
         list.add(key);
-        writeDB(flag,null,list);
     }
 
     /**
@@ -164,8 +152,6 @@ public class MinioStorageClient  extends StorageClient {
         fileInfo.setUrl(url);
         fileInfo.setUploadTime(TimeHelper.toMillis());
         fileInfo.setStatus(FileStatus.UPLOAD_SUCCESS.getId());
-        // 写入数据库
-        writeDB(flag,fileInfo,null);
         return fileInfo;
     }
 }

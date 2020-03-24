@@ -3,11 +3,7 @@ package club.gclmit.chaos.storage.client;
 import club.gclmit.chaos.core.helper.LoggerHelper;
 import club.gclmit.chaos.core.constants.LoggerServer;
 import club.gclmit.chaos.core.helper.TimeHelper;
-import club.gclmit.chaos.storage.db.pojo.FileInfo;
-import club.gclmit.chaos.storage.db.pojo.FileStatus;
-import club.gclmit.chaos.storage.properties.CloudStorage;
-import club.gclmit.chaos.storage.properties.Storage;
-import club.gclmit.chaos.storage.properties.StorageServer;
+import club.gclmit.chaos.storage.properties.*;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
@@ -52,11 +48,6 @@ public class QCloudStorageClient extends StorageClient {
     private CloudStorage cloudStorage;
 
     /**
-     * 判断是否操作数据库
-     */
-    private boolean flag;
-
-    /**
      * <p>
      *  初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
      * </p>
@@ -72,7 +63,6 @@ public class QCloudStorageClient extends StorageClient {
             cloudStorage = storage.getConfig();
             LoggerHelper.info(LoggerServer.OSS,"腾讯云配置参数:[{}]",storage);
             cosClient = build(cloudStorage.getAccessKeyId(), cloudStorage.getAccessKeySecret(), cloudStorage.getRegion());
-            flag = storage.getWriteDB();
         } else {
             throw new ChaosStorageException("[腾讯云OSS]上传文件失败，请检查配置参数");
         }
@@ -98,7 +88,6 @@ public class QCloudStorageClient extends StorageClient {
         } catch (CosClientException e) { // 如果是客户端错误，例如连接不上COS
             throw new ChaosStorageException("[腾讯云OSS]客户端错误，例如连接不上COS");
         }
-        writeDB(flag,null,keys);
     }
 
     @Override
@@ -107,7 +96,6 @@ public class QCloudStorageClient extends StorageClient {
         cosClient.deleteObject(cloudStorage.getBucket(),key);
         List<String> list = new ArrayList<>();
         list.add(key);
-        writeDB(flag,null,list);
     }
 
     @Override
@@ -157,8 +145,6 @@ public class QCloudStorageClient extends StorageClient {
         fileInfo.seteTag(eTag);
         fileInfo.setUploadTime(TimeHelper.toMillis());
         fileInfo.setStatus(FileStatus.UPLOAD_SUCCESS.getId());
-        // 写入数据库
-        writeDB(flag,fileInfo,null);
         return fileInfo;
     }
 

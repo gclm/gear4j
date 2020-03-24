@@ -1,21 +1,16 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.core.constants.LoggerServer;
 import club.gclmit.chaos.core.constants.MimeType;
 import club.gclmit.chaos.core.helper.FileHelper;
 import club.gclmit.chaos.core.helper.IDHelper;
-import club.gclmit.chaos.core.helper.LoggerHelper;
 import club.gclmit.chaos.core.helper.TimeHelper;
-import club.gclmit.chaos.storage.db.pojo.FileInfo;
-import club.gclmit.chaos.storage.db.service.FileService;
+import club.gclmit.chaos.storage.properties.FileInfo;
 import club.gclmit.chaos.storage.properties.Storage;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
-
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -38,12 +33,6 @@ public abstract class StorageClient {
      * 云存储配置信息
      */
     protected Storage storage;
-
-    /**
-     * file Service 服务
-     */
-    @Autowired
-    private FileService fileService;
 
     public StorageClient(Storage storage) {
         this.storage = storage;
@@ -177,31 +166,6 @@ public abstract class StorageClient {
      * 上传文件使用默认配置
      */
     public abstract FileInfo upload(InputStream inputStream, FileInfo fileInfo);
-
-    /**
-     *  基于数据库的插入操作和删除操作
-     *
-     * @author gclm
-     * @param: flag
-     * @param: fileInfo
-     * @date 2020/3/17 10:37 上午
-     * @throws
-     */
-    public void writeDB(boolean flag,FileInfo fileInfo,List<String> keys){
-        if (flag) {
-            if (fileInfo != null) {
-                boolean save = fileService.save(fileInfo);
-                LoggerHelper.info(LoggerServer.OSS,"OSS 上传文件写入数据库：{}",save);
-            } else {
-                if (keys.size() == 1){
-                    fileService.deleteStatusByKey(keys.get(0));
-                } else{
-                    fileService.batchDeleteStatusByKey(keys);
-                }
-                LoggerHelper.info(LoggerServer.OSS,"OSS 删除文件修改数据库：true");
-            }
-        }
-    }
 
     /**
      * 批量删除

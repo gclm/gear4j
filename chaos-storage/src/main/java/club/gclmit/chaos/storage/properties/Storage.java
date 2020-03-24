@@ -29,12 +29,6 @@ public class Storage implements Serializable {
      */
     private CloudStorage config = new CloudStorage();
 
-    /**
-     * 是否保存日志到数据库中
-     */
-    private boolean writeDB = true;
-
-
     public StorageServer getType() {
         return type;
     }
@@ -51,20 +45,11 @@ public class Storage implements Serializable {
         this.config = config;
     }
 
-    public boolean getWriteDB() {
-        return writeDB;
-    }
-
-    public void setWriteDB(boolean writeDB) {
-        this.writeDB = writeDB;
-    }
-
     @Override
     public String toString() {
         return "Storage{" +
                 "type=" + type +
                 ", config=" + config +
-                ", writeDB=" + writeDB +
                 '}';
     }
 }

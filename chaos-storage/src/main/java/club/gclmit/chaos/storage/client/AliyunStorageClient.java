@@ -3,11 +3,7 @@ package club.gclmit.chaos.storage.client;
 import club.gclmit.chaos.core.constants.LoggerServer;
 import club.gclmit.chaos.core.helper.LoggerHelper;
 import club.gclmit.chaos.core.helper.TimeHelper;
-import club.gclmit.chaos.storage.db.pojo.FileInfo;
-import club.gclmit.chaos.storage.db.pojo.FileStatus;
-import club.gclmit.chaos.storage.properties.CloudStorage;
-import club.gclmit.chaos.storage.properties.Storage;
-import club.gclmit.chaos.storage.properties.StorageServer;
+import club.gclmit.chaos.storage.properties.*;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
@@ -40,11 +36,6 @@ public class AliyunStorageClient extends StorageClient {
     private CloudStorage cloudStorage;
 
     /**
-     * 判断是否操作数据库
-     */
-    private boolean flag;
-
-    /**
      * <p>
      *  初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
      * </p>
@@ -61,7 +52,6 @@ public class AliyunStorageClient extends StorageClient {
             LoggerHelper.debug(LoggerServer.OSS,"阿里云配置参数:[{}]",storage);
             // 创建OSSClient实例
             ossClient = new OSSClientBuilder().build(cloudStorage.getEndpoint(),cloudStorage.getAccessKeyId(),cloudStorage.getAccessKeySecret());
-            flag = storage.getWriteDB();
         } else {
             throw new ChaosStorageException("[阿里云OSS]上传文件失败，请检查 阿里云OSS 配置");
         }
@@ -81,7 +71,6 @@ public class AliyunStorageClient extends StorageClient {
     public void delete(List<String> keys) {
          Assert.notEmpty(keys,"[阿里云OSS]批量删除文件的 keys 不能为空");
          ossClient.deleteObjects(new DeleteObjectsRequest(cloudStorage.getBucket()).withKeys(keys));
-         writeDB(flag,null,keys);
     }
 
     /**
@@ -100,7 +89,6 @@ public class AliyunStorageClient extends StorageClient {
         ossClient.deleteObject(cloudStorage.getBucket(),key);
         List<String> list = new ArrayList<>();
         list.add(key);
-        writeDB(flag,null,list);
     }
 
     /**
@@ -147,8 +135,7 @@ public class AliyunStorageClient extends StorageClient {
         fileInfo.setUrl(url);
         fileInfo.setUploadTime(TimeHelper.toMillis());
         fileInfo.setStatus(FileStatus.UPLOAD_SUCCESS.getId());
-        // 写入数据库
-        writeDB(flag,fileInfo,null);
+
         return fileInfo;
     }
 }
