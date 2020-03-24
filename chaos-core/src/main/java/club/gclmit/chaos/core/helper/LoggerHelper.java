@@ -20,7 +20,7 @@ import org.slf4j.helpers.MessageFormatter;
 public class LoggerHelper {
 
     // 当前日志类名
-    private final static String logClassName = Logger.class.getName();
+    private final static String logClassName = LoggerHelper.class.getName();
 
     /**
      * 获取最原始被调用的堆栈信息
