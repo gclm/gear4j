@@ -11,7 +11,7 @@
 
     <groupId>club.gclmit</groupId>
     <artifactId>chaos-logger</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 
     <name>${project.artifactId}</name>
     <description>基于拦截器进行日志记录</description>
@@ -44,6 +44,11 @@
         <dependency>
             <groupId>club.gclmit</groupId>
             <artifactId>chaos-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
         </dependency>
 
     </dependencies>

@@ -1,18 +1,14 @@
 package club.gclmit.chaos.logger;
 
-import club.gclmit.chaos.core.helper.LoggerHelper;
-import club.gclmit.chaos.core.helper.TimeHelper;
-import club.gclmit.chaos.core.helper.NetHelper;
+import club.gclmit.chaos.core.helper.*;
 import club.gclmit.chaos.core.constants.LoggerServer;
+import club.gclmit.chaos.logger.db.mapper.LoggerMapper;
 import club.gclmit.chaos.logger.db.pojo.HttpTrace;
-import club.gclmit.chaos.logger.db.service.LoggerService;
 import club.gclmit.chaos.logger.exception.ChaosLoggerException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
@@ -135,8 +131,8 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
                  * 保存到数据库
                  */
                 if (logger.isWriteDB()) {
-                    LoggerService loggerService = getMapper(LoggerService.class, requestWrapper);
-                    boolean save = loggerService.save(trace);
+                    LoggerMapper loggerMapper = ObjectHelper.genBean(LoggerMapper.class, requestWrapper);
+                    boolean save = DBHelper.retBool(loggerMapper.insert(trace));
                     LoggerHelper.info(LoggerServer.CHAOS_LOGGER,"当前请求日志入库：{}", save);
                 } else {
                     LoggerHelper.info(LoggerServer.CHAOS_LOGGER,"当前请求日志：{}", trace);
@@ -146,22 +142,6 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
             super.doDispatch(request,response);
         }
     }
-
-    /**
-     *  获取Bean对象
-     *
-     * @author gclm
-     * @param: clazz
-     * @param: request
-     * @date 2020/1/20 10:40 上午
-     * @return: T
-     * @throws
-     */
-    private static  <T> T  getMapper(Class<T> clazz, HttpServletRequest request) {
-        BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
-        return factory.getBean(clazz);
-    }
-
 
     /**
      *  获取 request 的请求头
