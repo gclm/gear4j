@@ -1,7 +1,8 @@
-package club.gclmit.chaos.storage.db.service;
+package club.gclmit.chaos.starter.service;
 
-import club.gclmit.chaos.storage.db.pojo.FileInfo;
+import club.gclmit.chaos.storage.properties.FileInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -14,6 +15,17 @@ import java.util.List;
  * @since 2019-12-17
  */
 public interface FileService extends IService<FileInfo> {
+
+    /**
+     *  上传文件到 OSS中
+     *
+     * @author gclm
+     * @param: file
+     * @date 2020/3/17 9:13 上午
+     * @return: club.gclmit.chaos.storage.db.pojo.FileInfo
+     * @throws
+     */
+    public FileInfo uploadFile(MultipartFile file);
 
     /**
      *  根据文件 MD5 判断文件是否存在

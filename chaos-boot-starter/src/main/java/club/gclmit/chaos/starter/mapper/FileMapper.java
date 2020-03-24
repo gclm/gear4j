@@ -1,6 +1,6 @@
-package club.gclmit.chaos.storage.db.mapper;
+package club.gclmit.chaos.starter.mapper;
 
-import club.gclmit.chaos.storage.db.pojo.FileInfo;
+import club.gclmit.chaos.storage.properties.FileInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

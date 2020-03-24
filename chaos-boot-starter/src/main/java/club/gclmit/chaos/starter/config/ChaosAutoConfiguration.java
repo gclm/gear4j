@@ -1,4 +1,4 @@
-package club.gclmit.chaos.starter;
+package club.gclmit.chaos.starter.config;
 
 import club.gclmit.chaos.core.constants.LoggerServer;
 import club.gclmit.chaos.core.helper.LoggerHelper;
@@ -24,11 +24,11 @@ import org.springframework.context.annotation.Configuration;
  * @since 1.8
  */
 @Configuration
-@EnableConfigurationProperties(StorageProperties.class)
+@EnableConfigurationProperties(StorageConfig.class)
 public class ChaosAutoConfiguration {
 
     @Autowired
-    private StorageProperties properties;
+    private StorageConfig properties;
 
     @Bean
     @ConditionalOnMissingBean

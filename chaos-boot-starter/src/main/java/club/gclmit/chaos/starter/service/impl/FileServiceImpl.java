@@ -1,15 +1,18 @@
-package club.gclmit.chaos.storage.db.service.impl;
+package club.gclmit.chaos.starter.service.impl;
 
-import club.gclmit.chaos.storage.db.mapper.FileMapper;
-import club.gclmit.chaos.storage.db.pojo.FileInfo;
-import club.gclmit.chaos.storage.db.pojo.FileStatus;
-import club.gclmit.chaos.storage.db.service.FileService;
+import club.gclmit.chaos.core.helper.FileHelper;
+import club.gclmit.chaos.starter.mapper.FileMapper;
+import club.gclmit.chaos.starter.service.FileService;
+import club.gclmit.chaos.storage.client.StorageClient;
+import club.gclmit.chaos.storage.properties.FileInfo;
+import club.gclmit.chaos.storage.properties.FileStatus;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.multipart.MultipartFile;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -25,6 +28,26 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
 
     @Autowired
     private FileMapper fileMapper;
+
+    @Autowired
+    private StorageClient storageClient;
+
+    /**
+     *  上传文件
+     *
+     * @author gclm
+     * @param: file
+     * @date 2020/3/24 3:17 下午
+     * @return: club.gclmit.chaos.storage.properties.FileInfo
+     * @throws
+     */
+    @Override
+    public FileInfo uploadFile(MultipartFile file) {
+        File tempFile = FileHelper.multipartFileToFile("", file);
+        FileInfo fileInfo = storageClient.upload(tempFile);
+        save(fileInfo);
+        return fileInfo;
+    }
 
     /**
      *  根据文件 MD5 判断文件是否存在

@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=club.gclmit.chaos.starter.ChaosAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=club.gclmit.chaos.starter.config.ChaosAutoConfiguration
