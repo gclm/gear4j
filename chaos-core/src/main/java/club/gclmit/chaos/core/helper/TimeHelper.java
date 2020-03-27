@@ -93,6 +93,21 @@ public class TimeHelper {
     }
 
     /**
+     * 解析时间戳 --> String
+     *
+     * @author gclm
+     * @param: timestamp
+     * @param: format
+     * @date 2020/3/27 12:03 下午
+     * @return: java.lang.String
+     * @throws
+     */
+    public static String parseTimestampToString(Long timestamp, String format){
+        LocalDateTime localDateTime = parseTimestampToDateTime(timestamp);
+        return parseDateTimeToString(localDateTime,format);
+    }
+
+    /**
      *  LocalDateTime --> 自定义日期格式
      *
      * @author gclm
