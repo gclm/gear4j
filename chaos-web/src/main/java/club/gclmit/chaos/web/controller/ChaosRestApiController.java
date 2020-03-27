@@ -2,10 +2,7 @@ package club.gclmit.chaos.web.controller;
 
 import club.gclmit.chaos.core.constants.LoggerServer;
 import club.gclmit.chaos.core.helper.LoggerHelper;
-import club.gclmit.chaos.core.helper.ObjectHelper;
-import club.gclmit.chaos.web.response.PageResult;
 import club.gclmit.chaos.web.response.Result;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -30,43 +27,10 @@ import java.util.stream.Collectors;
  * @since 1.8
  */
 @RestController
-public abstract class DefaultRestApiController<Service extends IService<T>, T>  implements RestApiController<T> {
+public abstract class ChaosRestApiController<Service extends IService<T>, T>  implements RestApiController<T> {
 
     @Autowired
     protected Service service;
-
-    /**
-     * 分页查询所有数据
-     *
-     * @param query 分页查询对象
-     * @return 所有数据
-     */
-    @GetMapping
-    @ApiOperation(value = "分页查询",httpMethod = "GET")
-    public Result list(QueryCondition query) {
-        LoggerHelper.debug(LoggerServer.CONTROLLER,"分页查询\t:[{}]", ObjectHelper.toString(query));
-        Page<T> pages = service.page(new Page<>(query.getPage(),query.getLimit()));
-        return PageResult.ok(pages.getTotal(),pages.getRecords());
-    }
-
-    /**
-     *  执行添加操作
-     * @author gclm
-     * @param: t  泛型 T
-     * @date 2019/12/17 6:02 下午
-     * @return: club.gclmit.chaos.response.Result
-     * @throws
-     */
-    @ApiOperation(value = "添加数据",notes = "添加数据")
-    @PostMapping
-    public Result create(@Valid @RequestBody T t) {
-        Assert.notNull(t,"添加的操作数据为空");
-        LoggerHelper.info(LoggerServer.CONTROLLER, "添加操作数据:[{}]",t);
-        if (this.service.save(t)) {
-            return Result.ok();
-        }
-        return Result.fail("执行添加操作失败");
-    }
 
     /**
      *  执行更新操作
@@ -151,7 +115,7 @@ public abstract class DefaultRestApiController<Service extends IService<T>, T>  
         }
         List idList = Arrays.asList(ids.split(",")).stream().collect(Collectors.toList());
         if (ids.indexOf("%2C") != -1){
-            idList = Arrays.asList(ids.split("%2C")).stream().collect(Collectors.toList());
+             idList = Arrays.asList(ids.split("%2C")).stream().collect(Collectors.toList());
         }
         boolean remove = this.service.removeByIds(idList);
         if (remove) {
