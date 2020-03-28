@@ -24,23 +24,24 @@ public class TimeTests {
     }
 
     public static void getWeekName(long timestamp,LocalDateTime dateTime){
-        System.out.println(TimeHelper.parseTimestampToWeekName(timestamp));
+        System.out.println(TimeHelper.timestampToWeekName(timestamp));
         System.out.println("=========================================");
-        System.out.println(TimeHelper.parseDateTimeToWeekName(LocalDateTime.now()));
-        System.out.println(TimeHelper.parseDateTimeToWeekName(LocalDateTime.now().plusDays(1L)));
+        System.out.println(TimeHelper.localDateTimeToWeekName(LocalDateTime.now()));
+        System.out.println(TimeHelper.localDateTimeToWeekName(LocalDateTime.now().plusDays(1L)));
+        System.out.println(TimeHelper.localDateTimeToWeekName(LocalDateTime.now().plusDays(2L)));
         System.out.println("=========================================");
 
         long second = dateTime.toEpochSecond(ZoneOffset.of("+8"));
         long second2 = dateTime.toInstant(ZoneOffset.of("+8")).toEpochMilli();
         long milli  =  dateTime.atZone(ZoneId.of("+8")).toInstant().toEpochMilli();
-        System.out.println("second："+ second +"\nsecond2："+ second2 +"\nmilli：" + milli);
+        System.out.println("second："+ second +"\tsecond2："+ second2 +"\tmilli：" + milli);
         System.out.println("=========================================");
-        System.out.println(TimeHelper.parseTimestampToWeekName(second));
+        System.out.println(TimeHelper.timestampToWeekName(second));
         System.out.println("-----------------------------------------");
-        System.out.println(TimeHelper.parseTimestampToWeekName(second2));
+        System.out.println(TimeHelper.timestampToWeekName(second2));
         System.out.println("-----------------------------------------");
-        System.out.println(TimeHelper.parseTimestampToWeekName(milli));
-        System.out.println(TimeHelper.parseTimestampToWeekName(158527486L));
+        System.out.println(TimeHelper.timestampToWeekName(milli));
+        System.out.println(TimeHelper.timestampToWeekName(158527486L));
     }
 }
 
