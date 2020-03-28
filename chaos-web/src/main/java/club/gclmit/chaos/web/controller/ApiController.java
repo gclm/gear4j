@@ -30,21 +30,7 @@ import java.util.stream.Collectors;
  * @since 1.8
  */
 @RestController
-public abstract class DefaultRestApiController<Service extends IService<T>, T>  extends RestApiController<Service, T> {
-
-    /**
-     * 分页查询所有数据
-     *
-     * @param query 分页查询对象
-     * @return 所有数据
-     */
-    @GetMapping
-    @ApiOperation(value = "分页查询",httpMethod = "GET")
-    public Result list(QueryCondition query) {
-        LoggerHelper.debug(LoggerServer.CONTROLLER,"分页查询\t:[{}]", ObjectHelper.toString(query));
-        Page<T> pages = service.page(new Page<>(query.getPage(),query.getLimit()));
-        return PageResult.ok(pages.getTotal(),pages.getRecords());
-    }
+public abstract class ApiController<Service extends IService<T>, T>  extends RestApiController<Service, T>{
 
     /**
      *  执行添加操作
@@ -64,4 +50,5 @@ public abstract class DefaultRestApiController<Service extends IService<T>, T>  
         }
         return Result.fail("执行添加操作失败");
     }
+
 }
