@@ -133,7 +133,7 @@ public class AliyunStorageClient extends StorageClient {
 
         fileInfo.seteTag(eTag);
         fileInfo.setUrl(url);
-        fileInfo.setUploadTime(TimeHelper.toMillis());
+        fileInfo.setUploadTime(TimeHelper.getMilliTimestamp());
         fileInfo.setStatus(FileStatus.UPLOAD_SUCCESS.getId());
 
         return fileInfo;

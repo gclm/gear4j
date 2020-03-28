@@ -157,7 +157,7 @@ public abstract class StorageClient {
         Assert.hasLength(key,"上传文件失败，请检查上传文件的 key 是否正常");
 
         if (StringUtils.isBlank(key)) {
-            key = new StringBuilder().append(TimeHelper.toSeconds()).append(".txt").toString();
+            key = new StringBuilder().append(TimeHelper.getMilliTimestamp()).append(".txt").toString();
         }
         return upload(StrUtil.bytes(content, "UTF-8"),key,fileName);
     }

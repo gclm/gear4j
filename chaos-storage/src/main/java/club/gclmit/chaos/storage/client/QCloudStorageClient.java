@@ -143,7 +143,7 @@ public class QCloudStorageClient extends StorageClient {
 
         fileInfo.setUrl(url);
         fileInfo.seteTag(eTag);
-        fileInfo.setUploadTime(TimeHelper.toMillis());
+        fileInfo.setUploadTime(TimeHelper.getMilliTimestamp());
         fileInfo.setStatus(FileStatus.UPLOAD_SUCCESS.getId());
         return fileInfo;
     }

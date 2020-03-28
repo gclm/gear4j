@@ -70,7 +70,7 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
              * 1. 获取写入数据库的相关参数
              * 2. 拼接参数到 HttpTrace
              */
-            Long requestTime = TimeHelper.toMillis();
+            Long requestTime = TimeHelper.getMilliTimestamp();
             String clientIp =  NetHelper.getClientIp(requestWrapper);
             String userAgent = NetHelper.getUserAgent(requestWrapper);
             String sessionId = NetHelper.getSessionId(requestWrapper);
@@ -113,7 +113,7 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
                 /**
                  * new 一个响应时间计算，请求耗时
                  */
-                Long responseTime = TimeHelper.toMillis();
+                Long responseTime = TimeHelper.getMilliTimestamp();
                 Long time = responseTime - requestTime;
 
                 /**

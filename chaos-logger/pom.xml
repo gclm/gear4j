@@ -11,7 +11,7 @@
 
     <groupId>club.gclmit</groupId>
     <artifactId>chaos-logger</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
 
     <name>${project.artifactId}</name>
     <description>基于拦截器进行日志记录</description>
