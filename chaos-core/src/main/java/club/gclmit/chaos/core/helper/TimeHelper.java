@@ -53,7 +53,7 @@ public class TimeHelper {
      * @return: java.lang.String
      * @throws
      */
-    public static String parseDateTimeToWeekName(LocalDateTime dateTime){
+    public static String localDateTimeToWeekName(LocalDateTime dateTime){
         Assert.notNull(dateTime,"LocalDateTime 不能为空");
         return WEEKS.get(dateTime.getDayOfWeek().getValue());
     }
@@ -67,33 +67,19 @@ public class TimeHelper {
      * @return: java.lang.String
      * @throws
      */
-    public static String parseTimestampToWeekName(Long timestamp){
+    public static String timestampToWeekName(Long timestamp){
         Assert.notNull(timestamp,"时间戳不能为空");
         Integer size = String.valueOf(timestamp).length();
         Assert.isTrue(10 == size || 13 == size,"时间戳格式不对");
         if (10 == size) {
             timestamp *= 1000;
         }
-        LocalDateTime dateTime = parseTimestampToDateTime(timestamp);
+        LocalDateTime dateTime = timestampToLocalDateTime(timestamp);
         return WEEKS.get(dateTime.getDayOfWeek().getValue());
     }
 
     /**
-     *  解析时间戳 --> LocalDateTime
-     *
-     * @author gclm
-     * @param: timestamp
-     * @date 2020/3/27 10:22 上午
-     * @return: java.time.LocalDateTime
-     * @throws
-     */
-    public static LocalDateTime parseTimestampToDateTime(Long timestamp){
-        Instant instant = Instant.ofEpochMilli(timestamp);
-        return LocalDateTime.ofInstant(instant, ZoneId.of(TIME_ZONE_ID));
-    }
-
-    /**
-     * 解析时间戳 --> String
+     * 时间戳 --> String
      *
      * @author gclm
      * @param: timestamp
@@ -102,9 +88,23 @@ public class TimeHelper {
      * @return: java.lang.String
      * @throws
      */
-    public static String parseTimestampToString(Long timestamp, String format){
-        LocalDateTime localDateTime = parseTimestampToDateTime(timestamp);
-        return parseDateTimeToString(localDateTime,format);
+    public static String timestampToString(Long timestamp, String format){
+        LocalDateTime localDateTime = timestampToLocalDateTime(timestamp);
+        return localDateTimeToString(localDateTime,format);
+    }
+
+    /**
+     *  时间戳 --> LocalDateTime
+     *
+     * @author gclm
+     * @param: timestamp
+     * @date 2020/3/27 10:22 上午
+     * @return: java.time.LocalDateTime
+     * @throws
+     */
+    public static LocalDateTime timestampToLocalDateTime(Long timestamp){
+        Instant instant = Instant.ofEpochMilli(timestamp);
+        return LocalDateTime.ofInstant(instant, ZoneId.of(TIME_ZONE_ID));
     }
 
     /**
@@ -117,7 +117,7 @@ public class TimeHelper {
      * @return: java.time.LocalDateTime
      * @throws
      */
-    public static String parseDateTimeToString(LocalDateTime localDateTime, String format) {
+    public static String localDateTimeToString(LocalDateTime localDateTime, String format) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         return localDateTime.format(formatter);
     }
@@ -132,7 +132,7 @@ public class TimeHelper {
      * @return: java.time.LocalDateTime
      * @throws
      */
-    public static LocalDateTime parseStringToDateTime(String time, String format) {
+    public static LocalDateTime stringToLocalDateTime(String time, String format) {
         DateTimeFormatter df = DateTimeFormatter.ofPattern(format);
         return LocalDateTime.parse(time, df);
     }
@@ -145,7 +145,7 @@ public class TimeHelper {
      * @return: java.lang.Long
      * @throws
      */
-    public static Long toSeconds(){
+    public static Long getSecondTimestamp(){
         return LocalDateTime.now().toEpochSecond(ZoneOffset.of(TIME_ZONE_ID));
     }
 
@@ -157,7 +157,7 @@ public class TimeHelper {
      * @return: java.lang.Long
      * @throws
      */
-    public static Long toMillis(){
+    public static Long getMilliTimestamp(){
         return LocalDateTime.now().toInstant(ZoneOffset.of(TIME_ZONE_ID)).toEpochMilli();
     }
 }
