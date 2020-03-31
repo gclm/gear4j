@@ -1,7 +1,8 @@
 package club.gclmit.chaos.starter.config;
 
-import club.gclmit.chaos.core.constants.LoggerServer;
-import club.gclmit.chaos.core.helper.LoggerHelper;
+import club.gclmit.chaos.core.logger.Logger;
+import club.gclmit.chaos.core.logger.LoggerServer;
+import club.gclmit.chaos.core.logger.LoggerHelper;
 import club.gclmit.chaos.storage.CloudStorageFactory;
 import club.gclmit.chaos.storage.client.StorageClient;
 import club.gclmit.chaos.storage.properties.Storage;
@@ -34,10 +35,10 @@ public class ChaosAutoConfiguration {
     @ConditionalOnMissingBean
     @ConditionalOnProperty(prefix = "chaos.storage",value = "enabled",havingValue = "true")
     public StorageClient storageClient (){
-        LoggerHelper.debug(LoggerServer.OSS,"读取 properties的数据:{}",properties);
+        Logger.debug(LoggerServer.CHAOS_STORAGE,"读取 properties的数据:{}",properties);
         Storage storage = new Storage();
         BeanUtils.copyProperties(properties,storage);
-        LoggerHelper.debug(LoggerServer.OSS,"自动注入的storage:{}",storage);
+        Logger.debug(LoggerServer.CHAOS_STORAGE,"自动注入的storage:{}",storage);
         return CloudStorageFactory.build(storage);
     }
 }

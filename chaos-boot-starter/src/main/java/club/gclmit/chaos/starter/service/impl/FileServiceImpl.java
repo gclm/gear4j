@@ -1,6 +1,7 @@
 package club.gclmit.chaos.starter.service.impl;
 
-import club.gclmit.chaos.core.helper.FileHelper;
+import club.gclmit.chaos.core.encrypt.MD5Helper;
+import club.gclmit.chaos.core.file.FileHelper;
 import club.gclmit.chaos.starter.mapper.FileMapper;
 import club.gclmit.chaos.starter.service.FileService;
 import club.gclmit.chaos.storage.client.StorageClient;
@@ -44,8 +45,12 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
     @Override
     public FileInfo uploadFile(MultipartFile file) {
         File tempFile = FileHelper.multipartFileToFile("", file);
-        FileInfo fileInfo = storageClient.upload(tempFile);
-        save(fileInfo);
+        String md5 = new MD5Helper().encode(tempFile);
+        FileInfo fileInfo = queryMD5(md5);
+        if (fileInfo == null) {
+            fileInfo = storageClient.upload(tempFile);
+            save(fileInfo);
+        }
         FileHelper.deleteFile(tempFile);
         return fileInfo;
     }

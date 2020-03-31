@@ -1,7 +1,8 @@
 package club.gclmit.chaos.logger;
 
 import club.gclmit.chaos.core.helper.*;
-import club.gclmit.chaos.core.constants.LoggerServer;
+import club.gclmit.chaos.core.logger.Logger;
+import club.gclmit.chaos.core.logger.LoggerServer;
 import club.gclmit.chaos.logger.db.mapper.LoggerMapper;
 import club.gclmit.chaos.logger.db.pojo.HttpTrace;
 import club.gclmit.chaos.logger.exception.ChaosLoggerException;
@@ -88,7 +89,7 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
             HttpTrace trace = new HttpTrace(clientIp,uri,contentType,method,sessionId,requestTime,requestHeader,userAgent);
 
             try {
-                super.doDispatch(request,response);
+                super.doDispatch(requestWrapper,responseWrapper);
             } finally {
 
                 String requestStr = "";
@@ -133,9 +134,9 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
                 if (logger.isWriteDB()) {
                     LoggerMapper loggerMapper = ObjectHelper.genBean(LoggerMapper.class, requestWrapper);
                     boolean save = DBHelper.retBool(loggerMapper.insert(trace));
-                    LoggerHelper.info(LoggerServer.CHAOS_LOGGER,"当前请求日志入库：{}", save);
+                    Logger.info(LoggerServer.CHAOS_LOGGER,"当前请求日志入库：{}", save);
                 } else {
-                    LoggerHelper.info(LoggerServer.CHAOS_LOGGER,"当前请求日志：{}", trace);
+                    Logger.info(LoggerServer.CHAOS_LOGGER,"当前请求日志：{}", trace);
                 }
             }
         }  else {
