@@ -75,10 +75,10 @@ do
         echo $path  $OSS
         push
     fi
-    # 打包
-    path=$base_path"/chaos-boot-starter"
-    push
+
 done
+path=$base_path"/chaos-boot-starter"
+push
 }
 
 start_menu
