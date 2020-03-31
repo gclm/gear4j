@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.constants;
+package club.gclmit.chaos.core.code;
 
 /**
  * <p>

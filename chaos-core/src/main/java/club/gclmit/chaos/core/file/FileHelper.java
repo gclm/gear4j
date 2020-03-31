@@ -1,13 +1,10 @@
 
-package club.gclmit.chaos.core.helper;
+package club.gclmit.chaos.core.file;
 
-import club.gclmit.chaos.core.constants.FileType;
-import club.gclmit.chaos.core.constants.MimeType;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.*;
 import java.time.Clock;
 

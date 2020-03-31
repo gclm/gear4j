@@ -45,4 +45,5 @@ public class ObjectHelper {
         BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
         return factory.getBean(clazz);
     }
+
 }

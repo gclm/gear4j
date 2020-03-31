@@ -1,7 +1,7 @@
 package club.gclmit.chaos.web.config;
 
-import club.gclmit.chaos.core.constants.LoggerServer;
-import club.gclmit.chaos.core.helper.LoggerHelper;
+import club.gclmit.chaos.core.logger.LoggerServer;
+import club.gclmit.chaos.core.logger.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -34,7 +34,7 @@ public class SwaggerResourceConfig implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        LoggerHelper.info(LoggerServer.SPRING_BOOT,"开启 Swagger 映射\nAPI文档地址：http://localhost:{}/doc.html",port);
+        Logger.info(LoggerServer.SPRING_BOOT,"开启 Swagger 映射\nAPI文档地址：http://localhost:{}/doc.html",port);
         registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }

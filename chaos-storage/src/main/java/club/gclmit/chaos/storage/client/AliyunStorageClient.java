@@ -1,7 +1,7 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.core.constants.LoggerServer;
-import club.gclmit.chaos.core.helper.LoggerHelper;
+import club.gclmit.chaos.core.logger.Logger;
+import club.gclmit.chaos.core.logger.LoggerServer;
 import club.gclmit.chaos.core.helper.TimeHelper;
 import club.gclmit.chaos.storage.properties.*;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
@@ -49,7 +49,7 @@ public class AliyunStorageClient extends StorageClient {
         super(storage);
         if(storage.getType() == StorageServer.ALIYUN) {
             cloudStorage = storage.getConfig();
-            LoggerHelper.debug(LoggerServer.OSS,"阿里云配置参数:[{}]",storage);
+            Logger.debug(LoggerServer.CHAOS_STORAGE,"阿里云配置参数:[{}]",storage);
             // 创建OSSClient实例
             ossClient = new OSSClientBuilder().build(cloudStorage.getEndpoint(),cloudStorage.getAccessKeyId(),cloudStorage.getAccessKeySecret());
         } else {

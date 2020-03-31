@@ -1,14 +1,13 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.core.constants.MimeType;
-import club.gclmit.chaos.core.helper.FileHelper;
+import club.gclmit.chaos.core.encrypt.MD5Helper;
+import club.gclmit.chaos.core.file.MimeType;
+import club.gclmit.chaos.core.file.FileHelper;
 import club.gclmit.chaos.core.helper.IDHelper;
 import club.gclmit.chaos.core.helper.TimeHelper;
 import club.gclmit.chaos.storage.properties.FileInfo;
 import club.gclmit.chaos.storage.properties.Storage;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.SecureUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 import java.io.*;
@@ -102,7 +101,7 @@ public abstract class StorageClient {
          */
         String key = getPath(storage.getConfig().getPrefix(), FileHelper.getSuffix(file));
         String contentType = FileHelper.getContentType(file);
-        String md5 = SecureUtil.md5(file);
+        String md5 = new MD5Helper().encode(file);
 
         return upload(fileInputStream,new FileInfo(file.getName(),contentType,file.length(), md5,key,storage.getType().getId()));
     }
@@ -127,7 +126,7 @@ public abstract class StorageClient {
          * 根据工具类获取 fileInfo 参数
          */
         String contentType = MimeType.TXT.getMimeType();
-        String md5  = SecureUtil.md5(StrUtil.str(data, "UTF-8"));
+        String md5  = new MD5Helper().encode(data);
         Long size = Long.valueOf(String.valueOf(data.length));
 
         /**
@@ -159,7 +158,11 @@ public abstract class StorageClient {
         if (StringUtils.isBlank(key)) {
             key = new StringBuilder().append(TimeHelper.getMilliTimestamp()).append(".txt").toString();
         }
-        return upload(StrUtil.bytes(content, "UTF-8"),key,fileName);
+        try {
+            return upload(content.getBytes("UTF-8"),key,fileName);
+        } catch (UnsupportedEncodingException e) {
+            throw new ChaosStorageException("String --> Bytes 编码出现问题");
+        }
     }
 
     /**

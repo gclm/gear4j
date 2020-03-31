@@ -1,23 +1,17 @@
 package club.gclmit.chaos.web.controller;
 
-import club.gclmit.chaos.core.constants.LoggerServer;
-import club.gclmit.chaos.core.helper.LoggerHelper;
+import club.gclmit.chaos.core.logger.LoggerServer;
+import club.gclmit.chaos.core.logger.Logger;
 import club.gclmit.chaos.core.helper.ObjectHelper;
 import club.gclmit.chaos.web.response.PageResult;
 import club.gclmit.chaos.web.response.Result;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -41,7 +35,7 @@ public abstract class DefaultRestApiController<Service extends IService<T>, T>  
     @GetMapping
     @ApiOperation(value = "分页查询",httpMethod = "GET")
     public Result list(QueryCondition query) {
-        LoggerHelper.debug(LoggerServer.CONTROLLER,"分页查询\t:[{}]", ObjectHelper.toString(query));
+        Logger.info(LoggerServer.CONTROLLER,"分页查询\t:[{}]", ObjectHelper.toString(query));
         Page<T> pages = service.page(new Page<>(query.getPage(),query.getLimit()));
         return PageResult.ok(pages.getTotal(),pages.getRecords());
     }
@@ -58,7 +52,7 @@ public abstract class DefaultRestApiController<Service extends IService<T>, T>  
     @PostMapping
     public Result create(@Valid @RequestBody T t) {
         Assert.notNull(t,"添加的操作数据为空");
-        LoggerHelper.info(LoggerServer.CONTROLLER, "添加操作数据:[{}]",t);
+        Logger.info(LoggerServer.CONTROLLER, "添加操作数据:[{}]",t);
         if (this.service.save(t)) {
             return Result.ok();
         }

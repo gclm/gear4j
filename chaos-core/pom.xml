@@ -12,7 +12,7 @@
 
     <groupId>club.gclmit</groupId>
     <artifactId>chaos-core</artifactId>
-    <version>1.0.8</version>
+    <version>1.1.0</version>
 
     <name>${project.artifactId}</name>
     <description>核心工具类</description>
@@ -82,11 +82,6 @@
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
         </dependency>
 
     </dependencies>

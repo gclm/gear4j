@@ -1,9 +1,9 @@
 package club.gclmit.chaos.core;
 
-import club.gclmit.chaos.core.constants.QRCodeConfig;
-import club.gclmit.chaos.core.helper.LoggerHelper;
-import club.gclmit.chaos.core.helper.QRCodeHelper;
-import club.gclmit.chaos.core.constants.LoggerServer;
+import club.gclmit.chaos.core.code.QRCodeConfig;
+import club.gclmit.chaos.core.code.QRCodeHelper;
+import club.gclmit.chaos.core.logger.Logger;
+import club.gclmit.chaos.core.logger.LoggerServer;
 import com.google.zxing.NotFoundException;
 import com.google.zxing.WriterException;
 import org.springframework.util.Assert;
@@ -46,7 +46,7 @@ public class QRCodeHelperTest {
 
         String path = System.getProperty("user.dir");
         String filePath = new StringBuilder(path).append("//src//test//resources//").toString();
-        LoggerHelper.info(LoggerServer.File,"当前项目路径:{}\t文件路径:{}",path,filePath);
+        Logger.info(LoggerServer.CHAOS_CORE,"当前项目路径:{}\t文件路径:{}",path,filePath);
 
         File file = new File(filePath, "alipay.jpg");
         System.out.println();

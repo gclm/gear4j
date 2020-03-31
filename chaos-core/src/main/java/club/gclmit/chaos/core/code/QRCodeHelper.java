@@ -1,15 +1,17 @@
-package club.gclmit.chaos.core.helper;
+package club.gclmit.chaos.core.code;
 
-
-import club.gclmit.chaos.core.constants.QRCodeConfig;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
-import club.gclmit.chaos.core.constants.LoggerServer;
+import club.gclmit.chaos.core.file.FileHelper;
+import club.gclmit.chaos.core.helper.IDHelper;
+import club.gclmit.chaos.core.logger.Logger;
+import club.gclmit.chaos.core.logger.LoggerServer;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import org.springframework.util.Assert;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -189,7 +191,7 @@ public class QRCodeHelper {
                 String path = qrCode.getGeneartePath();
                 String id = IDHelper.getStringId();
 
-                LoggerHelper.info(LoggerServer.File, "配置的文件路径:{}", path);
+                Logger.info(LoggerServer.CHAOS_CORE, "配置的文件路径:{}", path);
 
                 StringBuilder filePath = new StringBuilder();
 
@@ -202,7 +204,7 @@ public class QRCodeHelper {
                 filePath.append(id).append(".").append(qrCode.getSuffix());
                 File codeImgFile = FileHelper.autoJudgeFile(filePath.toString());
 
-                LoggerHelper.info(LoggerServer.File, "生成的文件路径:{}", codeImgFile.getPath());
+                Logger.info(LoggerServer.CHAOS_CORE, "生成的文件路径:{}", codeImgFile.getPath());
 
                 ImageIO.write(bufferedImage, QRCodeConfig.IMAGE_FORMAT_NAME, codeImgFile);
 

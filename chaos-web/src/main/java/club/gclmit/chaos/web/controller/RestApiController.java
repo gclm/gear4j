@@ -1,7 +1,7 @@
 package club.gclmit.chaos.web.controller;
 
-import club.gclmit.chaos.core.constants.LoggerServer;
-import club.gclmit.chaos.core.helper.LoggerHelper;
+import club.gclmit.chaos.core.logger.LoggerServer;
+import club.gclmit.chaos.core.logger.Logger;
 import club.gclmit.chaos.web.response.Result;
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.swagger.annotations.ApiOperation;
@@ -10,7 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +43,7 @@ public abstract class RestApiController<Service extends IService<T>, T>{
     @PutMapping
     public Result update(@Valid @RequestBody T t){
         Assert.notNull(t,"添加的操作数据为空");
-        LoggerHelper.info(LoggerServer.CONTROLLER, "更新操作数据:[{}]",t);
+        Logger.info(LoggerServer.CONTROLLER, "更新操作数据:[{}]",t);
         if (this.service.updateById(t)) {
             return Result.ok();
         }
@@ -64,7 +63,7 @@ public abstract class RestApiController<Service extends IService<T>, T>{
     @DeleteMapping("/{id:\\d+}")
     public Result delete(@PathVariable String id) {
         Assert.notNull(id,"id不能为空");
-        LoggerHelper.info(LoggerServer.CONTROLLER, "删除操作数据ID:[{}]",id);
+        Logger.info(LoggerServer.CONTROLLER, "删除操作数据ID:[{}]",id);
         if (this.service.removeById(id)) {
             return Result.ok();
         }
@@ -84,7 +83,7 @@ public abstract class RestApiController<Service extends IService<T>, T>{
     @GetMapping("/{id:\\d+}")
     public Result getInfo(@PathVariable String id) {
         Assert.notNull(id,"id不能为空");
-        LoggerHelper.info(LoggerServer.CONTROLLER, "根据Id:[{}]查询数据详情",id);
+        Logger.info(LoggerServer.CONTROLLER, "根据Id:[{}]查询数据详情",id);
         T t = this.service.getById(id);
         if (t != null) {
             return Result.ok(t);
@@ -105,7 +104,7 @@ public abstract class RestApiController<Service extends IService<T>, T>{
     @DeleteMapping("/batch")
     public Result batchDelete(@RequestBody String ids){
         Assert.notNull(ids,"ids不能为空");
-        LoggerHelper.info(LoggerServer.CONTROLLER, "批量删除，ids:{}",ids);
+        Logger.info(LoggerServer.CONTROLLER, "批量删除，ids:{}",ids);
         if (StringUtils.startsWithIgnoreCase(ids,"idsStr=")){
             ids = StringUtils.removeStart(ids,"idsStr=");
         }

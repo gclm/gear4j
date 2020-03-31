@@ -45,21 +45,7 @@ public class TimeHelper {
     }
 
     /**
-     *  获取当前星期名字
-     *
-     * @author gclm
-     * @param: dateTime
-     * @date 2020/3/27 10:10 上午
-     * @return: java.lang.String
-     * @throws
-     */
-    public static String localDateTimeToWeekName(LocalDateTime dateTime){
-        Assert.notNull(dateTime,"LocalDateTime 不能为空");
-        return WEEKS.get(dateTime.getDayOfWeek().getValue());
-    }
-
-    /**
-     *  获取当前星期名字
+     *  时间戳 --> 星期 ？
      *
      * @author gclm
      * @param: timestamp
@@ -108,6 +94,20 @@ public class TimeHelper {
     }
 
     /**
+     * LocalDateTime --> 星期 ？
+     *
+     * @author gclm
+     * @param: dateTime
+     * @date 2020/3/27 10:10 上午
+     * @return: java.lang.String
+     * @throws
+     */
+    public static String localDateTimeToWeekName(LocalDateTime dateTime){
+        Assert.notNull(dateTime,"LocalDateTime 不能为空");
+        return WEEKS.get(dateTime.getDayOfWeek().getValue());
+    }
+
+    /**
      *  LocalDateTime --> 自定义日期格式
      *
      * @author gclm
@@ -150,6 +150,19 @@ public class TimeHelper {
     }
 
     /**
+     *  获取秒时间戳
+     *
+     * @author gclm
+     * @param: dateTime
+     * @date 2020/3/28 11:16 上午
+     * @return: java.lang.Long
+     * @throws
+     */
+    public static Long getSecondTimestamp(LocalDateTime dateTime){
+        return dateTime.toEpochSecond(ZoneOffset.of(TIME_ZONE_ID));
+    }
+
+    /**
      *  获取耗秒时间戳
      *
      * @author gclm
@@ -159,5 +172,18 @@ public class TimeHelper {
      */
     public static Long getMilliTimestamp(){
         return LocalDateTime.now().toInstant(ZoneOffset.of(TIME_ZONE_ID)).toEpochMilli();
+    }
+
+    /**
+     *  获取耗秒时间戳
+     *
+     * @author gclm
+     * @param: dateTime
+     * @date 2020/3/28 11:15 上午
+     * @return: java.lang.Long
+     * @throws
+     */
+    public static Long getMilliTimestamp(LocalDateTime dateTime){
+        return dateTime.toInstant(ZoneOffset.of(TIME_ZONE_ID)).toEpochMilli();
     }
 }

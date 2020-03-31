@@ -1,8 +1,5 @@
-package club.gclmit.chaos.core.helper;
+package club.gclmit.chaos.core.logger;
 
-
-import club.gclmit.chaos.core.constants.LoggerServer;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MessageFormatter;
@@ -17,10 +14,10 @@ import org.slf4j.helpers.MessageFormatter;
  * @version: V1.0
  * @since 1.8
  */
-public class LoggerHelper {
+public class Logger {
 
     // 当前日志类名
-    private final static String logClassName = LoggerHelper.class.getName();
+    private final static String logClassName = Logger.class.getName();
 
     /**
      * 获取最原始被调用的堆栈信息
@@ -73,6 +70,10 @@ public class LoggerHelper {
 
         // 取出被调用对象的类名，并构造一个Logger对象返回
         return LoggerFactory.getLogger(caller.getClassName());
+    }
+
+    public static void trace(LoggerServer loggerServer, String format, Object... arguments) {
+        log().trace(buildMessage(loggerServer, format, arguments));
     }
 
     public static void info(LoggerServer loggerServer, String format, Object... arguments) {

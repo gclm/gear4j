@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.constants;
+package club.gclmit.chaos.core.logger;
 
 /**
  * <p>
@@ -12,6 +12,6 @@ package club.gclmit.chaos.core.constants;
  */
 public enum LoggerLevel {
 
-    TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF
+    TRACE, DEBUG, INFO, WARN, ERROR
 
 }

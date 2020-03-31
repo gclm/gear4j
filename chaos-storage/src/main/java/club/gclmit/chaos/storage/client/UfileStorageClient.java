@@ -1,7 +1,7 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.core.constants.LoggerServer;
-import club.gclmit.chaos.core.helper.LoggerHelper;
+import club.gclmit.chaos.core.logger.Logger;
+import club.gclmit.chaos.core.logger.LoggerServer;
 import club.gclmit.chaos.core.helper.TimeHelper;
 import club.gclmit.chaos.storage.properties.*;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
@@ -61,7 +61,7 @@ public class UfileStorageClient extends StorageClient {
      */
     public UfileStorageClient(Storage storage) {
         super(storage);
-        LoggerHelper.debug(LoggerServer.OSS,"[Ufile]配置参数:[{}]",storage);
+        Logger.debug(LoggerServer.CHAOS_STORAGE,"[Ufile]配置参数:[{}]",storage);
         if(storage.getType() == StorageServer.UFILE) {
             cloudStorage = storage.getConfig();
             if (StringUtils.isBlank(cloudStorage.getEndpoint())){

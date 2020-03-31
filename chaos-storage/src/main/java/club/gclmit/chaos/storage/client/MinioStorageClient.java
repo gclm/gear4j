@@ -1,7 +1,7 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.core.constants.LoggerServer;
-import club.gclmit.chaos.core.helper.LoggerHelper;
+import club.gclmit.chaos.core.logger.Logger;
+import club.gclmit.chaos.core.logger.LoggerServer;
 import club.gclmit.chaos.core.helper.TimeHelper;
 import club.gclmit.chaos.storage.properties.*;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
@@ -48,7 +48,7 @@ public class MinioStorageClient  extends StorageClient {
 
         if(storage.getType() == StorageServer.MINIO) {
             cloudStorage = storage.getConfig();
-            LoggerHelper.debug(LoggerServer.OSS,"Minio配置参数:[{}]",storage);
+            Logger.debug(LoggerServer.CHAOS_STORAGE,"Minio配置参数:[{}]",storage);
             // 创建minioClient实例
             try {
                 minioClient = new MinioClient(cloudStorage.getEndpoint(), cloudStorage.getAccessKeyId(),cloudStorage.getAccessKeySecret());

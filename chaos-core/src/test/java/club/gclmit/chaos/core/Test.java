@@ -1,6 +1,6 @@
 package club.gclmit.chaos.core;
 
-import club.gclmit.chaos.core.constants.MimeType;
+import club.gclmit.chaos.core.file.MimeType;
 import org.apache.commons.lang3.StringUtils;
 import java.io.*;
 import java.util.ArrayList;

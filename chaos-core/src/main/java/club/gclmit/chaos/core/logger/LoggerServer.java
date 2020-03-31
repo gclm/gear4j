@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.constants;
+package club.gclmit.chaos.core.logger;
 
 /**
  * <p>
@@ -39,16 +39,18 @@ public enum LoggerServer {
     FASTJSON("FastJSON"),
     WEBSOCKET("WebSocket"),
     OKHTTP("OkHttp"),
-    HTTPCLIENT("httpclient"),
-
+    HTTPCLIENT("Httpclient"),
 
     // ~ Chaos 组件
     // ===================================================================================================
 
+    CHAOS_CORE("Chaos Core"),
     CHAOS_DB("Chaos DB"),
     CHAOS_STORAGE("Chaos Storage"),
     CHAOS_SECURITY("Chaos Security"),
     CHAOS_LOGGER("Chaos Logger"),
+    CHAOS_WEB("Chaos Web"),
+    CHAOS_ANNOTATIONS("Chaos annotations"),
 
     // ~ MVC 架构
     // ===================================================================================================
@@ -56,16 +58,11 @@ public enum LoggerServer {
     CONTROLLER("Controller"),
     SERVICE("Service"),
     MAPPER("Mapper"),
+    UTILS("Utils"),
+    HELPER("Helper"),
     INTERCETOR("Intercetor"),
     FILTER("Filter"),
-    ASPECT("Aspect"),
-
-
-    // ~ 文件管理相关业务
-    // ===================================================================================================
-
-    File("File"),
-    OSS("OSS");
+    ASPECT("Aspect");
 
     private String key;
 
