@@ -1,7 +1,7 @@
 package club.gclmit.chaos.core;
 
-import club.gclmit.chaos.core.code.QRCodeConfig;
-import club.gclmit.chaos.core.code.QRCodeHelper;
+import club.gclmit.chaos.core.qrcode.QRCodeConfig;
+import club.gclmit.chaos.core.qrcode.QRCodeHelper;
 import club.gclmit.chaos.core.logger.Logger;
 import club.gclmit.chaos.core.logger.LoggerServer;
 import com.google.zxing.NotFoundException;

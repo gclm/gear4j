@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.code;
+package club.gclmit.chaos.core.qrcode;
 
 /**
  * <p>
