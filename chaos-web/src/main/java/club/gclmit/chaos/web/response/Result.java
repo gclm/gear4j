@@ -1,6 +1,7 @@
 package club.gclmit.chaos.web.response;
 
 
+import club.gclmit.chaos.core.helper.TimeHelper;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.StringUtils;
@@ -18,7 +19,7 @@ import java.util.Map;
 @ApiModel(value = "通用消息响应", description = "通用消息响应")
 public class Result {
 
-    private static String TIMESTAMP =  String.valueOf(Clock.systemDefaultZone().millis());
+    private static String TIMESTAMP =  String.valueOf(TimeHelper.getMilliTimestamp());
 
     /**
      * 响应状态码
@@ -57,16 +58,16 @@ public class Result {
         return fail("");
     }
 
-    public static Result result(StatusCode statusCode, Object data) {
-        return result(statusCode, null, data);
+    public static Result result(ApiCode apiCode, Object data) {
+        return result(apiCode, null, data);
     }
 
-    public static Result result(StatusCode statusCode, String msg, Object data) {
-        String message = statusCode.getMessage();
+    public static Result result(ApiCode apiCode, String msg, Object data) {
+        String message = apiCode.getMessage();
         if (StringUtils.isNotBlank(msg)) {
             message = msg;
         }
-        return new Result(statusCode.getCode(), message, data);
+        return new Result(apiCode.getCode(), message, data);
     }
 
     public static Result ok() {
@@ -74,11 +75,11 @@ public class Result {
     }
 
     public static Result ok(Object data) {
-        return result(StatusCode.OK, data);
+        return result(ApiCode.OK, data);
     }
 
     public static Result ok(String message,Object data) {
-        return result(StatusCode.OK, message, data);
+        return result(ApiCode.OK, message, data);
     }
 
     public static Result ok(Integer code, String message,Object data) {
@@ -92,22 +93,22 @@ public class Result {
     }
 
     public static Result fail() {
-        return fail(StatusCode.FAIL);
+        return fail(ApiCode.FAIL);
     }
 
     public static Result fail(String message) {
-        return result(StatusCode.FAIL, message, null);
+        return result(ApiCode.FAIL, message, null);
     }
 
-    public static Result fail(StatusCode statusCode) {
-        return result(statusCode, null);
+    public static Result fail(ApiCode apiCode) {
+        return result(apiCode, null);
     }
 
-    public static Result fail(StatusCode statusCode, Object data) {
-        if (StatusCode.OK == statusCode) {
-            throw new RuntimeException("失败结果状态码不能为：" + statusCode.getCode());
+    public static Result fail(ApiCode apiCode, Object data) {
+        if (ApiCode.OK == apiCode) {
+            throw new RuntimeException("失败结果状态码不能为：" + apiCode.getCode());
         }
-        return result(statusCode, data);
+        return result(apiCode, data);
     }
 
     public static Result fail(Integer code, String message) {
@@ -115,7 +116,7 @@ public class Result {
     }
 
     public static Result fail(String message,Object data) {
-        return new Result(StatusCode.FAIL.getCode(), message, data);
+        return new Result(ApiCode.FAIL.getCode(), message, data);
     }
 
     public static Result fail(Integer code, String message,Object data) {
@@ -125,7 +126,7 @@ public class Result {
     public static Result failMap(String key, String value) {
         Map<String, Object> map = new HashMap<>();
         map.put(key, value);
-        return result(StatusCode.FAIL, map);
+        return result(ApiCode.FAIL, map);
     }
 
     public static String getTIMESTAMP() {
