@@ -39,6 +39,9 @@ public class QueryCondition implements Serializable {
     @ApiModelProperty(value = "排序",required = false,example = "0")
     private int sort;
 
+    @ApiModelProperty(value = "json类型的查询参数")
+    private String params;
+
     public Long getPage() {
         return page;
     }
@@ -63,4 +66,11 @@ public class QueryCondition implements Serializable {
         this.sort = sort;
     }
 
+    public String getParams() {
+        return params;
+    }
+
+    public void setParams(String params) {
+        this.params = params;
+    }
 }

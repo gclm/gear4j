@@ -1,106 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
+    <parent>
+        <groupId>club.gclmit</groupId>
+        <artifactId>chaos-dependencies</artifactId>
+        <version>1.1.0</version>
+    </parent>
+
     <groupId>club.gclmit</groupId>
-    <artifactId>chaos-dependencies</artifactId>
-    <version>1.1.0</version>
-  </parent>
+    <artifactId>chaos-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.4</version>
 
-  <groupId>club.gclmit</groupId>
-  <artifactId>chaos-parent</artifactId>
-  <packaging>pom</packaging>
-  <version>1.0.4</version>
+    <name>${project.artifactId}</name>
+    <url>https://blog.gclmit.club/</url>
 
-  <name>${project.artifactId}</name>
-  <url>https://blog.gclmit.club/</url>
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.version>3.8.1</maven.compiler.version>
 
-  <properties>
-    <java.version>1.8</java.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <maven.compiler.version>3.8.1</maven.compiler.version>
+        <!--  自建  -->
+        <chaos.security.core.version>1.0.0</chaos.security.core.version>
+        <chaos.security.session.version>1.0.0</chaos.security.session.version>
+        <chaos.security.token.version>1.0.0</chaos.security.token.version>
+        <chaos.core.version>1.1.2</chaos.core.version>
+        <chaos.logger.version>1.0.7</chaos.logger.version>
+        <chaos.storage.version>1.3.6</chaos.storage.version>
+        <chaos.web.version>1.1.5</chaos.web.version>
+        <chaos.annotations.version>1.1.0</chaos.annotations.version>
+        <chaos.starter.version>1.0.6</chaos.starter.version>
 
-    <!--  自建  -->
-    <chaos.security.version>1.0.0-SNAPSHOT</chaos.security.version>
-    <chaos.core.version>1.1.1</chaos.core.version>
-    <chaos.logger.version>1.0.7</chaos.logger.version>
-    <chaos.storage.version>1.3.4</chaos.storage.version>
-    <chaos.web.version>1.1.5</chaos.web.version>
-    <chaos.annotations.version>1.1.0</chaos.annotations.version>
-    <chaos.starter.version>1.0.6</chaos.starter.version>
+        <!-- Spring Boot/Cloud -->
+        <spring.boot.version>2.2.2.RELEASE</spring.boot.version>
+        <spring.cloud.version>Hoxton.SR1</spring.cloud.version>
 
-    <!-- Spring Boot/Cloud -->
-    <spring.boot.version>2.2.2.RELEASE</spring.boot.version>
-    <spring.cloud.version>Hoxton.SR1</spring.cloud.version>
+    </properties>
 
-  </properties>
+    <dependencyManagement>
+        <dependencies>
 
-  <dependencyManagement>
-    <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
-      <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-dependencies</artifactId>
-        <version>${spring.cloud.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>${spring.boot.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
+            <!--
+            ===========================================================
+                                        自建
+            ===========================================================
+            -->
 
-      <!--
-      ===========================================================
-                                  自建
-      ===========================================================
-      -->
-      <dependency>
-        <groupId>club.gclmit</groupId>
-        <artifactId>chaos-boot-starter</artifactId>
-        <version>${chaos.starter.version}</version>
-      </dependency>
+            <!--            security   -->
 
-      <dependency>
-        <groupId>club.gclmit</groupId>
-        <artifactId>chaos-core</artifactId>
-        <version>${chaos.core.version}</version>
-      </dependency>
+            <dependency>
+                <groupId>club.gclmit</groupId>
+                <artifactId>chaos-security-session</artifactId>
+                <version>${chaos.security.session.version}</version>
+            </dependency>
 
-      <dependency>
-        <groupId>club.gclmit</groupId>
-        <artifactId>chaos-annotations</artifactId>
-        <version>${chaos.annotations.version}</version>
-      </dependency>
+            <dependency>
+                <groupId>club.gclmit</groupId>
+                <artifactId>chaos-security-token</artifactId>
+                <version>${chaos.security.token.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.gclmit</groupId>
+                <artifactId>chaos-security-core</artifactId>
+                <version>${chaos.security.core.version}</version>
+            </dependency>
 
 
-      <dependency>
-        <groupId>club.gclmit</groupId>
-        <artifactId>chaos-logger</artifactId>
-        <version>${chaos.logger.version}</version>
-      </dependency>
+            <!--            commons   -->
+            <dependency>
+                <groupId>club.gclmit</groupId>
+                <artifactId>chaos-boot-starter</artifactId>
+                <version>${chaos.starter.version}</version>
+            </dependency>
 
-      <dependency>
-        <groupId>club.gclmit</groupId>
-        <artifactId>chaos-storage</artifactId>
-        <version>${chaos.storage.version}</version>
-      </dependency>
-      
-      <dependency>
-        <groupId>club.gclmit</groupId>
-        <artifactId>chaos-web</artifactId>
-        <version>${chaos.web.version}</version>
-      </dependency>
-      
-    </dependencies>
-  </dependencyManagement>
+            <dependency>
+                <groupId>club.gclmit</groupId>
+                <artifactId>chaos-core</artifactId>
+                <version>${chaos.core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.gclmit</groupId>
+                <artifactId>chaos-annotations</artifactId>
+                <version>${chaos.annotations.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.gclmit</groupId>
+                <artifactId>chaos-logger</artifactId>
+                <version>${chaos.logger.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.gclmit</groupId>
+                <artifactId>chaos-storage</artifactId>
+                <version>${chaos.storage.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.gclmit</groupId>
+                <artifactId>chaos-web</artifactId>
+                <version>${chaos.web.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
 
 </project>

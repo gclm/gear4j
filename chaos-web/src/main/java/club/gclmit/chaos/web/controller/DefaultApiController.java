@@ -10,7 +10,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 
 /**
@@ -24,7 +23,7 @@ import javax.validation.Valid;
  * @since 1.8
  */
 @RestController
-public abstract class DefaultRestApiController<Service extends IService<T>, T>  extends RestApiController<Service, T> {
+public abstract class DefaultApiController<Service extends IService<T>, T>  extends ApiController<Service, T> {
 
     /**
      * 分页查询所有数据

@@ -29,11 +29,21 @@ import java.util.List;
 public class AliyunStorageClient extends StorageClient {
 
     /**
+     * 阿里云域名
+     */
+    private static final String ALIYUN_DOMAIN_SUFFIX = ".aliyuncs.com";
+
+    /**
      * 阿里云 OSS客户端
      */
     private OSS ossClient;
 
     private CloudStorage cloudStorage;
+
+    /**
+     * 阿里云节点地址
+     */
+    private String endpoint;
 
     /**
      * <p>
@@ -49,9 +59,10 @@ public class AliyunStorageClient extends StorageClient {
         super(storage);
         if(storage.getType() == StorageServer.ALIYUN) {
             cloudStorage = storage.getConfig();
+            endpoint = cloudStorage.getRegion() + ALIYUN_DOMAIN_SUFFIX;
             Logger.debug(LoggerServer.CHAOS_STORAGE,"阿里云配置参数:[{}]",storage);
             // 创建OSSClient实例
-            ossClient = new OSSClientBuilder().build(cloudStorage.getEndpoint(),cloudStorage.getAccessKeyId(),cloudStorage.getAccessKeySecret());
+            ossClient = new OSSClientBuilder().build(endpoint,cloudStorage.getAccessKeyId(),cloudStorage.getAccessKeySecret());
         } else {
             throw new ChaosStorageException("[阿里云OSS]上传文件失败，请检查 阿里云OSS 配置");
         }
@@ -108,7 +119,6 @@ public class AliyunStorageClient extends StorageClient {
         Assert.notNull(inputStream,"[阿里云OSS]上传文件失败，请检查 inputStream 是否正常");
         Assert.hasLength(fileInfo.getOssKey(),"[阿里云OSS]上传文件失败，请检查上传文件的 key 是否正常");
 
-
         String key = fileInfo.getOssKey();
 
         String url = null;
@@ -122,9 +132,17 @@ public class AliyunStorageClient extends StorageClient {
         }
 
         if (key != null) {
-            // 拼接文件访问路径。由于拼接的字符串大多为String对象，而不是""的形式，所以直接用+拼接的方式没有优势
-            StringBuffer path = new StringBuffer();
-            path.append(cloudStorage.getProtocol()).append("://").append(cloudStorage.getBucket()).append(".").append(cloudStorage.getEndpoint()).append("/").append(key);
+            /**
+             *  拼接文件访问路径。由于拼接的字符串大多为String对象，而不是""的形式，所以直接用+拼接的方式没有优势
+             *  2020.04.09 补充，jdk8之后 + 底层采用 StringBuilder 和 + 没有什么区别，但是建议使用StringBuilder
+             */
+            StringBuilder path = new StringBuilder();
+            if (StringUtils.isNotBlank(cloudStorage.getEndpoint())){
+                endpoint = cloudStorage.getEndpoint();
+            } else {
+                endpoint = new StringBuilder(cloudStorage.getBucket()).append(".").append(endpoint).toString();
+            }
+            path.append(cloudStorage.getProtocol()).append("://").append(endpoint).append("/").append(key);
             if (StringUtils.isNotBlank(cloudStorage.getStyleName())) {
                 path.append(cloudStorage.getStyleName());
             }
@@ -135,7 +153,6 @@ public class AliyunStorageClient extends StorageClient {
         fileInfo.setUrl(url);
         fileInfo.setUploadTime(TimeHelper.getMilliTimestamp());
         fileInfo.setStatus(FileStatus.UPLOAD_SUCCESS.getId());
-
         return fileInfo;
     }
 }
