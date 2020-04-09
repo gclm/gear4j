@@ -1,5 +1,7 @@
 package club.gclmit.chaos.core.encrypt;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import org.apache.commons.lang3.StringUtils;
 import java.io.*;
@@ -16,25 +18,23 @@ import java.io.*;
  */
 public abstract class Codec {
 
-    private final static String DEFAULT_CHARSET = "UTF-8";
-
     /**
      * 加密算法的核心，实现加密先集成这个接口
      *
+     * @throws
      * @author gclm
      * @date 2020/3/31 2:51 PM
-     * @throws
      */
     public abstract String encode(byte[] data);
 
     /**
-     *  默认为 UTF-8的编码格式加密
+     * 默认为 UTF-8的编码格式加密
      *
+     * @throws
      * @author gclm
      * @param: str
      * @date 2020/3/31 2:52 PM
      * @return: java.lang.String
-     * @throws
      */
     public String encode(String str) {
         return encode(str, null);
@@ -43,56 +43,51 @@ public abstract class Codec {
     /**
      * 自定义编码格式加密
      *
+     * @throws
      * @author gclm
      * @param: str     内容
      * @param: charset 编码格式
      * @date 2020/3/31 2:52 PM
      * @return: java.lang.String
-     * @throws
      */
     public String encode(String str, String charset) {
-
-        try {
-            String result = null;
-            if (StringUtils.isNotEmpty(charset)) {
-                result = encode(str.getBytes(charset));
-            } else {
-                result = encode(str.getBytes(DEFAULT_CHARSET));
-            }
-            return result;
-        } catch (UnsupportedEncodingException e) {
-            throw new ChaosCoreException("String --> byte发生编码错误", e);
+        String result = null;
+        if (StringUtils.isNotEmpty(charset)) {
+            result = encode(str.getBytes(Charset.forName(charset)));
+        } else {
+            result = encode(str.getBytes(StandardCharsets.UTF_8));
         }
+        return result;
     }
 
     /**
-     *  文件加密
+     * 文件加密
      *
+     * @throws
      * @author gclm
      * @param: file
      * @date 2020/3/31 2:56 PM
      * @return: java.lang.String
-     * @throws
      */
-    public String encode(File file){
+    public String encode(File file) {
 
         try {
             return encode(new FileInputStream(file));
         } catch (FileNotFoundException e) {
-            throw new ChaosCoreException("当前文件不存在",e);
+            throw new ChaosCoreException("当前文件不存在", e);
         }
     }
 
     /**
-     *  输入流加密
+     * 输入流加密
      *
+     * @throws
      * @author gclm
      * @param: in
      * @date 2020/3/31 2:56 PM
      * @return: java.lang.String
-     * @throws
      */
-    public String encode(InputStream in){
+    public String encode(InputStream in) {
 
         byte[] data = null;
         try {
@@ -107,7 +102,7 @@ public abstract class Codec {
             in.close();
             return encode(data);
         } catch (IOException e) {
-            throw new ChaosCoreException("readFileBytes, err",e);
+            throw new ChaosCoreException("readFileBytes, err", e);
         }
     }
 
