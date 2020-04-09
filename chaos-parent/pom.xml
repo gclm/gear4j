@@ -31,7 +31,7 @@
         <chaos.core.version>1.1.2</chaos.core.version>
         <chaos.logger.version>1.0.7</chaos.logger.version>
         <chaos.storage.version>1.3.6</chaos.storage.version>
-        <chaos.web.version>1.1.5</chaos.web.version>
+        <chaos.web.version>1.1.6</chaos.web.version>
         <chaos.annotations.version>1.1.0</chaos.annotations.version>
         <chaos.starter.version>1.0.6</chaos.starter.version>
 
