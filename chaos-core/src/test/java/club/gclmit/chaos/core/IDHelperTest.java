@@ -1,6 +1,6 @@
 package club.gclmit.chaos.core;
 
-import club.gclmit.chaos.core.helper.IDHelper;
+import club.gclmit.chaos.core.helper.Snowflake;
 
 /**
  * <p>
@@ -14,7 +14,7 @@ import club.gclmit.chaos.core.helper.IDHelper;
 public class IDHelperTest {
 
     public static void main(String[] args) {
-        System.out.println(IDHelper.getLongId());
-        System.out.println(IDHelper.getStringId());
+        System.out.println(Snowflake.getLongId());
+        System.out.println(Snowflake.getStringId());
     }
 }

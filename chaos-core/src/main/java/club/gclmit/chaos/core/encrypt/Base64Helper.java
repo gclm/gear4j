@@ -2,7 +2,7 @@ package club.gclmit.chaos.core.encrypt;
 
 import	java.io.ByteArrayOutputStream;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
-import org.apache.commons.io.IOUtils;
+import club.gclmit.chaos.core.io.IOHelper;
 import java.io.IOException;
 import	java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -67,7 +67,7 @@ public class Base64Helper extends Codec {
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(5000);
             InputStream in = connection.getInputStream();
-            IOUtils.copy(in,data);
+            IOHelper.copy(in,data);
             in.close();
             return encode(data.toByteArray());
         } catch (IOException e) {

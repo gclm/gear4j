@@ -1,5 +1,6 @@
 package club.gclmit.chaos.storage.client;
 
+import club.gclmit.chaos.core.helper.StringHelper;
 import club.gclmit.chaos.core.logger.Logger;
 import club.gclmit.chaos.core.logger.LoggerServer;
 import club.gclmit.chaos.core.helper.TimeHelper;
@@ -15,15 +16,12 @@ import cn.ucloud.ufile.exception.UfileClientException;
 import cn.ucloud.ufile.exception.UfileServerException;
 import cn.ucloud.ufile.http.HttpClient;
 import cn.ucloud.ufile.util.StorageType;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.concurrent.BasicThreadFactory;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.springframework.util.Assert;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * <p>
@@ -64,7 +62,7 @@ public class UfileStorageClient extends StorageClient {
         Logger.debug(LoggerServer.CHAOS_STORAGE,"[Ufile]配置参数:[{}]",storage);
         if(storage.getType() == StorageServer.UFILE) {
             cloudStorage = storage.getConfig();
-            if (StringUtils.isBlank(cloudStorage.getEndpoint())){
+            if (StringHelper.isBlank(cloudStorage.getEndpoint())){
                 cloudStorage.setEndpoint(END_POINT);
             }
             ossClient = build(cloudStorage.getAccessKeyId(),cloudStorage.getAccessKeySecret(),cloudStorage.getRegion(),cloudStorage.getEndpoint());
@@ -157,7 +155,7 @@ public class UfileStorageClient extends StorageClient {
             // 拼接文件访问路径。由于拼接的字符串大多为String对象，而不是""的形式，所以直接用+拼接的方式没有优势
             StringBuffer path = new StringBuffer();
             path.append(cloudStorage.getProtocol()).append("://").append(cloudStorage.getBucket()).append(".").append(cloudStorage.getRegion()).append(".").append(cloudStorage.getEndpoint()).append("/").append(key);
-            if (StringUtils.isNotBlank(cloudStorage.getStyleName())) {
+            if (StringHelper.isNotBlank(cloudStorage.getStyleName())) {
                 path.append(cloudStorage.getStyleName());
             }
             url = path.toString();
@@ -191,8 +189,12 @@ public class UfileStorageClient extends StorageClient {
         /**
          * 配置UfileClient，必须在使用UfileClient之前调用
          */
-        ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(4,
-                new BasicThreadFactory.Builder().namingPattern("ufile-pool-%d").daemon(true).build());
+        ThreadFactory namedThreadFactory = new ThreadFactoryBuilder()
+                .setNameFormat("ufile-client-pool-%d").build();
+
+        ExecutorService executorService = new ThreadPoolExecutor(5, 200,
+                0L, TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<Runnable>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
 
         UfileClient.configure(new UfileClient.Config(
                 new HttpClient.Config(10, 5, TimeUnit.MINUTES)

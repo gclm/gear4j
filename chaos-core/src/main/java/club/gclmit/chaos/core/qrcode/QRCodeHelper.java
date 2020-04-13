@@ -2,7 +2,7 @@ package club.gclmit.chaos.core.qrcode;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.file.FileHelper;
-import club.gclmit.chaos.core.helper.IDHelper;
+import club.gclmit.chaos.core.helper.Snowflake;
 import club.gclmit.chaos.core.logger.Logger;
 import club.gclmit.chaos.core.logger.LoggerServer;
 import com.google.zxing.*;
@@ -189,7 +189,7 @@ public class QRCodeHelper {
 
             if (QRCodeConfig.IMAGE_TYPE_FILE.equals(qrCode.getType())) {
                 String path = qrCode.getGeneartePath();
-                String id = IDHelper.getStringId();
+                String id = Snowflake.getStringId();
 
                 Logger.info(LoggerServer.CHAOS_CORE, "配置的文件路径:{}", path);
 

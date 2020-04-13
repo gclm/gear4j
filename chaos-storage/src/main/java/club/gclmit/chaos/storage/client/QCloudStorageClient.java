@@ -1,10 +1,12 @@
 package club.gclmit.chaos.storage.client;
 
+import club.gclmit.chaos.core.helper.StringHelper;
 import club.gclmit.chaos.core.logger.Logger;
 import club.gclmit.chaos.core.logger.LoggerServer;
 import club.gclmit.chaos.core.helper.TimeHelper;
 import club.gclmit.chaos.storage.properties.*;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
@@ -16,14 +18,11 @@ import com.qcloud.cos.model.*;
 import com.qcloud.cos.region.Region;
 import com.qcloud.cos.transfer.TransferManager;
 import com.qcloud.cos.transfer.Upload;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.springframework.util.Assert;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.*;
 
 /**
  * <p>
@@ -109,10 +108,14 @@ public class QCloudStorageClient extends StorageClient {
         String eTag = null;
 
         /**
-         *  创建线程池
+         *  创建大小为5的线程池
          */
-        ScheduledExecutorService threadPool = new ScheduledThreadPoolExecutor(4,
-                new BasicThreadFactory.Builder().namingPattern("example-schedule-pool-%d").daemon(true).build());
+        ThreadFactory namedThreadFactory = new ThreadFactoryBuilder()
+                .setNameFormat("qcloud-client-pool-%d").build();
+
+        ExecutorService threadPool = new ThreadPoolExecutor(5, 200,
+                0L, TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<Runnable>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
 
         TransferManager transferManager = new TransferManager(cosClient, threadPool);
 
@@ -135,7 +138,7 @@ public class QCloudStorageClient extends StorageClient {
             // 拼接文件访问路径。由于拼接的字符串大多为String对象，而不是""的形式，所以直接用+拼接的方式没有优势
             StringBuffer path = new StringBuffer();
             path.append(cloudStorage.getProtocol()).append("://").append(cloudStorage.getBucket()).append(".cos.").append(cloudStorage.getRegion()).append(".myqcloud.com").append("/").append(key);
-            if (StringUtils.isNotBlank(cloudStorage.getStyleName())) {
+            if (StringHelper.isNotBlank(cloudStorage.getStyleName())) {
                 path.append(cloudStorage.getStyleName());
             }
             url = path.toString();

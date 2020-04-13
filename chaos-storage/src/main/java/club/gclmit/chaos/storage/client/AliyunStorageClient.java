@@ -1,5 +1,6 @@
 package club.gclmit.chaos.storage.client;
 
+import club.gclmit.chaos.core.helper.StringHelper;
 import club.gclmit.chaos.core.logger.Logger;
 import club.gclmit.chaos.core.logger.LoggerServer;
 import club.gclmit.chaos.core.helper.TimeHelper;
@@ -10,7 +11,6 @@ import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.DeleteObjectsRequest;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 import java.io.*;
 import java.util.ArrayList;
@@ -137,13 +137,13 @@ public class AliyunStorageClient extends StorageClient {
              *  2020.04.09 补充，jdk8之后 + 底层采用 StringBuilder 和 + 没有什么区别，但是建议使用StringBuilder
              */
             StringBuilder path = new StringBuilder();
-            if (StringUtils.isNotBlank(cloudStorage.getEndpoint())){
+            if (StringHelper.isNotBlank(cloudStorage.getEndpoint())){
                 endpoint = cloudStorage.getEndpoint();
             } else {
                 endpoint = new StringBuilder(cloudStorage.getBucket()).append(".").append(endpoint).toString();
             }
             path.append(cloudStorage.getProtocol()).append("://").append(endpoint).append("/").append(key);
-            if (StringUtils.isNotBlank(cloudStorage.getStyleName())) {
+            if (StringHelper.isNotBlank(cloudStorage.getStyleName())) {
                 path.append(cloudStorage.getStyleName());
             }
             url = path.toString();

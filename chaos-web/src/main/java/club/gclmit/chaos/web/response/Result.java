@@ -1,12 +1,9 @@
 package club.gclmit.chaos.web.response;
 
-
+import club.gclmit.chaos.core.helper.StringHelper;
 import club.gclmit.chaos.core.helper.TimeHelper;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.apache.commons.lang3.StringUtils;
-
-import java.time.Clock;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,7 +61,7 @@ public class Result {
 
     public static Result result(ApiCode apiCode, String msg, Object data) {
         String message = apiCode.getMessage();
-        if (StringUtils.isNotBlank(msg)) {
+        if (StringHelper.isNotBlank(msg)) {
             message = msg;
         }
         return new Result(apiCode.getCode(), message, data);

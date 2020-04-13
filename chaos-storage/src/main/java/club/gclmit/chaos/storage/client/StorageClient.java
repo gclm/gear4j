@@ -3,12 +3,12 @@ package club.gclmit.chaos.storage.client;
 import club.gclmit.chaos.core.encrypt.MD5Helper;
 import club.gclmit.chaos.core.file.MimeType;
 import club.gclmit.chaos.core.file.FileHelper;
-import club.gclmit.chaos.core.helper.IDHelper;
+import club.gclmit.chaos.core.helper.Snowflake;
+import club.gclmit.chaos.core.helper.StringHelper;
 import club.gclmit.chaos.core.helper.TimeHelper;
 import club.gclmit.chaos.storage.properties.FileInfo;
 import club.gclmit.chaos.storage.properties.Storage;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 import java.io.*;
 import java.time.LocalDate;
@@ -51,7 +51,7 @@ public abstract class StorageClient {
         /**
          * 这里使用雪花算法目的---> 后期可能会将 key 进行 split，然后进行分类统计
          */
-        String id = IDHelper.getStringId();
+        String id = Snowflake.getStringId();
 
         LocalDate localDate = LocalDate.now();
         String dateFormat = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
@@ -63,7 +63,7 @@ public abstract class StorageClient {
          * 前后缀拼接逻辑:
          *  先判断是否存在前缀，存在在拼接，否则根据实际情况进行修改
          */
-        if (StringUtils.isNotBlank(prefix)) {
+        if (StringHelper.isNotBlank(prefix)) {
             path = prefix + "/" + path;
         }
         if (suffix != null) {
@@ -132,7 +132,7 @@ public abstract class StorageClient {
         /**
          * 如果不制定文件名,则key为文件名
          */
-        if (StringUtils.isBlank(fileName)) {
+        if (StringHelper.isBlank(fileName)) {
             fileName = key;
         }
 
@@ -155,7 +155,7 @@ public abstract class StorageClient {
         Assert.hasLength(key,"上传文件失败，请检查上传文件的 content 是否正常");
         Assert.hasLength(key,"上传文件失败，请检查上传文件的 key 是否正常");
 
-        if (StringUtils.isBlank(key)) {
+        if (StringHelper.isBlank(key)) {
             key = new StringBuilder().append(TimeHelper.getMilliTimestamp()).append(".txt").toString();
         }
         try {

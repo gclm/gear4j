@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.helper;
+package club.gclmit.chaos.core.http;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  * @date: 2019-10-22 10:18:00
  * @version: V1.0
  */
-public class NetHelper {
+public class HttpHelper {
 
     public static final Pattern IP_PATTERN = Pattern.compile("\\d{1,3}(\\.\\d{1,3}){3,5}$");
 
