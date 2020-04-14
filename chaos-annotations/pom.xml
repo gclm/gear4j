@@ -6,13 +6,11 @@
 
     <parent>
         <groupId>club.gclmit</groupId>
-        <artifactId>chaos-parent</artifactId>
-        <version>1.2.0</version>
+        <artifactId>chaos</artifactId>
+        <version>1.4.0</version>
     </parent>
 
-    <groupId>club.gclmit</groupId>
     <artifactId>chaos-annotations</artifactId>
-    <version>1.1.1</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -26,6 +24,7 @@
         <dependency>
             <groupId>club.gclmit</groupId>
             <artifactId>chaos-web</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
 

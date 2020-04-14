@@ -36,26 +36,6 @@ public class IOHelper {
 	public static final int EOF = -1;
 
 	/**
-	 * The Unix directory separator character.
-	 */
-	public static final char DIR_SEPARATOR_UNIX = '/';
-	/**
-	 * The Windows directory separator character.
-	 */
-	public static final char DIR_SEPARATOR_WINDOWS = '\\';
-	/**
-	 * The system directory separator character.
-	 */
-	public static final char DIR_SEPARATOR = File.separatorChar;
-	/**
-	 * The Unix line separator string.
-	 */
-	public static final String LINE_SEPARATOR_UNIX = "\n";
-	/**
-	 * The Windows line separator string.
-	 */
-	public static final String LINE_SEPARATOR_WINDOWS = "\r\n";
-	/**
 	 * The system line separator string.
 	 */
 	public static final String LINE_SEPARATOR;

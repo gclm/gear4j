@@ -44,16 +44,6 @@ public class StringHelper {
 	}
 
 	/**
-	 * 去除字符串两边空白符，传入null也返回null
-	 * 
-	 * @param value 值
-	 * @return 去除空白符的值
-	 */
-	public static String trim(String value) {
-		return (null == value) ? null : value.trim();
-	}
-
-	/**
 	 * 字符串是否为空，空的定义如下:<br>
 	 * 1、为null <br>
 	 * 2、为""<br>
@@ -144,6 +134,25 @@ public class StringHelper {
 		return obj.toString();
 	}
 
+	/**
+	 * Gets the contents of an <code>InputStream</code> as a String
+	 * using the specified character encoding.
+	 * <p>
+	 * Character encoding names can be found at
+	 * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+	 * <p>
+	 * This method buffers the input internally, so there is no need to use a
+	 * <code>BufferedInputStream</code>.
+	 *
+	 * @param input the <code>InputStream</code> to read from
+	 * @param encoding the encoding to use, null means platform default
+	 * @return the requested String
+	 * @throws NullPointerException                         if the input is null
+	 * @throws IOException                                  if an I/O error occurs
+	 * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io
+	 *                                                      .UnsupportedEncodingException} in version 2.2 if the
+	 *                                                      encoding is not supported.
+	 */
 	public static String toString(final InputStream input, final Charset encoding) throws IOException {
 		try (final StringBuilderWriter sw = new StringBuilderWriter()) {
 			IOHelper.copy(input, sw, encoding);
@@ -175,19 +184,6 @@ public class StringHelper {
 		return toString(input, Charsets.toCharset(encoding));
 	}
 
-	/**
-	 * Gets the contents at the given URI.
-	 *
-	 * @param uri The URI source.
-	 * @return The contents of the URL as a String.
-	 * @throws IOException if an I/O exception occurs.
-	 * @since 2.1
-	 * @deprecated 2.5 use {@link #toString(URI, Charset)} instead
-	 */
-	@Deprecated
-	public static String toString(final URI uri) throws IOException {
-		return toString(uri, Charset.defaultCharset());
-	}
 
 	/**
 	 * Gets the contents at the given URI.
@@ -222,20 +218,6 @@ public class StringHelper {
 	 * Gets the contents at the given URL.
 	 *
 	 * @param url The URL source.
-	 * @return The contents of the URL as a String.
-	 * @throws IOException if an I/O exception occurs.
-	 * @since 2.1
-	 * @deprecated 2.5 use {@link #toString(URL, Charset)} instead
-	 */
-	@Deprecated
-	public static String toString(final URL url) throws IOException {
-		return toString(url, Charset.defaultCharset());
-	}
-
-	/**
-	 * Gets the contents at the given URL.
-	 *
-	 * @param url The URL source.
 	 * @param encoding The encoding name for the URL contents.
 	 * @return The contents of the URL as a String.
 	 * @throws IOException if an I/O exception occurs.
@@ -261,21 +243,6 @@ public class StringHelper {
 	 */
 	public static String toString(final URL url, final String encoding) throws IOException {
 		return toString(url, Charsets.toCharset(encoding));
-	}
-
-	/**
-	 * Gets the contents of a <code>byte[]</code> as a String
-	 * using the default character encoding of the platform.
-	 *
-	 * @param input the byte array to read from
-	 * @return the requested String
-	 * @throws NullPointerException if the input is null
-	 * @throws IOException          if an I/O error occurs (never occurs)
-	 * @deprecated 2.5 Use {@link String#String(byte[])} instead
-	 */
-	@Deprecated
-	public static String toString(final byte[] input) throws IOException {
-		return new String(input, Charset.defaultCharset());
 	}
 
 	/**
@@ -493,6 +460,28 @@ public class StringHelper {
 	 */
 	public static String trimEnd(CharSequence str) {
 		return trim(str, 1);
+	}
+
+	/**
+	 * 去除字符串两边空白符，传入null也返回null
+	 *
+	 * @param str 值
+	 * @return 去除空白符的值
+	 */
+	public static String trim(String str) {
+		return (null == str) ? null : str.trim();
+	}
+
+	/**
+	 *  去除全部空格
+	 *
+	 * @author gclm
+	 * @param: str
+	 * @date 2020/4/13 9:16 下午
+	 * @return: java.lang.String
+	 */
+	public static String trimAll(String str) {
+		return isBlank(str) ? null : str.replaceAll("\\s*", "");
 	}
 
 	/**

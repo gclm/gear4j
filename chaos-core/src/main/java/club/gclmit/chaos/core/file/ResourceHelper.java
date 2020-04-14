@@ -1,7 +1,6 @@
 package club.gclmit.chaos.core.file;
 
 import club.gclmit.chaos.core.helper.StringHelper;
-
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
