@@ -1,6 +1,5 @@
 package club.gclmit.chaos.web.xss;
 
-import club.gclmit.chaos.core.helper.StringHelper;
 import club.gclmit.chaos.web.exception.ChaosWebException;
 import org.apache.commons.lang3.StringUtils;
 

@@ -1,6 +1,6 @@
 package club.gclmit.chaos.core;
 
-import club.gclmit.chaos.core.file.FileHelper;
+import club.gclmit.chaos.core.io.file.FileHelper;
 
 import java.io.File;
 import java.io.IOException;

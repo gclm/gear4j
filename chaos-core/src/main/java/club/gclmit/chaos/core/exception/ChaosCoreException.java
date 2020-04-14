@@ -1,5 +1,7 @@
 package club.gclmit.chaos.core.exception;
 
+import club.gclmit.chaos.core.util.StringUtils;
+
 /**
  * <p>
  *  chaos 存储模块的异常处理
@@ -12,19 +14,36 @@ package club.gclmit.chaos.core.exception;
  */
 public class ChaosCoreException extends AbstractChaosException {
 
-    public ChaosCoreException(String message) {
-        super(message);
+    private static final long serialVersionUID = 1L;
+
+    public ChaosCoreException() {
     }
 
-    public ChaosCoreException(Integer code, String message) {
-        super(code, message);
+    public ChaosCoreException(String msg) {
+        super(msg);
     }
 
-    public ChaosCoreException(String message, Throwable cause) {
-        super(message, cause);
+
+    public ChaosCoreException(String messageTemplate, Object... params) {
+        super(StringUtils.format(messageTemplate, params));
     }
 
-    public ChaosCoreException(Integer code, String message, Throwable cause) {
-        super(code, message, cause);
+    public ChaosCoreException(Throwable throwable) {
+        super(throwable);
     }
-}
+
+    public ChaosCoreException(String msg, Throwable throwable) {
+        super(msg, throwable);
+    }
+
+    public ChaosCoreException(Integer status, String msg) {
+        super(status, msg);
+    }
+
+    public ChaosCoreException(Integer status, Throwable throwable) {
+        super(status, throwable);
+    }
+
+    public ChaosCoreException(Integer status, String msg, Throwable throwable) {
+        super(status, msg, throwable);
+    }}

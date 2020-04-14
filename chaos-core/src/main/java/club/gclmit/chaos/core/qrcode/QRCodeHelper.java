@@ -1,8 +1,8 @@
 package club.gclmit.chaos.core.qrcode;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
-import club.gclmit.chaos.core.file.FileHelper;
-import club.gclmit.chaos.core.helper.Snowflake;
+import club.gclmit.chaos.core.io.file.FileHelper;
+import club.gclmit.chaos.core.lang.Snowflake;
 import club.gclmit.chaos.core.logger.Logger;
 import club.gclmit.chaos.core.logger.LoggerServer;
 import com.google.zxing.*;

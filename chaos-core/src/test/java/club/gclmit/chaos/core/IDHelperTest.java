@@ -1,6 +1,6 @@
 package club.gclmit.chaos.core;
 
-import club.gclmit.chaos.core.helper.Snowflake;
+import club.gclmit.chaos.core.lang.Snowflake;
 
 /**
  * <p>

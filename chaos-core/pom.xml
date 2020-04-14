@@ -7,7 +7,7 @@
     <parent>
         <groupId>club.gclmit</groupId>
         <artifactId>chaos</artifactId>
-        <version>1.4.0</version>
+        <version>1.4.1</version>
     </parent>
 
     <artifactId>chaos-core</artifactId>
@@ -36,10 +36,10 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.commons</groupId>-->
+<!--            <artifactId>commons-lang3</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>nl.basjes.parse.useragent</groupId>

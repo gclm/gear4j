@@ -26,9 +26,18 @@ public abstract class AbstractChaosException extends RuntimeException {
      */
     private String message = "Chaos组件发成异常";
 
+
+    public AbstractChaosException() {
+    }
+
+    public AbstractChaosException(Throwable cause) {
+        super(cause);
+    }
+
     public AbstractChaosException(String message) {
         this.message = message;
     }
+
 
     public AbstractChaosException(Integer code , String message) {
         super(message);
@@ -39,6 +48,11 @@ public abstract class AbstractChaosException extends RuntimeException {
     public AbstractChaosException(String message , Throwable cause) {
         super(cause);
         this.message = message;
+    }
+
+    public AbstractChaosException(Integer code , Throwable cause) {
+        super(cause);
+        this.code = code;
     }
 
     public AbstractChaosException(Integer code , String message, Throwable cause) {
