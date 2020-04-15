@@ -14,6 +14,22 @@ import club.gclmit.chaos.core.exception.AbstractChaosException;
  */
 public class ChaosLoggerException extends AbstractChaosException {
 
+    public ChaosLoggerException() {
+        super();
+    }
+
+    public ChaosLoggerException(Throwable cause) {
+        super(cause);
+    }
+
+    public ChaosLoggerException(String messageTemplate, Object... params) {
+        super(messageTemplate, params);
+    }
+
+    public ChaosLoggerException(Integer code, Throwable cause) {
+        super(code, cause);
+    }
+
     public ChaosLoggerException(String message) {
         super(message);
     }

@@ -1,4 +1,4 @@
-package club.gclmit.chaos.web.config;
+package club.gclmit.chaos.starter.config;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

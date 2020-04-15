@@ -1,4 +1,4 @@
-package club.gclmit.chaos.web.config;
+package club.gclmit.chaos.starter.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

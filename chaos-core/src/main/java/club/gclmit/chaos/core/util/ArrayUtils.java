@@ -19,68 +19,6 @@ public class ArrayUtils {
     /** 数组中元素未找到的下标，值为-1 */
     public static final int INDEX_NOT_FOUND = -1;
 
-    /**
-     * 新建一个空数组
-     *
-     * @param <T> 数组元素类型
-     * @param componentType 元素类型
-     * @param newSize 大小
-     * @return 空数组
-     */
-    @SuppressWarnings("unchecked")
-    public static <T> T[] newArray(Class<?> componentType, int newSize) {
-        return (T[]) Array.newInstance(componentType, newSize);
-    }
-
-    public static byte[] addAll(byte[]... arrays) {
-        if (arrays.length == 1) {
-            return arrays[0];
-        }
-
-        int length = 0;
-        for (byte[] array : arrays) {
-            if (array == null) {
-                continue;
-            }
-            length += array.length;
-        }
-        byte[] result = new byte[length];
-
-        length = 0;
-        for (byte[] array : arrays) {
-            if (array == null) {
-                continue;
-            }
-            System.arraycopy(array, 0, result, length, array.length);
-            length += array.length;
-        }
-        return result;
-    }
-
-    /**
-     *
-     * @param array
-     * @param conjunction
-     * @return
-     */
-    public static String join(String[] array, String conjunction) {
-        if (null == array) {
-            return null;
-        }
-
-        final StringBuilder sb = new StringBuilder();
-        boolean isFirst = true;
-        for (String item : array) {
-            if (isFirst) {
-                isFirst = false;
-            } else {
-                sb.append(conjunction);
-            }
-            sb.append(item);
-        }
-        return sb.toString();
-    }
-
     // ---------------------------------------------------------------------- isEmpty
 
     /**
