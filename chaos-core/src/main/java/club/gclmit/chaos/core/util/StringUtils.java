@@ -1,25 +1,17 @@
 package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.lang.Assert;
-import club.gclmit.chaos.core.lang.VersionComparator;
 import club.gclmit.chaos.core.text.StringFormatter;
-import club.gclmit.chaos.core.text.StringSpliter;
-import club.gclmit.chaos.core.text.TextSimilarity;
-import com.sun.tools.javac.util.Convert;
+
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 字符串工具类
@@ -30,20 +22,20 @@ public class StringUtils {
 
 	public static final int INDEX_NOT_FOUND = -1;
 
-	public static final char C_SPACE = CharUtil.SPACE;
-	public static final char C_TAB = CharUtil.TAB;
-	public static final char C_DOT = CharUtil.DOT;
-	public static final char C_SLASH = CharUtil.SLASH;
-	public static final char C_BACKSLASH = CharUtil.BACKSLASH;
-	public static final char C_CR = CharUtil.CR;
-	public static final char C_LF = CharUtil.LF;
-	public static final char C_UNDERLINE = CharUtil.UNDERLINE;
-	public static final char C_COMMA = CharUtil.COMMA;
-	public static final char C_DELIM_START = CharUtil.DELIM_START;
-	public static final char C_DELIM_END = CharUtil.DELIM_END;
-	public static final char C_BRACKET_START = CharUtil.BRACKET_START;
-	public static final char C_BRACKET_END = CharUtil.BRACKET_END;
-	public static final char C_COLON = CharUtil.COLON;
+	public static final char C_SPACE = CharUtils.SPACE;
+	public static final char C_TAB = CharUtils.TAB;
+	public static final char C_DOT = CharUtils.DOT;
+	public static final char C_SLASH = CharUtils.SLASH;
+	public static final char C_BACKSLASH = CharUtils.BACKSLASH;
+	public static final char C_CR = CharUtils.CR;
+	public static final char C_LF = CharUtils.LF;
+	public static final char C_UNDERLINE = CharUtils.UNDERLINE;
+	public static final char C_COMMA = CharUtils.COMMA;
+	public static final char C_DELIM_START = CharUtils.DELIM_START;
+	public static final char C_DELIM_END = CharUtils.DELIM_END;
+	public static final char C_BRACKET_START = CharUtils.BRACKET_START;
+	public static final char C_BRACKET_END = CharUtils.BRACKET_END;
+	public static final char C_COLON = CharUtils.COLON;
 
 	public static final String SPACE = " ";
 	public static final String TAB = "	";
@@ -94,7 +86,7 @@ public class StringUtils {
 
 		for (int i = 0; i < length; i++) {
 			// 只要有一个非空字符即为非空字符串
-			if (false == CharUtil.isBlankChar(str.charAt(i))) {
+			if (false == CharUtils.isBlankChar(str.charAt(i))) {
 				return false;
 			}
 		}
@@ -479,7 +471,7 @@ public class StringUtils {
 	 * 除去字符串头部的空白，如果字符串是<code>null</code>，则返回<code>null</code>。
 	 *
 	 * <p>
-	 * 注意，和<code>String.trim</code>不同，此方法使用<code>CharUtil.isBlankChar</code> 来判定空白， 因而可以除去英文字符集之外的其它空白，如中文空格。
+	 * 注意，和<code>String.trim</code>不同，此方法使用<code>CharUtils.isBlankChar</code> 来判定空白， 因而可以除去英文字符集之外的其它空白，如中文空格。
 	 *
 	 * <pre>
 	 * trimStart(null)         = null
@@ -501,7 +493,7 @@ public class StringUtils {
 	 * 除去字符串尾部的空白，如果字符串是<code>null</code>，则返回<code>null</code>。
 	 *
 	 * <p>
-	 * 注意，和<code>String.trim</code>不同，此方法使用<code>CharUtil.isBlankChar</code> 来判定空白， 因而可以除去英文字符集之外的其它空白，如中文空格。
+	 * 注意，和<code>String.trim</code>不同，此方法使用<code>CharUtils.isBlankChar</code> 来判定空白， 因而可以除去英文字符集之外的其它空白，如中文空格。
 	 *
 	 * <pre>
 	 * trimEnd(null)       = null
@@ -537,14 +529,14 @@ public class StringUtils {
 
 		// 扫描字符串头部
 		if (mode <= 0) {
-			while ((start < end) && (CharUtil.isBlankChar(str.charAt(start)))) {
+			while ((start < end) && (CharUtils.isBlankChar(str.charAt(start)))) {
 				start++;
 			}
 		}
 
 		// 扫描字符串尾部
 		if (mode >= 0) {
-			while ((start < end) && (CharUtil.isBlankChar(str.charAt(end - 1)))) {
+			while ((start < end) && (CharUtils.isBlankChar(str.charAt(end - 1)))) {
 				end--;
 			}
 		}
@@ -818,7 +810,7 @@ public class StringUtils {
 		}
 
 		for (int i = 0; i < length; i += 1) {
-			if (CharUtil.isBlankChar(str.charAt(i))) {
+			if (CharUtils.isBlankChar(str.charAt(i))) {
 				return true;
 			}
 		}
@@ -1310,244 +1302,11 @@ public class StringUtils {
 		char c;
 		for (int i = 0; i < len; i++) {
 			c = str.charAt(i);
-			if (false == CharUtil.isBlankChar(c)) {
+			if (false == CharUtils.isBlankChar(c)) {
 				sb.append(c);
 			}
 		}
 		return sb.toString();
-	}
-
-	// ------------------------------------------------------------------------------ Split
-
-	/**
-	 * 切分字符串
-	 *
-	 * @param str       被切分的字符串
-	 * @param separator 分隔符字符
-	 * @return 切分后的数组
-	 */
-	public static String[] splitToArray(CharSequence str, char separator) {
-		return splitToArray(str, separator, 0);
-	}
-
-//	/**
-//	 * 切分字符串为long数组
-//	 *
-//	 * @param str       被切分的字符串
-//	 * @param separator 分隔符
-//	 * @return 切分后long数组
-//	 * @since 4.0.6
-//	 */
-//	public static long[] splitToLong(CharSequence str, char separator) {
-//		return Convert.convert(long[].class, splitTrim(str, separator));
-//	}
-//
-//	/**
-//	 * 切分字符串为long数组
-//	 *
-//	 * @param str       被切分的字符串
-//	 * @param separator 分隔符字符串
-//	 * @return 切分后long数组
-//	 * @since 4.0.6
-//	 */
-//	public static long[] splitToLong(CharSequence str, CharSequence separator) {
-//		return Convert.convert(long[].class, splitTrim(str, separator));
-//	}
-//
-//	/**
-//	 * 切分字符串为int数组
-//	 *
-//	 * @param str       被切分的字符串
-//	 * @param separator 分隔符
-//	 * @return 切分后long数组
-//	 * @since 4.0.6
-//	 */
-//	public static int[] splitToInt(CharSequence str, char separator) {
-//		return Convert.convert(int[].class, splitTrim(str, separator));
-//	}
-//
-//	/**
-//	 * 切分字符串为int数组
-//	 *
-//	 * @param str       被切分的字符串
-//	 * @param separator 分隔符字符串
-//	 * @return 切分后long数组
-//	 * @since 4.0.6
-//	 */
-//	public static int[] splitToInt(CharSequence str, CharSequence separator) {
-//		return Convert.convert(int[].class, splitTrim(str, separator));
-//	}
-
-	/**
-	 * 切分字符串<br>
-	 * a#b#c =》 [a,b,c] <br>
-	 * a##b#c =》 [a,"",b,c]
-	 *
-	 * @param str       被切分的字符串
-	 * @param separator 分隔符字符
-	 * @return 切分后的集合
-	 */
-	public static List<String> split(CharSequence str, char separator) {
-		return split(str, separator, 0);
-	}
-
-	/**
-	 * 切分字符串
-	 *
-	 * @param str       被切分的字符串
-	 * @param separator 分隔符字符
-	 * @param limit     限制分片数
-	 * @return 切分后的数组
-	 */
-	public static String[] splitToArray(CharSequence str, char separator, int limit) {
-		if (null == str) {
-			return new String[]{};
-		}
-		return StringSpliter.splitToArray(str.toString(), separator, limit, false, false);
-	}
-
-	/**
-	 * 切分字符串，不去除切分后每个元素两边的空白符，不去除空白项
-	 *
-	 * @param str       被切分的字符串
-	 * @param separator 分隔符字符
-	 * @param limit     限制分片数，-1不限制
-	 * @return 切分后的集合
-	 */
-	public static List<String> split(CharSequence str, char separator, int limit) {
-		return split(str, separator, limit, false, false);
-	}
-
-	/**
-	 * 切分字符串，去除切分后每个元素两边的空白符，去除空白项
-	 *
-	 * @param str       被切分的字符串
-	 * @param separator 分隔符字符
-	 * @return 切分后的集合
-	 * @since 3.1.2
-	 */
-	public static List<String> splitTrim(CharSequence str, char separator) {
-		return splitTrim(str, separator, -1);
-	}
-
-	/**
-	 * 切分字符串，去除切分后每个元素两边的空白符，去除空白项
-	 *
-	 * @param str       被切分的字符串
-	 * @param separator 分隔符字符
-	 * @return 切分后的集合
-	 * @since 3.2.0
-	 */
-	public static List<String> splitTrim(CharSequence str, CharSequence separator) {
-		return splitTrim(str, separator, -1);
-	}
-
-	/**
-	 * 切分字符串，去除切分后每个元素两边的空白符，去除空白项
-	 *
-	 * @param str       被切分的字符串
-	 * @param separator 分隔符字符
-	 * @param limit     限制分片数，-1不限制
-	 * @return 切分后的集合
-	 * @since 3.1.0
-	 */
-	public static List<String> splitTrim(CharSequence str, char separator, int limit) {
-		return split(str, separator, limit, true, true);
-	}
-
-	/**
-	 * 切分字符串，去除切分后每个元素两边的空白符，去除空白项
-	 *
-	 * @param str       被切分的字符串
-	 * @param separator 分隔符字符
-	 * @param limit     限制分片数，-1不限制
-	 * @return 切分后的集合
-	 * @since 3.2.0
-	 */
-	public static List<String> splitTrim(CharSequence str, CharSequence separator, int limit) {
-		return split(str, separator, limit, true, true);
-	}
-
-	/**
-	 * 切分字符串，不限制分片数量
-	 *
-	 * @param str         被切分的字符串
-	 * @param separator   分隔符字符
-	 * @param isTrim      是否去除切分字符串后每个元素两边的空格
-	 * @param ignoreEmpty 是否忽略空串
-	 * @return 切分后的集合
-	 * @since 3.0.8
-	 */
-	public static List<String> split(CharSequence str, char separator, boolean isTrim, boolean ignoreEmpty) {
-		return split(str, separator, 0, isTrim, ignoreEmpty);
-	}
-
-	/**
-	 * 切分字符串
-	 *
-	 * @param str         被切分的字符串
-	 * @param separator   分隔符字符
-	 * @param limit       限制分片数，-1不限制
-	 * @param isTrim      是否去除切分字符串后每个元素两边的空格
-	 * @param ignoreEmpty 是否忽略空串
-	 * @return 切分后的集合
-	 * @since 3.0.8
-	 */
-	public static List<String> split(CharSequence str, char separator, int limit, boolean isTrim, boolean ignoreEmpty) {
-		if (null == str) {
-			return new ArrayList<>(0);
-		}
-		return StringSpliter.split(str.toString(), separator, limit, isTrim, ignoreEmpty);
-	}
-
-	/**
-	 * 切分字符串
-	 *
-	 * @param str         被切分的字符串
-	 * @param separator   分隔符字符
-	 * @param limit       限制分片数，-1不限制
-	 * @param isTrim      是否去除切分字符串后每个元素两边的空格
-	 * @param ignoreEmpty 是否忽略空串
-	 * @return 切分后的集合
-	 * @since 3.2.0
-	 */
-	public static List<String> split(CharSequence str, CharSequence separator, int limit, boolean isTrim, boolean ignoreEmpty) {
-		if (null == str) {
-			return new ArrayList<>(0);
-		}
-		final String separatorStr = (null == separator) ? null : separator.toString();
-		return StringSpliter.split(str.toString(), separatorStr, limit, isTrim, ignoreEmpty);
-	}
-
-	/**
-	 * 切分字符串
-	 *
-	 * @param str       被切分的字符串
-	 * @param separator 分隔符
-	 * @return 字符串
-	 */
-	public static String[] split(CharSequence str, CharSequence separator) {
-		if (str == null) {
-			return new String[]{};
-		}
-
-		final String separatorStr = (null == separator) ? null : separator.toString();
-		return StringSpliter.splitToArray(str.toString(), separatorStr, 0, false, false);
-	}
-
-	/**
-	 * 根据给定长度，将给定字符串截取为多个部分
-	 *
-	 * @param str 字符串
-	 * @param len 每一个小节的长度
-	 * @return 截取后的字符串数组
-	 * @see StringSpliter#splitByLength(String, int)
-	 */
-	public static String[] split(CharSequence str, int len) {
-		if (null == str) {
-			return new String[]{};
-		}
-		return StringSpliter.splitByLength(str.toString(), len);
 	}
 
 	/**
@@ -1644,7 +1403,7 @@ public class StringUtils {
 
 		byte[] b;
 		int counterOfDoubleByte = 0;
-		b = str.toString().getBytes(CharsetUtil.CHARSET_GBK);
+		b = str.toString().getBytes(CharsetUtils.CHARSET_GBK);
 		if (b.length <= len) {
 			return str.toString();
 		}
@@ -1657,7 +1416,7 @@ public class StringUtils {
 		if (counterOfDoubleByte % 2 != 0) {
 			len += 1;
 		}
-		return new String(b, 0, len, CharsetUtil.CHARSET_GBK) + suffix;
+		return new String(b, 0, len, CharsetUtils.CHARSET_GBK) + suffix;
 	}
 
 	/**
@@ -1957,48 +1716,6 @@ public class StringUtils {
 	 */
 	public static String subBetween(CharSequence str, CharSequence beforeAndAfter) {
 		return subBetween(str, beforeAndAfter, beforeAndAfter);
-	}
-
-	/**
-	 * 截取指定字符串多段中间部分，不包括标识字符串<br>
-	 * <p>
-	 * 栗子：
-	 *
-	 * <pre>
-	 * StrUtil.subBetweenAll("wx[b]y[z]", "[", "]") 		= ["b","z"]
-	 * StrUtil.subBetweenAll(null, *, *)          			= []
-	 * StrUtil.subBetweenAll(*, null, *)          			= []
-	 * StrUtil.subBetweenAll(*, *, null)          			= []
-	 * StrUtil.subBetweenAll("", "", "")          			= []
-	 * StrUtil.subBetweenAll("", "", "]")         			= []
-	 * StrUtil.subBetweenAll("", "[", "]")        			= []
-	 * StrUtil.subBetweenAll("yabcz", "", "")     			= []
-	 * StrUtil.subBetweenAll("yabcz", "y", "z")   			= ["abc"]
-	 * StrUtil.subBetweenAll("yabczyabcz", "y", "z")   		= ["abc","abc"]
-	 * StrUtil.subBetweenAll("[yabc[zy]abcz]", "[", "]");   = ["zy"]           重叠时只截取内部，
-	 * </pre>
-	 *
-	 * @param str    被切割的字符串
-	 * @param prefix 截取开始的字符串标识
-	 * @param suffix 截取到的字符串标识
-	 * @return 截取后的字符串
-	 * @author dahuoyzs
-	 * @since 5.2.5
-	 */
-	public static String[] subBetweenAll(CharSequence str, CharSequence prefix, CharSequence suffix) {
-		if (hasEmpty(str, prefix, suffix)) {
-			return new String[0];
-		}
-
-		final List<String> result = new LinkedList<>();
-		for (String fragment : split(str, prefix)) {
-			int suffixIndex = fragment.indexOf(suffix.toString());
-			if (suffixIndex > 0) {
-				result.add(fragment.substring(0, suffixIndex));
-			}
-		}
-
-		return result.toArray(new String[0]);
 	}
 
 	/**
@@ -2340,7 +2057,7 @@ public class StringUtils {
 	 * @return 编码后的字节码
 	 */
 	public static byte[] utf8Bytes(CharSequence str) {
-		return bytes(str, CharsetUtil.CHARSET_UTF_8);
+		return bytes(str, CharsetUtils.CHARSET_UTF_8);
 	}
 
 	/**
@@ -2391,7 +2108,7 @@ public class StringUtils {
 	 * @return 字符串
 	 */
 	public static String utf8Str(Object obj) {
-		return str(obj, CharsetUtil.CHARSET_UTF_8);
+		return str(obj, CharsetUtils.CHARSET_UTF_8);
 	}
 
 	/**
@@ -2434,7 +2151,7 @@ public class StringUtils {
 			return str((Byte[]) obj, charset);
 		} else if (obj instanceof ByteBuffer) {
 			return str((ByteBuffer) obj, charset);
-		} else if (ArrayUtils.isArray(obj)) {
+		} else if (ObjectUtils.isArray(obj)) {
 			return ArrayUtils.toString(obj);
 		}
 
@@ -2565,18 +2282,6 @@ public class StringUtils {
 	}
 
 	/**
-	 * 以 conjunction 为分隔符将多个对象转换为字符串
-	 *
-	 * @param conjunction 分隔符
-	 * @param objs        数组
-	 * @return 连接后的字符串
-	 * @see ArrayUtils#join(Object, CharSequence)
-	 */
-	public static String join(CharSequence conjunction, Object... objs) {
-		return ArrayUtils.join(objs, conjunction);
-	}
-
-	/**
 	 * 将驼峰式命名的字符串转换为下划线方式。如果转换前的驼峰式命名的字符串为空，则返回空字符串。<br>
 	 * 例如：
 	 *
@@ -2590,7 +2295,7 @@ public class StringUtils {
 	 * @return 转换后下划线方式命名的字符串
 	 */
 	public static String toUnderlineCase(CharSequence str) {
-		return toSymbolCase(str, CharUtil.UNDERLINE);
+		return toSymbolCase(str, CharUtils.UNDERLINE);
 	}
 
 	/**
@@ -2664,7 +2369,7 @@ public class StringUtils {
 			for (int i = 0; i < name2.length(); i++) {
 				char c = name2.charAt(i);
 
-				if (c == CharUtil.UNDERLINE) {
+				if (c == CharUtils.UNDERLINE) {
 					upperCase = true;
 				} else if (upperCase) {
 					sb.append(Character.toUpperCase(c));
@@ -3026,7 +2731,7 @@ public class StringUtils {
 	 * @since 4.3.2
 	 */
 	public static String center(CharSequence str, final int size) {
-		return center(str, size, CharUtil.SPACE);
+		return center(str, size, CharUtils.SPACE);
 	}
 
 	/**
@@ -3211,32 +2916,6 @@ public class StringUtils {
 	}
 
 	/**
-	 * 将字符串切分为N等份
-	 *
-	 * @param str        字符串
-	 * @param partLength 每等份的长度
-	 * @return 切分后的数组
-	 * @since 3.0.6
-	 */
-	public static String[] cut(CharSequence str, int partLength) {
-		if (null == str) {
-			return null;
-		}
-		int len = str.length();
-		if (len < partLength) {
-			return new String[]{str.toString()};
-		}
-		int part = NumberUtil.count(len, partLength);
-		final String[] array = new String[part];
-
-		final String str2 = str.toString();
-		for (int i = 0; i < part; i++) {
-			array[i] = str2.substring(i * partLength, (i == part - 1) ? len : (partLength + i * partLength));
-		}
-		return array;
-	}
-
-	/**
 	 * 将给定字符串，变成 "xxx...xxx" 形式的字符串
 	 *
 	 * @param str       字符串
@@ -3325,30 +3004,6 @@ public class StringUtils {
 			return nullIsLess ? 1 : -1;
 		}
 		return str1.toString().compareToIgnoreCase(str2.toString());
-	}
-
-	/**
-	 * 比较两个版本<br>
-	 * null版本排在最小：即：
-	 *
-	 * <pre>
-	 * StrUtil.compareVersion(null, "v1") &lt; 0
-	 * StrUtil.compareVersion("v1", "v1")  = 0
-	 * StrUtil.compareVersion(null, null)   = 0
-	 * StrUtil.compareVersion("v1", null) &gt; 0
-	 * StrUtil.compareVersion("1.0.0", "1.0.2") &lt; 0
-	 * StrUtil.compareVersion("1.0.2", "1.0.2a") &lt; 0
-	 * StrUtil.compareVersion("1.13.0", "1.12.1c") &gt; 0
-	 * StrUtil.compareVersion("V0.0.20170102", "V0.0.20170101") &gt; 0
-	 * </pre>
-	 *
-	 * @param version1 版本1
-	 * @param version2 版本2
-	 * @return 排序值。负数：version1 &lt; version2，正数：version1 &gt; version2, 0：version1 == version2
-	 * @since 4.0.2
-	 */
-	public static int compareVersion(CharSequence version1, CharSequence version2) {
-		return VersionComparator.INSTANCE.compare(str(version1), str(version2));
 	}
 
 	/**
@@ -3973,31 +3628,6 @@ public class StringUtils {
 			builder.append(set.contains(c) ? replacedStr : c);
 		}
 		return builder.toString();
-	}
-
-	/**
-	 * 计算两个字符串的相似度
-	 *
-	 * @param str1 字符串1
-	 * @param str2 字符串2
-	 * @return 相似度
-	 * @since 3.2.3
-	 */
-	public static double similar(String str1, String str2) {
-		return TextSimilarity.similar(str1, str2);
-	}
-
-	/**
-	 * 计算连个字符串的相似度百分比
-	 *
-	 * @param str1  字符串1
-	 * @param str2  字符串2
-	 * @param scale 相似度
-	 * @return 相似度百分比
-	 * @since 3.2.3
-	 */
-	public static String similar(String str1, String str2, int scale) {
-		return TextSimilarity.similar(str1, str2, scale);
 	}
 
 	/**

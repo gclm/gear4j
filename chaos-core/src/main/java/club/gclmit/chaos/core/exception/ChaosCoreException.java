@@ -1,49 +1,48 @@
 package club.gclmit.chaos.core.exception;
 
-import club.gclmit.chaos.core.util.StringUtils;
-
 /**
  * <p>
- *  chaos 存储模块的异常处理
+ * Chaos Core 模块异常类封装
  * </p>
  *
  * @author: gclm
- * @date: 2020/1/15 3:46 下午
+ * @date: 2020/4/15 10:25 上午
  * @version: V1.0
  * @since 1.8
  */
-public class ChaosCoreException extends AbstractChaosException {
+public class ChaosCoreException extends AbstractChaosException{
 
     private static final long serialVersionUID = 1L;
 
     public ChaosCoreException() {
+        super();
     }
 
-    public ChaosCoreException(String msg) {
-        super(msg);
+    public ChaosCoreException(Throwable cause) {
+        super(cause);
     }
 
+    public ChaosCoreException(String message) {
+        super(message);
+    }
 
     public ChaosCoreException(String messageTemplate, Object... params) {
-        super(StringUtils.format(messageTemplate, params));
+        super(messageTemplate, params);
     }
 
-    public ChaosCoreException(Throwable throwable) {
-        super(throwable);
+    public ChaosCoreException(Integer code, String message) {
+        super(code, message);
     }
 
-    public ChaosCoreException(String msg, Throwable throwable) {
-        super(msg, throwable);
+    public ChaosCoreException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    public ChaosCoreException(Integer status, String msg) {
-        super(status, msg);
+    public ChaosCoreException(Integer code, Throwable cause) {
+        super(code, cause);
     }
 
-    public ChaosCoreException(Integer status, Throwable throwable) {
-        super(status, throwable);
+    public ChaosCoreException(Integer code, String message, Throwable cause) {
+        super(code, message, cause);
     }
-
-    public ChaosCoreException(Integer status, String msg, Throwable throwable) {
-        super(status, msg, throwable);
-    }}
+}

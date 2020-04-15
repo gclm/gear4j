@@ -42,7 +42,7 @@ public class JsonUtils {
 
     public static <T> T toBean(String jsonString, Class<T> tt) {
         try {
-            if (StringHelper.isBlank(jsonString)) {
+            if (StringUtils.isBlank(jsonString)) {
                 return null;
             }
             T t = JSON.parseObject(jsonString, tt);
@@ -55,7 +55,7 @@ public class JsonUtils {
 
     public static <T> List<T> toList(String jsonString, Class<T> clazz) {
         try {
-            if (StringHelper.isBlank(jsonString)) {
+            if (StringUtils.isBlank(jsonString)) {
                 return null;
             }
             List<T> list = JSON.parseArray(jsonString, clazz);

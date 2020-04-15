@@ -1,7 +1,6 @@
 package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.lang.Snowflake;
-
 import java.util.UUID;
 
 /**
@@ -44,7 +43,7 @@ public class IDUtils {
      * @return: java.lang.Long
      * @throws
      */
-    public static Long longSnowflakeId() {
+    public static Long snowflakeId() {
         return new Snowflake(0, 0).nextId();
     }
 
@@ -60,7 +59,7 @@ public class IDUtils {
      * @throws
      */
     public static String stringSnowflakeId() {
-        return String.valueOf(longSnowflakeId());
+        return String.valueOf(snowflakeId());
     }
 
 }

@@ -7,7 +7,7 @@
     <parent>
         <groupId>club.gclmit</groupId>
         <artifactId>chaos</artifactId>
-        <version>1.4.1</version>
+        <version>1.4.2</version>
     </parent>
 
     <artifactId>chaos-core</artifactId>
@@ -36,17 +36,6 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.apache.commons</groupId>-->
-<!--            <artifactId>commons-lang3</artifactId>-->
-<!--        </dependency>-->
-
-        <dependency>
-            <groupId>nl.basjes.parse.useragent</groupId>
-            <artifactId>yauaa</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- 二维码解析/生成 start-->
         <dependency>
             <groupId>com.google.zxing</groupId>
@@ -61,26 +50,6 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>slf4j-api</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                    <groupId>org.springframework.boot</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
         </dependency>
 
     </dependencies>

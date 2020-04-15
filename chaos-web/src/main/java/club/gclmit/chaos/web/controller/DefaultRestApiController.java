@@ -1,8 +1,8 @@
 package club.gclmit.chaos.web.controller;
 
-import club.gclmit.chaos.core.logger.LoggerServer;
-import club.gclmit.chaos.core.logger.Logger;
-import club.gclmit.chaos.core.helper.ObjectHelper;
+import club.gclmit.chaos.core.lang.logger.LoggerServer;
+import club.gclmit.chaos.core.lang.Logger;
+import club.gclmit.chaos.core.util.ObjectUtils;
 import club.gclmit.chaos.web.response.PageResult;
 import club.gclmit.chaos.web.response.Result;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -32,7 +32,7 @@ public abstract class DefaultRestApiController<Service extends IService<T>, T>  
     @GetMapping
     @ApiOperation(value = "分页查询",httpMethod = "GET")
     public Result list(QueryCondition query) {
-        Logger.info(LoggerServer.CONTROLLER,"分页查询\t:[{}]", ObjectHelper.toString(query));
+        Logger.info(LoggerServer.CONTROLLER,"分页查询\t:[{}]", ObjectUtils.toString(query));
         Page<T> pages = service.page(new Page<>(query.getPage(),query.getLimit()));
         return PageResult.ok(pages.getTotal(),pages.getRecords());
     }

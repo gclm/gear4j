@@ -1,8 +1,9 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.core.logger.Logger;
-import club.gclmit.chaos.core.logger.LoggerServer;
-import club.gclmit.chaos.core.helper.TimeHelper;
+import club.gclmit.chaos.core.lang.Logger;
+import club.gclmit.chaos.core.lang.logger.LoggerServer;
+import club.gclmit.chaos.core.util.DateUtils;
+import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.storage.properties.*;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
 import com.aliyun.oss.OSS;
@@ -136,13 +137,13 @@ public class AliyunStorageClient extends StorageClient {
              *  2020.04.09 补充，jdk8之后 + 底层采用 StringBuilder 和 + 没有什么区别，但是建议使用StringBuilder
              */
             StringBuilder path = new StringBuilder();
-            if (StringHelper.isNotBlank(cloudStorage.getEndpoint())){
+            if (StringUtils.isNotBlank(cloudStorage.getEndpoint())){
                 endpoint = cloudStorage.getEndpoint();
             } else {
                 endpoint = new StringBuilder(cloudStorage.getBucket()).append(".").append(endpoint).toString();
             }
             path.append(cloudStorage.getProtocol()).append("://").append(endpoint).append("/").append(key);
-            if (StringHelper.isNotBlank(cloudStorage.getStyleName())) {
+            if (StringUtils.isNotBlank(cloudStorage.getStyleName())) {
                 path.append(cloudStorage.getStyleName());
             }
             url = path.toString();
@@ -150,7 +151,7 @@ public class AliyunStorageClient extends StorageClient {
 
         fileInfo.seteTag(eTag);
         fileInfo.setUrl(url);
-        fileInfo.setUploadTime(TimeHelper.getMilliTimestamp());
+        fileInfo.setUploadTime(DateUtils.getMilliTimestamp());
         fileInfo.setStatus(FileStatus.UPLOAD_SUCCESS.getId());
         return fileInfo;
     }

@@ -1,13 +1,10 @@
 package club.gclmit.chaos.core.lang;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.exceptions.ValidateException;
-import cn.hutool.core.util.CreditCodeUtil;
-import cn.hutool.core.util.NumberUtil;
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.ReUtil;
-import cn.hutool.core.util.StrUtil;
-
+import club.gclmit.chaos.core.exception.ChaosCoreException;
+import club.gclmit.chaos.core.util.DateUtils;
+import club.gclmit.chaos.core.util.ObjectUtils;
+import club.gclmit.chaos.core.util.RegUtils;
+import club.gclmit.chaos.core.util.StringUtils;
 import java.net.MalformedURLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -117,12 +114,12 @@ public class Validator {
 	 * @param errorMsgTemplate 错误消息内容模板（变量使用{}表示）
 	 * @param params           模板中变量替换后的值
 	 * @return 检查过后的值
-	 * @throws ValidateException 检查不满足条件抛出的异常
+	 * @throws ChaosCoreException 检查不满足条件抛出的异常
 	 * @since 4.4.5
 	 */
-	public static boolean validateTrue(boolean value, String errorMsgTemplate, Object... params) throws ValidateException {
+	public static boolean validateTrue(boolean value, String errorMsgTemplate, Object... params) throws ChaosCoreException {
 		if (isFalse(value)) {
-			throw new ValidateException(errorMsgTemplate, params);
+			throw new ChaosCoreException(errorMsgTemplate, params);
 		}
 		return true;
 	}
@@ -134,12 +131,12 @@ public class Validator {
 	 * @param errorMsgTemplate 错误消息内容模板（变量使用{}表示）
 	 * @param params           模板中变量替换后的值
 	 * @return 检查过后的值
-	 * @throws ValidateException 检查不满足条件抛出的异常
+	 * @throws ChaosCoreException 检查不满足条件抛出的异常
 	 * @since 4.4.5
 	 */
-	public static boolean validateFalse(boolean value, String errorMsgTemplate, Object... params) throws ValidateException {
+	public static boolean validateFalse(boolean value, String errorMsgTemplate, Object... params) throws ChaosCoreException {
 		if (isTrue(value)) {
-			throw new ValidateException(errorMsgTemplate, params);
+			throw new ChaosCoreException(errorMsgTemplate, params);
 		}
 		return false;
 	}
@@ -172,12 +169,12 @@ public class Validator {
 	 * @param errorMsgTemplate 错误消息内容模板（变量使用{}表示）
 	 * @param params           模板中变量替换后的值
 	 * @return 检查过后的值
-	 * @throws ValidateException 检查不满足条件抛出的异常
+	 * @throws ChaosCoreException 检查不满足条件抛出的异常
 	 * @since 4.4.5
 	 */
-	public static <T> T validateNull(T value, String errorMsgTemplate, Object... params) throws ValidateException {
+	public static <T> T validateNull(T value, String errorMsgTemplate, Object... params) throws ChaosCoreException {
 		if (isNotNull(value)) {
-			throw new ValidateException(errorMsgTemplate, params);
+			throw new ChaosCoreException(errorMsgTemplate, params);
 		}
 		return null;
 	}
@@ -190,11 +187,11 @@ public class Validator {
 	 * @param errorMsgTemplate 错误消息内容模板（变量使用{}表示）
 	 * @param params           模板中变量替换后的值
 	 * @return 检查过后的值
-	 * @throws ValidateException 检查不满足条件抛出的异常
+	 * @throws ChaosCoreException 检查不满足条件抛出的异常
 	 */
-	public static <T> T validateNotNull(T value, String errorMsgTemplate, Object... params) throws ValidateException {
+	public static <T> T validateNotNull(T value, String errorMsgTemplate, Object... params) throws ChaosCoreException {
 		if (isNull(value)) {
-			throw new ValidateException(errorMsgTemplate, params);
+			throw new ChaosCoreException(errorMsgTemplate, params);
 		}
 		return value;
 	}
@@ -207,7 +204,7 @@ public class Validator {
 	 * @return 是否为空
 	 */
 	public static boolean isEmpty(Object value) {
-		return (null == value || (value instanceof String && StrUtil.isEmpty((String) value)));
+		return (null == value || (value instanceof String && StringUtils.isEmpty((String) value)));
 	}
 
 	/**
@@ -229,11 +226,11 @@ public class Validator {
 	 * @param value    值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值，验证通过返回此值，空值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static <T> T validateEmpty(T value, String errorMsg) throws ValidateException {
+	public static <T> T validateEmpty(T value, String errorMsg) throws ChaosCoreException {
 		if (isNotEmpty(value)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 	}
@@ -246,11 +243,11 @@ public class Validator {
 	 * @param value    值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值，验证通过返回此值，非空值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static <T> T validateNotEmpty(T value, String errorMsg) throws ValidateException {
+	public static <T> T validateNotEmpty(T value, String errorMsg) throws ChaosCoreException {
 		if (isEmpty(value)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 	}
@@ -263,8 +260,8 @@ public class Validator {
 	 * @param t2 对象2
 	 * @return 当两值都为null或相等返回true
 	 */
-	public static boolean equal(Object t1, Object t2) {
-		return ObjectUtil.equal(t1, t2);
+	public static boolean equals(Object t1, Object t2) {
+		return ObjectUtils.equals(t1, t2);
 	}
 
 	/**
@@ -274,11 +271,11 @@ public class Validator {
 	 * @param t2       对象2
 	 * @param errorMsg 错误信息
 	 * @return 相同值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static Object validateEqual(Object t1, Object t2, String errorMsg) throws ValidateException {
-		if (false == equal(t1, t2)) {
-			throw new ValidateException(errorMsg);
+	public static Object validateEqual(Object t1, Object t2, String errorMsg) throws ChaosCoreException {
+		if (false == equals(t1, t2)) {
+			throw new ChaosCoreException(errorMsg);
 		}
 		return t1;
 	}
@@ -289,11 +286,11 @@ public class Validator {
 	 * @param t1       对象1
 	 * @param t2       对象2
 	 * @param errorMsg 错误信息
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static void validateNotEqual(Object t1, Object t2, String errorMsg) throws ValidateException {
-		if (equal(t1, t2)) {
-			throw new ValidateException(errorMsg);
+	public static void validateNotEqual(Object t1, Object t2, String errorMsg) throws ChaosCoreException {
+		if (equals(t1, t2)) {
+			throw new ChaosCoreException(errorMsg);
 		}
 	}
 
@@ -305,9 +302,9 @@ public class Validator {
 	 * @param t1       对象1
 	 * @param t2       对象2
 	 * @param errorMsg 错误信息
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static void validateNotEmptyAndEqual(Object t1, Object t2, String errorMsg) throws ValidateException {
+	public static void validateNotEmptyAndEqual(Object t1, Object t2, String errorMsg) throws ChaosCoreException {
 		validateNotEmpty(t1, errorMsg);
 		validateEqual(t1, t2, errorMsg);
 	}
@@ -320,9 +317,9 @@ public class Validator {
 	 * @param t1       对象1
 	 * @param t2       对象2
 	 * @param errorMsg 错误信息
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static void validateNotEmptyAndNotEqual(Object t1, Object t2, String errorMsg) throws ValidateException {
+	public static void validateNotEmptyAndNotEqual(Object t1, Object t2, String errorMsg) throws ChaosCoreException {
 		validateNotEmpty(t1, errorMsg);
 		validateNotEqual(t1, t2, errorMsg);
 	}
@@ -335,23 +332,23 @@ public class Validator {
 	 * @return 是否匹配正则
 	 */
 	public static boolean isMactchRegex(String regex, CharSequence value) {
-		return ReUtil.isMatch(regex, value);
+		return RegUtils.isMatch(regex, value);
 	}
 
 	/**
 	 * 通过正则表达式验证<br>
-	 * 不符合正则抛出{@link ValidateException} 异常
+	 * 不符合正则抛出{@link ChaosCoreException} 异常
 	 *
 	 * @param <T>      字符串类型
 	 * @param regex    正则
 	 * @param value    值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static <T extends CharSequence> T validateMatchRegex(String regex, T value, String errorMsg) throws ValidateException {
+	public static <T extends CharSequence> T validateMatchRegex(String regex, T value, String errorMsg) throws ChaosCoreException {
 		if (false == isMactchRegex(regex, value)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 	}
@@ -366,7 +363,7 @@ public class Validator {
 	 */
 	@Deprecated
 	public static boolean isMactchRegex(Pattern pattern, CharSequence value) {
-		return ReUtil.isMatch(pattern, value);
+		return RegUtils.isMatch(pattern, value);
 	}
 
 	/**
@@ -377,7 +374,7 @@ public class Validator {
 	 * @return 是否匹配正则
 	 */
 	public static boolean isMatchRegex(Pattern pattern, CharSequence value) {
-		return ReUtil.isMatch(pattern, value);
+		return RegUtils.isMatch(pattern, value);
 	}
 
 	/**
@@ -397,11 +394,11 @@ public class Validator {
 	 * @param value    值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static <T extends CharSequence> T validateGeneral(T value, String errorMsg) throws ValidateException {
+	public static <T extends CharSequence> T validateGeneral(T value, String errorMsg) throws ChaosCoreException {
 		if (false == isGeneral(value)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 	}
@@ -434,11 +431,11 @@ public class Validator {
 	 * @param max      最大长度，0或负数表示不限制最大长度
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static <T extends CharSequence> T validateGeneral(T value, int min, int max, String errorMsg) throws ValidateException {
+	public static <T extends CharSequence> T validateGeneral(T value, int min, int max, String errorMsg) throws ChaosCoreException {
 		if (false == isGeneral(value, min, max)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 	}
@@ -462,9 +459,9 @@ public class Validator {
 	 * @param min      最小长度，负数自动识别为0
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static <T extends CharSequence> T validateGeneral(T value, int min, String errorMsg) throws ValidateException {
+	public static <T extends CharSequence> T validateGeneral(T value, int min, String errorMsg) throws ChaosCoreException {
 		return validateGeneral(value, min, 0, errorMsg);
 	}
 
@@ -475,9 +472,9 @@ public class Validator {
 	 * @return 是否全部为字母组成，包括大写和小写字母和汉字
 	 * @since 3.3.0
 	 */
-	public static boolean isLetter(CharSequence value) {
-		return StrUtil.isAllCharMatch(value, Character::isLetter);
-	}
+//	public static boolean isLetter(CharSequence value) {
+//		return StringUtils.isAllCharMatch(value, Character::isLetter);
+//	}
 
 	/**
 	 * 验证是否全部为字母组成，包括大写和小写字母和汉字
@@ -486,15 +483,15 @@ public class Validator {
 	 * @param value    表单值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 * @since 3.3.0
 	 */
-	public static <T extends CharSequence> T validateLetter(T value, String errorMsg) throws ValidateException {
-		if (false == isLetter(value)) {
-			throw new ValidateException(errorMsg);
-		}
-		return value;
-	}
+//	public static <T extends CharSequence> T validateLetter(T value, String errorMsg) throws ChaosCoreException {
+//		if (false == isLetter(value)) {
+//			throw new ChaosCoreException(errorMsg);
+//		}
+//		return value;
+//	}
 
 	/**
 	 * 判断字符串是否全部为大写字母
@@ -503,9 +500,9 @@ public class Validator {
 	 * @return 是否全部为大写字母
 	 * @since 3.3.0
 	 */
-	public static boolean isUpperCase(CharSequence value) {
-		return StrUtil.isAllCharMatch(value, Character::isUpperCase);
-	}
+//	public static boolean isUpperCase(CharSequence value) {
+//		return StringUtils.isAllCharMatch(value, Character::isUpperCase);
+//	}
 
 	/**
 	 * 验证字符串是否全部为大写字母
@@ -514,15 +511,15 @@ public class Validator {
 	 * @param value    表单值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 * @since 3.3.0
 	 */
-	public static <T extends CharSequence> T validateUpperCase(T value, String errorMsg) throws ValidateException {
-		if (false == isUpperCase(value)) {
-			throw new ValidateException(errorMsg);
-		}
-		return value;
-	}
+//	public static <T extends CharSequence> T validateUpperCase(T value, String errorMsg) throws ChaosCoreException {
+//		if (false == isUpperCase(value)) {
+//			throw new ChaosCoreException(errorMsg);
+//		}
+//		return value;
+//	}
 
 	/**
 	 * 判断字符串是否全部为小写字母
@@ -531,9 +528,9 @@ public class Validator {
 	 * @return 是否全部为小写字母
 	 * @since 3.3.0
 	 */
-	public static boolean isLowerCase(CharSequence value) {
-		return StrUtil.isAllCharMatch(value, Character::isLowerCase);
-	}
+//	public static boolean isLowerCase(CharSequence value) {
+//		return StringUtils.isAllCharMatch(value, Character::isLowerCase);
+//	}
 
 	/**
 	 * 验证字符串是否全部为小写字母
@@ -542,15 +539,15 @@ public class Validator {
 	 * @param value    表单值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 * @since 3.3.0
 	 */
-	public static <T extends CharSequence> T validateLowerCase(T value, String errorMsg) throws ValidateException {
-		if (false == isLowerCase(value)) {
-			throw new ValidateException(errorMsg);
-		}
-		return value;
-	}
+//	public static <T extends CharSequence> T validateLowerCase(T value, String errorMsg) throws ChaosCoreException {
+//		if (false == isLowerCase(value)) {
+//			throw new ChaosCoreException(errorMsg);
+//		}
+//		return value;
+//	}
 
 	/**
 	 * 验证该字符串是否是数字
@@ -558,9 +555,9 @@ public class Validator {
 	 * @param value 字符串内容
 	 * @return 是否是数字
 	 */
-	public static boolean isNumber(CharSequence value) {
-		return NumberUtil.isNumber(value);
-	}
+//	public static boolean isNumber(CharSequence value) {
+//		return NumberUtil.isNumber(value);
+//	}
 
 	/**
 	 * 验证是否为数字
@@ -568,14 +565,14 @@ public class Validator {
 	 * @param value    表单值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static String validateNumber(String value, String errorMsg) throws ValidateException {
-		if (false == isNumber(value)) {
-			throw new ValidateException(errorMsg);
-		}
-		return value;
-	}
+//	public static String validateNumber(String value, String errorMsg) throws ChaosCoreException {
+//		if (false == isNumber(value)) {
+//			throw new ChaosCoreException(errorMsg);
+//		}
+//		return value;
+//	}
 
 	/**
 	 * 验证该字符串是否是字母（包括大写和小写字母）
@@ -595,12 +592,12 @@ public class Validator {
 	 * @param value    表单值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 * @since 4.1.8
 	 */
-	public static <T extends CharSequence> T validateWord(T value, String errorMsg) throws ValidateException {
+	public static <T extends CharSequence> T validateWord(T value, String errorMsg) throws ChaosCoreException {
 		if (false == isWord(value)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 	}
@@ -622,11 +619,11 @@ public class Validator {
 	 * @param value    值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static <T extends CharSequence> T validateMoney(T value, String errorMsg) throws ValidateException {
+	public static <T extends CharSequence> T validateMoney(T value, String errorMsg) throws ChaosCoreException {
 		if (false == isMoney(value)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 
@@ -649,11 +646,11 @@ public class Validator {
 	 * @param value    表单值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static <T extends CharSequence> T validateZipCode(T value, String errorMsg) throws ValidateException {
+	public static <T extends CharSequence> T validateZipCode(T value, String errorMsg) throws ChaosCoreException {
 		if (false == isZipCode(value)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 	}
@@ -675,11 +672,11 @@ public class Validator {
 	 * @param value    值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static <T extends CharSequence> T validateEmail(T value, String errorMsg) throws ValidateException {
+	public static <T extends CharSequence> T validateEmail(T value, String errorMsg) throws ChaosCoreException {
 		if (false == isEmail(value)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 	}
@@ -701,11 +698,11 @@ public class Validator {
 	 * @param value    值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static <T extends CharSequence> T validateMobile(T value, String errorMsg) throws ValidateException {
+	public static <T extends CharSequence> T validateMobile(T value, String errorMsg) throws ChaosCoreException {
 		if (false == isMobile(value)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 	}
@@ -729,11 +726,11 @@ public class Validator {
 	 * @param value    值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static <T extends CharSequence> T validateCitizenIdNumber(T value, String errorMsg) throws ValidateException {
+	public static <T extends CharSequence> T validateCitizenIdNumber(T value, String errorMsg) throws ChaosCoreException {
 		if (false == isCitizenId(value)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 	}
@@ -746,9 +743,9 @@ public class Validator {
 	 * @param day   日，从1开始计数
 	 * @return 是否为生日
 	 */
-	public static boolean isBirthday(int year, int month, int day) {
+	public static boolean isBirthday(int year, int month,int day) {
 		// 验证年
-		int thisYear = DateUtil.thisYear();
+		int thisYear = DateUtils.thisYear();
 		if (year < 1900 || year > thisYear) {
 			return false;
 		}
@@ -768,7 +765,7 @@ public class Validator {
 		}
 		if (month == 2) {
 			// 在2月，非闰年最大28，闰年最大29
-			return day < 29 || (day == 29 && DateUtil.isLeapYear(year));
+			return day < 29 || (day == 29 && DateUtils.isLeapYear(year));
 		}
 		return true;
 	}
@@ -805,11 +802,11 @@ public class Validator {
 	 * @param value    值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static <T extends CharSequence> T validateBirthday(T value, String errorMsg) throws ValidateException {
+	public static <T extends CharSequence> T validateBirthday(T value, String errorMsg) throws ChaosCoreException {
 		if (false == isBirthday(value)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 	}
@@ -831,11 +828,11 @@ public class Validator {
 	 * @param value    值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static <T extends CharSequence> T validateIpv4(T value, String errorMsg) throws ValidateException {
+	public static <T extends CharSequence> T validateIpv4(T value, String errorMsg) throws ChaosCoreException {
 		if (false == isIpv4(value)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 	}
@@ -857,11 +854,11 @@ public class Validator {
 	 * @param value    值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static <T extends CharSequence> T validateIpv6(T value, String errorMsg) throws ValidateException {
+	public static <T extends CharSequence> T validateIpv6(T value, String errorMsg) throws ChaosCoreException {
 		if (false == isIpv6(value)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 	}
@@ -884,12 +881,12 @@ public class Validator {
 	 * @param value    值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 * @since 4.1.3
 	 */
-	public static <T extends CharSequence> T validateMac(T value, String errorMsg) throws ValidateException {
+	public static <T extends CharSequence> T validateMac(T value, String errorMsg) throws ChaosCoreException {
 		if (false == isMac(value)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 	}
@@ -912,12 +909,12 @@ public class Validator {
 	 * @param value    值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 * @since 3.0.6
 	 */
-	public static <T extends CharSequence> T validatePlateNumber(T value, String errorMsg) throws ValidateException {
+	public static <T extends CharSequence> T validatePlateNumber(T value, String errorMsg) throws ChaosCoreException {
 		if (false == isPlateNumber(value)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 	}
@@ -930,7 +927,7 @@ public class Validator {
 	 */
 	public static boolean isUrl(CharSequence value) {
 		try {
-			new java.net.URL(StrUtil.str(value));
+			new java.net.URL(StringUtils.str(value));
 		} catch (MalformedURLException e) {
 			return false;
 		}
@@ -944,11 +941,11 @@ public class Validator {
 	 * @param value    值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static <T extends CharSequence> T validateUrl(T value, String errorMsg) throws ValidateException {
+	public static <T extends CharSequence> T validateUrl(T value, String errorMsg) throws ChaosCoreException {
 		if (false == isUrl(value)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 	}
@@ -959,9 +956,9 @@ public class Validator {
 	 * @param value 值
 	 * @return 是否为汉字
 	 */
-	public static boolean isChinese(CharSequence value) {
-		return isMactchRegex("^" + ReUtil.RE_CHINESES + "$", value);
-	}
+//	public static boolean isChinese(CharSequence value) {
+//		return isMactchRegex("^" + .RE_CHINESES + "$", value);
+//	}
 
 	/**
 	 * 验证是否包含汉字
@@ -970,9 +967,9 @@ public class Validator {
 	 * @return 是否包含汉字
 	 * @since 5.2.1
 	 */
-	public static boolean hasChinese(CharSequence value) {
-		return ReUtil.contains(ReUtil.RE_CHINESES, value);
-	}
+//	public static boolean hasChinese(CharSequence value) {
+//		return RegUtils.contains(ReUtil.RE_CHINESES, value);
+//	}
 
 	/**
 	 * 验证是否为汉字
@@ -981,14 +978,14 @@ public class Validator {
 	 * @param value    表单值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static <T extends CharSequence> T validateChinese(T value, String errorMsg) throws ValidateException {
-		if (false == isChinese(value)) {
-			throw new ValidateException(errorMsg);
-		}
-		return value;
-	}
+//	public static <T extends CharSequence> T validateChinese(T value, String errorMsg) throws ChaosCoreException {
+//		if (false == isChinese(value)) {
+//			throw new ChaosCoreException(errorMsg);
+//		}
+//		return value;
+//	}
 
 	/**
 	 * 验证是否为中文字、英文字母、数字和下划线
@@ -1007,11 +1004,11 @@ public class Validator {
 	 * @param value    值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static <T extends CharSequence> T validateGeneralWithChinese(T value, String errorMsg) throws ValidateException {
+	public static <T extends CharSequence> T validateGeneralWithChinese(T value, String errorMsg) throws ChaosCoreException {
 		if (false == isGeneralWithChinese(value)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 	}
@@ -1035,11 +1032,11 @@ public class Validator {
 	 * @param value    值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 */
-	public static <T extends CharSequence> T validateUUID(T value, String errorMsg) throws ValidateException {
+	public static <T extends CharSequence> T validateUUID(T value, String errorMsg) throws ChaosCoreException {
 		if (false == isUUID(value)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 	}
@@ -1062,12 +1059,12 @@ public class Validator {
 	 * @param value    值
 	 * @param errorMsg 验证错误的信息
 	 * @return 验证后的值
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 * @since 4.3.3
 	 */
-	public static <T extends CharSequence> T validateHex(T value, String errorMsg) throws ValidateException {
+	public static <T extends CharSequence> T validateHex(T value, String errorMsg) throws ChaosCoreException {
 		if (false == isHex(value)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 		return value;
 	}
@@ -1096,12 +1093,12 @@ public class Validator {
 	 * @param min      最小值（包含）
 	 * @param max      最大值（包含）
 	 * @param errorMsg 验证错误的信息
-	 * @throws ValidateException 验证异常
+	 * @throws ChaosCoreException 验证异常
 	 * @since 4.1.10
 	 */
-	public static void validateBetween(Number value, Number min, Number max, String errorMsg) throws ValidateException {
+	public static void validateBetween(Number value, Number min, Number max, String errorMsg) throws ChaosCoreException {
 		if (false == isBetween(value, min, max)) {
-			throw new ValidateException(errorMsg);
+			throw new ChaosCoreException(errorMsg);
 		}
 	}
 
@@ -1119,7 +1116,7 @@ public class Validator {
 	 * @return 校验结果
 	 * @since 5.2.4
 	 */
-	public static boolean isCreditCode(CharSequence creditCode) {
-		return CreditCodeUtil.isCreditCode(creditCode);
-	}
+//	public static boolean isCreditCode(CharSequence creditCode) {
+//		return CreditCodeUtil.isCreditCode(creditCode);
+//	}
 }

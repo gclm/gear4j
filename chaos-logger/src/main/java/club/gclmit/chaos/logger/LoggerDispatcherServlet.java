@@ -1,15 +1,20 @@
 package club.gclmit.chaos.logger;
 
-import club.gclmit.chaos.core.helper.*;
-import club.gclmit.chaos.core.net.HttpHelper;
-import club.gclmit.chaos.core.io.IOHelper;
-import club.gclmit.chaos.core.json.JsonKit;
-import club.gclmit.chaos.core.logger.Logger;
-import club.gclmit.chaos.core.logger.LoggerServer;
+import club.gclmit.chaos.core.io.IOUtils;
+import club.gclmit.chaos.core.lang.Logger;
+import club.gclmit.chaos.core.lang.logger.LoggerServer;
+import club.gclmit.chaos.core.net.HttpUtils;
+import club.gclmit.chaos.core.util.DBUtils;
+import club.gclmit.chaos.core.util.DateUtils;
+import club.gclmit.chaos.core.util.JsonUtils;
+import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.logger.db.mapper.LoggerMapper;
 import club.gclmit.chaos.logger.db.pojo.HttpTrace;
 import club.gclmit.chaos.logger.exception.ChaosLoggerException;
+import org.omg.CORBA.ObjectHelper;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
@@ -69,19 +74,19 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
              * 1. 获取写入数据库的相关参数
              * 2. 拼接参数到 HttpTrace
              */
-            Long requestTime = TimeHelper.getMilliTimestamp();
-            String clientIp =  HttpHelper.getClientIp(requestWrapper);
-            String userAgent = HttpHelper.getUserAgent(requestWrapper);
-            String sessionId = HttpHelper.getSessionId(requestWrapper);
+            Long requestTime = DateUtils.getMilliTimestamp();
+            String clientIp =  HttpUtils.getClientIp(requestWrapper);
+            String userAgent = HttpUtils.getUserAgent(requestWrapper);
+            String sessionId = HttpUtils.getSessionId(requestWrapper);
 
             String method = requestWrapper.getMethod();
 
-            String requestHeader = JsonKit.toJson(getRequestHeaders(requestWrapper));
+            String requestHeader = JsonUtils.toJson(getRequestHeaders(requestWrapper));
 
             /**
              * 如果 content Type 不存在默认为 application/x-www-form-urlencoded
              */
-            if (StringHelper.isEmpty(contentType)) {
+            if (StringUtils.isEmpty(contentType)) {
                 contentType = DEFAULT_CONTENT_TYPE;
             }
 
@@ -96,8 +101,8 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
                  *  判断请求是否是get,如果是 get 从 request 里面获取，否则从 body 里面获取
                  */
                 if (!contentType.startsWith(IGNORE_CONTENT_TYPE)){
-                    requestStr = JsonKit.toJson(requestWrapper.getParameterMap());
-                    if (StringHelper.isEmpty(requestStr) || "{}".equals(requestStr)){
+                    requestStr = JsonUtils.toJson(requestWrapper.getParameterMap());
+                    if (StringUtils.isEmpty(requestStr) || "{}".equals(requestStr)){
                         requestStr = getRequestBody(requestWrapper);
                     }
                 }
@@ -108,12 +113,12 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
                 int status = responseWrapper.getStatus();
                 String responseStr =  getResponseBody(responseWrapper);
                 responseWrapper.copyBodyToResponse();
-                String responseHeader = JsonKit.toJson(getResponseHeaders(responseWrapper));
+                String responseHeader = JsonUtils.toJson(getResponseHeaders(responseWrapper));
 
                 /**
                  * new 一个响应时间计算，请求耗时
                  */
-                Long responseTime = TimeHelper.getMilliTimestamp();
+                Long responseTime = DateUtils.getMilliTimestamp();
                 Long time = responseTime - requestTime;
 
                 /**
@@ -131,8 +136,8 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
                  * 保存到数据库
                  */
                 if (logger.isWriteDB()) {
-                    LoggerMapper loggerMapper = ObjectHelper.genBean(LoggerMapper.class, requestWrapper);
-                    boolean save = DBHelper.retBool(loggerMapper.insert(trace));
+                    LoggerMapper loggerMapper = genBean(LoggerMapper.class, requestWrapper);
+                    boolean save = DBUtils.retBool(loggerMapper.insert(trace));
                     Logger.info(LoggerServer.CHAOS_LOGGER,"当前请求日志入库：{}", save);
                 } else {
                     Logger.info(LoggerServer.CHAOS_LOGGER,"当前请求日志：{}", trace);
@@ -141,6 +146,21 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
         }  else {
             super.doDispatch(request,response);
         }
+    }
+
+    /**
+     *  获取Bean对象
+     *
+     * @author gclm
+     * @param: clazz
+     * @param: request
+     * @date 2020/1/20 10:40 上午
+     * @return: T
+     * @throws
+     */
+    public static  <T> T  genBean(Class<T> clazz, HttpServletRequest request) {
+        BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
+        return factory.getBean(clazz);
     }
 
     /**
@@ -194,7 +214,7 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
         String requestBody = "";
         if (wrapper != null) {
             try {
-                requestBody = IOHelper.toString(wrapper.getContentAsByteArray(), DEFAULT_CHARACTER_ENCODING);
+                requestBody = IOUtils.toString(wrapper.getContentAsByteArray(), DEFAULT_CHARACTER_ENCODING);
             } catch (IOException e) {
                 throw new ChaosLoggerException("解析 Request 请求内容失败");
             }
@@ -216,7 +236,7 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
         String responseBody = "";
         if (wrapper != null) {
             try {
-                responseBody = IOHelper.toString(wrapper.getContentAsByteArray(),DEFAULT_CHARACTER_ENCODING);
+                responseBody = IOUtils.toString(wrapper.getContentAsByteArray(),DEFAULT_CHARACTER_ENCODING);
             } catch (IOException e) {
                 throw new ChaosLoggerException("解析 Response 响应内容失败");
             }

@@ -1,7 +1,11 @@
 package club.gclmit.chaos.starter.service.impl;
 
-import club.gclmit.chaos.core.encrypt.MD5Helper;
-import club.gclmit.chaos.core.io.file.FileHelper;
+import club.gclmit.chaos.core.encrypt.MD5Utils;
+import club.gclmit.chaos.core.exception.ChaosCoreException;
+import club.gclmit.chaos.core.io.file.FileUtils;
+import club.gclmit.chaos.core.lang.Assert;
+import club.gclmit.chaos.core.util.IDUtils;
+import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.starter.mapper.FileMapper;
 import club.gclmit.chaos.starter.service.FileService;
 import club.gclmit.chaos.storage.client.StorageClient;
@@ -14,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
+import java.io.IOException;
+import java.time.Clock;
 import java.util.List;
 
 /**
@@ -44,14 +50,14 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
      */
     @Override
     public FileInfo uploadFile(MultipartFile file) {
-        File tempFile = FileHelper.multipartFileToFile("", file);
-        String md5 = new MD5Helper().encode(tempFile);
+        File tempFile = multipartFileToFile(file);
+        String md5 = new MD5Utils().encode(tempFile);
         FileInfo fileInfo = queryMD5(md5);
         if (fileInfo == null) {
             fileInfo = storageClient.upload(tempFile);
             save(fileInfo);
         }
-        FileHelper.deleteFile(tempFile);
+        FileUtils.deleteFile(tempFile);
         return fileInfo;
     }
 
@@ -201,5 +207,19 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
         return fileMapper.selectList(queryWrapper);
     }
 
+    public File multipartFileToFile(MultipartFile multipartFile){
+        Assert.notNull(multipartFile.isEmpty(),"multipartFile 不能为空");
 
+        String fileName = multipartFile.getOriginalFilename();
+        String suffix = fileName.substring(fileName.indexOf("."));
+
+        File localFile = new File(new StringBuilder().append(IDUtils.snowflakeId()).append(suffix).toString());
+
+        try {
+            multipartFile.transferTo(localFile);
+        } catch (IOException e) {
+            throw new ChaosCoreException("MultipartFile To File 失败",e);
+        }
+        return localFile;
+    }
 }

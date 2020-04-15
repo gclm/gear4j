@@ -1,10 +1,5 @@
 package club.gclmit.chaos.core.util;
 
-import nl.basjes.parse.useragent.UserAgent;
-import nl.basjes.parse.useragent.UserAgentAnalyzer;
-import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
-import nl.basjes.parse.useragent.classify.UserAgentClassifier;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -19,47 +14,9 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class UserAgentUtils {
 
-    private static UserAgentAnalyzer ua = null;
     private static final String IE = "msie";
     private static final String FIREFOX = "firefox";
     private static final String CHROME = "chrome";
-
-    static {
-        //agent_name agent_version_major operating_system_name operating_system_version
-        UserAgentAnalyzerBuilder builder = UserAgentAnalyzer.newBuilder();
-        builder.withField(UserAgent.AGENT_NAME);
-        builder.withField(UserAgent.AGENT_VERSION_MAJOR);
-
-        builder.withField(UserAgent.OPERATING_SYSTEM_NAME);
-        builder.withField(UserAgent.OPERATING_SYSTEM_VERSION);
-        builder.withField(UserAgent.DEVICE_CLASS);
-
-        builder.hideMatcherLoadStats();
-        builder.withCache(25000);
-        builder.withUserAgentMaxLength(1024);
-
-        ua = builder.build();
-    }
-
-
-    /**
-     *
-     * @param userAgentString
-     * @return
-     */
-    public static UserAgent parse(String userAgentString) {
-        return ua.parse(userAgentString);
-    }
-
-    /**
-     * 是否是
-     * @param userAgent
-     * @return
-     * @author tanyaowu
-     */
-    public static boolean isMobile(UserAgent userAgent) {
-        return UserAgentClassifier.isMobile(userAgent);
-    }
 
     /**
      * 获取当前浏览器名称

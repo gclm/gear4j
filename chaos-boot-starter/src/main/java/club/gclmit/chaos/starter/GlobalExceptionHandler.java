@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GlobalExceptionHandler {
 
     /**
-     *  处理 validate 异常
+     * 处理 validate 异常
      * @author gclm
      * @param: exception
      * @date 2020/1/15 4:03 下午

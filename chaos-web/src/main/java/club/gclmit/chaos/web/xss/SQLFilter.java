@@ -1,7 +1,7 @@
 package club.gclmit.chaos.web.xss;
 
+import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.web.exception.ChaosWebException;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * SQL过滤
@@ -15,7 +15,7 @@ public class SQLFilter {
      * @param str  待验证的字符串
      */
     public static String sqlInject(String str){
-        if(StringHelper.isBlank(str)){
+        if(StringUtils.isBlank(str)){
             return null;
         }
         //去掉'|"|;|\字符

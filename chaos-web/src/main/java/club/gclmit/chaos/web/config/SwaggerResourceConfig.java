@@ -1,7 +1,7 @@
 package club.gclmit.chaos.web.config;
 
-import club.gclmit.chaos.core.logger.LoggerServer;
-import club.gclmit.chaos.core.logger.Logger;
+import club.gclmit.chaos.core.lang.logger.LoggerServer;
+import club.gclmit.chaos.core.lang.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

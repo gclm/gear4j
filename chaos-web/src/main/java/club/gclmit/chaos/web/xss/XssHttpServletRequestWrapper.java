@@ -1,7 +1,7 @@
 package club.gclmit.chaos.web.xss;
 
-import club.gclmit.chaos.core.io.IOHelper;
-import org.apache.commons.lang3.StringUtils;
+import club.gclmit.chaos.core.io.IOUtils;
+import club.gclmit.chaos.core.util.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import javax.servlet.ReadListener;
@@ -41,7 +41,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         }
 
         //为空，直接返回
-        String json = IOHelper.toString(super.getInputStream(), "utf-8");
+        String json = IOUtils.toString(super.getInputStream(), "utf-8");
         if (StringUtils.isBlank(json)) {
             return super.getInputStream();
         }

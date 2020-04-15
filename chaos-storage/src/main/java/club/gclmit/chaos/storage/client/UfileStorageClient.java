@@ -1,8 +1,9 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.core.logger.Logger;
-import club.gclmit.chaos.core.logger.LoggerServer;
-import club.gclmit.chaos.core.helper.TimeHelper;
+import club.gclmit.chaos.core.lang.Logger;
+import club.gclmit.chaos.core.lang.logger.LoggerServer;
+import club.gclmit.chaos.core.util.DateUtils;
+import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.storage.properties.*;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
 import cn.ucloud.ufile.UfileClient;
@@ -61,7 +62,7 @@ public class UfileStorageClient extends StorageClient {
         Logger.debug(LoggerServer.CHAOS_STORAGE,"[Ufile]配置参数:[{}]",storage);
         if(storage.getType() == StorageServer.UFILE) {
             cloudStorage = storage.getConfig();
-            if (StringHelper.isBlank(cloudStorage.getEndpoint())){
+            if (StringUtils.isBlank(cloudStorage.getEndpoint())){
                 cloudStorage.setEndpoint(END_POINT);
             }
             ossClient = build(cloudStorage.getAccessKeyId(),cloudStorage.getAccessKeySecret(),cloudStorage.getRegion(),cloudStorage.getEndpoint());
@@ -84,8 +85,7 @@ public class UfileStorageClient extends StorageClient {
     @Deprecated
     public void delete(List<String> keys) {
          Assert.notEmpty(keys,"[Ufile]批量删除文件的 keys 不能为空");
-//         ossClient.deleteObjects(new DeleteObjectsRequest(cloudStorage.getBucket()).withKeys(keys));
-//         writeDB(flag,null,keys);
+         keys.forEach(key -> delete(key));
     }
 
     /**
@@ -154,7 +154,7 @@ public class UfileStorageClient extends StorageClient {
             // 拼接文件访问路径。由于拼接的字符串大多为String对象，而不是""的形式，所以直接用+拼接的方式没有优势
             StringBuffer path = new StringBuffer();
             path.append(cloudStorage.getProtocol()).append("://").append(cloudStorage.getBucket()).append(".").append(cloudStorage.getRegion()).append(".").append(cloudStorage.getEndpoint()).append("/").append(key);
-            if (StringHelper.isNotBlank(cloudStorage.getStyleName())) {
+            if (StringUtils.isNotBlank(cloudStorage.getStyleName())) {
                 path.append(cloudStorage.getStyleName());
             }
             url = path.toString();
@@ -162,7 +162,7 @@ public class UfileStorageClient extends StorageClient {
 
         fileInfo.seteTag(eTag);
         fileInfo.setUrl(url);
-        fileInfo.setUploadTime(TimeHelper.getMilliTimestamp());
+        fileInfo.setUploadTime(DateUtils.getMilliTimestamp());
         fileInfo.setStatus(FileStatus.UPLOAD_SUCCESS.getId());
         return fileInfo;
     }

@@ -1,10 +1,11 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.core.encrypt.MD5Helper;
+import club.gclmit.chaos.core.encrypt.MD5Utils;
+import club.gclmit.chaos.core.io.file.FileUtils;
 import club.gclmit.chaos.core.io.file.MimeType;
-import club.gclmit.chaos.core.io.file.FileHelper;
-import club.gclmit.chaos.core.lang.Snowflake;
-import club.gclmit.chaos.core.helper.TimeHelper;
+import club.gclmit.chaos.core.util.DateUtils;
+import club.gclmit.chaos.core.util.IDUtils;
+import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.storage.properties.FileInfo;
 import club.gclmit.chaos.storage.properties.Storage;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
@@ -50,29 +51,33 @@ public abstract class StorageClient {
         /**
          * 这里使用雪花算法目的---> 后期可能会将 key 进行 split，然后进行分类统计
          */
-        String id = Snowflake.getStringId();
+        Long id = IDUtils.snowflakeId();
 
         LocalDate localDate = LocalDate.now();
         String dateFormat = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
 
         //文件路径
-        String path = new StringBuilder(dateFormat).append("/").append(id).toString();
+        StringBuilder path = new StringBuilder();
 
         /**
          * 前后缀拼接逻辑:
          *  先判断是否存在前缀，存在在拼接，否则根据实际情况进行修改
          */
-        if (StringHelper.isNotBlank(prefix)) {
-            path = prefix + "/" + path;
+        if (StringUtils.isNotBlank(prefix)) {
+            path.append(prefix).append("/");
         }
+
+        path.append(dateFormat).append("/").append(id);
+
         if (suffix != null) {
             if (suffix.startsWith(".")) {
-                path = path + suffix;
+                path.append(suffix);
             } else {
-                path = path + "." + suffix;
+                path.append(".").append(suffix);
             }
         }
-        return path;
+
+        return path.toString();
     }
 
     /**
@@ -98,9 +103,9 @@ public abstract class StorageClient {
         /**
          * 根据工具类获取 fileInfo 参数
          */
-        String key = getPath(storage.getConfig().getPrefix(), FileHelper.getSuffix(file));
-        String contentType = FileHelper.getContentType(file);
-        String md5 = new MD5Helper().encode(file);
+        String key = getPath(storage.getConfig().getPrefix(), FileUtils.getSuffix(file));
+        String contentType = FileUtils.getContentType(file);
+        String md5 = new MD5Utils().encode(file);
 
         return upload(fileInputStream,new FileInfo(file.getName(),contentType,file.length(), md5,key,storage.getType().getId()));
     }
@@ -125,13 +130,13 @@ public abstract class StorageClient {
          * 根据工具类获取 fileInfo 参数
          */
         String contentType = MimeType.TXT.getMimeType();
-        String md5  = new MD5Helper().encode(data);
+        String md5  = new MD5Utils().encode(data);
         Long size = Long.valueOf(String.valueOf(data.length));
 
         /**
          * 如果不制定文件名,则key为文件名
          */
-        if (StringHelper.isBlank(fileName)) {
+        if (StringUtils.isBlank(fileName)) {
             fileName = key;
         }
 
@@ -154,8 +159,8 @@ public abstract class StorageClient {
         Assert.hasLength(key,"上传文件失败，请检查上传文件的 content 是否正常");
         Assert.hasLength(key,"上传文件失败，请检查上传文件的 key 是否正常");
 
-        if (StringHelper.isBlank(key)) {
-            key = new StringBuilder().append(TimeHelper.getMilliTimestamp()).append(".txt").toString();
+        if (StringUtils.isBlank(key)) {
+            key = new StringBuilder().append(DateUtils.getMilliTimestamp()).append(".txt").toString();
         }
         try {
             return upload(content.getBytes("UTF-8"),key,fileName);

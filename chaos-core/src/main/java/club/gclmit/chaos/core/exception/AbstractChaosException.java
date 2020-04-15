@@ -1,6 +1,8 @@
 package club.gclmit.chaos.core.exception;
 
 
+import club.gclmit.chaos.core.util.StringUtils;
+
 /**
  * <p>
  *  封装该项目的所以异常的父类
@@ -38,6 +40,9 @@ public abstract class AbstractChaosException extends RuntimeException {
         this.message = message;
     }
 
+    public AbstractChaosException(String messageTemplate, Object... params) {
+        super(StringUtils.format(messageTemplate, params));
+    }
 
     public AbstractChaosException(Integer code , String message) {
         super(message);

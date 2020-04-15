@@ -1,8 +1,9 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.core.logger.Logger;
-import club.gclmit.chaos.core.logger.LoggerServer;
-import club.gclmit.chaos.core.helper.TimeHelper;
+import club.gclmit.chaos.core.lang.Logger;
+import club.gclmit.chaos.core.lang.logger.LoggerServer;
+import club.gclmit.chaos.core.util.DateUtils;
+import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.storage.properties.*;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
@@ -17,6 +18,7 @@ import com.qcloud.cos.model.*;
 import com.qcloud.cos.region.Region;
 import com.qcloud.cos.transfer.TransferManager;
 import com.qcloud.cos.transfer.Upload;
+import org.hibernate.validator.internal.util.StringHelper;
 import org.springframework.util.Assert;
 import java.io.*;
 import java.util.ArrayList;
@@ -137,7 +139,7 @@ public class QCloudStorageClient extends StorageClient {
             // 拼接文件访问路径。由于拼接的字符串大多为String对象，而不是""的形式，所以直接用+拼接的方式没有优势
             StringBuffer path = new StringBuffer();
             path.append(cloudStorage.getProtocol()).append("://").append(cloudStorage.getBucket()).append(".cos.").append(cloudStorage.getRegion()).append(".myqcloud.com").append("/").append(key);
-            if (StringHelper.isNotBlank(cloudStorage.getStyleName())) {
+            if (StringUtils.isNotBlank(cloudStorage.getStyleName())) {
                 path.append(cloudStorage.getStyleName());
             }
             url = path.toString();
@@ -145,7 +147,7 @@ public class QCloudStorageClient extends StorageClient {
 
         fileInfo.setUrl(url);
         fileInfo.seteTag(eTag);
-        fileInfo.setUploadTime(TimeHelper.getMilliTimestamp());
+        fileInfo.setUploadTime(DateUtils.getMilliTimestamp());
         fileInfo.setStatus(FileStatus.UPLOAD_SUCCESS.getId());
         return fileInfo;
     }

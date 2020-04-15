@@ -1,17 +1,16 @@
 package club.gclmit.chaos.core.qrcode;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
-import club.gclmit.chaos.core.io.file.FileHelper;
-import club.gclmit.chaos.core.lang.Snowflake;
-import club.gclmit.chaos.core.logger.Logger;
-import club.gclmit.chaos.core.logger.LoggerServer;
+import club.gclmit.chaos.core.io.file.FileUtils;
+import club.gclmit.chaos.core.lang.Assert;
+import club.gclmit.chaos.core.lang.Logger;
+import club.gclmit.chaos.core.lang.logger.LoggerServer;
+import club.gclmit.chaos.core.util.IDUtils;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import org.springframework.util.Assert;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -117,7 +116,7 @@ public class QRCodeHelper {
      * @date: 2019-08-13
      * @return: java.lang.String
      */
-    private static String parseQRCode(BufferedImage bufferedImage) {
+    private static String parseQRCode(BufferedImage bufferedImage) throws NotFoundException {
 
         /**
          *  com.google.zxing.client.j2se.BufferedImageLuminanceSource: 缓冲图像亮度源
@@ -189,7 +188,7 @@ public class QRCodeHelper {
 
             if (QRCodeConfig.IMAGE_TYPE_FILE.equals(qrCode.getType())) {
                 String path = qrCode.getGeneartePath();
-                String id = Snowflake.getStringId();
+                Long id = IDUtils.snowflakeId();
 
                 Logger.info(LoggerServer.CHAOS_CORE, "配置的文件路径:{}", path);
 
@@ -202,7 +201,7 @@ public class QRCodeHelper {
                 }
 
                 filePath.append(id).append(".").append(qrCode.getSuffix());
-                File codeImgFile = FileHelper.autoJudgeFile(filePath.toString());
+                File codeImgFile = FileUtils.autoJudgeFile(filePath.toString());
 
                 Logger.info(LoggerServer.CHAOS_CORE, "生成的文件路径:{}", codeImgFile.getPath());
 

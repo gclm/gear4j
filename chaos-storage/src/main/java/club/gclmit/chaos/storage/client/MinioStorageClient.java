@@ -1,11 +1,11 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.core.logger.Logger;
-import club.gclmit.chaos.core.logger.LoggerServer;
-import club.gclmit.chaos.core.helper.TimeHelper;
+import club.gclmit.chaos.core.lang.Logger;
+import club.gclmit.chaos.core.lang.logger.LoggerServer;
+import club.gclmit.chaos.core.util.DateUtils;
+import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.storage.properties.*;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import io.minio.MinioClient;
 import io.minio.Result;
 import io.minio.messages.DeleteError;
@@ -150,7 +150,7 @@ public class MinioStorageClient  extends StorageClient {
         }
 
         fileInfo.setUrl(url);
-        fileInfo.setUploadTime(TimeHelper.getMilliTimestamp());
+        fileInfo.setUploadTime(DateUtils.getMilliTimestamp());
         fileInfo.setStatus(FileStatus.UPLOAD_SUCCESS.getId());
         return fileInfo;
     }
