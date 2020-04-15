@@ -17,8 +17,10 @@ import org.slf4j.helpers.MessageFormatter;
  */
 public class Logger {
 
-    // 当前日志类名
-    private final static String logClassName = Logger.class.getName();
+    /**
+     *  当前日志类名
+     */
+    private final static String CURRENT_LOG_CLASS_NAME = Logger.class.getName();
 
     /**
      * 获取最原始被调用的堆栈信息
@@ -42,13 +44,13 @@ public class Logger {
         // 当前日志类的堆栈信息完了就是调用该日志类对象信息
         for (StackTraceElement element : traceElements) {
             // 遍历到日志类
-            if (element.getClassName().equals(logClassName)) {
+            if (element.getClassName().equals(CURRENT_LOG_CLASS_NAME)) {
                 isEachLogFlag = true;
             }
 
             // 下一个非日志类的堆栈，就是最原始被调用的方法
             if (isEachLogFlag) {
-                if (!element.getClassName().equals(logClassName)) {
+                if (!element.getClassName().equals(CURRENT_LOG_CLASS_NAME)) {
                     caller = element;
                     break;
                 }
