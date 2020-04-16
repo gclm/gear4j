@@ -1,7 +1,17 @@
 package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -14,6 +24,8 @@ import java.lang.reflect.Field;
  * @since 1.8
  */
 public class ObjectUtils {
+
+    private static Logger logger = LoggerFactory.getLogger(ObjectUtils.class);
 
     /**
      * 比较两个对象是否相等。<br>
@@ -46,6 +58,134 @@ public class ObjectUtils {
         return obj.getClass().isArray();
     }
 
+
+    /**
+     * 判断一个对象的 所有属性是否为空
+     * @details 孤城落寞 2019-02-15 10:50
+     * @param object
+     * @return boolean
+     */
+    public static boolean objectFieldIsNull(Object object) throws IllegalAccessException {
+
+        for (Field field : object.getClass().getDeclaredFields()){
+
+            /**
+             * 配置获取私有属性的值
+             */
+            field.setAccessible(true);
+
+            /**
+             * 这里忽略static final 类型的属性，如若不需要可以去掉
+             */
+            if (Modifier.isFinal(field.getModifiers()) && Modifier.isStatic(field.getModifiers())){
+                continue;
+            }
+
+            /**
+             * field.get(Object obj) 获取属性的值
+             */
+            if (!isEmpty(field.get(object))){
+                return false;
+            }
+
+            /**
+             * 关闭获取私有属性的值
+             */
+            field.setAccessible(false);
+        }
+        return true;
+    }
+
+    /**
+     * 判断一个对象某个属性是否为空
+     * @details 孤城落寞 2019-02-15 14:51
+     * @param object
+     * @param fieldName
+     * @return boolean
+     */
+    public static boolean objectSingleFieldIsNull(Object object,String fieldName) throws NoSuchFieldException, IllegalAccessException {
+
+        logger.info("对象："+object+"属性名："+fieldName);
+
+        Field field = object.getClass().getDeclaredField(fieldName);
+
+        field.setAccessible(true);
+
+        if (!isEmpty(field.get(object))){
+            logger.info("field值:"+field.get(object));
+            return  false;
+        }
+
+        field.setAccessible(false);
+        return true;
+    }
+
+    /**
+     *  通过反射设置对象的属性
+     *
+     * @author gclm
+     * @param: bean
+     * @param: fieldName
+     * @param: fieldValue
+     * @return: java.lang.Object
+     * @since
+     */
+    public static Object setObjectField(Object bean,String fieldName,String fieldValue) throws NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+
+        Class<?> beanClass = bean.getClass();
+
+        Field field = beanClass.getDeclaredField(fieldName);
+
+        field.setAccessible(true);
+
+        /**
+         * 首字母转换成大写
+         */
+        char[] cs = fieldName.toCharArray();
+        cs[0]  -= 32;
+
+        String fieldMethodName = new StringBuilder("set").append(String.valueOf(cs)).toString();
+
+        Method method = beanClass.getDeclaredMethod(fieldMethodName, field.getType());
+
+        method.invoke(bean,fieldValue);
+
+        field.setAccessible(true);
+
+        return bean;
+    }
+
+    /**
+     * Object 对象非空判断。
+     *   如果对象为空则返回 true,非空则返回 false
+     * 目前只支持 String、Number、File、Collection、List、Map、Object[] 类型
+     * @details 孤城落寞 2019-02-15 10:40
+     * @param object
+     * @return boolean
+     */
+    public static boolean isEmpty(Object object){
+        if(object == null){
+            return  true;
+        } else if (object instanceof String && "".equals(object.toString().trim()) &&  object.toString().trim().length() > 0 ){
+            return  true;
+        }else if (object instanceof  Integer && (Integer) object == 0){
+            return  true;
+        } else if (object instanceof Number && ((Number) object).doubleValue() < 0){
+            return true;
+        } else if (object instanceof File && (((File) object).isDirectory() || !((File)object).exists())){
+            return true;
+        } else if (object instanceof Collection && ((Collection) object).isEmpty()){
+            return  true;
+        } else if (object instanceof List && (((List) object).isEmpty() || ((List) object).size() == 0)){
+            return  true;
+        } else if (object instanceof Map && (((Map) object).isEmpty() || ((Map) object).size() == 0)){
+            return true;
+        } else if (object instanceof Object[] && ((Object[]) object).length == 0){
+            return  true;
+        }
+        return false;
+    }
+
     /**
      * 通过反射获取 Object 的 属性
      *
@@ -55,20 +195,22 @@ public class ObjectUtils {
      * @return: java.lang.String
      */
     public static String toString(Object object){
-        Class<?> clazz = object.getClass();
-        String className = clazz.getName();
-        Field[] fields = clazz.getFields();
-        StringBuilder builder = new StringBuilder().append(className).append("{");
+        Class<?> clazz = ReflectUtils.getClass(object);
+        Field[] fields = clazz.getDeclaredFields();
+        /**
+         * 获取 参数属性封装
+         */
+        StringBuilder fieldBuilder = StringUtils.builder();
         for (Field field : fields){
             field.setAccessible(true);
             try {
-                builder.append(field.getName()).append("=").append(field.get(object)).append(", ");
+                fieldBuilder.append(field.getName()).append("=").append(field.get(object)).append(", ");
             } catch (IllegalAccessException e) {
-              throw new ChaosCoreException("通过反射拼接ToString异常",e);
+                throw new ChaosCoreException("通过反射拼接ToString异常",e);
             }
             field.setAccessible(false);
         }
-        builder.append("}");
-        return builder.toString();
+        String result = StringUtils.substringBefore(fieldBuilder, ", ", true);
+        return  StringUtils.builder(clazz.getSimpleName()).append("{").append(result).append("}").toString();
     }
 }

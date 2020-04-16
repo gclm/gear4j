@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core;
+package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.io.file.FileUtils;
 import java.io.File;

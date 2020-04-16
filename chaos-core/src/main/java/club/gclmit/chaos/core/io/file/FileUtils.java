@@ -4,7 +4,10 @@ package club.gclmit.chaos.core.io.file;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.*;
+import java.time.Clock;
 
 /**
  * <p>
@@ -112,6 +115,44 @@ public class FileUtils {
     }
 
     /**
+     *  MultipartFile 转 File
+     * @details 孤城落寞 2019-02-14 10:16
+     * @param multipartFile
+     * @return java.io.File
+     */
+    public static File multipartFileToFile(String folder, MultipartFile multipartFile){
+        Assert.notNull(multipartFile.isEmpty(),"multipartFile 不能为空");
+
+        if (StringUtils.isEmpty(folder)) {
+            folder = System.getProperty("user.dir");
+        }
+
+        File localFile = new File(folder, new StringBuilder().append(Clock.systemDefaultZone().millis()).append(".").append(getSuffix(multipartFile)).toString());
+
+        try {
+            multipartFile.transferTo(localFile);
+        } catch (IOException e) {
+            throw new ChaosCoreException("MultipartFile To File 失败",e);
+        }
+
+        return localFile;
+    }
+
+    /**
+     * 获取文件后缀
+     * @author 孤城落寞
+     * @param multipartFile
+     * @return: java.lang.String
+     */
+    public static String getSuffix(MultipartFile multipartFile){
+        Assert.notNull(multipartFile,"文件不能为空");
+
+        String fileName = multipartFile.getOriginalFilename();
+        String suffix = fileName.substring(fileName.indexOf(".")+1);
+        return suffix;
+    }
+
+    /**
      *  获取文件内容
      *
      * @author gclm
@@ -145,7 +186,7 @@ public class FileUtils {
      * @return: java.lang.String
      * @throws
      */
-    public static String getContentNotTrim(File file){
+    public static String getContentTrim(File file){
         return getContent(file).replaceAll("\\s*", "");
     }
 

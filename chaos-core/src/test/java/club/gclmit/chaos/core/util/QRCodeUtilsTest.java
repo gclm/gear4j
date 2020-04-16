@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core;
+package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.qrcode.QRCodeConfig;
@@ -20,7 +20,7 @@ import java.net.URL;
  * @date: 2019/11/7 0:18
  * @version: V1.0
  */
-public class QRCodeHelperTest {
+public class QRCodeUtilsTest {
 
     public static void main(String[] args) throws IOException, WriterException, NotFoundException {
         generateQrCodeTest();

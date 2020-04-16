@@ -708,6 +708,520 @@ public class ArrayUtils {
         return INDEX_NOT_FOUND;
     }
 
+    // ------------------------------------------------------------------------------------------------------------ min and max
+    /**
+     * 取最小值
+     *
+     * @param <T> 元素类型
+     * @param numberArray 数字数组
+     * @return 最小值
+     * @since 3.0.9
+     */
+//    public static <T extends Comparable<? super T>> T min(T[] numberArray) {
+//        if (isEmpty(numberArray)) {
+//            throw new IllegalArgumentException("Number array must not empty !");
+//        }
+//        T min = numberArray[0];
+//        for (T t : numberArray) {
+//            if (ObjectUtil.compare(min, t) > 0) {
+//                min = t;
+//            }
+//        }
+//        return min;
+//    }
+
+    /**
+     * 取最小值
+     *
+     * @param numberArray 数字数组
+     * @return 最小值
+     * @since 3.0.9
+     */
+    public static long min(long... numberArray) {
+        if (isEmpty(numberArray)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        long min = numberArray[0];
+        for (int i = 1; i < numberArray.length; i++) {
+            if (min > numberArray[i]) {
+                min = numberArray[i];
+            }
+        }
+        return min;
+    }
+
+    /**
+     * 取最小值
+     *
+     * @param numberArray 数字数组
+     * @return 最小值
+     * @since 3.0.9
+     */
+    public static int min(int... numberArray) {
+        if (isEmpty(numberArray)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        int min = numberArray[0];
+        for (int i = 1; i < numberArray.length; i++) {
+            if (min > numberArray[i]) {
+                min = numberArray[i];
+            }
+        }
+        return min;
+    }
+
+    /**
+     * 取最小值
+     *
+     * @param numberArray 数字数组
+     * @return 最小值
+     * @since 3.0.9
+     */
+    public static short min(short... numberArray) {
+        if (isEmpty(numberArray)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        short min = numberArray[0];
+        for (int i = 1; i < numberArray.length; i++) {
+            if (min > numberArray[i]) {
+                min = numberArray[i];
+            }
+        }
+        return min;
+    }
+
+    /**
+     * 取最小值
+     *
+     * @param numberArray 数字数组
+     * @return 最小值
+     * @since 3.0.9
+     */
+    public static char min(char... numberArray) {
+        if (isEmpty(numberArray)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        char min = numberArray[0];
+        for (int i = 1; i < numberArray.length; i++) {
+            if (min > numberArray[i]) {
+                min = numberArray[i];
+            }
+        }
+        return min;
+    }
+
+    /**
+     * 取最小值
+     *
+     * @param numberArray 数字数组
+     * @return 最小值
+     * @since 3.0.9
+     */
+    public static byte min(byte... numberArray) {
+        if (isEmpty(numberArray)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        byte min = numberArray[0];
+        for (int i = 1; i < numberArray.length; i++) {
+            if (min > numberArray[i]) {
+                min = numberArray[i];
+            }
+        }
+        return min;
+    }
+
+    /**
+     * 取最小值
+     *
+     * @param numberArray 数字数组
+     * @return 最小值
+     * @since 3.0.9
+     */
+    public static double min(double... numberArray) {
+        if (isEmpty(numberArray)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        double min = numberArray[0];
+        for (int i = 1; i < numberArray.length; i++) {
+            if (min > numberArray[i]) {
+                min = numberArray[i];
+            }
+        }
+        return min;
+    }
+
+    /**
+     * 取最小值
+     *
+     * @param numberArray 数字数组
+     * @return 最小值
+     * @since 3.0.9
+     */
+    public static float min(float... numberArray) {
+        if (isEmpty(numberArray)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        float min = numberArray[0];
+        for (int i = 1; i < numberArray.length; i++) {
+            if (min > numberArray[i]) {
+                min = numberArray[i];
+            }
+        }
+        return min;
+    }
+
+    /**
+     * 取最大值
+     *
+     * @param <T> 元素类型
+     * @param numberArray 数字数组
+     * @return 最大值
+     * @since 3.0.9
+     */
+//    public static <T extends Comparable<? super T>> T max(T[] numberArray) {
+//        if (isEmpty(numberArray)) {
+//            throw new IllegalArgumentException("Number array must not empty !");
+//        }
+//        T max = numberArray[0];
+//        for (int i = 1; i < numberArray.length; i++) {
+//            if (ObjectUtils.compare(max, numberArray[i]) < 0) {
+//                max = numberArray[i];
+//            }
+//        }
+//        return max;
+//    }
+
+    /**
+     * 取最大值
+     *
+     * @param numberArray 数字数组
+     * @return 最大值
+     * @since 3.0.9
+     */
+    public static long max(long... numberArray) {
+        if (isEmpty(numberArray)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        long max = numberArray[0];
+        for (int i = 1; i < numberArray.length; i++) {
+            if (max < numberArray[i]) {
+                max = numberArray[i];
+            }
+        }
+        return max;
+    }
+
+    /**
+     * 取最大值
+     *
+     * @param numberArray 数字数组
+     * @return 最大值
+     * @since 3.0.9
+     */
+    public static int max(int... numberArray) {
+        if (isEmpty(numberArray)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        int max = numberArray[0];
+        for (int i = 1; i < numberArray.length; i++) {
+            if (max < numberArray[i]) {
+                max = numberArray[i];
+            }
+        }
+        return max;
+    }
+
+    /**
+     * 取最大值
+     *
+     * @param numberArray 数字数组
+     * @return 最大值
+     * @since 3.0.9
+     */
+    public static short max(short... numberArray) {
+        if (isEmpty(numberArray)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        short max = numberArray[0];
+        for (int i = 1; i < numberArray.length; i++) {
+            if (max < numberArray[i]) {
+                max = numberArray[i];
+            }
+        }
+        return max;
+    }
+
+    /**
+     * 取最大值
+     *
+     * @param numberArray 数字数组
+     * @return 最大值
+     * @since 3.0.9
+     */
+    public static char max(char... numberArray) {
+        if (isEmpty(numberArray)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        char max = numberArray[0];
+        for (int i = 1; i < numberArray.length; i++) {
+            if (max < numberArray[i]) {
+                max = numberArray[i];
+            }
+        }
+        return max;
+    }
+
+    /**
+     * 取最大值
+     *
+     * @param numberArray 数字数组
+     * @return 最大值
+     * @since 3.0.9
+     */
+    public static byte max(byte... numberArray) {
+        if (isEmpty(numberArray)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        byte max = numberArray[0];
+        for (int i = 1; i < numberArray.length; i++) {
+            if (max < numberArray[i]) {
+                max = numberArray[i];
+            }
+        }
+        return max;
+    }
+
+    /**
+     * 取最大值
+     *
+     * @param numberArray 数字数组
+     * @return 最大值
+     * @since 3.0.9
+     */
+    public static double max(double... numberArray) {
+        if (isEmpty(numberArray)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        double max = numberArray[0];
+        for (int i = 1; i < numberArray.length; i++) {
+            if (max < numberArray[i]) {
+                max = numberArray[i];
+            }
+        }
+        return max;
+    }
+
+    /**
+     * 取最大值
+     *
+     * @param numberArray 数字数组
+     * @return 最大值
+     * @since 3.0.9
+     */
+    public static float max(float... numberArray) {
+        if (isEmpty(numberArray)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        float max = numberArray[0];
+        for (int i = 1; i < numberArray.length; i++) {
+            if (max < numberArray[i]) {
+                max = numberArray[i];
+            }
+        }
+        return max;
+    }
+
+    /**
+     * 交换数组中两个位置的值
+     *
+     * @param array 数组
+     * @param index1 位置1
+     * @param index2 位置2
+     * @return 交换后的数组，与传入数组为同一对象
+     * @since 4.0.7
+     */
+    public static int[] swap(int[] array, int index1, int index2) {
+        if (isEmpty(array)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        int tmp = array[index1];
+        array[index1] = array[index2];
+        array[index2] = tmp;
+        return array;
+    }
+
+    /**
+     * 交换数组中两个位置的值
+     *
+     * @param array 数组
+     * @param index1 位置1
+     * @param index2 位置2
+     * @return 交换后的数组，与传入数组为同一对象
+     * @since 4.0.7
+     */
+    public static long[] swap(long[] array, int index1, int index2) {
+        if (isEmpty(array)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        long tmp = array[index1];
+        array[index1] = array[index2];
+        array[index2] = tmp;
+        return array;
+    }
+
+    /**
+     * 交换数组中两个位置的值
+     *
+     * @param array 数组
+     * @param index1 位置1
+     * @param index2 位置2
+     * @return 交换后的数组，与传入数组为同一对象
+     * @since 4.0.7
+     */
+    public static double[] swap(double[] array, int index1, int index2) {
+        if (isEmpty(array)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        double tmp = array[index1];
+        array[index1] = array[index2];
+        array[index2] = tmp;
+        return array;
+    }
+
+    /**
+     * 交换数组中两个位置的值
+     *
+     * @param array 数组
+     * @param index1 位置1
+     * @param index2 位置2
+     * @return 交换后的数组，与传入数组为同一对象
+     * @since 4.0.7
+     */
+    public static float[] swap(float[] array, int index1, int index2) {
+        if (isEmpty(array)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        float tmp = array[index1];
+        array[index1] = array[index2];
+        array[index2] = tmp;
+        return array;
+    }
+
+    /**
+     * 交换数组中两个位置的值
+     *
+     * @param array 数组
+     * @param index1 位置1
+     * @param index2 位置2
+     * @return 交换后的数组，与传入数组为同一对象
+     * @since 4.0.7
+     */
+    public static boolean[] swap(boolean[] array, int index1, int index2) {
+        if (isEmpty(array)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        boolean tmp = array[index1];
+        array[index1] = array[index2];
+        array[index2] = tmp;
+        return array;
+    }
+
+    /**
+     * 交换数组中两个位置的值
+     *
+     * @param array 数组
+     * @param index1 位置1
+     * @param index2 位置2
+     * @return 交换后的数组，与传入数组为同一对象
+     * @since 4.0.7
+     */
+    public static byte[] swap(byte[] array, int index1, int index2) {
+        if (isEmpty(array)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        byte tmp = array[index1];
+        array[index1] = array[index2];
+        array[index2] = tmp;
+        return array;
+    }
+
+    /**
+     * 交换数组中两个位置的值
+     *
+     * @param array 数组
+     * @param index1 位置1
+     * @param index2 位置2
+     * @return 交换后的数组，与传入数组为同一对象
+     * @since 4.0.7
+     */
+    public static char[] swap(char[] array, int index1, int index2) {
+        if (isEmpty(array)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        char tmp = array[index1];
+        array[index1] = array[index2];
+        array[index2] = tmp;
+        return array;
+    }
+
+    /**
+     * 交换数组中两个位置的值
+     *
+     * @param array 数组
+     * @param index1 位置1
+     * @param index2 位置2
+     * @return 交换后的数组，与传入数组为同一对象
+     * @since 4.0.7
+     */
+    public static short[] swap(short[] array, int index1, int index2) {
+        if (isEmpty(array)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        short tmp = array[index1];
+        array[index1] = array[index2];
+        array[index2] = tmp;
+        return array;
+    }
+
+    /**
+     * 交换数组中两个位置的值
+     *
+     * @param <T> 元素类型
+     * @param array 数组
+     * @param index1 位置1
+     * @param index2 位置2
+     * @return 交换后的数组，与传入数组为同一对象
+     * @since 4.0.7
+     */
+    public static <T> T[] swap(T[] array, int index1, int index2) {
+        if (isEmpty(array)) {
+            throw new IllegalArgumentException("Array must not empty !");
+        }
+        T tmp = array[index1];
+        array[index1] = array[index2];
+        array[index2] = tmp;
+        return array;
+    }
+
+    /**
+     * 交换数组中两个位置的值
+     *
+     * @param array 数组对象
+     * @param index1 位置1
+     * @param index2 位置2
+     * @return 交换后的数组，与传入数组为同一对象
+     * @since 4.0.7
+     */
+//    public static Object swap(Object array, int index1, int index2) {
+//        if (isEmpty(array)) {
+//            throw new IllegalArgumentException("Array must not empty !");
+//        }
+//        Object tmp = get(array, index1);
+//        Array.set(array, index1, Array.get(array, index2));
+//        Array.set(array, index2, tmp);
+//        return array;
+//    }
+
     /**
      * @param obj
      * @return
