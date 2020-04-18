@@ -56,21 +56,6 @@
         </dependency>
 
         <dependency>
-            <groupId>io.minio</groupId>
-            <artifactId>minio</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>okio</artifactId>
-                    <groupId>com.squareup.okio</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>jsr305</artifactId>
-                    <groupId>com.google.code.findbugs</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
             <groupId>cn.ucloud.ufile</groupId>
             <artifactId>ufile-client-java</artifactId>
         </dependency>

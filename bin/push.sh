@@ -9,7 +9,7 @@ Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_p
 Info="${Green_font_prefix}[信息]${Font_color_suffix}"
 Error="${Red_font_prefix}[错误]${Font_color_suffix}"
 Tip="${Green_font_prefix}[注意]${Font_color_suffix}"
-Ignore=("LICENSE" "README.md" "bin" "doc" "chaos-boot-starter")
+Ignore=("LICENSE" "README.md" "bin" "chaos.iml" "docs" "pom.xml" "target")
 OSS="huaweicloud-oss-release"
 
 start_menu(){
@@ -68,6 +68,7 @@ cd ..
 base_path=$(pwd)
 echo "当前文件路径: $base_path"
 files=$(ls)
+mvn clean install
 for filename in $files
 do
     if [ $(contains "${Ignore[@]}" "$filename") == "n" ]; then
@@ -75,10 +76,7 @@ do
         echo $path  $OSS
         push
     fi
-
 done
-path=$base_path"/chaos-boot-starter"
-push
 }
 
 start_menu

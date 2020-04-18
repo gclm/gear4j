@@ -30,9 +30,6 @@ public class CloudStorageFactory {
     public static StorageClient build(Storage storage) {
         StorageClient client = null;
         switch (storage.getType()){
-            case MINIO:
-                client = new MinioStorageClient(storage);
-                break;
             case QINIU:
                 client = new QiniuStorageClient(storage);
                 break;
@@ -48,7 +45,6 @@ public class CloudStorageFactory {
             case QCLOUD:
                 client = new QCloudStorageClient(storage);
                 break;
-
         }
         return client;
     }

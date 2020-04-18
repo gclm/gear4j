@@ -57,12 +57,6 @@
             <groupId>club.gclmit</groupId>
             <artifactId>chaos-storage</artifactId>
             <version>${project.parent.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jsr305</artifactId>
-                    <groupId>com.google.code.findbugs</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
     </dependencies>

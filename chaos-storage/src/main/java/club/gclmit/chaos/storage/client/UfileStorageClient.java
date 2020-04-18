@@ -16,7 +16,6 @@ import cn.ucloud.ufile.exception.UfileClientException;
 import cn.ucloud.ufile.exception.UfileServerException;
 import cn.ucloud.ufile.http.HttpClient;
 import cn.ucloud.ufile.util.StorageType;
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.springframework.util.Assert;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -188,12 +187,8 @@ public class UfileStorageClient extends StorageClient {
         /**
          * 配置UfileClient，必须在使用UfileClient之前调用
          */
-        ThreadFactory namedThreadFactory = new ThreadFactoryBuilder()
-                .setNameFormat("ufile-client-pool-%d").build();
-
         ExecutorService executorService = new ThreadPoolExecutor(5, 200,
-                0L, TimeUnit.MILLISECONDS,
-                new LinkedBlockingQueue<Runnable>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+                0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(100));
 
         UfileClient.configure(new UfileClient.Config(
                 new HttpClient.Config(10, 5, TimeUnit.MINUTES)

@@ -6,7 +6,6 @@ import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.storage.properties.*;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
@@ -18,7 +17,6 @@ import com.qcloud.cos.model.*;
 import com.qcloud.cos.region.Region;
 import com.qcloud.cos.transfer.TransferManager;
 import com.qcloud.cos.transfer.Upload;
-import org.hibernate.validator.internal.util.StringHelper;
 import org.springframework.util.Assert;
 import java.io.*;
 import java.util.ArrayList;
@@ -111,14 +109,10 @@ public class QCloudStorageClient extends StorageClient {
         /**
          *  创建大小为5的线程池
          */
-        ThreadFactory namedThreadFactory = new ThreadFactoryBuilder()
-                .setNameFormat("qcloud-client-pool-%d").build();
+        ExecutorService executorService = new ThreadPoolExecutor(5, 200,
+                0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(100));
 
-        ExecutorService threadPool = new ThreadPoolExecutor(5, 200,
-                0L, TimeUnit.MILLISECONDS,
-                new LinkedBlockingQueue<Runnable>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
-
-        TransferManager transferManager = new TransferManager(cosClient, threadPool);
+        TransferManager transferManager = new TransferManager(cosClient, executorService);
 
         try {
             ObjectMetadata objectMetadata = new ObjectMetadata();

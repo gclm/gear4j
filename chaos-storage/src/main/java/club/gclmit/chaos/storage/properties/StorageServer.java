@@ -30,14 +30,9 @@ public enum StorageServer {
     UPYUN(3),
 
     /**
-     * minio
-     */
-    MINIO(4),
-
-    /**
      * UFile
      */
-    UFILE(5);
+    UFILE(4);
 
     private Integer id;
 

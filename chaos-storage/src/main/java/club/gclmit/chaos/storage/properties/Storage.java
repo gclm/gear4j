@@ -20,7 +20,7 @@ public class Storage implements Serializable {
      * 类型
      * 1：阿里云    2：七牛
      * 3：腾讯云    4：又拍云
-     * 5：MinIO
+     * 5：Ufile
      */
     private StorageServer type = StorageServer.ALIYUN;
 
