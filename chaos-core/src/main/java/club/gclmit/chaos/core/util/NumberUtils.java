@@ -1,1110 +1,1602 @@
 package club.gclmit.chaos.core.util;
 
-import club.gclmit.chaos.core.exception.ChaosCoreException;
-import club.gclmit.chaos.core.lang.Assert;
+import club.gclmit.chaos.core.lang.Validate;
+
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+
 
 /**
- * 数字工具类<br>
- * 对于精确值计算应该使用 {@link BigDecimal}<br>
- * JDK7中<strong>BigDecimal(double val)</strong>构造方法的结果有一定的不可预知性，例如：
+ * <p>Provides extra functionality for Java Number classes.</p>
  *
- * <pre>
- * new BigDecimal(0.1)
- * </pre>
- * <p>
- * 表示的不是<strong>0.1</strong>而是<strong>0.1000000000000000055511151231257827021181583404541015625</strong>
- *
- * <p>
- * 这是因为0.1无法准确的表示为double。因此应该使用<strong>new BigDecimal(String)</strong>。
- * </p>
- * 相关介绍：
- * <ul>
- * <li>http://www.oschina.net/code/snippet_563112_25237</li>
- * <li>https://github.com/venusdrogon/feilong-core/wiki/one-jdk7-bug-thinking</li>
- * </ul>
- *
- * @author Looly
+ * @since 2.0
  */
 public class NumberUtils {
 
-    /**
-     * 默认除法运算精度
-     */
-    private static final int DEFAUT_DIV_SCALE = 10;
+    /** Reusable Long constant for zero. */
+    public static final Long LONG_ZERO = Long.valueOf(0L);
+    /** Reusable Long constant for one. */
+    public static final Long LONG_ONE = Long.valueOf(1L);
+    /** Reusable Long constant for minus one. */
+    public static final Long LONG_MINUS_ONE = Long.valueOf(-1L);
+    /** Reusable Integer constant for zero. */
+    public static final Integer INTEGER_ZERO = Integer.valueOf(0);
+    /** Reusable Integer constant for one. */
+    public static final Integer INTEGER_ONE = Integer.valueOf(1);
+    /** Reusable Integer constant for two */
+    public static final Integer INTEGER_TWO = Integer.valueOf(2);
+    /** Reusable Integer constant for minus one. */
+    public static final Integer INTEGER_MINUS_ONE = Integer.valueOf(-1);
+    /** Reusable Short constant for zero. */
+    public static final Short SHORT_ZERO = Short.valueOf((short) 0);
+    /** Reusable Short constant for one. */
+    public static final Short SHORT_ONE = Short.valueOf((short) 1);
+    /** Reusable Short constant for minus one. */
+    public static final Short SHORT_MINUS_ONE = Short.valueOf((short) -1);
+    /** Reusable Byte constant for zero. */
+    public static final Byte BYTE_ZERO = Byte.valueOf((byte) 0);
+    /** Reusable Byte constant for one. */
+    public static final Byte BYTE_ONE = Byte.valueOf((byte) 1);
+    /** Reusable Byte constant for minus one. */
+    public static final Byte BYTE_MINUS_ONE = Byte.valueOf((byte) -1);
+    /** Reusable Double constant for zero. */
+    public static final Double DOUBLE_ZERO = Double.valueOf(0.0d);
+    /** Reusable Double constant for one. */
+    public static final Double DOUBLE_ONE = Double.valueOf(1.0d);
+    /** Reusable Double constant for minus one. */
+    public static final Double DOUBLE_MINUS_ONE = Double.valueOf(-1.0d);
+    /** Reusable Float constant for zero. */
+    public static final Float FLOAT_ZERO = Float.valueOf(0.0f);
+    /** Reusable Float constant for one. */
+    public static final Float FLOAT_ONE = Float.valueOf(1.0f);
+    /** Reusable Float constant for minus one. */
+    public static final Float FLOAT_MINUS_ONE = Float.valueOf(-1.0f);
+
 
     /**
-     * 提供精确的加法运算
+     * <p>{@code NumberUtils} instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as {@code NumberUtils.toInt("6");}.</p>
      *
-     * @param v1 被加数
-     * @param v2 加数
-     * @return 和
+     * <p>This constructor is public to permit tools that require a JavaBean instance
+     * to operate.</p>
      */
-    public static double add(float v1, float v2) {
-        return add(Float.toString(v1), Float.toString(v2)).doubleValue();
+    public NumberUtils() {
+        super();
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Convert a {@code String} to an {@code int}, returning
+     * {@code zero} if the conversion fails.</p>
+     *
+     * <p>If the string is {@code null}, {@code zero} is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toInt(null) = 0
+     *   NumberUtils.toInt("")   = 0
+     *   NumberUtils.toInt("1")  = 1
+     * </pre>
+     *
+     * @param str  the string to convert, may be null
+     * @return the int represented by the string, or {@code zero} if
+     *  conversion fails
+     * @since 2.1
+     */
+    public static int toInt(final String str) {
+        return toInt(str, 0);
     }
 
     /**
-     * 提供精确的加法运算
+     * <p>Convert a {@code String} to an {@code int}, returning a
+     * default value if the conversion fails.</p>
      *
-     * @param v1 被加数
-     * @param v2 加数
-     * @return 和
+     * <p>If the string is {@code null}, the default value is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toInt(null, 1) = 1
+     *   NumberUtils.toInt("", 1)   = 1
+     *   NumberUtils.toInt("1", 0)  = 1
+     * </pre>
+     *
+     * @param str  the string to convert, may be null
+     * @param defaultValue  the default value
+     * @return the int represented by the string, or the default if conversion fails
+     * @since 2.1
      */
-    public static double add(float v1, double v2) {
-        return add(Float.toString(v1), Double.toString(v2)).doubleValue();
+    public static int toInt(final String str, final int defaultValue) {
+        if (str == null) {
+            return defaultValue;
+        }
+        try {
+            return Integer.parseInt(str);
+        } catch (final NumberFormatException nfe) {
+            return defaultValue;
+        }
     }
 
     /**
-     * 提供精确的加法运算
+     * <p>Convert a {@code String} to a {@code long}, returning
+     * {@code zero} if the conversion fails.</p>
      *
-     * @param v1 被加数
-     * @param v2 加数
-     * @return 和
+     * <p>If the string is {@code null}, {@code zero} is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toLong(null) = 0L
+     *   NumberUtils.toLong("")   = 0L
+     *   NumberUtils.toLong("1")  = 1L
+     * </pre>
+     *
+     * @param str  the string to convert, may be null
+     * @return the long represented by the string, or {@code 0} if
+     *  conversion fails
+     * @since 2.1
      */
-    public static double add(double v1, float v2) {
-        return add(Double.toString(v1), Float.toString(v2)).doubleValue();
+    public static long toLong(final String str) {
+        return toLong(str, 0L);
     }
 
     /**
-     * 提供精确的加法运算
+     * <p>Convert a {@code String} to a {@code long}, returning a
+     * default value if the conversion fails.</p>
      *
-     * @param v1 被加数
-     * @param v2 加数
-     * @return 和
+     * <p>If the string is {@code null}, the default value is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toLong(null, 1L) = 1L
+     *   NumberUtils.toLong("", 1L)   = 1L
+     *   NumberUtils.toLong("1", 0L)  = 1L
+     * </pre>
+     *
+     * @param str  the string to convert, may be null
+     * @param defaultValue  the default value
+     * @return the long represented by the string, or the default if conversion fails
+     * @since 2.1
      */
-    public static double add(double v1, double v2) {
-        return add(Double.toString(v1), Double.toString(v2)).doubleValue();
+    public static long toLong(final String str, final long defaultValue) {
+        if (str == null) {
+            return defaultValue;
+        }
+        try {
+            return Long.parseLong(str);
+        } catch (final NumberFormatException nfe) {
+            return defaultValue;
+        }
     }
 
     /**
-     * 提供精确的加法运算
+     * <p>Convert a {@code String} to a {@code float}, returning
+     * {@code 0.0f} if the conversion fails.</p>
      *
-     * @param v1 被加数
-     * @param v2 加数
-     * @return 和
-     * @since 3.1.1
+     * <p>If the string {@code str} is {@code null},
+     * {@code 0.0f} is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toFloat(null)   = 0.0f
+     *   NumberUtils.toFloat("")     = 0.0f
+     *   NumberUtils.toFloat("1.5")  = 1.5f
+     * </pre>
+     *
+     * @param str the string to convert, may be {@code null}
+     * @return the float represented by the string, or {@code 0.0f}
+     *  if conversion fails
+     * @since 2.1
      */
-    public static double add(Double v1, Double v2) {
-        //noinspection RedundantCast
-        return add((Number) v1, (Number) v2).doubleValue();
+    public static float toFloat(final String str) {
+        return toFloat(str, 0.0f);
     }
 
     /**
-     * 提供精确的加法运算<br>
-     * 如果传入多个值为null或者空，则返回0
+     * <p>Convert a {@code String} to a {@code float}, returning a
+     * default value if the conversion fails.</p>
      *
-     * @param v1 被加数
-     * @param v2 加数
-     * @return 和
+     * <p>If the string {@code str} is {@code null}, the default
+     * value is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toFloat(null, 1.1f)   = 1.0f
+     *   NumberUtils.toFloat("", 1.1f)     = 1.1f
+     *   NumberUtils.toFloat("1.5", 0.0f)  = 1.5f
+     * </pre>
+     *
+     * @param str the string to convert, may be {@code null}
+     * @param defaultValue the default value
+     * @return the float represented by the string, or defaultValue
+     *  if conversion fails
+     * @since 2.1
      */
-    public static BigDecimal add(Number v1, Number v2) {
-        return add(new Number[]{v1, v2});
+    public static float toFloat(final String str, final float defaultValue) {
+        if (str == null) {
+            return defaultValue;
+        }
+        try {
+            return Float.parseFloat(str);
+        } catch (final NumberFormatException nfe) {
+            return defaultValue;
+        }
     }
 
     /**
-     * 提供精确的加法运算<br>
-     * 如果传入多个值为null或者空，则返回0
+     * <p>Convert a {@code String} to a {@code double}, returning
+     * {@code 0.0d} if the conversion fails.</p>
      *
-     * @param values 多个被加值
-     * @return 和
-     * @since 4.0.0
+     * <p>If the string {@code str} is {@code null},
+     * {@code 0.0d} is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toDouble(null)   = 0.0d
+     *   NumberUtils.toDouble("")     = 0.0d
+     *   NumberUtils.toDouble("1.5")  = 1.5d
+     * </pre>
+     *
+     * @param str the string to convert, may be {@code null}
+     * @return the double represented by the string, or {@code 0.0d}
+     *  if conversion fails
+     * @since 2.1
      */
-    public static BigDecimal add(Number... values) {
-        if (ArrayUtils.isEmpty(values)) {
+    public static double toDouble(final String str) {
+        return toDouble(str, 0.0d);
+    }
+
+    /**
+     * <p>Convert a {@code String} to a {@code double}, returning a
+     * default value if the conversion fails.</p>
+     *
+     * <p>If the string {@code str} is {@code null}, the default
+     * value is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toDouble(null, 1.1d)   = 1.1d
+     *   NumberUtils.toDouble("", 1.1d)     = 1.1d
+     *   NumberUtils.toDouble("1.5", 0.0d)  = 1.5d
+     * </pre>
+     *
+     * @param str the string to convert, may be {@code null}
+     * @param defaultValue the default value
+     * @return the double represented by the string, or defaultValue
+     *  if conversion fails
+     * @since 2.1
+     */
+    public static double toDouble(final String str, final double defaultValue) {
+        if (str == null) {
+            return defaultValue;
+        }
+        try {
+            return Double.parseDouble(str);
+        } catch (final NumberFormatException nfe) {
+            return defaultValue;
+        }
+    }
+
+    /**
+     * <p>Convert a {@code BigDecimal} to a {@code double}.</p>
+     *
+     * <p>If the {@code BigDecimal} {@code value} is
+     * {@code null}, then the specified default value is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toDouble(null)                     = 0.0d
+     *   NumberUtils.toDouble(BigDecimal.valudOf(8.5d)) = 8.5d
+     * </pre>
+     *
+     * @param value the {@code BigDecimal} to convert, may be {@code null}.
+     * @return the double represented by the {@code BigDecimal} or
+     *  {@code 0.0d} if the {@code BigDecimal} is {@code null}.
+     * @since 3.8
+     */
+    public static double toDouble(final BigDecimal value) {
+        return toDouble(value, 0.0d);
+    }
+
+    /**
+     * <p>Convert a {@code BigDecimal} to a {@code double}.</p>
+     *
+     * <p>If the {@code BigDecimal} {@code value} is
+     * {@code null}, then the specified default value is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toDouble(null, 1.1d)                     = 1.1d
+     *   NumberUtils.toDouble(BigDecimal.valudOf(8.5d), 1.1d) = 8.5d
+     * </pre>
+     *
+     * @param value the {@code BigDecimal} to convert, may be {@code null}.
+     * @param defaultValue the default value
+     * @return the double represented by the {@code BigDecimal} or the
+     *  defaultValue if the {@code BigDecimal} is {@code null}.
+     * @since 3.8
+     */
+    public static double toDouble(final BigDecimal value, final double defaultValue) {
+        return value == null ? defaultValue : value.doubleValue();
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Convert a {@code String} to a {@code byte}, returning
+     * {@code zero} if the conversion fails.</p>
+     *
+     * <p>If the string is {@code null}, {@code zero} is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toByte(null) = 0
+     *   NumberUtils.toByte("")   = 0
+     *   NumberUtils.toByte("1")  = 1
+     * </pre>
+     *
+     * @param str  the string to convert, may be null
+     * @return the byte represented by the string, or {@code zero} if
+     *  conversion fails
+     * @since 2.5
+     */
+    public static byte toByte(final String str) {
+        return toByte(str, (byte) 0);
+    }
+
+    /**
+     * <p>Convert a {@code String} to a {@code byte}, returning a
+     * default value if the conversion fails.</p>
+     *
+     * <p>If the string is {@code null}, the default value is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toByte(null, 1) = 1
+     *   NumberUtils.toByte("", 1)   = 1
+     *   NumberUtils.toByte("1", 0)  = 1
+     * </pre>
+     *
+     * @param str  the string to convert, may be null
+     * @param defaultValue  the default value
+     * @return the byte represented by the string, or the default if conversion fails
+     * @since 2.5
+     */
+    public static byte toByte(final String str, final byte defaultValue) {
+        if (str == null) {
+            return defaultValue;
+        }
+        try {
+            return Byte.parseByte(str);
+        } catch (final NumberFormatException nfe) {
+            return defaultValue;
+        }
+    }
+
+    /**
+     * <p>Convert a {@code String} to a {@code short}, returning
+     * {@code zero} if the conversion fails.</p>
+     *
+     * <p>If the string is {@code null}, {@code zero} is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toShort(null) = 0
+     *   NumberUtils.toShort("")   = 0
+     *   NumberUtils.toShort("1")  = 1
+     * </pre>
+     *
+     * @param str  the string to convert, may be null
+     * @return the short represented by the string, or {@code zero} if
+     *  conversion fails
+     * @since 2.5
+     */
+    public static short toShort(final String str) {
+        return toShort(str, (short) 0);
+    }
+
+    /**
+     * <p>Convert a {@code String} to an {@code short}, returning a
+     * default value if the conversion fails.</p>
+     *
+     * <p>If the string is {@code null}, the default value is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toShort(null, 1) = 1
+     *   NumberUtils.toShort("", 1)   = 1
+     *   NumberUtils.toShort("1", 0)  = 1
+     * </pre>
+     *
+     * @param str  the string to convert, may be null
+     * @param defaultValue  the default value
+     * @return the short represented by the string, or the default if conversion fails
+     * @since 2.5
+     */
+    public static short toShort(final String str, final short defaultValue) {
+        if (str == null) {
+            return defaultValue;
+        }
+        try {
+            return Short.parseShort(str);
+        } catch (final NumberFormatException nfe) {
+            return defaultValue;
+        }
+    }
+
+    /**
+     * Convert a {@code BigDecimal} to a {@code BigDecimal} with a scale of
+     * two that has been rounded using {@code RoundingMode.HALF_EVEN}. If the supplied
+     * {@code value} is null, then {@code BigDecimal.ZERO} is returned.
+     *
+     * <p>Note, the scale of a {@code BigDecimal} is the number of digits to the right of the
+     * decimal point.</p>
+     *
+     * @param value the {@code BigDecimal} to convert, may be null.
+     * @return the scaled, with appropriate rounding, {@code BigDecimal}.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(final BigDecimal value) {
+        return toScaledBigDecimal(value, INTEGER_TWO, RoundingMode.HALF_EVEN);
+    }
+
+    /**
+     * Convert a {@code BigDecimal} to a {@code BigDecimal} whose scale is the
+     * specified value with a {@code RoundingMode} applied. If the input {@code value}
+     * is {@code null}, we simply return {@code BigDecimal.ZERO}.
+     *
+     * @param value the {@code BigDecimal} to convert, may be null.
+     * @param scale the number of digits to the right of the decimal point.
+     * @param roundingMode a rounding behavior for numerical operations capable of
+     *  discarding precision.
+     * @return the scaled, with appropriate rounding, {@code BigDecimal}.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(final BigDecimal value, final int scale, final RoundingMode roundingMode) {
+        if (value == null) {
             return BigDecimal.ZERO;
         }
-
-        Number value = values[0];
-        BigDecimal result = new BigDecimal(null == value ? "0" : value.toString());
-        for (int i = 1; i < values.length; i++) {
-            value = values[i];
-            if (null != value) {
-                result = result.add(new BigDecimal(value.toString()));
-            }
-        }
-        return result;
+        return value.setScale(
+                scale,
+                (roundingMode == null) ? RoundingMode.HALF_EVEN : roundingMode
+        );
     }
 
     /**
-     * 提供精确的加法运算<br>
-     * 如果传入多个值为null或者空，则返回0
+     * Convert a {@code Float} to a {@code BigDecimal} with a scale of
+     * two that has been rounded using {@code RoundingMode.HALF_EVEN}. If the supplied
+     * {@code value} is null, then {@code BigDecimal.ZERO} is returned.
      *
-     * @param values 多个被加值
-     * @return 和
-     * @since 4.0.0
+     * <p>Note, the scale of a {@code BigDecimal} is the number of digits to the right of the
+     * decimal point.</p>
+     *
+     * @param value the {@code Float} to convert, may be null.
+     * @return the scaled, with appropriate rounding, {@code BigDecimal}.
+     * @since 3.8
      */
-    public static BigDecimal add(String... values) {
-        if (ArrayUtils.isEmpty(values)) {
+    public static BigDecimal toScaledBigDecimal(final Float value) {
+        return toScaledBigDecimal(value, INTEGER_TWO, RoundingMode.HALF_EVEN);
+    }
+
+    /**
+     * Convert a {@code Float} to a {@code BigDecimal} whose scale is the
+     * specified value with a {@code RoundingMode} applied. If the input {@code value}
+     * is {@code null}, we simply return {@code BigDecimal.ZERO}.
+     *
+     * @param value the {@code Float} to convert, may be null.
+     * @param scale the number of digits to the right of the decimal point.
+     * @param roundingMode a rounding behavior for numerical operations capable of
+     *  discarding precision.
+     * @return the scaled, with appropriate rounding, {@code BigDecimal}.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(final Float value, final int scale, final RoundingMode roundingMode) {
+        if (value == null) {
             return BigDecimal.ZERO;
         }
-
-        String value = values[0];
-        BigDecimal result = new BigDecimal(null == value ? "0" : value);
-        for (int i = 1; i < values.length; i++) {
-            value = values[i];
-            if (null != value) {
-                result = result.add(new BigDecimal(value));
-            }
-        }
-        return result;
+        return toScaledBigDecimal(
+                BigDecimal.valueOf(value),
+                scale,
+                roundingMode
+        );
     }
 
     /**
-     * 提供精确的加法运算<br>
-     * 如果传入多个值为null或者空，则返回0
+     * Convert a {@code Double} to a {@code BigDecimal} with a scale of
+     * two that has been rounded using {@code RoundingMode.HALF_EVEN}. If the supplied
+     * {@code value} is null, then {@code BigDecimal.ZERO} is returned.
      *
-     * @param values 多个被加值
-     * @return 和
-     * @since 4.0.0
+     * <p>Note, the scale of a {@code BigDecimal} is the number of digits to the right of the
+     * decimal point.</p>
+     *
+     * @param value the {@code Double} to convert, may be null.
+     * @return the scaled, with appropriate rounding, {@code BigDecimal}.
+     * @since 3.8
      */
-    public static BigDecimal add(BigDecimal... values) {
-        if (ArrayUtils.isEmpty(values)) {
+    public static BigDecimal toScaledBigDecimal(final Double value) {
+        return toScaledBigDecimal(value, INTEGER_TWO, RoundingMode.HALF_EVEN);
+    }
+
+    /**
+     * Convert a {@code Double} to a {@code BigDecimal} whose scale is the
+     * specified value with a {@code RoundingMode} applied. If the input {@code value}
+     * is {@code null}, we simply return {@code BigDecimal.ZERO}.
+     *
+     * @param value the {@code Double} to convert, may be null.
+     * @param scale the number of digits to the right of the decimal point.
+     * @param roundingMode a rounding behavior for numerical operations capable of
+     *  discarding precision.
+     * @return the scaled, with appropriate rounding, {@code BigDecimal}.
+     * @since 3.8
+     */
+    public static BigDecimal toScaledBigDecimal(final Double value, final int scale, final RoundingMode roundingMode) {
+        if (value == null) {
             return BigDecimal.ZERO;
         }
-
-        BigDecimal value = values[0];
-        BigDecimal result = null == value ? BigDecimal.ZERO : value;
-        for (int i = 1; i < values.length; i++) {
-            value = values[i];
-            if (null != value) {
-                result = result.add(value);
-            }
-        }
-        return result;
+        return toScaledBigDecimal(
+                BigDecimal.valueOf(value),
+                scale,
+                roundingMode
+        );
     }
 
     /**
-     * 提供精确的减法运算
+     * Convert a {@code String} to a {@code BigDecimal} with a scale of
+     * two that has been rounded using {@code RoundingMode.HALF_EVEN}. If the supplied
+     * {@code value} is null, then {@code BigDecimal.ZERO} is returned.
      *
-     * @param v1 被减数
-     * @param v2 减数
-     * @return 差
+     * <p>Note, the scale of a {@code BigDecimal} is the number of digits to the right of the
+     * decimal point.</p>
+     *
+     * @param value the {@code String} to convert, may be null.
+     * @return the scaled, with appropriate rounding, {@code BigDecimal}.
+     * @since 3.8
      */
-    public static double sub(float v1, float v2) {
-        return sub(Float.toString(v1), Float.toString(v2)).doubleValue();
+    public static BigDecimal toScaledBigDecimal(final String value) {
+        return toScaledBigDecimal(value, INTEGER_TWO, RoundingMode.HALF_EVEN);
     }
 
     /**
-     * 提供精确的减法运算
+     * Convert a {@code String} to a {@code BigDecimal} whose scale is the
+     * specified value with a {@code RoundingMode} applied. If the input {@code value}
+     * is {@code null}, we simply return {@code BigDecimal.ZERO}.
      *
-     * @param v1 被减数
-     * @param v2 减数
-     * @return 差
+     * @param value the {@code String} to convert, may be null.
+     * @param scale the number of digits to the right of the decimal point.
+     * @param roundingMode a rounding behavior for numerical operations capable of
+     *  discarding precision.
+     * @return the scaled, with appropriate rounding, {@code BigDecimal}.
+     * @since 3.8
      */
-    public static double sub(float v1, double v2) {
-        return sub(Float.toString(v1), Double.toString(v2)).doubleValue();
-    }
-
-    /**
-     * 提供精确的减法运算
-     *
-     * @param v1 被减数
-     * @param v2 减数
-     * @return 差
-     */
-    public static double sub(double v1, float v2) {
-        return sub(Double.toString(v1), Float.toString(v2)).doubleValue();
-    }
-
-    /**
-     * 提供精确的减法运算
-     *
-     * @param v1 被减数
-     * @param v2 减数
-     * @return 差
-     */
-    public static double sub(double v1, double v2) {
-        return sub(Double.toString(v1), Double.toString(v2)).doubleValue();
-    }
-
-    /**
-     * 提供精确的减法运算
-     *
-     * @param v1 被减数
-     * @param v2 减数
-     * @return 差
-     */
-    public static double sub(Double v1, Double v2) {
-        //noinspection RedundantCast
-        return sub((Number) v1, (Number) v2).doubleValue();
-    }
-
-    /**
-     * 提供精确的减法运算<br>
-     * 如果传入多个值为null或者空，则返回0
-     *
-     * @param v1 被减数
-     * @param v2 减数
-     * @return 差
-     */
-    public static BigDecimal sub(Number v1, Number v2) {
-        return sub(new Number[]{v1, v2});
-    }
-
-    /**
-     * 提供精确的减法运算<br>
-     * 如果传入多个值为null或者空，则返回0
-     *
-     * @param values 多个被减值
-     * @return 差
-     * @since 4.0.0
-     */
-    public static BigDecimal sub(Number... values) {
-        if (ArrayUtils.isEmpty(values)) {
+    public static BigDecimal toScaledBigDecimal(final String value, final int scale, final RoundingMode roundingMode) {
+        if (value == null) {
             return BigDecimal.ZERO;
         }
-
-        Number value = values[0];
-        BigDecimal result = new BigDecimal(null == value ? "0" : value.toString());
-        for (int i = 1; i < values.length; i++) {
-            value = values[i];
-            if (null != value) {
-                result = result.subtract(new BigDecimal(value.toString()));
-            }
-        }
-        return result;
+        return toScaledBigDecimal(
+                createBigDecimal(value),
+                scale,
+                roundingMode
+        );
     }
 
+    //-----------------------------------------------------------------------
+    // must handle Long, Float, Integer, Float, Short,
+    //                  BigDecimal, BigInteger and Byte
+    // useful methods:
+    // Byte.decode(String)
+    // Byte.valueOf(String, int radix)
+    // Byte.valueOf(String)
+    // Double.valueOf(String)
+    // Float.valueOf(String)
+    // Float.valueOf(String)
+    // Integer.valueOf(String, int radix)
+    // Integer.valueOf(String)
+    // Integer.decode(String)
+    // Integer.getInteger(String)
+    // Integer.getInteger(String, int val)
+    // Integer.getInteger(String, Integer val)
+    // Integer.valueOf(String)
+    // Double.valueOf(String)
+    // new Byte(String)
+    // Long.valueOf(String)
+    // Long.getLong(String)
+    // Long.getLong(String, int)
+    // Long.getLong(String, Integer)
+    // Long.valueOf(String, int)
+    // Long.valueOf(String)
+    // Short.valueOf(String)
+    // Short.decode(String)
+    // Short.valueOf(String, int)
+    // Short.valueOf(String)
+    // new BigDecimal(String)
+    // new BigInteger(String)
+    // new BigInteger(String, int radix)
+    // Possible inputs:
+    // 45 45.5 45E7 4.5E7 Hex Oct Binary xxxF xxxD xxxf xxxd
+    // plus minus everything. Prolly more. A lot are not separable.
+
     /**
-     * 提供精确的减法运算<br>
-     * 如果传入多个值为null或者空，则返回0
+     * <p>Turns a string value into a java.lang.Number.</p>
      *
-     * @param values 多个被减值
-     * @return 差
-     * @since 4.0.0
-     */
-    public static BigDecimal sub(String... values) {
-        if (ArrayUtils.isEmpty(values)) {
-            return BigDecimal.ZERO;
-        }
-
-        String value = values[0];
-        BigDecimal result = new BigDecimal(null == value ? "0" : value);
-        for (int i = 1; i < values.length; i++) {
-            value = values[i];
-            if (null != value) {
-                result = result.subtract(new BigDecimal(value));
-            }
-        }
-        return result;
-    }
-
-    /**
-     * 提供精确的减法运算<br>
-     * 如果传入多个值为null或者空，则返回0
+     * <p>If the string starts with {@code 0x} or {@code -0x} (lower or upper case) or {@code #} or {@code -#}, it
+     * will be interpreted as a hexadecimal Integer - or Long, if the number of digits after the
+     * prefix is more than 8 - or BigInteger if there are more than 16 digits.
+     * </p>
+     * <p>Then, the value is examined for a type qualifier on the end, i.e. one of
+     * {@code 'f', 'F', 'd', 'D', 'l', 'L'}.  If it is found, it starts
+     * trying to create successively larger types from the type specified
+     * until one is found that can represent the value.</p>
      *
-     * @param values 多个被减值
-     * @return 差
-     * @since 4.0.0
-     */
-    public static BigDecimal sub(BigDecimal... values) {
-        if (ArrayUtils.isEmpty(values)) {
-            return BigDecimal.ZERO;
-        }
-
-        BigDecimal value = values[0];
-        BigDecimal result = null == value ? BigDecimal.ZERO : value;
-        for (int i = 1; i < values.length; i++) {
-            value = values[i];
-            if (null != value) {
-                result = result.subtract(value);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * 提供精确的乘法运算
+     * <p>If a type specifier is not found, it will check for a decimal point
+     * and then try successively larger types from {@code Integer} to
+     * {@code BigInteger} and from {@code Float} to
+     * {@code BigDecimal}.</p>
      *
-     * @param v1 被乘数
-     * @param v2 乘数
-     * @return 积
-     */
-    public static double mul(float v1, float v2) {
-        return mul(Float.toString(v1), Float.toString(v2)).doubleValue();
-    }
-
-    /**
-     * 提供精确的乘法运算
-     *
-     * @param v1 被乘数
-     * @param v2 乘数
-     * @return 积
-     */
-    public static double mul(float v1, double v2) {
-        return mul(Float.toString(v1), Double.toString(v2)).doubleValue();
-    }
-
-    /**
-     * 提供精确的乘法运算
-     *
-     * @param v1 被乘数
-     * @param v2 乘数
-     * @return 积
-     */
-    public static double mul(double v1, float v2) {
-        return mul(Double.toString(v1), Float.toString(v2)).doubleValue();
-    }
-
-    /**
-     * 提供精确的乘法运算
-     *
-     * @param v1 被乘数
-     * @param v2 乘数
-     * @return 积
-     */
-    public static double mul(double v1, double v2) {
-        return mul(Double.toString(v1), Double.toString(v2)).doubleValue();
-    }
-
-    /**
-     * 提供精确的乘法运算<br>
-     * 如果传入多个值为null或者空，则返回0
-     *
-     * @param v1 被乘数
-     * @param v2 乘数
-     * @return 积
-     */
-    public static double mul(Double v1, Double v2) {
-        //noinspection RedundantCast
-        return mul((Number) v1, (Number) v2).doubleValue();
-    }
-
-    /**
-     * 提供精确的乘法运算<br>
-     * 如果传入多个值为null或者空，则返回0
-     *
-     * @param v1 被乘数
-     * @param v2 乘数
-     * @return 积
-     */
-    public static BigDecimal mul(Number v1, Number v2) {
-        return mul(new Number[]{v1, v2});
-    }
-
-    /**
-     * 提供精确的乘法运算<br>
-     * 如果传入多个值为null或者空，则返回0
-     *
-     * @param values 多个被乘值
-     * @return 积
-     * @since 4.0.0
-     */
-    public static BigDecimal mul(Number... values) {
-        if (ArrayUtils.isEmpty(values)) {
-            return BigDecimal.ZERO;
-        }
-
-        Number value = values[0];
-        BigDecimal result = new BigDecimal(null == value ? "0" : value.toString());
-        for (int i = 1; i < values.length; i++) {
-            value = values[i];
-            result = result.multiply(new BigDecimal(null == value ? "0" : value.toString()));
-        }
-        return result;
-    }
-
-    /**
-     * 提供精确的乘法运算
-     *
-     * @param v1 被乘数
-     * @param v2 乘数
-     * @return 积
-     * @since 3.0.8
-     */
-    public static BigDecimal mul(String v1, String v2) {
-        return mul(new BigDecimal(v1), new BigDecimal(v2));
-    }
-
-    /**
-     * 提供精确的乘法运算<br>
-     * 如果传入多个值为null或者空，则返回0
-     *
-     * @param values 多个被乘值
-     * @return 积
-     * @since 4.0.0
-     */
-    public static BigDecimal mul(String... values) {
-        if (ArrayUtils.isEmpty(values)) {
-            return BigDecimal.ZERO;
-        }
-
-        String value = values[0];
-        BigDecimal result = new BigDecimal(null == value ? "0" : value);
-        for (int i = 1; i < values.length; i++) {
-            value = values[i];
-            if (null != value) {
-                result = result.multiply(new BigDecimal(value));
-            }
-        }
-        return result;
-    }
-
-    /**
-     * 提供精确的乘法运算<br>
-     * 如果传入多个值为null或者空，则返回0
-     *
-     * @param values 多个被乘值
-     * @return 积
-     * @since 4.0.0
-     */
-    public static BigDecimal mul(BigDecimal... values) {
-        if (ArrayUtils.isEmpty(values)) {
-            return BigDecimal.ZERO;
-        }
-
-        BigDecimal value = values[0];
-        BigDecimal result = null == value ? BigDecimal.ZERO : value;
-        for (int i = 1; i < values.length; i++) {
-            value = values[i];
-            if (null != value) {
-                result = result.multiply(value);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况的时候,精确到小数点后10位,后面的四舍五入
-     *
-     * @param v1 被除数
-     * @param v2 除数
-     * @return 两个参数的商
-     */
-    public static double div(float v1, float v2) {
-        return div(v1, v2, DEFAUT_DIV_SCALE);
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况的时候,精确到小数点后10位,后面的四舍五入
-     *
-     * @param v1 被除数
-     * @param v2 除数
-     * @return 两个参数的商
-     */
-    public static double div(float v1, double v2) {
-        return div(v1, v2, DEFAUT_DIV_SCALE);
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况的时候,精确到小数点后10位,后面的四舍五入
-     *
-     * @param v1 被除数
-     * @param v2 除数
-     * @return 两个参数的商
-     */
-    public static double div(double v1, float v2) {
-        return div(v1, v2, DEFAUT_DIV_SCALE);
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况的时候,精确到小数点后10位,后面的四舍五入
-     *
-     * @param v1 被除数
-     * @param v2 除数
-     * @return 两个参数的商
-     */
-    public static double div(double v1, double v2) {
-        return div(v1, v2, DEFAUT_DIV_SCALE);
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况的时候,精确到小数点后10位,后面的四舍五入
-     *
-     * @param v1 被除数
-     * @param v2 除数
-     * @return 两个参数的商
-     */
-    public static double div(Double v1, Double v2) {
-        return div(v1, v2, DEFAUT_DIV_SCALE);
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况的时候,精确到小数点后10位,后面的四舍五入
-     *
-     * @param v1 被除数
-     * @param v2 除数
-     * @return 两个参数的商
-     * @since 3.1.0
-     */
-    public static BigDecimal div(Number v1, Number v2) {
-        return div(v1, v2, DEFAUT_DIV_SCALE);
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况的时候,精确到小数点后10位,后面的四舍五入
-     *
-     * @param v1 被除数
-     * @param v2 除数
-     * @return 两个参数的商
-     */
-    public static BigDecimal div(String v1, String v2) {
-        return div(v1, v2, DEFAUT_DIV_SCALE);
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况时,由scale指定精确度,后面的四舍五入
-     *
-     * @param v1    被除数
-     * @param v2    除数
-     * @param scale 精确度，如果为负值，取绝对值
-     * @return 两个参数的商
-     */
-    public static double div(float v1, float v2, int scale) {
-        return div(v1, v2, scale, RoundingMode.HALF_UP);
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况时,由scale指定精确度,后面的四舍五入
-     *
-     * @param v1    被除数
-     * @param v2    除数
-     * @param scale 精确度，如果为负值，取绝对值
-     * @return 两个参数的商
-     */
-    public static double div(float v1, double v2, int scale) {
-        return div(v1, v2, scale, RoundingMode.HALF_UP);
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况时,由scale指定精确度,后面的四舍五入
-     *
-     * @param v1    被除数
-     * @param v2    除数
-     * @param scale 精确度，如果为负值，取绝对值
-     * @return 两个参数的商
-     */
-    public static double div(double v1, float v2, int scale) {
-        return div(v1, v2, scale, RoundingMode.HALF_UP);
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况时,由scale指定精确度,后面的四舍五入
-     *
-     * @param v1    被除数
-     * @param v2    除数
-     * @param scale 精确度，如果为负值，取绝对值
-     * @return 两个参数的商
-     */
-    public static double div(double v1, double v2, int scale) {
-        return div(v1, v2, scale, RoundingMode.HALF_UP);
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况时,由scale指定精确度,后面的四舍五入
-     *
-     * @param v1    被除数
-     * @param v2    除数
-     * @param scale 精确度，如果为负值，取绝对值
-     * @return 两个参数的商
-     */
-    public static double div(Double v1, Double v2, int scale) {
-        return div(v1, v2, scale, RoundingMode.HALF_UP);
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况时,由scale指定精确度,后面的四舍五入
-     *
-     * @param v1    被除数
-     * @param v2    除数
-     * @param scale 精确度，如果为负值，取绝对值
-     * @return 两个参数的商
-     * @since 3.1.0
-     */
-    public static BigDecimal div(Number v1, Number v2, int scale) {
-        return div(v1, v2, scale, RoundingMode.HALF_UP);
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况时,由scale指定精确度,后面的四舍五入
-     *
-     * @param v1    被除数
-     * @param v2    除数
-     * @param scale 精确度，如果为负值，取绝对值
-     * @return 两个参数的商
-     */
-    public static BigDecimal div(String v1, String v2, int scale) {
-        return div(v1, v2, scale, RoundingMode.HALF_UP);
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况时,由scale指定精确度
-     *
-     * @param v1           被除数
-     * @param v2           除数
-     * @param scale        精确度，如果为负值，取绝对值
-     * @param roundingMode 保留小数的模式 {@link RoundingMode}
-     * @return 两个参数的商
-     */
-    public static double div(float v1, float v2, int scale, RoundingMode roundingMode) {
-        return div(Float.toString(v1), Float.toString(v2), scale, roundingMode).doubleValue();
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况时,由scale指定精确度
-     *
-     * @param v1           被除数
-     * @param v2           除数
-     * @param scale        精确度，如果为负值，取绝对值
-     * @param roundingMode 保留小数的模式 {@link RoundingMode}
-     * @return 两个参数的商
-     */
-    public static double div(float v1, double v2, int scale, RoundingMode roundingMode) {
-        return div(Float.toString(v1), Double.toString(v2), scale, roundingMode).doubleValue();
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况时,由scale指定精确度
-     *
-     * @param v1           被除数
-     * @param v2           除数
-     * @param scale        精确度，如果为负值，取绝对值
-     * @param roundingMode 保留小数的模式 {@link RoundingMode}
-     * @return 两个参数的商
-     */
-    public static double div(double v1, float v2, int scale, RoundingMode roundingMode) {
-        return div(Double.toString(v1), Float.toString(v2), scale, roundingMode).doubleValue();
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况时,由scale指定精确度
-     *
-     * @param v1           被除数
-     * @param v2           除数
-     * @param scale        精确度，如果为负值，取绝对值
-     * @param roundingMode 保留小数的模式 {@link RoundingMode}
-     * @return 两个参数的商
-     */
-    public static double div(double v1, double v2, int scale, RoundingMode roundingMode) {
-        return div(Double.toString(v1), Double.toString(v2), scale, roundingMode).doubleValue();
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况时,由scale指定精确度
-     *
-     * @param v1           被除数
-     * @param v2           除数
-     * @param scale        精确度，如果为负值，取绝对值
-     * @param roundingMode 保留小数的模式 {@link RoundingMode}
-     * @return 两个参数的商
-     */
-    public static double div(Double v1, Double v2, int scale, RoundingMode roundingMode) {
-        //noinspection RedundantCast
-        return div((Number) v1, (Number) v2, scale, roundingMode).doubleValue();
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况时,由scale指定精确度
-     *
-     * @param v1           被除数
-     * @param v2           除数
-     * @param scale        精确度，如果为负值，取绝对值
-     * @param roundingMode 保留小数的模式 {@link RoundingMode}
-     * @return 两个参数的商
-     * @since 3.1.0
-     */
-    public static BigDecimal div(Number v1, Number v2, int scale, RoundingMode roundingMode) {
-        return div(v1.toString(), v2.toString(), scale, roundingMode);
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况时,由scale指定精确度
-     *
-     * @param v1           被除数
-     * @param v2           除数
-     * @param scale        精确度，如果为负值，取绝对值
-     * @param roundingMode 保留小数的模式 {@link RoundingMode}
-     * @return 两个参数的商
-     */
-    public static BigDecimal div(String v1, String v2, int scale, RoundingMode roundingMode) {
-        return div(new BigDecimal(v1), new BigDecimal(v2), scale, roundingMode);
-    }
-
-    /**
-     * 提供(相对)精确的除法运算,当发生除不尽的情况时,由scale指定精确度
-     *
-     * @param v1           被除数
-     * @param v2           除数
-     * @param scale        精确度，如果为负值，取绝对值
-     * @param roundingMode 保留小数的模式 {@link RoundingMode}
-     * @return 两个参数的商
-     * @since 3.0.9
-     */
-    public static BigDecimal div(BigDecimal v1, BigDecimal v2, int scale, RoundingMode roundingMode) {
-        Assert.notNull(v2, "Divisor must be not null !");
-        if (null == v1) {
-            return BigDecimal.ZERO;
-        }
-        if (scale < 0) {
-            scale = -scale;
-        }
-        return v1.divide(v2, scale, roundingMode);
-    }
-
-    // ------------------------------------------------------------------------------------------- round
-
-    /**
-     * 保留固定位数小数<br>
-     * 采用四舍五入策略 {@link RoundingMode#HALF_UP}<br>
-     * 例如保留2位小数：123.456789 =》 123.46
-     *
-     * @param v     值
-     * @param scale 保留小数位数
-     * @return 新值
-     */
-    public static BigDecimal round(double v, int scale) {
-        return round(v, scale, RoundingMode.HALF_UP);
-    }
-
-    /**
-     * 保留固定位数小数<br>
-     * 采用四舍五入策略 {@link RoundingMode#HALF_UP}<br>
-     * 例如保留2位小数：123.456789 =》 123.46
-     *
-     * @param v     值
-     * @param scale 保留小数位数
-     * @return 新值
-     */
-    public static String roundStr(double v, int scale) {
-        return round(v, scale).toString();
-    }
-
-    /**
-     * 保留固定位数小数<br>
-     * 采用四舍五入策略 {@link RoundingMode#HALF_UP}<br>
-     * 例如保留2位小数：123.456789 =》 123.46
-     *
-     * @param numberStr 数字值的字符串表现形式
-     * @param scale     保留小数位数
-     * @return 新值
-     */
-    public static BigDecimal round(String numberStr, int scale) {
-        return round(numberStr, scale, RoundingMode.HALF_UP);
-    }
-
-    /**
-     * 保留固定位数小数<br>
-     * 采用四舍五入策略 {@link RoundingMode#HALF_UP}<br>
-     * 例如保留2位小数：123.456789 =》 123.46
-     *
-     * @param number 数字值
-     * @param scale  保留小数位数
-     * @return 新值
-     * @since 4.1.0
-     */
-    public static BigDecimal round(BigDecimal number, int scale) {
-        return round(number, scale, RoundingMode.HALF_UP);
-    }
-
-    /**
-     * 保留固定位数小数<br>
-     * 采用四舍五入策略 {@link RoundingMode#HALF_UP}<br>
-     * 例如保留2位小数：123.456789 =》 123.46
-     *
-     * @param numberStr 数字值的字符串表现形式
-     * @param scale     保留小数位数
-     * @return 新值
-     * @since 3.2.2
-     */
-    public static String roundStr(String numberStr, int scale) {
-        return round(numberStr, scale).toString();
-    }
-
-    /**
-     * 保留固定位数小数<br>
-     * 例如保留四位小数：123.456789 =》 123.4567
-     *
-     * @param v            值
-     * @param scale        保留小数位数
-     * @param roundingMode 保留小数的模式 {@link RoundingMode}
-     * @return 新值
-     */
-    public static BigDecimal round(double v, int scale, RoundingMode roundingMode) {
-        return round(Double.toString(v), scale, roundingMode);
-    }
-
-    /**
-     * 保留固定位数小数<br>
-     * 例如保留四位小数：123.456789 =》 123.4567
-     *
-     * @param v            值
-     * @param scale        保留小数位数
-     * @param roundingMode 保留小数的模式 {@link RoundingMode}
-     * @return 新值
-     * @since 3.2.2
-     */
-    public static String roundStr(double v, int scale, RoundingMode roundingMode) {
-        return round(v, scale, roundingMode).toString();
-    }
-
-    /**
-     * 保留固定位数小数<br>
-     * 例如保留四位小数：123.456789 =》 123.4567
-     *
-     * @param numberStr    数字值的字符串表现形式
-     * @param scale        保留小数位数，如果传入小于0，则默认0
-     * @param roundingMode 保留小数的模式 {@link RoundingMode}，如果传入null则默认四舍五入
-     * @return 新值
-     */
-    public static BigDecimal round(String numberStr, int scale, RoundingMode roundingMode) {
-        Assert.notBlank(numberStr);
-        if (scale < 0) {
-            scale = 0;
-        }
-        return round(toBigDecimal(numberStr), scale, roundingMode);
-    }
-
-    /**
-     * 保留固定位数小数<br>
-     * 例如保留四位小数：123.456789 =》 123.4567
-     *
-     * @param number       数字值
-     * @param scale        保留小数位数，如果传入小于0，则默认0
-     * @param roundingMode 保留小数的模式 {@link RoundingMode}，如果传入null则默认四舍五入
-     * @return 新值
-     */
-    public static BigDecimal round(BigDecimal number, int scale, RoundingMode roundingMode) {
-        if (null == number) {
-            number = BigDecimal.ZERO;
-        }
-        if (scale < 0) {
-            scale = 0;
-        }
-        if (null == roundingMode) {
-            roundingMode = RoundingMode.HALF_UP;
-        }
-
-        return number.setScale(scale, roundingMode);
-    }
-
-    /**
-     * 保留固定位数小数<br>
-     * 例如保留四位小数：123.456789 =》 123.4567
-     *
-     * @param numberStr    数字值的字符串表现形式
-     * @param scale        保留小数位数
-     * @param roundingMode 保留小数的模式 {@link RoundingMode}
-     * @return 新值
-     * @since 3.2.2
-     */
-    public static String roundStr(String numberStr, int scale, RoundingMode roundingMode) {
-        return round(numberStr, scale, roundingMode).toString();
-    }
-
-    /**
-     * 四舍六入五成双计算法
      * <p>
-     * 四舍六入五成双是一种比较精确比较科学的计数保留法，是一种数字修约规则。
+     * Integral values with a leading {@code 0} will be interpreted as octal; the returned number will
+     * be Integer, Long or BigDecimal as appropriate.
      * </p>
      *
-     * <pre>
-     * 算法规则:
-     * 四舍六入五考虑，
-     * 五后非零就进一，
-     * 五后皆零看奇偶，
-     * 五前为偶应舍去，
-     * 五前为奇要进一。
-     * </pre>
+     * <p>Returns {@code null} if the string is {@code null}.</p>
      *
-     * @param number 需要科学计算的数据
-     * @param scale  保留的小数位
-     * @return 结果
-     * @since 4.1.0
+     * <p>This method does not trim the input string, i.e., strings with leading
+     * or trailing spaces will generate NumberFormatExceptions.</p>
+     *
+     * @param str  String containing a number, may be null
+     * @return Number created from the string (or null if the input is null)
+     * @throws NumberFormatException if the value cannot be converted
      */
-    public static BigDecimal roundHalfEven(Number number, int scale) {
-        return roundHalfEven(toBigDecimal(number), scale);
-    }
-
-    /**
-     * 四舍六入五成双计算法
-     * <p>
-     * 四舍六入五成双是一种比较精确比较科学的计数保留法，是一种数字修约规则。
-     * </p>
-     *
-     * <pre>
-     * 算法规则:
-     * 四舍六入五考虑，
-     * 五后非零就进一，
-     * 五后皆零看奇偶，
-     * 五前为偶应舍去，
-     * 五前为奇要进一。
-     * </pre>
-     *
-     * @param value 需要科学计算的数据
-     * @param scale 保留的小数位
-     * @return 结果
-     * @since 4.1.0
-     */
-    public static BigDecimal roundHalfEven(BigDecimal value, int scale) {
-        return round(value, scale, RoundingMode.HALF_EVEN);
-    }
-
-    /**
-     * 保留固定小数位数，舍去多余位数
-     *
-     * @param number 需要科学计算的数据
-     * @param scale  保留的小数位
-     * @return 结果
-     * @since 4.1.0
-     */
-    public static BigDecimal roundDown(Number number, int scale) {
-        return roundDown(toBigDecimal(number), scale);
-    }
-
-    /**
-     * 保留固定小数位数，舍去多余位数
-     *
-     * @param value 需要科学计算的数据
-     * @param scale 保留的小数位
-     * @return 结果
-     * @since 4.1.0
-     */
-    public static BigDecimal roundDown(BigDecimal value, int scale) {
-        return round(value, scale, RoundingMode.DOWN);
-    }
-
-    // ------------------------------------------------------------------------------------------- decimalFormat
-
-    /**
-     * 格式化double<br>
-     * 对 {@link DecimalFormat} 做封装<br>
-     *
-     * @param pattern 格式 格式中主要以 # 和 0 两种占位符号来指定数字长度。0 表示如果位数不足则以 0 填充，# 表示只要有可能就把数字拉上这个位置。<br>
-     *                <ul>
-     *                <li>0 =》 取一位整数</li>
-     *                <li>0.00 =》 取一位整数和两位小数</li>
-     *                <li>00.000 =》 取两位整数和三位小数</li>
-     *                <li># =》 取所有整数部分</li>
-     *                <li>#.##% =》 以百分比方式计数，并取两位小数</li>
-     *                <li>#.#####E0 =》 显示为科学计数法，并取五位小数</li>
-     *                <li>,### =》 每三位以逗号进行分隔，例如：299,792,458</li>
-     *                <li>光速大小为每秒,###米 =》 将格式嵌入文本</li>
-     *                </ul>
-     * @param value   值
-     * @return 格式化后的值
-     */
-    public static String decimalFormat(String pattern, double value) {
-        return new DecimalFormat(pattern).format(value);
-    }
-
-    /**
-     * 格式化double<br>
-     * 对 {@link DecimalFormat} 做封装<br>
-     *
-     * @param pattern 格式 格式中主要以 # 和 0 两种占位符号来指定数字长度。0 表示如果位数不足则以 0 填充，# 表示只要有可能就把数字拉上这个位置。<br>
-     *                <ul>
-     *                <li>0 =》 取一位整数</li>
-     *                <li>0.00 =》 取一位整数和两位小数</li>
-     *                <li>00.000 =》 取两位整数和三位小数</li>
-     *                <li># =》 取所有整数部分</li>
-     *                <li>#.##% =》 以百分比方式计数，并取两位小数</li>
-     *                <li>#.#####E0 =》 显示为科学计数法，并取五位小数</li>
-     *                <li>,### =》 每三位以逗号进行分隔，例如：299,792,458</li>
-     *                <li>光速大小为每秒,###米 =》 将格式嵌入文本</li>
-     *                </ul>
-     * @param value   值
-     * @return 格式化后的值
-     * @since 3.0.5
-     */
-    public static String decimalFormat(String pattern, long value) {
-        return new DecimalFormat(pattern).format(value);
-    }
-
-    /**
-     * 格式化double<br>
-     * 对 {@link DecimalFormat} 做封装<br>
-     *
-     * @param pattern 格式 格式中主要以 # 和 0 两种占位符号来指定数字长度。0 表示如果位数不足则以 0 填充，# 表示只要有可能就把数字拉上这个位置。<br>
-     *                <ul>
-     *                <li>0 =》 取一位整数</li>
-     *                <li>0.00 =》 取一位整数和两位小数</li>
-     *                <li>00.000 =》 取两位整数和三位小数</li>
-     *                <li># =》 取所有整数部分</li>
-     *                <li>#.##% =》 以百分比方式计数，并取两位小数</li>
-     *                <li>#.#####E0 =》 显示为科学计数法，并取五位小数</li>
-     *                <li>,### =》 每三位以逗号进行分隔，例如：299,792,458</li>
-     *                <li>光速大小为每秒,###米 =》 将格式嵌入文本</li>
-     *                </ul>
-     * @param value   值，支持BigDecimal、BigInteger、Number等类型
-     * @return 格式化后的值
-     * @since 5.1.6
-     */
-    public static String decimalFormat(String pattern, Object value) {
-        return new DecimalFormat(pattern).format(value);
-    }
-
-    /**
-     * 格式化金额输出，每三位用逗号分隔
-     *
-     * @param value 金额
-     * @return 格式化后的值
-     * @since 3.0.9
-     */
-    public static String decimalFormatMoney(double value) {
-        return decimalFormat(",##0.00", value);
-    }
-
-    /**
-     * 格式化百分比，小数采用四舍五入方式
-     *
-     * @param number 值
-     * @param scale  保留小数位数
-     * @return 百分比
-     * @since 3.2.3
-     */
-    public static String formatPercent(double number, int scale) {
-        final NumberFormat format = NumberFormat.getPercentInstance();
-        format.setMaximumFractionDigits(scale);
-        return format.format(number);
-    }
-
-    // ------------------------------------------------------------------------------------------- isXXX
-
-    /**
-     * 是否为数字，支持包括：
-     *
-     * <pre>
-     * 1、10进制
-     * 2、16进制数字（0x开头）
-     * 3、科学计数法形式（1234E3）
-     * 4、类型标识形式（123D）
-     * 5、正负数标识形式（+123、-234）
-     * </pre>
-     *
-     * @param str 字符串值
-     * @return 是否为数字
-     */
-    public static boolean isNumber(CharSequence str) {
+    public static Number createNumber(final String str) {
+        if (str == null) {
+            return null;
+        }
         if (StringUtils.isBlank(str)) {
+            throw new NumberFormatException("A blank string is not a valid number");
+        }
+        // Need to deal with all possible hex prefixes here
+        final String[] hex_prefixes = {"0x", "0X", "-0x", "-0X", "#", "-#"};
+        int pfxLen = 0;
+        for (final String pfx : hex_prefixes) {
+            if (str.startsWith(pfx)) {
+                pfxLen += pfx.length();
+                break;
+            }
+        }
+        if (pfxLen > 0) { // we have a hex number
+            char firstSigDigit = 0; // strip leading zeroes
+            for (int i = pfxLen; i < str.length(); i++) {
+                firstSigDigit = str.charAt(i);
+                if (firstSigDigit == '0') { // count leading zeroes
+                    pfxLen++;
+                } else {
+                    break;
+                }
+            }
+            final int hexDigits = str.length() - pfxLen;
+            if (hexDigits > 16 || hexDigits == 16 && firstSigDigit > '7') { // too many for Long
+                return createBigInteger(str);
+            }
+            if (hexDigits > 8 || hexDigits == 8 && firstSigDigit > '7') { // too many for an int
+                return createLong(str);
+            }
+            return createInteger(str);
+        }
+        final char lastChar = str.charAt(str.length() - 1);
+        String mant;
+        String dec;
+        String exp;
+        final int decPos = str.indexOf('.');
+        final int expPos = str.indexOf('e') + str.indexOf('E') + 1; // assumes both not present
+        // if both e and E are present, this is caught by the checks on expPos (which prevent IOOBE)
+        // and the parsing which will detect if e or E appear in a number due to using the wrong offset
+
+        if (decPos > -1) { // there is a decimal point
+            if (expPos > -1) { // there is an exponent
+                if (expPos < decPos || expPos > str.length()) { // prevents double exponent causing IOOBE
+                    throw new NumberFormatException(str + " is not a valid number.");
+                }
+                dec = str.substring(decPos + 1, expPos);
+            } else {
+                dec = str.substring(decPos + 1);
+            }
+            mant = getMantissa(str, decPos);
+        } else {
+            if (expPos > -1) {
+                if (expPos > str.length()) { // prevents double exponent causing IOOBE
+                    throw new NumberFormatException(str + " is not a valid number.");
+                }
+                mant = getMantissa(str, expPos);
+            } else {
+                mant = getMantissa(str);
+            }
+            dec = null;
+        }
+        if (!Character.isDigit(lastChar) && lastChar != '.') {
+            if (expPos > -1 && expPos < str.length() - 1) {
+                exp = str.substring(expPos + 1, str.length() - 1);
+            } else {
+                exp = null;
+            }
+            //Requesting a specific type..
+            final String numeric = str.substring(0, str.length() - 1);
+            final boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
+            switch (lastChar) {
+                case 'l' :
+                case 'L' :
+                    if (dec == null
+                            && exp == null
+                            && (!numeric.isEmpty() && numeric.charAt(0) == '-' && isDigits(numeric.substring(1)) || isDigits(numeric))) {
+                        try {
+                            return createLong(numeric);
+                        } catch (final NumberFormatException nfe) { // NOPMD
+                            // Too big for a long
+                        }
+                        return createBigInteger(numeric);
+
+                    }
+                    throw new NumberFormatException(str + " is not a valid number.");
+                case 'f' :
+                case 'F' :
+                    try {
+                        final Float f = createFloat(str);
+                        if (!(f.isInfinite() || f.floatValue() == 0.0F && !allZeros)) {
+                            //If it's too big for a float or the float value = 0 and the string
+                            //has non-zeros in it, then float does not have the precision we want
+                            return f;
+                        }
+
+                    } catch (final NumberFormatException nfe) { // NOPMD
+                        // ignore the bad number
+                    }
+                    //$FALL-THROUGH$
+                case 'd' :
+                case 'D' :
+                    try {
+                        final Double d = createDouble(str);
+                        if (!(d.isInfinite() || d.floatValue() == 0.0D && !allZeros)) {
+                            return d;
+                        }
+                    } catch (final NumberFormatException nfe) { // NOPMD
+                        // ignore the bad number
+                    }
+                    try {
+                        return createBigDecimal(numeric);
+                    } catch (final NumberFormatException e) { // NOPMD
+                        // ignore the bad number
+                    }
+                    //$FALL-THROUGH$
+                default :
+                    throw new NumberFormatException(str + " is not a valid number.");
+
+            }
+        }
+        //User doesn't have a preference on the return type, so let's start
+        //small and go from there...
+        if (expPos > -1 && expPos < str.length() - 1) {
+            exp = str.substring(expPos + 1, str.length());
+        } else {
+            exp = null;
+        }
+        if (dec == null && exp == null) { // no decimal point and no exponent
+            //Must be an Integer, Long, Biginteger
+            try {
+                return createInteger(str);
+            } catch (final NumberFormatException nfe) { // NOPMD
+                // ignore the bad number
+            }
+            try {
+                return createLong(str);
+            } catch (final NumberFormatException nfe) { // NOPMD
+                // ignore the bad number
+            }
+            return createBigInteger(str);
+        }
+
+        //Must be a Float, Double, BigDecimal
+        final boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
+        try {
+            final Float f = createFloat(str);
+            final Double d = createDouble(str);
+            if (!f.isInfinite()
+                    && !(f.floatValue() == 0.0F && !allZeros)
+                    && f.toString().equals(d.toString())) {
+                return f;
+            }
+            if (!d.isInfinite() && !(d.doubleValue() == 0.0D && !allZeros)) {
+                final BigDecimal b = createBigDecimal(str);
+                if (b.compareTo(BigDecimal.valueOf(d.doubleValue())) == 0) {
+                    return d;
+                }
+                return b;
+            }
+        } catch (final NumberFormatException nfe) { // NOPMD
+            // ignore the bad number
+        }
+        return createBigDecimal(str);
+    }
+
+    /**
+     * <p>Utility method for {@link #createNumber(java.lang.String)}.</p>
+     *
+     * <p>Returns mantissa of the given number.</p>
+     *
+     * @param str the string representation of the number
+     * @return mantissa of the given number
+     */
+    private static String getMantissa(final String str) {
+        return getMantissa(str, str.length());
+    }
+
+    /**
+     * <p>Utility method for {@link #createNumber(java.lang.String)}.</p>
+     *
+     * <p>Returns mantissa of the given number.</p>
+     *
+     * @param str the string representation of the number
+     * @param stopPos the position of the exponent or decimal point
+     * @return mantissa of the given number
+     */
+    private static String getMantissa(final String str, final int stopPos) {
+        final char firstChar = str.charAt(0);
+        final boolean hasSign = firstChar == '-' || firstChar == '+';
+
+        return hasSign ? str.substring(1, stopPos) : str.substring(0, stopPos);
+    }
+
+    /**
+     * <p>Utility method for {@link #createNumber(java.lang.String)}.</p>
+     *
+     * <p>Returns {@code true} if s is {@code null}.</p>
+     *
+     * @param str  the String to check
+     * @return if it is all zeros or {@code null}
+     */
+    private static boolean isAllZeros(final String str) {
+        if (str == null) {
+            return true;
+        }
+        for (int i = str.length() - 1; i >= 0; i--) {
+            if (str.charAt(i) != '0') {
+                return false;
+            }
+        }
+        return !str.isEmpty();
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Convert a {@code String} to a {@code Float}.</p>
+     *
+     * <p>Returns {@code null} if the string is {@code null}.</p>
+     *
+     * @param str  a {@code String} to convert, may be null
+     * @return converted {@code Float} (or null if the input is null)
+     * @throws NumberFormatException if the value cannot be converted
+     */
+    public static Float createFloat(final String str) {
+        if (str == null) {
+            return null;
+        }
+        return Float.valueOf(str);
+    }
+
+    /**
+     * <p>Convert a {@code String} to a {@code Double}.</p>
+     *
+     * <p>Returns {@code null} if the string is {@code null}.</p>
+     *
+     * @param str  a {@code String} to convert, may be null
+     * @return converted {@code Double} (or null if the input is null)
+     * @throws NumberFormatException if the value cannot be converted
+     */
+    public static Double createDouble(final String str) {
+        if (str == null) {
+            return null;
+        }
+        return Double.valueOf(str);
+    }
+
+    /**
+     * <p>Convert a {@code String} to a {@code Integer}, handling
+     * hex (0xhhhh) and octal (0dddd) notations.
+     * N.B. a leading zero means octal; spaces are not trimmed.</p>
+     *
+     * <p>Returns {@code null} if the string is {@code null}.</p>
+     *
+     * @param str  a {@code String} to convert, may be null
+     * @return converted {@code Integer} (or null if the input is null)
+     * @throws NumberFormatException if the value cannot be converted
+     */
+    public static Integer createInteger(final String str) {
+        if (str == null) {
+            return null;
+        }
+        // decode() handles 0xAABD and 0777 (hex and octal) as well.
+        return Integer.decode(str);
+    }
+
+    /**
+     * <p>Convert a {@code String} to a {@code Long};
+     * since 3.1 it handles hex (0Xhhhh) and octal (0ddd) notations.
+     * N.B. a leading zero means octal; spaces are not trimmed.</p>
+     *
+     * <p>Returns {@code null} if the string is {@code null}.</p>
+     *
+     * @param str  a {@code String} to convert, may be null
+     * @return converted {@code Long} (or null if the input is null)
+     * @throws NumberFormatException if the value cannot be converted
+     */
+    public static Long createLong(final String str) {
+        if (str == null) {
+            return null;
+        }
+        return Long.decode(str);
+    }
+
+    /**
+     * <p>Convert a {@code String} to a {@code BigInteger};
+     * since 3.2 it handles hex (0x or #) and octal (0) notations.</p>
+     *
+     * <p>Returns {@code null} if the string is {@code null}.</p>
+     *
+     * @param str  a {@code String} to convert, may be null
+     * @return converted {@code BigInteger} (or null if the input is null)
+     * @throws NumberFormatException if the value cannot be converted
+     */
+    public static BigInteger createBigInteger(final String str) {
+        if (str == null) {
+            return null;
+        }
+        int pos = 0; // offset within string
+        int radix = 10;
+        boolean negate = false; // need to negate later?
+        if (str.startsWith("-")) {
+            negate = true;
+            pos = 1;
+        }
+        if (str.startsWith("0x", pos) || str.startsWith("0X", pos)) { // hex
+            radix = 16;
+            pos += 2;
+        } else if (str.startsWith("#", pos)) { // alternative hex (allowed by Long/Integer)
+            radix = 16;
+            pos++;
+        } else if (str.startsWith("0", pos) && str.length() > pos + 1) { // octal; so long as there are additional digits
+            radix = 8;
+            pos++;
+        } // default is to treat as decimal
+
+        final BigInteger value = new BigInteger(str.substring(pos), radix);
+        return negate ? value.negate() : value;
+    }
+
+    /**
+     * <p>Convert a {@code String} to a {@code BigDecimal}.</p>
+     *
+     * <p>Returns {@code null} if the string is {@code null}.</p>
+     *
+     * @param str  a {@code String} to convert, may be null
+     * @return converted {@code BigDecimal} (or null if the input is null)
+     * @throws NumberFormatException if the value cannot be converted
+     */
+    public static BigDecimal createBigDecimal(final String str) {
+        if (str == null) {
+            return null;
+        }
+        // handle JDK1.3.1 bug where "" throws IndexOutOfBoundsException
+        if (StringUtils.isBlank(str)) {
+            throw new NumberFormatException("A blank string is not a valid number");
+        }
+        return new BigDecimal(str);
+    }
+
+    // Min in array
+    //--------------------------------------------------------------------
+    /**
+     * <p>Returns the minimum value in an array.</p>
+     *
+     * @param array  an array, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @since 3.4 Changed signature from min(long[]) to min(long...)
+     */
+    public static long min(final long... array) {
+        // Validates input
+        validateArray(array);
+
+        // Finds and returns min
+        long min = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] < min) {
+                min = array[i];
+            }
+        }
+
+        return min;
+    }
+
+    /**
+     * <p>Returns the minimum value in an array.</p>
+     *
+     * @param array  an array, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @since 3.4 Changed signature from min(int[]) to min(int...)
+     */
+    public static int min(final int... array) {
+        // Validates input
+        validateArray(array);
+
+        // Finds and returns min
+        int min = array[0];
+        for (int j = 1; j < array.length; j++) {
+            if (array[j] < min) {
+                min = array[j];
+            }
+        }
+
+        return min;
+    }
+
+    /**
+     * <p>Returns the minimum value in an array.</p>
+     *
+     * @param array  an array, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @since 3.4 Changed signature from min(short[]) to min(short...)
+     */
+    public static short min(final short... array) {
+        // Validates input
+        validateArray(array);
+
+        // Finds and returns min
+        short min = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] < min) {
+                min = array[i];
+            }
+        }
+
+        return min;
+    }
+
+    /**
+     * <p>Returns the minimum value in an array.</p>
+     *
+     * @param array  an array, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @since 3.4 Changed signature from min(byte[]) to min(byte...)
+     */
+    public static byte min(final byte... array) {
+        // Validates input
+        validateArray(array);
+
+        // Finds and returns min
+        byte min = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] < min) {
+                min = array[i];
+            }
+        }
+
+        return min;
+    }
+
+    /**
+     * <p>Returns the minimum value in an array.</p>
+     *
+     * @param array  an array, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @since 3.4 Changed signature from min(double[]) to min(double...)
+     */
+    public static double min(final double... array) {
+        // Validates input
+        validateArray(array);
+
+        // Finds and returns min
+        double min = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (Double.isNaN(array[i])) {
+                return Double.NaN;
+            }
+            if (array[i] < min) {
+                min = array[i];
+            }
+        }
+
+        return min;
+    }
+
+    /**
+     * <p>Returns the minimum value in an array.</p>
+     *
+     * @param array  an array, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @since 3.4 Changed signature from min(float[]) to min(float...)
+     */
+    public static float min(final float... array) {
+        // Validates input
+        validateArray(array);
+
+        // Finds and returns min
+        float min = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (Float.isNaN(array[i])) {
+                return Float.NaN;
+            }
+            if (array[i] < min) {
+                min = array[i];
+            }
+        }
+
+        return min;
+    }
+
+    // Max in array
+    //--------------------------------------------------------------------
+    /**
+     * <p>Returns the maximum value in an array.</p>
+     *
+     * @param array  an array, must not be null or empty
+     * @return the maximum value in the array
+     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @since 3.4 Changed signature from max(long[]) to max(long...)
+     */
+    public static long max(final long... array) {
+        // Validates input
+        validateArray(array);
+
+        // Finds and returns max
+        long max = array[0];
+        for (int j = 1; j < array.length; j++) {
+            if (array[j] > max) {
+                max = array[j];
+            }
+        }
+
+        return max;
+    }
+
+    /**
+     * <p>Returns the maximum value in an array.</p>
+     *
+     * @param array  an array, must not be null or empty
+     * @return the maximum value in the array
+     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @since 3.4 Changed signature from max(int[]) to max(int...)
+     */
+    public static int max(final int... array) {
+        // Validates input
+        validateArray(array);
+
+        // Finds and returns max
+        int max = array[0];
+        for (int j = 1; j < array.length; j++) {
+            if (array[j] > max) {
+                max = array[j];
+            }
+        }
+
+        return max;
+    }
+
+    /**
+     * <p>Returns the maximum value in an array.</p>
+     *
+     * @param array  an array, must not be null or empty
+     * @return the maximum value in the array
+     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @since 3.4 Changed signature from max(short[]) to max(short...)
+     */
+    public static short max(final short... array) {
+        // Validates input
+        validateArray(array);
+
+        // Finds and returns max
+        short max = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] > max) {
+                max = array[i];
+            }
+        }
+
+        return max;
+    }
+
+    /**
+     * <p>Returns the maximum value in an array.</p>
+     *
+     * @param array  an array, must not be null or empty
+     * @return the maximum value in the array
+     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @since 3.4 Changed signature from max(byte[]) to max(byte...)
+     */
+    public static byte max(final byte... array) {
+        // Validates input
+        validateArray(array);
+
+        // Finds and returns max
+        byte max = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] > max) {
+                max = array[i];
+            }
+        }
+
+        return max;
+    }
+
+    /**
+     * <p>Returns the maximum value in an array.</p>
+     *
+     * @param array  an array, must not be null or empty
+     * @return the maximum value in the array
+     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @since 3.4 Changed signature from max(double[]) to max(double...)
+     */
+    public static double max(final double... array) {
+        // Validates input
+        validateArray(array);
+
+        // Finds and returns max
+        double max = array[0];
+        for (int j = 1; j < array.length; j++) {
+            if (Double.isNaN(array[j])) {
+                return Double.NaN;
+            }
+            if (array[j] > max) {
+                max = array[j];
+            }
+        }
+
+        return max;
+    }
+
+    /**
+     * <p>Returns the maximum value in an array.</p>
+     *
+     * @param array  an array, must not be null or empty
+     * @return the maximum value in the array
+     * @throws IllegalArgumentException if {@code array} is {@code null}
+     * @throws IllegalArgumentException if {@code array} is empty
+     * @since 3.4 Changed signature from max(float[]) to max(float...)
+     */
+    public static float max(final float... array) {
+        // Validates input
+        validateArray(array);
+
+        // Finds and returns max
+        float max = array[0];
+        for (int j = 1; j < array.length; j++) {
+            if (Float.isNaN(array[j])) {
+                return Float.NaN;
+            }
+            if (array[j] > max) {
+                max = array[j];
+            }
+        }
+
+        return max;
+    }
+
+    /**
+     * Checks if the specified array is neither null nor empty.
+     *
+     * @param array  the array to check
+     * @throws IllegalArgumentException if {@code array} is either {@code null} or empty
+     */
+    private static void validateArray(final Object array) {
+        Validate.notNull(array, "The Array must not be null");
+        Validate.isTrue(Array.getLength(array) != 0, "Array cannot be empty.");
+    }
+
+    // 3 param min
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Gets the minimum of three {@code long} values.</p>
+     *
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the smallest of the values
+     */
+    public static long min(long a, final long b, final long c) {
+        if (b < a) {
+            a = b;
+        }
+        if (c < a) {
+            a = c;
+        }
+        return a;
+    }
+
+    /**
+     * <p>Gets the minimum of three {@code int} values.</p>
+     *
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the smallest of the values
+     */
+    public static int min(int a, final int b, final int c) {
+        if (b < a) {
+            a = b;
+        }
+        if (c < a) {
+            a = c;
+        }
+        return a;
+    }
+
+    /**
+     * <p>Gets the minimum of three {@code short} values.</p>
+     *
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the smallest of the values
+     */
+    public static short min(short a, final short b, final short c) {
+        if (b < a) {
+            a = b;
+        }
+        if (c < a) {
+            a = c;
+        }
+        return a;
+    }
+
+    /**
+     * <p>Gets the minimum of three {@code byte} values.</p>
+     *
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the smallest of the values
+     */
+    public static byte min(byte a, final byte b, final byte c) {
+        if (b < a) {
+            a = b;
+        }
+        if (c < a) {
+            a = c;
+        }
+        return a;
+    }
+
+    /**
+     * <p>Gets the minimum of three {@code double} values.</p>
+     *
+     * <p>If any value is {@code NaN}, {@code NaN} is
+     * returned. Infinity is handled.</p>
+     *
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the smallest of the values
+     */
+    public static double min(final double a, final double b, final double c) {
+        return Math.min(Math.min(a, b), c);
+    }
+
+    /**
+     * <p>Gets the minimum of three {@code float} values.</p>
+     *
+     * <p>If any value is {@code NaN}, {@code NaN} is
+     * returned. Infinity is handled.</p>
+     *
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the smallest of the values
+     */
+    public static float min(final float a, final float b, final float c) {
+        return Math.min(Math.min(a, b), c);
+    }
+
+    // 3 param max
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Gets the maximum of three {@code long} values.</p>
+     *
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the largest of the values
+     */
+    public static long max(long a, final long b, final long c) {
+        if (b > a) {
+            a = b;
+        }
+        if (c > a) {
+            a = c;
+        }
+        return a;
+    }
+
+    /**
+     * <p>Gets the maximum of three {@code int} values.</p>
+     *
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the largest of the values
+     */
+    public static int max(int a, final int b, final int c) {
+        if (b > a) {
+            a = b;
+        }
+        if (c > a) {
+            a = c;
+        }
+        return a;
+    }
+
+    /**
+     * <p>Gets the maximum of three {@code short} values.</p>
+     *
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the largest of the values
+     */
+    public static short max(short a, final short b, final short c) {
+        if (b > a) {
+            a = b;
+        }
+        if (c > a) {
+            a = c;
+        }
+        return a;
+    }
+
+    /**
+     * <p>Gets the maximum of three {@code byte} values.</p>
+     *
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the largest of the values
+     */
+    public static byte max(byte a, final byte b, final byte c) {
+        if (b > a) {
+            a = b;
+        }
+        if (c > a) {
+            a = c;
+        }
+        return a;
+    }
+
+    /**
+     * <p>Gets the maximum of three {@code double} values.</p>
+     *
+     * <p>If any value is {@code NaN}, {@code NaN} is
+     * returned. Infinity is handled.</p>
+     *
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the largest of the values
+     */
+    public static double max(final double a, final double b, final double c) {
+        return Math.max(Math.max(a, b), c);
+    }
+
+    /**
+     * <p>Gets the maximum of three {@code float} values.</p>
+     *
+     * <p>If any value is {@code NaN}, {@code NaN} is
+     * returned. Infinity is handled.</p>
+     *
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the largest of the values
+     */
+    public static float max(final float a, final float b, final float c) {
+        return Math.max(Math.max(a, b), c);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Checks whether the {@code String} contains only
+     * digit characters.</p>
+     *
+     * <p>{@code Null} and empty String will return
+     * {@code false}.</p>
+     *
+     * @param str  the {@code String} to check
+     * @return {@code true} if str contains only Unicode numeric
+     */
+    public static boolean isDigits(final String str) {
+        return StringUtils.isNumeric(str);
+    }
+
+    /**
+     * <p>Checks whether the String a valid Java number.</p>
+     *
+     * <p>Valid numbers include hexadecimal marked with the {@code 0x} or
+     * {@code 0X} qualifier, octal numbers, scientific notation and
+     * numbers marked with a type qualifier (e.g. 123L).</p>
+     *
+     * <p>Non-hexadecimal strings beginning with a leading zero are
+     * treated as octal values. Thus the string {@code 09} will return
+     * {@code false}, since {@code 9} is not a valid octal value.
+     * However, numbers beginning with {@code 0.} are treated as decimal.</p>
+     *
+     * <p>{@code null} and empty/blank {@code String} will return
+     * {@code false}.</p>
+     *
+     * <p>Note, {@link #createNumber(String)} should return a number for every
+     * input resulting in {@code true}.</p>
+     *
+     * @param str  the {@code String} to check
+     * @return {@code true} if the string is a correctly formatted number
+     * @since 3.3 the code supports hex {@code 0Xhhh} an
+     *        octal {@code 0ddd} validation
+     * @deprecated This feature will be removed in Lang 4.0,
+     *             use {@link NumberUtils#isCreatable(String)} instead
+     */
+    @Deprecated
+    public static boolean isNumber(final String str) {
+        return isCreatable(str);
+    }
+
+    /**
+     * <p>Checks whether the String a valid Java number.</p>
+     *
+     * <p>Valid numbers include hexadecimal marked with the {@code 0x} or
+     * {@code 0X} qualifier, octal numbers, scientific notation and
+     * numbers marked with a type qualifier (e.g. 123L).</p>
+     *
+     * <p>Non-hexadecimal strings beginning with a leading zero are
+     * treated as octal values. Thus the string {@code 09} will return
+     * {@code false}, since {@code 9} is not a valid octal value.
+     * However, numbers beginning with {@code 0.} are treated as decimal.</p>
+     *
+     * <p>{@code null} and empty/blank {@code String} will return
+     * {@code false}.</p>
+     *
+     * <p>Note, {@link #createNumber(String)} should return a number for every
+     * input resulting in {@code true}.</p>
+     *
+     * @param str  the {@code String} to check
+     * @return {@code true} if the string is a correctly formatted number
+     * @since 3.5
+     */
+    public static boolean isCreatable(final String str) {
+        if (StringUtils.isEmpty(str)) {
             return false;
         }
-        char[] chars = str.toString().toCharArray();
+        final char[] chars = str.toCharArray();
         int sz = chars.length;
         boolean hasExp = false;
         boolean hasDecPoint = false;
         boolean allowSigns = false;
         boolean foundDigit = false;
         // deal with any possible sign up front
-        int start = (chars[0] == '-' || chars[0] == '+') ? 1 : 0;
-        if (sz > start + 1) {
-            if (chars[start] == '0' && (chars[start + 1] == 'x' || chars[start + 1] == 'X')) {
+        final int start = chars[0] == '-' || chars[0] == '+' ? 1 : 0;
+        if (sz > start + 1 && chars[start] == '0' && !StringUtils.contains(str, '.')) { // leading 0, skip if is a decimal number
+            if (chars[start + 1] == 'x' || chars[start + 1] == 'X') { // leading 0x/0X
                 int i = start + 2;
                 if (i == sz) {
                     return false; // str == "0x"
                 }
                 // checking hex (it can't be anything else)
                 for (; i < chars.length; i++) {
-                    if ((chars[i] < '0' || chars[i] > '9') && (chars[i] < 'a' || chars[i] > 'f') && (chars[i] < 'A' || chars[i] > 'F')) {
+                    if ((chars[i] < '0' || chars[i] > '9')
+                            && (chars[i] < 'a' || chars[i] > 'f')
+                            && (chars[i] < 'A' || chars[i] > 'F')) {
+                        return false;
+                    }
+                }
+                return true;
+            } else if (Character.isDigit(chars[start + 1])) {
+                // leading 0, but not hex, must be octal
+                int i = start + 1;
+                for (; i < chars.length; i++) {
+                    if (chars[i] < '0' || chars[i] > '7') {
                         return false;
                     }
                 }
@@ -1116,7 +1608,7 @@ public class NumberUtils {
         int i = start;
         // loop to the next to last char or to the last char if we need another digit to
         // make a valid number (e.g. chars[0..5] = "1234E")
-        while (i < sz || (i < sz + 1 && allowSigns && !foundDigit)) {
+        while (i < sz || i < sz + 1 && allowSigns && !foundDigit) {
             if (chars[i] >= '0' && chars[i] <= '9') {
                 foundDigit = true;
                 allowSigns = false;
@@ -1133,7 +1625,7 @@ public class NumberUtils {
                     // two E's
                     return false;
                 }
-                if (false == foundDigit) {
+                if (!foundDigit) {
                     return false;
                 }
                 hasExp = true;
@@ -1166,1213 +1658,138 @@ public class NumberUtils {
                 // single trailing decimal point after non-exponent is ok
                 return foundDigit;
             }
-            if (!allowSigns && (chars[i] == 'd' || chars[i] == 'D' || chars[i] == 'f' || chars[i] == 'F')) {
+            if (!allowSigns
+                    && (chars[i] == 'd'
+                    || chars[i] == 'D'
+                    || chars[i] == 'f'
+                    || chars[i] == 'F')) {
                 return foundDigit;
             }
-            if (chars[i] == 'l' || chars[i] == 'L') {
-                // not allowing L with an exponent
-                return foundDigit && !hasExp;
+            if (chars[i] == 'l'
+                    || chars[i] == 'L') {
+                // not allowing L with an exponent or decimal point
+                return foundDigit && !hasExp && !hasDecPoint;
             }
             // last character is illegal
             return false;
         }
         // allowSigns is true iff the val ends in 'E'
         // found digit it to make sure weird stuff like '.' and '1E-' doesn't pass
-        return false == allowSigns && foundDigit;
+        return !allowSigns && foundDigit;
     }
 
     /**
-     * 判断String是否是整数<br>
-     * 支持10进制
+     * <p>Checks whether the given String is a parsable number.</p>
      *
-     * @param s String
-     * @return 是否为整数
+     * <p>Parsable numbers include those Strings understood by {@link Integer#parseInt(String)},
+     * {@link Long#parseLong(String)}, {@link Float#parseFloat(String)} or
+     * {@link Double#parseDouble(String)}. This method can be used instead of catching {@link java.text.ParseException}
+     * when calling one of those methods.</p>
+     *
+     * <p>Hexadecimal and scientific notations are <strong>not</strong> considered parsable.
+     * See {@link #isCreatable(String)} on those cases.</p>
+     *
+     * <p>{@code Null} and empty String will return {@code false}.</p>
+     *
+     * @param str the String to check.
+     * @return {@code true} if the string is a parsable number.
+     * @since 3.4
      */
-    public static boolean isInteger(String s) {
-        try {
-            Integer.parseInt(s);
-        } catch (NumberFormatException e) {
+    public static boolean isParsable(final String str) {
+        if (StringUtils.isEmpty(str)) {
             return false;
         }
-        return true;
-    }
-
-    /**
-     * 判断字符串是否是Long类型<br>
-     * 支持10进制
-     *
-     * @param s String
-     * @return 是否为{@link Long}类型
-     * @since 4.0.0
-     */
-    public static boolean isLong(String s) {
-        try {
-            Long.parseLong(s);
-        } catch (NumberFormatException e) {
+        if (str.charAt(str.length() - 1) == '.') {
             return false;
         }
-        return true;
-    }
-
-    /**
-     * 判断字符串是否是浮点数
-     *
-     * @param s String
-     * @return 是否为{@link Double}类型
-     */
-    public static boolean isDouble(String s) {
-        try {
-            Double.parseDouble(s);
-            return s.contains(".");
-        } catch (NumberFormatException ignore) {
-            // ignore
+        if (str.charAt(0) == '-') {
+            if (str.length() == 1) {
+                return false;
+            }
+            return withDecimalsParsing(str, 1);
         }
-        return false;
+        return withDecimalsParsing(str, 0);
     }
 
-    /**
-     * 是否是质数（素数）<br>
-     * 质数表的质数又称素数。指整数在一个大于1的自然数中,除了1和此整数自身外,没法被其他自然数整除的数。
-     *
-     * @param n 数字
-     * @return 是否是质数
-     */
-    public static boolean isPrimes(int n) {
-        Assert.isTrue(n > 1, "The number must be > 1");
-        for (int i = 2; i <= Math.sqrt(n); i++) {
-            if (n % i == 0) {
+    private static boolean withDecimalsParsing(final String str, final int beginIdx) {
+        int decimalPoints = 0;
+        for (int i = beginIdx; i < str.length(); i++) {
+            final boolean isDecimalPoint = str.charAt(i) == '.';
+            if (isDecimalPoint) {
+                decimalPoints++;
+            }
+            if (decimalPoints > 1) {
+                return false;
+            }
+            if (!isDecimalPoint && !Character.isDigit(str.charAt(i))) {
                 return false;
             }
         }
         return true;
     }
 
-    // ------------------------------------------------------------------------------------------- generateXXX
-
     /**
-     * 生成不重复随机数 根据给定的最小数字和最大数字，以及随机数的个数，产生指定的不重复的数组
+     * <p>Compares two {@code int} values numerically. This is the same functionality as provided in Java 7.</p>
      *
-     * @param begin 最小数字（包含该数）
-     * @param end   最大数字（不包含该数）
-     * @param size  指定产生随机数的个数
-     * @return 随机int数组
+     * @param x the first {@code int} to compare
+     * @param y the second {@code int} to compare
+     * @return the value {@code 0} if {@code x == y};
+     *         a value less than {@code 0} if {@code x < y}; and
+     *         a value greater than {@code 0} if {@code x > y}
+     * @since 3.4
      */
-    public static int[] generateRandomNumber(int begin, int end, int size) {
-        if (begin > end) {
-            int temp = begin;
-            begin = end;
-            end = temp;
+    public static int compare(final int x, final int y) {
+        if (x == y) {
+            return 0;
         }
-        // 加入逻辑判断，确保begin<end并且size不能大于该表示范围
-        if ((end - begin) < size) {
-            throw new ChaosCoreException("Size is larger than range between begin and end!");
-        }
-        // 种子你可以随意生成，但不能重复
-        int[] seed = new int[end - begin];
-
-        for (int i = begin; i < end; i++) {
-            seed[i - begin] = i;
-        }
-        int[] ranArr = new int[size];
-        Random ran = new Random();
-        // 数量你可以自己定义。
-        for (int i = 0; i < size; i++) {
-            // 得到一个位置
-            int j = ran.nextInt(seed.length - i);
-            // 得到那个位置的数值
-            ranArr[i] = seed[j];
-            // 将最后一个未用的数字放到这里
-            seed[j] = seed[seed.length - 1 - i];
-        }
-        return ranArr;
+        return x < y ? -1 : 1;
     }
 
     /**
-     * 生成不重复随机数 根据给定的最小数字和最大数字，以及随机数的个数，产生指定的不重复的数组
+     * <p>Compares to {@code long} values numerically. This is the same functionality as provided in Java 7.</p>
      *
-     * @param begin 最小数字（包含该数）
-     * @param end   最大数字（不包含该数）
-     * @param size  指定产生随机数的个数
-     * @return 随机int数组
+     * @param x the first {@code long} to compare
+     * @param y the second {@code long} to compare
+     * @return the value {@code 0} if {@code x == y};
+     *         a value less than {@code 0} if {@code x < y}; and
+     *         a value greater than {@code 0} if {@code x > y}
+     * @since 3.4
      */
-    public static Integer[] generateBySet(int begin, int end, int size) {
-        if (begin > end) {
-            int temp = begin;
-            begin = end;
-            end = temp;
+    public static int compare(final long x, final long y) {
+        if (x == y) {
+            return 0;
         }
-        // 加入逻辑判断，确保begin<end并且size不能大于该表示范围
-        if ((end - begin) < size) {
-            throw new ChaosCoreException("Size is larger than range between begin and end!");
+        return x < y ? -1 : 1;
+    }
+
+    /**
+     * <p>Compares to {@code short} values numerically. This is the same functionality as provided in Java 7.</p>
+     *
+     * @param x the first {@code short} to compare
+     * @param y the second {@code short} to compare
+     * @return the value {@code 0} if {@code x == y};
+     *         a value less than {@code 0} if {@code x < y}; and
+     *         a value greater than {@code 0} if {@code x > y}
+     * @since 3.4
+     */
+    public static int compare(final short x, final short y) {
+        if (x == y) {
+            return 0;
         }
-
-        Random ran = new Random();
-        Set<Integer> set = new HashSet<>();
-        while (set.size() < size) {
-            set.add(begin + ran.nextInt(end - begin));
-        }
-
-        return set.toArray(new Integer[size]);
-    }
-
-    // ------------------------------------------------------------------------------------------- range
-
-    /**
-     * 从0开始给定范围内的整数列表，步进为1
-     *
-     * @param stop 结束（包含）
-     * @return 整数列表
-     * @since 3.3.1
-     */
-    public static int[] range(int stop) {
-        return range(0, stop);
+        return x < y ? -1 : 1;
     }
 
     /**
-     * 给定范围内的整数列表，步进为1
+     * <p>Compares two {@code byte} values numerically. This is the same functionality as provided in Java 7.</p>
      *
-     * @param start 开始（包含）
-     * @param stop  结束（包含）
-     * @return 整数列表
+     * @param x the first {@code byte} to compare
+     * @param y the second {@code byte} to compare
+     * @return the value {@code 0} if {@code x == y};
+     *         a value less than {@code 0} if {@code x < y}; and
+     *         a value greater than {@code 0} if {@code x > y}
+     * @since 3.4
      */
-    public static int[] range(int start, int stop) {
-        return range(start, stop, 1);
-    }
-
-    /**
-     * 给定范围内的整数列表
-     *
-     * @param start 开始（包含）
-     * @param stop  结束（包含）
-     * @param step  步进
-     * @return 整数列表
-     */
-    public static int[] range(int start, int stop, int step) {
-        if (start < stop) {
-            step = Math.abs(step);
-        } else if (start > stop) {
-            step = -Math.abs(step);
-        } else {// start == end
-            return new int[]{start};
-        }
-
-        int size = Math.abs((stop - start) / step) + 1;
-        int[] values = new int[size];
-        int index = 0;
-        for (int i = start; (step > 0) ? i <= stop : i >= stop; i += step) {
-            values[index] = i;
-            index++;
-        }
-        return values;
-    }
-
-    /**
-     * 将给定范围内的整数添加到已有集合中，步进为1
-     *
-     * @param start  开始（包含）
-     * @param stop   结束（包含）
-     * @param values 集合
-     * @return 集合
-     */
-    public static Collection<Integer> appendRange(int start, int stop, Collection<Integer> values) {
-        return appendRange(start, stop, 1, values);
-    }
-
-    /**
-     * 将给定范围内的整数添加到已有集合中
-     *
-     * @param start  开始（包含）
-     * @param stop   结束（包含）
-     * @param step   步进
-     * @param values 集合
-     * @return 集合
-     */
-    public static Collection<Integer> appendRange(int start, int stop, int step, Collection<Integer> values) {
-        if (start < stop) {
-            step = Math.abs(step);
-        } else if (start > stop) {
-            step = -Math.abs(step);
-        } else {// start == end
-            values.add(start);
-            return values;
-        }
-
-        for (int i = start; (step > 0) ? i <= stop : i >= stop; i += step) {
-            values.add(i);
-        }
-        return values;
-    }
-
-    // ------------------------------------------------------------------------------------------- others
-
-    /**
-     * 计算阶乘
-     * <p>
-     * n! = n * (n-1) * ... * end
-     * </p>
-     *
-     * @param start 阶乘起始
-     * @param end   阶乘结束，必须小于起始
-     * @return 结果
-     * @since 4.1.0
-     */
-    public static long factorial(long start, long end) {
-        if (0L == start || start == end) {
-            return 1L;
-        }
-        if (start < end) {
-            return 0L;
-        }
-        return start * factorial(start - 1, end);
-    }
-
-    /**
-     * 计算阶乘
-     * <p>
-     * n! = n * (n-1) * ... * 2 * 1
-     * </p>
-     *
-     * @param n 阶乘起始
-     * @return 结果
-     */
-    public static long factorial(long n) {
-        return factorial(n, 1);
-    }
-
-    /**
-     * 平方根算法<br>
-     * 推荐使用 {@link Math#sqrt(double)}
-     *
-     * @param x 值
-     * @return 平方根
-     */
-    public static long sqrt(long x) {
-        long y = 0;
-        long b = (~Long.MAX_VALUE) >>> 1;
-        while (b > 0) {
-            if (x >= y + b) {
-                x -= y + b;
-                y >>= 1;
-                y += b;
-            } else {
-                y >>= 1;
-            }
-            b >>= 2;
-        }
-        return y;
-    }
-
-    /**
-     * 可以用于计算双色球、大乐透注数的方法<br>
-     * 比如大乐透35选5可以这样调用processMultiple(7,5); 就是数学中的：C75=7*6/2*1
-     *
-     * @param selectNum 选中小球个数
-     * @param minNum    最少要选中多少个小球
-     * @return 注数
-     */
-    public static int processMultiple(int selectNum, int minNum) {
-        int result;
-        result = mathSubnode(selectNum, minNum) / mathNode(selectNum - minNum);
-        return result;
-    }
-
-    /**
-     * 最大公约数
-     *
-     * @param m 第一个值
-     * @param n 第二个值
-     * @return 最大公约数
-     */
-    public static int divisor(int m, int n) {
-        while (m % n != 0) {
-            int temp = m % n;
-            m = n;
-            n = temp;
-        }
-        return n;
-    }
-
-    /**
-     * 最小公倍数
-     *
-     * @param m 第一个值
-     * @param n 第二个值
-     * @return 最小公倍数
-     */
-    public static int multiple(int m, int n) {
-        return m * n / divisor(m, n);
-    }
-
-    /**
-     * 获得数字对应的二进制字符串
-     *
-     * @param number 数字
-     * @return 二进制字符串
-     */
-    public static String getBinaryStr(Number number) {
-        if (number instanceof Long) {
-            return Long.toBinaryString((Long) number);
-        } else if (number instanceof Integer) {
-            return Integer.toBinaryString((Integer) number);
-        } else {
-            return Long.toBinaryString(number.longValue());
-        }
-    }
-
-    /**
-     * 二进制转int
-     *
-     * @param binaryStr 二进制字符串
-     * @return int
-     */
-    public static int binaryToInt(String binaryStr) {
-        return Integer.parseInt(binaryStr, 2);
-    }
-
-    /**
-     * 二进制转long
-     *
-     * @param binaryStr 二进制字符串
-     * @return long
-     */
-    public static long binaryToLong(String binaryStr) {
-        return Long.parseLong(binaryStr, 2);
-    }
-
-    // ------------------------------------------------------------------------------------------- compare
-
-    /**
-     * 比较两个值的大小
-     *
-     * @param x 第一个值
-     * @param y 第二个值
-     * @return x==y返回0，x&lt;y返回-1，x&gt;y返回1
-     * @see Character#compare(char, char)
-     * @since 3.0.1
-     */
-    public static int compare(char x, char y) {
+    public static int compare(final byte x, final byte y) {
         return x - y;
     }
-
-    /**
-     * 比较两个值的大小
-     *
-     * @param x 第一个值
-     * @param y 第二个值
-     * @return x==y返回0，x&lt;y返回-1，x&gt;y返回1
-     * @see Double#compare(double, double)
-     * @since 3.0.1
-     */
-    public static int compare(double x, double y) {
-        return Double.compare(x, y);
-    }
-
-    /**
-     * 比较两个值的大小
-     *
-     * @param x 第一个值
-     * @param y 第二个值
-     * @return x==y返回0，x&lt;y返回-1，x&gt;y返回1
-     * @see Integer#compare(int, int)
-     * @since 3.0.1
-     */
-    public static int compare(int x, int y) {
-        return Integer.compare(x, y);
-    }
-
-    /**
-     * 比较两个值的大小
-     *
-     * @param x 第一个值
-     * @param y 第二个值
-     * @return x==y返回0，x&lt;y返回-1，x&gt;y返回1
-     * @see Long#compare(long, long)
-     * @since 3.0.1
-     */
-    public static int compare(long x, long y) {
-        return Long.compare(x, y);
-    }
-
-    /**
-     * 比较两个值的大小
-     *
-     * @param x 第一个值
-     * @param y 第二个值
-     * @return x==y返回0，x&lt;y返回-1，x&gt;y返回1
-     * @see Short#compare(short, short)
-     * @since 3.0.1
-     */
-    public static int compare(short x, short y) {
-        return Short.compare(x, y);
-    }
-
-    /**
-     * 比较两个值的大小
-     *
-     * @param x 第一个值
-     * @param y 第二个值
-     * @return x==y返回0，x&lt;y返回-1，x&gt;y返回1
-     * @see Byte#compare(byte, byte)
-     * @since 3.0.1
-     */
-    public static int compare(byte x, byte y) {
-        return Byte.compare(x, y);
-    }
-
-    /**
-     * 比较大小，参数1 &gt; 参数2 返回true
-     *
-     * @param bigNum1 数字1
-     * @param bigNum2 数字2
-     * @return 是否大于
-     * @since 3, 0.9
-     */
-    public static boolean isGreater(BigDecimal bigNum1, BigDecimal bigNum2) {
-        Assert.notNull(bigNum1);
-        Assert.notNull(bigNum2);
-        return bigNum1.compareTo(bigNum2) > 0;
-    }
-
-    /**
-     * 比较大小，参数1 &gt;= 参数2 返回true
-     *
-     * @param bigNum1 数字1
-     * @param bigNum2 数字2
-     * @return 是否大于等于
-     * @since 3, 0.9
-     */
-    public static boolean isGreaterOrEqual(BigDecimal bigNum1, BigDecimal bigNum2) {
-        Assert.notNull(bigNum1);
-        Assert.notNull(bigNum2);
-        return bigNum1.compareTo(bigNum2) >= 0;
-    }
-
-    /**
-     * 比较大小，参数1 &lt; 参数2 返回true
-     *
-     * @param bigNum1 数字1
-     * @param bigNum2 数字2
-     * @return 是否小于
-     * @since 3, 0.9
-     */
-    public static boolean isLess(BigDecimal bigNum1, BigDecimal bigNum2) {
-        Assert.notNull(bigNum1);
-        Assert.notNull(bigNum2);
-        return bigNum1.compareTo(bigNum2) < 0;
-    }
-
-    /**
-     * 比较大小，参数1&lt;=参数2 返回true
-     *
-     * @param bigNum1 数字1
-     * @param bigNum2 数字2
-     * @return 是否小于等于
-     * @since 3, 0.9
-     */
-    public static boolean isLessOrEqual(BigDecimal bigNum1, BigDecimal bigNum2) {
-        Assert.notNull(bigNum1);
-        Assert.notNull(bigNum2);
-        return bigNum1.compareTo(bigNum2) <= 0;
-    }
-
-    /**
-     * 比较大小，值相等 返回true<br>
-     * 此方法通过调用{@link BigDecimal#compareTo(BigDecimal)}方法来判断是否相等<br>
-     * 此方法判断值相等时忽略精度的，即0.00 == 0
-     *
-     * @param bigNum1 数字1
-     * @param bigNum2 数字2
-     * @return 是否相等
-     */
-    public static boolean equals(BigDecimal bigNum1, BigDecimal bigNum2) {
-        Assert.notNull(bigNum1);
-        Assert.notNull(bigNum2);
-        return 0 == bigNum1.compareTo(bigNum2);
-    }
-
-    /**
-     * 比较两个字符是否相同
-     *
-     * @param c1         字符1
-     * @param c2         字符2
-     * @param ignoreCase 是否忽略大小写
-     * @return 是否相同
-     * @see CharUtils#equals(char, char, boolean)
-     * @since 3.2.1
-     */
-    public static boolean equals(char c1, char c2, boolean ignoreCase) {
-        return CharUtils.equals(c1, c2, ignoreCase);
-    }
-
-    /**
-     * 取最小值
-     *
-     * @param <T>         元素类型
-     * @param numberArray 数字数组
-     * @return 最小值
-     * @see ArrayUtils#min(Comparable[])
-     * @since 4.0.7
-     */
-//    public static <T extends Comparable<? super T>> T min(T[] numberArray) {
-//        return ArrayUtils.min(numberArray);
-//    }
-
-    /**
-     * 取最小值
-     *
-     * @param numberArray 数字数组
-     * @return 最小值
-     * @see ArrayUtils#min(long...)
-     * @since 4.0.7
-     */
-    public static long min(long... numberArray) {
-        return ArrayUtils.min(numberArray);
-    }
-
-    /**
-     * 取最小值
-     *
-     * @param numberArray 数字数组
-     * @return 最小值
-     * @see ArrayUtils#min(int...)
-     * @since 4.0.7
-     */
-    public static int min(int... numberArray) {
-        return ArrayUtils.min(numberArray);
-    }
-
-    /**
-     * 取最小值
-     *
-     * @param numberArray 数字数组
-     * @return 最小值
-     * @see ArrayUtils#min(short...)
-     * @since 4.0.7
-     */
-    public static short min(short... numberArray) {
-        return ArrayUtils.min(numberArray);
-    }
-
-    /**
-     * 取最小值
-     *
-     * @param numberArray 数字数组
-     * @return 最小值
-     * @see ArrayUtils#min(double...)
-     * @since 4.0.7
-     */
-    public static double min(double... numberArray) {
-        return ArrayUtils.min(numberArray);
-    }
-
-    /**
-     * 取最小值
-     *
-     * @param numberArray 数字数组
-     * @return 最小值
-     * @see ArrayUtils#min(float...)
-     * @since 4.0.7
-     */
-    public static float min(float... numberArray) {
-        return ArrayUtils.min(numberArray);
-    }
-
-    /**
-     * 取最小值
-     *
-     * @param numberArray 数字数组
-     * @return 最小值
-     * @see ArrayUtils#min(Comparable[])
-     * @since 5.0.8
-     */
-//    public static BigDecimal min(BigDecimal... numberArray) {
-//        return ArrayUtils.min(numberArray);
-//    }
-
-    /**
-     * 取最大值
-     *
-     * @param <T>         元素类型
-     * @param numberArray 数字数组
-     * @return 最大值
-     * @see ArrayUtils#max(Comparable[])
-     * @since 4.0.7
-     */
-//    public static <T extends Comparable<? super T>> T max(T[] numberArray) {
-//        return ArrayUtils.max(numberArray);
-//    }
-
-    /**
-     * 取最大值
-     *
-     * @param numberArray 数字数组
-     * @return 最大值
-     * @see ArrayUtils#max(long...)
-     * @since 4.0.7
-     */
-    public static long max(long... numberArray) {
-        return ArrayUtils.max(numberArray);
-    }
-
-    /**
-     * 取最大值
-     *
-     * @param numberArray 数字数组
-     * @return 最大值
-     * @see ArrayUtils#max(int...)
-     * @since 4.0.7
-     */
-    public static int max(int... numberArray) {
-        return ArrayUtils.max(numberArray);
-    }
-
-    /**
-     * 取最大值
-     *
-     * @param numberArray 数字数组
-     * @return 最大值
-     * @see ArrayUtils#max(short...)
-     * @since 4.0.7
-     */
-    public static short max(short... numberArray) {
-        return ArrayUtils.max(numberArray);
-    }
-
-    /**
-     * 取最大值
-     *
-     * @param numberArray 数字数组
-     * @return 最大值
-     * @see ArrayUtils#max(double...)
-     * @since 4.0.7
-     */
-    public static double max(double... numberArray) {
-        return ArrayUtils.max(numberArray);
-    }
-
-    /**
-     * 取最大值
-     *
-     * @param numberArray 数字数组
-     * @return 最大值
-     * @see ArrayUtils#max(float...)
-     * @since 4.0.7
-     */
-    public static float max(float... numberArray) {
-        return ArrayUtils.max(numberArray);
-    }
-
-    /**
-     * 取最大值
-     *
-     * @param numberArray 数字数组
-     * @return 最大值
-     * @see ArrayUtils#max(Comparable[])
-     * @since 5.0.8
-     */
-//    public static BigDecimal max(BigDecimal... numberArray) {
-//        return ArrayUtils.max(numberArray);
-//    }
-
-    /**
-     * 数字转字符串<br>
-     * 调用{@link Number#toString()}，并去除尾小数点儿后多余的0
-     *
-     * @param number       A Number
-     * @param defaultValue 如果number参数为{@code null}，返回此默认值
-     * @return A String.
-     * @since 3.0.9
-     */
-//    public static String toStr(Number number, String defaultValue) {
-//        return (null == number) ? defaultValue : toStr(number);
-//    }
-
-    /**
-     * 数字转字符串<br>
-     * 调用{@link Number#toString()}，并去除尾小数点儿后多余的0
-     *
-     * @param number A Number
-     * @return A String.
-     */
-//    public static String toStr(Number number) {
-//        if (null == number) {
-//            throw new NullPointerException("Number is null !");
-//        }
-//
-//        if (false == ObjectUtil.isValidIfNumber(number)) {
-//            throw new IllegalArgumentException("Number is non-finite!");
-//        }
-//
-//        // 去掉小数点儿后多余的0
-//        String string = number.toString();
-//        if (string.indexOf('.') > 0 && string.indexOf('e') < 0 && string.indexOf('E') < 0) {
-//            while (string.endsWith("0")) {
-//                string = string.substring(0, string.length() - 1);
-//            }
-//            if (string.endsWith(".")) {
-//                string = string.substring(0, string.length() - 1);
-//            }
-//        }
-//        return string;
-//    }
-
-    /**
-     * 数字转{@link BigDecimal}
-     *
-     * @param number 数字
-     * @return {@link BigDecimal}
-     * @since 4.0.9
-     */
-    public static BigDecimal toBigDecimal(Number number) {
-        if (null == number) {
-            return BigDecimal.ZERO;
-        }
-        return toBigDecimal(number.toString());
-    }
-
-    /**
-     * 数字转{@link BigDecimal}
-     *
-     * @param number 数字
-     * @return {@link BigDecimal}
-     * @since 4.0.9
-     */
-    public static BigDecimal toBigDecimal(String number) {
-        return (null == number) ? BigDecimal.ZERO : new BigDecimal(number);
-    }
-
-    /**
-     * 是否空白符<br>
-     * 空白符包括空格、制表符、全角空格和不间断空格<br>
-     *
-     * @param c 字符
-     * @return 是否空白符
-     * @see Character#isWhitespace(int)
-     * @see Character#isSpaceChar(int)
-     * @since 3.0.6
-     * @deprecated 请使用{@link CharUtils#isBlankChar(char)}
-     */
-    @Deprecated
-    public static boolean isBlankChar(char c) {
-        return isBlankChar((int) c);
-    }
-
-    /**
-     * 是否空白符<br>
-     * 空白符包括空格、制表符、全角空格和不间断空格<br>
-     *
-     * @param c 字符
-     * @return 是否空白符
-     * @see Character#isWhitespace(int)
-     * @see Character#isSpaceChar(int)
-     * @since 3.0.6
-     * @deprecated 请使用{@link CharUtils#isBlankChar(int)}
-     */
-    @Deprecated
-    public static boolean isBlankChar(int c) {
-        return Character.isWhitespace(c) || Character.isSpaceChar(c) || c == '\ufeff' || c == '\u202a';
-    }
-
-    /**
-     * 计算等份个数
-     *
-     * @param total 总数
-     * @param part  每份的个数
-     * @return 分成了几份
-     * @since 3.0.6
-     */
-    public static int count(int total, int part) {
-        return (total % part == 0) ? (total / part) : (total / part + 1);
-    }
-
-    /**
-     * 空转0
-     *
-     * @param decimal {@link BigDecimal}，可以为{@code null}
-     * @return {@link BigDecimal}参数为空时返回0的值
-     * @since 3.0.9
-     */
-    public static BigDecimal null2Zero(BigDecimal decimal) {
-
-        return decimal == null ? BigDecimal.ZERO : decimal;
-    }
-
-    /**
-     * 如果给定值为0，返回1，否则返回原值
-     *
-     * @param value 值
-     * @return 1或非0值
-     * @since 3.1.2
-     */
-    public static int zero2One(int value) {
-        return 0 == value ? 1 : value;
-    }
-
-    /**
-     * 创建{@link BigInteger}，支持16进制、10进制和8进制，如果传入空白串返回null<br>
-     * from Apache Common Lang
-     *
-     * @param str 数字字符串
-     * @return {@link BigInteger}
-     * @since 3.2.1
-     */
-    public static BigInteger newBigInteger(String str) {
-        str = StringUtils.trimToNull(str);
-        if (null == str) {
-            return null;
-        }
-
-        int pos = 0; // 数字字符串位置
-        int radix = 10;
-        boolean negate = false; // 负数与否
-        if (str.startsWith("-")) {
-            negate = true;
-            pos = 1;
-        }
-        if (str.startsWith("0x", pos) || str.startsWith("0X", pos)) {
-            // hex
-            radix = 16;
-            pos += 2;
-        } else if (str.startsWith("#", pos)) {
-            // alternative hex (allowed by Long/Integer)
-            radix = 16;
-            pos++;
-        } else if (str.startsWith("0", pos) && str.length() > pos + 1) {
-            // octal; so long as there are additional digits
-            radix = 8;
-            pos++;
-        } // default is to treat as decimal
-
-        if (pos > 0) {
-            str = str.substring(pos);
-        }
-        final BigInteger value = new BigInteger(str, radix);
-        return negate ? value.negate() : value;
-    }
-
-    /**
-     * 判断两个数字是否相邻，例如1和2相邻，1和3不相邻<br>
-     * 判断方法为做差取绝对值判断是否为1
-     *
-     * @param number1 数字1
-     * @param number2 数字2
-     * @return 是否相邻
-     * @since 4.0.7
-     */
-    public static boolean isBeside(long number1, long number2) {
-        return Math.abs(number1 - number2) == 1;
-    }
-
-    /**
-     * 判断两个数字是否相邻，例如1和2相邻，1和3不相邻<br>
-     * 判断方法为做差取绝对值判断是否为1
-     *
-     * @param number1 数字1
-     * @param number2 数字2
-     * @return 是否相邻
-     * @since 4.0.7
-     */
-    public static boolean isBeside(int number1, int number2) {
-        return Math.abs(number1 - number2) == 1;
-    }
-
-    /**
-     * 把给定的总数平均分成N份，返回每份的个数<br>
-     * 当除以分数有余数时每份+1
-     *
-     * @param total     总数
-     * @param partCount 份数
-     * @return 每份的个数
-     * @since 4.0.7
-     */
-    public static int partValue(int total, int partCount) {
-        return partValue(total, partCount, true);
-    }
-
-    /**
-     * 把给定的总数平均分成N份，返回每份的个数<br>
-     * 如果isPlusOneWhenHasRem为true，则当除以分数有余数时每份+1，否则丢弃余数部分
-     *
-     * @param total               总数
-     * @param partCount           份数
-     * @param isPlusOneWhenHasRem 在有余数时是否每份+1
-     * @return 每份的个数
-     * @since 4.0.7
-     */
-    public static int partValue(int total, int partCount, boolean isPlusOneWhenHasRem) {
-        int partValue = total / partCount;
-        if (isPlusOneWhenHasRem && total % partCount == 0) {
-            partValue++;
-        }
-        return partValue;
-    }
-
-    /**
-     * 提供精确的幂运算
-     *
-     * @param number 底数
-     * @param n      指数
-     * @return 幂的积
-     * @since 4.1.0
-     */
-    public static BigDecimal pow(Number number, int n) {
-        return pow(toBigDecimal(number), n);
-    }
-
-    /**
-     * 提供精确的幂运算
-     *
-     * @param number 底数
-     * @param n      指数
-     * @return 幂的积
-     * @since 4.1.0
-     */
-    public static BigDecimal pow(BigDecimal number, int n) {
-        return number.pow(n);
-    }
-
-    /**
-     * 解析转换数字字符串为int型数字，规则如下：
-     *
-     * <pre>
-     * 1、0x开头的视为16进制数字
-     * 2、0开头的视为8进制数字
-     * 3、其它情况按照10进制转换
-     * 4、空串返回0
-     * 5、.123形式返回0（按照小于0的小数对待）
-     * 6、123.56截取小数点之前的数字，忽略小数部分
-     * </pre>
-     *
-     * @param number 数字，支持0x开头、0开头和普通十进制
-     * @return int
-     * @throws NumberFormatException 数字格式异常
-     * @since 4.1.4
-     */
-    public static int parseInt(String number) throws NumberFormatException {
-        if (StringUtils.isBlank(number)) {
-            return 0;
-        }
-
-        // 对于带小数转换为整数采取去掉小数的策略
-        number = StringUtils.substringBefore(number, CharUtils.DOT, false);
-        if (StringUtils.isEmpty(number)) {
-            return 0;
-        }
-
-        if (StringUtils.startWithIgnoreCase(number, "0x")) {
-            // 0x04表示16进制数
-            return Integer.parseInt(number.substring(2), 16);
-        }
-
-        return Integer.parseInt(removeNumberFlag(number));
-    }
-
-    /**
-     * 解析转换数字字符串为long型数字，规则如下：
-     *
-     * <pre>
-     * 1、0x开头的视为16进制数字
-     * 2、0开头的视为8进制数字
-     * 3、空串返回0
-     * 4、其它情况按照10进制转换
-     * </pre>
-     *
-     * @param number 数字，支持0x开头、0开头和普通十进制
-     * @return long
-     * @since 4.1.4
-     */
-    public static long parseLong(String number) {
-        if (StringUtils.isBlank(number)) {
-            return 0;
-        }
-
-        // 对于带小数转换为整数采取去掉小数的策略
-        number = StringUtils.substringBefore(number, CharUtils.DOT, false);
-        if (StringUtils.isEmpty(number)) {
-            return 0;
-        }
-
-        if (number.startsWith("0x")) {
-            // 0x04表示16进制数
-            return Long.parseLong(number.substring(2), 16);
-        }
-
-        return Long.parseLong(removeNumberFlag(number));
-    }
-
-    /**
-     * 将指定字符串转换为{@link Number} 对象
-     *
-     * @param numberStr Number字符串
-     * @return Number对象
-     * @since 4.1.15
-     */
-    public static Number parseNumber(String numberStr) {
-        numberStr = removeNumberFlag(numberStr);
-        try {
-            return NumberFormat.getInstance().parse(numberStr);
-        } catch (ParseException e) {
-            throw new ChaosCoreException(e);
-        }
-    }
-
-    /**
-     * int值转byte数组，使用大端字节序（高位字节在前，低位字节在后）<br>
-     * 见：http://www.ruanyifeng.com/blog/2016/11/byte-order.html
-     *
-     * @param value 值
-     * @return byte数组
-     * @since 4.4.5
-     */
-    public static byte[] toBytes(int value) {
-        final byte[] result = new byte[4];
-
-        result[0] = (byte) (value >> 24);
-        result[1] = (byte) (value >> 16);
-        result[2] = (byte) (value >> 8);
-        result[3] = (byte) (value /* >> 0 */);
-
-        return result;
-    }
-
-    /**
-     * byte数组转int，使用大端字节序（高位字节在前，低位字节在后）<br>
-     * 见：http://www.ruanyifeng.com/blog/2016/11/byte-order.html
-     *
-     * @param bytes byte数组
-     * @return int
-     * @since 4.4.5
-     */
-    public static int toInt(byte[] bytes) {
-        return (bytes[0] & 0xff) << 24//
-                | (bytes[1] & 0xff) << 16//
-                | (bytes[2] & 0xff) << 8//
-                | (bytes[3] & 0xff);
-    }
-
-    /**
-     * 以无符号字节数组的形式返回传入值。
-     *
-     * @param value 需要转换的值
-     * @return 无符号bytes
-     * @since 4.5.0
-     */
-    public static byte[] toUnsignedByteArray(BigInteger value) {
-        byte[] bytes = value.toByteArray();
-
-        if (bytes[0] == 0) {
-            byte[] tmp = new byte[bytes.length - 1];
-            System.arraycopy(bytes, 1, tmp, 0, tmp.length);
-
-            return tmp;
-        }
-
-        return bytes;
-    }
-
-    /**
-     * 以无符号字节数组的形式返回传入值。
-     *
-     * @param length bytes长度
-     * @param value  需要转换的值
-     * @return 无符号bytes
-     * @since 4.5.0
-     */
-    public static byte[] toUnsignedByteArray(int length, BigInteger value) {
-        byte[] bytes = value.toByteArray();
-        if (bytes.length == length) {
-            return bytes;
-        }
-
-        int start = bytes[0] == 0 ? 1 : 0;
-        int count = bytes.length - start;
-
-        if (count > length) {
-            throw new IllegalArgumentException("standard length exceeded for value");
-        }
-
-        byte[] tmp = new byte[length];
-        System.arraycopy(bytes, start, tmp, tmp.length - count, count);
-        return tmp;
-    }
-
-    /**
-     * 无符号bytes转{@link BigInteger}
-     *
-     * @param buf buf 无符号bytes
-     * @return {@link BigInteger}
-     * @since 4.5.0
-     */
-    public static BigInteger fromUnsignedByteArray(byte[] buf) {
-        return new BigInteger(1, buf);
-    }
-
-    /**
-     * 无符号bytes转{@link BigInteger}
-     *
-     * @param buf    无符号bytes
-     * @param off    起始位置
-     * @param length 长度
-     * @return {@link BigInteger}
-     */
-    public static BigInteger fromUnsignedByteArray(byte[] buf, int off, int length) {
-        byte[] mag = buf;
-        if (off != 0 || length != buf.length) {
-            mag = new byte[length];
-            System.arraycopy(buf, off, mag, 0, length);
-        }
-        return new BigInteger(1, mag);
-    }
-
-    /**
-     * 检查是否为有效的数字<br>
-     * 检查Double和Float是否为无限大，或者Not a Number<br>
-     * 非数字类型和Null将返回true
-     *
-     * @param number 被检查类型
-     * @return 检查结果，非数字类型和Null将返回true
-     * @since 4.6.7
-     */
-    public static boolean isValidNumber(Number number) {
-        if (number instanceof Double) {
-            return (false == ((Double) number).isInfinite()) && (false == ((Double) number).isNaN());
-        } else if (number instanceof Float) {
-            return (false == ((Float) number).isInfinite()) && (false == ((Float) number).isNaN());
-        }
-        return true;
-    }
-
-    // ------------------------------------------------------------------------------------------- Private method start
-    private static int mathSubnode(int selectNum, int minNum) {
-        if (selectNum == minNum) {
-            return 1;
-        } else {
-            return selectNum * mathSubnode(selectNum - 1, minNum);
-        }
-    }
-
-    private static int mathNode(int selectNum) {
-        if (selectNum == 0) {
-            return 1;
-        } else {
-            return selectNum * mathNode(selectNum - 1);
-        }
-    }
-
-    /**
-     * 去掉数字尾部的数字标识，例如12D，44.0F，22L中的最后一个字母
-     *
-     * @param number 数字字符串
-     * @return 去掉标识的字符串
-     */
-    private static String removeNumberFlag(String number) {
-        // 去掉类型标识的结尾
-        final int lastPos = number.length() - 1;
-        final char lastCharUpper = Character.toUpperCase(number.charAt(lastPos));
-        if ('D' == lastCharUpper || 'L' == lastCharUpper || 'F' == lastCharUpper) {
-            number = StringUtils.subPre(number, lastPos);
-        }
-        return number;
-    }
-    // ------------------------------------------------------------------------------------------- Private method end
 }

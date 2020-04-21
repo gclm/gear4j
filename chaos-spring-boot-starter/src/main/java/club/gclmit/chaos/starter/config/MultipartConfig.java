@@ -1,5 +1,7 @@
 package club.gclmit.chaos.starter.config;
 
+import club.gclmit.chaos.core.lang.Logger;
+import club.gclmit.chaos.core.lang.logger.LoggerServer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.MultipartResolver;
@@ -21,6 +23,7 @@ public class MultipartConfig  implements WebMvcConfigurer {
 
     @Bean(name = "multipartResolver")
     public MultipartResolver multipartResolver(){
+        Logger.info(LoggerServer.SPRING_BOOT, "MultipartResolver 配置，开启文件上传");
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
         resolver.setDefaultEncoding("UTF-8");
         //resolveLazily属性启用是为了推迟文件解析，以在在UploadAction中捕获文件大小异常

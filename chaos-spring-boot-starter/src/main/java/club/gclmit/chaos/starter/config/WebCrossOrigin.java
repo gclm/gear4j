@@ -1,5 +1,7 @@
 package club.gclmit.chaos.starter.config;
 
+import club.gclmit.chaos.core.lang.Logger;
+import club.gclmit.chaos.core.lang.logger.LoggerServer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +31,7 @@ public class WebCrossOrigin {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Bean
     public FilterRegistrationBean corsFilter() {
+        Logger.info(LoggerServer.SPRING_BOOT, "增加 Cors 跨域支持");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);

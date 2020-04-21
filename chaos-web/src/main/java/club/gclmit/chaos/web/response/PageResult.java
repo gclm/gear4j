@@ -34,6 +34,10 @@ public class PageResult extends Result {
         return result(ApiCode.OK,count,data);
     }
 
+    public static PageResult ok(Integer count,Object data) {
+        return ok(Long.valueOf(count),data);
+    }
+
     public PageResult(Integer code, String message, Long count ,Object data) {
         super(code, message, data);
         this.count = count;

@@ -11,7 +11,7 @@
 
     <artifactId>chaos</artifactId>
     <packaging>pom</packaging>
-    <version>1.4.4</version>
+    <version>1.4.6</version>
 
     <name>${project.artifactId}</name>
     <url>https://blog.gclmit.club/</url>
@@ -23,7 +23,7 @@
         <module>chaos-storage</module>
         <module>chaos-logger</module>
         <module>chaos-annotations</module>
-        <module>chaos-boot-starter</module>
+        <module>chaos-spring-boot-starter</module>
     </modules>
 
     <properties>
@@ -47,6 +47,14 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <generateBackupPoms>false</generateBackupPoms>
+                </configuration>
             </plugin>
         </plugins>
     </build>
