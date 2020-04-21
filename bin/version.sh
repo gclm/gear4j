@@ -33,7 +33,12 @@ echo "当前路径：${pwd}"
 echo "旧版本：$old_version"
 echo "新版本：$version"
 
-echo "$old_version 替换为新版本 [$version]，是否更新？[Y/n]"
+if [[ ${version} > ${old_version} ]]; then
+    echo "正在升级 POM 版本；$old_version --> $version ，是否更新？[Y/n]"
+else
+    echo "正在回退 POM 版本；$old_version --> $version ，是否更新？[Y/n]"
+fi
+
 read -p "(默认: y):" yn
 [[ -z "${yn}" ]] && yn="y"
 if [[ ${yn} == [Yy] ]]; then
@@ -42,24 +47,5 @@ if [[ ${yn} == [Yy] ]]; then
 else
     echo && echo "	已取消..." && echo
 fi
-
-#if [[ ${version} > ${old_version} ]]; then
-#    echo "$old_version 替换为新版本 [$version]，是否更新？[Y/n]"
-#    read -p "(默认: y):" yn
-#    [[ -z "${yn}" ]] && yn="y"
-#    if [[ ${yn} == [Yy] ]]; then
-#        update_version
-#        echo  "当前pom已经更新到$version"
-#    else
-#        echo && echo "	已取消..." && echo
-#    fi
-#else
-#    echo  "暂不支持回退版本"
-#    sleep 5s
-#fi
-
-
-
-
 
 
