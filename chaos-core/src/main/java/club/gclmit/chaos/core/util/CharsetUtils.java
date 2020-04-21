@@ -1,6 +1,5 @@
 package club.gclmit.chaos.core.util;
 
-import club.gclmit.chaos.core.util.system.OSUtils;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.charset.UnsupportedCharsetException;
@@ -174,7 +173,7 @@ public class CharsetUtils {
      * @since 3.1.2
      */
     public static Charset systemCharset() {
-        return OSUtils.isWindows() ? CHARSET_GBK : defaultCharset();
+        return SystemUtils.IS_OS_WINDOWS ? CHARSET_GBK : defaultCharset();
     }
 
     /**

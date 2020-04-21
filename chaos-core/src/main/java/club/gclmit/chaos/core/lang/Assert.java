@@ -319,7 +319,7 @@ public class Assert {
      * @throws IllegalArgumentException if the object array contains a {@code null} element
      */
     public static <T> T[] noNullElements(T[] array, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-        if (ArrayUtils.hasNull(array)) {
+        if (ArrayUtils.isEmpty(array)) {
             throw new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params));
         }
         return array;

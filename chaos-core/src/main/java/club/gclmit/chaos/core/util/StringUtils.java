@@ -3606,7 +3606,7 @@ public class StringUtils {
 	 * @since 3.0.9
 	 */
 	public static String reverse(String str) {
-		return new String(ArrayUtils.reverse(str.toCharArray()));
+		return new StringBuilder(str).reverse().toString();
 	}
 
 	/**

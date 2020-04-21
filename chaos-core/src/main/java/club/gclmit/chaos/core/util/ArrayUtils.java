@@ -10,20 +10,14 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import club.gclmit.chaos.core.util.BooleanUtils;
-import club.gclmit.chaos.core.util.CharUtils;
 
 /**
- * <p>Operations on arrays, primitive arrays (like {@code int[]}) and
- * primitive wrapper arrays (like {@code Integer[]}).
+ * <p>
+ *  基于 Commons lang3 定义的数组工具类
+ * </p>
  *
- * <p>This class tries to handle {@code null} input gracefully.
- * An exception will not be thrown for a {@code null}
- * array input. However, an Object array that contains a {@code null}
- * element may throw an exception. Each method documents its behaviour.
- *
- * <p>#ThreadSafe#
- * @since 2.0
+ * @author: gclm
+ * @since: V1.0
  */
 public class ArrayUtils {
 
@@ -185,40 +179,6 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Inserts the specified element at the specified position in the array.
-     * Shifts the element currently at that position (if any) and any subsequent
-     * elements to the right (adds one to their indices).
-     *
-     * <p>This method returns a new array with the same elements of the input
-     * array plus the given element on the specified position. The component
-     * type of the returned array is always the same as that of the input
-     * array.
-     *
-     * <p>If the input array is {@code null}, a new one element array is returned
-     *  whose component type is the same as the element.
-     *
-     * <pre>
-     * ArrayUtils.add(null, 0, true)          = [true]
-     * ArrayUtils.add([true], 0, false)       = [false, true]
-     * ArrayUtils.add([false], 1, true)       = [false, true]
-     * ArrayUtils.add([true, false], 1, true) = [true, true, false]
-     * </pre>
-     *
-     * @param array  the array to add the element to, may be {@code null}
-     * @param index  the position of the new object
-     * @param element  the object to add
-     * @return A new array containing the existing elements and the new element
-     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt; array.length).
-     * @deprecated this method has been superseded by {@link #insert(int, boolean[], boolean...)} and
-     * may be removed in a future release. Please note the handling of {@code null} input arrays differs
-     * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
-     */
-    @Deprecated
-    public static boolean[] add(final boolean[] array, final int index, final boolean element) {
-        return (boolean[]) add(array, index, Boolean.valueOf(element), Boolean.TYPE);
-    }
-
-    /**
      * <p>Copies the given array and adds the given element at the end of the new array.
      *
      * <p>The new array contains the same elements of the input
@@ -243,41 +203,6 @@ public class ArrayUtils {
         final byte[] newArray = (byte[]) copyArrayGrow1(array, Byte.TYPE);
         newArray[newArray.length - 1] = element;
         return newArray;
-    }
-
-    /**
-     * <p>Inserts the specified element at the specified position in the array.
-     * Shifts the element currently at that position (if any) and any subsequent
-     * elements to the right (adds one to their indices).
-     *
-     * <p>This method returns a new array with the same elements of the input
-     * array plus the given element on the specified position. The component
-     * type of the returned array is always the same as that of the input
-     * array.
-     *
-     * <p>If the input array is {@code null}, a new one element array is returned
-     *  whose component type is the same as the element.
-     *
-     * <pre>
-     * ArrayUtils.add([1], 0, 2)         = [2, 1]
-     * ArrayUtils.add([2, 6], 2, 3)      = [2, 6, 3]
-     * ArrayUtils.add([2, 6], 0, 1)      = [1, 2, 6]
-     * ArrayUtils.add([2, 6, 3], 2, 1)   = [2, 6, 1, 3]
-     * </pre>
-     *
-     * @param array  the array to add the element to, may be {@code null}
-     * @param index  the position of the new object
-     * @param element  the object to add
-     * @return A new array containing the existing elements and the new element
-     * @throws IndexOutOfBoundsException if the index is out of range
-     * (index &lt; 0 || index &gt; array.length).
-     * @deprecated this method has been superseded by {@link #insert(int, byte[], byte...)} and
-     * may be removed in a future release. Please note the handling of {@code null} input arrays differs
-     * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
-     */
-    @Deprecated
-    public static byte[] add(final byte[] array, final int index, final byte element) {
-        return (byte[]) add(array, index, Byte.valueOf(element), Byte.TYPE);
     }
 
     /**
@@ -307,41 +232,6 @@ public class ArrayUtils {
         return newArray;
     }
 
-    /**
-     * <p>Inserts the specified element at the specified position in the array.
-     * Shifts the element currently at that position (if any) and any subsequent
-     * elements to the right (adds one to their indices).
-     *
-     * <p>This method returns a new array with the same elements of the input
-     * array plus the given element on the specified position. The component
-     * type of the returned array is always the same as that of the input
-     * array.
-     *
-     * <p>If the input array is {@code null}, a new one element array is returned
-     *  whose component type is the same as the element.
-     *
-     * <pre>
-     * ArrayUtils.add(null, 0, 'a')            = ['a']
-     * ArrayUtils.add(['a'], 0, 'b')           = ['b', 'a']
-     * ArrayUtils.add(['a', 'b'], 0, 'c')      = ['c', 'a', 'b']
-     * ArrayUtils.add(['a', 'b'], 1, 'k')      = ['a', 'k', 'b']
-     * ArrayUtils.add(['a', 'b', 'c'], 1, 't') = ['a', 't', 'b', 'c']
-     * </pre>
-     *
-     * @param array  the array to add the element to, may be {@code null}
-     * @param index  the position of the new object
-     * @param element  the object to add
-     * @return A new array containing the existing elements and the new element
-     * @throws IndexOutOfBoundsException if the index is out of range
-     * (index &lt; 0 || index &gt; array.length).
-     * @deprecated this method has been superseded by {@link #insert(int, char[], char...)} and
-     * may be removed in a future release. Please note the handling of {@code null} input arrays differs
-     * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
-     */
-    @Deprecated
-    public static char[] add(final char[] array, final int index, final char element) {
-        return (char[]) add(array, index, Character.valueOf(element), Character.TYPE);
-    }
 
     /**
      * <p>Copies the given array and adds the given element at the end of the new array.
@@ -371,41 +261,6 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Inserts the specified element at the specified position in the array.
-     * Shifts the element currently at that position (if any) and any subsequent
-     * elements to the right (adds one to their indices).
-     *
-     * <p>This method returns a new array with the same elements of the input
-     * array plus the given element on the specified position. The component
-     * type of the returned array is always the same as that of the input
-     * array.
-     *
-     * <p>If the input array is {@code null}, a new one element array is returned
-     *  whose component type is the same as the element.
-     *
-     * <pre>
-     * ArrayUtils.add([1.1], 0, 2.2)              = [2.2, 1.1]
-     * ArrayUtils.add([2.3, 6.4], 2, 10.5)        = [2.3, 6.4, 10.5]
-     * ArrayUtils.add([2.6, 6.7], 0, -4.8)        = [-4.8, 2.6, 6.7]
-     * ArrayUtils.add([2.9, 6.0, 0.3], 2, 1.0)    = [2.9, 6.0, 1.0, 0.3]
-     * </pre>
-     *
-     * @param array  the array to add the element to, may be {@code null}
-     * @param index  the position of the new object
-     * @param element  the object to add
-     * @return A new array containing the existing elements and the new element
-     * @throws IndexOutOfBoundsException if the index is out of range
-     * (index &lt; 0 || index &gt; array.length).
-     * @deprecated this method has been superseded by {@link #insert(int, double[], double...)} and
-     * may be removed in a future release. Please note the handling of {@code null} input arrays differs
-     * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
-     */
-    @Deprecated
-    public static double[] add(final double[] array, final int index, final double element) {
-        return (double[]) add(array, index, Double.valueOf(element), Double.TYPE);
-    }
-
-    /**
      * <p>Copies the given array and adds the given element at the end of the new array.
      *
      * <p>The new array contains the same elements of the input
@@ -432,40 +287,6 @@ public class ArrayUtils {
         return newArray;
     }
 
-    /**
-     * <p>Inserts the specified element at the specified position in the array.
-     * Shifts the element currently at that position (if any) and any subsequent
-     * elements to the right (adds one to their indices).
-     *
-     * <p>This method returns a new array with the same elements of the input
-     * array plus the given element on the specified position. The component
-     * type of the returned array is always the same as that of the input
-     * array.
-     *
-     * <p>If the input array is {@code null}, a new one element array is returned
-     *  whose component type is the same as the element.
-     *
-     * <pre>
-     * ArrayUtils.add([1.1f], 0, 2.2f)               = [2.2f, 1.1f]
-     * ArrayUtils.add([2.3f, 6.4f], 2, 10.5f)        = [2.3f, 6.4f, 10.5f]
-     * ArrayUtils.add([2.6f, 6.7f], 0, -4.8f)        = [-4.8f, 2.6f, 6.7f]
-     * ArrayUtils.add([2.9f, 6.0f, 0.3f], 2, 1.0f)   = [2.9f, 6.0f, 1.0f, 0.3f]
-     * </pre>
-     *
-     * @param array  the array to add the element to, may be {@code null}
-     * @param index  the position of the new object
-     * @param element  the object to add
-     * @return A new array containing the existing elements and the new element
-     * @throws IndexOutOfBoundsException if the index is out of range
-     * (index &lt; 0 || index &gt; array.length).
-     * @deprecated this method has been superseded by {@link #insert(int, float[], float...)} and
-     * may be removed in a future release. Please note the handling of {@code null} input arrays differs
-     * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
-     */
-    @Deprecated
-    public static float[] add(final float[] array, final int index, final float element) {
-        return (float[]) add(array, index, Float.valueOf(element), Float.TYPE);
-    }
 
     /**
      * <p>Copies the given array and adds the given element at the end of the new array.
@@ -494,75 +315,6 @@ public class ArrayUtils {
         return newArray;
     }
 
-    /**
-     * <p>Inserts the specified element at the specified position in the array.
-     * Shifts the element currently at that position (if any) and any subsequent
-     * elements to the right (adds one to their indices).
-     *
-     * <p>This method returns a new array with the same elements of the input
-     * array plus the given element on the specified position. The component
-     * type of the returned array is always the same as that of the input
-     * array.
-     *
-     * <p>If the input array is {@code null}, a new one element array is returned
-     *  whose component type is the same as the element.
-     *
-     * <pre>
-     * ArrayUtils.add([1], 0, 2)         = [2, 1]
-     * ArrayUtils.add([2, 6], 2, 10)     = [2, 6, 10]
-     * ArrayUtils.add([2, 6], 0, -4)     = [-4, 2, 6]
-     * ArrayUtils.add([2, 6, 3], 2, 1)   = [2, 6, 1, 3]
-     * </pre>
-     *
-     * @param array  the array to add the element to, may be {@code null}
-     * @param index  the position of the new object
-     * @param element  the object to add
-     * @return A new array containing the existing elements and the new element
-     * @throws IndexOutOfBoundsException if the index is out of range
-     * (index &lt; 0 || index &gt; array.length).
-     * @deprecated this method has been superseded by {@link #insert(int, int[], int...)} and
-     * may be removed in a future release. Please note the handling of {@code null} input arrays differs
-     * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
-     */
-    @Deprecated
-    public static int[] add(final int[] array, final int index, final int element) {
-        return (int[]) add(array, index, Integer.valueOf(element), Integer.TYPE);
-    }
-
-    /**
-     * <p>Inserts the specified element at the specified position in the array.
-     * Shifts the element currently at that position (if any) and any subsequent
-     * elements to the right (adds one to their indices).
-     *
-     * <p>This method returns a new array with the same elements of the input
-     * array plus the given element on the specified position. The component
-     * type of the returned array is always the same as that of the input
-     * array.
-     *
-     * <p>If the input array is {@code null}, a new one element array is returned
-     *  whose component type is the same as the element.
-     *
-     * <pre>
-     * ArrayUtils.add([1L], 0, 2L)           = [2L, 1L]
-     * ArrayUtils.add([2L, 6L], 2, 10L)      = [2L, 6L, 10L]
-     * ArrayUtils.add([2L, 6L], 0, -4L)      = [-4L, 2L, 6L]
-     * ArrayUtils.add([2L, 6L, 3L], 2, 1L)   = [2L, 6L, 1L, 3L]
-     * </pre>
-     *
-     * @param array  the array to add the element to, may be {@code null}
-     * @param index  the position of the new object
-     * @param element  the object to add
-     * @return A new array containing the existing elements and the new element
-     * @throws IndexOutOfBoundsException if the index is out of range
-     * (index &lt; 0 || index &gt; array.length).
-     * @deprecated this method has been superseded by {@link #insert(int, long[], long...)} and
-     * may be removed in a future release. Please note the handling of {@code null} input arrays differs
-     * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
-     */
-    @Deprecated
-    public static long[] add(final long[] array, final int index, final long element) {
-        return (long[]) add(array, index, Long.valueOf(element), Long.TYPE);
-    }
 
     /**
      * <p>Copies the given array and adds the given element at the end of the new array.
@@ -625,41 +377,6 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Inserts the specified element at the specified position in the array.
-     * Shifts the element currently at that position (if any) and any subsequent
-     * elements to the right (adds one to their indices).
-     *
-     * <p>This method returns a new array with the same elements of the input
-     * array plus the given element on the specified position. The component
-     * type of the returned array is always the same as that of the input
-     * array.
-     *
-     * <p>If the input array is {@code null}, a new one element array is returned
-     *  whose component type is the same as the element.
-     *
-     * <pre>
-     * ArrayUtils.add([1], 0, 2)         = [2, 1]
-     * ArrayUtils.add([2, 6], 2, 10)     = [2, 6, 10]
-     * ArrayUtils.add([2, 6], 0, -4)     = [-4, 2, 6]
-     * ArrayUtils.add([2, 6, 3], 2, 1)   = [2, 6, 1, 3]
-     * </pre>
-     *
-     * @param array  the array to add the element to, may be {@code null}
-     * @param index  the position of the new object
-     * @param element  the object to add
-     * @return A new array containing the existing elements and the new element
-     * @throws IndexOutOfBoundsException if the index is out of range
-     * (index &lt; 0 || index &gt; array.length).
-     * @deprecated this method has been superseded by {@link #insert(int, short[], short...)} and
-     * may be removed in a future release. Please note the handling of {@code null} input arrays differs
-     * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
-     */
-    @Deprecated
-    public static short[] add(final short[] array, final int index, final short element) {
-        return (short[]) add(array, index, Short.valueOf(element), Short.TYPE);
-    }
-
-    /**
      * <p>Copies the given array and adds the given element at the end of the new array.
      *
      * <p>The new array contains the same elements of the input
@@ -686,53 +403,6 @@ public class ArrayUtils {
         return newArray;
     }
 
-
-    /**
-     * <p>Inserts the specified element at the specified position in the array.
-     * Shifts the element currently at that position (if any) and any subsequent
-     * elements to the right (adds one to their indices).
-     *
-     * <p>This method returns a new array with the same elements of the input
-     * array plus the given element on the specified position. The component
-     * type of the returned array is always the same as that of the input
-     * array.
-     *
-     * <p>If the input array is {@code null}, a new one element array is returned
-     *  whose component type is the same as the element.
-     *
-     * <pre>
-     * ArrayUtils.add(null, 0, null)      = IllegalArgumentException
-     * ArrayUtils.add(null, 0, "a")       = ["a"]
-     * ArrayUtils.add(["a"], 1, null)     = ["a", null]
-     * ArrayUtils.add(["a"], 1, "b")      = ["a", "b"]
-     * ArrayUtils.add(["a", "b"], 3, "c") = ["a", "b", "c"]
-     * </pre>
-     *
-     * @param <T> the component type of the array
-     * @param array  the array to add the element to, may be {@code null}
-     * @param index  the position of the new object
-     * @param element  the object to add
-     * @return A new array containing the existing elements and the new element
-     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt; array.length).
-     * @throws IllegalArgumentException if both array and element are null
-     * @deprecated this method has been superseded by {@link #insert(int, Object[], Object...) insert(int, T[], T...)} and
-     * may be removed in a future release. Please note the handling of {@code null} input arrays differs
-     * in the new method: inserting {@code X} into a {@code null} array results in {@code null} not {@code X}.
-     */
-    @Deprecated
-    public static <T> T[] add(final T[] array, final int index, final T element) {
-        Class<?> clss = null;
-        if (array != null) {
-            clss = array.getClass().getComponentType();
-        } else if (element != null) {
-            clss = element.getClass();
-        } else {
-            throw new IllegalArgumentException("Array and element cannot both be null");
-        }
-        @SuppressWarnings("unchecked") // the add method creates an array of type clss, which is type T
-        final T[] newArray = (T[]) add(array, index, element, clss);
-        return newArray;
-    }
 
     /**
      * <p>Copies the given array and adds the given element at the end of the new array.
@@ -5251,187 +4921,6 @@ public class ArrayUtils {
      * @param array the input array
      *
      * @return A new array containing the existing elements except the occurrences of the specified element.
-     * @since 3.5
-     * @deprecated Use {@link #removeAllOccurrences(boolean[], boolean)}
-     */
-    public static boolean[] removeAllOccurences(final boolean[] array, final boolean element) {
-        return (boolean[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-    /**
-     * Removes the occurrences of the specified element from the specified byte array.
-     *
-     * <p>
-     * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
-     * {@code null} will be returned if the input array is {@code null}.
-     * </p>
-     *
-     * @param element the element to remove
-     * @param array the input array
-     *
-     * @return A new array containing the existing elements except the occurrences of the specified element.
-     * @since 3.5
-     * @deprecated Use {@link #removeAllOccurrences(byte[], byte)}
-     */
-    public static byte[] removeAllOccurences(final byte[] array, final byte element) {
-        return (byte[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-    /**
-     * Removes the occurrences of the specified element from the specified char array.
-     *
-     * <p>
-     * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
-     * {@code null} will be returned if the input array is {@code null}.
-     * </p>
-     *
-     * @param element the element to remove
-     * @param array the input array
-     *
-     * @return A new array containing the existing elements except the occurrences of the specified element.
-     * @since 3.5
-     * @deprecated Use {@link #removeAllOccurrences(char[], char)}
-     */
-    public static char[] removeAllOccurences(final char[] array, final char element) {
-        return (char[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-    /**
-     * Removes the occurrences of the specified element from the specified double array.
-     *
-     * <p>
-     * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
-     * {@code null} will be returned if the input array is {@code null}.
-     * </p>
-     *
-     * @param element the element to remove
-     * @param array the input array
-     *
-     * @return A new array containing the existing elements except the occurrences of the specified element.
-     * @since 3.5
-     * @deprecated Use {@link #removeAllOccurrences(double[], double)}
-     */
-    public static double[] removeAllOccurences(final double[] array, final double element) {
-        return (double[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-    /**
-     * Removes the occurrences of the specified element from the specified float array.
-     *
-     * <p>
-     * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
-     * {@code null} will be returned if the input array is {@code null}.
-     * </p>
-     *
-     * @param element the element to remove
-     * @param array the input array
-     *
-     * @return A new array containing the existing elements except the occurrences of the specified element.
-     * @since 3.5
-     * @deprecated Use {@link #removeAllOccurrences(float[], float)}
-     */
-    public static float[] removeAllOccurences(final float[] array, final float element) {
-        return (float[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-    /**
-     * Removes the occurrences of the specified element from the specified int array.
-     *
-     * <p>
-     * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
-     * {@code null} will be returned if the input array is {@code null}.
-     * </p>
-     *
-     * @param element the element to remove
-     * @param array the input array
-     *
-     * @return A new array containing the existing elements except the occurrences of the specified element.
-     * @since 3.5
-     * @deprecated Use {@link #removeAllOccurrences(int[], int)}
-     */
-    public static int[] removeAllOccurences(final int[] array, final int element) {
-        return (int[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-    /**
-     * Removes the occurrences of the specified element from the specified long array.
-     *
-     * <p>
-     * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
-     * {@code null} will be returned if the input array is {@code null}.
-     * </p>
-     *
-     * @param element the element to remove
-     * @param array the input array
-     *
-     * @return A new array containing the existing elements except the occurrences of the specified element.
-     * @since 3.5
-     * @deprecated Use {@link #removeAllOccurrences(long[], long)}
-     */
-    public static long[] removeAllOccurences(final long[] array, final long element) {
-        return (long[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-    /**
-     * Removes the occurrences of the specified element from the specified short array.
-     *
-     * <p>
-     * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
-     * {@code null} will be returned if the input array is {@code null}.
-     * </p>
-     *
-     * @param element the element to remove
-     * @param array the input array
-     *
-     * @return A new array containing the existing elements except the occurrences of the specified element.
-     * @since 3.5
-     * @deprecated Use {@link #removeAllOccurrences(short[], short)}
-     */
-    public static short[] removeAllOccurences(final short[] array, final short element) {
-        return (short[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-    /**
-     * Removes the occurrences of the specified element from the specified array.
-     *
-     * <p>
-     * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
-     * {@code null} will be returned if the input array is {@code null}.
-     * </p>
-     *
-     * @param <T> the type of object in the array
-     * @param element the element to remove
-     * @param array the input array
-     *
-     * @return A new array containing the existing elements except the occurrences of the specified element.
-     * @since 3.5
-     * @deprecated Use {@link #removeAllOccurrences(Object[], Object)}
-     */
-    public static <T> T[] removeAllOccurences(final T[] array, final T element) {
-        return (T[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-    /**
-     * Removes the occurrences of the specified element from the specified boolean array.
-     *
-     * <p>
-     * All subsequent elements are shifted to the left (subtracts one from their indices).
-     * If the array doesn't contains such an element, no elements are removed from the array.
-     * {@code null} will be returned if the input array is {@code null}.
-     * </p>
-     *
-     * @param element the element to remove
-     * @param array the input array
-     *
-     * @return A new array containing the existing elements except the occurrences of the specified element.
      * @since 3.10
      */
     public static boolean[] removeAllOccurrences(final boolean[] array, final boolean element) {
@@ -9035,13 +8524,22 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>ArrayUtils instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as {@code ArrayUtils.clone(new int[] {2})}.
+     * 是否包含{@code null}元素
      *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.
+     * @param <T> 数组元素类型
+     * @param array 被检查的数组
+     * @return 是否包含{@code null}元素
+     * @since 3.0.7
      */
-    public ArrayUtils() {
-        super();
+    @SuppressWarnings("unchecked")
+    public static <T> boolean hasNull(T... array) {
+        if (isNotEmpty(array)) {
+            for (T element : array) {
+                if (null == element) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
