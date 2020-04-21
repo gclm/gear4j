@@ -21,6 +21,7 @@ Maven Jar 一键发布脚本
 ———————————— 开发环境(Java) ————————————
  ${Green_font_prefix}1.${Font_color_suffix} 发布到 huaweicloud-oss-release
  ${Green_font_prefix}2.${Font_color_suffix} 发布到 sonatype-oss-release
+ ${Green_font_prefix}3.${Font_color_suffix} 发布到 sonatype 和 huaweicloud
 ——————————————————————————————————————
  ${Red_font_prefix}请根据具体情况进行操作${Font_color_suffix}
 ——————————————————————————————————————" && echo
@@ -34,6 +35,11 @@ case "$num" in
 	install
 	;;
 	2)
+	OSS="sonatype-oss-release"
+	install
+	;;
+	3)
+	install
 	OSS="sonatype-oss-release"
 	install
 	;;

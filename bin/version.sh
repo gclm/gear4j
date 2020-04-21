@@ -42,10 +42,9 @@ fi
 read -p "(默认: y):" yn
 [[ -z "${yn}" ]] && yn="y"
 if [[ ${yn} == [Yy] ]]; then
+    bash push.sh
     update_version
     echo  "当前pom已经更新到$version"
 else
     echo && echo "	已取消..." && echo
 fi
-
-

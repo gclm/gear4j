@@ -11,7 +11,7 @@
 
     <artifactId>chaos</artifactId>
     <packaging>pom</packaging>
-    <version>1.4.6</version>
+    <version>1.4.5</version>
 
     <name>${project.artifactId}</name>
     <url>https://blog.gclmit.club/</url>
