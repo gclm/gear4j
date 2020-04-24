@@ -429,11 +429,11 @@ public class StringUtils {
 	 * 除去字符串头尾部的空白，如果字符串是{@code null}，返回<code>""</code>。
 	 *
 	 * <pre>
-	 * StrUtil.trimToEmpty(null)          = ""
-	 * StrUtil.trimToEmpty("")            = ""
-	 * StrUtil.trimToEmpty("     ")       = ""
-	 * StrUtil.trimToEmpty("abc")         = "abc"
-	 * StrUtil.trimToEmpty("    abc    ") = "abc"
+	 * StringUtils.trimToEmpty(null)          = ""
+	 * StringUtils.trimToEmpty("")            = ""
+	 * StringUtils.trimToEmpty("     ")       = ""
+	 * StringUtils.trimToEmpty("abc")         = "abc"
+	 * StringUtils.trimToEmpty("    abc    ") = "abc"
 	 * </pre>
 	 *
 	 * @param str 字符串
@@ -448,11 +448,11 @@ public class StringUtils {
 	 * 除去字符串头尾部的空白，如果字符串是{@code null}，返回<code>""</code>。
 	 *
 	 * <pre>
-	 * StrUtil.trimToNull(null)          = null
-	 * StrUtil.trimToNull("")            = null
-	 * StrUtil.trimToNull("     ")       = null
-	 * StrUtil.trimToNull("abc")         = "abc"
-	 * StrUtil.trimToEmpty("    abc    ") = "abc"
+	 * StringUtils.trimToNull(null)          = null
+	 * StringUtils.trimToNull("")            = null
+	 * StringUtils.trimToNull("     ")       = null
+	 * StringUtils.trimToNull("abc")         = "abc"
+	 * StringUtils.trimToEmpty("    abc    ") = "abc"
 	 * </pre>
 	 *
 	 * @param str 字符串
@@ -1530,7 +1530,6 @@ public class StringUtils {
 	 * @param str 字符串
 	 * @param len 每一个小节的长度
 	 * @return 截取后的字符串数组
-	 * @see StrSpliter#splitByLength(String, int)
 	 */
 	public static String[] split(CharSequence str, int len) {
 		if (null == str) {
@@ -1697,13 +1696,13 @@ public class StringUtils {
 	 * 切割指定长度的后部分的字符串
 	 *
 	 * <pre>
-	 * StrUtil.subSufByLength("abcde", 3)      =    "cde"
-	 * StrUtil.subSufByLength("abcde", 0)      =    ""
-	 * StrUtil.subSufByLength("abcde", -5)     =    ""
-	 * StrUtil.subSufByLength("abcde", -1)     =    ""
-	 * StrUtil.subSufByLength("abcde", 5)       =    "abcde"
-	 * StrUtil.subSufByLength("abcde", 10)     =    "abcde"
-	 * StrUtil.subSufByLength(null, 3)               =    null
+	 * StringUtils.subSufByLength("abcde", 3)      =    "cde"
+	 * StringUtils.subSufByLength("abcde", 0)      =    ""
+	 * StringUtils.subSufByLength("abcde", -5)     =    ""
+	 * StringUtils.subSufByLength("abcde", -1)     =    ""
+	 * StringUtils.subSufByLength("abcde", 5)       =    "abcde"
+	 * StringUtils.subSufByLength("abcde", 10)     =    "abcde"
+	 * StringUtils.subSufByLength(null, 3)               =    null
 	 * </pre>
 	 *
 	 * @param string 字符串
@@ -1740,14 +1739,14 @@ public class StringUtils {
 	 * 如果分隔字符串为空串""，则返回空串，如果分隔字符串未找到，返回原字符串，举例如下：
 	 *
 	 * <pre>
-	 * StrUtil.subBefore(null, *)      = null
-	 * StrUtil.subBefore("", *)        = ""
-	 * StrUtil.subBefore("abc", "a")   = ""
-	 * StrUtil.subBefore("abcba", "b") = "a"
-	 * StrUtil.subBefore("abc", "c")   = "ab"
-	 * StrUtil.subBefore("abc", "d")   = "abc"
-	 * StrUtil.subBefore("abc", "")    = ""
-	 * StrUtil.subBefore("abc", null)  = "abc"
+	 * StringUtils.subBefore(null, *)      = null
+	 * StringUtils.subBefore("", *)        = ""
+	 * StringUtils.subBefore("abc", "a")   = ""
+	 * StringUtils.subBefore("abcba", "b") = "a"
+	 * StringUtils.subBefore("abc", "c")   = "ab"
+	 * StringUtils.subBefore("abc", "d")   = "abc"
+	 * StringUtils.subBefore("abc", "")    = ""
+	 * StringUtils.subBefore("abc", null)  = "abc"
 	 * </pre>
 	 *
 	 * @param string          被查找的字符串
@@ -1782,12 +1781,12 @@ public class StringUtils {
 	 * 如果分隔字符串未找到，返回原字符串，举例如下：
 	 *
 	 * <pre>
-	 * StrUtil.subBefore(null, *)      = null
-	 * StrUtil.subBefore("", *)        = ""
-	 * StrUtil.subBefore("abc", 'a')   = ""
-	 * StrUtil.subBefore("abcba", 'b') = "a"
-	 * StrUtil.subBefore("abc", 'c')   = "ab"
-	 * StrUtil.subBefore("abc", 'd')   = "abc"
+	 * StringUtils.subBefore(null, *)      = null
+	 * StringUtils.subBefore("", *)        = ""
+	 * StringUtils.subBefore("abc", 'a')   = ""
+	 * StringUtils.subBefore("abcba", 'b') = "a"
+	 * StringUtils.subBefore("abc", 'c')   = "ab"
+	 * StringUtils.subBefore("abc", 'd')   = "abc"
 	 * </pre>
 	 *
 	 * @param string          被查找的字符串
@@ -1818,14 +1817,14 @@ public class StringUtils {
 	 * 如果分隔字符串为空串（null或""），则返回空串，如果分隔字符串未找到，返回空串，举例如下：
 	 *
 	 * <pre>
-	 * StrUtil.subAfter(null, *)      = null
-	 * StrUtil.subAfter("", *)        = ""
-	 * StrUtil.subAfter(*, null)      = ""
-	 * StrUtil.subAfter("abc", "a")   = "bc"
-	 * StrUtil.subAfter("abcba", "b") = "cba"
-	 * StrUtil.subAfter("abc", "c")   = ""
-	 * StrUtil.subAfter("abc", "d")   = ""
-	 * StrUtil.subAfter("abc", "")    = "abc"
+	 * StringUtils.subStringAfter(null, *)      = null
+	 * StringUtils.subStringAfter("", *)        = ""
+	 * StringUtils.subStringAfter(*, null)      = ""
+	 * StringUtils.subStringAfter("abc", "a")   = "bc"
+	 * StringUtils.subStringAfter("abcba", "b") = "cba"
+	 * StringUtils.subStringAfter("abc", "c")   = ""
+	 * StringUtils.subStringAfter("abc", "d")   = ""
+	 * StringUtils.subStringAfter("abc", "")    = "abc"
 	 * </pre>
 	 *
 	 * @param string          被查找的字符串
@@ -1834,7 +1833,7 @@ public class StringUtils {
 	 * @return 切割后的字符串
 	 * @since 3.1.1
 	 */
-	public static String subAfter(CharSequence string, CharSequence separator, boolean isLastSeparator) {
+	public static String subStringAfter(CharSequence string, CharSequence separator, boolean isLastSeparator) {
 		if (isEmpty(string)) {
 			return null == string ? null : string.toString();
 		}
@@ -1843,6 +1842,7 @@ public class StringUtils {
 		}
 		final String str = string.toString();
 		final String sep = separator.toString();
+
 		final int pos = isLastSeparator ? str.lastIndexOf(sep) : str.indexOf(sep);
 		if (INDEX_NOT_FOUND == pos || (string.length() - 1) == pos) {
 			return EMPTY;
@@ -1856,12 +1856,12 @@ public class StringUtils {
 	 * 如果分隔字符串为空串（null或""），则返回空串，如果分隔字符串未找到，返回空串，举例如下：
 	 *
 	 * <pre>
-	 * StrUtil.subAfter(null, *)      = null
-	 * StrUtil.subAfter("", *)        = ""
-	 * StrUtil.subAfter("abc", 'a')   = "bc"
-	 * StrUtil.subAfter("abcba", 'b') = "cba"
-	 * StrUtil.subAfter("abc", 'c')   = ""
-	 * StrUtil.subAfter("abc", 'd')   = ""
+	 * StringUtils.subStringAfter(null, *)      = null
+	 * StringUtils.subStringAfter("", *)        = ""
+	 * StringUtils.subStringAfter("abc", 'a')   = "bc"
+	 * StringUtils.subStringAfter("abcba", 'b') = "cba"
+	 * StringUtils.subStringAfter("abc", 'c')   = ""
+	 * StringUtils.subStringAfter("abc", 'd')   = ""
 	 * </pre>
 	 *
 	 * @param string          被查找的字符串
@@ -1870,7 +1870,7 @@ public class StringUtils {
 	 * @return 切割后的字符串
 	 * @since 4.1.15
 	 */
-	public static String subAfter(CharSequence string, char separator, boolean isLastSeparator) {
+	public static String subStringAfter(CharSequence string, char separator, boolean isLastSeparator) {
 		if (isEmpty(string)) {
 			return null == string ? null : string.toString();
 		}
@@ -1888,16 +1888,16 @@ public class StringUtils {
 	 * 栗子：
 	 *
 	 * <pre>
-	 * StrUtil.subBetween("wx[b]yz", "[", "]") = "b"
-	 * StrUtil.subBetween(null, *, *)          = null
-	 * StrUtil.subBetween(*, null, *)          = null
-	 * StrUtil.subBetween(*, *, null)          = null
-	 * StrUtil.subBetween("", "", "")          = ""
-	 * StrUtil.subBetween("", "", "]")         = null
-	 * StrUtil.subBetween("", "[", "]")        = null
-	 * StrUtil.subBetween("yabcz", "", "")     = ""
-	 * StrUtil.subBetween("yabcz", "y", "z")   = "abc"
-	 * StrUtil.subBetween("yabczyabcz", "y", "z")   = "abc"
+	 * StringUtils.subBetween("wx[b]yz", "[", "]") = "b"
+	 * StringUtils.subBetween(null, *, *)          = null
+	 * StringUtils.subBetween(*, null, *)          = null
+	 * StringUtils.subBetween(*, *, null)          = null
+	 * StringUtils.subBetween("", "", "")          = ""
+	 * StringUtils.subBetween("", "", "]")         = null
+	 * StringUtils.subBetween("", "[", "]")        = null
+	 * StringUtils.subBetween("yabcz", "", "")     = ""
+	 * StringUtils.subBetween("yabcz", "y", "z")   = "abc"
+	 * StringUtils.subBetween("yabczyabcz", "y", "z")   = "abc"
 	 * </pre>
 	 *
 	 * @param str    被切割的字符串
@@ -1931,12 +1931,12 @@ public class StringUtils {
 	 * 栗子：
 	 *
 	 * <pre>
-	 * StrUtil.subBetween(null, *)            = null
-	 * StrUtil.subBetween("", "")             = ""
-	 * StrUtil.subBetween("", "tag")          = null
-	 * StrUtil.subBetween("tagabctag", null)  = null
-	 * StrUtil.subBetween("tagabctag", "")    = ""
-	 * StrUtil.subBetween("tagabctag", "tag") = "abc"
+	 * StringUtils.subBetween(null, *)            = null
+	 * StringUtils.subBetween("", "")             = ""
+	 * StringUtils.subBetween("", "tag")          = null
+	 * StringUtils.subBetween("tagabctag", null)  = null
+	 * StringUtils.subBetween("tagabctag", "")    = ""
+	 * StringUtils.subBetween("tagabctag", "tag") = "abc"
 	 * </pre>
 	 *
 	 * @param str            被切割的字符串
@@ -2076,9 +2076,9 @@ public class StringUtils {
 	 * 重复某个字符串并通过分界符连接
 	 *
 	 * <pre>
-	 * StrUtil.repeatAndJoin("?", 5, ",")   = "?,?,?,?,?"
-	 * StrUtil.repeatAndJoin("?", 0, ",")   = ""
-	 * StrUtil.repeatAndJoin("?", 5, null) = "?????"
+	 * StringUtils.repeatAndJoin("?", 5, ",")   = "?,?,?,?,?"
+	 * StringUtils.repeatAndJoin("?", 0, ",")   = ""
+	 * StringUtils.repeatAndJoin("?", 5, null) = "?????"
 	 * </pre>
 	 *
 	 * @param str         被重复的字符串
@@ -2834,9 +2834,9 @@ public class StringUtils {
 	 * 补充字符串以满足最小长度
 	 *
 	 * <pre>
-	 * StrUtil.padPre(null, *, *);//null
-	 * StrUtil.padPre("1", 3, "ABC");//"AB1"
-	 * StrUtil.padPre("123", 2, "ABC");//"12"
+	 * StringUtils.padPre(null, *, *);//null
+	 * StringUtils.padPre("1", 3, "ABC");//"AB1"
+	 * StringUtils.padPre("123", 2, "ABC");//"12"
 	 * </pre>
 	 *
 	 * @param str       字符串
@@ -2862,9 +2862,9 @@ public class StringUtils {
 	 * 补充字符串以满足最小长度
 	 *
 	 * <pre>
-	 * StrUtil.padPre(null, *, *);//null
-	 * StrUtil.padPre("1", 3, '0');//"001"
-	 * StrUtil.padPre("123", 2, '0');//"12"
+	 * StringUtils.padPre(null, *, *);//null
+	 * StringUtils.padPre("1", 3, '0');//"001"
+	 * StringUtils.padPre("123", 2, '0');//"12"
 	 * </pre>
 	 *
 	 * @param str       字符串
@@ -2890,9 +2890,9 @@ public class StringUtils {
 	 * 补充字符串以满足最小长度
 	 *
 	 * <pre>
-	 * StrUtil.padAfter(null, *, *);//null
-	 * StrUtil.padAfter("1", 3, '0');//"100"
-	 * StrUtil.padAfter("123", 2, '0');//"23"
+	 * StringUtils.padAfter(null, *, *);//null
+	 * StringUtils.padAfter("1", 3, '0');//"100"
+	 * StringUtils.padAfter("123", 2, '0');//"23"
 	 * </pre>
 	 *
 	 * @param str       字符串，如果为<code>null</code>，按照空串处理
@@ -2918,9 +2918,9 @@ public class StringUtils {
 	 * 补充字符串以满足最小长度
 	 *
 	 * <pre>
-	 * StrUtil.padAfter(null, *, *);//null
-	 * StrUtil.padAfter("1", 3, "ABC");//"1AB"
-	 * StrUtil.padAfter("123", 2, "ABC");//"23"
+	 * StringUtils.padAfter(null, *, *);//null
+	 * StringUtils.padAfter("1", 3, "ABC");//"1AB"
+	 * StringUtils.padAfter("123", 2, "ABC");//"23"
 	 * </pre>
 	 *
 	 * @param str       字符串，如果为<code>null</code>，按照空串处理
@@ -2947,12 +2947,12 @@ public class StringUtils {
 	 * 居中字符串，两边补充指定字符串，如果指定长度小于字符串，则返回原字符串
 	 *
 	 * <pre>
-	 * StrUtil.center(null, *)   = null
-	 * StrUtil.center("", 4)     = "    "
-	 * StrUtil.center("ab", -1)  = "ab"
-	 * StrUtil.center("ab", 4)   = " ab "
-	 * StrUtil.center("abcd", 2) = "abcd"
-	 * StrUtil.center("a", 4)    = " a  "
+	 * StringUtils.center(null, *)   = null
+	 * StringUtils.center("", 4)     = "    "
+	 * StringUtils.center("ab", -1)  = "ab"
+	 * StringUtils.center("ab", 4)   = " ab "
+	 * StringUtils.center("abcd", 2) = "abcd"
+	 * StringUtils.center("a", 4)    = " a  "
 	 * </pre>
 	 *
 	 * @param str  字符串
@@ -2968,14 +2968,14 @@ public class StringUtils {
 	 * 居中字符串，两边补充指定字符串，如果指定长度小于字符串，则返回原字符串
 	 *
 	 * <pre>
-	 * StrUtil.center(null, *, *)     = null
-	 * StrUtil.center("", 4, ' ')     = "    "
-	 * StrUtil.center("ab", -1, ' ')  = "ab"
-	 * StrUtil.center("ab", 4, ' ')   = " ab "
-	 * StrUtil.center("abcd", 2, ' ') = "abcd"
-	 * StrUtil.center("a", 4, ' ')    = " a  "
-	 * StrUtil.center("a", 4, 'y')   = "yayy"
-	 * StrUtil.center("abc", 7, ' ')   = "  abc  "
+	 * StringUtils.center(null, *, *)     = null
+	 * StringUtils.center("", 4, ' ')     = "    "
+	 * StringUtils.center("ab", -1, ' ')  = "ab"
+	 * StringUtils.center("ab", 4, ' ')   = " ab "
+	 * StringUtils.center("abcd", 2, ' ') = "abcd"
+	 * StringUtils.center("a", 4, ' ')    = " a  "
+	 * StringUtils.center("a", 4, 'y')   = "yayy"
+	 * StringUtils.center("abc", 7, ' ')   = "  abc  "
 	 * </pre>
 	 *
 	 * @param str     字符串
@@ -3002,15 +3002,15 @@ public class StringUtils {
 	 * 居中字符串，两边补充指定字符串，如果指定长度小于字符串，则返回原字符串
 	 *
 	 * <pre>
-	 * StrUtil.center(null, *, *)     = null
-	 * StrUtil.center("", 4, " ")     = "    "
-	 * StrUtil.center("ab", -1, " ")  = "ab"
-	 * StrUtil.center("ab", 4, " ")   = " ab "
-	 * StrUtil.center("abcd", 2, " ") = "abcd"
-	 * StrUtil.center("a", 4, " ")    = " a  "
-	 * StrUtil.center("a", 4, "yz")   = "yayz"
-	 * StrUtil.center("abc", 7, null) = "  abc  "
-	 * StrUtil.center("abc", 7, "")   = "  abc  "
+	 * StringUtils.center(null, *, *)     = null
+	 * StringUtils.center("", 4, " ")     = "    "
+	 * StringUtils.center("ab", -1, " ")  = "ab"
+	 * StringUtils.center("ab", 4, " ")   = " ab "
+	 * StringUtils.center("abcd", 2, " ") = "abcd"
+	 * StringUtils.center("a", 4, " ")    = " a  "
+	 * StringUtils.center("a", 4, "yz")   = "yayz"
+	 * StringUtils.center("abc", 7, null) = "  abc  "
+	 * StringUtils.center("abc", 7, "")   = "  abc  "
 	 * </pre>
 	 *
 	 * @param str    字符串
@@ -3095,13 +3095,13 @@ public class StringUtils {
 	 * 参数为 {@code null} 或者 "" 返回 {@code 0}.
 	 *
 	 * <pre>
-	 * StrUtil.count(null, *)       = 0
-	 * StrUtil.count("", *)         = 0
-	 * StrUtil.count("abba", null)  = 0
-	 * StrUtil.count("abba", "")    = 0
-	 * StrUtil.count("abba", "a")   = 2
-	 * StrUtil.count("abba", "ab")  = 1
-	 * StrUtil.count("abba", "xxx") = 0
+	 * StringUtils.count(null, *)       = 0
+	 * StringUtils.count("", *)         = 0
+	 * StringUtils.count("abba", null)  = 0
+	 * StringUtils.count("abba", "")    = 0
+	 * StringUtils.count("abba", "a")   = 2
+	 * StringUtils.count("abba", "ab")  = 1
+	 * StringUtils.count("abba", "xxx") = 0
 	 * </pre>
 	 *
 	 * @param content      被查找的字符串
@@ -3170,16 +3170,16 @@ public class StringUtils {
 	 * 比较两个字符串，用于排序
 	 *
 	 * <pre>
-	 * StrUtil.compare(null, null, *)     = 0
-	 * StrUtil.compare(null , "a", true)  &lt; 0
-	 * StrUtil.compare(null , "a", false) &gt; 0
-	 * StrUtil.compare("a", null, true)   &gt; 0
-	 * StrUtil.compare("a", null, false)  &lt; 0
-	 * StrUtil.compare("abc", "abc", *)   = 0
-	 * StrUtil.compare("a", "b", *)       &lt; 0
-	 * StrUtil.compare("b", "a", *)       &gt; 0
-	 * StrUtil.compare("a", "B", *)       &gt; 0
-	 * StrUtil.compare("ab", "abc", *)    &lt; 0
+	 * StringUtils.compare(null, null, *)     = 0
+	 * StringUtils.compare(null , "a", true)  &lt; 0
+	 * StringUtils.compare(null , "a", false) &gt; 0
+	 * StringUtils.compare("a", null, true)   &gt; 0
+	 * StringUtils.compare("a", null, false)  &lt; 0
+	 * StringUtils.compare("abc", "abc", *)   = 0
+	 * StringUtils.compare("a", "b", *)       &lt; 0
+	 * StringUtils.compare("b", "a", *)       &gt; 0
+	 * StringUtils.compare("a", "B", *)       &gt; 0
+	 * StringUtils.compare("ab", "abc", *)    &lt; 0
 	 * </pre>
 	 *
 	 * @param str1       字符串1
@@ -3204,18 +3204,18 @@ public class StringUtils {
 	 * 比较两个字符串，用于排序，大小写不敏感
 	 *
 	 * <pre>
-	 * StrUtil.compareIgnoreCase(null, null, *)     = 0
-	 * StrUtil.compareIgnoreCase(null , "a", true)  &lt; 0
-	 * StrUtil.compareIgnoreCase(null , "a", false) &gt; 0
-	 * StrUtil.compareIgnoreCase("a", null, true)   &gt; 0
-	 * StrUtil.compareIgnoreCase("a", null, false)  &lt; 0
-	 * StrUtil.compareIgnoreCase("abc", "abc", *)   = 0
-	 * StrUtil.compareIgnoreCase("abc", "ABC", *)   = 0
-	 * StrUtil.compareIgnoreCase("a", "b", *)       &lt; 0
-	 * StrUtil.compareIgnoreCase("b", "a", *)       &gt; 0
-	 * StrUtil.compareIgnoreCase("a", "B", *)       &lt; 0
-	 * StrUtil.compareIgnoreCase("A", "b", *)       &lt; 0
-	 * StrUtil.compareIgnoreCase("ab", "abc", *)    &lt; 0
+	 * StringUtils.compareIgnoreCase(null, null, *)     = 0
+	 * StringUtils.compareIgnoreCase(null , "a", true)  &lt; 0
+	 * StringUtils.compareIgnoreCase(null , "a", false) &gt; 0
+	 * StringUtils.compareIgnoreCase("a", null, true)   &gt; 0
+	 * StringUtils.compareIgnoreCase("a", null, false)  &lt; 0
+	 * StringUtils.compareIgnoreCase("abc", "abc", *)   = 0
+	 * StringUtils.compareIgnoreCase("abc", "ABC", *)   = 0
+	 * StringUtils.compareIgnoreCase("a", "b", *)       &lt; 0
+	 * StringUtils.compareIgnoreCase("b", "a", *)       &gt; 0
+	 * StringUtils.compareIgnoreCase("a", "B", *)       &lt; 0
+	 * StringUtils.compareIgnoreCase("A", "b", *)       &lt; 0
+	 * StringUtils.compareIgnoreCase("ab", "abc", *)    &lt; 0
 	 * </pre>
 	 *
 	 * @param str1       字符串1
@@ -3292,17 +3292,17 @@ public class StringUtils {
 	 * 指定范围内查找字符串，忽略大小写<br>
 	 *
 	 * <pre>
-	 * StrUtil.indexOfIgnoreCase(null, *, *)          = -1
-	 * StrUtil.indexOfIgnoreCase(*, null, *)          = -1
-	 * StrUtil.indexOfIgnoreCase("", "", 0)           = 0
-	 * StrUtil.indexOfIgnoreCase("aabaabaa", "A", 0)  = 0
-	 * StrUtil.indexOfIgnoreCase("aabaabaa", "B", 0)  = 2
-	 * StrUtil.indexOfIgnoreCase("aabaabaa", "AB", 0) = 1
-	 * StrUtil.indexOfIgnoreCase("aabaabaa", "B", 3)  = 5
-	 * StrUtil.indexOfIgnoreCase("aabaabaa", "B", 9)  = -1
-	 * StrUtil.indexOfIgnoreCase("aabaabaa", "B", -1) = 2
-	 * StrUtil.indexOfIgnoreCase("aabaabaa", "", 2)   = 2
-	 * StrUtil.indexOfIgnoreCase("abc", "", 9)        = -1
+	 * StringUtils.indexOfIgnoreCase(null, *, *)          = -1
+	 * StringUtils.indexOfIgnoreCase(*, null, *)          = -1
+	 * StringUtils.indexOfIgnoreCase("", "", 0)           = 0
+	 * StringUtils.indexOfIgnoreCase("aabaabaa", "A", 0)  = 0
+	 * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 0)  = 2
+	 * StringUtils.indexOfIgnoreCase("aabaabaa", "AB", 0) = 1
+	 * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 3)  = 5
+	 * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 9)  = -1
+	 * StringUtils.indexOfIgnoreCase("aabaabaa", "B", -1) = 2
+	 * StringUtils.indexOfIgnoreCase("aabaabaa", "", 2)   = 2
+	 * StringUtils.indexOfIgnoreCase("abc", "", 9)        = -1
 	 * </pre>
 	 *
 	 * @param str       字符串
@@ -3318,17 +3318,17 @@ public class StringUtils {
 	 * 指定范围内查找字符串
 	 *
 	 * <pre>
-	 * StrUtil.indexOfIgnoreCase(null, *, *)          = -1
-	 * StrUtil.indexOfIgnoreCase(*, null, *)          = -1
-	 * StrUtil.indexOfIgnoreCase("", "", 0)           = 0
-	 * StrUtil.indexOfIgnoreCase("aabaabaa", "A", 0)  = 0
-	 * StrUtil.indexOfIgnoreCase("aabaabaa", "B", 0)  = 2
-	 * StrUtil.indexOfIgnoreCase("aabaabaa", "AB", 0) = 1
-	 * StrUtil.indexOfIgnoreCase("aabaabaa", "B", 3)  = 5
-	 * StrUtil.indexOfIgnoreCase("aabaabaa", "B", 9)  = -1
-	 * StrUtil.indexOfIgnoreCase("aabaabaa", "B", -1) = 2
-	 * StrUtil.indexOfIgnoreCase("aabaabaa", "", 2)   = 2
-	 * StrUtil.indexOfIgnoreCase("abc", "", 9)        = -1
+	 * StringUtils.indexOfIgnoreCase(null, *, *)          = -1
+	 * StringUtils.indexOfIgnoreCase(*, null, *)          = -1
+	 * StringUtils.indexOfIgnoreCase("", "", 0)           = 0
+	 * StringUtils.indexOfIgnoreCase("aabaabaa", "A", 0)  = 0
+	 * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 0)  = 2
+	 * StringUtils.indexOfIgnoreCase("aabaabaa", "AB", 0) = 1
+	 * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 3)  = 5
+	 * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 9)  = -1
+	 * StringUtils.indexOfIgnoreCase("aabaabaa", "B", -1) = 2
+	 * StringUtils.indexOfIgnoreCase("aabaabaa", "", 2)   = 2
+	 * StringUtils.indexOfIgnoreCase("abc", "", 9)        = -1
 	 * </pre>
 	 *
 	 * @param str       字符串
@@ -3453,17 +3453,17 @@ public class StringUtils {
 	 * 例子（*代表任意字符）：
 	 *
 	 * <pre>
-	 * StrUtil.ordinalIndexOf(null, *, *)          = -1
-	 * StrUtil.ordinalIndexOf(*, null, *)          = -1
-	 * StrUtil.ordinalIndexOf("", "", *)           = 0
-	 * StrUtil.ordinalIndexOf("aabaabaa", "a", 1)  = 0
-	 * StrUtil.ordinalIndexOf("aabaabaa", "a", 2)  = 1
-	 * StrUtil.ordinalIndexOf("aabaabaa", "b", 1)  = 2
-	 * StrUtil.ordinalIndexOf("aabaabaa", "b", 2)  = 5
-	 * StrUtil.ordinalIndexOf("aabaabaa", "ab", 1) = 1
-	 * StrUtil.ordinalIndexOf("aabaabaa", "ab", 2) = 4
-	 * StrUtil.ordinalIndexOf("aabaabaa", "", 1)   = 0
-	 * StrUtil.ordinalIndexOf("aabaabaa", "", 2)   = 0
+	 * StringUtils.ordinalIndexOf(null, *, *)          = -1
+	 * StringUtils.ordinalIndexOf(*, null, *)          = -1
+	 * StringUtils.ordinalIndexOf("", "", *)           = 0
+	 * StringUtils.ordinalIndexOf("aabaabaa", "a", 1)  = 0
+	 * StringUtils.ordinalIndexOf("aabaabaa", "a", 2)  = 1
+	 * StringUtils.ordinalIndexOf("aabaabaa", "b", 1)  = 2
+	 * StringUtils.ordinalIndexOf("aabaabaa", "b", 2)  = 5
+	 * StringUtils.ordinalIndexOf("aabaabaa", "ab", 1) = 1
+	 * StringUtils.ordinalIndexOf("aabaabaa", "ab", 2) = 4
+	 * StringUtils.ordinalIndexOf("aabaabaa", "", 1)   = 0
+	 * StringUtils.ordinalIndexOf("aabaabaa", "", 2)   = 0
 	 * </pre>
 	 *
 	 * @param str       被检查的字符串，可以为null
@@ -4028,9 +4028,9 @@ public class StringUtils {
 	 * 切换给定字符串中的大小写。大写转小写，小写转大写。
 	 *
 	 * <pre>
-	 * StrUtil.swapCase(null)                 = null
-	 * StrUtil.swapCase("")                   = ""
-	 * StrUtil.swapCase("The dog has a BONE") = "tHE DOG HAS A bone"
+	 * StringUtils.swapCase(null)                 = null
+	 * StringUtils.swapCase("")                   = ""
+	 * StringUtils.swapCase("The dog has a BONE") = "tHE DOG HAS A bone"
 	 * </pre>
 	 *
 	 * @param str 字符串

@@ -1,10 +1,11 @@
-package club.gclmit.chaos.core.encrypt;
+package club.gclmit.chaos.core.text.encrypt;
 
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.util.StringUtils;
+
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * <p>
@@ -16,7 +17,7 @@ import java.io.*;
  * @version: V1.0
  * @since 1.8
  */
-public abstract class Codec {
+public abstract class AbstractCode {
 
     /**
      * 加密算法的核心，实现加密先集成这个接口
@@ -70,7 +71,6 @@ public abstract class Codec {
      * @return: java.lang.String
      */
     public String encode(File file) {
-
         try {
             return encode(new FileInputStream(file));
         } catch (FileNotFoundException e) {
@@ -88,7 +88,6 @@ public abstract class Codec {
      * @return: java.lang.String
      */
     public String encode(InputStream in) {
-
         byte[] data = null;
         try {
             /**

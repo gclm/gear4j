@@ -4,14 +4,13 @@ import club.gclmit.chaos.core.io.IOUtils;
 import club.gclmit.chaos.core.lang.Logger;
 import club.gclmit.chaos.core.lang.logger.LoggerServer;
 import club.gclmit.chaos.core.net.HttpUtils;
-import club.gclmit.chaos.core.util.DBUtils;
 import club.gclmit.chaos.core.util.DateUtils;
+import club.gclmit.chaos.core.util.DbUtils;
 import club.gclmit.chaos.core.util.JsonUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.logger.db.mapper.LoggerMapper;
 import club.gclmit.chaos.logger.db.pojo.HttpTrace;
 import club.gclmit.chaos.logger.exception.ChaosLoggerException;
-import org.omg.CORBA.ObjectHelper;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -137,7 +136,7 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
                  */
                 if (logger.isWriteDB()) {
                     LoggerMapper loggerMapper = genBean(LoggerMapper.class, requestWrapper);
-                    boolean save = DBUtils.retBool(loggerMapper.insert(trace));
+                    boolean save = DbUtils.retBool(loggerMapper.insert(trace));
                     Logger.info(LoggerServer.CHAOS_LOGGER,"当前请求日志入库：{}", save);
                 } else {
                     Logger.info(LoggerServer.CHAOS_LOGGER,"当前请求日志：{}", trace);

@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.encrypt;
+package club.gclmit.chaos.core.text.encrypt;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 
@@ -15,14 +15,13 @@ import java.security.NoSuchAlgorithmException;
  * @version: V1.0
  * @since 1.8
  */
-public class MD5Utils extends Codec{
-
+public class Md5Utils extends AbstractCode{
     @Override
     public String encode(byte[] data) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] array = md.digest(data);
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < array.length; ++i) {
                 sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
             }

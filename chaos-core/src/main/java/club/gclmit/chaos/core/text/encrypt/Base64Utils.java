@@ -1,7 +1,8 @@
-package club.gclmit.chaos.core.encrypt;
+package club.gclmit.chaos.core.text.encrypt;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.io.IOUtils;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +20,7 @@ import java.util.Base64;
  * @version: V1.0
  * @since 1.8
  */
-public class Base64Utils extends Codec {
+public class Base64Utils extends AbstractCode {
 
     /**
      * base64 解码
@@ -60,7 +61,6 @@ public class Base64Utils extends Codec {
      */
     public String encode(URL url) {
         final ByteArrayOutputStream data = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
         try {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
