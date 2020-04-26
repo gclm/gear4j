@@ -210,7 +210,7 @@ public class ObjectUtils {
             }
             field.setAccessible(false);
         }
-        String result = StringUtils.substringBefore(fieldBuilder, ", ", true);
+        String result = StringUtils.subBefore(fieldBuilder, ", ", true);
         return  StringUtils.builder(clazz.getSimpleName()).append("{").append(result).append("}").toString();
     }
 }

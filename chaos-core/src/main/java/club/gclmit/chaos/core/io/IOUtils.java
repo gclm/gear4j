@@ -570,7 +570,7 @@ public class IOUtils {
 		} catch (IOException e) {
 			throw new ChaosCoreException(e);
 		}
-		return StringUtils.str(buffer, charset);
+		return StringUtils.toString(buffer, charset);
 	}
 
 	/**

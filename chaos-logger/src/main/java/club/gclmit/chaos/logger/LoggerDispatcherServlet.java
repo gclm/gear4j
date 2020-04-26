@@ -4,6 +4,7 @@ import club.gclmit.chaos.core.io.IOUtils;
 import club.gclmit.chaos.core.lang.Logger;
 import club.gclmit.chaos.core.lang.logger.LoggerServer;
 import club.gclmit.chaos.core.net.HttpUtils;
+import club.gclmit.chaos.core.net.IpUtils;
 import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.DbUtils;
 import club.gclmit.chaos.core.util.JsonUtils;
@@ -74,7 +75,7 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
              * 2. 拼接参数到 HttpTrace
              */
             Long requestTime = DateUtils.getMilliTimestamp();
-            String clientIp =  HttpUtils.getClientIp(requestWrapper);
+            String clientIp =  IpUtils.getClientIp(requestWrapper);
             String userAgent = HttpUtils.getUserAgent(requestWrapper);
             String sessionId = HttpUtils.getSessionId(requestWrapper);
 

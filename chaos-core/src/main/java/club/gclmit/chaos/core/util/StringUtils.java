@@ -937,7 +937,7 @@ public class StringUtils {
 	 */
 	public static String removeAll(CharSequence str, CharSequence strToRemove) {
 		if (isEmpty(str)) {
-			return str(str);
+			return toString(str);
 		}
 		return str.toString().replace(strToRemove, EMPTY);
 	}
@@ -952,11 +952,11 @@ public class StringUtils {
 	 */
 	public static String removeAll(CharSequence str, char... chars) {
 		if (null == str || ArrayUtils.isEmpty(chars)) {
-			return str(str);
+			return toString(str);
 		}
 		final int len = str.length();
 		if (0 == len) {
-			return str(str);
+			return toString(str);
 		}
 		final StringBuilder builder = builder(len);
 		char c;
@@ -1083,7 +1083,7 @@ public class StringUtils {
 	 */
 	public static String removePrefix(CharSequence str, CharSequence prefix) {
 		if (isEmpty(str) || isEmpty(prefix)) {
-			return str(str);
+			return toString(str);
 		}
 
 		final String str2 = str.toString();
@@ -1102,7 +1102,7 @@ public class StringUtils {
 	 */
 	public static String removePrefixIgnoreCase(CharSequence str, CharSequence prefix) {
 		if (isEmpty(str) || isEmpty(prefix)) {
-			return str(str);
+			return toString(str);
 		}
 
 		final String str2 = str.toString();
@@ -1121,7 +1121,7 @@ public class StringUtils {
 	 */
 	public static String removeSuffix(CharSequence str, CharSequence suffix) {
 		if (isEmpty(str) || isEmpty(suffix)) {
-			return str(str);
+			return toString(str);
 		}
 
 		final String str2 = str.toString();
@@ -1151,7 +1151,7 @@ public class StringUtils {
 	 */
 	public static String removeSuffixIgnoreCase(CharSequence str, CharSequence suffix) {
 		if (isEmpty(str) || isEmpty(suffix)) {
-			return str(str);
+			return toString(str);
 		}
 
 		final String str2 = str.toString();
@@ -1188,7 +1188,7 @@ public class StringUtils {
 	 */
 	public static String strip(CharSequence str, CharSequence prefix, CharSequence suffix) {
 		if (isEmpty(str)) {
-			return str(str);
+			return toString(str);
 		}
 
 		int from = 0;
@@ -1228,7 +1228,7 @@ public class StringUtils {
 	 */
 	public static String stripIgnoreCase(CharSequence str, CharSequence prefix, CharSequence suffix) {
 		if (isEmpty(str)) {
-			return str(str);
+			return toString(str);
 		}
 		int from = 0;
 		int to = str.length();
@@ -1252,7 +1252,7 @@ public class StringUtils {
 	 */
 	public static String addPrefixIfNot(CharSequence str, CharSequence prefix) {
 		if (isEmpty(str) || isEmpty(prefix)) {
-			return str(str);
+			return toString(str);
 		}
 
 		final String str2 = str.toString();
@@ -1272,7 +1272,7 @@ public class StringUtils {
 	 */
 	public static String addSuffixIfNot(CharSequence str, CharSequence suffix) {
 		if (isEmpty(str) || isEmpty(suffix)) {
-			return str(str);
+			return toString(str);
 		}
 
 		final String str2 = str.toString();
@@ -1554,7 +1554,7 @@ public class StringUtils {
 	 */
 	public static String sub(CharSequence str, int fromIndex, int toIndex) {
 		if (isEmpty(str)) {
-			return str(str);
+			return toString(str);
 		}
 		int len = str.length();
 
@@ -1599,7 +1599,7 @@ public class StringUtils {
 	 */
 	public static String subByCodePoint(CharSequence str, int fromIndex, int toIndex) {
 		if (isEmpty(str)) {
-			return str(str);
+			return toString(str);
 		}
 
 		if (fromIndex < 0 || fromIndex > toIndex) {
@@ -1627,7 +1627,7 @@ public class StringUtils {
 	 */
 	public static String subPreGbk(CharSequence str, int len, CharSequence suffix) {
 		if (isEmpty(str)) {
-			return str(str);
+			return toString(str);
 		}
 
 		byte[] b;
@@ -1755,7 +1755,7 @@ public class StringUtils {
 	 * @return 切割后的字符串
 	 * @since 3.1.1
 	 */
-	public static String substringBefore(CharSequence string, CharSequence separator, boolean isLastSeparator) {
+	public static String subBefore(CharSequence string, CharSequence separator, boolean isLastSeparator) {
 		if (isEmpty(string) || separator == null) {
 			return null == string ? null : string.toString();
 		}
@@ -1795,7 +1795,7 @@ public class StringUtils {
 	 * @return 切割后的字符串
 	 * @since 4.1.15
 	 */
-	public static String substringBefore(CharSequence string, char separator, boolean isLastSeparator) {
+	public static String subBefore(CharSequence string, char separator, boolean isLastSeparator) {
 		if (isEmpty(string)) {
 			return null == string ? null : string.toString();
 		}
@@ -1817,14 +1817,14 @@ public class StringUtils {
 	 * 如果分隔字符串为空串（null或""），则返回空串，如果分隔字符串未找到，返回空串，举例如下：
 	 *
 	 * <pre>
-	 * StringUtils.subStringAfter(null, *)      = null
-	 * StringUtils.subStringAfter("", *)        = ""
-	 * StringUtils.subStringAfter(*, null)      = ""
-	 * StringUtils.subStringAfter("abc", "a")   = "bc"
-	 * StringUtils.subStringAfter("abcba", "b") = "cba"
-	 * StringUtils.subStringAfter("abc", "c")   = ""
-	 * StringUtils.subStringAfter("abc", "d")   = ""
-	 * StringUtils.subStringAfter("abc", "")    = "abc"
+	 * StringUtils.subAfter(null, *)      = null
+	 * StringUtils.subAfter("", *)        = ""
+	 * StringUtils.subAfter(*, null)      = ""
+	 * StringUtils.subAfter("abc", "a")   = "bc"
+	 * StringUtils.subAfter("abcba", "b") = "cba"
+	 * StringUtils.subAfter("abc", "c")   = ""
+	 * StringUtils.subAfter("abc", "d")   = ""
+	 * StringUtils.subAfter("abc", "")    = "abc"
 	 * </pre>
 	 *
 	 * @param string          被查找的字符串
@@ -1833,7 +1833,7 @@ public class StringUtils {
 	 * @return 切割后的字符串
 	 * @since 3.1.1
 	 */
-	public static String subStringAfter(CharSequence string, CharSequence separator, boolean isLastSeparator) {
+	public static String subAfter(CharSequence string, CharSequence separator, boolean isLastSeparator) {
 		if (isEmpty(string)) {
 			return null == string ? null : string.toString();
 		}
@@ -1856,12 +1856,12 @@ public class StringUtils {
 	 * 如果分隔字符串为空串（null或""），则返回空串，如果分隔字符串未找到，返回空串，举例如下：
 	 *
 	 * <pre>
-	 * StringUtils.subStringAfter(null, *)      = null
-	 * StringUtils.subStringAfter("", *)        = ""
-	 * StringUtils.subStringAfter("abc", 'a')   = "bc"
-	 * StringUtils.subStringAfter("abcba", 'b') = "cba"
-	 * StringUtils.subStringAfter("abc", 'c')   = ""
-	 * StringUtils.subStringAfter("abc", 'd')   = ""
+	 * StringUtils.subAfter(null, *)      = null
+	 * StringUtils.subAfter("", *)        = ""
+	 * StringUtils.subAfter("abc", 'a')   = "bc"
+	 * StringUtils.subAfter("abcba", 'b') = "cba"
+	 * StringUtils.subAfter("abc", 'c')   = ""
+	 * StringUtils.subAfter("abc", 'd')   = ""
 	 * </pre>
 	 *
 	 * @param string          被查找的字符串
@@ -1870,7 +1870,7 @@ public class StringUtils {
 	 * @return 切割后的字符串
 	 * @since 4.1.15
 	 */
-	public static String subStringAfter(CharSequence string, char separator, boolean isLastSeparator) {
+	public static String subAfter(CharSequence string, char separator, boolean isLastSeparator) {
 		if (isEmpty(string)) {
 			return null == string ? null : string.toString();
 		}
@@ -2272,7 +2272,7 @@ public class StringUtils {
 		String template2 = template.toString();
 		String value;
 		for (Entry<?, ?> entry : map.entrySet()) {
-			value = utf8Str(entry.getValue());
+			value = toString(entry.getValue());
 			if (null != value) {
 				template2 = replace(template2, "{" + entry.getKey() + "}", value);
 			}
@@ -2337,8 +2337,8 @@ public class StringUtils {
 	 * @param obj 对象
 	 * @return 字符串
 	 */
-	public static String utf8Str(Object obj) {
-		return str(obj, CharsetUtils.CHARSET_UTF_8);
+	public static String toString(Object obj) {
+		return null == obj ? NULL : toString(obj, CharsetUtils.CHARSET_UTF_8);
 	}
 
 	/**
@@ -2353,8 +2353,8 @@ public class StringUtils {
 	 * @param charsetName 字符集
 	 * @return 字符串
 	 */
-	public static String str(Object obj, String charsetName) {
-		return str(obj, Charset.forName(charsetName));
+	public static String toString(Object obj, String charsetName) {
+		return toString(obj, Charset.forName(charsetName));
 	}
 
 	/**
@@ -2368,7 +2368,7 @@ public class StringUtils {
 	 * @param charset 字符集
 	 * @return 字符串
 	 */
-	public static String str(Object obj, Charset charset) {
+	public static String toString(Object obj, Charset charset) {
 		if (null == obj) {
 			return null;
 		}
@@ -2376,11 +2376,11 @@ public class StringUtils {
 		if (obj instanceof String) {
 			return (String) obj;
 		} else if (obj instanceof byte[]) {
-			return str((byte[]) obj, charset);
+			return toString((byte[]) obj, charset);
 		} else if (obj instanceof Byte[]) {
-			return str((Byte[]) obj, charset);
+			return toString((Byte[]) obj, charset);
 		} else if (obj instanceof ByteBuffer) {
-			return str((ByteBuffer) obj, charset);
+			return toString((ByteBuffer) obj, charset);
 		} else if (ObjectUtils.isArray(obj)) {
 			return ArrayUtils.toString(obj);
 		}
@@ -2395,8 +2395,8 @@ public class StringUtils {
 	 * @param charset 字符集
 	 * @return 字符串
 	 */
-	public static String str(byte[] bytes, String charset) {
-		return str(bytes, isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset));
+	public static String toString(byte[] bytes, String charset) {
+		return toString(bytes, isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset));
 	}
 
 	/**
@@ -2406,7 +2406,7 @@ public class StringUtils {
 	 * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
 	 * @return 解码后的字符串
 	 */
-	public static String str(byte[] data, Charset charset) {
+	public static String toString(byte[] data, Charset charset) {
 		if (data == null) {
 			return null;
 		}
@@ -2424,8 +2424,8 @@ public class StringUtils {
 	 * @param charset 字符集
 	 * @return 字符串
 	 */
-	public static String str(Byte[] bytes, String charset) {
-		return str(bytes, isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset));
+	public static String toString(Byte[] bytes, String charset) {
+		return toString(bytes, isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset));
 	}
 
 	/**
@@ -2435,7 +2435,7 @@ public class StringUtils {
 	 * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
 	 * @return 解码后的字符串
 	 */
-	public static String str(Byte[] data, Charset charset) {
+	public static String toString(Byte[] data, Charset charset) {
 		if (data == null) {
 			return null;
 		}
@@ -2447,7 +2447,7 @@ public class StringUtils {
 			bytes[i] = (null == dataByte) ? -1 : dataByte;
 		}
 
-		return str(bytes, charset);
+		return toString(bytes, charset);
 	}
 
 	/**
@@ -2457,12 +2457,12 @@ public class StringUtils {
 	 * @param charset 字符集，如果为空使用当前系统字符集
 	 * @return 字符串
 	 */
-	public static String str(ByteBuffer data, String charset) {
+	public static String toString(ByteBuffer data, String charset) {
 		if (data == null) {
 			return null;
 		}
 
-		return str(data, Charset.forName(charset));
+		return toString(data, Charset.forName(charset));
 	}
 
 	/**
@@ -2472,7 +2472,7 @@ public class StringUtils {
 	 * @param charset 字符集，如果为空使用当前系统字符集
 	 * @return 字符串
 	 */
-	public static String str(ByteBuffer data, Charset charset) {
+	public static String toString(ByteBuffer data, Charset charset) {
 		if (null == charset) {
 			charset = Charset.defaultCharset();
 		}
@@ -2485,19 +2485,8 @@ public class StringUtils {
 	 * @param cs {@link CharSequence}
 	 * @return 字符串
 	 */
-	public static String str(CharSequence cs) {
+	public static String toString(CharSequence cs) {
 		return null == cs ? null : cs.toString();
-	}
-
-	/**
-	 * 调用对象的toString方法，null会返回“null”
-	 *
-	 * @param obj 对象
-	 * @return 字符串
-	 * @since 4.1.3
-	 */
-	public static String toString(Object obj) {
-		return null == obj ? NULL : obj.toString();
 	}
 
 	/**
@@ -2756,7 +2745,7 @@ public class StringUtils {
 	 */
 	public static String unWrap(CharSequence str, char prefix, char suffix) {
 		if (isEmpty(str)) {
-			return str(str);
+			return toString(str);
 		}
 		if (str.charAt(0) == prefix && str.charAt(str.length() - 1) == suffix) {
 			return sub(str, 1, str.length() - 1);
@@ -2986,7 +2975,7 @@ public class StringUtils {
 	 */
 	public static String center(CharSequence str, final int size, char padChar) {
 		if (str == null || size <= 0) {
-			return str(str);
+			return toString(str);
 		}
 		final int strLen = str.length();
 		final int pads = size - strLen;
@@ -3020,7 +3009,7 @@ public class StringUtils {
 	 */
 	public static String center(CharSequence str, final int size, CharSequence padStr) {
 		if (str == null || size <= 0) {
-			return str(str);
+			return toString(str);
 		}
 		if (isEmpty(padStr)) {
 			padStr = SPACE;
@@ -3533,7 +3522,7 @@ public class StringUtils {
 	 */
 	public static String appendIfMissing(final CharSequence str, final CharSequence suffix, final boolean ignoreCase, final CharSequence... suffixes) {
 		if (str == null || isEmpty(suffix) || endWith(str, suffix, ignoreCase)) {
-			return str(str);
+			return toString(str);
 		}
 		if (suffixes != null && suffixes.length > 0) {
 			for (final CharSequence s : suffixes) {
@@ -3585,7 +3574,7 @@ public class StringUtils {
 	 */
 	public static String prependIfMissing(final CharSequence str, final CharSequence prefix, final boolean ignoreCase, final CharSequence... prefixes) {
 		if (str == null || isEmpty(prefix) || startWith(str, prefix, ignoreCase)) {
-			return str(str);
+			return toString(str);
 		}
 		if (prefixes != null && prefixes.length > 0) {
 			for (final CharSequence s : prefixes) {
@@ -3731,7 +3720,7 @@ public class StringUtils {
 	 */
 	public static String replace(CharSequence str, int fromIndex, CharSequence searchStr, CharSequence replacement, boolean ignoreCase) {
 		if (isEmpty(str) || isEmpty(searchStr)) {
-			return str(str);
+			return toString(str);
 		}
 		if (null == replacement) {
 			replacement = EMPTY;
@@ -3740,7 +3729,7 @@ public class StringUtils {
 		final int strLength = str.length();
 		final int searchStrLength = searchStr.length();
 		if (fromIndex > strLength) {
-			return str(str);
+			return toString(str);
 		} else if (fromIndex < 0) {
 			fromIndex = 0;
 		}
@@ -3777,18 +3766,18 @@ public class StringUtils {
 	 */
 	public static String replace(CharSequence str, int startInclude, int endExclude, char replacedChar) {
 		if (isEmpty(str)) {
-			return str(str);
+			return toString(str);
 		}
 		final int strLength = str.length();
 		if (startInclude > strLength) {
-			return str(str);
+			return toString(str);
 		}
 		if (endExclude > strLength) {
 			endExclude = strLength;
 		}
 		if (startInclude > endExclude) {
 			// 如果起始位置大于结束位置，不替换
-			return str(str);
+			return toString(str);
 		}
 
 		final char[] chars = new char[strLength];
@@ -3827,7 +3816,7 @@ public class StringUtils {
 	 */
 	public static String replaceChars(CharSequence str, String chars, CharSequence replacedStr) {
 		if (isEmpty(str) || isEmpty(chars)) {
-			return str(str);
+			return toString(str);
 		}
 		return replaceChars(str, chars.toCharArray(), replacedStr);
 	}
@@ -3843,7 +3832,7 @@ public class StringUtils {
 	 */
 	public static String replaceChars(CharSequence str, char[] chars, CharSequence replacedStr) {
 		if (isEmpty(str) || ArrayUtils.isEmpty(chars)) {
-			return str(str);
+			return toString(str);
 		}
 
 		final Set<Character> set = new HashSet<>(chars.length);
@@ -3909,7 +3898,7 @@ public class StringUtils {
 	 */
 	public static String move(CharSequence str, int startInclude, int endExclude, int moveLength) {
 		if (isEmpty(str)) {
-			return str(str);
+			return toString(str);
 		}
 		int len = str.length();
 		if (Math.abs(moveLength) > len) {
@@ -3930,7 +3919,7 @@ public class StringUtils {
 					.append(str.subSequence(startAfterMove, startInclude))//
 					.append(str.subSequence(endExclude, str.length()));
 		} else {
-			return str(str);
+			return toString(str);
 		}
 		return builder.toString();
 	}

@@ -51,7 +51,7 @@ public class StringFormatter {
 				if (delimIndex > 1 && strPattern.charAt(delimIndex - 2) == StringUtils.C_BACKSLASH) {// 双转义符
 					// 转义符之前还有一个转义符，占位符依旧有效
 					sbuf.append(strPattern, handledPosition, delimIndex - 1);
-					sbuf.append(StringUtils.utf8Str(argArray[argIndex]));
+					sbuf.append(StringUtils.toString(argArray[argIndex]));
 					handledPosition = delimIndex + 2;
 				} else {
 					// 占位符被转义
@@ -62,7 +62,7 @@ public class StringFormatter {
 				}
 			} else {// 正常占位符
 				sbuf.append(strPattern, handledPosition, delimIndex);
-				sbuf.append(StringUtils.utf8Str(argArray[argIndex]));
+				sbuf.append(StringUtils.toString(argArray[argIndex]));
 				handledPosition = delimIndex + 2;
 			}
 		}
