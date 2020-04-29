@@ -1,4 +1,4 @@
-package club.gclmit.chaos.starter.config;
+package club.gclmit.chaos.starter.properties;
 
 import club.gclmit.chaos.storage.properties.Storage;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -14,7 +14,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 1.8
  */
 @ConfigurationProperties("chaos.storage")
-public class StorageConfig extends Storage {
+public class ChaosStorageConfig extends Storage {
 
     /**
      * 是否保存日志到数据库中
