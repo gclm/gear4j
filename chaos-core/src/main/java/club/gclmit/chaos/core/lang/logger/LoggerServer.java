@@ -34,9 +34,12 @@ public enum LoggerServer {
     MYBATIS("Mybatis"),
     DBUTILS("DBUtils"),
     DRUID("Druid"),
+
     JACKJSON("JackJson"),
-    SWAGGER("Swagger"),
     FASTJSON("FastJSON"),
+
+    SWAGGER("Swagger"),
+
     WEBSOCKET("WebSocket"),
     OKHTTP("OkHttp"),
     HTTPCLIENT("Httpclient"),
@@ -44,13 +47,10 @@ public enum LoggerServer {
     // ~ Chaos 组件
     // ===================================================================================================
 
-    CHAOS_CORE("Chaos Core"),
-    CHAOS_DB("Chaos DB"),
-    CHAOS_STORAGE("Chaos Storage"),
+    CHAOS("Chaos"),
     CHAOS_SECURITY("Chaos Security"),
-    CHAOS_LOGGER("Chaos Logger"),
-    CHAOS_WEB("Chaos Web"),
-    CHAOS_ANNOTATIONS("Chaos annotations"),
+    GPI("GPI"),
+    CATKIN("Catkin"),
 
     // ~ MVC 架构
     // ===================================================================================================
@@ -60,9 +60,17 @@ public enum LoggerServer {
     MAPPER("Mapper"),
     UTILS("Utils"),
     HELPER("Helper"),
-    INTERCETOR("Intercetor"),
+    INTERCEPTOR("Interceptor"),
     FILTER("Filter"),
-    ASPECT("Aspect");
+    ASPECT("Aspect"),
+
+    // model
+    POJO("pojo"),
+    ENTITY("entity"),
+    DTO("DTO"),
+    VO("VO"),
+    PARAM("Param"),
+    QUERY("Query");
 
     private String key;
 
