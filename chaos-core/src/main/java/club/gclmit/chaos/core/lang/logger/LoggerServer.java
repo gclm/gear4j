@@ -78,10 +78,6 @@ public enum LoggerServer {
         return key;
     }
 
-    public void setKey(String key) {
-        this.key = key;
-    }
-
     private LoggerServer(String key) {
         this.key = key;
     }
