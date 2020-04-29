@@ -76,8 +76,7 @@ public class QCloudStorageClient extends StorageClient {
         }
         deleteObjectsRequest.setKeys(keyList);
         try {
-            DeleteObjectsResult deleteObjectsResult = cosClient.deleteObjects(deleteObjectsRequest);
-            List<DeleteObjectsResult.DeletedObject> deletedObjects = deleteObjectsResult.getDeletedObjects();
+            cosClient.deleteObjects(deleteObjectsRequest);
         } catch (MultiObjectDeleteException e) {
             List<MultiObjectDeleteException.DeleteError> errors = e.getErrors();
             throw new ChaosStorageException("[腾讯云OSS]删除文件失败（部分成功部分失败）" + errors.toString());
@@ -131,7 +130,7 @@ public class QCloudStorageClient extends StorageClient {
         }
         if (key != null) {
             // 拼接文件访问路径。由于拼接的字符串大多为String对象，而不是""的形式，所以直接用+拼接的方式没有优势
-            StringBuffer path = new StringBuffer();
+            StringBuilder path = new StringBuilder();
             path.append(cloudStorage.getProtocol()).append("://").append(cloudStorage.getBucket()).append(".cos.").append(cloudStorage.getRegion()).append(".myqcloud.com").append("/").append(key);
             if (StringUtils.isNotBlank(cloudStorage.getStyleName())) {
                 path.append(cloudStorage.getStyleName());

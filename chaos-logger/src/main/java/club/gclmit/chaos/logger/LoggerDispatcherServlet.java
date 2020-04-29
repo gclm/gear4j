@@ -93,7 +93,7 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
             HttpTrace trace = new HttpTrace(clientIp,uri,contentType,method,sessionId,requestTime,requestHeader,userAgent);
 
             try {
-                super.doDispatch(requestWrapper,responseWrapper);
+                super.doDispatch(request,response);
             } finally {
 
                 String requestStr = "";

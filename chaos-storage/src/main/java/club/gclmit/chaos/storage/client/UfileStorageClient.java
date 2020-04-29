@@ -81,7 +81,6 @@ public class UfileStorageClient extends StorageClient {
      * @throws
      */
     @Override
-    @Deprecated
     public void delete(List<String> keys) {
          Assert.notEmpty(keys,"[Ufile]批量删除文件的 keys 不能为空");
          keys.forEach(key -> delete(key));
@@ -151,7 +150,7 @@ public class UfileStorageClient extends StorageClient {
 
         if (key != null) {
             // 拼接文件访问路径。由于拼接的字符串大多为String对象，而不是""的形式，所以直接用+拼接的方式没有优势
-            StringBuffer path = new StringBuffer();
+            StringBuilder path = new StringBuilder();
             path.append(cloudStorage.getProtocol()).append("://").append(cloudStorage.getBucket()).append(".").append(cloudStorage.getRegion()).append(".").append(cloudStorage.getEndpoint()).append("/").append(key);
             if (StringUtils.isNotBlank(cloudStorage.getStyleName())) {
                 path.append(cloudStorage.getStyleName());
@@ -192,7 +191,7 @@ public class UfileStorageClient extends StorageClient {
 
         UfileClient.configure(new UfileClient.Config(
                 new HttpClient.Config(10, 5, TimeUnit.MINUTES)
-                        .setTimeout(10 * 1000, 30 * 1000, 30 * 1000)
+                        .setTimeout(10 * 1000L, 30 * 1000L, 30 * 1000L)
                         .setExecutorService(executorService)));
 
         return UfileClient.object(auth, config);
