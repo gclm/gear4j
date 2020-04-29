@@ -87,13 +87,13 @@ public class HttpTrace implements Serializable {
      * requestBody
      */
     @ApiModelProperty(value = "请求参数内容")
-    private String request;
+    private String requestBody;
 
     /**
      *  responseBody
      */
     @ApiModelProperty(value = "接口返回数据")
-    private String response;
+    private String responseBody;
 
     /**
      *  request 请求头
@@ -242,20 +242,20 @@ public class HttpTrace implements Serializable {
         this.responseTime = responseTime;
     }
 
-    public String getRequest() {
-        return request;
+    public String getRequestBody() {
+        return requestBody;
     }
 
-    public void setRequest(String request) {
-        this.request = request;
+    public void setRequestBody(String requestBody) {
+        this.requestBody = requestBody;
     }
 
-    public String getResponse() {
-        return response;
+    public String getResponseBody() {
+        return responseBody;
     }
 
-    public void setResponse(String response) {
-        this.response = response;
+    public void setResponseBody(String responseBody) {
+        this.responseBody = responseBody;
     }
 
     @Override
@@ -270,8 +270,8 @@ public class HttpTrace implements Serializable {
                 ", httpStatusCode=" + httpStatusCode +
                 ", consumingTime=" + consumingTime +
                 ", responseTime=" + responseTime +
-                ", request='" + request + '\'' +
-                ", response='" + response + '\'' +
+                ", requestBody='" + requestBody + '\'' +
+                ", responseBody='" + responseBody + '\'' +
                 ", requestHeader='" + requestHeader + '\'' +
                 ", responseHeader='" + responseHeader + '\'' +
                 ", userAgent='" + userAgent + '\'' +

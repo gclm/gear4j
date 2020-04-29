@@ -1,6 +1,7 @@
 package club.gclmit.chaos.storage.client;
 
 import club.gclmit.chaos.core.lang.Logger;
+import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.lang.logger.LoggerServer;
 import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.StringUtils;
@@ -16,9 +17,7 @@ import cn.ucloud.ufile.exception.UfileClientException;
 import cn.ucloud.ufile.exception.UfileServerException;
 import cn.ucloud.ufile.http.HttpClient;
 import cn.ucloud.ufile.util.StorageType;
-import org.springframework.util.Assert;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -33,8 +32,6 @@ import java.util.concurrent.*;
  * @since JDK1.8
  */
 public class UfileStorageClient extends StorageClient {
-
-    private final static String END_POINT = "ufileos.com";
 
     /**
      * 客户端
@@ -62,7 +59,7 @@ public class UfileStorageClient extends StorageClient {
         if(storage.getType() == StorageServer.UFILE) {
             cloudStorage = storage.getConfig();
             if (StringUtils.isBlank(cloudStorage.getEndpoint())){
-                cloudStorage.setEndpoint(END_POINT);
+                cloudStorage.setEndpoint("ufileos.com");
             }
             ossClient = build(cloudStorage.getAccessKeyId(),cloudStorage.getAccessKeySecret(),cloudStorage.getRegion(),cloudStorage.getEndpoint());
         } else {
@@ -98,7 +95,7 @@ public class UfileStorageClient extends StorageClient {
      */
     @Override
     public void delete(String key) {
-        Assert.hasLength(key,"[Ufile]删除文件的key不能为空");
+        Assert.notBlank(key,"[Ufile]删除文件的key不能为空");
         try {
             ossClient.deleteObject(key,cloudStorage.getBucket()).execute();
         } catch (UfileClientException e) {
@@ -106,8 +103,6 @@ public class UfileStorageClient extends StorageClient {
         } catch (UfileServerException e) {
             throw new ChaosStorageException("删除失败,Ufile服务器发生异常",e);
         }
-        List<String> list = new ArrayList<>();
-        list.add(key);
     }
 
     /**
@@ -125,7 +120,7 @@ public class UfileStorageClient extends StorageClient {
     @Override
     public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {
         Assert.notNull(inputStream,"[Ufile]上传文件失败，请检查 inputStream 是否正常");
-        Assert.hasLength(fileInfo.getOssKey(),"[Ufile]上传文件失败，请检查上传文件的 key 是否正常");
+        Assert.notBlank(fileInfo.getOssKey(),"[Ufile]上传文件失败，请检查上传文件的 key 是否正常");
 
         String key = fileInfo.getOssKey();
 

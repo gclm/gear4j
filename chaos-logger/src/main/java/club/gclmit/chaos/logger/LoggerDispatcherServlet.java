@@ -57,7 +57,6 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
     protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         String uri = request.getRequestURI();
-        String contentType = request.getContentType();
 
         /**
          * 默认拦截 /api 开头的接口
@@ -75,9 +74,10 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
              * 2. 拼接参数到 HttpTrace
              */
             Long requestTime = DateUtils.getMilliTimestamp();
-            String clientIp =  IpUtils.getClientIp(requestWrapper);
+            String clientIp = IpUtils.getClientIp(requestWrapper);
             String userAgent = HttpUtils.getUserAgent(requestWrapper);
             String sessionId = HttpUtils.getSessionId(requestWrapper);
+            String contentType = requestWrapper.getContentType();
 
             String method = requestWrapper.getMethod();
 
@@ -90,125 +90,120 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
                 contentType = DEFAULT_CONTENT_TYPE;
             }
 
-            HttpTrace trace = new HttpTrace(clientIp,uri,contentType,method,sessionId,requestTime,requestHeader,userAgent);
+            HttpTrace trace = new HttpTrace(clientIp, uri, contentType, method, sessionId, requestTime, requestHeader, userAgent);
 
-            try {
-                super.doDispatch(request,response);
-            } finally {
 
-                String requestStr = "";
-                /**
-                 *  判断请求是否是get,如果是 get 从 request 里面获取，否则从 body 里面获取
-                 */
-                if (!contentType.startsWith(IGNORE_CONTENT_TYPE)){
-                    requestStr = JsonUtils.toJson(requestWrapper.getParameterMap());
-                    if (StringUtils.isEmpty(requestStr) || "{}".equals(requestStr)){
-                        requestStr = getRequestBody(requestWrapper);
-                    }
-                }
-
-                /**
-                 *  获取 response 相关参数
-                 */
-                int status = responseWrapper.getStatus();
-                String responseStr =  getResponseBody(responseWrapper);
-                responseWrapper.copyBodyToResponse();
-                String responseHeader = JsonUtils.toJson(getResponseHeaders(responseWrapper));
-
-                /**
-                 * new 一个响应时间计算，请求耗时
-                 */
-                Long responseTime = DateUtils.getMilliTimestamp();
-                Long time = responseTime - requestTime;
-
-                /**
-                 * 拼接对象
-                 */
-                trace.setRequest(requestStr);
-                trace.setResponse(responseStr);
-                trace.setResponseHeader(responseHeader);
-
-                trace.setConsumingTime(time);
-                trace.setResponseTime(responseTime);
-                trace.setHttpStatusCode(status);
-
-                /**
-                 * 保存到数据库
-                 */
-                if (config.isWriteDB()) {
-                    LoggerMapper loggerMapper = genBean(LoggerMapper.class, requestWrapper);
-                    boolean save = DbUtils.retBool(loggerMapper.insert(trace));
-                    Logger.info(LoggerServer.CHAOS,"当前请求日志入库：{}", save);
-                } else {
-                    Logger.info(LoggerServer.CHAOS,"当前请求日志：{}", trace);
+            String requestStr = "";
+            /**
+             *  判断请求是否是get,如果是 get 从 request 里面获取，否则从 body 里面获取
+             */
+            if (!contentType.startsWith(IGNORE_CONTENT_TYPE)) {
+                requestStr = JsonUtils.toJson(requestWrapper.getParameterMap());
+                if (StringUtils.isEmpty(requestStr) || "{}".equals(requestStr)) {
+                    requestStr = getRequestBody(requestWrapper);
                 }
             }
-        }  else {
-            super.doDispatch(request,response);
+
+            /**
+             *  获取 response 相关参数
+             */
+            int status = responseWrapper.getStatus();
+            String responseStr = getResponseBody(responseWrapper);
+            String responseHeader = JsonUtils.toJson(getResponseHeaders(responseWrapper));
+
+            /**
+             * new 一个响应时间计算，请求耗时
+             */
+            Long responseTime = DateUtils.getMilliTimestamp();
+            Long time = responseTime - requestTime;
+
+            /**
+             * 拼接对象
+             */
+            trace.setRequestBody(requestStr);
+            trace.setRequestBody(responseStr);
+            trace.setResponseHeader(responseHeader);
+
+            trace.setConsumingTime(time);
+            trace.setResponseTime(responseTime);
+            trace.setHttpStatusCode(status);
+
+            /**
+             * 保存到数据库
+             */
+            if (config.isWriteDB()) {
+                LoggerMapper loggerMapper = genBean(LoggerMapper.class, requestWrapper);
+                boolean save = DbUtils.retBool(loggerMapper.insert(trace));
+                Logger.info(LoggerServer.CHAOS, "当前请求日志入库：{}", save);
+            } else {
+                Logger.info(LoggerServer.CHAOS, "当前请求日志：{}", trace);
+            }
         }
+
+        super.doDispatch(request, response);
     }
 
     /**
-     *  获取Bean对象
+     * 获取Bean对象
      *
+     * @throws
      * @author gclm
      * @param: clazz
      * @param: request
      * @date 2020/1/20 10:40 上午
      * @return: T
-     * @throws
      */
-    public static  <T> T  genBean(Class<T> clazz, HttpServletRequest request) {
+    public static <T> T genBean(Class<T> clazz, HttpServletRequest request) {
         BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
         return factory.getBean(clazz);
     }
 
     /**
-     *  获取 request 的请求头
+     * 获取 request 的请求头
      *
+     * @throws
      * @author gclm
      * @param: request
      * @date 2020/1/19 3:24 下午
-     * @return: java.util.Map<java.lang.String,java.lang.Object>
-     * @throws
+     * @return: java.util.Map<java.lang.String, java.lang.Object>
      */
-    private Map<String,Object> getRequestHeaders(HttpServletRequest request) {
-        Map<String,Object> headers = new HashMap<>();
+    private Map<String, Object> getRequestHeaders(HttpServletRequest request) {
+        Map<String, Object> headers = new HashMap<>();
         Enumeration<String> headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String headerName = headerNames.nextElement();
-            headers.put(headerName,request.getHeader(headerName));
+            headers.put(headerName, request.getHeader(headerName));
         }
         return headers;
     }
 
     /**
-     *  获取 response 的请求头
+     * 获取 response 的请求头
      *
+     * @throws
      * @author gclm
      * @param: response
      * @date 2020/1/19 3:25 下午
-     * @return: java.util.Map<java.lang.String,java.lang.Object>
-     * @throws
+     * @return: java.util.Map<java.lang.String, java.lang.Object>
      */
-    private Map<String,Object> getResponseHeaders(HttpServletResponse response) {
-        Map<String,Object> headers = new HashMap<>();
+    private Map<String, Object> getResponseHeaders(HttpServletResponse response) {
+        Map<String, Object> headers = new HashMap<>();
         Collection<String> headerNames = response.getHeaderNames();
         for (String headerName : headerNames) {
-            headers.put(headerName,response.getHeader(headerName));
+            headers.put(headerName, response.getHeader(headerName));
         }
-        return  headers;
+        return headers;
     }
 
     /**
-     *  获取 requestBody 内容
-     *  wrapper.getCharacterEncoding() 默认为 ISO-8859-1
+     * 获取 requestBody 内容
+     * wrapper.getCharacterEncoding() 默认为 ISO-8859-1
      *
+     * @throws
      * @author gclm
      * @param: wrapper
      * @date 2020/1/20 4:17 下午
      * @return: java.lang.String
-     * @throws
      */
     private String getRequestBody(ContentCachingRequestWrapper wrapper) {
         String requestBody = "";
@@ -223,20 +218,20 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
     }
 
     /**
-     *  获取 ResponseBody 内容
-     *  wrapper.getCharacterEncoding() 默认为 ISO-8859-1
+     * 获取 ResponseBody 内容
+     * wrapper.getCharacterEncoding() 默认为 ISO-8859-1
      *
+     * @throws
      * @author gclm
      * @param: wrapper
      * @date 2020/1/20 4:17 下午
      * @return: java.lang.String
-     * @throws
      */
     private String getResponseBody(ContentCachingResponseWrapper wrapper) {
         String responseBody = "";
         if (wrapper != null) {
             try {
-                responseBody = IOUtils.toString(wrapper.getContentAsByteArray(),DEFAULT_CHARACTER_ENCODING);
+                responseBody = IOUtils.toString(wrapper.getContentAsByteArray(), DEFAULT_CHARACTER_ENCODING);
             } catch (IOException e) {
                 throw new ChaosLoggerException("解析 Response 响应内容失败");
             }
