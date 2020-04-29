@@ -3,6 +3,8 @@ package club.gclmit.chaos.annotation;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableAsync;
+
 import java.lang.annotation.*;
 
 /**
@@ -18,6 +20,9 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+@ConditionalOnWebApplication
+// 自定义注解配置
+@EnableAsync
 @MapperScan(basePackages= {
         "club.gclmit.chaos.*.db.mapper",
         "club.gclmit.chaos.*.mapper"
@@ -25,7 +30,6 @@ import java.lang.annotation.*;
 @ComponentScan(basePackages={
         "club.gclmit.chaos"
 })
-@ConditionalOnWebApplication
 public @interface EnableChaos {
 
 }

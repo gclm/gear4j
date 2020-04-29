@@ -20,10 +20,12 @@ public enum StorageServer {
      * 七牛云
      */
     QINIU(1),
+
     /**
      *  腾讯云
      */
-    QCLOUD(2),
+    TENCENT(2),
+
     /**
      * 又拍云
      */

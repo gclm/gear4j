@@ -80,7 +80,9 @@ public class UfileStorageClient extends StorageClient {
     @Override
     public void delete(List<String> keys) {
          Assert.notEmpty(keys,"[Ufile]批量删除文件的 keys 不能为空");
-         keys.forEach(key -> delete(key));
+         for (String key: keys){
+             delete(key);
+         }
     }
 
     /**

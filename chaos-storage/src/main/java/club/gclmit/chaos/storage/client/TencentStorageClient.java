@@ -33,7 +33,7 @@ import java.util.concurrent.*;
  * @version: V1.0
  * @since JDK1.8
  */
-public class QCloudStorageClient extends StorageClient {
+public class TencentStorageClient extends StorageClient {
 
     /**
      * 腾讯云 OSS客户端
@@ -55,9 +55,9 @@ public class QCloudStorageClient extends StorageClient {
      * @date 2019/10/23 19:12
      * @throws
      */
-    public QCloudStorageClient(Storage storage) {
+    public TencentStorageClient(Storage storage) {
         super(storage);
-        if(storage.getType() == StorageServer.QCLOUD) {
+        if(storage.getType() == StorageServer.TENCENT) {
             cloudStorage = storage.getConfig();
             Logger.info(LoggerServer.CHAOS,"腾讯云配置参数:[{}]",storage);
             cosClient = build(cloudStorage.getAccessKeyId(), cloudStorage.getAccessKeySecret(), cloudStorage.getRegion());
@@ -91,8 +91,6 @@ public class QCloudStorageClient extends StorageClient {
     public void delete(String key) {
         Assert.hasLength(key,"[腾讯云OSS]删除文件的key不能为空");
         cosClient.deleteObject(cloudStorage.getBucket(),key);
-        List<String> list = new ArrayList<>();
-        list.add(key);
     }
 
     @Override

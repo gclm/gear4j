@@ -80,7 +80,7 @@ public class StorageClientTest {
         cloudStorage.setPrefix("prefix");
 
         Storage storage = new Storage();
-        storage.setType(StorageServer.QCLOUD);
+        storage.setType(StorageServer.TENCENT);
         storage.setConfig(cloudStorage);
         StorageClient client = CloudStorageFactory.build(storage);
         File file = new File(FILE_URL);

@@ -1,12 +1,15 @@
 package club.gclmit.chaos.core.util;
 
+import club.gclmit.chaos.core.io.IOUtils;
+import club.gclmit.chaos.core.io.StringBuilderWriter;
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.lang.Convert;
 import club.gclmit.chaos.core.text.StringFormatter;
 import club.gclmit.chaos.core.text.StringSpliter;
 
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.*;
+import java.net.URI;
+import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.text.MessageFormat;
@@ -2330,6 +2333,9 @@ public class StringUtils {
 		return str.toString().getBytes(charset);
 	}
 
+	// toString
+	//-----------------------------------------------------------------------
+
 	/**
 	 * 将对象转为字符串<br>
 	 * 1、Byte数组和ByteBuffer会被转换为对应字符串的数组 2、对象数组会调用Arrays.toString方法
@@ -2487,6 +2493,131 @@ public class StringUtils {
 	 */
 	public static String toString(CharSequence cs) {
 		return null == cs ? null : cs.toString();
+	}
+
+
+	/**
+	 * Gets the contents of an <code>InputStream</code> as a String
+	 * using the specified character encoding.
+	 * <p>
+	 * This method buffers the input internally, so there is no need to use a
+	 * <code>BufferedInputStream</code>.
+	 * </p>
+	 *
+	 * @param input the <code>InputStream</code> to read from
+	 * @param encoding the encoding to use, null means platform default
+	 * @return the requested String
+	 * @throws NullPointerException if the input is null
+	 * @throws IOException          if an I/O error occurs
+	 * @since 2.3
+	 */
+	public static String toString(InputStream input,Charset encoding) throws IOException {
+		try (final StringBuilderWriter sw = new StringBuilderWriter()) {
+			IOUtils.copy(input, sw, encoding);
+			return sw.toString();
+		}
+	}
+
+	/**
+	 * Gets the contents of an <code>InputStream</code> as a String
+	 * using the specified character encoding.
+	 * <p>
+	 * Character encoding names can be found at
+	 * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+	 * <p>
+	 * This method buffers the input internally, so there is no need to use a
+	 * <code>BufferedInputStream</code>.
+	 *
+	 * @param input the <code>InputStream</code> to read from
+	 * @param encoding the encoding to use, null means platform default
+	 * @return the requested String
+	 * @throws NullPointerException                         if the input is null
+	 * @throws IOException                                  if an I/O error occurs
+	 * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io
+	 *                                                      .UnsupportedEncodingException} in version 2.2 if the
+	 *                                                      encoding is not supported.
+	 */
+	public static String toString(InputStream input,String encoding)
+			throws IOException {
+		return toString(input, Charset.forName(encoding));
+	}
+
+	/**
+	 * Gets the contents of a <code>Reader</code> as a String.
+	 * <p>
+	 * This method buffers the input internally, so there is no need to use a
+	 * <code>BufferedReader</code>.
+	 *
+	 * @param input the <code>Reader</code> to read from
+	 * @return the requested String
+	 * @throws NullPointerException if the input is null
+	 * @throws IOException          if an I/O error occurs
+	 */
+	public static String toString(Reader input) throws IOException {
+		try (final StringBuilderWriter sw = new StringBuilderWriter()) {
+			IOUtils.copy(input, sw);
+			return sw.toString();
+		}
+	}
+
+	/**
+	 * Gets the contents at the given URI.
+	 *
+	 * @param uri The URI source.
+	 * @param encoding The encoding name for the URL contents.
+	 * @return The contents of the URL as a String.
+	 * @throws IOException if an I/O exception occurs.
+	 * @since 2.3.
+	 */
+	public static String toString(URI uri,Charset encoding) throws IOException {
+		return toString(uri.toURL(), encoding);
+	}
+
+	/**
+	 * Gets the contents at the given URI.
+	 *
+	 * @param uri The URI source.
+	 * @param encoding The encoding name for the URL contents.
+	 * @return The contents of the URL as a String.
+	 * @throws IOException                                  if an I/O exception occurs.
+	 * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io
+	 *                                                      .UnsupportedEncodingException} in version 2.2 if the
+	 *                                                      encoding is not supported.
+	 * @since 2.1
+	 */
+	public static String toString(URI uri,String encoding) throws IOException {
+		return toString(uri, Charset.forName(encoding));
+	}
+
+	/**
+	 * Gets the contents at the given URL.
+	 *
+	 * @param url The URL source.
+	 * @param encoding The encoding name for the URL contents.
+	 * @return The contents of the URL as a String.
+	 * @throws IOException if an I/O exception occurs.
+	 * @since 2.3
+	 */
+	public static String toString(URL url,Charset encoding) throws IOException {
+		try (InputStream inputStream = url.openStream()) {
+			return toString(inputStream, encoding);
+		}
+	}
+
+	/**
+	 * Gets the contents at the given URL.
+	 *
+	 * @param url The URL source.
+	 * @param encoding The encoding name for the URL contents.
+	 * @return The contents of the URL as a String.
+	 * @throws IOException                                  if an I/O exception occurs.
+	 * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io
+	 *                                                      .UnsupportedEncodingException} in version 2.2 if the
+	 *                                                      encoding is not supported.
+	 * @since 2.1
+	 */
+	public static String toString(URL url,String encoding) throws IOException {
+		return toString(url, Charset.forName(encoding));
 	}
 
 	/**

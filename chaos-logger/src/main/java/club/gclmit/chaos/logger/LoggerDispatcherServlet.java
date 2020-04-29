@@ -1,6 +1,5 @@
 package club.gclmit.chaos.logger;
 
-import club.gclmit.chaos.core.io.IOUtils;
 import club.gclmit.chaos.core.lang.Logger;
 import club.gclmit.chaos.core.lang.logger.LoggerServer;
 import club.gclmit.chaos.core.net.HttpUtils;
@@ -11,17 +10,18 @@ import club.gclmit.chaos.core.util.JsonUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.logger.db.mapper.LoggerMapper;
 import club.gclmit.chaos.logger.db.pojo.HttpTrace;
-import club.gclmit.chaos.logger.exception.ChaosLoggerException;
+import club.gclmit.chaos.logger.db.pojo.HttpTraceBuilder;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.*;
+import java.util.concurrent.Future;
 
 /**
  * <p>
@@ -45,43 +45,38 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
      */
     private static final String IGNORE_CONTENT_TYPE = "multipart/form-data";
 
-    /**
-     * 设置默认编码格式解决 中文乱码问题
-     */
-    private static final String DEFAULT_CHARACTER_ENCODING = "UTF-8";
 
     @Autowired
     private ChaosLoggerProperties config;
 
     @Override
     protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        super.doDispatch(request, response);
+        recordLogger(new ContentCachingRequestWrapper(request),new ContentCachingResponseWrapper(response));
+    }
 
-        String uri = request.getRequestURI();
+    /**
+     *  缓冲 request 和 response
+     *  异步保存数据
+     *
+     * @author gclm
+     * @param: requestWrapper
+     * @param: responseWrapper
+     * @date 2020/4/30 1:36 上午
+     * @return: java.util.concurrent.Future<java.lang.Boolean>
+     * @since  1.4.6
+     */
+    @Async
+    public Future<Boolean> recordLogger(ContentCachingRequestWrapper requestWrapper,ContentCachingResponseWrapper responseWrapper){
+
+        String uri = requestWrapper.getRequestURI();
+        String contentType = requestWrapper.getContentType();
+        Long requestTime = DateUtils.getMilliTimestamp();
 
         /**
          * 默认拦截 /api 开头的接口
          */
         if (uri.startsWith(config.getPrefix())) {
-
-            /**
-             * 缓冲 request 和 response
-             */
-            ContentCachingRequestWrapper requestWrapper = new ContentCachingRequestWrapper(request);
-            ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper(response);
-
-            /**
-             * 1. 获取写入数据库的相关参数
-             * 2. 拼接参数到 HttpTrace
-             */
-            Long requestTime = DateUtils.getMilliTimestamp();
-            String clientIp = IpUtils.getClientIp(requestWrapper);
-            String userAgent = HttpUtils.getUserAgent(requestWrapper);
-            String sessionId = HttpUtils.getSessionId(requestWrapper);
-            String contentType = requestWrapper.getContentType();
-
-            String method = requestWrapper.getMethod();
-
-            String requestHeader = JsonUtils.toJson(getRequestHeaders(requestWrapper));
 
             /**
              * 如果 content Type 不存在默认为 application/x-www-form-urlencoded
@@ -90,43 +85,39 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
                 contentType = DEFAULT_CONTENT_TYPE;
             }
 
-            HttpTrace trace = new HttpTrace(clientIp, uri, contentType, method, sessionId, requestTime, requestHeader, userAgent);
+            HttpTraceBuilder httpTraceBuilder = HttpTrace.builder()
+                    .requestTime(requestTime)
+                    .clientIp(IpUtils.getClientIp(requestWrapper))
+                    .contentType(contentType)
+                    .method(requestWrapper.getMethod())
+                    .userAgent(HttpUtils.getUserAgent(requestWrapper))
+                    .sessionId(HttpUtils.getSessionId(requestWrapper))
+                    .requestHeader(JsonUtils.toJson(HttpUtils.getRequestHeaders(requestWrapper)));
 
 
-            String requestStr = "";
             /**
              *  判断请求是否是get,如果是 get 从 request 里面获取，否则从 body 里面获取
              */
             if (!contentType.startsWith(IGNORE_CONTENT_TYPE)) {
-                requestStr = JsonUtils.toJson(requestWrapper.getParameterMap());
-                if (StringUtils.isEmpty(requestStr) || "{}".equals(requestStr)) {
-                    requestStr = getRequestBody(requestWrapper);
+                String requestBody = JsonUtils.toJson(requestWrapper.getParameterMap());
+                if (StringUtils.isEmpty(requestBody) || "{}".equals(requestBody)) {
+                    requestBody = HttpUtils.getRequestBody(requestWrapper);
                 }
+                httpTraceBuilder.requestBody(requestBody);
             }
 
             /**
              *  获取 response 相关参数
-             */
-            int status = responseWrapper.getStatus();
-            String responseStr = getResponseBody(responseWrapper);
-            String responseHeader = JsonUtils.toJson(getResponseHeaders(responseWrapper));
-
-            /**
-             * new 一个响应时间计算，请求耗时
+             *  请求耗时 = 响应时间 - 请求时间
              */
             Long responseTime = DateUtils.getMilliTimestamp();
             Long time = responseTime - requestTime;
 
-            /**
-             * 拼接对象
-             */
-            trace.setRequestBody(requestStr);
-            trace.setRequestBody(responseStr);
-            trace.setResponseHeader(responseHeader);
-
-            trace.setConsumingTime(time);
-            trace.setResponseTime(responseTime);
-            trace.setHttpStatusCode(status);
+            HttpTrace trace = httpTraceBuilder.httpCode(responseWrapper.getStatus())
+                    .responseBody(HttpUtils.getResponseBody(responseWrapper))
+                    .responseHeader(JsonUtils.toJson(HttpUtils.getResponseHeaders(responseWrapper)))
+                    .responseTime(responseTime)
+                    .consumingTime(time).build();
 
             /**
              * 保存到数据库
@@ -139,8 +130,7 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
                 Logger.info(LoggerServer.CHAOS, "当前请求日志：{}", trace);
             }
         }
-
-        super.doDispatch(request, response);
+        return new AsyncResult<>(Boolean.TRUE);
     }
 
     /**
@@ -158,84 +148,5 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
         return factory.getBean(clazz);
     }
 
-    /**
-     * 获取 request 的请求头
-     *
-     * @throws
-     * @author gclm
-     * @param: request
-     * @date 2020/1/19 3:24 下午
-     * @return: java.util.Map<java.lang.String, java.lang.Object>
-     */
-    private Map<String, Object> getRequestHeaders(HttpServletRequest request) {
-        Map<String, Object> headers = new HashMap<>();
-        Enumeration<String> headerNames = request.getHeaderNames();
-        while (headerNames.hasMoreElements()) {
-            String headerName = headerNames.nextElement();
-            headers.put(headerName, request.getHeader(headerName));
-        }
-        return headers;
-    }
 
-    /**
-     * 获取 response 的请求头
-     *
-     * @throws
-     * @author gclm
-     * @param: response
-     * @date 2020/1/19 3:25 下午
-     * @return: java.util.Map<java.lang.String, java.lang.Object>
-     */
-    private Map<String, Object> getResponseHeaders(HttpServletResponse response) {
-        Map<String, Object> headers = new HashMap<>();
-        Collection<String> headerNames = response.getHeaderNames();
-        for (String headerName : headerNames) {
-            headers.put(headerName, response.getHeader(headerName));
-        }
-        return headers;
-    }
-
-    /**
-     * 获取 requestBody 内容
-     * wrapper.getCharacterEncoding() 默认为 ISO-8859-1
-     *
-     * @throws
-     * @author gclm
-     * @param: wrapper
-     * @date 2020/1/20 4:17 下午
-     * @return: java.lang.String
-     */
-    private String getRequestBody(ContentCachingRequestWrapper wrapper) {
-        String requestBody = "";
-        if (wrapper != null) {
-            try {
-                requestBody = IOUtils.toString(wrapper.getContentAsByteArray(), DEFAULT_CHARACTER_ENCODING);
-            } catch (IOException e) {
-                throw new ChaosLoggerException("解析 Request 请求内容失败");
-            }
-        }
-        return requestBody;
-    }
-
-    /**
-     * 获取 ResponseBody 内容
-     * wrapper.getCharacterEncoding() 默认为 ISO-8859-1
-     *
-     * @throws
-     * @author gclm
-     * @param: wrapper
-     * @date 2020/1/20 4:17 下午
-     * @return: java.lang.String
-     */
-    private String getResponseBody(ContentCachingResponseWrapper wrapper) {
-        String responseBody = "";
-        if (wrapper != null) {
-            try {
-                responseBody = IOUtils.toString(wrapper.getContentAsByteArray(), DEFAULT_CHARACTER_ENCODING);
-            } catch (IOException e) {
-                throw new ChaosLoggerException("解析 Response 响应内容失败");
-            }
-        }
-        return responseBody;
-    }
 }

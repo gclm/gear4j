@@ -42,8 +42,8 @@ public class CloudStorageFactory {
             case UPYUN:
                 client = new UpyunStorageClient(storage);
                 break;
-            case QCLOUD:
-                client = new QCloudStorageClient(storage);
+            case TENCENT:
+                client = new TencentStorageClient(storage);
                 break;
         }
         return client;

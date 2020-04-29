@@ -69,13 +69,13 @@ public class HttpTrace implements Serializable {
      * 请求的 httpStatusCode 状态码
      */
     @ApiModelProperty(value = "http 状态码")
-    private int httpStatusCode;
+    private int httpCode;
 
     /**
      *  请求耗时（秒）
      */
     @ApiModelProperty(value = "请求耗时（秒）")
-    private long consumingTime;
+    private Long consumingTime;
 
     /**
      *  接口返回时间
@@ -113,17 +113,21 @@ public class HttpTrace implements Serializable {
     @ApiModelProperty(value = "用户代理")
     private String userAgent;
 
+    public static HttpTraceBuilder builder(){
+        return new HttpTraceBuilder();
+    }
+
     public HttpTrace() {
     }
 
-    public HttpTrace(String clientIp, String uri, String contentType, String method, String sessionId, Long requestTime,int httpStatusCode) {
+    public HttpTrace(String clientIp, String uri, String contentType, String method, String sessionId, Long requestTime,int httpCode) {
         this.clientIp = clientIp;
         this.uri = uri;
         this.contentType = contentType;
         this.method = method;
         this.sessionId = sessionId;
         this.requestTime = requestTime;
-        this.httpStatusCode = httpStatusCode;
+        this.httpCode = httpCode;
     }
 
     public HttpTrace(String clientIp, String uri, String contentType, String method, String sessionId, Long requestTime, String requestHeader, String userAgent) {
@@ -210,19 +214,19 @@ public class HttpTrace implements Serializable {
         this.sessionId = sessionId;
     }
 
-    public int getHttpStatusCode() {
-        return httpStatusCode;
+    public int getHttpCode() {
+        return httpCode;
     }
 
-    public void setHttpStatusCode(int httpStatusCode) {
-        this.httpStatusCode = httpStatusCode;
+    public void setHttpCode(int httpCode) {
+        this.httpCode = httpCode;
     }
 
-    public long getConsumingTime() {
+    public Long getConsumingTime() {
         return consumingTime;
     }
 
-    public void setConsumingTime(long consumingTime) {
+    public void setConsumingTime(Long consumingTime) {
         this.consumingTime = consumingTime;
     }
 
@@ -266,10 +270,10 @@ public class HttpTrace implements Serializable {
                 ", contentType='" + contentType + '\'' +
                 ", method='" + method + '\'' +
                 ", sessionId='" + sessionId + '\'' +
-                ", requestTime=" + requestTime +
-                ", httpStatusCode=" + httpStatusCode +
-                ", consumingTime=" + consumingTime +
-                ", responseTime=" + responseTime +
+                ", requestTime=" + requestTime + '\'' +
+                ", httpCode=" + httpCode + '\'' +
+                ", consumingTime=" + consumingTime + '\'' +
+                ", responseTime=" + responseTime + '\'' +
                 ", requestBody='" + requestBody + '\'' +
                 ", responseBody='" + responseBody + '\'' +
                 ", requestHeader='" + requestHeader + '\'' +
