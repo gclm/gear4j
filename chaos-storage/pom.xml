@@ -7,7 +7,7 @@
     <parent>
         <groupId>club.gclmit</groupId>
         <artifactId>chaos</artifactId>
-        <version>1.4.6</version>
+        <version>1.4.6.RELEASE</version>
     </parent>
 
     <artifactId>chaos-storage</artifactId>
