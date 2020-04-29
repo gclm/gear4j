@@ -190,7 +190,7 @@ public class QRCodeHelper {
                 String path = qrCode.getGeneartePath();
                 Long id = IDUtils.snowflakeId();
 
-                Logger.info(LoggerServer.CHAOS_CORE, "配置的文件路径:{}", path);
+                Logger.info(LoggerServer.CHAOS, "配置的文件路径:{}", path);
 
                 StringBuilder filePath = new StringBuilder();
 
@@ -203,7 +203,7 @@ public class QRCodeHelper {
                 filePath.append(id).append(".").append(qrCode.getSuffix());
                 File codeImgFile = FileUtils.autoJudgeFile(filePath.toString());
 
-                Logger.info(LoggerServer.CHAOS_CORE, "生成的文件路径:{}", codeImgFile.getPath());
+                Logger.info(LoggerServer.CHAOS, "生成的文件路径:{}", codeImgFile.getPath());
 
                 ImageIO.write(bufferedImage, QRCodeConfig.IMAGE_FORMAT_NAME, codeImgFile);
 

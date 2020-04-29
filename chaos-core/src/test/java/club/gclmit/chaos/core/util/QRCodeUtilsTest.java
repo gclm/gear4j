@@ -46,7 +46,7 @@ public class QRCodeUtilsTest {
 
         String path = System.getProperty("user.dir");
         String filePath = new StringBuilder(path).append("//src//test//resources//").toString();
-        Logger.info(LoggerServer.CHAOS_CORE,"当前项目路径:{}\t文件路径:{}",path,filePath);
+        Logger.info(LoggerServer.CHAOS,"当前项目路径:{}\t文件路径:{}",path,filePath);
 
         File file = new File(filePath, "alipay.jpg");
         System.out.println();

@@ -60,7 +60,7 @@ public class AliyunStorageClient extends StorageClient {
         if(storage.getType() == StorageServer.ALIYUN) {
             cloudStorage = storage.getConfig();
             endpoint = cloudStorage.getRegion() + ALIYUN_DOMAIN_SUFFIX;
-            Logger.debug(LoggerServer.CHAOS_STORAGE,"阿里云配置参数:[{}]",storage);
+            Logger.debug(LoggerServer.CHAOS,"阿里云配置参数:[{}]",storage);
             // 创建OSSClient实例
             ossClient = new OSSClientBuilder().build(endpoint,cloudStorage.getAccessKeyId(),cloudStorage.getAccessKeySecret());
         } else {

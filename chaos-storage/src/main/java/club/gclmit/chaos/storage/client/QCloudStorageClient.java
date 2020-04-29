@@ -59,7 +59,7 @@ public class QCloudStorageClient extends StorageClient {
         super(storage);
         if(storage.getType() == StorageServer.QCLOUD) {
             cloudStorage = storage.getConfig();
-            Logger.info(LoggerServer.CHAOS_STORAGE,"腾讯云配置参数:[{}]",storage);
+            Logger.info(LoggerServer.CHAOS,"腾讯云配置参数:[{}]",storage);
             cosClient = build(cloudStorage.getAccessKeyId(), cloudStorage.getAccessKeySecret(), cloudStorage.getRegion());
         } else {
             throw new ChaosStorageException("[腾讯云OSS]上传文件失败，请检查配置参数");

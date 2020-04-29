@@ -51,7 +51,7 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
     private static final String DEFAULT_CHARACTER_ENCODING = "UTF-8";
 
     @Autowired
-    private ChaosLoggerProperties logger;
+    private ChaosLoggerProperties config;
 
     @Override
     protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -62,7 +62,7 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
         /**
          * 默认拦截 /api 开头的接口
          */
-        if (uri.startsWith(logger.getPrefix())) {
+        if (uri.startsWith(config.getPrefix())) {
 
             /**
              * 缓冲 request 和 response
@@ -135,12 +135,12 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
                 /**
                  * 保存到数据库
                  */
-                if (logger.isWriteDB()) {
+                if (config.isWriteDB()) {
                     LoggerMapper loggerMapper = genBean(LoggerMapper.class, requestWrapper);
                     boolean save = DbUtils.retBool(loggerMapper.insert(trace));
-                    Logger.info(LoggerServer.CHAOS_LOGGER,"当前请求日志入库：{}", save);
+                    Logger.info(LoggerServer.CHAOS,"当前请求日志入库：{}", save);
                 } else {
-                    Logger.info(LoggerServer.CHAOS_LOGGER,"当前请求日志：{}", trace);
+                    Logger.info(LoggerServer.CHAOS,"当前请求日志：{}", trace);
                 }
             }
         }  else {

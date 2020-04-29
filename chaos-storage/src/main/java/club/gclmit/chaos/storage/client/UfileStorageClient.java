@@ -58,7 +58,7 @@ public class UfileStorageClient extends StorageClient {
      */
     public UfileStorageClient(Storage storage) {
         super(storage);
-        Logger.debug(LoggerServer.CHAOS_STORAGE,"[Ufile]配置参数:[{}]",storage);
+        Logger.debug(LoggerServer.CHAOS,"[Ufile]配置参数:[{}]",storage);
         if(storage.getType() == StorageServer.UFILE) {
             cloudStorage = storage.getConfig();
             if (StringUtils.isBlank(cloudStorage.getEndpoint())){

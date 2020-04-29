@@ -27,7 +27,7 @@ public class ChaosLoggerConfig {
 
     @Bean
     public ServletRegistrationBean dispatcherRegistration() {
-        Logger.info(LoggerServer.CHAOS_LOGGER,"开始加载 dispatcherServlet 组件,默认拦截的 API 前缀为：/api");
+        Logger.info(LoggerServer.CHAOS,"开始加载 dispatcherServlet 组件,默认拦截的 API 前缀为：/api");
         return new ServletRegistrationBean(dispatcherServlet());
     }
 

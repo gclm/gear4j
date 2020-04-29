@@ -34,10 +34,10 @@ public class ChaosAutoConfiguration {
     @ConditionalOnMissingBean
     @ConditionalOnProperty(prefix = "chaos.storage",value = "enabled",havingValue = "true")
     public StorageClient storageClient (){
-        Logger.debug(LoggerServer.CHAOS_STORAGE,"读取 properties的数据:{}",properties);
+        Logger.debug(LoggerServer.CHAOS,"读取 properties的数据:{}",properties);
         Storage storage = new Storage();
         BeanUtils.copyProperties(properties,storage);
-        Logger.debug(LoggerServer.CHAOS_STORAGE,"自动注入的storage:{}",storage);
+        Logger.debug(LoggerServer.CHAOS,"自动注入的storage:{}",storage);
         return CloudStorageFactory.build(storage);
     }
 }
