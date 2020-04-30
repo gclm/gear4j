@@ -37,7 +37,7 @@ push(){
     do
         if [[ $(contains "${Ignore[@]}" "$filename") == "n" ]]; then
             path=${pwd}"/"${filename}
-            echo "项目：$filename\t 发布：${oss}"
+            echo "项目：$filename 发布：${oss}"
             cd ${path}
             mvn clean deploy -P ${oss}"-oss-release"
         fi
@@ -99,7 +99,7 @@ help(){
 cat <<- eof
 --------------------------------------------------------------------------
 desc: 项目通用脚本
-usage: ./chaos.sh (-d 待分析文件路径) (-n 输出文件夹名称)
+usage: ./chaos.sh (-option 操作) (-param 配置参数)
 author: 孤城落寞
 程序选项如下：
     -h --help         帮助文档
@@ -110,7 +110,7 @@ author: 孤城落寞
     -d --dependency   最新依赖
     -s --sonar        bug 扫描
 
-脚本版本： v1.1.0
+脚本版本： v1.1.1
 --------------------------------------------------------------------------
 eof
 exit 0
