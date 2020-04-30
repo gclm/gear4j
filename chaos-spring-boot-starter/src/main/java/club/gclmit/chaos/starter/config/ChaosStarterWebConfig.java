@@ -84,7 +84,7 @@ public class ChaosStarterWebConfig  implements WebMvcConfigurer {
         resolver.setResolveLazily(true);
         resolver.setMaxInMemorySize(40960);
         //上传文件大小 50M 50*1024*1024
-        resolver.setMaxUploadSize(50*1024*1024);
+        resolver.setMaxUploadSize(50*1024*1024L);
         return resolver;
     }
 

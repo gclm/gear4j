@@ -103,7 +103,8 @@ public class EscapeUtils {
         }
 
         StringBuilder tmp = new StringBuilder(content.length());
-        int lastPos = 0, pos = 0;
+        int lastPos = 0;
+        int pos = 0;
         char ch;
         while (lastPos < content.length()) {
             pos = content.indexOf("%", lastPos);
