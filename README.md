@@ -14,21 +14,6 @@
 	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
 		<img src="https://img.shields.io/badge/JDK-8+-green.svg" />
 	</a>
-	<a target="_blank" href="https://travis-ci.org/gclm/chaos">
-		<img src="https://travis-ci.org/gclm/chaos.svg" />
-	</a>
-	<a href="https://www.codacy.com/app/gclm/chaos?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=gclm/chaos&amp;utm_campaign=Badge_Grade">
-		<img src="https://api.codacy.com/project/badge/Grade/3e1b8a70248c46579b7b0d01d60c6377"/>
-	</a>
-<!--	<a href="https://codecov.io/gh/gclm/chaos">-->
-<!--		<img src="https://codecov.io/gh/gclm/chaos/branch/v4-master/graph/badge.svg" />-->
-<!--	</a>-->
-<!--	<a target="_blank" href="https://gitter.im/chaos/gclm?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge">-->
-<!--		<img src="https://badges.gitter.im/chaos/gclm.svg" />-->
-<!--	</a>-->
-<!--	<a target="_blank" href='https://github.com/gclm/chaos'>-->
-<!--		<img src="https://img.shields.io/github/stars/gclm/chaos.svg?style=social" alt="github star"/>-->
-<!--	</a>-->
 </p>
 <p align="center">
     QQ群：<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=4684b1c1194706adcc4ce7c9428935d31c0b2a86b51e96cb807fa30f94cebfde">641633175</a>
