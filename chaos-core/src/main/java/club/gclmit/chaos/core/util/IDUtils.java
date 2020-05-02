@@ -16,20 +16,17 @@ import java.util.UUID;
 public class IDUtils {
 
     /**
-     * @return 随机UUID
+     * 随机UUID
      */
     public static String randomUUID() {
-        return UUID.randomUUID().toString();
+        return UUIDUtils.getUUID();
     }
 
     /**
      * 简化的UUID，去掉了横线
-     *
-     * @return 简化的UUID，去掉了横线
-     * @since 3.2.2
      */
     public static String simpleUUID() {
-        return StringUtils.replace(randomUUID(),"-","");
+        return UUIDUtils.getSimpleUUID();
     }
 
     /**
@@ -38,10 +35,8 @@ public class IDUtils {
      * </p>
      *
      * @author 孤城落寞
-     * @param: type 证书类型
      * @date 2019/10/22 21:16
      * @return: java.lang.Long
-     * @throws
      */
     public static Long snowflakeId() {
         return new Snowflake(0, 0).nextId();
@@ -53,10 +48,8 @@ public class IDUtils {
      * </p>
      *
      * @author 孤城落寞
-     * @param: type 证书类型
      * @date 2019/10/22 21:15
      * @return: java.lang.String
-     * @throws
      */
     public static String stringSnowflakeId() {
         return String.valueOf(snowflakeId());

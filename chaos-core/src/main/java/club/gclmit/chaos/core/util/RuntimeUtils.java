@@ -163,7 +163,7 @@ public class RuntimeUtils {
 		InputStream in = null;
 		try {
 			in = process.getInputStream();
-			return IOUtils.readLines(in, charset, new ArrayList<>());
+			return IOUtils.readLines(in, charset);
 		} finally {
 			IOUtils.close(in);
 			destroy(process);
@@ -194,7 +194,9 @@ public class RuntimeUtils {
 		try {
 			in = process.getInputStream();
 			return IOUtils.read(in, charset);
-		} finally {
+		} catch (IOException e){
+			throw new ChaosCoreException("从流中获取内容失败",e);
+		}finally {
 			IOUtils.close(in);
 			destroy(process);
 		}
@@ -224,6 +226,8 @@ public class RuntimeUtils {
 		try {
 			in = process.getErrorStream();
 			return IOUtils.read(in, charset);
+		} catch (IOException e){
+			throw new ChaosCoreException("从流中获取内容失败",e);
 		} finally {
 			IOUtils.close(in);
 			destroy(process);

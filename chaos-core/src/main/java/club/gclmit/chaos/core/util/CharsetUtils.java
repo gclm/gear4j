@@ -3,6 +3,9 @@ package club.gclmit.chaos.core.util;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.charset.UnsupportedCharsetException;
+import java.util.Collections;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * <p>
@@ -54,48 +57,25 @@ public class CharsetUtils {
     }
 
     /**
-     * 转换为Charset对象
+     * 效验字符集；如果给定的字符集为null，则返回默认的字符集。
      *
-     * @param charsetName 字符集，为空则返回默认字符集
+     * @param charset 字符集，为空则返回默认字符集
      * @return Charset
      * @throws UnsupportedCharsetException 编码不支持
      */
-    public static Charset charset(String charsetName) throws UnsupportedCharsetException {
-        return StringUtils.isBlank(charsetName) ? Charset.defaultCharset() : Charset.forName(charsetName);
+    public static Charset toCharset(final Charset charset) {
+        return charset == null ? Charset.defaultCharset() : charset;
     }
 
     /**
-     * 解析字符串编码为Charset对象，解析失败返回系统默认编码
+     * 转换为Charset对象
      *
-     * @param charsetName    字符集，为空则返回默认字符集
+     * @param charset 字符集，为空则返回默认字符集
      * @return Charset
-     * @since 5.2.6
+     * @throws UnsupportedCharsetException 编码不支持
      */
-    public static Charset parse(String charsetName) {
-        return parse(charsetName, Charset.defaultCharset());
-    }
-
-    /**
-     * 解析字符串编码为Charset对象，解析失败返回默认编码
-     *
-     * @param charsetName    字符集，为空则返回默认字符集
-     * @param defaultCharset 解析失败使用的默认编码
-     * @return Charset
-     * @since 5.2.6
-     */
-    public static Charset parse(String charsetName, Charset defaultCharset) {
-        if (StringUtils.isBlank(charsetName)) {
-            return defaultCharset;
-        }
-
-        Charset result;
-        try {
-            result = Charset.forName(charsetName);
-        } catch (UnsupportedCharsetException e) {
-            result = defaultCharset;
-        }
-
-        return result;
+    public static Charset toCharset(final String charset) {
+        return StringUtils.isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset);
     }
 
     /**
