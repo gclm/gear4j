@@ -51,24 +51,19 @@ push(){
 # 3. 增加版本日志记录
 #------------------------------------------------
 version(){
-    if [[ ${version} > ${old_version} ]]; then
-        echo "版本:[$old_version] --> [$version]，是否更新？[Y/n]"
-        read -p "(默认: y):" yn
-        [[ -z "${yn}" ]] && yn="y"
-        if [[ ${yn} == [Yy] ]]; then
-            # 替换所有模块pom.xml中的版本
-            mvn versions:set -DnewVersion=$version
-            # 替换README.md中的版本
+    echo "版本:[$old_version] --> [$version]，是否更新？[Y/n]"
+    read -p "(默认: y):" yn
+    [[ -z "${yn}" ]] && yn="y"
+    if [[ ${yn} == [Yy] ]]; then
+        # 替换所有模块pom.xml中的版本
+        mvn versions:set -DnewVersion=$version
+        # 替换README.md中的版本
 #            sed -i "s/${old_version}/${version}/g" $pwd/README.md
-            # 添加版本日志
-            echo -e "$date\t\t发布版本：$old_version" >> $pwd/docs/version.txt
-            echo  "当前pom已经更新到$version"
-        else
-            echo && echo "	已取消..." && echo
-        fi
+        # 添加版本日志
+        echo -e "$date\t\t发布版本：$old_version" >> $pwd/docs/version.txt
+        echo  "当前pom已经更新到$version"
     else
-        echo  "暂不支持回退版本"
-        sleep 5s
+        echo && echo "	已取消..." && echo
     fi
 }
 
