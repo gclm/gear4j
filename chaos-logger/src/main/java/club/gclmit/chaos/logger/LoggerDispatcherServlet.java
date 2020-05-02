@@ -13,15 +13,12 @@ import club.gclmit.chaos.logger.db.pojo.HttpTrace;
 import club.gclmit.chaos.logger.db.pojo.HttpTraceBuilder;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.concurrent.Future;
 
 /**
  * <p>
@@ -45,27 +42,26 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
      */
     private static final String IGNORE_CONTENT_TYPE = "multipart/form-data";
 
-
     @Autowired
     private ChaosLoggerProperties config;
 
     @Override
     protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
         super.doDispatch(request, response);
-        recordLogger(new ContentCachingRequestWrapper(request),new ContentCachingResponseWrapper(response));
+        recordLogger(new ContentCachingRequestWrapper(request), new ContentCachingResponseWrapper(response));
     }
 
     /**
-     *  采用缓冲 request 和 response，获取数据保存入库
+     * 采用缓冲 request 和 response，获取数据保存入库
      *
      * @author gclm
      * @param: requestWrapper
      * @param: responseWrapper
      * @date 2020/4/30 1:36 上午
      * @return: java.util.concurrent.Future<java.lang.Boolean>
-     * @since  1.4.9
+     * @since 1.4.9
      */
-    public void recordLogger(ContentCachingRequestWrapper requestWrapper,ContentCachingResponseWrapper responseWrapper){
+    public void recordLogger(ContentCachingRequestWrapper requestWrapper, ContentCachingResponseWrapper responseWrapper) {
 
         String uri = requestWrapper.getRequestURI();
         String contentType = requestWrapper.getContentType();

@@ -78,7 +78,6 @@ public class DbUtils {
             commands[2] = command;
             log.debug("备份sql:{}",command);
 
-
             Runtime runtime = Runtime.getRuntime();
             Process process = runtime.exec(commands);
 
@@ -96,7 +95,7 @@ public class DbUtils {
                     while ((line = in.readLine()) != null) {
                         sb.append(line);
                     }
-                    log.info("数据库【{}】备份失败\r\n{}",sb.toString());
+                    log.info("数据库【{}】备份失败,错误信息:{}",dbName,sb.toString());
                 }
             }
         } catch (Exception e) {

@@ -18,7 +18,7 @@ import java.util.Objects;
  * @version: V1.0
  * @since 1.8
  */
-public class ApiRequestMappingHandlerMapping extends RequestMappingHandlerMapping {
+public class ApiVersionRequestMappingHandlerMapping extends RequestMappingHandlerMapping {
 
     /**
      *  扫描类上的 @ApiVersion

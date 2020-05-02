@@ -72,7 +72,7 @@ public class RandomUtils {
 		try {
 			return SecureRandom.getInstance("SHA1PRNG");
 		} catch (NoSuchAlgorithmException e) {
-			throw new ChaosCoreException(e);
+			throw new ChaosCoreException("获取强随机数生成器失败",e);
 		}
 	}
 

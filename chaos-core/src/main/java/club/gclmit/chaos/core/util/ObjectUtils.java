@@ -12,6 +12,7 @@ import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * <p>
@@ -41,7 +42,7 @@ public class ObjectUtils {
      * @return 是否相等
      */
     public static boolean equals(Object obj1, Object obj2) {
-        return (obj1 == obj2) || (obj1 != null && obj1.equals(obj2));
+        return Objects.equals(obj1,obj2);
     }
 
 

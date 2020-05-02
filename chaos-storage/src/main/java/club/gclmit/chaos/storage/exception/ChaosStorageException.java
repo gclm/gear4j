@@ -14,19 +14,19 @@ import club.gclmit.chaos.core.exception.AbstractChaosException;
  */
 public class ChaosStorageException extends AbstractChaosException {
 
+    public ChaosStorageException() {
+    }
+
     public ChaosStorageException(String message) {
         super(message);
     }
 
-    public ChaosStorageException(Integer code, String message) {
-        super(code, message);
+    public ChaosStorageException(String messageTemplate, Object... params) {
+        super(messageTemplate, params);
     }
 
     public ChaosStorageException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public ChaosStorageException(Integer code, String message, Throwable cause) {
-        super(code, message, cause);
-    }
 }

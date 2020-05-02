@@ -3,13 +3,11 @@ package club.gclmit.chaos.core.io;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.util.CharsetUtils;
 import club.gclmit.chaos.core.util.StringUtils;
-
 import java.io.*;
 import java.net.URI;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
-import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.Charset;
 import java.util.Collection;
@@ -102,6 +100,37 @@ public class IOUtils {
 	public IOUtils() {
 		super();
 	}
+
+	// Is
+	//-----------------------------------------------------------------------
+	/**
+	 *  判断 InputStream 是否为空
+	 *
+	 * @author gclm
+	 * @param: in
+	 * @date 2020/5/2 2:11 下午
+	 * @return: boolean
+	 */
+	public static boolean isEmpty(InputStream in) {
+		try {
+			return in == null || in.available() == 0;
+		} catch (IOException e) {
+			return in == null;
+		}
+	}
+
+	/**
+	 *  判断 InputStream 是否为空
+	 *
+	 * @author gclm
+	 * @param: in
+	 * @date 2020/5/2 2:12 下午
+	 * @return: boolean
+	 */
+	public static boolean isNotEmpty(InputStream in) {
+		return !isEmpty(in);
+	}
+
 
 	//-----------------------------------------------------------------------
 
@@ -738,7 +767,7 @@ public class IOUtils {
 			}
 			return list;
 		} catch (IOException e) {
-			throw new ChaosCoreException(e);
+			throw new ChaosCoreException("readLines 发生异常",e);
 		}
 	}
 
@@ -2068,7 +2097,7 @@ public class IOUtils {
 				builder.append(buffer.flip().toString());
 			}
 		} catch (IOException e) {
-			throw new ChaosCoreException(e);
+			throw new ChaosCoreException("从Reader中读取String发生异常",e);
 		}
 		return builder.toString();
 	}

@@ -1,6 +1,7 @@
 package club.gclmit.chaos.core.text.encrypt;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
+import club.gclmit.chaos.core.text.AbstractEncryptCode;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -15,7 +16,8 @@ import java.security.NoSuchAlgorithmException;
  * @version: V1.0
  * @since 1.8
  */
-public class Md5Utils extends AbstractCode{
+public class Md5Utils extends AbstractEncryptCode{
+
     @Override
     public String encode(byte[] data) {
         try {

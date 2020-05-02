@@ -18,31 +18,17 @@ public class ChaosLoggerException extends AbstractChaosException {
         super();
     }
 
-    public ChaosLoggerException(Throwable cause) {
-        super(cause);
+
+    public ChaosLoggerException(String message) {
+        super(message);
     }
 
     public ChaosLoggerException(String messageTemplate, Object... params) {
         super(messageTemplate, params);
     }
 
-    public ChaosLoggerException(Integer code, Throwable cause) {
-        super(code, cause);
-    }
-
-    public ChaosLoggerException(String message) {
-        super(message);
-    }
-
-    public ChaosLoggerException(Integer code, String message) {
-        super(code, message);
-    }
-
     public ChaosLoggerException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public ChaosLoggerException(Integer code, String message, Throwable cause) {
-        super(code, message, cause);
-    }
 }

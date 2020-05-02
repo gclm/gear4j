@@ -91,7 +91,7 @@ public class RuntimeUtils {
 		try {
 			process = new ProcessBuilder(cmds).redirectErrorStream(true).start();
 		} catch (IOException e) {
-			throw new ChaosCoreException(e);
+			throw new ChaosCoreException("执行 Shell 命令发生异常",e);
 		}
 		return process;
 	}
@@ -135,7 +135,7 @@ public class RuntimeUtils {
 		try {
 			return Runtime.getRuntime().exec(cmds, envp, dir);
 		} catch (IOException e) {
-			throw new ChaosCoreException(e);
+			throw new ChaosCoreException("执行 Shell 命令发生异常",e);
 		}
 	}
 

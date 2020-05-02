@@ -18,10 +18,6 @@ public class ChaosCoreException extends AbstractChaosException{
         super();
     }
 
-    public ChaosCoreException(Throwable cause) {
-        super(cause);
-    }
-
     public ChaosCoreException(String message) {
         super(message);
     }
@@ -30,19 +26,8 @@ public class ChaosCoreException extends AbstractChaosException{
         super(messageTemplate, params);
     }
 
-    public ChaosCoreException(Integer code, String message) {
-        super(code, message);
-    }
-
     public ChaosCoreException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public ChaosCoreException(Integer code, Throwable cause) {
-        super(code, cause);
-    }
-
-    public ChaosCoreException(Integer code, String message, Throwable cause) {
-        super(code, message, cause);
-    }
 }

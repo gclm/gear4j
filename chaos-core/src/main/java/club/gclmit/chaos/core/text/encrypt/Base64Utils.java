@@ -2,6 +2,7 @@ package club.gclmit.chaos.core.text.encrypt;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.io.IOUtils;
+import club.gclmit.chaos.core.text.AbstractEncryptCode;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -20,7 +21,7 @@ import java.util.Base64;
  * @version: V1.0
  * @since 1.8
  */
-public class Base64Utils extends AbstractCode {
+public class Base64Utils extends AbstractEncryptCode {
 
     /**
      * base64 解码

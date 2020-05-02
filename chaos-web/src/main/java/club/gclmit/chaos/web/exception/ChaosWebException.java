@@ -18,15 +18,12 @@ public class ChaosWebException extends AbstractChaosException {
         super(message);
     }
 
-    public ChaosWebException(Integer code, String message) {
-        super(code, message);
+    public ChaosWebException(String messageTemplate, Object... params) {
+        super(messageTemplate, params);
     }
 
     public ChaosWebException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public ChaosWebException(Integer code, String message, Throwable cause) {
-        super(code, message, cause);
-    }
 }

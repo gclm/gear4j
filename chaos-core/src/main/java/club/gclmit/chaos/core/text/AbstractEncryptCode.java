@@ -1,8 +1,9 @@
-package club.gclmit.chaos.core.text.encrypt;
+package club.gclmit.chaos.core.text;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
+import club.gclmit.chaos.core.io.IOUtils;
+import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.util.StringUtils;
-
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -17,7 +18,7 @@ import java.nio.charset.StandardCharsets;
  * @version: V1.0
  * @since 1.8
  */
-public abstract class AbstractCode {
+public abstract class AbstractEncryptCode {
 
     /**
      * 加密算法的核心，实现加密先集成这个接口
@@ -88,21 +89,11 @@ public abstract class AbstractCode {
      * @return: java.lang.String
      */
     public String encode(InputStream in) {
-        byte[] data = null;
+        Assert.isTrue(IOUtils.isEmpty(in),"输入流不能为空");
         try {
-            /**
-             *  严谨起见,一定要加上这个判断,不要返回data[]长度为0的数组指针
-             */
-            if (in == null || in.available() == 0) {
-                return null;
-            }
-            data = new byte[in.available()];
-            in.read(data);
-            in.close();
-            return encode(data);
+            return encode(IOUtils.toByteArray(in));
         } catch (IOException e) {
-            throw new ChaosCoreException("readFileBytes, err", e);
+            throw new ChaosCoreException("输入流加密失败", e);
         }
     }
-
 }
