@@ -30,4 +30,7 @@ public class ChaosCoreException extends AbstractChaosException{
         super(message, cause);
     }
 
+    public ChaosCoreException(Throwable cause, String messageTemplate, Object... params) {
+        super(cause, messageTemplate, params);
+    }
 }

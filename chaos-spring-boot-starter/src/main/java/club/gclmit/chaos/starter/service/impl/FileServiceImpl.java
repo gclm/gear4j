@@ -50,7 +50,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
     public FileInfo uploadFile(MultipartFile file) {
         File tempFile = multipartFileToFile(file);
         String md5 = new Md5Utils().encode(tempFile);
-        FileInfo fileInfo = queryMD5(md5);
+        FileInfo fileInfo = queryMd5(md5);
         if (fileInfo == null) {
             fileInfo = storageClient.upload(tempFile);
             save(fileInfo);
@@ -69,7 +69,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
      * @throws
      */
     @Override
-    public FileInfo queryMD5(String md5) {
+    public FileInfo queryMd5(String md5) {
         QueryWrapper<FileInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda()
                 .eq(FileInfo::getMd5,md5);

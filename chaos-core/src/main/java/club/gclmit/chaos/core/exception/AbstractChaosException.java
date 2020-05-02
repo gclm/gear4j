@@ -37,4 +37,7 @@ public abstract class AbstractChaosException extends RuntimeException {
         super(message, cause);
     }
 
+    public AbstractChaosException(Throwable cause,String messageTemplate, Object... params) {
+        super(StringUtils.format(messageTemplate, params),cause);
+    }
 }

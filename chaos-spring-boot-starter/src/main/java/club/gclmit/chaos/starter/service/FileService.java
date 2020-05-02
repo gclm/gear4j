@@ -36,7 +36,7 @@ public interface FileService extends IService<FileInfo> {
      * @return: club.gclmit.chaos.storage.db.pojo.FileInfo
      * @throws
      */
-    public FileInfo queryMD5(String md5);
+    public FileInfo queryMd5(String md5);
 
 
     /**

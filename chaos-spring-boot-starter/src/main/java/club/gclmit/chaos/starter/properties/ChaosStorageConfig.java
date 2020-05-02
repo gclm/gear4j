@@ -19,13 +19,13 @@ public class ChaosStorageConfig extends Storage {
     /**
      * 是否保存日志到数据库中
      */
-    private boolean writeDB = true;
+    private boolean db = true;
 
-    public boolean isWriteDB() {
-        return writeDB;
+    public boolean getDb() {
+        return db;
     }
 
-    public void setWriteDB(boolean writeDB) {
-        this.writeDB = writeDB;
+    public void setDb(boolean db) {
+        this.db = db;
     }
 }

@@ -2,6 +2,7 @@ package club.gclmit.chaos.logger;
 
 import club.gclmit.chaos.core.lang.Logger;
 import club.gclmit.chaos.core.lang.logger.LoggerServer;
+import club.gclmit.chaos.core.net.HttpRequestUtils;
 import club.gclmit.chaos.core.net.HttpUtils;
 import club.gclmit.chaos.core.net.IpUtils;
 import club.gclmit.chaos.core.util.DateUtils;
@@ -81,7 +82,7 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
 
             HttpTraceBuilder httpTraceBuilder = HttpTrace.builder()
                     .requestTime(requestTime)
-                    .clientIp(IpUtils.getClientIp(requestWrapper))
+                    .clientIp(HttpRequestUtils.getClientIp(requestWrapper))
                     .contentType(contentType)
                     .method(requestWrapper.getMethod())
                     .userAgent(HttpUtils.getUserAgent(requestWrapper))
