@@ -2,6 +2,8 @@ package club.gclmit.chaos.core.net;
 
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.util.StringUtils;
+import org.springframework.web.util.ContentCachingRequestWrapper;
+import org.springframework.web.util.ContentCachingResponseWrapper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Enumeration;
@@ -11,7 +13,7 @@ import java.util.Map;
 
 /**
  * <p>
- * TODO
+ * HttpRequest 工具类
  * </p>
  *
  * @author: gclm
@@ -35,7 +37,7 @@ public class HttpRequestUtils {
     public static String getClientIp(HttpServletRequest request) {
         Assert.notNull(request, "request instance is null.");
         String ip = request.getHeader("X-Forwarded-For");
-        if (!StringUtils.isNotEmpty(ip) && !UNKNOWN.equalsIgnoreCase(ip)) {
+        if (StringUtils.isNotEmpty(ip) && !UNKNOWN.equalsIgnoreCase(ip)) {
             int index = ip.indexOf(",");
             if (index != -1) {
                 return ip.substring(0, index);
@@ -44,7 +46,7 @@ public class HttpRequestUtils {
             }
         }
         ip = request.getHeader("X-Real-IP");
-        if (!StringUtils.isEmpty(ip) && !UNKNOWN.equalsIgnoreCase(ip)) {
+        if (StringUtils.isNotEmpty(ip) && !UNKNOWN.equalsIgnoreCase(ip)) {
             return ip;
         }
         if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
@@ -114,38 +116,6 @@ public class HttpRequestUtils {
         return request.getHeader(headerName);
     }
 
-//    /**
-//     * get request body content
-//     *
-//     * @param request http request instance
-//     * @return request body content
-//     */
-//    public static String getRequestBody(HttpServletRequest request) {
-//        Assert.notNull(request, "request instance is null.");
-//        RequestWrapper requestWrapper;
-//        if (request instanceof RequestWrapper) {
-//            requestWrapper = (RequestWrapper) request;
-//        } else {
-//            requestWrapper = new RequestWrapper(request);
-//        }
-//        return requestWrapper.getBody();
-//    }
-//
-//    /**
-//     * get response body content
-//     *
-//     * @param response http response instance
-//     * @return response body content
-//     */
-//    public static String getResponseBody(HttpServletResponse response) throws IOException {
-//        if (response instanceof ResponseWrapper) {
-//            ResponseWrapper responseWrapper = (ResponseWrapper) response;
-//            byte[] copy = responseWrapper.getCopy();
-//            return new String(copy, ResponseWrapper.DEFAULT_CHARACTER_ENCODING);
-//        }
-//        return null;
-//    }
-
     /**
      * get request path param
      *
@@ -179,4 +149,124 @@ public class HttpRequestUtils {
         Assert.notNull(request, "request instance is null.");
         return request.getRequestURI();
     }
+
+    /**
+     *  获取客户端请求方式
+     *  eq:
+     *   - ajax
+     *   - form
+     *   - websocket
+     *
+     * @author gclm
+     * @param: request
+     * @date 2020/1/11 9:35 下午
+     * @return: java.lang.String
+     * @throws
+     */
+    public static String getRequestType(HttpServletRequest request) {
+        Assert.notNull(request, "request instance is null.");
+        return getHeader(request,"X-Requested-With");
+    }
+
+    /**
+     *  获取Session Id
+     *
+     * @author gclm
+     * @param: request
+     * @date 2020/1/20 9:34 上午
+     * @return: java.lang.String
+     * @throws
+     */
+    public static String getSessionId(HttpServletRequest request) {
+        return request.getSession().getId();
+    }
+
+    /**
+     *  获取用户代理
+     *
+     * @author gclm
+     * @param: request
+     * @date 2020/1/20 10:38 上午
+     * @return: java.lang.String
+     * @throws
+     */
+    public static String getUserAgent(HttpServletRequest request) {
+        Assert.notNull(request, "request instance is null.");
+        return getHeader(request,"User-Agent");
+    }
+
+    /**
+     * 获取 requestBody 内容
+     * wrapper.getCharacterEncoding() 默认为 ISO-8859-1
+     *
+     * @throws
+     * @author gclm
+     * @param: wrapper
+     * @date 2020/1/20 4:17 下午
+     * @return: java.lang.String
+     */
+    public static String getRequestBody(HttpServletRequest request) {
+        Assert.notNull(request, "request instance is null.");
+        ContentCachingRequestWrapper requestWrapper;
+        if (request instanceof ContentCachingRequestWrapper) {
+            requestWrapper = (ContentCachingRequestWrapper) request;
+        } else {
+            requestWrapper = new ContentCachingRequestWrapper(request);
+        }
+        return StringUtils.toString(requestWrapper.getContentAsByteArray(),requestWrapper.getCharacterEncoding());
+    }
+
+    /**
+     * 获取 ResponseBody 内容
+     * wrapper.getCharacterEncoding() 默认为 ISO-8859-1
+     *
+     * @throws
+     * @author gclm
+     * @param: wrapper
+     * @date 2020/1/20 4:17 下午
+     * @return: java.lang.String
+     */
+    public static String getResponseBody(HttpServletResponse response) {
+        Assert.notNull(response, "response instance is null.");
+        ContentCachingResponseWrapper responseWrapper;
+        if (response instanceof ContentCachingResponseWrapper) {
+            responseWrapper = (ContentCachingResponseWrapper) response;
+        } else {
+            responseWrapper = new ContentCachingResponseWrapper(response);
+        }
+        return StringUtils.toString(responseWrapper.getContentAsByteArray(),responseWrapper.getCharacterEncoding());
+    }
+
+
+//    /**
+//     * get request body content
+//     *
+//     * @param request http request instance
+//     * @return request body content
+//     */
+//    public static String getRequestBody(HttpServletRequest request) {
+//        Assert.notNull(request, "request instance is null.");
+//        RequestWrapper requestWrapper;
+//        if (request instanceof RequestWrapper) {
+//            requestWrapper = (RequestWrapper) request;
+//        } else {
+//            requestWrapper = new RequestWrapper(request);
+//        }
+//        return requestWrapper.getBody();
+//    }
+//
+//    /**
+//     * get response body content
+//     *
+//     * @param response http response instance
+//     * @return response body content
+//     */
+//    public static String getResponseBody(HttpServletResponse response) throws IOException {
+//        if (response instanceof ResponseWrapper) {
+//            ResponseWrapper responseWrapper = (ResponseWrapper) response;
+//            byte[] copy = responseWrapper.getCopy();
+//            return new String(copy, ResponseWrapper.DEFAULT_CHARACTER_ENCODING);
+//        }
+//        return null;
+//    }
 }

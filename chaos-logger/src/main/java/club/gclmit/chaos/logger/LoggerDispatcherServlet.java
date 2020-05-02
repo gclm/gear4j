@@ -3,8 +3,6 @@ package club.gclmit.chaos.logger;
 import club.gclmit.chaos.core.lang.Logger;
 import club.gclmit.chaos.core.lang.logger.LoggerServer;
 import club.gclmit.chaos.core.net.HttpRequestUtils;
-import club.gclmit.chaos.core.net.HttpUtils;
-import club.gclmit.chaos.core.net.IpUtils;
 import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.DbUtils;
 import club.gclmit.chaos.core.util.JsonUtils;
@@ -85,9 +83,9 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
                     .clientIp(HttpRequestUtils.getClientIp(requestWrapper))
                     .contentType(contentType)
                     .method(requestWrapper.getMethod())
-                    .userAgent(HttpUtils.getUserAgent(requestWrapper))
-                    .sessionId(HttpUtils.getSessionId(requestWrapper))
-                    .requestHeader(JsonUtils.toJson(HttpUtils.getRequestHeaders(requestWrapper)));
+                    .userAgent(HttpRequestUtils.getUserAgent(requestWrapper))
+                    .sessionId(HttpRequestUtils.getSessionId(requestWrapper))
+                    .requestHeader(JsonUtils.toJson(HttpRequestUtils.getRequestHeaders(requestWrapper)));
 
 
             /**
@@ -96,7 +94,7 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
             if (!contentType.startsWith(IGNORE_CONTENT_TYPE)) {
                 String requestBody = JsonUtils.toJson(requestWrapper.getParameterMap());
                 if (StringUtils.isEmpty(requestBody) || "{}".equals(requestBody)) {
-                    requestBody = HttpUtils.getRequestBody(requestWrapper);
+                    requestBody = HttpRequestUtils.getRequestBody(requestWrapper);
                 }
                 httpTraceBuilder.requestBody(requestBody);
             }
@@ -109,8 +107,8 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
             Long time = responseTime - requestTime;
 
             HttpTrace trace = httpTraceBuilder.httpCode(responseWrapper.getStatus())
-                    .responseBody(HttpUtils.getResponseBody(responseWrapper))
-                    .responseHeader(JsonUtils.toJson(HttpUtils.getResponseHeaders(responseWrapper)))
+                    .responseBody(HttpRequestUtils.getResponseBody(responseWrapper))
+                    .responseHeader(JsonUtils.toJson(HttpRequestUtils.getResponseHeaders(responseWrapper)))
                     .responseTime(responseTime)
                     .consumingTime(time).build();
 

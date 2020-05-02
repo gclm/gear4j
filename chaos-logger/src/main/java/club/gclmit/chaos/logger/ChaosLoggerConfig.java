@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
@@ -28,12 +29,15 @@ public class ChaosLoggerConfig {
     @Bean
     public ServletRegistrationBean dispatcherRegistration() {
         Logger.info(LoggerServer.CHAOS,"开始加载 dispatcherServlet 组件,默认拦截的 API 前缀为：/api");
-        return new ServletRegistrationBean(dispatcherServlet());
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean(dispatcherServlet());
+        registrationBean.setLoadOnStartup(1);
+        //指定name，如果不指定默认为dispatcherServlet
+        registrationBean.setName("Logger");
+        return registrationBean;
     }
 
     @Bean(name = DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_BEAN_NAME)
     public DispatcherServlet dispatcherServlet(){
         return new LoggerDispatcherServlet();
     }
-
 }

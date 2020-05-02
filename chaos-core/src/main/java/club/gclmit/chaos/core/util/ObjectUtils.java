@@ -194,7 +194,7 @@ public class ObjectUtils {
      * @return: java.lang.String
      */
     public static String toString(Object object){
-        Assert.isNull(object,"object 不能为空");
+        Assert.notNull(object,"object 不能为空");
         List<Field> fieldList = new ArrayList<>() ;
         Class clazz = object.getClass();
         String className = clazz.getSimpleName();
