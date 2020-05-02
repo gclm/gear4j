@@ -5,8 +5,8 @@
 	<strong>Where dreams originate</strong>
 </p>
 <p align="center">
-	<a target="_blank" href="https://search.maven.org/search?q=g:%20club.gclmit%20AND%20a:%20chaos-boot-starter">
-        <img src="https://img.shields.io/maven-central/v/club.gclmit/chaos-boot-starter.svg?label=Maven%20Central" />
+	<a target="_blank" href="https://search.maven.org/search?q=g:%20club.gclmit%20AND%20a:%20chaos-spring-boot-starter">
+        <img src="https://img.shields.io/maven-central/v/club.gclmit/chaos-spring-boot-starter.svg?label=Maven%20Central" />
 	</a>
 	<a target="_blank" href="http://license.coscl.org.cn/MulanPSL2/">
         <img src="https://img.shields.io/:license-MulanPSL2-blue.svg" />
@@ -71,14 +71,15 @@ CREATE TABLE `chaos_trace_info` (
   `method` varchar(50) NOT NULL DEFAULT '' COMMENT '请求方法类型: restful 风格',
   `request_time` bigint(15) NOT NULL DEFAULT -1 COMMENT '请求时间戳（秒）',
   `response_time` bigint(15) NOT NULL DEFAULT -1 COMMENT '接口返回时间',
-  `request` text DEFAULT '' COMMENT 'requestBody',
-  `response` text DEFAULT '' COMMENT 'responseBody',
+  `request_body` text DEFAULT '' COMMENT 'requestBody',
+  `response_body` text DEFAULT '' COMMENT 'responseBody',
   `request_header` text NOT NULL DEFAULT '' COMMENT 'request 请求头',
   `response_header` text NOT NULL DEFAULT '' COMMENT 'response 响应头',
   `user_agent` varchar(255) NOT NULL DEFAULT '' COMMENT '用户代理',
-  `http_status_code` int(10) DEFAULT NULL COMMENT '状态码',
+  `http_code` int(10) DEFAULT NULL COMMENT '状态码',
   `consuming_time` bigint(15) DEFAULT NULL COMMENT '请求耗时（秒）',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='chaos_trace_info';
 
+SET FOREIGN_KEY_CHECKS = 1;
 ```
