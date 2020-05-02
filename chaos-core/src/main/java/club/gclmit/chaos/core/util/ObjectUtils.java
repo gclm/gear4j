@@ -9,10 +9,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * <p>
@@ -167,7 +164,7 @@ public class ObjectUtils {
     public static boolean isEmpty(Object object){
         if(object == null){
             return  true;
-        } else if (object instanceof String && "".equals(object.toString().trim()) &&  object.toString().trim().length() > 0 ){
+        } else if (object instanceof String && StringUtils.isEmpty((String)object)){
             return  true;
         }else if (object instanceof  Integer && (Integer) object == 0){
             return  true;
@@ -196,22 +193,34 @@ public class ObjectUtils {
      * @return: java.lang.String
      */
     public static String toString(Object object){
-        Class<?> clazz = ReflectUtils.getClass(object);
-        Field[] fields = clazz.getDeclaredFields();
+        List<Field> fieldList = new ArrayList<>() ;
+        Class clazz = object.getClass();
+        String className = clazz.getSimpleName();
+
+        /**
+         *  1. 当父类为null的时候说明到达了最上层的父类(Object类).
+         *  2. 得到父类,然后赋给自己
+         */
+        while (clazz != null) {
+            fieldList.addAll(Arrays.asList(clazz.getDeclaredFields()));
+            clazz = clazz.getSuperclass();
+        }
+
         /**
          * 获取 参数属性封装
          */
         StringBuilder fieldBuilder = StringUtils.builder();
-        for (Field field : fields){
+        for (Field field : fieldList){
             field.setAccessible(true);
             try {
-                fieldBuilder.append(field.getName()).append("=").append(field.get(object)).append(", ");
+                Object value = isEmpty(field.get(object)) ? null : field.get(object);
+                fieldBuilder.append(field.getName()).append("=").append(value).append(", ");
             } catch (IllegalAccessException e) {
                 throw new ChaosCoreException("通过反射拼接ToString异常",e);
             }
             field.setAccessible(false);
         }
         String result = StringUtils.subBefore(fieldBuilder, ", ", true);
-        return  StringUtils.builder(clazz.getSimpleName()).append("{").append(result).append("}").toString();
+        return  StringUtils.builder(className).append("{").append(result).append("}").toString();
     }
 }

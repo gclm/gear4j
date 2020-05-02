@@ -5,6 +5,9 @@ import club.gclmit.chaos.core.exception.ChaosCoreException;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
@@ -38,8 +41,14 @@ public class ReflectUtils {
      * @date 2020/4/16 7:08 下午
      * @return: java.lang.reflect.Field[]
      */
-    public static Field[] getFields(Object object) {
-        return getClass(object).getDeclaredFields();
+    public static List<Field> getFields(Object object) {
+        List<Field> fieldList = new ArrayList<>() ;
+        Class tempClass = getClass(object);
+        while (tempClass != null) {//当父类为null的时候说明到达了最上层的父类(Object类).
+            fieldList.addAll(Arrays.asList(tempClass.getDeclaredFields()));
+            tempClass = tempClass.getSuperclass(); //得到父类,然后赋给自己
+        }
+        return fieldList;
     }
 
     /**
