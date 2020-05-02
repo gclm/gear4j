@@ -22,7 +22,6 @@ import java.lang.annotation.*;
 @Documented
 @ConditionalOnWebApplication
 // 自定义注解配置
-@EnableAsync
 @MapperScan(basePackages= {
         "club.gclmit.chaos.*.db.mapper",
         "club.gclmit.chaos.*.mapper"

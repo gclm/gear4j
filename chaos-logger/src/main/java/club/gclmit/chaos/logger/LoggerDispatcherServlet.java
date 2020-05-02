@@ -56,18 +56,16 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
     }
 
     /**
-     *  缓冲 request 和 response
-     *  异步保存数据
+     *  采用缓冲 request 和 response，获取数据保存入库
      *
      * @author gclm
      * @param: requestWrapper
      * @param: responseWrapper
      * @date 2020/4/30 1:36 上午
      * @return: java.util.concurrent.Future<java.lang.Boolean>
-     * @since  1.4.6
+     * @since  1.4.9
      */
-    @Async
-    public Future<Boolean> recordLogger(ContentCachingRequestWrapper requestWrapper,ContentCachingResponseWrapper responseWrapper){
+    public void recordLogger(ContentCachingRequestWrapper requestWrapper,ContentCachingResponseWrapper responseWrapper){
 
         String uri = requestWrapper.getRequestURI();
         String contentType = requestWrapper.getContentType();
@@ -130,7 +128,6 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
                 Logger.info(LoggerServer.CHAOS, "当前请求日志：{}", trace);
             }
         }
-        return new AsyncResult<>(Boolean.TRUE);
     }
 
     /**
