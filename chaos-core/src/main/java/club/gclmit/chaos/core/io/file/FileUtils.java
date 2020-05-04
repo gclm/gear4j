@@ -29,11 +29,17 @@ public class FileUtils {
      * @return {@code true} if the file is empty or {@code null}
      */
     public static boolean isEmpty(File file) {
-        if (file == null || false == file.exists()) {
-            // 如果文件不存在或已被删除，此处返回true表示删除成功
-            return true;
-        }
-        return false;
+        return file == null || !file.exists();
+    }
+
+    /**
+     * <p>判断文件是否不为空
+     *
+     * @param file  判断文件
+     * @return {@code true} 当前 file 不为空返回 true
+     */
+    public static boolean isNotEmpty(File file) {
+        return !isEmpty(file);
     }
 
     /**

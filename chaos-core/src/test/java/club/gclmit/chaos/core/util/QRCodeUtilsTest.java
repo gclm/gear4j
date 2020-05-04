@@ -1,11 +1,9 @@
 package club.gclmit.chaos.core.util;
 
-import club.gclmit.chaos.core.lang.Assert;
-import club.gclmit.chaos.core.qrcode.QRCodeConfig;
-import club.gclmit.chaos.core.qrcode.QRCodeHelper;
-import club.gclmit.chaos.core.lang.Logger;
-import club.gclmit.chaos.core.lang.logger.LoggerServer;
+import club.gclmit.chaos.core.lang.Barcode;
+import club.gclmit.chaos.core.lang.zxing.BarcodeImageType;
 import com.google.zxing.NotFoundException;
+import com.google.zxing.Result;
 import com.google.zxing.WriterException;
 import java.io.File;
 import java.io.IOException;
@@ -23,39 +21,48 @@ import java.net.URL;
 public class QRCodeUtilsTest {
 
     public static void main(String[] args) throws IOException, WriterException, NotFoundException {
-        generateQrCodeTest();
-        parseQRCodeByURLTest();
-        parseQRCodeByFileTest();
+//        generate1();
+        generate2();
+//        parse();
+
     }
 
-    public static void generateQrCodeTest() throws IOException, WriterException {
-        QRCodeHelper.QRCode qrCode = QRCodeHelper.getInstance();
-        qrCode.setContent("https://blog.gclmit.club/");
-        qrCode.setType(QRCodeConfig.IMAGE_TYPE_FILE);
-        System.out.println(QRCodeHelper.generateQRCode(qrCode));
+    public static void generate1() throws IOException, WriterException {
+        File logo = new File("/Users/gclm/Pictures/Chaos.png");
+
+        Barcode.Builder builder = Barcode.of().
+                content("https://blog.gclmit.club/")
+                .size(400, 400);
+
+        String path = builder.qrCode().generate(BarcodeImageType.JPG, new File(System.getProperty("user.dir"), IDUtils.snowflakeId() + ".jpg"));
+        System.out.println("默认颜色：" + path);
+
+        builder.color(0xFFFFFFFF,0xFF00A2FF);
+        String path1 = builder.qrCode().generate(BarcodeImageType.JPG, new File(System.getProperty("user.dir"), IDUtils.snowflakeId() + ".jpg"));
+        System.out.println("指定颜色:" + path1);
+
+        System.out.println("base64在线预览:\ndata:image/jpg;base64," + builder.qrCode().generate(BarcodeImageType.JPG, true));
+
     }
 
-    
-    public static void parseQRCodeByURLTest() throws IOException, NotFoundException {
-        URL url = new URL("https://gitee.com/gclm/images/raw/master/20190814143308-4LGn2F.jpg");
-        System.out.println(QRCodeHelper.parseQRCode(url));
+
+    public static void generate2() throws IOException, WriterException {
+        File logo = new File("/Users/gclm/Pictures/avatar.jpg");
+
+        Barcode.Builder builder = Barcode.of().
+                content("https://blog.gclmit.club/")
+                .size(400, 400);
+
+        String path = builder.qrCode(logo).generate(BarcodeImageType.JPG, new File(System.getProperty("user.dir"),IDUtils.simpleUUID() + ".jpg"));
+        System.out.println("logo: "+ path);
     }
 
-    
-    public static void parseQRCodeByFileTest() throws IOException, NotFoundException {
+    public static void parse() throws IOException, NotFoundException {
 
-        String path = System.getProperty("user.dir");
-        String filePath = new StringBuilder(path).append("//src//test//resources//").toString();
-        Logger.info(LoggerServer.CHAOS,"当前项目路径:{}\t文件路径:{}",path,filePath);
-
-        File file = new File(filePath, "alipay.jpg");
-        System.out.println();
-        if (file.exists()) {
-            System.out.println("文件已经存储");
-        }
-
-        Assert.isTrue(file.exists(),"文件不存在");
-        System.out.println(QRCodeHelper.parseQRCode(new File(filePath,"alipay.jpg")));
-        System.out.println(QRCodeHelper.parseQRCode(filePath+"alipay.jpg"));
+        URL url = new URL("https://raw.githubusercontent.com/gclm/payment-code/master/doc/img/alipay.jpg");
+        Result from = Barcode.from(url).decode();
+        System.out.println(from.getText());
+        System.out.println("==============");
+        System.out.println(from.toString());
     }
 }
