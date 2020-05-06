@@ -2,6 +2,8 @@ package club.gclmit.chaos.core.text.encrypt;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.io.IOUtils;
+import club.gclmit.chaos.core.lang.Assert;
+import club.gclmit.chaos.core.util.ArrayUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -33,8 +35,9 @@ public class Base64Utils{
      * @return: byte[]
      * @throws
      */
-    public static byte[] decode(byte[] src) {
-        return Base64.getDecoder().decode(src);
+    public static byte[] decode(byte[] bytes) {
+        Assert.isFalse(ArrayUtils.isEmpty(bytes),"bytes 不能为空");
+        return Base64.getDecoder().decode(bytes);
     }
 
 
@@ -51,6 +54,7 @@ public class Base64Utils{
      * @return: java.lang.String
      */
     public static String encode(String str) {
+        Assert.isFalse(StringUtils.isEmpty(str),"str 不能为空");
         return encode(str, null);
     }
 
@@ -65,13 +69,12 @@ public class Base64Utils{
      * @return: java.lang.String
      */
     public static String encode(String str, String charset) {
-        String result = null;
+        Assert.isFalse(StringUtils.isEmpty(str),"str 不能为空");
         if (StringUtils.isNotEmpty(charset)) {
-            result = encode(str.getBytes(Charset.forName(charset)));
+            return encode(str.getBytes(Charset.forName(charset)));
         } else {
-            result = encode(str.getBytes(StandardCharsets.UTF_8));
+            return encode(str.getBytes(StandardCharsets.UTF_8));
         }
-        return result;
     }
 
     /**
@@ -84,6 +87,7 @@ public class Base64Utils{
      * @return: java.lang.String
      */
     public static String encode(byte[] bytes) {
+        Assert.isFalse(ArrayUtils.isEmpty(bytes),"bytes 不能为空");
         return Base64.getEncoder().encodeToString(bytes);
     }
 
@@ -98,6 +102,7 @@ public class Base64Utils{
      * @throws
      */
     public static String encode(URL url) {
+        Assert.notNull(url,"url不能为空");
         final ByteArrayOutputStream data = new ByteArrayOutputStream();
         try {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

@@ -4,6 +4,7 @@ import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.io.IOUtils;
 import club.gclmit.chaos.core.io.file.FileUtils;
 import club.gclmit.chaos.core.lang.Assert;
+import club.gclmit.chaos.core.util.ArrayUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import java.io.*;
 import java.nio.charset.Charset;
@@ -33,7 +34,8 @@ public class Md5Utils {
      * @date 2020/3/31 2:52 PM
      * @return: java.lang.String
      */
-    public String encode(String str) {
+    public static String encode(String str) {
+        Assert.isFalse(StringUtils.isEmpty(str),"str 不能为空");
         return encode(str, null);
     }
 
@@ -47,14 +49,13 @@ public class Md5Utils {
      * @date 2020/3/31 2:52 PM
      * @return: java.lang.String
      */
-    public String encode(String str, String charset) {
-        String result = null;
+    public static String encode(String str, String charset) {
+        Assert.isFalse(StringUtils.isEmpty(str),"str 不能为空");
         if (StringUtils.isNotEmpty(charset)) {
-            result = encode(str.getBytes(Charset.forName(charset)));
+            return encode(str.getBytes(Charset.forName(charset)));
         } else {
-            result = encode(str.getBytes(StandardCharsets.UTF_8));
+            return encode(str.getBytes(StandardCharsets.UTF_8));
         }
-        return result;
     }
 
     /**
@@ -65,9 +66,10 @@ public class Md5Utils {
      * @date 2020/5/6 5:34 下午
      * @return: java.lang.String
      */
-    public static String encode(byte[] data) {
+    public static String encode(byte[] bytes) {
+        Assert.isFalse(ArrayUtils.isEmpty(bytes),"bytes 不能为空");
         MessageDigest digest = md5();
-        return getMD5Checksum(digest.digest(data));
+        return getMD5Checksum(digest.digest(bytes));
     }
 
     /**
@@ -78,7 +80,7 @@ public class Md5Utils {
      * @date 2020/3/31 2:56 PM
      * @return: java.lang.String
      */
-    public String encode(File file){
+    public static String encode(File file){
         Assert.isFalse(FileUtils.isEmpty(file),"文件不能为空");
         try (InputStream in = new FileInputStream(file)){
             return getMD5Checksum(encode(in));
@@ -95,7 +97,7 @@ public class Md5Utils {
      * @date 2020/3/31 2:56 PM
      * @return: java.lang.String
      */
-    public byte[] encode(InputStream in){
+    public static byte[] encode(InputStream in){
         Assert.isTrue(IOUtils.isEmpty(in),"输入流 in 不能为空");
         DigestInputStream md5Stream = new DigestInputStream(in, md5());
         return md5Stream.getMessageDigest().digest();
@@ -109,6 +111,7 @@ public class Md5Utils {
      * @return: java.lang.String
      */
     public static String getMD5Checksum(byte[] bytes){
+        Assert.isFalse(ArrayUtils.isEmpty(bytes),"bytes 不能为空");
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < bytes.length; ++i) {
             sb.append(Integer.toHexString((bytes[i] & 0xFF) | 0x100).substring(1,3));
