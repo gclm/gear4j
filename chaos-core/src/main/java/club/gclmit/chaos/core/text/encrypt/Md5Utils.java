@@ -1,8 +1,14 @@
 package club.gclmit.chaos.core.text.encrypt;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
-import club.gclmit.chaos.core.text.AbstractEncryptCode;
-
+import club.gclmit.chaos.core.io.IOUtils;
+import club.gclmit.chaos.core.io.file.FileUtils;
+import club.gclmit.chaos.core.lang.Assert;
+import club.gclmit.chaos.core.util.StringUtils;
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -16,20 +22,111 @@ import java.security.NoSuchAlgorithmException;
  * @version: V1.0
  * @since 1.8
  */
-public class Md5Utils extends AbstractEncryptCode{
+public class Md5Utils {
 
-    @Override
-    public String encode(byte[] data) {
+    /**
+     * 默认为 UTF-8的编码格式加密
+     *
+     * @throws
+     * @author gclm
+     * @param: str
+     * @date 2020/3/31 2:52 PM
+     * @return: java.lang.String
+     */
+    public String encode(String str) {
+        return encode(str, null);
+    }
+
+    /**
+     * 自定义编码格式加密
+     *
+     * @throws
+     * @author gclm
+     * @param: str     内容
+     * @param: charset 编码格式
+     * @date 2020/3/31 2:52 PM
+     * @return: java.lang.String
+     */
+    public String encode(String str, String charset) {
+        String result = null;
+        if (StringUtils.isNotEmpty(charset)) {
+            result = encode(str.getBytes(Charset.forName(charset)));
+        } else {
+            result = encode(str.getBytes(StandardCharsets.UTF_8));
+        }
+        return result;
+    }
+
+    /**
+     * md5加密（byte[] -> String）
+     *
+     * @author gclm
+     * @param: data
+     * @date 2020/5/6 5:34 下午
+     * @return: java.lang.String
+     */
+    public static String encode(byte[] data) {
+        MessageDigest digest = md5();
+        return getMD5Checksum(digest.digest(data));
+    }
+
+    /**
+     * md5加密（File -> String）
+     *
+     * @author gclm
+     * @param: file
+     * @date 2020/3/31 2:56 PM
+     * @return: java.lang.String
+     */
+    public String encode(File file){
+        Assert.isFalse(FileUtils.isEmpty(file),"文件不能为空");
+        try (InputStream in = new FileInputStream(file)){
+            return getMD5Checksum(encode(in));
+        } catch (IOException e) {
+            throw new ChaosCoreException("file to FileInputStream 失败",e);
+        }
+    }
+
+    /**
+     * md5加密（InputStream -> byte[]）
+     *
+     * @author gclm
+     * @param: in
+     * @date 2020/3/31 2:56 PM
+     * @return: java.lang.String
+     */
+    public byte[] encode(InputStream in){
+        Assert.isTrue(IOUtils.isEmpty(in),"输入流 in 不能为空");
+        DigestInputStream md5Stream = new DigestInputStream(in, md5());
+        return md5Stream.getMessageDigest().digest();
+    }
+
+    /**
+     * 16 进制转换
+     *
+     * @author gclm
+     * @param: bytes
+     * @return: java.lang.String
+     */
+    public static String getMD5Checksum(byte[] bytes){
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < bytes.length; ++i) {
+            sb.append(Integer.toHexString((bytes[i] & 0xFF) | 0x100).substring(1,3));
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 获取 md5 摘要
+     *
+     * @author gclm
+     * @return: MessageDigest
+     */
+    public static MessageDigest md5(){
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] array = md.digest(data);
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < array.length; ++i) {
-                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
-            }
-            return sb.toString();
+            return MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
-            throw new ChaosCoreException("转换 md5 签名异常",e);
+            throw new ChaosCoreException("获取md5 摘要失败",e);
         }
     }
 }

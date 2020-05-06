@@ -2,13 +2,14 @@ package club.gclmit.chaos.core.text.encrypt;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.io.IOUtils;
-import club.gclmit.chaos.core.text.AbstractEncryptCode;
-
+import club.gclmit.chaos.core.util.StringUtils;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 /**
@@ -21,7 +22,7 @@ import java.util.Base64;
  * @version: V1.0
  * @since 1.8
  */
-public class Base64Utils extends AbstractEncryptCode {
+public class Base64Utils{
 
     /**
      * base64 解码
@@ -32,22 +33,58 @@ public class Base64Utils extends AbstractEncryptCode {
      * @return: byte[]
      * @throws
      */
-    public byte[] decode(byte[] src) {
+    public static byte[] decode(byte[] src) {
         return Base64.getDecoder().decode(src);
     }
 
+
+    // 编码
+    //==============================================================
+
     /**
-     *  Base64 编码
+     * 默认为 UTF-8的编码格式加密
      *
-     * @author gclm
-     * @param: data
-     * @date 2020/3/31 2:58 PM
-     * @return: java.lang.String
      * @throws
+     * @author gclm
+     * @param: str
+     * @date 2020/3/31 2:52 PM
+     * @return: java.lang.String
      */
-    @Override
-    public String encode(byte[] data) {
-        return Base64.getEncoder().encodeToString(data);
+    public static String encode(String str) {
+        return encode(str, null);
+    }
+
+    /**
+     * 自定义编码格式加密
+     *
+     * @throws
+     * @author gclm
+     * @param: str     内容
+     * @param: charset 编码格式
+     * @date 2020/3/31 2:52 PM
+     * @return: java.lang.String
+     */
+    public static String encode(String str, String charset) {
+        String result = null;
+        if (StringUtils.isNotEmpty(charset)) {
+            result = encode(str.getBytes(Charset.forName(charset)));
+        } else {
+            result = encode(str.getBytes(StandardCharsets.UTF_8));
+        }
+        return result;
+    }
+
+    /**
+     * 编码
+     *
+     * @throws
+     * @author gclm
+     * @param: bytes     内容
+     * @date 2020/3/31 2:52 PM
+     * @return: java.lang.String
+     */
+    public static String encode(byte[] bytes) {
+        return Base64.getEncoder().encodeToString(bytes);
     }
 
     /**
@@ -60,7 +97,7 @@ public class Base64Utils extends AbstractEncryptCode {
      * @return: java.lang.String
      * @throws
      */
-    public String encode(URL url) {
+    public static String encode(URL url) {
         final ByteArrayOutputStream data = new ByteArrayOutputStream();
         try {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
