@@ -187,7 +187,7 @@ public class FileUtils {
      */
     public static String getSuffix(String fileName) {
         Assert.isTrue(StringUtils.isNotBlank(fileName),"文件名不能为空");
-        return fileName.substring(fileName.lastIndexOf(".") + 1);
+        return StringUtils.subAfter(fileName,".",true);
     }
 
     /**
@@ -305,7 +305,7 @@ public class FileUtils {
      * @return
      */
     private static String byteToHex(byte[] src) {
-        Assert.isTrue(ArrayUtils.isEmpty(src),"字节数组不能为空");
+        Assert.isFalse(ArrayUtils.isEmpty(src),"字节数组不能为空");
 
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < src.length; i++) {

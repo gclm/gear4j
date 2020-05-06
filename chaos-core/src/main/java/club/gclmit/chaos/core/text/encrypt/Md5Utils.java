@@ -98,7 +98,7 @@ public class Md5Utils {
      * @return: java.lang.String
      */
     public static byte[] encode(InputStream in){
-        Assert.isTrue(IOUtils.isEmpty(in),"输入流 in 不能为空");
+        Assert.isFalse(IOUtils.isEmpty(in),"输入流 in 不能为空");
         DigestInputStream md5Stream = new DigestInputStream(in, md5());
         return md5Stream.getMessageDigest().digest();
     }
