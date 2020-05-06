@@ -75,6 +75,26 @@ public class Logger {
         return LoggerFactory.getLogger(caller.getClassName());
     }
 
+    public static void trace(String format, Object... arguments) {
+        log().trace(buildMessage(null, format, arguments));
+    }
+
+    public static void info(String format, Object... arguments) {
+        log().info(buildMessage(null, format, arguments));
+    }
+
+    public static void debug(String format, Object... arguments) {
+        log().debug(buildMessage(null, format, arguments));
+    }
+
+    public static void warn(String format, Object... arguments) {
+        log().warn(buildMessage(null, format, arguments));
+    }
+
+    public static void error(String format, Object... arguments) {
+        log().error(buildMessage(null, format, arguments));
+    }
+
     public static void trace(LoggerServer loggerServer, String format, Object... arguments) {
         log().trace(buildMessage(loggerServer, format, arguments));
     }
@@ -95,6 +115,7 @@ public class Logger {
         log().error(buildMessage(loggerServer, format, arguments));
     }
 
+
     /**
      *  消息组建
      *
@@ -107,6 +128,9 @@ public class Logger {
      */
     private static String buildMessage(LoggerServer loggerServer, String format, Object... arguments){
         FormattingTuple ft = MessageFormatter.arrayFormat(format, arguments);
-        return String.format("[%s]:%s", loggerServer.getKey(), ft.getMessage());
+        if (loggerServer != null) {
+            return String.format("[%s]:%s", loggerServer.getKey(), ft.getMessage());
+        }
+        return ft.getMessage();
     }
 }
