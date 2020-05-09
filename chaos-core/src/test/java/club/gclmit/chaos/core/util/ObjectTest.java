@@ -1,7 +1,6 @@
 package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
-import club.gclmit.chaos.core.pojo.Dog;
 import club.gclmit.chaos.core.pojo.Test;
 
 import java.lang.reflect.Field;

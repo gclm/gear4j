@@ -1,8 +1,5 @@
 package club.gclmit.chaos.core.util;
 
-import club.gclmit.chaos.core.lang.Snowflake;
-import club.gclmit.chaos.core.util.IDUtils;
-
 /**
  * <p>
  * ID 生成器

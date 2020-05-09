@@ -1,9 +1,9 @@
 
-package club.gclmit.chaos.core.io.file;
+package club.gclmit.chaos.core.file;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.lang.Assert;
-import club.gclmit.chaos.core.util.ArrayUtils;
+import club.gclmit.chaos.core.util.ObjectUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -325,7 +325,7 @@ public class FileUtils {
      * @return
      */
     private static String byteToHex(byte[] src) {
-        Assert.isFalse(ArrayUtils.isEmpty(src),"字节数组不能为空");
+        Assert.isFalse(ObjectUtils.isEmpty(src),"字节数组不能为空");
 
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < src.length; i++) {

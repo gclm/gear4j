@@ -133,7 +133,7 @@ public class StringUtils {
 	 * @return 是否包含空字符串
 	 */
 	public static boolean hasBlank(CharSequence... strs) {
-		if (ArrayUtils.isEmpty(strs)) {
+		if (ObjectUtils.isEmpty(strs)) {
 			return true;
 		}
 
@@ -152,7 +152,7 @@ public class StringUtils {
 	 * @return 所有字符串是否为空白
 	 */
 	public static boolean isAllBlank(CharSequence... strs) {
-		if (ArrayUtils.isEmpty(strs)) {
+		if (ObjectUtils.isEmpty(strs)) {
 			return true;
 		}
 
@@ -303,7 +303,7 @@ public class StringUtils {
 	 * @return 是否包含空字符串
 	 */
 	public static boolean hasEmpty(CharSequence... strs) {
-		if (ArrayUtils.isEmpty(strs)) {
+		if (ObjectUtils.isEmpty(strs)) {
 			return true;
 		}
 
@@ -322,7 +322,7 @@ public class StringUtils {
 	 * @return 是否全部为空字符串
 	 */
 	public static boolean isAllEmpty(CharSequence... strs) {
-		if (ArrayUtils.isEmpty(strs)) {
+		if (ObjectUtils.isEmpty(strs)) {
 			return true;
 		}
 
@@ -625,7 +625,7 @@ public class StringUtils {
 	 * @since 3.0.6
 	 */
 	public static boolean startWithAny(CharSequence str, CharSequence... prefixes) {
-		if (isEmpty(str) || ArrayUtils.isEmpty(prefixes)) {
+		if (isEmpty(str) || ObjectUtils.isEmpty(prefixes)) {
 			return false;
 		}
 
@@ -701,7 +701,7 @@ public class StringUtils {
 	 * @since 3.0.6
 	 */
 	public static boolean endWithAny(CharSequence str, CharSequence... suffixes) {
-		if (isEmpty(str) || ArrayUtils.isEmpty(suffixes)) {
+		if (isEmpty(str) || ObjectUtils.isEmpty(suffixes)) {
 			return false;
 		}
 
@@ -826,7 +826,7 @@ public class StringUtils {
 	 * @since 3.2.0
 	 */
 	public static String getContainsStr(CharSequence str, CharSequence... testStrs) {
-		if (isEmpty(str) || ArrayUtils.isEmpty(testStrs)) {
+		if (isEmpty(str) || ObjectUtils.isEmpty(testStrs)) {
 			return null;
 		}
 		for (CharSequence checkStr : testStrs) {
@@ -875,7 +875,7 @@ public class StringUtils {
 	 * @since 3.2.0
 	 */
 	public static String getContainsStrIgnoreCase(CharSequence str, CharSequence... testStrs) {
-		if (isEmpty(str) || ArrayUtils.isEmpty(testStrs)) {
+		if (isEmpty(str) || ObjectUtils.isEmpty(testStrs)) {
 			return null;
 		}
 		for (CharSequence testStr : testStrs) {
@@ -954,7 +954,7 @@ public class StringUtils {
 	 * @since 4.2.2
 	 */
 	public static String removeAll(CharSequence str, char... chars) {
-		if (null == str || ArrayUtils.isEmpty(chars)) {
+		if (null == str || ObjectUtils.isEmpty(chars)) {
 			return toString(str);
 		}
 		final int len = str.length();
@@ -2208,7 +2208,7 @@ public class StringUtils {
 	 * @since 4.3.2
 	 */
 	public static boolean equalsAny(CharSequence str1, boolean ignoreCase, CharSequence... strs) {
-		if (ArrayUtils.isEmpty(strs)) {
+		if (ObjectUtils.isEmpty(strs)) {
 			return false;
 		}
 
@@ -2237,7 +2237,7 @@ public class StringUtils {
 		if (null == template) {
 			return null;
 		}
-		if (ArrayUtils.isEmpty(params) || isBlank(template)) {
+		if (ObjectUtils.isEmpty(params) || isBlank(template)) {
 			return template.toString();
 		}
 		return StringFormatter.format(template.toString(), params);
@@ -2388,7 +2388,7 @@ public class StringUtils {
 		} else if (obj instanceof ByteBuffer) {
 			return toString((ByteBuffer) obj, charset);
 		} else if (ObjectUtils.isArray(obj)) {
-			return ArrayUtils.toString(obj);
+			return ObjectUtils.toString(obj);
 		}
 
 		return obj.toString();
@@ -3962,7 +3962,7 @@ public class StringUtils {
 	 * @since 3.2.2
 	 */
 	public static String replaceChars(CharSequence str, char[] chars, CharSequence replacedStr) {
-		if (isEmpty(str) || ArrayUtils.isEmpty(chars)) {
+		if (isEmpty(str) || ObjectUtils.isEmpty(chars)) {
 			return toString(str);
 		}
 

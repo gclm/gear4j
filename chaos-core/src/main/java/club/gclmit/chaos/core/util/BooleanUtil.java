@@ -6,7 +6,7 @@ package club.gclmit.chaos.core.util;
  * @author looly
  * @since 4.1.16
  */
-public class BooleanUtils {
+public class BooleanUtil {
 
     /**
      * 表示为真的字符串
@@ -299,7 +299,7 @@ public class BooleanUtils {
      * @return 取与为真返回{@code true}
      */
     public static boolean and(boolean... array) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (ObjectUtils.isEmpty(array)) {
             throw new IllegalArgumentException("The Array must not be empty !");
         }
         for (final boolean element : array) {
@@ -349,7 +349,7 @@ public class BooleanUtils {
      * @return 取或为真返回{@code true}
      */
     public static boolean or(boolean... array) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (ObjectUtils.isEmpty(array)) {
             throw new IllegalArgumentException("The Array must not be empty !");
         }
         for (final boolean element : array) {
@@ -400,7 +400,7 @@ public class BooleanUtils {
      * @return 如果异或计算为true返回 {@code true}
      */
     public static boolean xor(boolean... array) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (ObjectUtils.isEmpty(array)) {
             throw new IllegalArgumentException("The Array must not be empty");
         }
 

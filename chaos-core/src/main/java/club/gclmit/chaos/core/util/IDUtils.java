@@ -1,7 +1,6 @@
 package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.lang.Snowflake;
-import java.util.UUID;
 
 /**
  * <p>

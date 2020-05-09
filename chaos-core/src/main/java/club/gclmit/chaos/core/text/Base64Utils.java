@@ -1,9 +1,9 @@
-package club.gclmit.chaos.core.text.encrypt;
+package club.gclmit.chaos.core.text;
 
+import club.gclmit.chaos.core.util.ObjectUtils;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.io.IOUtils;
 import club.gclmit.chaos.core.lang.Assert;
-import club.gclmit.chaos.core.util.ArrayUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -34,7 +34,7 @@ public class Base64Utils{
      * @throws
      */
     public static byte[] decode(byte[] bytes) {
-        Assert.isFalse(ArrayUtils.isEmpty(bytes),"bytes 不能为空");
+        Assert.isFalse(ObjectUtils.isEmpty(bytes),"bytes 不能为空");
         return Base64.getDecoder().decode(bytes);
     }
 
@@ -85,7 +85,7 @@ public class Base64Utils{
      * @return: java.lang.String
      */
     public static String encode(byte[] bytes) {
-        Assert.isFalse(ArrayUtils.isEmpty(bytes),"bytes 不能为空");
+        Assert.isFalse(ObjectUtils.isEmpty(bytes),"bytes 不能为空");
         return Base64.getEncoder().encodeToString(bytes);
     }
 

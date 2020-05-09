@@ -1,6 +1,6 @@
 package club.gclmit.chaos.core.text;
 
-import club.gclmit.chaos.core.util.ArrayUtils;
+import club.gclmit.chaos.core.util.ObjectUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 
 /**
@@ -25,7 +25,7 @@ public class StringFormatter {
 	 * @return 结果
 	 */
 	public static String format(final String strPattern, final Object... argArray) {
-		if (StringUtils.isBlank(strPattern) || ArrayUtils.isEmpty(argArray)) {
+		if (StringUtils.isBlank(strPattern) || ObjectUtils.isEmpty(argArray)) {
 			return strPattern;
 		}
 		final int strPatternLength = strPattern.length();

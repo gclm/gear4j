@@ -1,8 +1,8 @@
 package club.gclmit.chaos.core.lang;
 
-import club.gclmit.chaos.core.util.CollectionUtils;
+import club.gclmit.chaos.core.util.ObjectUtils;
 import club.gclmit.chaos.core.util.StringUtils;
-import club.gclmit.chaos.core.util.ArrayUtils;
+
 import java.util.Collection;
 import java.util.Map;
 
@@ -283,7 +283,7 @@ public class Assert {
      * @throws IllegalArgumentException if the object array is {@code null} or has no elements
      */
     public static Object[] notEmpty(Object[] array, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-        if (ArrayUtils.isEmpty(array)) {
+        if (ObjectUtils.isEmpty(array)) {
             throw new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params));
         }
         return array;
@@ -319,7 +319,7 @@ public class Assert {
      * @throws IllegalArgumentException if the object array contains a {@code null} element
      */
     public static <T> T[] noNullElements(T[] array, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-        if (ArrayUtils.isEmpty(array)) {
+        if (ObjectUtils.isEmpty(array)) {
             throw new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params));
         }
         return array;
@@ -356,7 +356,7 @@ public class Assert {
      * @throws IllegalArgumentException if the collection is {@code null} or has no elements
      */
     public static <T> Collection<T> notEmpty(Collection<T> collection, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-        if (CollectionUtils.isEmpty(collection)) {
+        if (ObjectUtils.isEmpty(collection)) {
             throw new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params));
         }
         return collection;
@@ -395,7 +395,7 @@ public class Assert {
      * @throws IllegalArgumentException if the map is {@code null} or has no entries
      */
     public static <K, V> Map<K, V> notEmpty(Map<K, V> map, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-        if (CollectionUtils.isEmpty(map)) {
+        if (ObjectUtils.isEmpty(map)) {
             throw new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params));
         }
         return map;

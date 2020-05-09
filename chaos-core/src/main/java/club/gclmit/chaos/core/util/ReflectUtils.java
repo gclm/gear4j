@@ -1,7 +1,5 @@
 package club.gclmit.chaos.core.util;
 
-import club.gclmit.chaos.core.exception.ChaosCoreException;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

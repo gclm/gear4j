@@ -26,22 +26,314 @@ public class ObjectUtils {
 
     private static Logger logger = LoggerFactory.getLogger(ObjectUtils.class);
 
+    // 为空
+    // ----------------------------------------------------------------------
+
     /**
-     * 比较两个对象是否相等。<br>
-     * 相同的条件有两个，满足其一即可：<br>
-     * <ol>
-     * <li>obj1 == null &amp;&amp; obj2 == null</li>
-     * <li>obj1.equals(obj2)</li>
-     * </ol>
-     * 1. obj1 == null &amp;&amp; obj2 == null 2. obj1.equals(obj2)
+     * 集合是否为空
      *
-     * @param obj1 对象1
-     * @param obj2 对象2
-     * @return 是否相等
+     * @param collection 集合
+     * @return 是否为空
      */
-    public static boolean equals(Object obj1, Object obj2) {
-        return Objects.equals(obj1,obj2);
+    public static boolean isEmpty(Collection<?> collection) {
+        return collection == null || collection.isEmpty();
     }
+
+    /**
+     * Map是否为空
+     *
+     * @param map 集合
+     * @return 是否为空
+     */
+    public static boolean isEmpty(Map<?, ?> map) {
+        return null == map || map.isEmpty();
+    }
+
+    /**
+     * Enumeration是否为空
+     *
+     * @param enumeration {@link Enumeration}
+     * @return 是否为空
+     */
+    public static boolean isEmpty(Enumeration<?> enumeration) {
+        return null == enumeration || false == enumeration.hasMoreElements();
+    }
+
+    /**
+     * Iterable是否为空
+     *
+     * @param iterable Iterable对象
+     * @return 是否为空
+     */
+    public static boolean isEmpty(Iterable<?> iterable) {
+        return null == iterable || isEmpty(iterable.iterator());
+    }
+
+    /**
+     * Iterator是否为空
+     *
+     * @param Iterator Iterator对象
+     * @return 是否为空
+     */
+    public static boolean isEmpty(Iterator<?> Iterator) {
+        return null == Iterator || false == Iterator.hasNext();
+    }
+
+    /**
+     * <p>Checks if an array of primitive booleans is empty or {@code null}.
+     *
+     * @param array  the array to test
+     * @return {@code true} if the array is empty or {@code null}
+     * @since 2.1
+     */
+    public static boolean isEmpty(final boolean[] array) {
+        return ArrayUtils.getLength(array) == 0;
+    }
+
+    /**
+     * <p>Checks if an array of primitive bytes is empty or {@code null}.
+     *
+     * @param array  the array to test
+     * @return {@code true} if the array is empty or {@code null}
+     * @since 2.1
+     */
+    public static boolean isEmpty(final byte[] array) {
+        return ArrayUtils.getLength(array) == 0;
+    }
+
+    /**
+     * <p>Checks if an array of primitive chars is empty or {@code null}.
+     *
+     * @param array  the array to test
+     * @return {@code true} if the array is empty or {@code null}
+     * @since 2.1
+     */
+    public static boolean isEmpty(final char[] array) {
+        return ArrayUtils.getLength(array) == 0;
+    }
+
+    /**
+     * <p>Checks if an array of primitive doubles is empty or {@code null}.
+     *
+     * @param array  the array to test
+     * @return {@code true} if the array is empty or {@code null}
+     * @since 2.1
+     */
+    public static boolean isEmpty(final double[] array) {
+        return ArrayUtils.getLength(array) == 0;
+    }
+
+    /**
+     * <p>Checks if an array of primitive floats is empty or {@code null}.
+     *
+     * @param array  the array to test
+     * @return {@code true} if the array is empty or {@code null}
+     * @since 2.1
+     */
+    public static boolean isEmpty(final float[] array) {
+        return ArrayUtils.getLength(array) == 0;
+    }
+    
+    /**
+     * <p>Checks if an array of primitive ints is empty or {@code null}.
+     *
+     * @param array  the array to test
+     * @return {@code true} if the array is empty or {@code null}
+     * @since 2.1
+     */
+    public static boolean isEmpty(final int[] array) {
+        return ArrayUtils.getLength(array) == 0;
+    }
+
+    /**
+     * <p>Checks if an array of primitive longs is empty or {@code null}.
+     *
+     * @param array  the array to test
+     * @return {@code true} if the array is empty or {@code null}
+     * @since 2.1
+     */
+    public static boolean isEmpty(final long[] array) {
+        return ArrayUtils.getLength(array) == 0;
+    }
+
+    /**
+     * <p>Checks if an array of Objects is empty or {@code null}.
+     *
+     * @param array  the array to test
+     * @return {@code true} if the array is empty or {@code null}
+     * @since 2.1
+     */
+    public static boolean isEmpty(final Object[] array) {
+        return ArrayUtils.getLength(array) == 0;
+    }
+
+    /**
+     * <p>Checks if an array of primitive shorts is empty or {@code null}.
+     *
+     * @param array  the array to test
+     * @return {@code true} if the array is empty or {@code null}
+     * @since 2.1
+     */
+    public static boolean isEmpty(final short[] array) {
+        return ArrayUtils.getLength(array) == 0;
+    }
+
+    // 不为空
+    // ----------------------------------------------------------------------
+    
+    /**
+     * <p>Checks if an array of primitive booleans is not empty and not {@code null}.
+     *
+     * @param array  the array to test
+     * @return {@code true} if the array is not empty and not {@code null}
+     * @since 2.5
+     */
+    public static boolean isNotEmpty(final boolean[] array) {
+        return !isEmpty(array);
+    }
+
+    /**
+     * <p>Checks if an array of primitive bytes is not empty and not {@code null}.
+     *
+     * @param array  the array to test
+     * @return {@code true} if the array is not empty and not {@code null}
+     * @since 2.5
+     */
+    public static boolean isNotEmpty(final byte[] array) {
+        return !isEmpty(array);
+    }
+
+    /**
+     * <p>Checks if an array of primitive chars is not empty and not {@code null}.
+     *
+     * @param array  the array to test
+     * @return {@code true} if the array is not empty and not {@code null}
+     * @since 2.5
+     */
+    public static boolean isNotEmpty(final char[] array) {
+        return !isEmpty(array);
+    }
+
+    /**
+     * <p>Checks if an array of primitive doubles is not empty and not {@code null}.
+     *
+     * @param array  the array to test
+     * @return {@code true} if the array is not empty and not {@code null}
+     * @since 2.5
+     */
+    public static boolean isNotEmpty(final double[] array) {
+        return !isEmpty(array);
+    }
+
+    /**
+     * <p>Checks if an array of primitive floats is not empty and not {@code null}.
+     *
+     * @param array  the array to test
+     * @return {@code true} if the array is not empty and not {@code null}
+     * @since 2.5
+     */
+    public static boolean isNotEmpty(final float[] array) {
+        return !isEmpty(array);
+    }
+
+    /**
+     * <p>Checks if an array of primitive ints is not empty and not {@code null}.
+     *
+     * @param array  the array to test
+     * @return {@code true} if the array is not empty and not {@code null}
+     * @since 2.5
+     */
+    public static boolean isNotEmpty(final int[] array) {
+        return !isEmpty(array);
+    }
+
+    /**
+     * <p>Checks if an array of primitive longs is not empty and not {@code null}.
+     *
+     * @param array  the array to test
+     * @return {@code true} if the array is not empty and not {@code null}
+     * @since 2.5
+     */
+    public static boolean isNotEmpty(final long[] array) {
+        return !isEmpty(array);
+    }
+
+    /**
+     * <p>Checks if an array of primitive shorts is not empty and not {@code null}.
+     *
+     * @param array  the array to test
+     * @return {@code true} if the array is not empty and not {@code null}
+     * @since 2.5
+     */
+    public static boolean isNotEmpty(final short[] array) {
+        return !isEmpty(array);
+    }
+
+    /**
+     * <p>Checks if an array of Objects is not empty and not {@code null}.
+     *
+     * @param <T> the component type of the array
+     * @param array  the array to test
+     * @return {@code true} if the array is not empty and not {@code null}
+     * @since 2.5
+     */
+    public static <T> boolean isNotEmpty(final T[] array) {
+        return !isEmpty(array);
+    }
+
+    /**
+     * 集合是否为非空
+     *
+     * @param collection 集合
+     * @return 是否为非空
+     */
+    public static boolean isNotEmpty(Collection<?> collection) {
+        return !isEmpty(collection);
+    }
+
+    /**
+     * Map是否为非空
+     *
+     * @param map 集合
+     * @return 是否为非空
+     */
+    public static boolean isNotEmpty(Map<?, ?> map) {
+        return !isEmpty(map);
+    }
+
+    /**
+     * Enumeration是否为空
+     *
+     * @param enumeration {@link Enumeration}
+     * @return 是否为空
+     */
+    public static boolean isNotEmpty(Enumeration<?> enumeration) {
+        return !isEmpty(enumeration);
+    }
+
+    /**
+     * Iterable是否为空
+     *
+     * @param iterable Iterable对象
+     * @return 是否为空
+     */
+    public static boolean isNotEmpty(Iterable<?> iterable) {
+        return !isEmpty(iterable);
+    }
+
+    /**
+     * Iterator是否为空
+     *
+     * @param Iterator Iterator对象
+     * @return 是否为空
+     */
+    public static boolean isNotEmpty(Iterator<?> Iterator) {
+        return !isEmpty(Iterator);
+    }
+
+
+    // 其他方法
+    // ----------------------------------------------------------------------
 
 
     /**

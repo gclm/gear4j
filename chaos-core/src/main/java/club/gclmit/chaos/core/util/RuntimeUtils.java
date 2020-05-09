@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,7 +73,7 @@ public class RuntimeUtils {
 	 * @return {@link Process}
 	 */
 	public static Process exec(String... cmds) {
-		if (ArrayUtils.isEmpty(cmds)) {
+		if (ObjectUtils.isEmpty(cmds)) {
 			throw new NullPointerException("Command is empty !");
 		}
 
@@ -120,7 +119,7 @@ public class RuntimeUtils {
 	 * @since 4.1.6
 	 */
 	public static Process exec(String[] envp, File dir, String... cmds) {
-		if (ArrayUtils.isEmpty(cmds)) {
+		if (ObjectUtils.isEmpty(cmds)) {
 			throw new NullPointerException("Command is empty !");
 		}
 

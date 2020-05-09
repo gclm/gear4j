@@ -2,7 +2,7 @@ package club.gclmit.chaos.logger;
 
 import club.gclmit.chaos.core.lang.Logger;
 import club.gclmit.chaos.core.lang.logger.LoggerServer;
-import club.gclmit.chaos.core.net.HttpRequestUtils;
+import club.gclmit.chaos.core.http.HttpRequestUtils;
 import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.DbUtils;
 import club.gclmit.chaos.core.util.JsonUtils;

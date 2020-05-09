@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.net;
+package club.gclmit.chaos.core.http;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.lang.Assert;
