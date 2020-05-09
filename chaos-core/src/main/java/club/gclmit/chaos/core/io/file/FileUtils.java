@@ -33,6 +33,26 @@ public class FileUtils {
     }
 
     /**
+     * <p>判断文件是否为空 {@code null}.
+     *
+     * @param file  判断文件
+     * @return {@code true} if the file is empty or {@code null}
+     */
+    public static boolean isEmpty(MultipartFile file) {
+        return file == null || file.isEmpty();
+    }
+
+    /**
+     * <p>判断文件是否不为空
+     *
+     * @param file  判断文件
+     * @return {@code true} 当前 file 不为空返回 true
+     */
+    public static boolean isNotEmpty(MultipartFile file) {
+        return !isEmpty(file);
+    }
+
+    /**
      * <p>判断文件是否不为空
      *
      * @param file  判断文件

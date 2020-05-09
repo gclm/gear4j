@@ -33,9 +33,6 @@ import javax.servlet.DispatcherType;
 @Configuration
 public class ChaosStarterWebConfig  implements WebMvcConfigurer {
 
-    @Value("${server.port}")
-    private String port;
-
     @Autowired
     private ChaosWebConfig config;
 
@@ -49,7 +46,7 @@ public class ChaosStarterWebConfig  implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        Logger.info(LoggerServer.CHAOS,"开启 Swagger 映射\nAPI文档地址：http://localhost:{}/doc.html",port);
+        Logger.info(LoggerServer.CHAOS,"开启 Swagger 映射\nAPI文档地址：http://localhost:{}/doc.html",SpringServiceInfoConfig.getPort());
         registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }

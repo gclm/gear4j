@@ -5,9 +5,7 @@ import club.gclmit.chaos.core.io.IOUtils;
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.util.ArrayUtils;
 import club.gclmit.chaos.core.util.StringUtils;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -103,8 +101,7 @@ public class Base64Utils{
      */
     public static String encode(URL url) {
         Assert.notNull(url,"url不能为空");
-        final ByteArrayOutputStream data = new ByteArrayOutputStream();
-        try {
+        try (ByteArrayOutputStream data = new ByteArrayOutputStream()){
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(5000);
@@ -114,6 +111,25 @@ public class Base64Utils{
             return encode(data.toByteArray());
         } catch (IOException e) {
            throw new ChaosCoreException("获取网络图片发生异常",e);
+        }
+    }
+
+    /**
+     * 网络数据加密
+     * eq: file --> base64
+     *
+     * @author gclm
+     * @param: url
+     * @date 2020/3/31 2:56 PM
+     * @return: java.lang.String
+     * @throws
+     */
+    public static String encode(File file) {
+        Assert.notNull(file,"file不能为空");
+        try(FileInputStream in = new FileInputStream(file)){
+            return encode(IOUtils.toByteArray(in));
+        } catch (IOException e) {
+            throw new ChaosCoreException("获取网络图片发生异常",e);
         }
     }
 }
