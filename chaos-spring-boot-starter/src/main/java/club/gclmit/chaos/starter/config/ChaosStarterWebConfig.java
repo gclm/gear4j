@@ -5,11 +5,9 @@ import club.gclmit.chaos.core.lang.logger.LoggerServer;
 import club.gclmit.chaos.starter.properties.ChaosWebConfig;
 import club.gclmit.chaos.web.xss.XssFilter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.Ordered;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -46,7 +44,6 @@ public class ChaosStarterWebConfig  implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        Logger.info(LoggerServer.CHAOS,"开启 Swagger 映射\nAPI文档地址：http://localhost:{}/doc.html",SpringServiceInfoConfig.getPort());
         registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }

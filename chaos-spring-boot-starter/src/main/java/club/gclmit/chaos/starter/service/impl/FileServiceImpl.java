@@ -34,7 +34,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
     @Autowired
     private FileMapper fileMapper;
 
-    @Autowired
+    @Autowired(required = false)
     private StorageClient storageClient;
 
     /**
@@ -49,7 +49,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
     @Override
     public FileInfo uploadFile(MultipartFile file) {
         File tempFile = multipartFileToFile(file);
-        String md5 = new Md5Utils().encode(tempFile);
+        String md5 = Md5Utils.encode(tempFile);
         FileInfo fileInfo = queryMd5(md5);
         if (fileInfo == null) {
             fileInfo = storageClient.upload(tempFile);

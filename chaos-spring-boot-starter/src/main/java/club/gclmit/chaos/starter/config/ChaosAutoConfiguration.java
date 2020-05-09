@@ -34,8 +34,7 @@ public class ChaosAutoConfiguration {
     private ChaosStorageConfig properties;
 
     @Bean
-    @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "chaos.storage",value = "enabled",havingValue = "true",matchIfMissing = true)
+    @ConditionalOnProperty(prefix = "chaos.storage",value = "enabled",havingValue = "true")
     public StorageClient storageClient (){
         Logger.debug(LoggerServer.CHAOS,"读取 properties的数据:{}",properties);
         Storage storage = BeanCopyUtils.copyBean(properties,Storage.class);
