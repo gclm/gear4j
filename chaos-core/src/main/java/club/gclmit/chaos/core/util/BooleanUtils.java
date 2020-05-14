@@ -6,7 +6,7 @@ package club.gclmit.chaos.core.util;
  * @author looly
  * @since 4.1.16
  */
-public class BooleanUtil {
+public class BooleanUtils {
 
     /**
      * 表示为真的字符串

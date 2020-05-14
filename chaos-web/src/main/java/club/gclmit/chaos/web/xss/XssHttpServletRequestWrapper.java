@@ -1,6 +1,9 @@
 package club.gclmit.chaos.web.xss;
 
+import club.gclmit.chaos.core.net.html.EscapeUtils;
 import club.gclmit.chaos.core.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
@@ -14,6 +17,8 @@ import javax.servlet.http.HttpServletRequestWrapper;
  * @since 1.8
  */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
+
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     public XssHttpServletRequestWrapper(HttpServletRequest servletRequest) {
         super(servletRequest);
@@ -32,9 +37,10 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
             if (StringUtils.isNumeric(values[i])) {
                 encodedValues[i] = (values[i]);
             } else {
-                System.out.println("转义之前:"+values[i]);
+
+                log.debug("转义之前:{}", values[i]);
                 encodedValues[i] = EscapeUtils.escape(values[i]).trim();
-                System.err.println("转义之后:"+ encodedValues[i]);
+                log.debug("转义之后:{}", encodedValues[i]);
             }
         }
         return encodedValues;

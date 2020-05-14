@@ -6,6 +6,7 @@ import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.util.Collection;
 
 
 /**
@@ -64,6 +65,26 @@ public class NumberUtils {
      */
     public NumberUtils() {
         super();
+    }
+
+    /**
+     * 判断Number是否为空
+     *
+     * @param number
+     * @return 是否为true
+     */
+    public static boolean isEmpty(Number number) {
+       return number.doubleValue() < 0;
+    }
+
+    /**
+     * 判断Number是否为空
+     *
+     * @param number
+     * @return 是否为true
+     */
+    public static boolean isEmpty(Integer number) {
+        return number == 0 || number.equals(null);
     }
 
     //-----------------------------------------------------------------------

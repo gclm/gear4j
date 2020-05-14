@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.util;
+package club.gclmit.chaos.core.collection;
 
 import java.text.NumberFormat;
 import java.text.ParseException;

@@ -1,4 +1,4 @@
-package club.gclmit.chaos.web.xss;
+package club.gclmit.chaos.core.net.html;
 
 
 import club.gclmit.chaos.core.util.StringUtils;

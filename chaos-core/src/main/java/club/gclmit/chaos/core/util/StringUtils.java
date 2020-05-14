@@ -6,7 +6,6 @@ import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.lang.Convert;
 import club.gclmit.chaos.core.text.StringFormatter;
 import club.gclmit.chaos.core.text.StringSpliter;
-
 import java.io.*;
 import java.net.URI;
 import java.net.URL;
@@ -17,9 +16,13 @@ import java.util.*;
 import java.util.Map.Entry;
 
 /**
- * 字符串工具类
+ * <p>
+ *  基于 hutools字符串工具类
+ * </p>
  *
+ * @author: gclm
  * @author xiaoleilu
+ * @since: V1.0
  */
 public class StringUtils {
 
@@ -133,7 +136,7 @@ public class StringUtils {
 	 * @return 是否包含空字符串
 	 */
 	public static boolean hasBlank(CharSequence... strs) {
-		if (ObjectUtils.isEmpty(strs)) {
+		if (ArrayUtils.isEmpty(strs)) {
 			return true;
 		}
 
@@ -152,7 +155,7 @@ public class StringUtils {
 	 * @return 所有字符串是否为空白
 	 */
 	public static boolean isAllBlank(CharSequence... strs) {
-		if (ObjectUtils.isEmpty(strs)) {
+		if (ArrayUtils.isEmpty(strs)) {
 			return true;
 		}
 
@@ -303,7 +306,7 @@ public class StringUtils {
 	 * @return 是否包含空字符串
 	 */
 	public static boolean hasEmpty(CharSequence... strs) {
-		if (ObjectUtils.isEmpty(strs)) {
+		if (ArrayUtils.isEmpty(strs)) {
 			return true;
 		}
 
@@ -322,7 +325,7 @@ public class StringUtils {
 	 * @return 是否全部为空字符串
 	 */
 	public static boolean isAllEmpty(CharSequence... strs) {
-		if (ObjectUtils.isEmpty(strs)) {
+		if (ArrayUtils.isEmpty(strs)) {
 			return true;
 		}
 
@@ -625,7 +628,7 @@ public class StringUtils {
 	 * @since 3.0.6
 	 */
 	public static boolean startWithAny(CharSequence str, CharSequence... prefixes) {
-		if (isEmpty(str) || ObjectUtils.isEmpty(prefixes)) {
+		if (isEmpty(str) || ArrayUtils.isEmpty(prefixes)) {
 			return false;
 		}
 
@@ -701,7 +704,7 @@ public class StringUtils {
 	 * @since 3.0.6
 	 */
 	public static boolean endWithAny(CharSequence str, CharSequence... suffixes) {
-		if (isEmpty(str) || ObjectUtils.isEmpty(suffixes)) {
+		if (isEmpty(str) || ArrayUtils.isEmpty(suffixes)) {
 			return false;
 		}
 
@@ -826,7 +829,7 @@ public class StringUtils {
 	 * @since 3.2.0
 	 */
 	public static String getContainsStr(CharSequence str, CharSequence... testStrs) {
-		if (isEmpty(str) || ObjectUtils.isEmpty(testStrs)) {
+		if (isEmpty(str) || ArrayUtils.isEmpty(testStrs)) {
 			return null;
 		}
 		for (CharSequence checkStr : testStrs) {
@@ -875,7 +878,7 @@ public class StringUtils {
 	 * @since 3.2.0
 	 */
 	public static String getContainsStrIgnoreCase(CharSequence str, CharSequence... testStrs) {
-		if (isEmpty(str) || ObjectUtils.isEmpty(testStrs)) {
+		if (isEmpty(str) || ArrayUtils.isEmpty(testStrs)) {
 			return null;
 		}
 		for (CharSequence testStr : testStrs) {
@@ -954,7 +957,7 @@ public class StringUtils {
 	 * @since 4.2.2
 	 */
 	public static String removeAll(CharSequence str, char... chars) {
-		if (null == str || ObjectUtils.isEmpty(chars)) {
+		if (null == str || ArrayUtils.isEmpty(chars)) {
 			return toString(str);
 		}
 		final int len = str.length();
@@ -2208,7 +2211,7 @@ public class StringUtils {
 	 * @since 4.3.2
 	 */
 	public static boolean equalsAny(CharSequence str1, boolean ignoreCase, CharSequence... strs) {
-		if (ObjectUtils.isEmpty(strs)) {
+		if (ArrayUtils.isEmpty(strs)) {
 			return false;
 		}
 
@@ -2237,7 +2240,7 @@ public class StringUtils {
 		if (null == template) {
 			return null;
 		}
-		if (ObjectUtils.isEmpty(params) || isBlank(template)) {
+		if (ArrayUtils.isEmpty(params) || isBlank(template)) {
 			return template.toString();
 		}
 		return StringFormatter.format(template.toString(), params);
@@ -2388,7 +2391,7 @@ public class StringUtils {
 		} else if (obj instanceof ByteBuffer) {
 			return toString((ByteBuffer) obj, charset);
 		} else if (ObjectUtils.isArray(obj)) {
-			return ObjectUtils.toString(obj);
+			return ArrayUtils.toString(obj);
 		}
 
 		return obj.toString();
@@ -3962,7 +3965,7 @@ public class StringUtils {
 	 * @since 3.2.2
 	 */
 	public static String replaceChars(CharSequence str, char[] chars, CharSequence replacedStr) {
-		if (isEmpty(str) || ObjectUtils.isEmpty(chars)) {
+		if (isEmpty(str) || ArrayUtils.isEmpty(chars)) {
 			return toString(str);
 		}
 

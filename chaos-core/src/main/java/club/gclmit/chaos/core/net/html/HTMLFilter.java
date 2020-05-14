@@ -1,4 +1,4 @@
-package club.gclmit.chaos.web.xss;
+package club.gclmit.chaos.core.net.html;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 /**
  * <p>
- * HTML 过滤器
+ * HTML过滤器，用于去除XSS漏洞隐患。
  * </p>
  *
  * @author: gclm
@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
  * @since 1.8
  */
 public final class HTMLFilter {
+
     /**
      * regex flag union representing /si modifiers in php
      **/
@@ -36,7 +37,7 @@ public final class HTMLFilter {
     private static final Pattern P_VALID_ENTITIES = Pattern.compile("&([^&;]*)(?=(;|&|$))");
     private static final Pattern P_VALID_QUOTES = Pattern.compile("(>|^)([^<]+?)(<|$)", Pattern.DOTALL);
     private static final Pattern P_END_ARROW = Pattern.compile("^>");
-    private static final Pattern P_BODY_TO_END = Pattern.compile("<([^>]*?)(?=<|$)");
+    // private static final Pattern P_BODY_TO_END = Pattern.compile("<([^>]*?)(?=<|$)");
     private static final Pattern P_XML_CONTENT = Pattern.compile("(^|>)([^<]*?)(?=>)");
     private static final Pattern P_STRAY_LEFT_ARROW = Pattern.compile("<([^>]*?)(?=<|$)");
     private static final Pattern P_STRAY_RIGHT_ARROW = Pattern.compile("(^|>)([^<]*?)(?=>)");
@@ -125,8 +126,7 @@ public final class HTMLFilter {
         vSelfClosingTags = new String[]{"img"};
         vNeedClosingTags = new String[]{"a", "b", "strong", "i", "em"};
         vDisallowed = new String[]{};
-        // no ftp.
-        vAllowedProtocols = new String[]{"http", "mailto", "https"};
+        vAllowedProtocols = new String[]{"http", "mailto", "https"}; // no ftp.
         vProtocolAtts = new String[]{"src", "href"};
         vRemoveBlanks = new String[]{"a", "b", "strong", "i", "em"};
         vAllowedEntities = new String[]{"amp", "gt", "lt", "quot"};
@@ -221,8 +221,7 @@ public final class HTMLFilter {
         final Matcher m = P_COMMENTS.matcher(s);
         final StringBuffer buf = new StringBuffer();
         if (m.find()) {
-            // (.*?)
-            final String match = m.group(1);
+            final String match = m.group(1); // (.*?)
             m.appendReplacement(buf, Matcher.quoteReplacement("<!--" + htmlSpecialChars(match) + "-->"));
         }
         m.appendTail(buf);
@@ -236,7 +235,8 @@ public final class HTMLFilter {
             // try and form html
             //
             s = regexReplace(P_END_ARROW, "", s);
-            s = regexReplace(P_BODY_TO_END, "<$1>", s);
+            // 不追加结束标签
+            // s = regexReplace(P_BODY_TO_END, "<$1>", s);
             s = regexReplace(P_XML_CONTENT, "$1<$2", s);
 
         } else {
@@ -449,10 +449,8 @@ public final class HTMLFilter {
         // validate entities throughout the string
         Matcher m = P_VALID_ENTITIES.matcher(s);
         while (m.find()) {
-            // ([^&;]*)
-            final String one = m.group(1);
-            // (?=(;|&|$))
-            final String two = m.group(2);
+            final String one = m.group(1); // ([^&;]*)
+            final String two = m.group(2); // (?=(;|&|$))
             m.appendReplacement(buf, Matcher.quoteReplacement(checkEntity(one, two)));
         }
         m.appendTail(buf);
@@ -465,12 +463,9 @@ public final class HTMLFilter {
             StringBuffer buf = new StringBuffer();
             Matcher m = P_VALID_QUOTES.matcher(s);
             while (m.find()) {
-                // (>|^)
-                final String one = m.group(1);
-                // ([^<]+?)
-                final String two = m.group(2);
-                // (<|$)
-                final String three = m.group(3);
+                final String one = m.group(1); // (>|^)
+                final String two = m.group(2); // ([^<]+?)
+                final String three = m.group(3); // (<|$)
                 // 不替换双引号为&quot;，防止json格式无效 regexReplace(P_QUOTE, "&quot;", two)
                 m.appendReplacement(buf, Matcher.quoteReplacement(one + two + three));
             }

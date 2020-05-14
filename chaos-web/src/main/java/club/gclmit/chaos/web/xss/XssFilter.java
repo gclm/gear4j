@@ -24,7 +24,6 @@ public class XssFilter implements Filter {
 
     public XssFilter(Supplier<Boolean> supplier) {
         this.supplier = supplier;
-
     }
 
     FilterConfig filterConfig = null;
@@ -32,14 +31,14 @@ public class XssFilter implements Filter {
     /**
      * 需要放行的url
      */
-    private String[] releaseUrl =new String[]{ "/open/list","/login/**"};
+    private String[] releaseUrl = new String[]{"/open/list", "/login/**"};
 
     /**
      * 正则表达式过滤规则
-     *    .js  .css  .woff    .gi .json    .png    .jpg    .jpeg .ico  这些静态资源
-     *  比如   public static Pattern p = Pattern.compile("^.*\\.((?!html).)*$");
+     * .js  .css  .woff    .gi .json    .png    .jpg    .jpeg .ico  这些静态资源
+     * 比如   public static Pattern p = Pattern.compile("^.*\\.((?!html).)*$");
      */
-    private Pattern p = Pattern.compile("^.*\\.((?!html).)*$");
+    private Pattern pattern = Pattern.compile("^.*\\.((?!html).)*$");
 
     /**
      * 定义的一个开关,用来动态开启xss,如果生产项目,参考这个搬去用就行拉,  releaseUrl 也可以参考,这样级就可以动态处理了
@@ -47,7 +46,6 @@ public class XssFilter implements Filter {
     private Supplier<Boolean> supplier;
 
     /**
-     *
      * @return
      */
     private Boolean getEnabled() {
@@ -61,7 +59,6 @@ public class XssFilter implements Filter {
 
     @Override
     public void destroy() {
-        this.filterConfig = null;
     }
 
     @Override
@@ -71,7 +68,7 @@ public class XssFilter implements Filter {
         String servletPath = request.getServletPath();
 
         //正则校验一次  专门对于那些  .js  .css  .woff    .gi .json    .png    .jpg    .jpeg .ico  这些静态资源
-        if (p != null && p.matcher(servletPath).find()) {
+        if (pattern != null && pattern.matcher(servletPath).find()) {
             chain.doFilter(request, response);
             return;
         }
