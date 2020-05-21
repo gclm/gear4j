@@ -21,6 +21,11 @@ public class ChaosLoggerProperties {
     private String prefix = "/api";
 
     /**
+     * 需要忽略的url
+     */
+    private String[] ignoreUrls = {};
+
+    /**
      * 是否保存日志到数据库中
      */
     private boolean writeDB = true;
@@ -39,5 +44,13 @@ public class ChaosLoggerProperties {
 
     public void setWriteDB(boolean writeDB) {
         this.writeDB = writeDB;
+    }
+
+    public String[] getIgnoreUrls() {
+        return ignoreUrls;
+    }
+
+    public void setIgnoreUrls(String[] ignoreUrls) {
+        this.ignoreUrls = ignoreUrls;
     }
 }

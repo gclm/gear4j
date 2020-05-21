@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.net.http;
+package club.gclmit.chaos.core.net.web;
 
 import java.net.*;
 import java.util.ArrayList;

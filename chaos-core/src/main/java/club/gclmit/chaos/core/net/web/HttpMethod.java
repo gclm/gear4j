@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.net.http;
+package club.gclmit.chaos.core.net.web;
 
 /**
  * <p>

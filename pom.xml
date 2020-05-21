@@ -6,12 +6,12 @@
     <parent>
         <groupId>club.gclmit</groupId>
         <artifactId>chaos-dependencies</artifactId>
-        <version>1.3.6.RELEASE</version>
+        <version>1.3.7.RELEASE</version>
     </parent>
 
     <artifactId>chaos</artifactId>
     <packaging>pom</packaging>
-    <version>1.4.10.RELEASE</version>
+    <version>1.5.0.RELEASE</version>
 
     <name>${project.artifactId}</name>
     <url>https://blog.gclmit.club/</url>

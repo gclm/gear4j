@@ -1,9 +1,7 @@
-package club.gclmit.chaos.core.net.http;
+package club.gclmit.chaos.core.net.web;
 
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.util.StringUtils;
-import org.springframework.web.util.ContentCachingRequestWrapper;
-import org.springframework.web.util.ContentCachingResponseWrapper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Enumeration;
@@ -207,13 +205,13 @@ public class HttpRequestUtils {
      */
     public static String getRequestBody(HttpServletRequest request) {
         Assert.notNull(request, "request instance is null.");
-        ContentCachingRequestWrapper requestWrapper;
-        if (request instanceof ContentCachingRequestWrapper) {
-            requestWrapper = (ContentCachingRequestWrapper) request;
+        RequestWrapperCache requestWrapper;
+        if (request instanceof RequestWrapperCache) {
+            requestWrapper = (RequestWrapperCache) request;
         } else {
-            requestWrapper = new ContentCachingRequestWrapper(request);
+            requestWrapper = new RequestWrapperCache(request);
         }
-        return StringUtils.toString(requestWrapper.getContentAsByteArray(),requestWrapper.getCharacterEncoding());
+        return requestWrapper.getBody();
     }
 
     /**
@@ -228,45 +226,12 @@ public class HttpRequestUtils {
      */
     public static String getResponseBody(HttpServletResponse response) {
         Assert.notNull(response, "response instance is null.");
-        ContentCachingResponseWrapper responseWrapper;
-        if (response instanceof ContentCachingResponseWrapper) {
-            responseWrapper = (ContentCachingResponseWrapper) response;
+        ResponseWrapperCache responseWrapper;
+        if (response instanceof ResponseWrapperCache) {
+            responseWrapper = (ResponseWrapperCache) response;
         } else {
-            responseWrapper = new ContentCachingResponseWrapper(response);
+            responseWrapper = new ResponseWrapperCache(response);
         }
-        return StringUtils.toString(responseWrapper.getContentAsByteArray(),responseWrapper.getCharacterEncoding());
+        return responseWrapper.getBody();
     }
-
-
-//    /**
-//     * get request body content
-//     *
-//     * @param request http request instance
-//     * @return request body content
-//     */
-//    public static String getRequestBody(HttpServletRequest request) {
-//        Assert.notNull(request, "request instance is null.");
-//        RequestWrapper requestWrapper;
-//        if (request instanceof RequestWrapper) {
-//            requestWrapper = (RequestWrapper) request;
-//        } else {
-//            requestWrapper = new RequestWrapper(request);
-//        }
-//        return requestWrapper.getBody();
-//    }
-//
-//    /**
-//     * get response body content
-//     *
-//     * @param response http response instance
-//     * @return response body content
-//     */
-//    public static String getResponseBody(HttpServletResponse response) throws IOException {
-//        if (response instanceof ResponseWrapper) {
-//            ResponseWrapper responseWrapper = (ResponseWrapper) response;
-//            byte[] copy = responseWrapper.getCopy();
-//            return new String(copy, ResponseWrapper.DEFAULT_CHARACTER_ENCODING);
-//        }
-//        return null;
-//    }
 }

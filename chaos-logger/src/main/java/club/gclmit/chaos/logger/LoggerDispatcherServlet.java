@@ -2,17 +2,11 @@ package club.gclmit.chaos.logger;
 
 import club.gclmit.chaos.core.lang.Logger;
 import club.gclmit.chaos.core.lang.logger.LoggerServer;
-import club.gclmit.chaos.core.net.http.HttpRequestUtils;
-import club.gclmit.chaos.core.util.DateUtils;
-import club.gclmit.chaos.core.util.DbUtils;
-import club.gclmit.chaos.core.util.JsonUtils;
-import club.gclmit.chaos.core.util.StringUtils;
-import club.gclmit.chaos.logger.db.mapper.LoggerMapper;
-import club.gclmit.chaos.logger.db.pojo.HttpTrace;
-import club.gclmit.chaos.logger.db.pojo.HttpTraceBuilder;
-import org.springframework.beans.factory.BeanFactory;
+import club.gclmit.chaos.core.net.web.HttpRequestUtils;
+import club.gclmit.chaos.core.util.*;
+import club.gclmit.chaos.logger.mapper.LoggerMapper;
+import club.gclmit.chaos.logger.pojo.HttpTrace;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
@@ -29,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version: V1.0
  * @since 1.8
  */
+@Deprecated
 public class LoggerDispatcherServlet extends DispatcherServlet {
 
     /**
@@ -78,7 +73,7 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
                 contentType = DEFAULT_CONTENT_TYPE;
             }
 
-            HttpTraceBuilder httpTraceBuilder = HttpTrace.builder()
+            HttpTrace.HttpTraceBuilder builder = HttpTrace.builder()
                     .requestTime(requestTime)
                     .clientIp(HttpRequestUtils.getClientIp(requestWrapper))
                     .contentType(contentType)
@@ -96,7 +91,7 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
                 if (StringUtils.isEmpty(requestBody) || "{}".equals(requestBody)) {
                     requestBody = HttpRequestUtils.getRequestBody(requestWrapper);
                 }
-                httpTraceBuilder.requestBody(requestBody);
+                builder.requestBody(requestBody);
             }
 
             /**
@@ -106,7 +101,7 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
             Long responseTime = DateUtils.getMilliTimestamp();
             Long time = responseTime - requestTime;
 
-            HttpTrace trace = httpTraceBuilder.httpCode(responseWrapper.getStatus())
+            HttpTrace trace = builder.httpCode(responseWrapper.getStatus())
                     .responseBody(HttpRequestUtils.getResponseBody(responseWrapper))
                     .responseHeader(JsonUtils.toJson(HttpRequestUtils.getResponseHeaders(responseWrapper)))
                     .responseTime(responseTime)
@@ -116,7 +111,7 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
              * 保存到数据库
              */
             if (config.isWriteDB()) {
-                LoggerMapper loggerMapper = genBean(LoggerMapper.class, requestWrapper);
+                LoggerMapper loggerMapper = BeanUtils.genBean(LoggerMapper.class, requestWrapper);
                 boolean save = DbUtils.retBool(loggerMapper.insert(trace));
                 Logger.info(LoggerServer.CHAOS, "当前请求日志入库：{}", save);
             } else {
@@ -124,21 +119,4 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
             }
         }
     }
-
-    /**
-     * 获取Bean对象
-     *
-     * @throws
-     * @author gclm
-     * @param: clazz
-     * @param: request
-     * @date 2020/1/20 10:40 上午
-     * @return: T
-     */
-    public static <T> T genBean(Class<T> clazz, HttpServletRequest request) {
-        BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
-        return factory.getBean(clazz);
-    }
-
-
 }

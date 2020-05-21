@@ -1,16 +1,16 @@
-package club.gclmit.chaos.logger.db.mapper;
+package club.gclmit.chaos.logger.mapper;
 
-import club.gclmit.chaos.logger.db.pojo.HttpTrace;
+import club.gclmit.chaos.logger.pojo.HttpTrace;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
- *  日志插入数据库
+ * Mapper
  * </p>
  *
  * @author: gclm
- * @date: 2020/1/15 10:40 上午
+ * @date: 2020/5/21 6:32 下午
  * @version: V1.0
  * @since 1.8
  */

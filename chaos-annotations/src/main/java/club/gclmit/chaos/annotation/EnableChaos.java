@@ -21,7 +21,7 @@ import java.lang.annotation.*;
 @ConditionalOnWebApplication
 // 自定义注解配置
 @MapperScan(basePackages= {
-        "club.gclmit.chaos.*.db.mapper",
+        "club.gclmit.chaos.logger.mapper",
         "club.gclmit.chaos.*.mapper"
 })
 @ComponentScan(basePackages={
