@@ -2,7 +2,7 @@ package club.gclmit.chaos.logger.interceptor;
 
 import club.gclmit.chaos.core.lang.Logger;
 import club.gclmit.chaos.core.lang.logger.LoggerServer;
-import club.gclmit.chaos.core.net.web.HttpRequestUtils;
+import club.gclmit.chaos.core.net.web.HttpServletUtils;
 import club.gclmit.chaos.core.net.web.UrlUtils;
 import club.gclmit.chaos.core.util.*;
 import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
@@ -28,16 +28,6 @@ import java.util.Arrays;
  */
 public class LoggerInterceptor implements HandlerInterceptor {
 
-    /**
-     * 默认请求内容类型
-     */
-    private static final String DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
-
-    /**
-     * 忽略请求内容类型
-     */
-    private static final String IGNORE_CONTENT_TYPE = "multipart/form-data";
-
     @Autowired
     private ChaosLoggerProperties config;
 
@@ -45,32 +35,25 @@ public class LoggerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String uri = request.getRequestURI();
 
-        if (checkIgnoreUrl(uri)) {
+        if (checkIgnoreUrl(uri) || HttpServletUtils.isFileUpload(request)) {
             return true;
         }
 
         /**
          * 如果 content Type 不存在默认为 application/x-www-form-urlencoded
          */
-        String contentType = StringUtils.isEmpty(request.getContentType()) ? DEFAULT_CONTENT_TYPE : request.getContentType();
         Long requestTime = DateUtils.getMilliTimestamp();
 
         HttpTrace.HttpTraceBuilder builder = HttpTrace.builder()
                 .uri(uri)
-                .clientIp(HttpRequestUtils.getClientIp(request))
-                .contentType(contentType)
+                .clientIp(HttpServletUtils.getClientIp(request))
+                .contentType(HttpServletUtils.getContentType(request))
                 .method(request.getMethod())
-                .userAgent(HttpRequestUtils.getUserAgent(request))
-                .sessionId(HttpRequestUtils.getSessionId(request))
-                .requestHeader(JsonUtils.toJson(HttpRequestUtils.getRequestHeaders(request)))
-                .requestTime(requestTime);
-
-        /**
-         *  判断请求是否是get,如果是 get 从 request 里面获取，否则从 body 里面获取
-         */
-        if (!contentType.startsWith(IGNORE_CONTENT_TYPE)) {
-            builder.requestBody(HttpRequestUtils.getRequestBody(request));
-        }
+                .userAgent(HttpServletUtils.getUserAgent(request))
+                .sessionId(HttpServletUtils.getSessionId(request))
+                .requestHeader(JsonUtils.toJson(HttpServletUtils.getRequestHeaders(request)))
+                .requestTime(requestTime)
+                .requestBody(HttpServletUtils.getRequestBody(request));
 
         request.setAttribute("HttpTrace", builder);
         request.setAttribute("requestTime", requestTime);
@@ -81,7 +64,7 @@ public class LoggerInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
-        if (!checkIgnoreUrl(request.getRequestURI())) {
+        if (!checkIgnoreUrl(request.getRequestURI()) && !HttpServletUtils.isFileUpload(request)) {
             HttpTrace.HttpTraceBuilder builder = (HttpTrace.HttpTraceBuilder) request.getAttribute("HttpTrace");
             Long requestTime = (Long) request.getAttribute("requestTime");
 
@@ -93,8 +76,8 @@ public class LoggerInterceptor implements HandlerInterceptor {
             Long time = responseTime - requestTime;
 
             HttpTrace trace = builder.httpCode(response.getStatus())
-                    .responseBody(HttpRequestUtils.getResponseBody(response))
-                    .responseHeader(JsonUtils.toJson(HttpRequestUtils.getResponseHeaders(response)))
+                    .responseBody(HttpServletUtils.getResponseBody(response))
+                    .responseHeader(JsonUtils.toJson(HttpServletUtils.getResponseHeaders(response)))
                     .responseTime(responseTime)
                     .consumingTime(time).build();
 

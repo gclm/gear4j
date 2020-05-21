@@ -2,7 +2,7 @@ package club.gclmit.chaos.logger;
 
 import club.gclmit.chaos.core.lang.Logger;
 import club.gclmit.chaos.core.lang.logger.LoggerServer;
-import club.gclmit.chaos.core.net.web.HttpRequestUtils;
+import club.gclmit.chaos.core.net.web.HttpServletUtils;
 import club.gclmit.chaos.core.util.*;
 import club.gclmit.chaos.logger.mapper.LoggerMapper;
 import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
@@ -76,12 +76,12 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
 
             HttpTrace.HttpTraceBuilder builder = HttpTrace.builder()
                     .requestTime(requestTime)
-                    .clientIp(HttpRequestUtils.getClientIp(requestWrapper))
+                    .clientIp(HttpServletUtils.getClientIp(requestWrapper))
                     .contentType(contentType)
                     .method(requestWrapper.getMethod())
-                    .userAgent(HttpRequestUtils.getUserAgent(requestWrapper))
-                    .sessionId(HttpRequestUtils.getSessionId(requestWrapper))
-                    .requestHeader(JsonUtils.toJson(HttpRequestUtils.getRequestHeaders(requestWrapper)));
+                    .userAgent(HttpServletUtils.getUserAgent(requestWrapper))
+                    .sessionId(HttpServletUtils.getSessionId(requestWrapper))
+                    .requestHeader(JsonUtils.toJson(HttpServletUtils.getRequestHeaders(requestWrapper)));
 
 
             /**
@@ -90,7 +90,7 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
             if (!contentType.startsWith(IGNORE_CONTENT_TYPE)) {
                 String requestBody = JsonUtils.toJson(requestWrapper.getParameterMap());
                 if (StringUtils.isEmpty(requestBody) || "{}".equals(requestBody)) {
-                    requestBody = HttpRequestUtils.getRequestBody(requestWrapper);
+                    requestBody = HttpServletUtils.getRequestBody(requestWrapper);
                 }
                 builder.requestBody(requestBody);
             }
@@ -103,8 +103,8 @@ public class LoggerDispatcherServlet extends DispatcherServlet {
             Long time = responseTime - requestTime;
 
             HttpTrace trace = builder.httpCode(responseWrapper.getStatus())
-                    .responseBody(HttpRequestUtils.getResponseBody(responseWrapper))
-                    .responseHeader(JsonUtils.toJson(HttpRequestUtils.getResponseHeaders(responseWrapper)))
+                    .responseBody(HttpServletUtils.getResponseBody(responseWrapper))
+                    .responseHeader(JsonUtils.toJson(HttpServletUtils.getResponseHeaders(responseWrapper)))
                     .responseTime(responseTime)
                     .consumingTime(time).build();
 

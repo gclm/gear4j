@@ -40,8 +40,6 @@ public class ChaosLoggerConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**");
     }
 
-
-
     @Deprecated
 //    @Bean
     public ServletRegistrationBean dispatcherRegistration() {

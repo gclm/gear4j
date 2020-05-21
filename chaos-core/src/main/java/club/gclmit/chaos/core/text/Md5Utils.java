@@ -1,6 +1,6 @@
 package club.gclmit.chaos.core.text;
 
-import club.gclmit.chaos.core.util.ObjectUtils;
+import club.gclmit.chaos.core.util.ArrayUtils;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.io.IOUtils;
 import club.gclmit.chaos.core.file.FileUtils;
@@ -67,7 +67,7 @@ public class Md5Utils {
      * @return: java.lang.String
      */
     public static String encode(byte[] bytes) {
-        Assert.isFalse(ObjectUtils.isEmpty(bytes),"bytes 不能为空");
+        Assert.isFalse(ArrayUtils.isEmpty(bytes),"bytes 不能为空");
         MessageDigest digest = md5();
         return getMd5Checksum(digest.digest(bytes));
     }
@@ -111,7 +111,7 @@ public class Md5Utils {
      * @return: java.lang.String
      */
     public static String getMd5Checksum(byte[] bytes){
-        Assert.isFalse(ObjectUtils.isEmpty(bytes),"bytes 不能为空");
+        Assert.isFalse(ArrayUtils.isEmpty(bytes),"bytes 不能为空");
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < bytes.length; ++i) {
             sb.append(Integer.toHexString((bytes[i] & 0xFF) | 0x100).substring(1,3));

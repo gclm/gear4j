@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * <p>
- * HttpRequest 工具类
+ * HttpServlet Request/Response 工具类
  * </p>
  *
  * @author: gclm
@@ -19,7 +19,7 @@ import java.util.Map;
  * @version: V1.0
  * @since 1.8
  */
-public class HttpRequestUtils {
+public class HttpServletUtils {
 
     /**
      * Http 魔法值
@@ -35,6 +35,17 @@ public class HttpRequestUtils {
      * 默认 host
      */
     public static final String DEFAULT_HOST = "127.0.0.1";
+
+    /**
+     * 上传内容类型
+     */
+    private static final String UPLOAD_CONTENT_TYPE = "multipart/form-data";
+
+    /**
+     * 默认请求内容类型
+     */
+    private static final String DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
+
 
     /**
      * 获取客户端 ip
@@ -170,7 +181,6 @@ public class HttpRequestUtils {
      * @param: request
      * @date 2020/1/11 9:35 下午
      * @return: java.lang.String
-     * @throws
      */
     public static String getRequestType(HttpServletRequest request) {
         Assert.notNull(request, "request instance is null.");
@@ -184,7 +194,6 @@ public class HttpRequestUtils {
      * @param: request
      * @date 2020/1/20 9:34 上午
      * @return: java.lang.String
-     * @throws
      */
     public static String getSessionId(HttpServletRequest request) {
         return request.getSession().getId();
@@ -197,12 +206,41 @@ public class HttpRequestUtils {
      * @param: request
      * @date 2020/1/20 10:38 上午
      * @return: java.lang.String
-     * @throws
      */
     public static String getUserAgent(HttpServletRequest request) {
         Assert.notNull(request, "request instance is null.");
         return getHeader(request,"User-Agent");
     }
+
+    /**
+     * <p>
+     *  是否是文件上传类型
+     * </p>
+     *
+     * @author gclm
+     * @param: request
+     * @date 2020/5/21 10:45 下午
+     * @return: boolean
+     */
+    public static boolean isFileUpload(HttpServletRequest request){
+        Assert.notNull(request, "request instance is null.");
+        return getContentType(request).startsWith(UPLOAD_CONTENT_TYPE);
+    }
+
+    /**
+     * <p>
+     *  获取请求内容
+     * </p>
+     *
+     * @author gclm
+     * @param: request
+     * @return: boolean
+     */
+    public static String getContentType(HttpServletRequest request){
+        Assert.notNull(request, "request instance is null.");
+        return StringUtils.isEmpty(request.getContentType()) ? DEFAULT_CONTENT_TYPE : request.getContentType();
+    }
+
 
     /**
      * 获取 requestBody 内容
@@ -229,9 +267,8 @@ public class HttpRequestUtils {
      * 获取 ResponseBody 内容
      * wrapper.getCharacterEncoding() 默认为 ISO-8859-1
      *
-     * @throws
      * @author gclm
-     * @param: wrapper
+     * @param: response
      * @date 2020/1/20 4:17 下午
      * @return: java.lang.String
      */

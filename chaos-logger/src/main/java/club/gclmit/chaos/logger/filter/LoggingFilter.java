@@ -1,8 +1,8 @@
 package club.gclmit.chaos.logger.filter;
 
+import club.gclmit.chaos.core.net.web.HttpServletUtils;
 import club.gclmit.chaos.core.net.web.RequestWrapperCache;
 import club.gclmit.chaos.core.net.web.ResponseWrapperCache;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -24,11 +24,14 @@ public class LoggingFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-        RequestWrapperCache requestWrapper = new RequestWrapperCache((HttpServletRequest) request);
-        ResponseWrapperCache responseWrapper = new ResponseWrapperCache((HttpServletResponse) response) ;
+        if (!HttpServletUtils.isFileUpload((HttpServletRequest) request)) {
+            RequestWrapperCache requestWrapper = new RequestWrapperCache((HttpServletRequest) request);
+            ResponseWrapperCache responseWrapper = new ResponseWrapperCache((HttpServletResponse) response);
 
-        chain.doFilter(requestWrapper, responseWrapper);
-        responseWrapper.flushBuffer();
+            chain.doFilter(requestWrapper, responseWrapper);
+            responseWrapper.flushBuffer();
+        }
+        chain.doFilter(request, response);
     }
 
     @Override
