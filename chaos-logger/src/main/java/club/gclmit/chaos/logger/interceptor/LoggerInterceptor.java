@@ -5,9 +5,9 @@ import club.gclmit.chaos.core.lang.logger.LoggerServer;
 import club.gclmit.chaos.core.net.web.HttpRequestUtils;
 import club.gclmit.chaos.core.net.web.UrlUtils;
 import club.gclmit.chaos.core.util.*;
-import club.gclmit.chaos.logger.ChaosLoggerProperties;
+import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
 import club.gclmit.chaos.logger.mapper.LoggerMapper;
-import club.gclmit.chaos.logger.pojo.HttpTrace;
+import club.gclmit.chaos.logger.model.HttpTrace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
@@ -63,11 +63,17 @@ public class LoggerInterceptor implements HandlerInterceptor {
                 .userAgent(HttpRequestUtils.getUserAgent(request))
                 .sessionId(HttpRequestUtils.getSessionId(request))
                 .requestHeader(JsonUtils.toJson(HttpRequestUtils.getRequestHeaders(request)))
-                .requestTime(requestTime)
-                .requestBody(HttpRequestUtils.getRequestBody(request));
+                .requestTime(requestTime);
 
-        request.setAttribute("HttpTrace",builder);
-        request.setAttribute("requestTime",requestTime);
+        /**
+         *  判断请求是否是get,如果是 get 从 request 里面获取，否则从 body 里面获取
+         */
+        if (!contentType.startsWith(IGNORE_CONTENT_TYPE)) {
+            builder.requestBody(HttpRequestUtils.getRequestBody(request));
+        }
+
+        request.setAttribute("HttpTrace", builder);
+        request.setAttribute("requestTime", requestTime);
 
         return true;
     }
@@ -75,10 +81,11 @@ public class LoggerInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
-        HttpTrace.HttpTraceBuilder builder = (HttpTrace.HttpTraceBuilder) request.getAttribute("HttpTrace");
-        Long requestTime = (Long) request.getAttribute("requestTime");
+        if (!checkIgnoreUrl(request.getRequestURI())) {
+            HttpTrace.HttpTraceBuilder builder = (HttpTrace.HttpTraceBuilder) request.getAttribute("HttpTrace");
+            Long requestTime = (Long) request.getAttribute("requestTime");
 
-        /**
+            /**
              *  获取 response 相关参数
              *  请求耗时 = 响应时间 - 请求时间
              */
@@ -101,12 +108,14 @@ public class LoggerInterceptor implements HandlerInterceptor {
             } else {
                 Logger.info(LoggerServer.CHAOS, "当前请求日志：{}", trace);
             }
+        }
     }
 
     private boolean checkIgnoreUrl(String uri) {
-        if (uri.startsWith(config.getPrefix()) || !UrlUtils.isIgnore(Arrays.asList(config.getIgnoreUrls()), uri)) {
+        if (uri.startsWith(config.getPrefix()) || UrlUtils.isIgnore(Arrays.asList(config.getIgnoreUrls()), uri)) {
             return false;
         }
         return true;
     }
+
 }

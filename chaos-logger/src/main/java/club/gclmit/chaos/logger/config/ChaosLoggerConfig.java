@@ -1,11 +1,14 @@
-package club.gclmit.chaos.logger;
+package club.gclmit.chaos.logger.config;
 
 import club.gclmit.chaos.core.lang.Logger;
 import club.gclmit.chaos.core.lang.logger.LoggerServer;
+import club.gclmit.chaos.logger.LoggerDispatcherServlet;
 import club.gclmit.chaos.logger.interceptor.LoggerInterceptor;
+import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -26,11 +29,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableConfigurationProperties(ChaosLoggerProperties.class)
 public class ChaosLoggerConfig implements WebMvcConfigurer {
 
+    @Bean
+    public LoggerInterceptor loggerInterceptor(){
+        return new LoggerInterceptor();
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoggerInterceptor())
+        registry.addInterceptor(loggerInterceptor())
                 .addPathPatterns("/**");
     }
+
+
 
     @Deprecated
 //    @Bean

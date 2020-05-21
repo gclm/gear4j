@@ -54,6 +54,12 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!--  自定义配置     -->
         <dependency>
             <groupId>com.alibaba</groupId>

@@ -24,10 +24,20 @@ public class HttpRequestUtils {
     /**
      * Http 魔法值
      */
-    private static final String UNKNOWN  = "UNKNOWN";
+    public static final String UNKNOWN  = "UNKNOWN";
 
     /**
-     * get request ip address
+     * localhost 魔法值
+     */
+    public static final String LOCALHOST = "0:0:0:0:0:0:0:1";
+
+    /**
+     * 默认 host
+     */
+    public static final String DEFAULT_HOST = "127.0.0.1";
+
+    /**
+     * 获取客户端 ip
      *
      * @param request http request instance
      * @return ip address
@@ -62,7 +72,8 @@ public class HttpRequestUtils {
         if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
-        return ip;
+
+        return LOCALHOST.equals(ip) ? DEFAULT_HOST : ip;
     }
 
     /**

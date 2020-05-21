@@ -1,4 +1,4 @@
-package club.gclmit.chaos.logger;
+package club.gclmit.chaos.logger.model;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
