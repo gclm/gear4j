@@ -84,7 +84,8 @@ public class ResponseWrapperCache extends HttpServletResponseWrapper {
     }
 
     private String getCharset() {
-        return getCharacterEncoding() != null ? getCharacterEncoding() : CharsetUtils.UTF_8;
+//        return getCharacterEncoding() != null ? getCharacterEncoding() : CharsetUtils.UTF_8;
+        return CharsetUtils.UTF_8;
     }
 
     private class ResponseServletOutputStream extends ServletOutputStream {

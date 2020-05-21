@@ -2,6 +2,7 @@ package club.gclmit.chaos.annotation;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
 import java.lang.annotation.*;
 
@@ -27,6 +28,7 @@ import java.lang.annotation.*;
 @ComponentScan(basePackages={
         "club.gclmit.chaos"
 })
+@ServletComponentScan(basePackages = "club.gclmit.chaos")
 public @interface EnableChaos {
 
 }
