@@ -35,10 +35,7 @@ public abstract class RestApiController<Service extends IService<T>, T>  extends
     public Result create(@Valid @RequestBody T t) {
         Assert.notNull(t,"添加的操作数据为空");
         Logger.info(LoggerServer.CONTROLLER, "添加操作数据:[{}]",t);
-        if (this.service.save(t)) {
-            return Result.ok();
-        }
-        return Result.fail("执行添加操作失败");
+        return this.service.save(t) ? Result.ok() : Result.fail("执行添加操作失败");
     }
 
 }
