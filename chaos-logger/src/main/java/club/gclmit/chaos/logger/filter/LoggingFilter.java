@@ -24,14 +24,14 @@ public class LoggingFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-        if (!HttpServletUtils.isFileUpload((HttpServletRequest) request)) {
-            RequestWrapperCache requestWrapper = new RequestWrapperCache((HttpServletRequest) request);
-            ResponseWrapperCache responseWrapper = new ResponseWrapperCache((HttpServletResponse) response);
-
-            chain.doFilter(requestWrapper, responseWrapper);
-            responseWrapper.flushBuffer();
+        if (HttpServletUtils.isFileUpload((HttpServletRequest) request)) {
+            chain.doFilter(request, response);
         }
-        chain.doFilter(request, response);
+
+        RequestWrapperCache requestWrapper = new RequestWrapperCache((HttpServletRequest) request);
+        ResponseWrapperCache responseWrapper = new ResponseWrapperCache((HttpServletResponse) response);
+        chain.doFilter(requestWrapper, responseWrapper);
+        responseWrapper.flushBuffer();
     }
 
     @Override
