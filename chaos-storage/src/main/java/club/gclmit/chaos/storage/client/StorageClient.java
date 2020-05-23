@@ -2,7 +2,7 @@ package club.gclmit.chaos.storage.client;
 
 import club.gclmit.chaos.core.file.FileUtils;
 import club.gclmit.chaos.core.file.MimeType;
-import club.gclmit.chaos.core.text.Md5Utils;
+import club.gclmit.chaos.core.text.DigestUtils;
 import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.IDUtils;
 import club.gclmit.chaos.core.util.StringUtils;
@@ -105,7 +105,7 @@ public abstract class StorageClient {
          */
         String key = getPath(storage.getConfig().getPrefix(), FileUtils.getSuffix(file));
         String contentType = FileUtils.getContentType(file);
-        String md5 = new Md5Utils().encode(file);
+        String md5 = DigestUtils.md5(file);
 
         return upload(fileInputStream,new FileInfo(file.getName(),contentType,file.length(), md5,key,storage.getType().getId()));
     }
@@ -130,7 +130,7 @@ public abstract class StorageClient {
          * 根据工具类获取 fileInfo 参数
          */
         String contentType = MimeType.TXT.getMimeType();
-        String md5  = new Md5Utils().encode(data);
+        String md5  = DigestUtils.md5(data);
         Long size = Long.valueOf(String.valueOf(data.length));
 
         /**

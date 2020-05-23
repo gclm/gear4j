@@ -6,9 +6,7 @@ import club.gclmit.chaos.core.util.ArrayUtils;
 import club.gclmit.chaos.core.util.IDUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.*;
-import java.time.Clock;
 
 /**
  * <p>
@@ -108,13 +106,13 @@ public class FileUtils {
      * @date: 2019-08-19
      * @return: void
      */
-    public static void deleteFile(String filePath) {
+    public static void delete(String filePath) {
         Assert.notNull(filePath, "文件路径不能为空");
         delete(new File(filePath));
     }
 
     /**
-     * 单个文件删除
+     * 文件删除
      *
      * @param file
      * @author 孤城落寞
@@ -123,6 +121,12 @@ public class FileUtils {
      */
     public static void delete(File file) {
         Assert.isTrue(file.exists(), "文件对象不能为空");
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            for (File f: files){
+                delete(f);
+            }
+        }
         if (!file.delete()){
             throw new ChaosCoreException("文件:"+file.getName()+" 删除失败");
         }

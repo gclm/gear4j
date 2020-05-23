@@ -61,27 +61,6 @@ public class ChaosStarterWebConfig  implements WebMvcConfigurer {
     }
 
     /**
-     *  MultipartResolver 配置
-     *  commons upload 上传配置
-     *
-     * @author gclm
-     * @date 2020/4/30 2:21 上午
-     * @return: org.springframework.web.multipart.MultipartResolver
-     */
-//    @Bean(name = "multipartResolver")
-//    public MultipartResolver multipartResolver(){
-//        Logger.info(LoggerServer.CHAOS, "MultipartResolver 配置，开启文件上传");
-//        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-//        resolver.setDefaultEncoding("UTF-8");
-//        //resolveLazily属性启用是为了推迟文件解析，以在在UploadAction中捕获文件大小异常
-//        resolver.setResolveLazily(true);
-//        resolver.setMaxInMemorySize(40960);
-//        //上传文件大小 50M 50*1024*1024
-//        resolver.setMaxUploadSize(50*1024*1024L);
-//        return resolver;
-//    }
-
-    /**
      * 增加 Cors 跨域支持
      * @author 孤城落寞
      * @date: 2019-08-27
