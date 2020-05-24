@@ -1,11 +1,13 @@
 package club.gclmit.chaos.starter.config;
 
+import club.gclmit.chaos.core.file.FileUtils;
 import club.gclmit.chaos.core.lang.Logger;
 import club.gclmit.chaos.core.lang.logger.LoggerServer;
 import club.gclmit.chaos.starter.properties.ChaosWebConfig;
 import club.gclmit.chaos.web.xss.XssFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -15,6 +17,7 @@ import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.servlet.DispatcherType;
+import javax.servlet.MultipartConfigElement;
 
 /**
  * <p>
@@ -31,6 +34,16 @@ public class ChaosStarterWebConfig  implements WebMvcConfigurer {
 
     @Autowired
     private ChaosWebConfig config;
+
+    /**
+     * 文件上传临时路径
+     */
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        factory.setLocation(FileUtils.getRootPath());
+        return factory.createMultipartConfig();
+    }
 
     /**
      *  开启 knife4j（Swagger） 映射
