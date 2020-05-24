@@ -17,6 +17,9 @@
     <a href="https://codecov.io/gh/gclm/chaos">
         <img src="https://codecov.io/gh/gclm/chaos/branch/master/graph/badge.svg" />
     </a>
+    <a href="https://travis-ci.com/gclm/chaos">
+        <img src="https://travis-ci.com/gclm/chaos.svg?branch=master" />
+    </a>
 </p>
 <p align="center">
     QQ群：<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=4684b1c1194706adcc4ce7c9428935d31c0b2a86b51e96cb807fa30f94cebfde">641633175</a>
