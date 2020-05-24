@@ -4,6 +4,7 @@ import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -252,13 +253,13 @@ public class HttpServletUtils {
      * @date 2020/1/20 4:17 下午
      * @return: java.lang.String
      */
-    public static String getRequestBody(HttpServletRequest request) {
+    public static String getRequestBody(HttpServletRequest request) throws IOException {
         Assert.notNull(request, "request instance is null.");
-        RequestWrapperCache requestWrapper;
-        if (request instanceof RequestWrapperCache) {
-            requestWrapper = (RequestWrapperCache) request;
+        RequestWrapper requestWrapper;
+        if (request instanceof RequestWrapper) {
+            requestWrapper = (RequestWrapper) request;
         } else {
-            requestWrapper = new RequestWrapperCache(request);
+            requestWrapper = new RequestWrapper(request);
         }
         return requestWrapper.getBody();
     }
@@ -274,11 +275,11 @@ public class HttpServletUtils {
      */
     public static String getResponseBody(HttpServletResponse response) {
         Assert.notNull(response, "response instance is null.");
-        ResponseWrapperCache responseWrapper;
-        if (response instanceof ResponseWrapperCache) {
-            responseWrapper = (ResponseWrapperCache) response;
+        ResponseWrapper responseWrapper;
+        if (response instanceof ResponseWrapper) {
+            responseWrapper = (ResponseWrapper) response;
         } else {
-            responseWrapper = new ResponseWrapperCache(response);
+            responseWrapper = new ResponseWrapper(response);
         }
         return responseWrapper.getBody();
     }

@@ -20,7 +20,7 @@ import java.io.*;
  * @version: V1.0
  * @since 1.8
  */
-public class ResponseWrapperCache extends HttpServletResponseWrapper {
+public class ResponseWrapper extends HttpServletResponseWrapper {
 
     @Nullable
     private ServletOutputStream outputStream;
@@ -35,7 +35,7 @@ public class ResponseWrapperCache extends HttpServletResponseWrapper {
      *
      * @param response the original servlet response
      */
-    public ResponseWrapperCache(HttpServletResponse response) {
+    public ResponseWrapper(HttpServletResponse response) {
         super(response);
     }
 

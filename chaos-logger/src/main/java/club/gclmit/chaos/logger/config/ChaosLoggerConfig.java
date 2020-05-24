@@ -1,22 +1,14 @@
 package club.gclmit.chaos.logger.config;
 
-import club.gclmit.chaos.core.lang.Logger;
-import club.gclmit.chaos.core.lang.logger.LoggerServer;
-import club.gclmit.chaos.logger.LoggerDispatcherServlet;
-import club.gclmit.chaos.logger.interceptor.LoggerInterceptor;
 import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * <p>
- *  chaos 日志模块配置
+ * chaos 日志模块配置
  * </p>
  *
  * @author: gclm
@@ -29,31 +21,4 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableConfigurationProperties(ChaosLoggerProperties.class)
 public class ChaosLoggerConfig implements WebMvcConfigurer {
 
-    @Bean
-    public LoggerInterceptor loggerInterceptor(){
-        return new LoggerInterceptor();
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loggerInterceptor())
-                .addPathPatterns("/**");
-    }
-
-    @Deprecated
-//    @Bean
-    public ServletRegistrationBean dispatcherRegistration() {
-        Logger.info(LoggerServer.CHAOS,"开始加载 dispatcherServlet 组件,默认拦截的 API 前缀为：/api");
-        ServletRegistrationBean registrationBean = new ServletRegistrationBean(dispatcherServlet());
-        registrationBean.setLoadOnStartup(1);
-        //指定name，如果不指定默认为dispatcherServlet
-        registrationBean.setName("Logger");
-        return registrationBean;
-    }
-
-    @Deprecated
-//    @Bean(name = DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_BEAN_NAME)
-    public DispatcherServlet dispatcherServlet(){
-        return new LoggerDispatcherServlet();
-    }
 }

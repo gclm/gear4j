@@ -16,6 +16,7 @@ import club.gclmit.chaos.logger.model.HttpTrace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.filter.OncePerRequestFilter;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -43,15 +44,16 @@ public class LoggerFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         String uri = request.getRequestURI();
+        Long requestTime = DateUtils.getMilliTimestamp();
+        String sessionId = HttpServletUtils.getSessionId(request);
+        RequestWrapper requestWrapper = new RequestWrapper(request);
+        ResponseWrapper responseWrapper = new ResponseWrapper(response);
 
         if (checkIgnoreUrl(uri) || HttpServletUtils.isFileUpload(request)) {
             chain.doFilter(request, response);
+        } else {
+            chain.doFilter(requestWrapper, responseWrapper);
         }
-
-        Long requestTime = DateUtils.getMilliTimestamp();
-        RequestWrapper requestWrapper = new RequestWrapper(request);
-        ResponseWrapper responseWrapper = new ResponseWrapper(response);
-        chain.doFilter(requestWrapper,responseWrapper);
 
         /**
          *  获取 response 相关参数
@@ -66,7 +68,7 @@ public class LoggerFilter extends OncePerRequestFilter {
                 .contentType(HttpServletUtils.getContentType(request))
                 .method(request.getMethod())
                 .userAgent(HttpServletUtils.getUserAgent(request))
-                .sessionId(HttpServletUtils.getSessionId(request))
+                .sessionId(sessionId)
                 .httpCode(response.getStatus())
                 .requestTime(requestTime)
                 .responseTime(responseTime)

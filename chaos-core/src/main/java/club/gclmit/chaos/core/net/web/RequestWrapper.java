@@ -1,9 +1,7 @@
 package club.gclmit.chaos.core.net.web;
 
-import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.util.CharsetUtils;
 import club.gclmit.chaos.core.util.StringUtils;
-
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -42,13 +40,10 @@ public class RequestWrapper extends HttpServletRequestWrapper {
      * @param request The request to wrap
      * @throws IllegalArgumentException if the request is null
      */
-    public RequestWrapper(HttpServletRequest request){
+    public RequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
-        try(ServletInputStream stream = request.getInputStream()) {
-            this.body = StringUtils.toString(stream, DEFAULT_CHARSET);
-        } catch (IOException e) {
-            throw new ChaosCoreException("包装 HttpServletRequest 异常",e);
-        }
+        ServletInputStream stream = request.getInputStream();
+        this.body = StringUtils.toString(stream, DEFAULT_CHARSET);
     }
 
     @Override
