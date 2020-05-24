@@ -33,6 +33,7 @@ import java.util.concurrent.*;
  * @version: V1.0
  * @since JDK1.8
  */
+
 public class TencentStorageClient extends StorageClient {
 
     /**
@@ -93,6 +94,7 @@ public class TencentStorageClient extends StorageClient {
         cosClient.deleteObject(cloudStorage.getBucket(),key);
     }
 
+    @SuppressWarnings("AlibabaThreadShouldSetName")
     @Override
     public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {
         Assert.notNull(inputStream,"[腾讯云OSS]上传文件失败，请检查 inputStream 是否正常");
@@ -106,6 +108,7 @@ public class TencentStorageClient extends StorageClient {
         /**
          *  创建大小为5的线程池
          */
+        //noinspection AlibabaThreadShouldSetName
         ExecutorService executorService = new ThreadPoolExecutor(5, 200,
                 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(100));
 
