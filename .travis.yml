@@ -10,9 +10,10 @@ jdk:
 notifications:
   email: false
 
-cache:
-  directories:
-    - '$HOME/.m2'
+# 国外机器可以不设置缓存
+#cache:
+#  directories:
+#    - '$HOME/.m2'
 
 #  常见指令
 #  跳过单元测试    -DskipTests
