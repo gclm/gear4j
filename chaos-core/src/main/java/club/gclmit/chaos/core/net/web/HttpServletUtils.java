@@ -2,6 +2,7 @@ package club.gclmit.chaos.core.net.web;
 
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.util.StringUtils;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class HttpServletUtils {
     /**
      * Http 魔法值
      */
-    public static final String UNKNOWN  = "UNKNOWN";
+    public static final String UNKNOWN = "UNKNOWN";
 
     /**
      * localhost 魔法值
@@ -172,11 +173,11 @@ public class HttpServletUtils {
     }
 
     /**
-     *  获取客户端请求方式
-     *  eq:
-     *   - ajax
-     *   - form
-     *   - websocket
+     * 获取客户端请求方式
+     * eq:
+     * - ajax
+     * - form
+     * - websocket
      *
      * @author gclm
      * @param: request
@@ -185,11 +186,11 @@ public class HttpServletUtils {
      */
     public static String getRequestType(HttpServletRequest request) {
         Assert.notNull(request, "request instance is null.");
-        return getHeader(request,"X-Requested-With");
+        return getHeader(request, "X-Requested-With");
     }
 
     /**
-     *  获取Session Id
+     * 获取Session Id
      *
      * @author gclm
      * @param: request
@@ -201,7 +202,7 @@ public class HttpServletUtils {
     }
 
     /**
-     *  获取用户代理
+     * 获取用户代理
      *
      * @author gclm
      * @param: request
@@ -210,12 +211,12 @@ public class HttpServletUtils {
      */
     public static String getUserAgent(HttpServletRequest request) {
         Assert.notNull(request, "request instance is null.");
-        return getHeader(request,"User-Agent");
+        return getHeader(request, "User-Agent");
     }
 
     /**
      * <p>
-     *  是否是文件上传类型
+     * 是否是文件上传类型
      * </p>
      *
      * @author gclm
@@ -223,21 +224,21 @@ public class HttpServletUtils {
      * @date 2020/5/21 10:45 下午
      * @return: boolean
      */
-    public static boolean isFileUpload(HttpServletRequest request){
+    public static boolean isFileUpload(HttpServletRequest request) {
         Assert.notNull(request, "request instance is null.");
         return getContentType(request).startsWith(UPLOAD_CONTENT_TYPE);
     }
 
     /**
      * <p>
-     *  获取请求内容
+     * 获取请求内容
      * </p>
      *
      * @author gclm
      * @param: request
      * @return: boolean
      */
-    public static String getContentType(HttpServletRequest request){
+    public static String getContentType(HttpServletRequest request) {
         Assert.notNull(request, "request instance is null.");
         return StringUtils.isEmpty(request.getContentType()) ? DEFAULT_CONTENT_TYPE : request.getContentType();
     }
@@ -261,7 +262,7 @@ public class HttpServletUtils {
         } else {
             requestWrapper = new RequestWrapper(request);
         }
-        return requestWrapper.getBody();
+        return StringUtils.isNotBlank(requestWrapper.getBody()) ? requestWrapper.getBody() : request.getQueryString();
     }
 
     /**

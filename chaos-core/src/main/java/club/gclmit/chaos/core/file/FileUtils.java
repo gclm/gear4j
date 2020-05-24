@@ -23,17 +23,17 @@ public class FileUtils {
     /**
      * <p>判断文件是否为空 {@code null}.
      *
-     * @param file  判断文件
+     * @param file 判断文件
      * @return {@code true} if the file is empty or {@code null}
      */
     public static boolean isEmpty(File file) {
-        return file == null || file.isDirectory() || !file.exists() ;
+        return file == null || file.isDirectory() || !file.exists();
     }
 
     /**
      * <p>判断文件是否为空 {@code null}.
      *
-     * @param file  判断文件
+     * @param file 判断文件
      * @return {@code true} if the file is empty or {@code null}
      */
     public static boolean isEmpty(MultipartFile file) {
@@ -43,7 +43,7 @@ public class FileUtils {
     /**
      * <p>判断文件是否不为空
      *
-     * @param file  判断文件
+     * @param file 判断文件
      * @return {@code true} 当前 file 不为空返回 true
      */
     public static boolean isNotEmpty(MultipartFile file) {
@@ -53,7 +53,7 @@ public class FileUtils {
     /**
      * <p>判断文件是否不为空
      *
-     * @param file  判断文件
+     * @param file 判断文件
      * @return {@code true} 当前 file 不为空返回 true
      */
     public static boolean isNotEmpty(File file) {
@@ -99,6 +99,19 @@ public class FileUtils {
     }
 
     /**
+     * <p>
+     *  获取项目根目录
+     * </p>
+     *
+     * @author gclm
+     * @date 2020/5/24 9:22 下午
+     * @return: java.lang.String
+     */
+    public static String getRootPath() {
+        return System.getProperty("user.dir");
+    }
+
+    /**
      * 单个文件删除
      *
      * @param filePath
@@ -123,12 +136,12 @@ public class FileUtils {
         Assert.isTrue(file.exists(), "文件对象不能为空");
         if (file.isDirectory()) {
             File[] files = file.listFiles();
-            for (File f: files){
+            for (File f : files) {
                 delete(f);
             }
         }
-        if (!file.delete()){
-            throw new ChaosCoreException("文件:"+file.getName()+" 删除失败");
+        if (!file.delete()) {
+            throw new ChaosCoreException("文件:" + file.getName() + " 删除失败");
         }
     }
 
@@ -159,13 +172,10 @@ public class FileUtils {
      * @return java.io.File
      * @details 孤城落寞 2019-02-14 10:16
      */
-    public static File multipartFileToFile(MultipartFile multipartFile,String folder) {
+    public static File multipartFileToFile(MultipartFile multipartFile, String folder) {
         Assert.notNull(multipartFile.isEmpty(), "multipartFile 不能为空");
 
-        if (StringUtils.isEmpty(folder)) {
-            folder = System.getProperty("user.dir");
-        }
-
+        folder = StringUtils.isEmpty(folder) ? getRootPath() : folder;
         File localFile = new File(folder, new StringBuilder().append(IDUtils.snowflakeId()).append(".").append(getSuffix(multipartFile)).toString());
 
         try {
@@ -202,7 +212,7 @@ public class FileUtils {
     }
 
     /**
-     *  获取文件后缀
+     * 获取文件后缀
      *
      * @author gclm
      * @param: fileName
@@ -210,8 +220,8 @@ public class FileUtils {
      * @return: java.lang.String
      */
     public static String getSuffix(String fileName) {
-        Assert.isTrue(StringUtils.isNotBlank(fileName),"文件名不能为空");
-        return StringUtils.subAfter(fileName,".",true);
+        Assert.isTrue(StringUtils.isNotBlank(fileName), "文件名不能为空");
+        return StringUtils.subAfter(fileName, ".", true);
     }
 
     /**
@@ -329,7 +339,7 @@ public class FileUtils {
      * @return
      */
     private static String byteToHex(byte[] src) {
-        Assert.isFalse(ArrayUtils.isEmpty(src),"字节数组不能为空");
+        Assert.isFalse(ArrayUtils.isEmpty(src), "字节数组不能为空");
 
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < src.length; i++) {
