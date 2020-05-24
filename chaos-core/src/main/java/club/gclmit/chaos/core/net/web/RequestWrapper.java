@@ -24,7 +24,7 @@ import java.io.InputStreamReader;
  * @version: V1.0
  * @since 1.8
  */
-public class RequestWrapperCache extends HttpServletRequestWrapper {
+public class RequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * 设置默认编码格式为 UTF-8
@@ -42,7 +42,7 @@ public class RequestWrapperCache extends HttpServletRequestWrapper {
      * @param request The request to wrap
      * @throws IllegalArgumentException if the request is null
      */
-    public RequestWrapperCache(HttpServletRequest request){
+    public RequestWrapper(HttpServletRequest request){
         super(request);
         try(ServletInputStream stream = request.getInputStream()) {
             this.body = StringUtils.toString(stream, DEFAULT_CHARSET);
