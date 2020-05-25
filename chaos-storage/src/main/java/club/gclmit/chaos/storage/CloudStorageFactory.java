@@ -45,6 +45,9 @@ public class CloudStorageFactory {
             case TENCENT:
                 client = new TencentStorageClient(storage);
                 break;
+            default:
+                client = new AliyunStorageClient(storage);
+                break;
         }
         return client;
     }

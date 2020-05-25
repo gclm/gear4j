@@ -70,11 +70,7 @@ public abstract class StorageClient {
         path.append(dateFormat).append("/").append(id);
 
         if (suffix != null) {
-            if (suffix.startsWith(".")) {
-                path.append(suffix);
-            } else {
-                path.append(".").append(suffix);
-            }
+            path = suffix.contains(".") ? path.append(suffix) : path.append(".").append(suffix);
         }
 
         return path.toString();

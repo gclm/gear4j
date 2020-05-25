@@ -14,21 +14,64 @@ import club.gclmit.chaos.core.util.NumberUtils;
  */
 public enum JavaVersion {
 
-    JAVA_0_9(1.5F, "0.9"),
-    JAVA_1_1(1.1F, "1.1"),
-    JAVA_1_2(1.2F, "1.2"),
-    JAVA_1_3(1.3F, "1.3"),
-    JAVA_1_4(1.4F, "1.4"),
-    JAVA_1_5(1.5F, "1.5"),
-    JAVA_1_6(1.6F, "1.6"),
-    JAVA_1_7(1.7F, "1.7"),
-    JAVA_1_8(1.8F, "1.8"),
-    JAVA_9(9.0F, "9"),
-    JAVA_10(10.0F, "10"),
-    JAVA_11(11.0F, "11"),
-    JAVA_12(12.0F, "12"),
-    JAVA_13(13.0F, "13"),
+    /**
+     * JDK 1.1
+     */
+    JAVA_1_1(1.1f, "1.1"),
+    /**
+     * JDK 1.2
+     */
+    JAVA_1_2(1.2f, "1.2"),
+    /**
+     * JDK 1.3
+     */
+    JAVA_1_3(1.3f, "1.3"),
+    /**
+     * JDK 1.4
+     */
+    JAVA_1_4(1.4f, "1.4"),
+    /**
+     * JDK 1.5
+     */
+    JAVA_1_5(1.5f, "1.5"),
+    /**
+     * JDK 1.6
+     */
+    JAVA_1_6(1.6f, "1.6"),
+    /**
+     * JDK 1.7
+     */
+    JAVA_1_7(1.7f, "1.7"),
+    /**
+     * JDK 1.8
+     */
+    JAVA_1_8(1.8f, "1.8"),
+    /**
+     * JDK 9
+     */
+    JAVA_9(9.0f, "9"),
+    /**
+     * JDK 10
+     */
+    JAVA_10(10.0f, "10"),
+    /**
+     * JDK 11
+     */
+    JAVA_11(11.0f, "11"),
+    /**
+     * JDK 12
+     */
+    JAVA_12(12.0f, "12"),
+    /**
+     * JDK 13
+     */
+    JAVA_13(13.0f, "13"),
+
+    /**
+     * JDK
+     */
     JAVA_RECENT(maxVersion(), Float.toString(maxVersion()));
+
 
     private final float value;
     private final String name;
@@ -53,8 +96,6 @@ public enum JavaVersion {
     public static JavaVersion get(String nom) {
         if (nom == null) {
             return null;
-        } else if ("0.9".equals(nom)) {
-            return JAVA_0_9;
         } else if ("1.1".equals(nom)) {
             return JAVA_1_1;
         } else if ("1.2".equals(nom)) {
@@ -83,7 +124,7 @@ public enum JavaVersion {
             return JAVA_13;
         } else {
             float v = toFloatVersion(nom);
-            if ((double)v - 1.0D < 1.0D) {
+            if ((double) v - 1.0D < 1.0D) {
                 int firstComma = Math.max(nom.indexOf(46), nom.indexOf(44));
                 int end = Math.max(nom.length(), nom.indexOf(44, firstComma));
                 if (Float.parseFloat(nom.substring(firstComma + 1, end)) > 0.9F) {
@@ -114,6 +155,22 @@ public enum JavaVersion {
             return toParse.length >= 2 ? NumberUtils.toFloat(toParse[0] + '.' + toParse[1], -1.0F) : -1.0F;
         } else {
             return NumberUtils.toFloat(value, -1.0F);
+        }
+    }
+
+    public String generate(JavaVersion version) {
+        //        JAVA_0_9(1.5F, "0.9")
+        String template = " /**\n" +
+                "     * JDK %s\n" +
+                "     */\n" +
+                "    %s(%sf,\"%s\"),";
+        return String.format(template, version.name, version.name(), version.value, version.name);
+    }
+
+    public static void main(String[] args) {
+        JavaVersion[] versions = values();
+        for (JavaVersion version : versions) {
+            System.out.println(version.generate(version));
         }
     }
 }

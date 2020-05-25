@@ -126,14 +126,6 @@ public class Result {
         return result(ApiCode.FAIL, map);
     }
 
-    public static String getTIMESTAMP() {
-        return TIMESTAMP;
-    }
-
-    public static void setTIMESTAMP(String TIMESTAMP) {
-        Result.TIMESTAMP = TIMESTAMP;
-    }
-
     public Integer getCode() {
         return code;
     }

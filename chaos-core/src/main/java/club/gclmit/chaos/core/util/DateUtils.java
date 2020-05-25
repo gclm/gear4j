@@ -1,6 +1,7 @@
 package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.lang.Assert;
+
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
@@ -11,10 +12,10 @@ import java.util.Map;
  * <p>
  * 时间工具类，
  * 功能：
- *  - 用户获取时间戳。
+ * - 用户获取时间戳。
  * 单位：
- *  - 秒
- *  - 毫秒
+ * - 秒
+ * - 毫秒
  * </p>
  *
  * @author: gclm
@@ -24,62 +25,72 @@ import java.util.Map;
  */
 public class DateUtils {
 
-    private static final Map<Integer,String> WEEKS;
+    private static final Map<Integer, String> WEEKS;
 
-    private static final String TIME_ZONE_ID = "+8";
+    /**
+     * 默认时区 东八区
+     */
+    public static final String TIME_ZONE_ID = "+8";
+
+    /**
+     * 时间戳长度 10
+     */
+    public static final Integer TIMESTAMP_LENGTH_10 = 10;
+    /**
+     * 时间戳长度 13
+     */
+    public static final Integer TIMESTAMP_LENGTH_13 = 13;
 
     static {
-        Map<Integer,String> map = new HashMap<>(7);
-        map.put(1,"星期一");
-        map.put(2,"星期二");
-        map.put(3,"星期三");
-        map.put(4,"星期四");
-        map.put(5,"星期五");
-        map.put(6,"星期六");
-        map.put(7,"星期七");
+        Map<Integer, String> map = new HashMap<>(7);
+        map.put(1, "星期一");
+        map.put(2, "星期二");
+        map.put(3, "星期三");
+        map.put(4, "星期四");
+        map.put(5, "星期五");
+        map.put(6, "星期六");
+        map.put(7, "星期七");
         WEEKS = Collections.unmodifiableMap(map);
     }
 
     /**
-     *  获取当前日期的年
+     * 获取当前日期的年
      *
+     * @throws
      * @author gclm
      * @date 2020/4/15 9:42 上午
      * @return: java.lang.Integer
-     * @throws
      */
-    public static Integer thisYear(){
-       return LocalDate.now().getYear();
+    public static Integer thisYear() {
+        return LocalDate.now().getYear();
     }
 
     /**
-     *  判断当前年份是否为闰年
+     * 判断当前年份是否为闰年
      *
+     * @throws
      * @author gclm
      * @date 2020/4/15 9:48 上午
      * @return: boolean
-     * @throws
      */
-    public static boolean isLeapYear(long prolepticYear){
+    public static boolean isLeapYear(long prolepticYear) {
         return ((prolepticYear & 3) == 0) && ((prolepticYear % 100) != 0 || (prolepticYear % 400) == 0);
     }
 
     /**
-     *  时间戳 --> 星期 ？
+     * 时间戳 --> 星期 ？
      *
+     * @throws
      * @author gclm
      * @param: timestamp
      * @date 2020/3/27 10:10 上午
      * @return: java.lang.String
-     * @throws
      */
-    public static String timestampToWeekName(Long timestamp){
-        Assert.notNull(timestamp,"时间戳不能为空");
+    public static String timestampToWeekName(Long timestamp) {
+        Assert.notNull(timestamp, "时间戳不能为空");
         Integer size = String.valueOf(timestamp).length();
-        Assert.isTrue(10 == size || 13 == size,"时间戳格式不对");
-        if (10 == size) {
-            timestamp *= 1000;
-        }
+        Assert.isTrue(TIMESTAMP_LENGTH_10.equals(size) || TIMESTAMP_LENGTH_13.equals(size), "时间戳格式不对");
+        timestamp = (TIMESTAMP_LENGTH_10.equals(size)) ? timestamp *= 1000 : timestamp;
         LocalDateTime dateTime = timestampToLocalDateTime(timestamp);
         return WEEKS.get(dateTime.getDayOfWeek().getValue());
     }
@@ -87,28 +98,28 @@ public class DateUtils {
     /**
      * 时间戳 --> String
      *
+     * @throws
      * @author gclm
      * @param: timestamp
      * @param: format
      * @date 2020/3/27 12:03 下午
      * @return: java.lang.String
-     * @throws
      */
-    public static String timestampToString(Long timestamp, String format){
+    public static String timestampToString(Long timestamp, String format) {
         LocalDateTime localDateTime = timestampToLocalDateTime(timestamp);
-        return localDateTimeToString(localDateTime,format);
+        return localDateTimeToString(localDateTime, format);
     }
 
     /**
-     *  时间戳 --> LocalDateTime
+     * 时间戳 --> LocalDateTime
      *
+     * @throws
      * @author gclm
      * @param: timestamp
      * @date 2020/3/27 10:22 上午
      * @return: java.time.LocalDateTime
-     * @throws
      */
-    public static LocalDateTime timestampToLocalDateTime(Long timestamp){
+    public static LocalDateTime timestampToLocalDateTime(Long timestamp) {
         Instant instant = Instant.ofEpochMilli(timestamp);
         return LocalDateTime.ofInstant(instant, ZoneId.of(TIME_ZONE_ID));
     }
@@ -116,26 +127,26 @@ public class DateUtils {
     /**
      * LocalDateTime --> 星期 ？
      *
+     * @throws
      * @author gclm
      * @param: dateTime
      * @date 2020/3/27 10:10 上午
      * @return: java.lang.String
-     * @throws
      */
-    public static String localDateTimeToWeekName(LocalDateTime dateTime){
-        Assert.notNull(dateTime,"LocalDateTime 不能为空");
+    public static String localDateTimeToWeekName(LocalDateTime dateTime) {
+        Assert.notNull(dateTime, "LocalDateTime 不能为空");
         return WEEKS.get(dateTime.getDayOfWeek().getValue());
     }
 
     /**
-     *  LocalDateTime --> 自定义日期格式
+     * LocalDateTime --> 自定义日期格式
      *
+     * @throws
      * @author gclm
      * @param: localDateTime
      * @param: format
      * @date 2020/3/27 10:22 上午
      * @return: java.time.LocalDateTime
-     * @throws
      */
     public static String localDateTimeToString(LocalDateTime localDateTime, String format) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
@@ -143,14 +154,14 @@ public class DateUtils {
     }
 
     /**
-     *  解析自定义日期 --> LocalDateTime
+     * 解析自定义日期 --> LocalDateTime
      *
+     * @throws
      * @author gclm
      * @param: localDateTime
      * @param: format
      * @date 2020/3/27 10:22 上午
      * @return: java.time.LocalDateTime
-     * @throws
      */
     public static LocalDateTime stringToLocalDateTime(String time, String format) {
         DateTimeFormatter df = DateTimeFormatter.ofPattern(format);
@@ -158,52 +169,52 @@ public class DateUtils {
     }
 
     /**
-     *  获取秒时间戳
+     * 获取秒时间戳
      *
+     * @throws
      * @author gclm
      * @date 2020/1/19 11:32 上午
      * @return: java.lang.Long
-     * @throws
      */
-    public static Long getSecondTimestamp(){
+    public static Long getSecondTimestamp() {
         return LocalDateTime.now().toEpochSecond(ZoneOffset.of(TIME_ZONE_ID));
     }
 
     /**
-     *  获取秒时间戳
+     * 获取秒时间戳
      *
+     * @throws
      * @author gclm
      * @param: dateTime
      * @date 2020/3/28 11:16 上午
      * @return: java.lang.Long
-     * @throws
      */
-    public static Long getSecondTimestamp(LocalDateTime dateTime){
+    public static Long getSecondTimestamp(LocalDateTime dateTime) {
         return dateTime.toEpochSecond(ZoneOffset.of(TIME_ZONE_ID));
     }
 
     /**
-     *  获取耗秒时间戳
+     * 获取耗秒时间戳
      *
+     * @throws
      * @author gclm
      * @date 2020/1/19 11:32 上午
      * @return: java.lang.Long
-     * @throws
      */
-    public static Long getMilliTimestamp(){
+    public static Long getMilliTimestamp() {
         return LocalDateTime.now().toInstant(ZoneOffset.of(TIME_ZONE_ID)).toEpochMilli();
     }
 
     /**
-     *  获取耗秒时间戳
+     * 获取耗秒时间戳
      *
+     * @throws
      * @author gclm
      * @param: dateTime
      * @date 2020/3/28 11:15 上午
      * @return: java.lang.Long
-     * @throws
      */
-    public static Long getMilliTimestamp(LocalDateTime dateTime){
+    public static Long getMilliTimestamp(LocalDateTime dateTime) {
         return dateTime.toInstant(ZoneOffset.of(TIME_ZONE_ID)).toEpochMilli();
     }
 }

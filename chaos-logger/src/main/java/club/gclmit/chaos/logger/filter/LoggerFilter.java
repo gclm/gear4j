@@ -84,7 +84,7 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
             /**
              * 保存到数据库
              */
-            if (config.isWriteDB()) {
+            if (config.getSaveLogger()) {
                 LoggerMapper loggerMapper = BeanUtils.genBean(LoggerMapper.class, request);
                 boolean save = DbUtils.retBool(loggerMapper.insert(trace));
                 Logger.info(LoggerServer.CHAOS, "当前请求日志：{}\t入库：{}", trace, save);
