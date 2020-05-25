@@ -8,9 +8,8 @@ import java.util.*;
  * </p>
  *
  * @author: gclm
- * @date: 2020/4/14 7:56 下午
- * @version: V1.0
  * @since 1.8
+ * @since 1.0
  */
 public class CollectionUtils {
 

@@ -22,9 +22,8 @@ import java.util.List;
  * </p>
  *
  * @author: gclm
- * @date: 2019-10-23 18:38:00
- * @version: V1.0
  * @since JDK1.8
+ * @since 1.0
  */
 public abstract class StorageClient {
 
@@ -83,9 +82,7 @@ public abstract class StorageClient {
      *
      * @author 孤城落寞
      * @param: file 文件
-     * @date 2019/10/23 19:54
      * @return: java.lang.String
-     * @throws
      */
     public FileInfo upload(File file) {
         Assert.isTrue(file.exists(),"上传文件不能为空");
@@ -114,9 +111,7 @@ public abstract class StorageClient {
      * @author 孤城落寞
      * @param: data 字节数组
      * @param: key  文件路径
-     * @date 2019/10/23 19:52
      * @return: java.lang.String 文件路径
-     * @throws
      */
     public FileInfo upload(byte[] data, String key, String fileName) {
         Assert.notEmpty(Collections.singleton(data),"上传文件失败，请检查 byte[] 是否正常");
@@ -146,9 +141,7 @@ public abstract class StorageClient {
      * @param: content     字符串内容
      * @param: key         key
      * @param: fileName    文件名
-     * @date 2020/3/17 10:15 上午
      * @return: club.gclmit.chaos.storage.db.pojo.FileInfo
-     * @throws
      */
     public FileInfo upload(String content,String key,String fileName){
 
