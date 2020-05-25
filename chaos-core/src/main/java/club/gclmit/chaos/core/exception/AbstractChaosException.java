@@ -10,8 +10,6 @@ import club.gclmit.chaos.core.util.StringUtils;
  * </p>
  *
  * @author: gclm
- * @date: 2020/1/15 3:49 下午
- * @version: V1.0
  * @since 1.8
  */
 public abstract class AbstractChaosException extends RuntimeException {

@@ -6,8 +6,6 @@ package club.gclmit.chaos.core.exception;
  * </p>
  *
  * @author: gclm
- * @date: 2020/4/15 10:25 上午
- * @version: V1.0
  * @since 1.8
  */
 public class ChaosCoreException extends AbstractChaosException{
