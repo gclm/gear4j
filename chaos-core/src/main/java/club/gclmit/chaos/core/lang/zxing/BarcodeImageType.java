@@ -12,7 +12,14 @@ package club.gclmit.chaos.core.lang.zxing;
  */
 public enum BarcodeImageType {
 
+    /**
+     * jpg 图片
+     */
     JPG("jpg"),
+
+    /**
+     * png
+     */
     PNG("png");
 
     private String code;

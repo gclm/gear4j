@@ -28,7 +28,7 @@ public class ChaosLoggerProperties {
     /**
      * 是否保存日志到数据库中
      */
-    private boolean writeDB = true;
+    private boolean saveLogger = true;
 
     public String getPrefix() {
         return prefix;
@@ -38,19 +38,19 @@ public class ChaosLoggerProperties {
         this.prefix = prefix;
     }
 
-    public boolean isWriteDB() {
-        return writeDB;
-    }
-
-    public void setWriteDB(boolean writeDB) {
-        this.writeDB = writeDB;
-    }
-
     public String[] getIgnoreUrls() {
         return ignoreUrls;
     }
 
     public void setIgnoreUrls(String[] ignoreUrls) {
         this.ignoreUrls = ignoreUrls;
+    }
+
+    public boolean getSaveLogger() {
+        return saveLogger;
+    }
+
+    public void setSaveLogger(boolean saveLogger) {
+        this.saveLogger = saveLogger;
     }
 }

@@ -101,11 +101,11 @@ public class CollectionUtils {
     /**
      * Iterator是否为空
      *
-     * @param Iterator Iterator对象
+     * @param terator terator对象
      * @return 是否为空
      */
-    public static boolean isEmpty(Iterator<?> Iterator) {
-        return null == Iterator || false == Iterator.hasNext();
+    public static boolean isEmpty(Iterator<?> terator) {
+        return null == terator || false == terator.hasNext();
     }
 
 
@@ -152,11 +152,11 @@ public class CollectionUtils {
     /**
      * Iterator是否为空
      *
-     * @param Iterator Iterator对象
+     * @param terator Iterator对象
      * @return 是否为空
      */
-    public static boolean isNotEmpty(Iterator<?> Iterator) {
-        return !isEmpty(Iterator);
+    public static boolean isNotEmpty(Iterator<?> terator) {
+        return !isEmpty(terator);
     }
 
 }

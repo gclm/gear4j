@@ -16,6 +16,15 @@ import java.util.Map;
  */
 public class MapUtils {
 
+
+    public static boolean isEmpty(Map map){
+        return map.isEmpty() || 0 == map.size();
+    }
+
+    public static boolean isNotEmpty(Map map){
+        return false == isEmpty(map);
+    }
+
     // Type safe getters
     //-------------------------------------------------------------------------
     /**

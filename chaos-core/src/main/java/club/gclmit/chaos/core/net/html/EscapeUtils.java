@@ -17,10 +17,12 @@ public class EscapeUtils {
 
     public static final String RE_HTML_MARK = "(<[^<]*?>)|(<[\\s]*?/[^<]*?>)|(<[^<]*?/[\\s]*?>)";
 
-    private static final char[][] TEXT = new char[64][];
+    public static final int CHAR_SIZE = 64;
+
+    private static final char[][] TEXT = new char[CHAR_SIZE][];
 
     static {
-        for (int i = 0; i < 64; i++) {
+        for (int i = 0; i < CHAR_SIZE; i++) {
             TEXT[i] = new char[]{(char) i};
         }
 

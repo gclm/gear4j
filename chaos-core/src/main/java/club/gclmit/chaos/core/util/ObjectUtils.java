@@ -2,6 +2,7 @@ package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.collection.CollectionUtils;
 import club.gclmit.chaos.core.collection.ListUtils;
+import club.gclmit.chaos.core.collection.MapUtils;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.file.FileUtils;
 import club.gclmit.chaos.core.lang.Assert;
@@ -49,8 +50,8 @@ public class ObjectUtils {
             return  CollectionUtils.isEmpty((Iterable<?>) object);
         } else if (object instanceof List){
             return  ListUtils.isEmpty((List) object);
-        } else if (object instanceof Map && (((Map) object).isEmpty() || ((Map) object).size() == 0)){
-            return true;
+        } else if (object instanceof Map){
+            return MapUtils.isEmpty((Map) object);
         } else if (object instanceof Object[] && ((Object[]) object).length == 0){
             return  true;
         }
