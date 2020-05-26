@@ -9,10 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
  * Mapper
  * </p>
  *
- * @author: gclm
- * @date: 2020/5/21 6:32 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 @Mapper
 public interface LoggerMapper extends BaseMapper<HttpTrace> {

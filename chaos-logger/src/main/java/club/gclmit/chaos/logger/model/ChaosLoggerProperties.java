@@ -7,10 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *  日志配置工具类
  * </p>
  *
- * @author: gclm
- * @date: 2020/1/20 11:43 上午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 @ConfigurationProperties("chaos.logger")
 public class ChaosLoggerProperties {

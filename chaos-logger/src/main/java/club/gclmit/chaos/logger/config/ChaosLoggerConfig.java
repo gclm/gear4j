@@ -11,10 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * chaos 日志模块配置
  * </p>
  *
- * @author: gclm
- * @date: 2020/1/19 2:59 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 @Configuration
 @ConditionalOnWebApplication
