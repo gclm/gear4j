@@ -27,10 +27,8 @@ import java.util.Arrays;
  * 日志 Filter
  * </p>
  *
- * @author: gclm
- * @date: 2020/5/21 7:27 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
+ * @since 1.4
  */
 @WebFilter(filterName = "loggerFilter", urlPatterns = "/*")
 public class LoggerFilter extends OncePerRequestFilter implements Ordered {
@@ -86,7 +84,7 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
              */
             if (config.getSaveLogger()) {
                 LoggerMapper loggerMapper = BeanUtils.genBean(LoggerMapper.class, request);
-                boolean save = DbUtils.retBool(loggerMapper.insert(trace));
+                boolean save = SqlUtils.retBool(loggerMapper.insert(trace));
                 Logger.info(LoggerServer.CHAOS, "当前请求日志：{}\t入库：{}", trace, save);
             } else {
                 Logger.info(LoggerServer.CHAOS, "当前请求日志：{}", trace);
@@ -94,6 +92,15 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
         }
     }
 
+    /**
+     * <p>
+     *  效验当前请求是否需要忽略
+     * </p>
+     *
+     * @author gclm
+     * @param uri 效验请求
+     * @return boolean
+     */
     private boolean checkIgnoreUrl(String uri) {
         if (uri.startsWith(config.getPrefix()) || UrlUtils.isIgnore(Arrays.asList(config.getIgnoreUrls()), uri)) {
             return false;

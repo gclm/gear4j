@@ -15,10 +15,7 @@ import java.io.Serializable;
  * 日志组件实体类
  * </p>
  *
- * @author: gclm
- * @date: 2020/1/9 3:21 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 @Data
 @Builder
