@@ -15,10 +15,7 @@ import java.util.regex.Pattern;
  * Xss 过滤器
  * </p>
  *
- * @author: gclm
- * @date: 2020/2/27 6:07 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class XssFilter implements Filter {
 

@@ -8,10 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
  *   对PageResult 的封装，方便集成 Layui
  * </p>
  *
- * @author: gclm
- * @date: 2019/12/27 9:19 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 @ApiModel(value = "分页消息封装", description = "分页消息封装")
 public class PageResult extends Result {

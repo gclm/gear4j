@@ -10,8 +10,7 @@ import java.util.Map;
 /**
  * 返回数据封装
  *
- * @author: gclm
- * @see 1.0
+ * @author gclm
  */
 @ApiModel(value = "通用消息响应", description = "通用消息响应")
 public class Result {

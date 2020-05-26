@@ -21,10 +21,7 @@ import java.util.stream.Collectors;
  * 通用 Restful 风格的 CRUD Controller
  * </p>
  *
- * @author: gclm
- * @date: 2019/12/16 4:37 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 @RestController
 public abstract class ApiController<Service extends IService<T>, T> {
@@ -35,11 +32,9 @@ public abstract class ApiController<Service extends IService<T>, T> {
     /**
      * 执行更新操作
      *
-     * @throws
      * @author gclm
-     * @param: t  泛型 T
-     * @date 2019/12/17 6:02 下午
-     * @return: club.gclmit.chaos.response.Result
+     * @param t  泛型 T
+     * @return club.gclmit.chaos.response.Result
      */
     @ApiOperation(value = "更新数据", notes = "更新数据")
     @PutMapping
@@ -52,11 +47,9 @@ public abstract class ApiController<Service extends IService<T>, T> {
     /**
      * 执行删除操作
      *
-     * @throws
      * @author gclm
-     * @param: id
-     * @date 2019/12/17 6:03 下午
-     * @return: club.gclmit.chaos.response.Result
+     * @param id id
+     * @return club.gclmit.chaos.response.Result
      */
     @ApiOperation(value = "根据id删除数据", notes = "根据id删除数据")
     @ApiParam(name = "id", required = true, example = "1111")
@@ -70,11 +63,9 @@ public abstract class ApiController<Service extends IService<T>, T> {
     /**
      * 执行查询详情
      *
-     * @throws
      * @author gclm
-     * @param: id
-     * @date 2019/12/17 6:03 下午
-     * @return: club.gclmit.chaos.response.Result
+     * @param id id
+     * @return club.gclmit.chaos.response.Result
      */
     @ApiOperation(value = "根据id查询数据详情", notes = "根据id查询数据详情")
     @ApiParam(name = "id", required = true, example = "1111")
@@ -89,11 +80,9 @@ public abstract class ApiController<Service extends IService<T>, T> {
     /**
      * 批量删除
      *
-     * @throws
      * @author gclm
-     * @param: ids 采用,拼接的id
-     * @date 2020/2/22 1:38 下午
-     * @return: club.gclmit.chaos.web.response.Result
+     * @param ids 采用,拼接的id
+     * @return club.gclmit.chaos.web.response.Result
      */
     @ApiOperation(value = "批量删除", notes = "批量删除")
     @DeleteMapping("/batch")
