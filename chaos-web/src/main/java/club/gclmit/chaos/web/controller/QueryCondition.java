@@ -10,10 +10,7 @@ import java.io.Serializable;
  * 查询条件封装
  * </p>
  *
- * @author: gclm
- * @date: 2020/1/20 5:55 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 @ApiModel(value = "查询条件", description = "查询条件")
 public class QueryCondition implements Serializable {

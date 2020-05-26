@@ -14,10 +14,7 @@ import javax.validation.Valid;
  *  通用 Restful 风格的 CRUD Controller
  * </p>
  *
- * @author: gclm
- * @date: 2019/12/16 4:37 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 @RestController
 public abstract class RestApiController<Service extends IService<T>, T>  extends ApiController<Service, T>{
@@ -25,10 +22,8 @@ public abstract class RestApiController<Service extends IService<T>, T>  extends
     /**
      *  执行添加操作
      * @author gclm
-     * @param: t  泛型 T
-     * @date 2019/12/17 6:02 下午
-     * @return: club.gclmit.chaos.response.Result
-     * @throws
+     * @param t  泛型 T
+     * @return club.gclmit.chaos.response.Result
      */
     @ApiOperation(value = "添加数据",notes = "添加数据")
     @PostMapping

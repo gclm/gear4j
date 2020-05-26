@@ -6,9 +6,7 @@ package club.gclmit.chaos.web.response;
  * REST API 响应状态码
  * </p>
  *
- * @author: gclm
- * @date: 2019/10/6 12:50 下午
- * @version: V1.0
+ * @author gclm
  */
 public enum ApiCode {
 
@@ -107,12 +105,9 @@ public enum ApiCode {
      *  私有化构造器
      * </p>
      *
-     * @summary 概要描述
      * @author 孤城落寞
-     * @param: code
-     * @param: message
-     * @date 2019/10/6 1:01 下午
-     * @throws
+     * @param code     状态码
+     * @param message  请求消息
      */
     private ApiCode(Integer code,  String message) {
         this.code = code;
@@ -124,11 +119,8 @@ public enum ApiCode {
      *  根据响应状态码找到枚举对象
      * </p>
      *
-     * @summary 根据响应状态码找到枚举对象
      * @author 孤城落寞
-     * @param: code
-     * @date 2019/10/6 1:00 下午
-     * @throws
+     * @param apiCode 状态码
      */
     public static ApiCode getApiCode(Integer apiCode){
         ApiCode[] apiCodes = ApiCode.values();

@@ -12,9 +12,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
  * Xss 过滤实现
  * </p>
  *
- * @author: gclm
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 

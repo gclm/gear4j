@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.*;
  *  通用 Restful 风格的 CRUD Controller
  * </p>
  *
- * @author: gclm
- * @date: 2019/12/16 4:37 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 @RestController
 public abstract class DefaultRestApiController<Service extends IService<T>, T>  extends RestApiController<Service, T> {
