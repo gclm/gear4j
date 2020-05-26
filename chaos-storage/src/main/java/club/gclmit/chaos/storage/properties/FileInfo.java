@@ -13,10 +13,7 @@ import java.io.Serializable;
  * 文件详情
  * </p>
  *
- * @author: gclm
- * @date: 2020/3/16 5:35 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 @TableName("chaos_file_info")
 @ApiModel(value = "文件服务对象")

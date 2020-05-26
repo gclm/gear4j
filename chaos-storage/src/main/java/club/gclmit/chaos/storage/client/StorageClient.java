@@ -21,9 +21,7 @@ import java.util.List;
  * 抽象存储类
  * </p>
  *
- * @author: gclm
- * @since JDK1.8
- * @since 1.0
+ * @author gclm
  */
 public abstract class StorageClient {
 
@@ -81,26 +79,23 @@ public abstract class StorageClient {
      * </p>
      *
      * @author 孤城落寞
-     * @param: file 文件
-     * @return: java.lang.String
+     * @param file 文件
+     * @return java.lang.String
      */
     public FileInfo upload(File file) {
         Assert.isTrue(file.exists(),"上传文件不能为空");
-        FileInputStream fileInputStream = null;
         try {
-            fileInputStream = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            throw new ChaosStorageException("上传失败，上传文件不存在");
+            FileInputStream fileInputStream = new FileInputStream(file);
+            /**
+             * 根据工具类获取 fileInfo 参数
+             */
+            String key = getPath(storage.getConfig().getPrefix(), FileUtils.getSuffix(file));
+            String contentType = FileUtils.getContentType(file);
+            String md5 = DigestUtils.md5(file);
+            return upload(fileInputStream,new FileInfo(file.getName(),contentType,file.length(), md5,key,storage.getType().getId()));
+        } catch (Exception e) {
+            throw new ChaosStorageException("文件上传失败",e);
         }
-
-        /**
-         * 根据工具类获取 fileInfo 参数
-         */
-        String key = getPath(storage.getConfig().getPrefix(), FileUtils.getSuffix(file));
-        String contentType = FileUtils.getContentType(file);
-        String md5 = DigestUtils.md5(file);
-
-        return upload(fileInputStream,new FileInfo(file.getName(),contentType,file.length(), md5,key,storage.getType().getId()));
     }
 
     /**
@@ -109,9 +104,10 @@ public abstract class StorageClient {
      * </p>
      *
      * @author 孤城落寞
-     * @param: data 字节数组
-     * @param: key  文件路径
-     * @return: java.lang.String 文件路径
+     * @param data      字节数组
+     * @param key       文件路径
+     * @param fileName  文件名
+     * @return java.lang.String 文件路径
      */
     public FileInfo upload(byte[] data, String key, String fileName) {
         Assert.notEmpty(Collections.singleton(data),"上传文件失败，请检查 byte[] 是否正常");
@@ -138,10 +134,10 @@ public abstract class StorageClient {
      *  上传字符串
      *
      * @author gclm
-     * @param: content     字符串内容
-     * @param: key         key
-     * @param: fileName    文件名
-     * @return: club.gclmit.chaos.storage.db.pojo.FileInfo
+     * @param content     字符串内容
+     * @param key         key
+     * @param fileName    文件名
+     * @return club.gclmit.chaos.storage.db.pojo.FileInfo
      */
     public FileInfo upload(String content,String key,String fileName){
 
@@ -160,16 +156,21 @@ public abstract class StorageClient {
 
     /**
      * 上传文件使用默认配置
+     * @param inputStream InputStream
+     * @param fileInfo 文件消息
+     * @return club.gclmit.chaos.storage.db.pojo.FileInfo
      */
     public abstract FileInfo upload(InputStream inputStream, FileInfo fileInfo);
 
     /**
      * 批量删除
+     * @param keys 文件keys
      */
     public abstract void delete(List<String> keys);
 
     /**
      * 删除单个
+     * @param key 文件key
      */
     public abstract void delete(String key);
 

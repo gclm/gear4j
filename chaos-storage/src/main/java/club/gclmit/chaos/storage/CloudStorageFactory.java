@@ -8,10 +8,7 @@ import club.gclmit.chaos.storage.properties.Storage;
  *  oss 客户端构造器
  * </p>
  *
- * @author: gclm
- * @date: 2019-10-24 16:53:00
- * @version: V1.0
- * @since JDK1.8
+ * @author gclm
  */
 public class CloudStorageFactory {
 
@@ -20,12 +17,9 @@ public class CloudStorageFactory {
      *  根据枚举类型返回相应的云存储对象
      * </p>
      *
-     * @summary httpdoc 方法注解
      * @author 孤城落寞
-     * @param: storageClient
-     * @date 2019/10/24 17:10
-     * @return: club.gclmit.chaos.service.CloudStorageService
-     * @throws
+     * @param storage Storage
+     * @return club.gclmit.chaos.service.CloudStorageService
      */
     public static StorageClient build(Storage storage) {
         StorageClient client = null;

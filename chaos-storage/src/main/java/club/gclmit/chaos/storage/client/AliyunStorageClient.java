@@ -21,10 +21,7 @@ import java.util.List;
  * aliyun 服务实现
  * </p>
  *
- * @author: gclm
- * @date: 2019-10-23 18:57:00
- * @version: V1.0
- * @since JDK1.8
+ * @author gclm
  */
 public class AliyunStorageClient extends StorageClient {
 
@@ -49,11 +46,8 @@ public class AliyunStorageClient extends StorageClient {
      * <p>
      *  初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
      * </p>
-     *
-     * @summary httpdoc 方法注解
      * @author 孤城落寞
-     * @date 2019/10/23 19:12
-     * @throws
+     * @param storage Storage
      */
     public AliyunStorageClient(Storage storage) {
         super(storage);
@@ -74,9 +68,7 @@ public class AliyunStorageClient extends StorageClient {
      * </p>
      *
      * @author 孤城落寞
-     * @param: keys 文件路径集合
-     * @date 2019/10/23 19:55
-     * @throws
+     * @param keys 文件路径集合
      */
     @Override
     public void delete(List<String> keys) {
@@ -90,9 +82,7 @@ public class AliyunStorageClient extends StorageClient {
      * </p>
      *
      * @author 孤城落寞
-     * @param: key 文件路径
-     * @date 2019/10/23 19:55
-     * @throws
+     * @param key 文件路径
      */
     @Override
     public void delete(String key) {
@@ -108,11 +98,9 @@ public class AliyunStorageClient extends StorageClient {
      * </p>
      *
      * @author 孤城落寞
-     * @param: inputStream 上传文件流
-     * @param: key  文件路径
-     * @date 2019/10/23 19:52
-     * @return: java.lang.String 返回文件路径
-     * @throws
+     * @param inputStream 上传文件流
+     * @param fileInfo    文件信息
+     * @return FileInfo 文件信息
      */
     @Override
     public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {

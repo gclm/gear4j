@@ -28,12 +28,8 @@ import java.util.concurrent.*;
  *  腾讯云存储配置
  * </p>
  *
- * @author: gclm
- * @date: 2019-10-24 17:04:00
- * @version: V1.0
- * @since JDK1.8
+ * @author gclm
  */
-
 public class TencentStorageClient extends StorageClient {
 
     /**
@@ -51,10 +47,8 @@ public class TencentStorageClient extends StorageClient {
      *  初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
      * </p>
      *
-     * @summary httpdoc 方法注解
      * @author 孤城落寞
-     * @date 2019/10/23 19:12
-     * @throws
+     * @param storage Storage
      */
     public TencentStorageClient(Storage storage) {
         super(storage);
@@ -67,8 +61,17 @@ public class TencentStorageClient extends StorageClient {
         }
     }
 
+    /**
+     * <p>
+     *  批量删除文件
+     * </p>
+     *
+     * @author gclm
+     * @param keys 文件keys
+     */
     @Override
     public void delete(List<String> keys) {
+
         Assert.notEmpty(keys,"[腾讯云OSS]批量删除文件的 keys 不能为空");
         DeleteObjectsRequest deleteObjectsRequest = new DeleteObjectsRequest(cloudStorage.getBucket());
         ArrayList<DeleteObjectsRequest.KeyVersion> keyList = new ArrayList<>();
@@ -88,15 +91,34 @@ public class TencentStorageClient extends StorageClient {
         }
     }
 
+    /**
+     * <p>
+     *  删除文件
+     * </p>
+     *
+     * @author gclm
+     * @param key 文件key
+     */
     @Override
     public void delete(String key) {
         Assert.hasLength(key,"[腾讯云OSS]删除文件的key不能为空");
         cosClient.deleteObject(cloudStorage.getBucket(),key);
     }
 
-    @SuppressWarnings("AlibabaThreadShouldSetName")
+
+    /**
+     * <p>
+     *  上传文件基础方法
+     * </p>
+     *
+     * @author 孤城落寞
+     * @param inputStream 上传文件流
+     * @param fileInfo    文件信息
+     * @return FileInfo 文件信息
+     */
     @Override
     public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {
+
         Assert.notNull(inputStream,"[腾讯云OSS]上传文件失败，请检查 inputStream 是否正常");
         Assert.hasLength(fileInfo.getOssKey(),"[腾讯云OSS]上传文件失败，请检查上传文件的 key 是否正常");
 
@@ -146,17 +168,14 @@ public class TencentStorageClient extends StorageClient {
         return fileInfo;
     }
 
-
     /**
      *  构建 COSClient 客户端
      *
      * @author gclm
-     * @param: secretId
-     * @param: secretKey
-     * @param: region
-     * @date 2020/1/2 2:29 下午
-     * @return: com.qcloud.cos.COSClient
-     * @throws
+     * @param secretId  secretId
+     * @param secretKey secretKey
+     * @param region    region
+     * @return com.qcloud.cos.COSClient
      */
     public COSClient build(String secretId,String secretKey,String region){
 
