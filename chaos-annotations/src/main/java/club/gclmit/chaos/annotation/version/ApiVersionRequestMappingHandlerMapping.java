@@ -13,10 +13,7 @@ import java.util.Objects;
  *  重写RequestMappingHandlerMapping，使其支持版本控制
  * </p>
  *
- * @author: gclm
- * @date: 2019/12/17 12:46 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class ApiVersionRequestMappingHandlerMapping extends RequestMappingHandlerMapping {
 
@@ -24,33 +21,39 @@ public class ApiVersionRequestMappingHandlerMapping extends RequestMappingHandle
      *  扫描类上的 @ApiVersion
      *
      * @author gclm
-     * @param: handlerType
-     * @date 2019/12/17 1:16 下午
-     * @return: org.springframework.web.servlet.mvc.condition.RequestCondition<?>
-     * @throws
+     * @param handlerType  Class
+     * @return: RequestCondition
      */
     @Override
     protected RequestCondition<?> getCustomTypeCondition(Class<?> handlerType) {
         ApiVersion version = AnnotationUtils.findAnnotation(handlerType, ApiVersion.class);
-        return createRquestCodition(version);
+        return createRequestCondition(version);
     }
 
     /**
      *  扫描方法上的@ApiVersion
      *
      * @author gclm
-     * @param: method
-     * @date 2019/12/17 1:15 下午
-     * @return: org.springframework.web.servlet.mvc.condition.RequestCondition<?>
-     * @throws
+     * @param method  扫描方法
+     * @return RequestCondition
      */
     @Override
     protected RequestCondition<?> getCustomMethodCondition(Method method) {
         ApiVersion apiVersion = AnnotationUtils.findAnnotation(method, ApiVersion.class);
-        return createRquestCodition(apiVersion);
+        return createRequestCondition(apiVersion);
     }
 
-    private RequestCondition<ApiVersionCondition> createRquestCodition(ApiVersion version) {
+    /**
+     * <p>
+     *  创建 requestRequestCondition
+     * </p>
+     *
+     * @author gclm
+     * @param version ApiVersion
+     * @return org.springframework.web.servlet.mvc.condition.RequestCondition<club.gclmit.chaos.annotation.version.ApiVersionCondition>
+     */
+    private RequestCondition<ApiVersionCondition> createRequestCondition(ApiVersion version) {
+
         if (Objects.isNull(version)) {
             return null;
         }

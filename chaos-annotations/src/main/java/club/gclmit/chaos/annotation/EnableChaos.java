@@ -11,10 +11,7 @@ import java.lang.annotation.*;
  *  Spring Boot启动注解。主要用户自动扫描chaos组件的包
  * </p>
  *
- * @author: gclm
- * @date: 2020/2/19 12:07 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
