@@ -9,10 +9,7 @@ import java.io.Serializable;
  * chaos web 配置
  * </p>
  *
- * @author: gclm
- * @date: 2020/4/30 2:26 上午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 @ConfigurationProperties("chaos.web")
 public class ChaosWebConfig implements Serializable {

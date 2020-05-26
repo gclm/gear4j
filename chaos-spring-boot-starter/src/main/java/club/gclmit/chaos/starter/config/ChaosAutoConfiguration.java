@@ -21,10 +21,7 @@ import org.springframework.context.annotation.Configuration;
  * chaos-storage 自动配置
  * </p>
  *
- * @author: gclm
- * @date: 2020/1/3 5:53 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 @Configuration
 @EnableConfigurationProperties(value = {ChaosStorageConfig.class, ChaosWebConfig.class})
@@ -33,6 +30,14 @@ public class ChaosAutoConfiguration {
     @Autowired
     private ChaosStorageConfig properties;
 
+    /**
+     * <p>
+     *  配置 StorageClient
+     * </p>
+     *
+     * @author gclm
+     * @return club.gclmit.chaos.storage.client.StorageClient
+     */
     @Bean
     @ConditionalOnProperty(prefix = "chaos.storage",value = "enabled",havingValue = "true")
     public StorageClient storageClient (){
