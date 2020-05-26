@@ -9,10 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
  *  文件管理
  * </p>
  *
- * @author: gclm
- * @date: 2020/1/15 10:40 上午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 @Mapper
 public interface FileMapper extends BaseMapper<FileInfo> {

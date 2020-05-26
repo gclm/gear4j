@@ -15,14 +15,20 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
  * 配置自定义转换器，解决前端 js long类型数据精度丢失
  * </p>
  *
- * @author: gclm
- * @date: 2020/1/10 4:09 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 @JsonComponent
 public class JsonSerializerManage {
 
+    /**
+     * <p>
+     *  long变成string
+     * </p>
+     *
+     * @author gclm
+     * @param builder  Jackson2ObjectMapperBuilder
+     * @return com.fasterxml.jackson.databind.ObjectMapper
+     */
     @Bean
     public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
         Logger.info(LoggerServer.SPRING_BOOT, "jackson 配置，解决前端 Long 类型精度丢失");

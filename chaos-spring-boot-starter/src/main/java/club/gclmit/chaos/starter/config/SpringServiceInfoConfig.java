@@ -10,10 +10,7 @@ import org.springframework.stereotype.Component;
  * Spring Service 服务信息工具类
  * </p>
  *
- * @author: gclm
- * @date: 2020/5/9 10:28 上午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 @Component
 public class SpringServiceInfoConfig implements ApplicationListener<WebServerInitializedEvent> {
@@ -23,6 +20,14 @@ public class SpringServiceInfoConfig implements ApplicationListener<WebServerIni
      */
     private static int serverPort;
 
+    /**
+     * <p>
+     *  获取项目服务端口
+     * </p>
+     *
+     * @author gclm
+     * @param event WebServerInitializedEvent
+     */
     @Override
     public void onApplicationEvent(WebServerInitializedEvent event) {
         serverPort = event.getWebServer().getPort();
