@@ -66,7 +66,6 @@ public class DigestUtils extends org.springframework.util.DigestUtils {
      *
      * @param file File
      * @return java.lang.String
-     * @throws IOException if an I/O error occurs
      * @author gclm
      */
     public static String md5(File file) {
@@ -83,7 +82,6 @@ public class DigestUtils extends org.springframework.util.DigestUtils {
      *
      * @param in InputStream
      * @return java.lang.String
-     * @throws IOException if an I/O error occurs
      * @author gclm
      */
     public static String md5(InputStream in) {
