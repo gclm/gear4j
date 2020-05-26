@@ -121,6 +121,7 @@ public enum ApiCode {
      *
      * @author 孤城落寞
      * @param apiCode 状态码
+     * @return ApiCode
      */
     public static ApiCode getApiCode(Integer apiCode){
         ApiCode[] apiCodes = ApiCode.values();
