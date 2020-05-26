@@ -11,10 +11,7 @@ import java.util.List;
  *  又拍云存储配置
  * </p>
  *
- * @author: gclm
- * @date: 2019-10-24 17:04:00
- * @version: V1.0
- * @since JDK1.8
+ * @author gclm
  */
 public class UpyunStorageClient extends StorageClient {
 

@@ -7,10 +7,7 @@ import java.io.Serializable;
  *  云存储客户端封装 (支持七牛、阿里云、腾讯云、又拍云)
  * </p>
  *
- * @author: gclm
- * @date: 2019-10-23 18:31:00
- * @version: V1.0
- * @since JDK1.8
+ * @author gclm
  */
 public class CloudStorage implements Serializable {
 

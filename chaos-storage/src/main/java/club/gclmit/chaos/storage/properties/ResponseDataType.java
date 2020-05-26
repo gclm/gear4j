@@ -5,10 +5,7 @@ package club.gclmit.chaos.storage.properties;
  * 响应数据类型
  * </p>
  *
- * @author: gclm
- * @date: 2020/3/16 5:31 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public enum  ResponseDataType {
 

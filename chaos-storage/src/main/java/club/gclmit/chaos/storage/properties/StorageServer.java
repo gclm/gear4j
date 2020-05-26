@@ -5,10 +5,7 @@ package club.gclmit.chaos.storage.properties;
  *  云服务商
  * </p>
  *
- * @author: gclm
- * @date: 2019-10-24 16:50:00
- * @version: V1.0
- * @since JDK1.8
+ * @author gclm
  */
 public enum StorageServer {
 
