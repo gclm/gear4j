@@ -7,10 +7,7 @@ import club.gclmit.chaos.core.util.NumberUtils;
  * Java 判断枚举
  * </p>
  *
- * @author: gclm
- * @date: 2020/4/21 10:34 上午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public enum JavaVersion {
 

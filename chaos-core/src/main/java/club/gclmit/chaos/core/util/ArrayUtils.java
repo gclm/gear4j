@@ -15,9 +15,7 @@ import java.util.Random;
  * <p>
  *  基于 Commons lang3 定义的数组工具类
  * </p>
- *
- * @author: gclm
- * @since: V1.0
+ * @author gclm
  */
 public class ArrayUtils {
 

@@ -8,10 +8,7 @@ import java.util.regex.Pattern;
  * mark hutool 相关代码
  * </p>
  *
- * @author: gclm
- * @date: 2020/4/14 7:24 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class PatternPool {
 

@@ -5,8 +5,7 @@ package club.gclmit.chaos.core.exception;
  * Chaos Core 模块异常类封装
  * </p>
  *
- * @author: gclm
- * @since 1.8
+ * @author gclm
  */
 public class ChaosCoreException extends AbstractChaosException{
 

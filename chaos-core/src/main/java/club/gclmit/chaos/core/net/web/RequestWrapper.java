@@ -16,11 +16,7 @@ import java.io.InputStreamReader;
  * 自定义 HttpServletRequestWrapper
  * 设置缓存快照
  * </p>
- *
- * @author: gclm
- * @date: 2020/5/20 5:49 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class RequestWrapper extends HttpServletRequestWrapper {
 
@@ -38,7 +34,7 @@ public class RequestWrapper extends HttpServletRequestWrapper {
      * Constructs a request object wrapping the given request.
      *
      * @param request The request to wrap
-     * @throws IllegalArgumentException if the request is null
+     * @throws IOException if the request is null
      */
     public RequestWrapper(HttpServletRequest request) throws IOException {
         super(request);

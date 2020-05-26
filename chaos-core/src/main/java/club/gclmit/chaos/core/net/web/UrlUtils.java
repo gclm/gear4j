@@ -17,10 +17,7 @@ import java.util.List;
  * url工具类
  * </p>
  *
- * @author: gclm
- * @date: 2020/5/2 2:26 下午
- * @version: V.0
- * @since 1.8
+ * @author gclm
  */
 public class UrlUtils {
 
@@ -30,10 +27,9 @@ public class UrlUtils {
      * </p>
      *
      * @author gclm
-     * @param: uri  判断的url
-     * @param: urls 忽略urls
-     * @date 2020/5/20 5:33 下午
-     * @return: boolean
+     * @param uri  判断的url
+     * @param ignoreUrls 忽略urls
+     * @return boolean 如果是返回true,否则返回 false
      */
     public static boolean isIgnore(List<String> ignoreUrls,String uri){
         for (String ignoreUrl : ignoreUrls) {
@@ -60,8 +56,8 @@ public class UrlUtils {
     /**
      * encode 自定义编码格式
      *
-     * @param url
-     * @param charset
+     * @param url     url
+     * @param charset 编码格式
      * @return String
      */
     public static String encode(String url, Charset charset) {
@@ -73,8 +69,8 @@ public class UrlUtils {
     /**
      * encode 自定义编码格式
      *
-     * @param url
-     * @param charset
+     * @param url     url
+     * @param charset 编码格式
      * @return String
      */
     public static String encode(String url,String charset) {
@@ -93,7 +89,7 @@ public class UrlUtils {
     /**
      * decode 默认为UTF-8
      *
-     * @param url
+     * @param url URL
      * @return String
      */
     public static String decode(String url) {
@@ -104,8 +100,8 @@ public class UrlUtils {
     /**
      * decode 自定义编码格式
      *
-     * @param url
-     * @param charset
+     * @param url     url
+     * @param charset 编码格式
      * @return String
      */
     public static String decode(String url, Charset charset) {
@@ -117,8 +113,8 @@ public class UrlUtils {
     /**
      * decode 自定义编码格式
      *
-     * @param url
-     * @param charset
+     * @param url     url
+     * @param charset 编码格式
      * @return String
      */
     public static String decode(String url,String charset) {

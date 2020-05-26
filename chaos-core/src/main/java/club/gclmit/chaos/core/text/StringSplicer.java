@@ -12,10 +12,9 @@ import java.util.regex.Pattern;
  *  字符串切分器
  * </p>
  *
- * @author: gclm
- * @version: V1.0
+ * @author gclm
  */
-public class StringSpliter {
+public class StringSplicer {
 	
 	//---------------------------------------------------------------------------------------------- Split by char
 	/**

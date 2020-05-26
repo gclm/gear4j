@@ -9,8 +9,7 @@ import club.gclmit.chaos.core.util.StringUtils;
  *  该类继承运行时异常。
  * </p>
  *
- * @author: gclm
- * @since 1.8
+ * @author gclm
  */
 public abstract class AbstractChaosException extends RuntimeException {
 

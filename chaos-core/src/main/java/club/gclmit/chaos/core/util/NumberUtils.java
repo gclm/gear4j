@@ -70,7 +70,7 @@ public class NumberUtils {
     /**
      * 判断Number是否为空
      *
-     * @param number
+     * @param number Number
      * @return 是否为true
      */
     public static boolean isEmpty(Number number) {
@@ -80,7 +80,7 @@ public class NumberUtils {
     /**
      * 判断Number是否为空
      *
-     * @param number
+     * @param number Number
      * @return 是否为true
      */
     public static boolean isEmpty(Integer number) {
@@ -1905,7 +1905,7 @@ public class NumberUtils {
      * @return 新值
      */
     public static BigDecimal round(String numberStr, int scale, RoundingMode roundingMode) {
-        Assert.notBlank(numberStr);
+        Assert.notBlank(numberStr,"numberStr 不能为空");
         if (scale < 0) {
             scale = 0;
         }

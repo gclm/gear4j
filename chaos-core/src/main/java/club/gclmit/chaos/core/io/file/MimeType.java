@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.file;
+package club.gclmit.chaos.core.io.file;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -8,10 +8,7 @@ import lombok.ToString;
  * Mime type
  * </p>
  *
- * @author: gclm
- * @date: 2020/3/2 1:13 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 @Getter
 @ToString
@@ -326,23 +323,29 @@ public enum MimeType {
     /**
      * 根据前缀获取文档的 Mime
      *
-     * @throws
      * @author gclm
-     * @param: sufix
-     * @date 2020/3/2 1:47 下午
-     * @return: java.lang.String
+     * @param suffix 文件后缀
+     * @return java.lang.String
      */
-    public static String getMime(String sufix) {
+    public static String getMime(String suffix) {
         MimeType[] mimeTypes = values();
         for (MimeType mimeType : mimeTypes) {
-            if (sufix.equals(mimeType.getSufix())) {
+            if (suffix.equals(mimeType.getSufix())) {
                 return mimeType.getMimeType();
             }
         }
         return DEFAULT_FILE_CONTENT_TYPE;
     }
 
-
+    /**
+     * <p>
+     * 生成枚举注释
+     * </p>
+     *
+     * @author gclm
+     * @param type MimeType
+     * @return java.lang.String
+     */
     public String generate(MimeType type) {
         String template = " /**\n" +
                 "     * %s\n" +

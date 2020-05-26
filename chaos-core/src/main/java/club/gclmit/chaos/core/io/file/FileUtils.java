@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.file;
+package club.gclmit.chaos.core.io.file;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.lang.Assert;
@@ -13,10 +13,7 @@ import java.io.*;
  * 文件辅助工具类
  * </p>
  *
- * @author: gclm
- * @date: 2019/11/29 4:34 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class FileUtils {
 
@@ -61,12 +58,12 @@ public class FileUtils {
     }
 
     /**
-     * 效验文件器 --> 功能如果判断文件是否存在，如果不存在先创建文件多层目录，然后创建文件
+     * 效验文件器
+     * 功能如果判断文件是否存在，如果不存在先创建文件多层目录，然后创建文件
      *
-     * @param filePath
+     * @param filePath 文件路径
      * @author 孤城落寞
-     * @date: 2019-08-19
-     * @return: java.io.File
+     * @return java.io.File
      */
     public static File autoJudgeFile(String filePath) {
         Assert.notNull(filePath, "文件路径不能为空");
@@ -104,8 +101,7 @@ public class FileUtils {
      * </p>
      *
      * @author gclm
-     * @date 2020/5/24 9:22 下午
-     * @return: java.lang.String
+     * @return java.lang.String
      */
     public static String getRootPath() {
         return System.getProperty("user.dir");
@@ -114,10 +110,8 @@ public class FileUtils {
     /**
      * 单个文件删除
      *
-     * @param filePath
+     * @param filePath 文件路径
      * @author 孤城落寞
-     * @date: 2019-08-19
-     * @return: void
      */
     public static void delete(String filePath) {
         Assert.notNull(filePath, "文件路径不能为空");
@@ -127,10 +121,8 @@ public class FileUtils {
     /**
      * 文件删除
      *
-     * @param file
+     * @param file 文件
      * @author 孤城落寞
-     * @date: 2019-08-19
-     * @return: void
      */
     public static void delete(File file) {
         Assert.isTrue(file.exists(), "文件对象不能为空");
@@ -147,10 +139,7 @@ public class FileUtils {
 
     /**
      * 批量删除文件
-     *
-     * @param files
-     * @return void
-     * @details 孤城落寞 2019-02-14 10:08
+     * @param files 文件集合
      */
     public static void delete(File... files) {
         Assert.notEmpty(files, "文件集合不能为空");
@@ -168,9 +157,9 @@ public class FileUtils {
     /**
      * MultipartFile 转 File
      *
-     * @param multipartFile
+     * @param multipartFile springmvc封装的上传文件
+     * @param folder        文件夹路径
      * @return java.io.File
-     * @details 孤城落寞 2019-02-14 10:16
      */
     public static File multipartFileToFile(MultipartFile multipartFile, String folder) {
         Assert.notNull(multipartFile.isEmpty(), "multipartFile 不能为空");
@@ -190,9 +179,9 @@ public class FileUtils {
     /**
      * 获取文件后缀
      *
-     * @param file
+     * @param file MultipartFile
      * @author 孤城落寞
-     * @return: java.lang.String
+     * @return java.lang.String
      */
     public static String getSuffix(MultipartFile file) {
         Assert.notNull(file, "文件不能为空");
@@ -202,9 +191,9 @@ public class FileUtils {
     /**
      * 获取文件后缀
      *
-     * @param file
+     * @param file File
      * @author 孤城落寞
-     * @return: java.lang.String
+     * @return java.lang.String
      */
     public static String getSuffix(File file) {
         Assert.isTrue(file.exists(), "文件不能为空");
@@ -215,9 +204,8 @@ public class FileUtils {
      * 获取文件后缀
      *
      * @author gclm
-     * @param: fileName
-     * @date 2020/4/21 7:18 下午
-     * @return: java.lang.String
+     * @param fileName 文件名
+     * @return java.lang.String
      */
     public static String getSuffix(String fileName) {
         Assert.isTrue(StringUtils.isNotBlank(fileName), "文件名不能为空");
@@ -227,11 +215,9 @@ public class FileUtils {
     /**
      * 获取文件内容
      *
-     * @throws
      * @author gclm
-     * @param: file
-     * @date 2020/2/29 1:17 下午
-     * @return: java.lang.String
+     * @param file File
+     * @return java.lang.String
      */
     public static String getContent(File file) {
         Assert.isTrue(file.exists(), "文件不能为空");
@@ -252,11 +238,9 @@ public class FileUtils {
     /**
      * 获取文件内容并去除全部空格
      *
-     * @throws
      * @author gclm
-     * @param: file
-     * @date 2020/2/29 1:17 下午
-     * @return: java.lang.String
+     * @param file File
+     * @return java.lang.String
      */
     public static String getContentTrim(File file) {
         return getContent(file).replaceAll("\\s*", "");
@@ -267,10 +251,9 @@ public class FileUtils {
      * 1. 先进行魔数筛选
      * 2. 根据魔数筛选结果,进行后缀获取内容类型
      *
-     * @param file
+     * @param file File
      * @author 孤城落寞
-     * @date: 2019/9/23
-     * @return: java.lang.String
+     * @return java.lang.String
      */
     public static String getContentType(File file) {
         Assert.isTrue(file.exists(), "文件不能为空");
@@ -293,11 +276,9 @@ public class FileUtils {
     /**
      * 效验文件类型
      *
-     * @throws
      * @author gclm
-     * @param: file
-     * @date 2020/3/2 2:49 下午
-     * @return: java.lang.String
+     * @param file 效验文件
+     * @return java.lang.String
      */
     public static String judgeFileType(File file) {
         Assert.isTrue(file.exists(), "文件不能为空");
@@ -313,12 +294,9 @@ public class FileUtils {
      * 获取文件头部
      * </p>
      *
-     * @throws
-     * @title getFileHeader
      * @author gclm
-     * @param: filePath 文件路径
-     * @date 2019/11/6 23:48
-     * @return: java.lang.String
+     * @param file File
+     * @return java.lang.String
      */
     private static String getFileHeader(File file) {
         byte[] b = new byte[28];
@@ -335,15 +313,15 @@ public class FileUtils {
     /**
      * 将字节数组转换成16进制字符串
      *
-     * @param src
-     * @return
+     * @param bytes 字节数组
+     * @return String
      */
-    private static String byteToHex(byte[] src) {
-        Assert.isFalse(ArrayUtils.isEmpty(src), "字节数组不能为空");
+    private static String byteToHex(byte[] bytes) {
+        Assert.isFalse(ArrayUtils.isEmpty(bytes), "字节数组不能为空");
 
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < src.length; i++) {
-            int v = src[i] & 0xFF;
+        for (int i = 0; i < bytes.length; i++) {
+            int v = bytes[i] & 0xFF;
             String hv = Integer.toHexString(v);
             if (hv.length() < 2) {
                 stringBuilder.append(0);

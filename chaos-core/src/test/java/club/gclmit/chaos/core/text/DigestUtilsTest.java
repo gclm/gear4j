@@ -1,6 +1,7 @@
 package club.gclmit.chaos.core.text;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * <p>
@@ -14,7 +15,7 @@ import java.io.File;
  */
 public class DigestUtilsTest {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         File file = new File("/Users/gclm/Pictures/27618687.jpeg");
         File file1 = new File("/Users/gclm/Pictures/avatar.jpg");
         File file2 = new File("/Users/gclm/Pictures/截图/Xnip2020-04-30_16-54-26.jpg");
@@ -22,7 +23,5 @@ public class DigestUtilsTest {
         System.out.println("file:  " + DigestUtils.md5(file));
         System.out.println("file1: " + DigestUtils.md5(file1));
         System.out.println("file2: " + DigestUtils.md5(file2));
-
-
     }
 }

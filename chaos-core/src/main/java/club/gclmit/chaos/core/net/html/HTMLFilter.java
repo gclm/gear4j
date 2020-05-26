@@ -12,10 +12,7 @@ import java.util.regex.Pattern;
  * HTML过滤器，用于去除XSS漏洞隐患。
  * </p>
  *
- * @author: gclm
- * @date: 2020/4/14 10:18 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public final class HTMLFilter {
 

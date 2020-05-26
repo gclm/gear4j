@@ -9,10 +9,7 @@ import java.nio.charset.UnsupportedCharsetException;
  *  常见编码集封装
  * </p>
  *
- * @author: gclm
- * @date: 2020/4/14 10:15 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class CharsetUtils {
     
@@ -116,21 +113,6 @@ public class CharsetUtils {
         }
         return new String(source.getBytes(srcCharset), destCharset);
     }
-
-    /**
-     * 转换文件编码<br>
-     * 此方法用于转换文件编码，读取的文件实际编码必须与指定的srcCharset编码一致，否则导致乱码
-     *
-     * @param file        文件
-     * @param srcCharset  原文件的编码，必须与文件内容的编码保持一致
-     * @param destCharset 转码后的编码
-     * @return 被转换编码的文件
-     * @since 3.1.0
-     */
-//	public static File convert(File file, Charset srcCharset, Charset destCharset) {
-//		final String str = FileUtil.readString(file, srcCharset);
-//		return FileUtil.writeString(str, file, destCharset);
-//	}
 
     /**
      * 系统字符集编码，如果是Windows，则默认为GBK编码，否则取 {@link CharsetUtils#defaultCharsetName()}

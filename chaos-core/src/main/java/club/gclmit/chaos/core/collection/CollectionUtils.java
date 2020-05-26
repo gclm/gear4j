@@ -7,9 +7,7 @@ import java.util.*;
  *  集合工具类封装
  * </p>
  *
- * @author: gclm
- * @since 1.8
- * @since 1.0
+ * @author gclm
  */
 public class CollectionUtils {
 

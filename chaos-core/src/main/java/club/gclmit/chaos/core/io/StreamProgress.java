@@ -5,10 +5,7 @@ package club.gclmit.chaos.core.io;
  * Stream进度条
  * </p>
  *
- * @author: gclm
- * @date: 2020/4/15 4:57 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public interface StreamProgress {
 

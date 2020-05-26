@@ -7,17 +7,14 @@ import java.util.List;
  * List 集合工具类
  * </p>
  *
- * @author: gclm
- * @date: 2020/5/14 8:17 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class ListUtils {
 
     /**
      * 判断List是否为空
      *
-     * @param list
+     * @param list 效验集合
      * @return 是否为true
      */
     public static boolean isEmpty(List list) {
@@ -27,7 +24,7 @@ public class ListUtils {
     /**
      * 判断List是否不为空
      *
-     * @param list
+     * @param list 效验集合
      * @return 是否为true
      */
     public static boolean isNotEmpty(List list) {

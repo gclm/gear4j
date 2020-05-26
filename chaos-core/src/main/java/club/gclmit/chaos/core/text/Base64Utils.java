@@ -17,10 +17,7 @@ import java.util.Base64;
  * base64 工具类
  * </p>
  *
- * @author: gclm
- * @date: 2020/3/31 10:46 AM
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class Base64Utils{
 
@@ -28,10 +25,8 @@ public class Base64Utils{
      * base64 解码
      *
      * @author gclm
-     * @param: src
-     * @date 2020/3/31 2:57 PM
-     * @return: byte[]
-     * @throws
+     * @param bytes 字节数组
+     * @return byte[]
      */
     public static byte[] decode(byte[] bytes) {
         Assert.isFalse(ObjectUtils.isEmpty(bytes),"bytes 不能为空");
@@ -45,11 +40,9 @@ public class Base64Utils{
     /**
      * 默认为 UTF-8的编码格式加密
      *
-     * @throws
      * @author gclm
-     * @param: str
-     * @date 2020/3/31 2:52 PM
-     * @return: java.lang.String
+     * @param str 内容
+     * @return java.lang.String
      */
     public static String encode(String str) {
         Assert.isFalse(StringUtils.isEmpty(str),"str 不能为空");
@@ -59,12 +52,10 @@ public class Base64Utils{
     /**
      * 自定义编码格式加密
      *
-     * @throws
      * @author gclm
-     * @param: str     内容
-     * @param: charset 编码格式
-     * @date 2020/3/31 2:52 PM
-     * @return: java.lang.String
+     * @param str     内容
+     * @param charset 编码格式
+     * @return java.lang.String
      */
     public static String encode(String str, String charset) {
         Assert.isFalse(StringUtils.isEmpty(str),"str 不能为空");
@@ -78,11 +69,9 @@ public class Base64Utils{
     /**
      * 编码
      *
-     * @throws
      * @author gclm
-     * @param: bytes     内容
-     * @date 2020/3/31 2:52 PM
-     * @return: java.lang.String
+     * @param bytes     内容
+     * @return java.lang.String
      */
     public static String encode(byte[] bytes) {
         Assert.isFalse(ObjectUtils.isEmpty(bytes),"bytes 不能为空");
@@ -91,13 +80,11 @@ public class Base64Utils{
 
     /**
      * 网络数据加密
-     * eq: 网上图片 --> base64
+     * eq: 网上图片 To base64
      *
      * @author gclm
-     * @param: url
-     * @date 2020/3/31 2:56 PM
-     * @return: java.lang.String
-     * @throws
+     * @param url  网络内容
+     * @return java.lang.String
      */
     public static String encode(URL url) {
         Assert.notNull(url,"url不能为空");
@@ -115,14 +102,11 @@ public class Base64Utils{
     }
 
     /**
-     * 网络数据加密
-     * eq: file --> base64
+     * eq: file To base64
      *
      * @author gclm
-     * @param: url
-     * @date 2020/3/31 2:56 PM
-     * @return: java.lang.String
-     * @throws
+     * @param file 图片
+     * @return java.lang.String
      */
     public static String encode(File file) {
         Assert.notNull(file,"file不能为空");

@@ -15,10 +15,7 @@ import java.io.*;
  * HttpServletResponse 缓存
  * </p>
  *
- * @author: gclm
- * @date: 2020/5/20 10:02 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class ResponseWrapper extends HttpServletResponseWrapper {
 

@@ -21,10 +21,7 @@ import java.util.List;
  *  mark commons io 修改的IO工具类
  * </p>
  *
- * @author: gclm
- * @date: 2020/4/15 5:01 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class IOUtils {
 
@@ -35,25 +32,10 @@ public class IOUtils {
 	public static final int EOF = -1;
 
 	/**
-	 * The Unix directory separator character.
-	 */
-	public static final char DIR_SEPARATOR_UNIX = '/';
-	/**
-	 * The Windows directory separator character.
-	 */
-	public static final char DIR_SEPARATOR_WINDOWS = '\\';
-	/**
 	 * The system directory separator character.
 	 */
 	public static final char DIR_SEPARATOR = File.separatorChar;
-	/**
-	 * The Unix line separator string.
-	 */
-	public static final String LINE_SEPARATOR_UNIX = "\n";
-	/**
-	 * The Windows line separator string.
-	 */
-	public static final String LINE_SEPARATOR_WINDOWS = "\r\n";
+
 	/**
 	 * The system line separator string.
 	 */
@@ -107,9 +89,8 @@ public class IOUtils {
 	 *  判断 InputStream 是否为空
 	 *
 	 * @author gclm
-	 * @param: in
-	 * @date 2020/5/2 2:11 下午
-	 * @return: boolean
+	 * @param in InputStream
+	 * @return boolean
 	 */
 	public static boolean isEmpty(InputStream in) {
 		try {
@@ -123,9 +104,8 @@ public class IOUtils {
 	 *  判断 InputStream 是否为空
 	 *
 	 * @author gclm
-	 * @param: in
-	 * @date 2020/5/2 2:12 下午
-	 * @return: boolean
+	 * @param in InputStream
+	 * @return boolean
 	 */
 	public static boolean isNotEmpty(InputStream in) {
 		return !isEmpty(in);
@@ -684,7 +664,7 @@ public class IOUtils {
 	 * @param name        name of the desired resource
 	 * @param classLoader the class loader that the resolution of the resource is delegated to
 	 * @return the requested URL
-	 * @throws IOException if an I/O error occurs
+     * @throws IOException  if an I/O error occurs
 	 *
 	 * @since 2.6
 	 */
@@ -713,8 +693,6 @@ public class IOUtils {
 	 * @param input the <code>InputStream</code> to read from, not null
 	 * @param encoding the encoding to use, null means platform default
 	 * @return the list of Strings, never null
-	 * @throws NullPointerException if the input is null
-	 * @throws IOException          if an I/O error occurs
 	 * @since 2.3
 	 */
 	public static List<String> readLines(final InputStream input, final Charset encoding){
