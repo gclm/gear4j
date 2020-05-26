@@ -11,10 +11,7 @@ import java.util.regex.Pattern;
  *  重写 RequestCondition 组件
  * </p>
  *
- * @author: gclm
- * @date: 2019/12/17 12:01 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class ApiVersionCondition implements RequestCondition<ApiVersionCondition> {
 
@@ -49,14 +46,12 @@ public class ApiVersionCondition implements RequestCondition<ApiVersionCondition
      *  当出现多个符合匹配条件的ApiVersionCondition， 优先匹配版本号较大的
      *
      * @author gclm
-     * @param: other
-     * @param: request
-     * @date 2019/12/17 12:44 下午
-     * @throws
+     * @param condition ApiVersionCondition
+     * @param request HttpServletRequest
      */
     @Override
-    public int compareTo(ApiVersionCondition other, HttpServletRequest request) {
-        return other.getApiVersion() - getApiVersion();
+    public int compareTo(ApiVersionCondition condition, HttpServletRequest request) {
+        return condition.getApiVersion() - getApiVersion();
     }
 
     public ApiVersionCondition(int apiVersion) {

@@ -10,10 +10,7 @@ import java.lang.annotation.Target;
  * Swagger API 版本注解
  * </p>
  *
- * @author: gclm
- * @date: 2020/4/1 9:53 PM
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})

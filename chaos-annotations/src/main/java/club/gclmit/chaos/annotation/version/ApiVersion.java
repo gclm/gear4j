@@ -7,10 +7,7 @@ import java.lang.annotation.*;
  * 版本号注解
  * </p>
  *
- * @author: gclm
- * @date: 2019/12/17 11:41 上午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 @Target({ElementType.METHOD,ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
