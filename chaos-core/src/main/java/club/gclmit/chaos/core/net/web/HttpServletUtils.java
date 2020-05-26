@@ -2,7 +2,6 @@ package club.gclmit.chaos.core.net.web;
 
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.util.StringUtils;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -16,10 +15,7 @@ import java.util.Map;
  * HttpServlet Request/Response 工具类
  * </p>
  *
- * @author: gclm
- * @date: 2020/5/2 2:31 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class HttpServletUtils {
 
@@ -47,7 +43,6 @@ public class HttpServletUtils {
      * 默认请求内容类型
      */
     private static final String DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
-
 
     /**
      * 获取客户端 ip
@@ -180,9 +175,8 @@ public class HttpServletUtils {
      * - websocket
      *
      * @author gclm
-     * @param: request
-     * @date 2020/1/11 9:35 下午
-     * @return: java.lang.String
+     * @param request http request instance
+     * @return java.lang.String
      */
     public static String getRequestType(HttpServletRequest request) {
         Assert.notNull(request, "request instance is null.");
@@ -193,9 +187,8 @@ public class HttpServletUtils {
      * 获取Session Id
      *
      * @author gclm
-     * @param: request
-     * @date 2020/1/20 9:34 上午
-     * @return: java.lang.String
+     * @param request http request instance
+     * @return java.lang.String
      */
     public static String getSessionId(HttpServletRequest request) {
         return request.getSession().getId();
@@ -205,9 +198,8 @@ public class HttpServletUtils {
      * 获取用户代理
      *
      * @author gclm
-     * @param: request
-     * @date 2020/1/20 10:38 上午
-     * @return: java.lang.String
+     * @param request http request instance
+     * @return java.lang.String
      */
     public static String getUserAgent(HttpServletRequest request) {
         Assert.notNull(request, "request instance is null.");
@@ -220,9 +212,8 @@ public class HttpServletUtils {
      * </p>
      *
      * @author gclm
-     * @param: request
-     * @date 2020/5/21 10:45 下午
-     * @return: boolean
+     * @param request http request instance
+     * @return boolean
      */
     public static boolean isFileUpload(HttpServletRequest request) {
         Assert.notNull(request, "request instance is null.");
@@ -235,8 +226,8 @@ public class HttpServletUtils {
      * </p>
      *
      * @author gclm
-     * @param: request
-     * @return: boolean
+     * @param request http request instance
+     * @return boolean
      */
     public static String getContentType(HttpServletRequest request) {
         Assert.notNull(request, "request instance is null.");
@@ -246,13 +237,11 @@ public class HttpServletUtils {
 
     /**
      * 获取 requestBody 内容
-     * wrapper.getCharacterEncoding() 默认为 ISO-8859-1
      *
-     * @throws
      * @author gclm
-     * @param: wrapper
-     * @date 2020/1/20 4:17 下午
-     * @return: java.lang.String
+     * @param request http request instance
+     * @return java.lang.String
+     * @throws IOException 获取HttpServletRequest Body 异常
      */
     public static String getRequestBody(HttpServletRequest request) throws IOException {
         Assert.notNull(request, "request instance is null.");
@@ -267,12 +256,10 @@ public class HttpServletUtils {
 
     /**
      * 获取 ResponseBody 内容
-     * wrapper.getCharacterEncoding() 默认为 ISO-8859-1
      *
      * @author gclm
-     * @param: response
-     * @date 2020/1/20 4:17 下午
-     * @return: java.lang.String
+     * @param response HttpServletResponse
+     * @return java.lang.String
      */
     public static String getResponseBody(HttpServletResponse response) {
         Assert.notNull(response, "response instance is null.");

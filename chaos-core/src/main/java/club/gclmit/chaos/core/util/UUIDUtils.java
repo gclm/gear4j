@@ -5,10 +5,7 @@ package club.gclmit.chaos.core.util;
  *  UUID 生成器
  * </p>
  *
- * @author: gclm
- * @date: 2020/5/2 9:51 上午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class UUIDUtils {
 
@@ -34,7 +31,6 @@ public class UUIDUtils {
      * @param: buf
      * @param: offset
      * @param: len
-     * @date 2020/5/2 10:39 上午
      */
     private static void buildUUIDFactor(long val, byte[] buf, int offset, int len) {
         int charPos = offset + len;
@@ -50,7 +46,6 @@ public class UUIDUtils {
      *  无符号uuid
      *
      * @author gclm
-     * @date 2020/5/2 10:42 上午
      * @return: java.lang.String
      */
     public static String getSimpleUUID(){
@@ -61,7 +56,6 @@ public class UUIDUtils {
      *  uuid
      *
      * @author gclm
-     * @date 2020/5/2 10:42 上午
      * @return: java.lang.String
      */
     public static String getUUID() {

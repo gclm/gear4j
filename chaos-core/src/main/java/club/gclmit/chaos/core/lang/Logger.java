@@ -10,10 +10,7 @@ import org.slf4j.helpers.MessageFormatter;
  * Slf4j 日志封装
  * </p>
  *
- * @author: gclm
- * @date: 2020/1/4 9:17 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class Logger {
 
@@ -75,56 +72,129 @@ public class Logger {
         return LoggerFactory.getLogger(caller.getClassName());
     }
 
+    /**
+     *  trace
+     *
+     * @author gclm
+     * @param format        消息模板
+     * @param arguments     消息参数
+     */
     public static void trace(String format, Object... arguments) {
         log().trace(buildMessage(null, format, arguments));
     }
 
+    /**
+     *  info
+     *
+     * @author gclm
+     * @param format        消息模板
+     * @param arguments     消息参数
+     */
     public static void info(String format, Object... arguments) {
         log().info(buildMessage(null, format, arguments));
     }
 
+    /**
+     *  debug
+     *
+     * @author gclm
+     * @param format        消息模板
+     * @param arguments     消息参数
+     */
     public static void debug(String format, Object... arguments) {
         log().debug(buildMessage(null, format, arguments));
     }
 
+    /**
+     *  warn
+     *
+     * @author gclm
+     * @param format        消息模板
+     * @param arguments     消息参数
+     */
     public static void warn(String format, Object... arguments) {
         log().warn(buildMessage(null, format, arguments));
     }
 
+    /**
+     *  error
+     *
+     * @author gclm
+     * @param format        消息模板
+     * @param arguments     消息参数
+     */
     public static void error(String format, Object... arguments) {
         log().error(buildMessage(null, format, arguments));
     }
 
+    /**
+     *  trace
+     *
+     * @author gclm
+     * @param loggerServer  消息服务类型
+     * @param format        消息模板
+     * @param arguments     消息参数
+     */
     public static void trace(LoggerServer loggerServer, String format, Object... arguments) {
         log().trace(buildMessage(loggerServer, format, arguments));
     }
 
+    /**
+     *  info
+     *
+     * @author gclm
+     * @param loggerServer  消息服务类型
+     * @param format        消息模板
+     * @param arguments     消息参数
+     */
     public static void info(LoggerServer loggerServer, String format, Object... arguments) {
         log().info(buildMessage(loggerServer, format, arguments));
     }
 
+    /**
+     *  debug
+     *
+     * @author gclm
+     * @param loggerServer  消息服务类型
+     * @param format        消息模板
+     * @param arguments     消息参数
+     */
     public static void debug(LoggerServer loggerServer, String format, Object... arguments) {
         log().debug(buildMessage(loggerServer, format, arguments));
     }
 
+    /**
+     *  warn
+     *
+     * @author gclm
+     * @param loggerServer  消息服务类型
+     * @param format        消息模板
+     * @param arguments     消息参数
+     */
     public static void warn(LoggerServer loggerServer, String format, Object... arguments) {
         log().warn(buildMessage(loggerServer, format, arguments));
     }
 
+    /**
+     *  error
+     *
+     * @author gclm
+     * @param loggerServer  消息服务类型
+     * @param format        消息模板
+     * @param arguments     消息参数
+     */
     public static void error(LoggerServer loggerServer, String format, Object... arguments) {
         log().error(buildMessage(loggerServer, format, arguments));
     }
-
 
     /**
      *  消息组建
      *
      * @author gclm
-     * @param: logServer
-     * @param: message
-     * @date 2020/1/4 9:27 下午
-     * @return: java.lang.String
-     * @throws
+     * @param loggerServer  消息服务类型
+     * @param format        消息模板
+     * @param arguments     消息参数
+     * @return java.lang.String
      */
     private static String buildMessage(LoggerServer loggerServer, String format, Object... arguments){
         FormattingTuple ft = MessageFormatter.arrayFormat(format, arguments);

@@ -12,10 +12,7 @@ import java.util.List;
  * 基于FastJSON 封装
  * </p>
  *
- * @author: gclm
- * @date: 2020/4/13 10:15 上午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class JsonUtils {
 
@@ -67,18 +64,18 @@ public class JsonUtils {
     }
 
     /**
-     *
-     * @param bean
-     * @return
+     * bean to Format Json String
+     * @param bean bean
+     * @return String
      */
     public static String toFormatedJson(Object bean) {
         return JSON.toJSONString(bean, mapping, SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.PrettyFormat);
     }
 
     /**
-     *
-     * @param bean
-     * @return
+     * bean to Json String
+     * @param bean bean
+     * @return String
      */
     public static String toJson(Object bean) {
         return JSON.toJSONString(bean, mapping, SerializerFeature.DisableCircularReferenceDetect);
@@ -86,18 +83,19 @@ public class JsonUtils {
 
     /**
      * 可以返回null的key值
-     * @param bean
-     * @return
+     * @param bean  bean
+     * @return String
      */
     public static String toJsonAboutNull(Object bean) {
         return JSON.toJSONString(bean, mapping, SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteNullStringAsEmpty);
     }
 
     /**
+     *  bean to Json String
      *
-     * @param bean
-     * @param serializeFilter
-     * @return
+     * @param bean            bean
+     * @param serializeFilter 过滤器配置
+     * @return String
      */
     public static String toJson(Object bean, SerializeFilter serializeFilter) {
         if (serializeFilter != null) {

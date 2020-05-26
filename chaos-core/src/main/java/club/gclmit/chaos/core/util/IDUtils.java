@@ -7,15 +7,14 @@ import club.gclmit.chaos.core.lang.Snowflake;
  * id 生成器
  * </p>
  *
- * @author: gclm
- * @date: 2020/4/14 9:35 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class IDUtils {
 
     /**
      * 随机UUID
+     * @author 孤城落寞
+     * @return java.lang.String
      */
     public static String randomUUID() {
         return UUIDUtils.getUUID();
@@ -23,6 +22,8 @@ public class IDUtils {
 
     /**
      * 简化的UUID，去掉了横线
+     * @author 孤城落寞
+     * @return java.lang.String
      */
     public static String simpleUUID() {
         return UUIDUtils.getSimpleUUID();
@@ -34,8 +35,7 @@ public class IDUtils {
      * </p>
      *
      * @author 孤城落寞
-     * @date 2019/10/22 21:16
-     * @return: java.lang.Long
+     * @return java.lang.Long
      */
     public static Long snowflakeId() {
         return new Snowflake(0, 0).nextId();
@@ -47,8 +47,7 @@ public class IDUtils {
      * </p>
      *
      * @author 孤城落寞
-     * @date 2019/10/22 21:15
-     * @return: java.lang.String
+     * @return java.lang.String
      */
     public static String stringSnowflakeId() {
         return String.valueOf(snowflakeId());

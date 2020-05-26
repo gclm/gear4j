@@ -7,10 +7,7 @@ import javax.servlet.http.HttpServletRequest;
  * user-agent 工具类
  * </p>
  *
- * @author: gclm
- * @date: 2020/4/13 10:05 上午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class UserAgentUtils {
 
@@ -21,7 +18,7 @@ public class UserAgentUtils {
     /**
      * 获取当前浏览器名称
      *
-     * @param request
+     * @param request  HttpServletRequest
      * @return 返回浏览器名称
      */
     public static String getCurrent(HttpServletRequest request) {
@@ -41,8 +38,8 @@ public class UserAgentUtils {
     /**
      * 是否是IE浏览器
      *
-     * @param request
-     * @return
+     * @param request HttpServletRequest 请求
+     * @return boolean 如果是返回 true，否则返回 false
      */
     public static boolean isIe(HttpServletRequest request) {
         return IE.equals(getCurrent(request));
@@ -51,8 +48,8 @@ public class UserAgentUtils {
     /**
      * 是否是Firefox浏览器
      *
-     * @param request
-     * @return
+     * @param request HttpServletRequest 请求
+     * @return boolean 如果是返回 true，否则返回 false
      */
     public static boolean isFirefox(HttpServletRequest request) {
         return FIREFOX.equals(getCurrent(request));
@@ -61,8 +58,8 @@ public class UserAgentUtils {
     /**
      * 是否是Chrome浏览器
      *
-     * @param request
-     * @return
+     * @param request HttpServletRequest 请求
+     * @return boolean 如果是返回 true，否则返回 false
      */
     public static boolean isChrome(HttpServletRequest request) {
         return CHROME.equals(getCurrent(request));

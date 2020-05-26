@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.file;
+package club.gclmit.chaos.core.io.file;
 
 import club.gclmit.chaos.core.util.StringUtils;
 
@@ -7,9 +7,7 @@ import club.gclmit.chaos.core.util.StringUtils;
  * 常见文件类型的魔数枚举
  * </p>
  *
- * @author: gclm
- * @date: 2019/11/6 23:19
- * @version: V1.0
+ * @author gclm
  */
 public enum  FileType {
 
@@ -199,10 +197,8 @@ public enum  FileType {
      *  基于魔数获取文件 mime
      *
      * @author gclm
-     * @param: magicNumber
-     * @date 2020/3/2 2:36 下午
-     * @return: java.lang.String
-     * @throws
+     * @param fileHeader  文件头
+     * @return java.lang.String
      */
     public static String getMimeType(String fileHeader){
         FileType[] fileTypes = values();
@@ -222,10 +218,8 @@ public enum  FileType {
      *  基于魔数效验文件类型
      *
      * @author gclm
-     * @param: fileHeader
-     * @date 2020/3/2 2:50 下午
-     * @return: java.lang.String
-     * @throws
+     * @param fileHeader  文件头
+     * @return java.lang.String
      */
     public static String getKey(String fileHeader){
         FileType[] fileTypes = values();

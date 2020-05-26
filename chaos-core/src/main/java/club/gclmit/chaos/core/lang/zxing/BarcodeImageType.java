@@ -5,10 +5,7 @@ package club.gclmit.chaos.core.lang.zxing;
  * 条形码图片类型
  * </p>
  *
- * @author: gclm
- * @date: 2020/5/4 4:43 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public enum BarcodeImageType {
 

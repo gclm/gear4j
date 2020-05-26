@@ -5,10 +5,7 @@ package club.gclmit.chaos.core.lang.logger;
  * log 常见服务
  * </p>
  *
- * @author: gclm
- * @date: 2020/1/3 2:10 下午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public enum LoggerServer {
 

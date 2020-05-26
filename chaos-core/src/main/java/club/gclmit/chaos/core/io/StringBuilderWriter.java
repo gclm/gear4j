@@ -8,10 +8,7 @@ import java.io.Writer;
  * 基于Commons-io 封装
  * </p>
  *
- * @author: gclm
- * @date: 2020/4/13 11:09 上午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class StringBuilderWriter extends Writer implements Serializable {
 

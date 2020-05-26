@@ -3,7 +3,6 @@
  * 自定义异常和异常处理
  * </p>
  *
- * @author: gclm
- * @since 1.8
+ * @author gclm
  */
 package club.gclmit.chaos.core.exception;

@@ -5,7 +5,7 @@ import club.gclmit.chaos.core.io.StringBuilderWriter;
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.lang.Convert;
 import club.gclmit.chaos.core.text.StringFormatter;
-import club.gclmit.chaos.core.text.StringSpliter;
+import club.gclmit.chaos.core.text.StringSplicer;
 import java.io.*;
 import java.net.URI;
 import java.net.URL;
@@ -20,9 +20,8 @@ import java.util.Map.Entry;
  *  基于 hutools字符串工具类
  * </p>
  *
- * @author: gclm
+ * @author gclm
  * @author xiaoleilu
- * @since: V1.0
  */
 public class StringUtils {
 
@@ -555,14 +554,12 @@ public class StringUtils {
 	 *  去除全部空格
 	 *
 	 * @author gclm
-	 * @param: str
-	 * @date 2020/4/13 9:16 下午
-	 * @return: java.lang.String
+	 * @param str  要处理的字符串
+	 * @return java.lang.String
 	 */
 	public static String trimAll(String str) {
 		return isBlank(str) ? null : str.replaceAll("\\s*", "");
 	}
-
 
 	/**
 	 * 字符串是否以给定字符开始
@@ -1398,7 +1395,7 @@ public class StringUtils {
 		if (null == str) {
 			return new String[]{};
 		}
-		return StringSpliter.splitToArray(str.toString(), separator, limit, false, false);
+		return StringSplicer.splitToArray(str.toString(), separator, limit, false, false);
 	}
 
 	/**
@@ -1492,7 +1489,7 @@ public class StringUtils {
 		if (null == str) {
 			return new ArrayList<>(0);
 		}
-		return StringSpliter.split(str.toString(), separator, limit, isTrim, ignoreEmpty);
+		return StringSplicer.split(str.toString(), separator, limit, isTrim, ignoreEmpty);
 	}
 
 	/**
@@ -1511,7 +1508,7 @@ public class StringUtils {
 			return new ArrayList<>(0);
 		}
 		final String separatorStr = (null == separator) ? null : separator.toString();
-		return StringSpliter.split(str.toString(), separatorStr, limit, isTrim, ignoreEmpty);
+		return StringSplicer.split(str.toString(), separatorStr, limit, isTrim, ignoreEmpty);
 	}
 
 	/**
@@ -1527,7 +1524,7 @@ public class StringUtils {
 		}
 
 		final String separatorStr = (null == separator) ? null : separator.toString();
-		return StringSpliter.splitToArray(str.toString(), separatorStr, 0, false, false);
+		return StringSplicer.splitToArray(str.toString(), separatorStr, 0, false, false);
 	}
 
 	/**
@@ -1541,7 +1538,7 @@ public class StringUtils {
 		if (null == str) {
 			return new String[]{};
 		}
-		return StringSpliter.splitByLength(str.toString(), len);
+		return StringSplicer.splitByLength(str.toString(), len);
 	}
 
 	/**

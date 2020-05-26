@@ -15,10 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * eq: 基于 hutool 工具类
  * </p>
  *
- * @author: gclm
- * @date: 2020/4/15 8:47 上午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class RandomUtils {
 

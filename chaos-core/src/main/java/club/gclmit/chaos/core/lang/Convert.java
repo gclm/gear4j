@@ -14,9 +14,7 @@ import club.gclmit.chaos.core.util.StringUtils;
  *  类型转换器
  * </p>
  *
- * @author: gclm
- * @date: 2019-10-22 10:18:00
- * @version: V1.0
+ * @author gclm
  */
 public class Convert {
 

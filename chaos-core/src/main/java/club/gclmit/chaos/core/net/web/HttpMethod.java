@@ -5,10 +5,7 @@ package club.gclmit.chaos.core.net.web;
  * Http 请求类型
  * </p>
  *
- * @author: gclm
- * @date: 2020/4/25 10:33 上午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public interface HttpMethod {
 

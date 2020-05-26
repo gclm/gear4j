@@ -25,10 +25,7 @@ import java.util.*;
  * 二维码/条形码生成器
  * </p>
  *
- * @author: gclm
- * @date: 2020/5/3 7:25 上午
- * @version: V1.0
- * @since 1.8
+ * @author gclm
  */
 public class Barcode {
 
@@ -53,10 +50,7 @@ public class Barcode {
      *  是否为二维码并且嵌入 logo
      *
      * @author gclm
-     * @date 2020/5/3 10:41 下午
-     * @return: boolean
-     * @throws
-     * @since
+     * @return boolean
      */
     private boolean isQRCodeWithLogo(){
         return BarcodeFormat.QR_CODE == builder.format && Objects.nonNull(builder.logo);
@@ -66,8 +60,7 @@ public class Barcode {
      *  生成代码源程序
      *
      * @author gclm
-     * @date 2020/5/3 10:27 下午
-     * @return: java.awt.image.BufferedImage
+     * @return java.awt.image.BufferedImage
      */
     private BufferedImage generateOrigin() throws WriterException {
         BitMatrix matrix = WRITER.encode(builder.content, builder.format, builder.width, builder.height, builder.hists);
@@ -99,9 +92,8 @@ public class Barcode {
      *  生成带 logo 的 BufferedImage
      *
      * @author gclm
-     * @param: logo    嵌入的logo
-     * @date 2020/5/3 10:28 下午
-     * @return: java.awt.image.BufferedImage
+     * @param logo    嵌入的logo
+     * @return java.awt.image.BufferedImage
      */
     private BufferedImage generateWithLogo(BufferedImage logo) throws WriterException {
 
@@ -165,8 +157,7 @@ public class Barcode {
      *  生成 BufferedImage
      *
      * @author gclm
-     * @date 2020/5/3 10:44 下午
-     * @return: java.awt.image.BufferedImage
+     * @return java.awt.image.BufferedImage
      */
     public BufferedImage generate(){
         try {
@@ -183,8 +174,8 @@ public class Barcode {
      * 生成指定类型图片输出至输出流
      *
      * @author gclm
-     * @param: format  图片类型
-     * @param: stream  输出流
+     * @param format  图片类型
+     * @param stream  输出流
      */
     public void generate(BarcodeImageType format, OutputStream stream){
         try {
@@ -202,7 +193,8 @@ public class Barcode {
      * 生成指定类型图片的字节数组
      *
      * @author gclm
-     * @param: format  图片类型
+     * @param format  图片类型
+     * @return byte[] 字节数组
      */
     public byte[] generate(BarcodeImageType format){
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -214,8 +206,9 @@ public class Barcode {
      * 生成指定类型图片的字符串
      *
      * @author gclm
-     * @param: format  图片类型
-     * @param: flag    是否进行base64转码，true: 转码 false: 不转码
+     * @param format  图片类型
+     * @param flag    是否进行base64转码，true: 转码 false: 不转码
+     * @return String
      */
     public String generate(BarcodeImageType format,boolean flag){
         byte[] bytes = generate(format);
@@ -229,8 +222,9 @@ public class Barcode {
      * 生成指定类型图片输出至指定文件
      *
      * @author gclm
-     * @param: format  图片类型
-     * @param: file    指定文件
+     * @param format  图片类型
+     * @param file    指定文件
+     * @return String
      */
     public String generate(BarcodeImageType format,File file){
         try {
@@ -245,8 +239,8 @@ public class Barcode {
      * 生成指定类型图片输出至指定文件
      *
      * @author gclm
-     * @param: format  图片类型
-     * @param: path    文件路径
+     * @param format  图片类型
+     * @param path    文件路径
      */
     public void generate(BarcodeImageType format,Path path){
         generate(format,path.toFile());
@@ -259,22 +253,71 @@ public class Barcode {
     // 解码
     //=============================================================================
 
+    /**
+     * <p>
+     *  解析二维码
+     * </p>
+     *
+     * @author gclm
+     * @param image 二维码
+     * @return club.gclmit.chaos.core.lang.Barcode.Decoder
+     */
     public static Decoder from(BufferedImage image){
         return new Decoder(image);
     }
 
+    /**
+     * <p>
+     *  解析二维码
+     * </p>
+     *
+     * @author gclm
+     * @param stream 二维码
+     * @return club.gclmit.chaos.core.lang.Barcode.Decoder
+     * @throws IOException if an I/O error occurs
+     */
     public static Decoder from(InputStream stream) throws IOException {
         return new Decoder(ImageIO.read(stream));
     }
 
+    /**
+     * <p>
+     *  解析二维码
+     * </p>
+     *
+     * @author gclm
+     * @param file 二维码
+     * @return club.gclmit.chaos.core.lang.Barcode.Decoder
+     * @throws IOException if an I/O error occurs
+     */
     public static Decoder from(File file) throws IOException {
         return new Decoder(ImageIO.read(file));
     }
 
+    /**
+     * <p>
+     *  解析二维码
+     * </p>
+     *
+     * @author gclm
+     * @param path 二维码
+     * @return club.gclmit.chaos.core.lang.Barcode.Decoder
+     * @throws IOException if an I/O error occurs
+     */
     public static Decoder from(Path path) throws IOException {
         return from(path.toFile());
     }
 
+    /**
+     * <p>
+     *  解析二维码
+     * </p>
+     *
+     * @author gclm
+     * @param url 二维码
+     * @return club.gclmit.chaos.core.lang.Barcode.Decoder
+     * @throws IOException if an I/O error occurs
+     */
     public static Decoder from(URL url) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty(
@@ -283,6 +326,16 @@ public class Barcode {
         return new Decoder(ImageIO.read(connection.getInputStream()));
     }
 
+    /**
+     * <p>
+     *  解析二维码
+     * </p>
+     *
+     * @author gclm
+     * @param bytes 二维码
+     * @return club.gclmit.chaos.core.lang.Barcode.Decoder
+     * @throws IOException if an I/O error occurs
+     */
     public static Decoder from(byte[] bytes) throws IOException {
         return new Decoder(ImageIO.read(new ByteArrayInputStream(bytes)));
     }
@@ -419,9 +472,8 @@ public class Barcode {
          *  设置logo占二维码比例
          *
          * @author gclm
-         * @param: rate  比例
-         * @date 2020/5/4 4:16 下午
-         * @return: club.gclmit.chaos.core.lang.Barcode.Builder
+         * @param rate  比例
+         * @return club.gclmit.chaos.core.lang.Barcode.Builder
          */
         public Builder rate(Integer rate){
             this.rate = rate;
@@ -432,9 +484,9 @@ public class Barcode {
          *  设置条形码宽高
          *
          * @author gclm
-         * @param: width        图片宽度
-         * @param: height       图片高度
-         * @return: club.gclmit.chaos.core.lang.Barcode.Builder
+         * @param width        图片宽度
+         * @param height       图片高度
+         * @return club.gclmit.chaos.core.lang.Barcode.Builder
          */
         public Builder size(Integer width, Integer height) {
             this.height = height;
@@ -446,8 +498,8 @@ public class Barcode {
          *  设置条形码的尺寸
          *
          * @author gclm
-         * @param: size         图片尺寸（size=width=height）
-         * @return: club.gclmit.chaos.core.lang.Barcode.Builder
+         * @param size         图片尺寸（size=width=height）
+         * @return club.gclmit.chaos.core.lang.Barcode.Builder
          */
         public Builder size(Integer size) {
             return size(size,size);
@@ -457,9 +509,9 @@ public class Barcode {
          *  设置条形码的颜色
          *
          * @author gclm
-         * @param: onColor     前景色 ARGB
-         * @param: offColor    背景色 ARGB
-         * @return: club.gclmit.chaos.core.lang.Barcode.Builder
+         * @param onColor     前景色 ARGB
+         * @param offColor    背景色 ARGB
+         * @return club.gclmit.chaos.core.lang.Barcode.Builder
          */
         public Builder color(Integer onColor, Integer offColor) {
             this.matrixToImageConfig = new MatrixToImageConfig(onColor, offColor);
@@ -470,8 +522,8 @@ public class Barcode {
          *  设置条形码内容
          *
          * @author gclm
-         * @param: content
-         * @return: club.gclmit.chaos.core.lang.Barcode.Builder
+         * @param content 条形码内容
+         * @return club.gclmit.chaos.core.lang.Barcode.Builder
          */
         public Builder content(String content){
             this.content = content;
@@ -482,8 +534,8 @@ public class Barcode {
          *  设置 EncodeHintType
          *
          * @author gclm
-         * @param: hists
-         * @return: club.gclmit.chaos.core.lang.Barcode.Builder
+         * @param hists EncodeHintType
+         * @return club.gclmit.chaos.core.lang.Barcode.Builder
          */
         public Builder hints(Map<EncodeHintType, Object> hists){
             this.hists.putAll(hists);
@@ -494,8 +546,8 @@ public class Barcode {
          *  设置生成类型(生成二维码还是条形码)
          *
          * @author gclm
-         * @param: format
-         * @return: club.gclmit.chaos.core.lang.Barcode.Builder
+         * @param format 生成类型(生成二维码还是条形码)
+         * @return club.gclmit.chaos.core.lang.Barcode.Builder
          */
         public Barcode format(BarcodeFormat format){
             this.format = format;
@@ -506,7 +558,7 @@ public class Barcode {
          *  二维码
          *
          * @author gclm
-         * @return: club.gclmit.chaos.core.lang.Barcode.Builder
+         * @return club.gclmit.chaos.core.lang.Barcode.Builder
          */
         public Barcode qrCode(){
             return format(BarcodeFormat.QR_CODE);
@@ -514,9 +566,9 @@ public class Barcode {
 
         /**
          *  二维码
-         * @param: logo
+         * @param logo 二维码logo
          * @author gclm
-         * @return: club.gclmit.chaos.core.lang.Barcode.Builder
+         * @return club.gclmit.chaos.core.lang.Barcode.Builder
          */
         public Barcode qrCode(BufferedImage logo){
             this.logo = logo;
@@ -525,9 +577,11 @@ public class Barcode {
 
         /**
          *  二维码
-         * @param: logo
+         * @param logo 二维码logo
          * @author gclm
-         * @return: club.gclmit.chaos.core.lang.Barcode.Builder
+         * @return club.gclmit.chaos.core.lang.Barcode.Builder
+         * @throws IOException if an I/O error occurs
+         *
          */
         public Barcode qrCode(URL logo) throws IOException {
             return qrCode(ImageIO.read(logo));
@@ -535,9 +589,10 @@ public class Barcode {
 
         /**
          *  二维码
-         * @param: logo
+         * @param logo 二维码logo
          * @author gclm
-         * @return: club.gclmit.chaos.core.lang.Barcode.Builder
+         * @return club.gclmit.chaos.core.lang.Barcode.Builder
+         * @throws IOException if an I/O error occurs
          */
         public Barcode qrCode(InputStream logo) throws IOException {
             return qrCode(ImageIO.read(logo));
@@ -545,9 +600,10 @@ public class Barcode {
 
         /**
          *  二维码
-         * @param: logo
+         * @param logo 二维码logo
          * @author gclm
-         * @return: club.gclmit.chaos.core.lang.Barcode.Builder
+         * @return club.gclmit.chaos.core.lang.Barcode.Builder
+         * @throws IOException if an I/O error occurs
          */
         public Barcode qrCode(File logo) throws IOException {
             return qrCode(ImageIO.read(logo));
@@ -555,9 +611,10 @@ public class Barcode {
 
         /**
          *  二维码
-         * @param: logo
+         * @param logo 二维码logo
          * @author gclm
-         * @return: club.gclmit.chaos.core.lang.Barcode.Builder
+         * @return club.gclmit.chaos.core.lang.Barcode.Builder
+         * @throws IOException if an I/O error occurs
          */
         public Barcode qrCode(Path logo) throws IOException {
             return qrCode(ImageIO.read(logo.toFile()));
