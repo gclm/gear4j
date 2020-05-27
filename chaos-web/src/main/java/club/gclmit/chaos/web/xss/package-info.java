@@ -1,6 +1,6 @@
 /**
  * <p>
- * Xss实现
+ * web-Xss实现
  * </p>
  *
  * @author gclm
