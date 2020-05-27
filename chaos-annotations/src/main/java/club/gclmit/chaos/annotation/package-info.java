@@ -1,6 +1,6 @@
 /**
  * <p>
- * 注解相关包
+ * annotations-注解模块
  * </p>
  *
  * @author gclm

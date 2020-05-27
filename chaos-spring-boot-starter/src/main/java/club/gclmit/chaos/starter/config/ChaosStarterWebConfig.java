@@ -2,7 +2,7 @@ package club.gclmit.chaos.starter.config;
 
 import club.gclmit.chaos.core.io.file.FileUtils;
 import club.gclmit.chaos.core.lang.Logger;
-import club.gclmit.chaos.core.lang.logger.LoggerServer;
+import club.gclmit.chaos.core.lang.LoggerServer;
 import club.gclmit.chaos.starter.properties.ChaosWebConfig;
 import club.gclmit.chaos.web.xss.XssFilter;
 import org.springframework.beans.factory.annotation.Autowired;

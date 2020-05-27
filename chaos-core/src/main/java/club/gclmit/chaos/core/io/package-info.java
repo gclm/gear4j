@@ -1,6 +1,6 @@
 /**
  * <p>
- * IO 相关工具类
+ * core-IO相关工具类
  * </p>
  *
  * @author gclm

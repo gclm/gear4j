@@ -1,6 +1,6 @@
 /**
  * <p>
- * 版本规划相关
+ *  annotations- API版本注解
  * </p>
  *
  * @author gclm

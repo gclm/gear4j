@@ -1,6 +1,6 @@
 /**
  * <p>
- * chaos
+ * starter-starter模块
  * </p>
  *
  * @author gclm

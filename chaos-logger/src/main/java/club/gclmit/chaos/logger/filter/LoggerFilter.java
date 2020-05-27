@@ -1,7 +1,7 @@
 package club.gclmit.chaos.logger.filter;
 
 import club.gclmit.chaos.core.lang.Logger;
-import club.gclmit.chaos.core.lang.logger.LoggerServer;
+import club.gclmit.chaos.core.lang.LoggerServer;
 import club.gclmit.chaos.core.net.web.HttpServletUtils;
 import club.gclmit.chaos.core.net.web.RequestWrapper;
 import club.gclmit.chaos.core.net.web.ResponseWrapper;

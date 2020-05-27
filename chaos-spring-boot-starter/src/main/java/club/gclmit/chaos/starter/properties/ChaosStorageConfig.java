@@ -1,6 +1,6 @@
 package club.gclmit.chaos.starter.properties;
 
-import club.gclmit.chaos.storage.properties.Storage;
+import club.gclmit.chaos.storage.model.Storage;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**

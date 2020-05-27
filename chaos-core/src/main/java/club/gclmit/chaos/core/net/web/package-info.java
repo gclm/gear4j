@@ -1,6 +1,6 @@
 /**
  * <p>
- * web 请求相关工具类
+ * core-web相关工具类
  * </p>
  *
  * @author gclm

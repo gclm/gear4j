@@ -1,7 +1,6 @@
 package club.gclmit.chaos.core.lang;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
-import club.gclmit.chaos.core.lang.zxing.BarcodeImageType;
 import club.gclmit.chaos.core.util.CharsetUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import com.google.zxing.*;

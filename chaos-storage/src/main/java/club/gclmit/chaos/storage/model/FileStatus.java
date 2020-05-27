@@ -1,4 +1,4 @@
-package club.gclmit.chaos.storage.properties;
+package club.gclmit.chaos.storage.model;
 
 /**
  * <p>

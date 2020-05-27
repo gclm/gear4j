@@ -1,6 +1,6 @@
 /**
  * <p>
- * web 处理相关的包
+ * web-web模块
  * </p>
  *
  * @author gclm
