@@ -21,7 +21,7 @@ notifications:
 #  跳过javaDoc   -Dmaven.javadoc.skip
 script:
   - export TZ=Asia/Shanghai
-  - mvn install -DskipTests=true -Dgpg.skip=true -Dmaven.javadoc.skip=true -B -V
+  - mvn install -DskipTests=true -Dgpg.skip=true -B -V
   - mvn cobertura:cobertura
 
 after_success:
