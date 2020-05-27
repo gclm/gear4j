@@ -31,7 +31,7 @@ public class JsonSerializerManage {
      */
     @Bean
     public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
-        Logger.info(LoggerServer.SPRING_BOOT, "jackson 配置，解决前端 Long 类型精度丢失");
+        Logger.info(LoggerServer.CONFIG, "jackson 配置，解决前端 Long 类型精度丢失");
         ObjectMapper objectMapper = builder.createXmlMapper(false).build();
         //忽略value为null 时 key的输出
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
