@@ -1,4 +1,4 @@
-package club.gclmit.chaos.storage.properties;
+package club.gclmit.chaos.storage.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

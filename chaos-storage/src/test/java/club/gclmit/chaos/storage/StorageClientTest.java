@@ -1,9 +1,9 @@
 package club.gclmit.chaos.storage;
 
 import club.gclmit.chaos.storage.client.StorageClient;
-import club.gclmit.chaos.storage.properties.CloudStorage;
-import club.gclmit.chaos.storage.properties.Storage;
-import club.gclmit.chaos.storage.properties.StorageServer;
+import club.gclmit.chaos.storage.model.CloudStorage;
+import club.gclmit.chaos.storage.model.Storage;
+import club.gclmit.chaos.storage.model.StorageServer;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -2,7 +2,7 @@
 	<a href="https://github.com/gclm/chaos"><img src="https://cdn.jsdelivr.net/gh/gclm/images@master/20200414/1586827646660.png"></a>
 </p>
 <p align="center">
-	<strong>Where dreams originate</strong>
+	<strong>一个功能强悍的 Spring Boot Starter 组件（Where dreams originate）</strong>
 </p>
 <p align="center">
 	<a target="_blank" href="https://search.maven.org/search?q=g:%20club.gclmit%20AND%20a:%20chaos-spring-boot-starter">
@@ -77,6 +77,8 @@ Spring Framework | 5.2.0.RELEASE | 最新发布稳定版
 ```
 
 ## 使用教程
+
+[Java Doc](https://apidoc.gitee.com/gclm/chaos/)
 
 ### 添加依赖
 

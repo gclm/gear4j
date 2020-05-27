@@ -1,6 +1,6 @@
 /**
  * <p>
- * html
+ * core-html相关工具类
  * </p>
  *
  * @author gclm

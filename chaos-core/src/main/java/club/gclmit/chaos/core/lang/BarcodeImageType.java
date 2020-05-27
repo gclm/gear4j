@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.lang.zxing;
+package club.gclmit.chaos.core.lang;
 
 /**
  * <p>

@@ -1,7 +1,7 @@
 package club.gclmit.chaos.storage;
 
 import club.gclmit.chaos.storage.client.*;
-import club.gclmit.chaos.storage.properties.Storage;
+import club.gclmit.chaos.storage.model.Storage;
 
 /**
  * <p>

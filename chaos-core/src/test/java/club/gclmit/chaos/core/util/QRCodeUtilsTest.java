@@ -1,7 +1,7 @@
 package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.lang.Barcode;
-import club.gclmit.chaos.core.lang.zxing.BarcodeImageType;
+import club.gclmit.chaos.core.lang.BarcodeImageType;
 import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.WriterException;

@@ -1,6 +1,5 @@
 package club.gclmit.chaos.core.lang;
 
-import club.gclmit.chaos.core.lang.logger.LoggerServer;
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MessageFormatter;
