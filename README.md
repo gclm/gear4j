@@ -87,13 +87,13 @@ Spring Framework | 5.2.0.RELEASE | 最新发布稳定版
 <dependency>
   <groupId>club.gclmit</groupId>
   <artifactId>chaos-spring-boot-starter</artifactId>
-  <version>1.5.0.RELEASE</version>
+  <version>1.5.1.RELEASE</version>
 </dependency>
 ```
 
 **Gradle**
 ```text
-implementation 'club.gclmit:chaos-spring-boot-starter:1.5.0.RELEASE'
+implementation 'club.gclmit:chaos-spring-boot-starter:1.5.1.RELEASE'
 ```
 
 ### 导入SQL

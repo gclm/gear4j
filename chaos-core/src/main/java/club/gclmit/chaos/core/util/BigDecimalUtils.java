@@ -10,9 +10,9 @@ import java.math.BigDecimal;
  * @author gclm
  * @since 1.5.1
  */
-public class BigDecimalUtil {
+public class BigDecimalUtils {
 
-    private BigDecimalUtil() {
+    private BigDecimalUtils() {
 
     }
 
