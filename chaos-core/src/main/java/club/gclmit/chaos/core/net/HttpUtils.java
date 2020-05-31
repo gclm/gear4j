@@ -16,9 +16,6 @@ import java.util.concurrent.TimeUnit;
  * Http请求相关工具类
  * </p>
  *
- * @author: gclm
- * @date: 2020/5/8 1:58 上午
- * @version: V1.0
  * @since 1.8
  */
 public class HttpUtils {
@@ -90,7 +87,7 @@ public class HttpUtils {
      * 通用请求头
      * </p>
      *
-     * @return java.util.Map<java.lang.String, java.lang.String>
+     * @return java.util.Map
      * @author gclm
      */
     public static Map<String, String> requestHeader() {
