@@ -3,8 +3,9 @@ package club.gclmit.chaos.core.io.file;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.util.ArrayUtils;
-import club.gclmit.chaos.core.util.IDUtils;
+import club.gclmit.chaos.core.util.IdUtils;
 import club.gclmit.chaos.core.util.StringUtils;
+import lombok.experimental.UtilityClass;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 
@@ -15,6 +16,7 @@ import java.io.*;
  *
  * @author gclm
  */
+@UtilityClass
 public class FileUtils {
 
     /**
@@ -165,7 +167,7 @@ public class FileUtils {
         Assert.notNull(multipartFile.isEmpty(), "multipartFile 不能为空");
 
         folder = StringUtils.isEmpty(folder) ? getRootPath() : folder;
-        File localFile = new File(folder, new StringBuilder().append(IDUtils.snowflakeId()).append(".").append(getSuffix(multipartFile)).toString());
+        File localFile = new File(folder, new StringBuilder().append(IdUtils.snowflakeId()).append(".").append(getSuffix(multipartFile)).toString());
 
         try {
             multipartFile.transferTo(localFile);

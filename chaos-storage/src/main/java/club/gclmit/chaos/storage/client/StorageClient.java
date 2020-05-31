@@ -3,8 +3,8 @@ package club.gclmit.chaos.storage.client;
 import club.gclmit.chaos.core.io.file.FileUtils;
 import club.gclmit.chaos.core.io.file.MimeType;
 import club.gclmit.chaos.core.text.DigestUtils;
-import club.gclmit.chaos.core.util.DateUtils;
-import club.gclmit.chaos.core.util.IDUtils;
+import club.gclmit.chaos.core.date.DateUtils;
+import club.gclmit.chaos.core.util.IdUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.storage.model.FileInfo;
 import club.gclmit.chaos.storage.model.Storage;
@@ -48,7 +48,7 @@ public abstract class StorageClient {
         /**
          * 这里使用雪花算法目的---> 后期可能会将 key 进行 split，然后进行分类统计
          */
-        Long id = IDUtils.snowflakeId();
+        Long id = IdUtils.snowflakeId();
 
         LocalDate localDate = LocalDate.now();
         String dateFormat = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);

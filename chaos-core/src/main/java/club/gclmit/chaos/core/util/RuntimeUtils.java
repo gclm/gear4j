@@ -2,6 +2,7 @@ package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.io.IOUtils;
+import lombok.experimental.UtilityClass;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.util.List;
  * @author Looly
  * @since 3.1.1
  */
+@UtilityClass
 public class RuntimeUtils {
 
 	/**

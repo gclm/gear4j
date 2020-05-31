@@ -1,5 +1,7 @@
 package club.gclmit.chaos.core.util;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * 字符工具类<br>
  * 部分工具来自于Apache Commons系列
@@ -7,6 +9,7 @@ package club.gclmit.chaos.core.util;
  * @author looly
  * @since 4.0.1
  */
+@UtilityClass
 public class CharUtils {
 
 	public static final char SPACE = ' ';

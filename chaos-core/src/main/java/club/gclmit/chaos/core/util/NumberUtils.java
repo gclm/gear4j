@@ -2,18 +2,20 @@ package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.lang.Validate;
+import lombok.experimental.UtilityClass;
+
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.Collection;
 
-
 /**
  * <p>Provides extra functionality for Java Number classes.</p>
  *
  * @since 2.0
  */
+@UtilityClass
 public class NumberUtils {
 
     /** Reusable Long constant for zero. */
@@ -54,18 +56,6 @@ public class NumberUtils {
     public static final Float FLOAT_ONE = Float.valueOf(1.0f);
     /** Reusable Float constant for minus one. */
     public static final Float FLOAT_MINUS_ONE = Float.valueOf(-1.0f);
-
-
-    /**
-     * <p>{@code NumberUtils} instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as {@code NumberUtils.toInt("6");}.</p>
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
-     */
-    public NumberUtils() {
-        super();
-    }
 
     /**
      * 判断Number是否为空

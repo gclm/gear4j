@@ -13,10 +13,10 @@ public class IDUtilsTest {
 
     public static void main(String[] args) {
 
-        System.out.println("雪花算法："+IDUtils.snowflakeId());
-        System.out.println("雪花算法："+IDUtils.stringSnowflakeId());
+        System.out.println("雪花算法："+ IdUtils.snowflakeId());
+        System.out.println("雪花算法："+ IdUtils.stringSnowflakeId());
 
-        System.out.println("UUID:" + IDUtils.randomUUID());
-        System.out.println("Simple-UUID:" + IDUtils.simpleUUID());
+        System.out.println("UUID:" + IdUtils.randomUUID());
+        System.out.println("Simple-UUID:" + IdUtils.simpleUUID());
     }
 }

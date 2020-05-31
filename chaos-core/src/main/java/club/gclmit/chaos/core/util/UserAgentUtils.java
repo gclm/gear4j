@@ -1,5 +1,7 @@
 package club.gclmit.chaos.core.util;
 
+import lombok.experimental.UtilityClass;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author gclm
  */
+@UtilityClass
 public class UserAgentUtils {
 
     private static final String IE = "msie";

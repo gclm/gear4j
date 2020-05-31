@@ -1,15 +1,11 @@
 package club.gclmit.chaos.core.util;
 
-import club.gclmit.chaos.core.collection.CollectionUtils;
-import club.gclmit.chaos.core.collection.ListUtils;
-import club.gclmit.chaos.core.collection.MapUtils;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
-import club.gclmit.chaos.core.io.file.FileUtils;
 import club.gclmit.chaos.core.lang.Assert;
+import lombok.experimental.UtilityClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.File;
+import org.springframework.lang.Nullable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -23,45 +19,113 @@ import java.util.*;
  *
  * @author gclm
  */
-public class ObjectUtils {
+@UtilityClass
+public class ObjectUtils extends org.springframework.util.ObjectUtils {
 
     private static Logger logger = LoggerFactory.getLogger(ObjectUtils.class);
 
     /**
-     * Object 对象非空判断。
-     * 如果对象为空则返回 true,非空则返回 false
-     * 目前只支持 String、Number、File、Collection、List、Map、Object[] 类型
+     * 判断对象为null
      *
-     * @param object Object
-     * @return boolean
+     * @param object 对象
+     * @return 对象是否为空
      */
-    public static boolean isEmpty(Object object) {
-        if (object == null) {
-            return true;
-        } else if (object instanceof String) {
-            return StringUtils.isEmpty((CharSequence) object);
-        } else if (object instanceof Integer) {
-            return NumberUtils.isEmpty((Integer) object);
-        } else if (object instanceof Number) {
-            return NumberUtils.isEmpty((Number) object);
-        } else if (object instanceof File) {
-            return FileUtils.isEmpty((File) object);
-        } else if (object instanceof Collection) {
-            return CollectionUtils.isEmpty((Iterable<?>) object);
-        } else if (object instanceof List) {
-            return ListUtils.isEmpty((List) object);
-        } else if (object instanceof Map) {
-            return MapUtils.isEmpty((Map) object);
-        } else if (object instanceof Object[] && ((Object[]) object).length == 0) {
-            return true;
-        }
-        return false;
+    public static boolean isNull(@Nullable Object object) {
+        return Objects.isNull(object);
     }
 
+    /**
+     * 判断对象不为null
+     *
+     * @param object 对象
+     * @return 对象是否不为空
+     */
+    public static boolean isNotNull(@Nullable Object object) {
+        return Objects.nonNull(object);
+    }
 
-    // 其他方法
-    // ----------------------------------------------------------------------
+    /**
+     * 判断数组不为空
+     *
+     * @param array 数组
+     * @return 数组是否为空
+     */
+    public static boolean isNotEmpty(@Nullable Object[] array) {
+        return false == isEmpty(array);
+    }
 
+    /**
+     * 判断对象不为空
+     *
+     * @param obj 数组
+     * @return 数组是否为空
+     */
+    public static boolean isNotEmpty(@Nullable Object obj) {
+        return false == isEmpty(obj);
+    }
+
+    /**
+     * 对象 eq
+     *
+     * @param o1 Object
+     * @param o2 Object
+     * @return 是否eq
+     */
+    public static boolean equals(@Nullable Object o1, @Nullable Object o2) {
+        return Objects.equals(o1, o2);
+    }
+
+    /**
+     * 比较两个对象是否不相等。<br>
+     *
+     * @param o1 对象1
+     * @param o2 对象2
+     * @return 是否不eq
+     */
+    public static boolean isNotEqual(Object o1, Object o2) {
+        return false == equals(o1, o2);
+    }
+
+    /**
+     * 返回对象的 hashCode
+     *
+     * @param obj Object
+     * @return hashCode
+     */
+    public static int hashCode(@Nullable Object obj) {
+        return Objects.hashCode(obj);
+    }
+
+    /**
+     * 判断对象为true
+     *
+     * @param object 对象
+     * @return 对象是否为true
+     */
+    public static boolean isTrue(@Nullable Boolean object) {
+        return Boolean.TRUE.equals(object);
+    }
+
+    /**
+     * 判断对象为false
+     *
+     * @param object 对象
+     * @return 对象是否为false
+     */
+    public static boolean isFalse(@Nullable Boolean object) {
+        return object == null || Boolean.FALSE.equals(object);
+    }
+
+    /**
+     * 如果对象为null，返回默认值
+     *
+     * @param object       Object
+     * @param defaultValue 默认值
+     * @return Object
+     */
+    public static Object defaultIfNull(@Nullable Object object, Object defaultValue) {
+        return object != null ? object : defaultValue;
+    }
 
     /**
      * 对象是否为数组对象
@@ -79,13 +143,14 @@ public class ObjectUtils {
 
     /**
      * 判断一个对象的 所有属性是否为空
+     *
      * @param object Object
      * @return boolean
      * @throws IllegalAccessException 反射异常
      */
     public static boolean objectFieldIsNull(Object object) throws IllegalAccessException {
 
-        for (Field field : object.getClass().getDeclaredFields()){
+        for (Field field : object.getClass().getDeclaredFields()) {
             /**
              * 配置获取私有属性的值
              */
@@ -93,13 +158,13 @@ public class ObjectUtils {
             /**
              * 这里忽略static final 类型的属性，如若不需要可以去掉
              */
-            if (Modifier.isFinal(field.getModifiers()) && Modifier.isStatic(field.getModifiers())){
+            if (Modifier.isFinal(field.getModifiers()) && Modifier.isStatic(field.getModifiers())) {
                 continue;
             }
             /**
              * field.get(Object obj) 获取属性的值
              */
-            if (!isEmpty(field.get(object))){
+            if (!isEmpty(field.get(object))) {
                 return false;
             }
             /**
@@ -112,21 +177,22 @@ public class ObjectUtils {
 
     /**
      * 判断一个对象某个属性是否为空
-     * @param object     Object
-     * @param fieldName  属性名
+     *
+     * @param object    Object
+     * @param fieldName 属性名
      * @return boolean
-     * @throws NoSuchFieldException    不存在该属性异常
-     * @throws IllegalAccessException  反射异常
+     * @throws NoSuchFieldException   不存在该属性异常
+     * @throws IllegalAccessException 反射异常
      */
-    public static boolean objectSingleFieldIsNull(Object object,String fieldName) throws NoSuchFieldException, IllegalAccessException {
+    public static boolean objectSingleFieldIsNull(Object object, String fieldName) throws NoSuchFieldException, IllegalAccessException {
 
-        logger.info("对象："+object+"属性名："+fieldName);
+        logger.info("对象：" + object + "属性名：" + fieldName);
 
         Field field = object.getClass().getDeclaredField(fieldName);
         field.setAccessible(true);
-        if (!isEmpty(field.get(object))){
-            logger.info("field值:"+field.get(object));
-            return  false;
+        if (!isEmpty(field.get(object))) {
+            logger.info("field值:" + field.get(object));
+            return false;
         }
         field.setAccessible(false);
         return true;
@@ -135,15 +201,15 @@ public class ObjectUtils {
     /**
      * 通过反射设置对象的属性
      *
-     * @author gclm
-     * @param bean        object
-     * @param fieldName   属性名
-     * @param fieldValue  属性值
+     * @param bean       object
+     * @param fieldName  属性名
+     * @param fieldValue 属性值
      * @return java.lang.Object
-     * @throws NoSuchFieldException         不存在该属性异常
-     * @throws NoSuchMethodException        不存在该方法异常
-     * @throws InvocationTargetException    反射异常
-     * @throws IllegalAccessException       反射异常
+     * @throws NoSuchFieldException      不存在该属性异常
+     * @throws NoSuchMethodException     不存在该方法异常
+     * @throws InvocationTargetException 反射异常
+     * @throws IllegalAccessException    反射异常
+     * @author gclm
      */
     public static Object setObjectField(Object bean, String fieldName, String fieldValue) throws NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
@@ -168,9 +234,9 @@ public class ObjectUtils {
     /**
      * 通过反射获取 Object 的 属性
      *
-     * @author gclm
-     * @param object  Object
+     * @param object Object
      * @return java.lang.String
+     * @author gclm
      */
     public static String toString(Object object) {
         Assert.notNull(object, "object 不能为空");

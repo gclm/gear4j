@@ -2,6 +2,7 @@ package club.gclmit.chaos.core.net.html;
 
 
 import club.gclmit.chaos.core.util.StringUtils;
+import lombok.experimental.UtilityClass;
 
 /**
  * <p>
@@ -10,6 +11,7 @@ import club.gclmit.chaos.core.util.StringUtils;
  *
  * @author gclm
  */
+@UtilityClass
 public class EscapeUtils {
 
     public static final String RE_HTML_MARK = "(<[^<]*?>)|(<[\\s]*?/[^<]*?>)|(<[^<]*?/[\\s]*?>)";

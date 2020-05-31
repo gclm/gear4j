@@ -6,6 +6,8 @@ import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.lang.Convert;
 import club.gclmit.chaos.core.text.StringFormatter;
 import club.gclmit.chaos.core.text.StringSplicer;
+import lombok.experimental.UtilityClass;
+
 import java.io.*;
 import java.net.URI;
 import java.net.URL;
@@ -23,6 +25,7 @@ import java.util.Map.Entry;
  * @author gclm
  * @author xiaoleilu
  */
+@UtilityClass
 public class StringUtils {
 
 	public static final int INDEX_NOT_FOUND = -1;

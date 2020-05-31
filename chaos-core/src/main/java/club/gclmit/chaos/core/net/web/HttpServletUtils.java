@@ -2,6 +2,8 @@ package club.gclmit.chaos.core.net.web;
 
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.util.StringUtils;
+import lombok.experimental.UtilityClass;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -17,6 +19,7 @@ import java.util.Map;
  *
  * @author gclm
  */
+@UtilityClass
 public class HttpServletUtils {
 
     /**

@@ -3,6 +3,8 @@ package club.gclmit.chaos.core.io;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.util.CharsetUtils;
 import club.gclmit.chaos.core.util.StringUtils;
+import lombok.experimental.UtilityClass;
+
 import java.io.*;
 import java.net.URI;
 import java.net.URL;
@@ -23,6 +25,7 @@ import java.util.List;
  *
  * @author gclm
  */
+@UtilityClass
 public class IOUtils {
 
 	/**
@@ -75,13 +78,6 @@ public class IOUtils {
 	 */
 	private static char[] SKIP_CHAR_BUFFER;
 	private static byte[] SKIP_BYTE_BUFFER;
-
-	/**
-	 * Instances should NOT be constructed in standard programming.
-	 */
-	public IOUtils() {
-		super();
-	}
 
 	// Is
 	//-----------------------------------------------------------------------
