@@ -1,6 +1,5 @@
 package club.gclmit.chaos.web.response;
 
-
 /**
  * <p>
  * REST API 响应状态码
@@ -13,32 +12,17 @@ public enum ApiCode {
     /**
      * 操作成功
      **/
-    OK(200, "操作成功"),
+    OK(0, "操作成功"),
 
     /**
-     * 非法访问
+     * 未获得数据
      **/
-    UNAUTHORIZED(401, "非法访问"),
+    FAIL(4000, "未获得数据"),
 
     /**
      * 没有权限
      **/
-    NOT_PERMISSION(403, "没有权限"),
-
-    /**
-     * 你请求的资源不存在
-     **/
-    NOT_FOUND(404, "你请求的资源不存在"),
-
-    /**
-     * 操作失败
-     **/
-    FAIL(500, "操作失败"),
-
-    /**
-     * 登录失败
-     **/
-    LOGIN_EXCEPTION(4000, "登录失败"),
+    NOT_PERMISSION(4001, "没有权限"),
 
     /**
      * 系统异常
