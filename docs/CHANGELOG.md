@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# 1.5.1
+
+- 调整 业务状态码
+- 增加 HttpUtils、BigDecimalUtils 工具类
+
 # 1.5.0
 
 ## 重构 chaos-logger模块
