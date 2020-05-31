@@ -15,6 +15,10 @@ public class ChaosCoreException extends AbstractChaosException{
         super();
     }
 
+    public ChaosCoreException(Throwable cause) {
+        super(cause);
+    }
+
     public ChaosCoreException(String message) {
         super(message);
     }

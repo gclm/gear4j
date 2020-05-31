@@ -1,6 +1,8 @@
 package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
+import lombok.experimental.UtilityClass;
+
 import java.awt.Color;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -17,6 +19,7 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author gclm
  */
+@UtilityClass
 public class RandomUtils {
 
 	/**

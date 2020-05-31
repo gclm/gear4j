@@ -1,11 +1,14 @@
 package club.gclmit.chaos.core.util;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * Boolean类型相关工具类
  *
  * @author looly
  * @since 4.1.16
  */
+@UtilityClass
 public class BooleanUtils {
 
     /**

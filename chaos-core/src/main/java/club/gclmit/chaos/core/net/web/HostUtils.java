@@ -1,6 +1,7 @@
 package club.gclmit.chaos.core.net.web;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
+import lombok.experimental.UtilityClass;
 
 import java.net.*;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
  *
  * @author gclm
  */
+@UtilityClass
 public class HostUtils {
 
     private static final String LOCALHOST = "127.0.0.1";

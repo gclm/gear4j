@@ -1,5 +1,7 @@
 package club.gclmit.chaos.core.util;
 
+import lombok.experimental.UtilityClass;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -14,6 +16,7 @@ import java.util.List;
  *
  * @author gclm
  */
+@UtilityClass
 public class ReflectUtils {
 
     /**

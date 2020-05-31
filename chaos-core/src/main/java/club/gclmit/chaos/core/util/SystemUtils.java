@@ -1,6 +1,7 @@
 package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.lang.JavaVersion;
+import lombok.experimental.UtilityClass;
 
 import java.io.File;
 
@@ -11,6 +12,7 @@ import java.io.File;
  *
  * @author gclm
  */
+@UtilityClass
 public class SystemUtils {
 
     private static final String OS_NAME_WINDOWS_PREFIX = "Windows";

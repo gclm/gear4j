@@ -1,6 +1,7 @@
-package club.gclmit.chaos.core.util;
+package club.gclmit.chaos.core.date;
 
 import club.gclmit.chaos.core.lang.Assert;
+import lombok.experimental.UtilityClass;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -20,9 +21,20 @@ import java.util.Map;
  *
  * @author gclm
  */
+@UtilityClass
 public class DateUtils {
 
     private static final Map<Integer, String> WEEKS;
+
+    /**
+     * 常见日期时间格式化
+     */
+    public static final String PATTERN_DATETIME = DatePattern.NORM_DATETIME_PATTERN;
+    public static final String PATTERN_DATE = DatePattern.NORM_DATE_PATTERN;
+    public static final String PATTERN_TIME = DatePattern.NORM_TIME_PATTERN;
+    public static final DateTimeFormatter DATETIME_FORMATTER = DatePattern.NORM_DATETIME_FORMAT;
+    public static final DateTimeFormatter DATE_FORMATTER = DatePattern.NORM_DATE_FORMAT;
+    public static final DateTimeFormatter TIME_FORMATTER = DatePattern.NORM_TIME_FORMAT;
 
     /**
      * 默认时区 东八区
@@ -37,6 +49,7 @@ public class DateUtils {
      * 时间戳长度 13
      */
     public static final Integer TIMESTAMP_LENGTH_13 = 13;
+
 
     static {
         Map<Integer, String> map = new HashMap<>(7);
@@ -63,9 +76,9 @@ public class DateUtils {
     /**
      * 判断当前年份是否为闰年
      *
-     * @author gclm
      * @param year 判断年份
      * @return boolean
+     * @author gclm
      */
     public static boolean isLeapYear(long year) {
         return ((year & 3) == 0) && ((year % 100) != 0 || (year % 400) == 0);
@@ -74,9 +87,9 @@ public class DateUtils {
     /**
      * 时间戳 To 星期 ？
      *
-     * @author gclm
-     * @param timestamp  时间戳
+     * @param timestamp 时间戳
      * @return java.lang.String
+     * @author gclm
      */
     public static String timestampToWeekName(Long timestamp) {
         Assert.notNull(timestamp, "时间戳不能为空");
@@ -90,10 +103,10 @@ public class DateUtils {
     /**
      * 时间戳 To String
      *
-     * @author gclm
-     * @param timestamp  时间戳
-     * @param format     日期格式
+     * @param timestamp 时间戳
+     * @param format    日期格式
      * @return java.lang.String
+     * @author gclm
      */
     public static String timestampToString(Long timestamp, String format) {
         LocalDateTime localDateTime = timestampToLocalDateTime(timestamp);
@@ -103,9 +116,9 @@ public class DateUtils {
     /**
      * 时间戳 To LocalDateTime
      *
-     * @author gclm
-     * @param timestamp  时间戳
+     * @param timestamp 时间戳
      * @return java.time.LocalDateTime
+     * @author gclm
      */
     public static LocalDateTime timestampToLocalDateTime(Long timestamp) {
         Instant instant = Instant.ofEpochMilli(timestamp);
@@ -115,9 +128,9 @@ public class DateUtils {
     /**
      * LocalDateTime To 星期 ？
      *
-     * @author gclm
      * @param dateTime LocalDateTime
      * @return java.lang.String
+     * @author gclm
      */
     public static String localDateTimeToWeekName(LocalDateTime dateTime) {
         Assert.notNull(dateTime, "LocalDateTime 不能为空");
@@ -127,10 +140,10 @@ public class DateUtils {
     /**
      * LocalDateTime To 自定义日期格式
      *
-     * @author gclm
-     * @param localDateTime  LocalDateTime
-     * @param format         日期格式
+     * @param localDateTime LocalDateTime
+     * @param format        日期格式
      * @return java.time.LocalDateTime
+     * @author gclm
      */
     public static String localDateTimeToString(LocalDateTime localDateTime, String format) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
@@ -140,10 +153,10 @@ public class DateUtils {
     /**
      * 解析自定义日期 To LocalDateTime
      *
-     * @author gclm
-     * @param time  LocalDateTime
-     * @param format         日期格式
+     * @param time   LocalDateTime
+     * @param format 日期格式
      * @return java.time.LocalDateTime
+     * @author gclm
      */
     public static LocalDateTime stringToLocalDateTime(String time, String format) {
         DateTimeFormatter df = DateTimeFormatter.ofPattern(format);
@@ -153,8 +166,8 @@ public class DateUtils {
     /**
      * 获取秒时间戳
      *
-     * @author gclm
      * @return java.lang.Long
+     * @author gclm
      */
     public static Long getSecondTimestamp() {
         return LocalDateTime.now().toEpochSecond(ZoneOffset.of(TIME_ZONE_ID));
@@ -163,9 +176,9 @@ public class DateUtils {
     /**
      * 获取秒时间戳
      *
-     * @author gclm
      * @param dateTime LocalDateTime
      * @return java.lang.Long
+     * @author gclm
      */
     public static Long getSecondTimestamp(LocalDateTime dateTime) {
         return dateTime.toEpochSecond(ZoneOffset.of(TIME_ZONE_ID));
@@ -174,8 +187,8 @@ public class DateUtils {
     /**
      * 获取耗秒时间戳
      *
-     * @author gclm
      * @return java.lang.Long
+     * @author gclm
      */
     public static Long getMilliTimestamp() {
         return LocalDateTime.now().toInstant(ZoneOffset.of(TIME_ZONE_ID)).toEpochMilli();
@@ -184,9 +197,9 @@ public class DateUtils {
     /**
      * 获取耗秒时间戳
      *
-     * @author gclm
      * @param dateTime LocalDateTime
      * @return java.lang.Long
+     * @author gclm
      */
     public static Long getMilliTimestamp(LocalDateTime dateTime) {
         return dateTime.toInstant(ZoneOffset.of(TIME_ZONE_ID)).toEpochMilli();
