@@ -1,6 +1,5 @@
 package club.gclmit.chaos.core.util;
 
-import club.gclmit.chaos.core.date.DateUtils;
 import club.gclmit.chaos.core.exception.JacksonException;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
@@ -247,6 +246,7 @@ public class JsonUtils {
 
     /**
      * 采用单例模式封装 ObjectMapper
+     * @return ObjectMapper
      */
     public static ObjectMapper getInstance() {
         return JacksonHolder.INSTANCE;
@@ -257,7 +257,8 @@ public class JsonUtils {
     }
 
     private static class JacksonObjectMapper extends ObjectMapper {
-        private static final long serialVersionUID = 4288193147502386170L;
+
+        private static final long serialVersionUID = 1L;
 
         private static final Locale CHINA = Locale.CHINA;
 
