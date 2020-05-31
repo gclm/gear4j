@@ -1,6 +1,6 @@
 package club.gclmit.chaos.web.response;
 
-import club.gclmit.chaos.core.date.DateUtils;
+import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
