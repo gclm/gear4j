@@ -16,6 +16,7 @@ public @interface ApiVersion {
 
     /**
      * 标识版本号，从1开始
+     * @return 默认值 1
      */
     int value() default 1;
 
