@@ -11,7 +11,7 @@
 
     <artifactId>chaos-dependencies</artifactId>
     <packaging>pom</packaging>
-    <version>1.5.0.RELEASE</version>
+    <version>1.5.1.RELEASE</version>
 
     <name>${project.artifactId}</name>
     <url>https://blog.gclmit.club/</url>
@@ -57,7 +57,7 @@
         <knife4j.version>2.0.2</knife4j.version>
         <BeanUtils.version>1.0.11</BeanUtils.version>
         <jasypt.version>3.0.2</jasypt.version>
-        <fastjson.version>1.2.68</fastjson.version>
+        <fastjson.version>1.2.69</fastjson.version>
         <org.mapstruct.version>1.3.1.Final</org.mapstruct.version>
         <hutool.version>5.2.3</hutool.version>
         <useragent.version>5.15</useragent.version>
