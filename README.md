@@ -14,9 +14,9 @@
 	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
 		<img src="https://img.shields.io/badge/JDK-8+-green.svg" />
 	</a>
-    <a href="https://codecov.io/gh/gclm/chaos">
-        <img src="https://codecov.io/gh/gclm/chaos/branch/master/graph/badge.svg" />
-    </a>
+<!--     <a href="https://codecov.io/gh/gclm/chaos"> -->
+<!--         <img src="https://codecov.io/gh/gclm/chaos/branch/master/graph/badge.svg" /> -->
+<!--     </a> -->
     <a href="https://travis-ci.com/gclm/chaos">
         <img src="https://travis-ci.com/gclm/chaos.svg?branch=master" />
     </a>
@@ -87,13 +87,13 @@ Spring Framework | 5.2.0.RELEASE | 最新发布稳定版
 <dependency>
   <groupId>club.gclmit</groupId>
   <artifactId>chaos-spring-boot-starter</artifactId>
-  <version>1.5.1.RELEASE</version>
+  <version>1.5.2.RELEASE</version>
 </dependency>
 ```
 
 **Gradle**
 ```text
-implementation 'club.gclmit:chaos-spring-boot-starter:1.5.1.RELEASE'
+implementation 'club.gclmit:chaos-spring-boot-starter:1.5.2.RELEASE'
 ```
 
 ### 导入SQL
