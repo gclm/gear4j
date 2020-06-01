@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 
 /**
  * <p>
- * Spring Service 服务信息工具类
+ * Spring Service 服务工具类
  * </p>
  *
  * @author gclm
  */
 @Component
-public class SpringServiceInfoConfig implements ApplicationListener<WebServerInitializedEvent> {
+public class SpringServiceHandler implements ApplicationListener<WebServerInitializedEvent> {
 
     /**
      * 服务端口号

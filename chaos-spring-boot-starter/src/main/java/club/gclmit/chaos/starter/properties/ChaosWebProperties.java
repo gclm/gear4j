@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author gclm
  */
 @ConfigurationProperties("chaos.web")
-public class ChaosWebConfig implements Serializable {
+public class ChaosWebProperties implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

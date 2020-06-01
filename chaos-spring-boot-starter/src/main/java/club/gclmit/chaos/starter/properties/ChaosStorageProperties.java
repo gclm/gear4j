@@ -11,7 +11,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author gclm
  */
 @ConfigurationProperties("chaos.storage")
-public class ChaosStorageConfig extends Storage {
+public class ChaosStorageProperties extends Storage {
 
     /**
      * 是否保存日志到数据库中

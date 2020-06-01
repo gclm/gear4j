@@ -3,7 +3,7 @@ package club.gclmit.chaos.starter.config;
 import club.gclmit.chaos.core.io.file.FileUtils;
 import club.gclmit.chaos.core.lang.Logger;
 import club.gclmit.chaos.core.lang.LoggerServer;
-import club.gclmit.chaos.starter.properties.ChaosWebConfig;
+import club.gclmit.chaos.starter.properties.ChaosWebProperties;
 import club.gclmit.chaos.web.xss.XssFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -28,10 +28,10 @@ import javax.servlet.MultipartConfigElement;
  * @author gclm
  */
 @Configuration
-public class ChaosStarterWebConfig implements WebMvcConfigurer {
+public class ChaosStarterConfig implements WebMvcConfigurer {
 
     @Autowired
-    private ChaosWebConfig config;
+    private ChaosWebProperties properties;
 
     /**
      * 文件上传临时路径
@@ -65,12 +65,12 @@ public class ChaosStarterWebConfig implements WebMvcConfigurer {
     @Bean
     public FilterRegistrationBean xssFilterRegistration() {
         //开启动态的xss开关
-        XssFilter xssFilter = new XssFilter(() -> config.getEnableXss());
-        FilterRegistrationBean registration = new FilterRegistrationBean(xssFilter);
-        registration.setDispatcherTypes(DispatcherType.REQUEST);
-        registration.setOrder(Ordered.LOWEST_PRECEDENCE);
-        registration.addUrlPatterns("/*");
-        return registration;
+        XssFilter xssFilter = new XssFilter(() -> properties.getEnableXss());
+        FilterRegistrationBean bean = new FilterRegistrationBean(xssFilter);
+        bean.setDispatcherTypes(DispatcherType.REQUEST);
+        bean.setOrder(Ordered.LOWEST_PRECEDENCE);
+        bean.addUrlPatterns("/*");
+        return bean;
     }
 
     /**
@@ -89,8 +89,7 @@ public class ChaosStarterWebConfig implements WebMvcConfigurer {
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
-        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-        return bean;
+        return new FilterRegistrationBean(new CorsFilter(source));
     }
 
 }
