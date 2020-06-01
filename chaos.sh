@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # 定义常量
-Ignore=("LICENSE" "README.md" "bin" "logs" "pom.xml" "target" "docs")
+Ignore=("LICENSE" "README.md" "bin" "logs" "pom.xml" "target" "docs" "chaos-dependencies")
 date=$(date "+%Y-%m-%d %H:%M:%S")
 old_version=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)
 name=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.artifactId}' --non-recursive exec:exec)

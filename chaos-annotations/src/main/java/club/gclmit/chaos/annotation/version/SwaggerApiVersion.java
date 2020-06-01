@@ -18,6 +18,7 @@ public @interface SwaggerApiVersion {
 
     /**
      * 标识版本号，从v1开始
+     * @return 默认值 v1
      */
     String[] value();
 
