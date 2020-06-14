@@ -5,7 +5,6 @@ import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.util.ArrayUtils;
 import club.gclmit.chaos.core.util.IdUtils;
 import club.gclmit.chaos.core.util.StringUtils;
-import lombok.experimental.UtilityClass;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 
@@ -16,8 +15,10 @@ import java.io.*;
  *
  * @author gclm
  */
-@UtilityClass
 public class FileUtils {
+
+    private FileUtils() {
+    }
 
     /**
      * <p>判断文件是否为空 {@code null}.

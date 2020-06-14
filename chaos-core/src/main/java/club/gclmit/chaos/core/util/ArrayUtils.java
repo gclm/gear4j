@@ -1,7 +1,5 @@
 package club.gclmit.chaos.core.util;
 
-import lombok.experimental.UtilityClass;
-
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -19,8 +17,10 @@ import java.util.Random;
  * </p>
  * @author gclm
  */
-@UtilityClass
 public class ArrayUtils {
+
+    private ArrayUtils() {
+    }
 
     /**
      * An empty immutable {@code boolean} array.

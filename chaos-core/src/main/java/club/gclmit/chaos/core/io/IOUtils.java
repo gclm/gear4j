@@ -3,7 +3,6 @@ package club.gclmit.chaos.core.io;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.util.CharsetUtils;
 import club.gclmit.chaos.core.util.StringUtils;
-import lombok.experimental.UtilityClass;
 
 import java.io.*;
 import java.net.URI;
@@ -25,7 +24,6 @@ import java.util.List;
  *
  * @author gclm
  */
-@UtilityClass
 public class IOUtils {
 
 	/**
@@ -44,13 +42,6 @@ public class IOUtils {
 	 */
 	public static final String LINE_SEPARATOR;
 
-	static {
-		try (final StringBuilderWriter buf = new StringBuilderWriter(4);
-			 final PrintWriter out = new PrintWriter(buf)) {
-			out.println();
-			LINE_SEPARATOR = buf.toString();
-		}
-	}
 
 	/**
 	 * The default buffer size ({@value}) to use for
@@ -78,6 +69,17 @@ public class IOUtils {
 	 */
 	private static char[] SKIP_CHAR_BUFFER;
 	private static byte[] SKIP_BYTE_BUFFER;
+
+	static {
+		try (final StringBuilderWriter buf = new StringBuilderWriter(4);
+			 final PrintWriter out = new PrintWriter(buf)) {
+			out.println();
+			LINE_SEPARATOR = buf.toString();
+		}
+	}
+
+	private IOUtils() {
+	}
 
 	// Is
 	//-----------------------------------------------------------------------

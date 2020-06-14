@@ -1,8 +1,6 @@
 package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
-import lombok.experimental.UtilityClass;
-
 import java.awt.Color;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -19,7 +17,6 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author gclm
  */
-@UtilityClass
 public class RandomUtils {
 
 	/**
@@ -35,6 +32,9 @@ public class RandomUtils {
 	 * 用于随机选的字符和数字
 	 */
 	public static final String BASE_CHAR_NUMBER = BASE_CHAR + BASE_NUMBER;
+
+	private RandomUtils() {
+	}
 
 	/**
 	 * 获取随机数生成器对象<br>

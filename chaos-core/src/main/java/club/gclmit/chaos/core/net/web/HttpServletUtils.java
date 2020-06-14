@@ -2,7 +2,6 @@ package club.gclmit.chaos.core.net.web;
 
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.util.StringUtils;
-import lombok.experimental.UtilityClass;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +18,6 @@ import java.util.Map;
  *
  * @author gclm
  */
-@UtilityClass
 public class HttpServletUtils {
 
     /**
@@ -46,6 +44,9 @@ public class HttpServletUtils {
      * 默认请求内容类型
      */
     private static final String DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
+
+    private HttpServletUtils() {
+    }
 
     /**
      * 获取客户端 ip

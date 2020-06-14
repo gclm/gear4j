@@ -2,7 +2,6 @@ package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.lang.Assert;
-import lombok.experimental.UtilityClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
@@ -19,10 +18,12 @@ import java.util.*;
  *
  * @author gclm
  */
-@UtilityClass
 public class ObjectUtils extends org.springframework.util.ObjectUtils {
 
     private static Logger logger = LoggerFactory.getLogger(ObjectUtils.class);
+
+    private ObjectUtils() {
+    }
 
     /**
      * 判断对象为null

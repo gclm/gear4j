@@ -5,9 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Data;
-
 import java.io.Serializable;
 
 /**
@@ -17,10 +14,8 @@ import java.io.Serializable;
  *
  * @author gclm
  */
-@Data
-@Builder
 @TableName("chaos_trace_info")
-@ApiModel(value="HttpTrace 对象", description="")
+@ApiModel(value="HttpTrace 对象")
 public class HttpTrace implements Serializable {
 
     /**
@@ -114,6 +109,150 @@ public class HttpTrace implements Serializable {
     @ApiModelProperty(value = "用户代理")
     private String userAgent;
 
+    public static HttpTraceBuilder builder(){
+        return new HttpTraceBuilder();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getClientIp() {
+        return clientIp;
+    }
+
+    public void setClientIp(String clientIp) {
+        this.clientIp = clientIp;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public Long getRequestTime() {
+        return requestTime;
+    }
+
+    public void setRequestTime(Long requestTime) {
+        this.requestTime = requestTime;
+    }
+
+    public int getHttpCode() {
+        return httpCode;
+    }
+
+    public void setHttpCode(int httpCode) {
+        this.httpCode = httpCode;
+    }
+
+    public Long getConsumingTime() {
+        return consumingTime;
+    }
+
+    public void setConsumingTime(Long consumingTime) {
+        this.consumingTime = consumingTime;
+    }
+
+    public Long getResponseTime() {
+        return responseTime;
+    }
+
+    public void setResponseTime(Long responseTime) {
+        this.responseTime = responseTime;
+    }
+
+    public String getRequestBody() {
+        return requestBody;
+    }
+
+    public void setRequestBody(String requestBody) {
+        this.requestBody = requestBody;
+    }
+
+    public String getResponseBody() {
+        return responseBody;
+    }
+
+    public void setResponseBody(String responseBody) {
+        this.responseBody = responseBody;
+    }
+
+    public String getRequestHeader() {
+        return requestHeader;
+    }
+
+    public void setRequestHeader(String requestHeader) {
+        this.requestHeader = requestHeader;
+    }
+
+    public String getResponseHeader() {
+        return responseHeader;
+    }
+
+    public void setResponseHeader(String responseHeader) {
+        this.responseHeader = responseHeader;
+    }
+
+    public String getUserAgent() {
+        return userAgent;
+    }
+
+    public void setUserAgent(String userAgent) {
+        this.userAgent = userAgent;
+    }
+
+    @Override
+    public String toString() {
+        return "HttpTrace{" +
+                "id=" + id +
+                ", clientIp='" + clientIp + '\'' +
+                ", uri='" + uri + '\'' +
+                ", contentType='" + contentType + '\'' +
+                ", method='" + method + '\'' +
+                ", sessionId='" + sessionId + '\'' +
+                ", requestTime=" + requestTime +
+                ", httpCode=" + httpCode +
+                ", consumingTime=" + consumingTime +
+                ", responseTime=" + responseTime +
+                ", requestBody='" + requestBody + '\'' +
+                ", responseBody='" + responseBody + '\'' +
+                ", requestHeader='" + requestHeader + '\'' +
+                ", responseHeader='" + responseHeader + '\'' +
+                ", userAgent='" + userAgent + '\'' +
+                '}';
+    }
 }
 
 

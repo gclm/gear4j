@@ -1,8 +1,6 @@
 package club.gclmit.chaos.core.net.html;
 
-
 import club.gclmit.chaos.core.util.StringUtils;
-import lombok.experimental.UtilityClass;
 
 /**
  * <p>
@@ -11,7 +9,6 @@ import lombok.experimental.UtilityClass;
  *
  * @author gclm
  */
-@UtilityClass
 public class EscapeUtils {
 
     public static final String RE_HTML_MARK = "(<[^<]*?>)|(<[\\s]*?/[^<]*?>)|(<[^<]*?/[\\s]*?>)";
@@ -36,6 +33,9 @@ public class EscapeUtils {
         TEXT['<'] = "&#60;".toCharArray();
         // 大于号
         TEXT['>'] = "&#62;".toCharArray();
+    }
+
+    private EscapeUtils() {
     }
 
     /**

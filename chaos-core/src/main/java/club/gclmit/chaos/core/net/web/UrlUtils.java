@@ -4,7 +4,6 @@ import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.util.CharsetUtils;
 import club.gclmit.chaos.core.util.StringUtils;
-import lombok.experimental.UtilityClass;
 import org.springframework.util.AntPathMatcher;
 
 import java.io.UnsupportedEncodingException;
@@ -20,8 +19,10 @@ import java.util.List;
  *
  * @author gclm
  */
-@UtilityClass
 public class UrlUtils {
+
+    private UrlUtils() {
+    }
 
     /**
      * <p>

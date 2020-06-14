@@ -1,8 +1,6 @@
 package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.lang.JavaVersion;
-import lombok.experimental.UtilityClass;
-
 import java.io.File;
 
 /**
@@ -12,7 +10,6 @@ import java.io.File;
  *
  * @author gclm
  */
-@UtilityClass
 public class SystemUtils {
 
     private static final String OS_NAME_WINDOWS_PREFIX = "Windows";
@@ -121,6 +118,9 @@ public class SystemUtils {
     public static final boolean IS_OS_WINDOWS_8;
     public static final boolean IS_OS_WINDOWS_10;
     public static final boolean IS_OS_ZOS;
+
+    private SystemUtils() {
+    }
 
     public static File getJavaHome() {
         return new File(System.getProperty("java.home"));

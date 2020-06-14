@@ -1,8 +1,6 @@
 package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.lang.Assert;
-import lombok.experimental.UtilityClass;
-
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
@@ -21,10 +19,7 @@ import java.util.Map;
  *
  * @author gclm
  */
-@UtilityClass
 public class DateUtils {
-
-    private static final Map<Integer, String> WEEKS;
 
     /**
      * 常见日期时间格式化
@@ -50,6 +45,10 @@ public class DateUtils {
      */
     public static final Integer TIMESTAMP_LENGTH_13 = 13;
 
+    /**
+     * 日期集合
+     */
+    private static final Map<Integer, String> WEEKS;
 
     static {
         Map<Integer, String> map = new HashMap<>(7);
@@ -61,6 +60,9 @@ public class DateUtils {
         map.put(6, "星期六");
         map.put(7, "星期七");
         WEEKS = Collections.unmodifiableMap(map);
+    }
+
+    private DateUtils() {
     }
 
     /**
