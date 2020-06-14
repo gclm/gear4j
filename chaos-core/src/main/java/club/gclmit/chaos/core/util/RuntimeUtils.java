@@ -2,8 +2,6 @@ package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.io.IOUtils;
-import lombok.experimental.UtilityClass;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,12 +10,13 @@ import java.util.List;
 
 /**
  * 系统运行时工具类，用于执行系统命令的工具
- *
- * @author Looly
- * @since 3.1.1
+ *  mark hutool
+ * @author gclm
  */
-@UtilityClass
 public class RuntimeUtils {
+
+	private RuntimeUtils() {
+	}
 
 	/**
 	 * 执行系统命令，使用系统默认编码

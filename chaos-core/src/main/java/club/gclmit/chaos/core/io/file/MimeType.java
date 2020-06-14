@@ -1,7 +1,5 @@
 package club.gclmit.chaos.core.io.file;
 
-import lombok.Getter;
-import lombok.ToString;
 
 /**
  * <p>
@@ -10,8 +8,6 @@ import lombok.ToString;
  *
  * @author gclm
  */
-@Getter
-@ToString
 public enum MimeType {
 
     /**
@@ -359,5 +355,26 @@ public enum MimeType {
         for (MimeType mimeType : mimeTypes) {
             System.out.println(mimeType.generate(mimeType));
         }
+    }
+
+    public String getSufix() {
+        return sufix;
+    }
+
+    public String getDocType() {
+        return docType;
+    }
+
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    @Override
+    public String toString() {
+        return "MimeType{" +
+                "sufix='" + sufix + '\'' +
+                ", docType='" + docType + '\'' +
+                ", mimeType='" + mimeType + '\'' +
+                '}';
     }
 }

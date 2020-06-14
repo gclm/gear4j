@@ -22,6 +22,9 @@ public class SqlUtils {
      */
     public static String SQL_PATTERN = "[a-zA-Z0-9_\\ \\,]+";
 
+    private SqlUtils() {
+    }
+
     /**
      * 检查字符，防止注入绕过
      * @param value 字符

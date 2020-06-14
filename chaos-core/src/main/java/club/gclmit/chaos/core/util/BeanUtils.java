@@ -1,6 +1,5 @@
 package club.gclmit.chaos.core.util;
 
-import lombok.experimental.UtilityClass;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import javax.servlet.http.HttpServletRequest;
@@ -11,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
  * </p>
  * @author gclm
  */
-@UtilityClass
 public class BeanUtils {
+
+    private BeanUtils() {
+    }
 
     /**
      * 获取Bean对象

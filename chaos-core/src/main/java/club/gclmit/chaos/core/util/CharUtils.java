@@ -1,6 +1,5 @@
 package club.gclmit.chaos.core.util;
 
-import lombok.experimental.UtilityClass;
 
 /**
  * 字符工具类<br>
@@ -9,7 +8,6 @@ import lombok.experimental.UtilityClass;
  * @author looly
  * @since 4.0.1
  */
-@UtilityClass
 public class CharUtils {
 
 	public static final char SPACE = ' ';
@@ -30,6 +28,9 @@ public class CharUtils {
 	public static final char DOUBLE_QUOTES = '"';
 	public static final char SINGLE_QUOTE = '\'';
 	public static final char AMP = '&';
+
+	private CharUtils() {
+	}
 
 	/**
 	 * 是否为ASCII字符，ASCII字符位于0~127之间

@@ -1,7 +1,6 @@
 package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.lang.Snowflake;
-import lombok.experimental.UtilityClass;
 
 /**
  * <p>
@@ -10,8 +9,10 @@ import lombok.experimental.UtilityClass;
  *
  * @author gclm
  */
-@UtilityClass
 public class IdUtils {
+
+    private IdUtils() {
+    }
 
     /**
      * 随机UUID

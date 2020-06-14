@@ -1,7 +1,5 @@
 package club.gclmit.chaos.core.util;
 
-import lombok.experimental.UtilityClass;
-
 /**
  * <p>
  *  UUID 生成器
@@ -9,7 +7,6 @@ import lombok.experimental.UtilityClass;
  *
  * @author gclm
  */
-@UtilityClass
 public class UUIDUtils {
 
     private final static byte[] DIGITS = {
@@ -25,6 +22,9 @@ public class UUIDUtils {
             'S', 'T', 'U', 'V', 'W', 'X',
             'Y', 'Z'
     };
+
+    private UUIDUtils() {
+    }
 
     /**
      *  构建 uuid 因子

@@ -1,7 +1,5 @@
 package club.gclmit.chaos.core.util;
 
-import lombok.experimental.UtilityClass;
-
 import java.util.regex.Pattern;
 
 /**
@@ -10,8 +8,10 @@ import java.util.regex.Pattern;
  * </p>
  * @author gclm
  */
-@UtilityClass
 public class RegUtils {
+
+    private RegUtils() {
+    }
 
     /**
      * 给定内容是否匹配正则
