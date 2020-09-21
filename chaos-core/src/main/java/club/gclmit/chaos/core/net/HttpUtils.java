@@ -77,7 +77,6 @@ public class HttpUtils {
      * @author gclm
      */
     public static Long ping(String url) {
-
         HttpResult result = buildHttp().async(url).addHeader(requestHeader()).get().getResult();
         Response response = ((RealHttpResult) result).getResponse();
         long responseAtMillis = response.receivedResponseAtMillis();
