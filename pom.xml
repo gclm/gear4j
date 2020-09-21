@@ -24,6 +24,7 @@
         <module>chaos-logger</module>
         <module>chaos-annotations</module>
         <module>chaos-spring-boot-starter</module>
+        <module>chaos-http</module>
     </modules>
 
     <properties>
@@ -44,7 +45,7 @@
                     <generateBackupPoms>false</generateBackupPoms>
                 </configuration>
             </plugin>
-            <!--  codecov    测试检测   -->
+            <!--  codecov  测试检测   -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
