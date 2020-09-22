@@ -6,7 +6,7 @@
     <parent>
         <groupId>club.gclmit</groupId>
         <artifactId>chaos-dependencies</artifactId>
-        <version>1.5.3.RELEASE</version>
+        <version>1.6.0.RELEASE</version>
     </parent>
 
     <artifactId>chaos</artifactId>

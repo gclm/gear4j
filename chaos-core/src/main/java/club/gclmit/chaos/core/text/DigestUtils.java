@@ -92,4 +92,6 @@ public class DigestUtils extends org.springframework.util.DigestUtils {
             throw new ChaosCoreException("md5加密（InputStream To String）失败", e);
         }
     }
+
+
 }
