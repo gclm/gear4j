@@ -1,15 +1,15 @@
-package club.gclmit.chaos.core.util;
+package club.gclmit.chaos.core.collection;
+
+import club.gclmit.chaos.core.util.BooleanUtils;
+import club.gclmit.chaos.core.util.CharUtils;
+import club.gclmit.chaos.core.util.NumberUtils;
+import club.gclmit.chaos.core.util.ObjectUtils;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.BitSet;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * <p>
@@ -7803,8 +7803,8 @@ public class ArrayUtils {
     // To map
     //-----------------------------------------------------------------------
     /**
-     * <p>Converts the given array into a {@link java.util.Map}. Each element of the array
-     * must be either a {@link java.util.Map.Entry} or an Array, containing at least two
+     * <p>Converts the given array into a {@link Map}. Each element of the array
+     * must be either a {@link Map.Entry} or an Array, containing at least two
      * elements, where the first element is used as key and the second as
      * value.
      *
@@ -7819,13 +7819,13 @@ public class ArrayUtils {
      *
      * <p>This method returns {@code null} for a {@code null} input array.
      *
-     * @param array  an array whose elements are either a {@link java.util.Map.Entry} or
+     * @param array  an array whose elements are either a {@link Map.Entry} or
      *  an Array containing at least two elements, may be {@code null}
      * @return a {@code Map} that was created from the array
      * @throws IllegalArgumentException  if one element of this Array is
      *  itself an Array containing less then two elements
      * @throws IllegalArgumentException  if the array contains elements other
-     *  than {@link java.util.Map.Entry} and an Array
+     *  than {@link Map.Entry} and an Array
      */
     public static Map<Object, Object> toMap(final Object[] array) {
         if (array == null) {

@@ -1,5 +1,6 @@
 package club.gclmit.chaos.core.lang;
 
+import club.gclmit.chaos.core.collection.MapUtils;
 import club.gclmit.chaos.core.util.ObjectUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import java.util.Collection;
@@ -152,7 +153,7 @@ public class Assert extends org.springframework.util.Assert {
      * @throws IllegalArgumentException if the object array contains a {@code null} element
      */
     public static <T> T[] noNullElements(T[] array, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-        if (ObjectUtils.isEmpty(array)) {
+        if (ArrayUtils.isEmpty(array)) {
             throw new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params));
         }
         return array;
@@ -173,7 +174,7 @@ public class Assert extends org.springframework.util.Assert {
      * @throws IllegalArgumentException if the collection is {@code null} or has no elements
      */
     public static <T> Collection<T> notEmpty(Collection<T> collection, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-        if (ObjectUtils.isEmpty(collection)) {
+        if (ArrayUtils.isEmpty(collection)) {
             throw new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params));
         }
         return collection;
@@ -196,7 +197,7 @@ public class Assert extends org.springframework.util.Assert {
      * @throws IllegalArgumentException if the map is {@code null} or has no entries
      */
     public static <K, V> Map<K, V> notEmpty(Map<K, V> map, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-        if (ObjectUtils.isEmpty(map)) {
+        if (MapUtils.isEmpty(map)) {
             throw new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params));
         }
         return map;
