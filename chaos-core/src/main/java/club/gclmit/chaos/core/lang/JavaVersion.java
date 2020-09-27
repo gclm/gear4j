@@ -1,7 +1,5 @@
 package club.gclmit.chaos.core.lang;
 
-import club.gclmit.chaos.core.util.NumberUtils;
-
 /**
  * <p>
  * Java 判断枚举
