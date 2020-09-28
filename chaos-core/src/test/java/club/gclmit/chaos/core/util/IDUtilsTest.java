@@ -17,6 +17,5 @@ public class IDUtilsTest {
         System.out.println("雪花算法："+ IdUtils.stringSnowflakeId());
 
         System.out.println("UUID:" + IdUtils.randomUUID());
-        System.out.println("Simple-UUID:" + IdUtils.simpleUUID());
     }
 }

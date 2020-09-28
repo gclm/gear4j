@@ -53,7 +53,7 @@ public class QRCodeUtilsTest {
                 content("https://blog.gclmit.club/")
                 .size(400, 400);
 
-        String path = builder.qrCode(logo).generate(BarcodeImageType.JPG, new File(System.getProperty("user.dir"), IdUtils.simpleUUID() + ".jpg"));
+        String path = builder.qrCode(logo).generate(BarcodeImageType.JPG, new File(System.getProperty("user.dir"), IdUtils.randomUUID() + ".jpg"));
         System.out.println("logo: "+ path);
     }
 

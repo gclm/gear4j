@@ -1,7 +1,4 @@
-package club.gclmit.chaos.web.response;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+package club.gclmit.chaos.core.result;
 
 /**
  * <p>
@@ -10,13 +7,11 @@ import io.swagger.annotations.ApiModelProperty;
  *
  * @author gclm
  */
-@ApiModel(value = "分页消息封装", description = "分页消息封装")
 public class PageResult extends Result {
 
     /**
      *  列表数量
      */
-    @ApiModelProperty(value = "分页总数量")
     private Long count;
 
     public static PageResult result(ApiCode apiCode, Long count,Object data) {

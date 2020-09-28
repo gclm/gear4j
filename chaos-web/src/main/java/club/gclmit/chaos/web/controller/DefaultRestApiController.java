@@ -2,9 +2,9 @@ package club.gclmit.chaos.web.controller;
 
 import club.gclmit.chaos.core.log.LoggerServer;
 import club.gclmit.chaos.core.log.Logger;
+import club.gclmit.chaos.core.result.PageResult;
+import club.gclmit.chaos.core.result.Result;
 import club.gclmit.chaos.core.util.ObjectUtils;
-import club.gclmit.chaos.web.response.PageResult;
-import club.gclmit.chaos.web.response.Result;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.swagger.annotations.ApiOperation;

@@ -2,8 +2,8 @@ package club.gclmit.chaos.web.controller;
 
 import club.gclmit.chaos.core.log.LoggerServer;
 import club.gclmit.chaos.core.log.Logger;
-import club.gclmit.chaos.http.http.UrlUtils;
-import club.gclmit.chaos.web.response.Result;
+import club.gclmit.chaos.core.result.Result;
+import club.gclmit.chaos.core.util.UrlUtils;
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

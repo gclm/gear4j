@@ -8,6 +8,7 @@ import org.springframework.lang.Nullable;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.File;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -576,6 +577,7 @@ public class DigestUtils {
      *
      * @param algorithm 算法
      * @param bytes     Data to digest
+     * @param key       key
      * @return digest as a hex string
      */
     public static String digestHmacHex(String algorithm, final byte[] bytes, String key) {
@@ -587,6 +589,7 @@ public class DigestUtils {
      *
      * @param algorithm 算法
      * @param bytes     Data to digest
+     * @param key       key
      * @return digest as a byte array
      */
     public static byte[] digestHmac(String algorithm, final byte[] bytes, String key) {
@@ -655,4 +658,5 @@ public class DigestUtils {
         }
         return diff == 0;
     }
+
 }

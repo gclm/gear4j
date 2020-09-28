@@ -137,7 +137,7 @@ public class CharsetUtils {
      * @since 3.1.2
      */
     public static Charset systemCharset() {
-        return SystemUtils.IS_OS_WINDOWS ? CHARSET_GBK : defaultCharset();
+        return SystemUtils.isWindows() ? CHARSET_GBK : defaultCharset();
     }
 
     /**

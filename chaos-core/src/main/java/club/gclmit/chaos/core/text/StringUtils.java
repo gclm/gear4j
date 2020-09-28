@@ -28,11 +28,13 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
     public static final char BACKSLASH = '\\';
 
-    public static final char DELIM_START = '{';
+    public static final char DENIM_START = '{';
 
-    public static final char DELIM_END = '}';
+    public static final char DENIM_END = '}';
 
     public static final String NULL = "null";
+
+    public static final String SPACE = " ";
 
     public static final String EMPTY_JSON = "{}";
 
@@ -267,7 +269,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
                     // 占位符被转义
                     argIndex--;
                     builder.append(pattern, handledPosition, delimIndex - 1);
-                    builder.append(StringUtils.DELIM_START);
+                    builder.append(StringUtils.DENIM_START);
                     handledPosition = delimIndex + 1;
                 }
             } else {// 正常占位符

@@ -1,4 +1,4 @@
-package club.gclmit.chaos.http.http;
+package club.gclmit.chaos.http;
 
 import com.ejlchina.okhttps.HTTP;
 import com.ejlchina.okhttps.HttpResult;
