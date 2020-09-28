@@ -2,7 +2,7 @@ package club.gclmit.chaos.web.controller;
 
 import club.gclmit.chaos.core.log.LoggerServer;
 import club.gclmit.chaos.core.log.Logger;
-import club.gclmit.chaos.web.response.Result;
+import club.gclmit.chaos.core.result.Result;
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.util.Assert;

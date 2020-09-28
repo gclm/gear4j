@@ -1,9 +1,7 @@
-package club.gclmit.chaos.web.response;
+package club.gclmit.chaos.core.result;
 
-import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.text.StringUtils;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import club.gclmit.chaos.core.util.DateUtils;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +10,6 @@ import java.util.Map;
  *
  * @author gclm
  */
-@ApiModel(value = "通用消息响应", description = "通用消息响应")
 public class Result {
 
     private static String TIMESTAMP =  String.valueOf(DateUtils.getMilliTimestamp());
@@ -20,25 +17,21 @@ public class Result {
     /**
      * 响应状态码
      */
-    @ApiModelProperty(value = "响应状态码", required = true)
     private Integer code;
 
     /**
      * 响应提示
      */
-    @ApiModelProperty(value = "响应提示消息", required = true)
     private String message;
 
     /**
      * 响应时间戳
      */
-    @ApiModelProperty(value = "响应时间戳", required = true)
     private String timestamp = TIMESTAMP;
 
     /**
      * 响应数据
      */
-    @ApiModelProperty(value = "响应数据", required = false)
     private Object data;
 
     public Result(Integer code, String message, Object data) {

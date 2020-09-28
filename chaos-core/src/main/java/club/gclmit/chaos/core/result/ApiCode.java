@@ -1,4 +1,4 @@
-package club.gclmit.chaos.web.response;
+package club.gclmit.chaos.core.result;
 
 /**
  * <p>

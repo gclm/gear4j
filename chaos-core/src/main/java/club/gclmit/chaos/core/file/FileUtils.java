@@ -1,5 +1,6 @@
 package club.gclmit.chaos.core.file;
 
+import club.gclmit.chaos.core.collection.ArrayUtils;
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.util.IdUtils;
@@ -211,7 +212,7 @@ public class FileUtils {
      */
     public static String getSuffix(String fileName) {
         Assert.isTrue(StringUtils.isNotBlank(fileName), "文件名不能为空");
-        return StringUtils.subAfter(fileName, ".", true);
+        return StringUtils.substringAfter(fileName, ".");
     }
 
     /**

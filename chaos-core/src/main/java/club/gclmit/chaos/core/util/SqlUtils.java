@@ -68,7 +68,7 @@ public class SqlUtils {
             File file = new File(filePath);
             String[] commands = new String[3];
 
-            if (SystemUtils.IS_OS_WINDOWS){
+            if (SystemUtils.isWindows()){
                 commands[0] = "cmd.exe";
                 commands[1] = "/c";
             } else {

@@ -22,8 +22,8 @@ public class DigestUtilsTest {
         File file1 = new File("/Users/gclm/Pictures/avatar.jpg");
         File file2 = new File("/Users/gclm/Pictures/截图/Xnip2020-04-30_16-54-26.jpg");
 
-        System.out.println("file:  " + DigestUtils.md5(file));
-        System.out.println("file1: " + DigestUtils.md5(file1));
-        System.out.println("file2: " + DigestUtils.md5(file2));
+//        System.out.println("file:  " + DigestUtils.md5(file));
+//        System.out.println("file1: " + DigestUtils.md5(file1));
+//        System.out.println("file2: " + DigestUtils.md5(file2));
     }
 }

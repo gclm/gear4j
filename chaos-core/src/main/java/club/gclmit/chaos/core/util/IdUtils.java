@@ -1,6 +1,7 @@
 package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.lang.Snowflake;
+import club.gclmit.chaos.core.text.StringUtils;
 
 /**
  * <p>
@@ -20,17 +21,9 @@ public class IdUtils {
      * @return java.lang.String
      */
     public static String randomUUID() {
-        return UUIDUtils.getUUID();
+        return StringUtils.getUUID();
     }
 
-    /**
-     * 简化的UUID，去掉了横线
-     * @author 孤城落寞
-     * @return java.lang.String
-     */
-    public static String simpleUUID() {
-        return UUIDUtils.getSimpleUUID();
-    }
 
     /**
      * <p>

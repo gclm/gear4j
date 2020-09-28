@@ -37,11 +37,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.ejlchina</groupId>
-            <artifactId>okhttps-jackson</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>club.gclmit</groupId>
             <artifactId>chaos-core</artifactId>
             <version>${project.parent.version}</version>

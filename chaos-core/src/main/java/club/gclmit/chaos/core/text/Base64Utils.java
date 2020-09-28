@@ -111,7 +111,7 @@ public class Base64Utils{
     public static String encode(File file) {
         Assert.notNull(file,"file不能为空");
         try(FileInputStream in = new FileInputStream(file)){
-            return encode(IOUtils.toByteArray(in));
+            return encode(StringUtils.toString(in));
         } catch (IOException e) {
             throw new ChaosCoreException("获取网络图片发生异常",e);
         }
