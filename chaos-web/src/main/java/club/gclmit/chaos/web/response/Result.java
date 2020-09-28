@@ -1,7 +1,7 @@
 package club.gclmit.chaos.web.response;
 
-import club.gclmit.chaos.core.util.DateUtils;
-import club.gclmit.chaos.core.text.StringUtils;
+import club.gclmit.chaos.http.test.DateUtils;
+import club.gclmit.chaos.http.text.StringUtils;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.HashMap;

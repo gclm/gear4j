@@ -1,7 +1,7 @@
 package club.gclmit.chaos.starter.config;
 
-import club.gclmit.chaos.core.log.Logger;
-import club.gclmit.chaos.core.log.LoggerServer;
+import club.gclmit.chaos.http.log.Logger;
+import club.gclmit.chaos.http.log.LoggerServer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;

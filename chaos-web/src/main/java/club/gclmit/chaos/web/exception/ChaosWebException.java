@@ -1,6 +1,6 @@
 package club.gclmit.chaos.web.exception;
 
-import club.gclmit.chaos.core.exception.AbstractChaosException;
+import club.gclmit.chaos.http.exception.AbstractChaosException;
 
 /**
  * <p>
