@@ -1,8 +1,8 @@
 package club.gclmit.chaos.core.lang;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
-import club.gclmit.chaos.core.util.CharsetUtils;
-import club.gclmit.chaos.core.util.StringUtils;
+import club.gclmit.chaos.core.text.CharsetUtils;
+import club.gclmit.chaos.core.text.StringUtils;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.client.j2se.MatrixToImageConfig;

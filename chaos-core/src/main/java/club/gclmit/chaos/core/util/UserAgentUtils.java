@@ -86,7 +86,7 @@ public class UserAgentUtils {
      * @return boolean 如果是返回 true，否则返回 false
      * @author gclm
      */
-    public static boolean isMoblie(HttpServletRequest request) {
+    public static boolean isMobile(HttpServletRequest request) {
         boolean flag = false;
         String userAgent = getCurrentUserAgent(request);
         for (String mobileAgent : MOBILE_AGENTS) {

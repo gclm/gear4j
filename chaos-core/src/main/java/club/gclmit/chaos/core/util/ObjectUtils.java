@@ -2,6 +2,7 @@ package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.lang.Assert;
+import club.gclmit.chaos.core.text.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
@@ -268,7 +269,7 @@ public class ObjectUtils extends org.springframework.util.ObjectUtils {
             }
             field.setAccessible(false);
         }
-        String result = StringUtils.subBefore(fieldBuilder, ", ", true);
+        String result = StringUtils.substringBefore(fieldBuilder.toString(), ", ");
         return StringUtils.builder(className).append("{").append(result).append("}").toString();
     }
 }
