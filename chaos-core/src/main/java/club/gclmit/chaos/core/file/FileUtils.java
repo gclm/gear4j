@@ -1,9 +1,9 @@
-package club.gclmit.chaos.core.io.file;
+package club.gclmit.chaos.core.file;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.util.IdUtils;
-import club.gclmit.chaos.core.util.StringUtils;
+import club.gclmit.chaos.core.text.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 

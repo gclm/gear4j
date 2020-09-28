@@ -1,7 +1,7 @@
-package club.gclmit.chaos.core.net.web;
+package club.gclmit.chaos.core.servlet;
 
-import club.gclmit.chaos.core.util.CharsetUtils;
-import club.gclmit.chaos.core.util.StringUtils;
+import club.gclmit.chaos.core.text.CharsetUtils;
+import club.gclmit.chaos.core.text.StringUtils;
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;

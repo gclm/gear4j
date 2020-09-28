@@ -1,7 +1,7 @@
 package club.gclmit.chaos.web.xss;
 
-import club.gclmit.chaos.core.net.html.EscapeUtils;
-import club.gclmit.chaos.core.util.StringUtils;
+import club.gclmit.chaos.core.html.EscapeUtils;
+import club.gclmit.chaos.core.text.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;

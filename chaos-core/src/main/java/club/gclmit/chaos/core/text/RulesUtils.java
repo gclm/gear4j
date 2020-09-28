@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.util;
+package club.gclmit.chaos.core.text;
 
 import java.util.regex.Pattern;
 
@@ -8,9 +8,9 @@ import java.util.regex.Pattern;
  * </p>
  * @author gclm
  */
-public class RegUtils {
+public class RulesUtils {
 
-    private RegUtils() {
+    private RulesUtils() {
     }
 
     /**

@@ -5,4 +5,4 @@
  *
  * @author gclm
  */
-package club.gclmit.chaos.core.io.file;
+package club.gclmit.chaos.core.file;

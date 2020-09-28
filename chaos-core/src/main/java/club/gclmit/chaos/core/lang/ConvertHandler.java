@@ -3,12 +3,14 @@ package club.gclmit.chaos.core.lang;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.nio.charset.Charset;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.*;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
-import club.gclmit.chaos.core.util.StringUtils;
+import club.gclmit.chaos.core.text.CharsetUtils;
+import club.gclmit.chaos.core.text.StringUtils;
 
 /**
  * <p>
@@ -24,12 +26,12 @@ public class ConvertHandler {
      * 如果给定的值为null，或者转换失败，返回默认值<br>
      * 转换失败不会报错
      *
-     * @param value        被转换的值
-     * @param defaultValue 转换错误时的默认值
+     * @param data        被转换的值
+     * @param defaultData 转换错误时的默认值
      * @return 结果
      */
-    public static String toString(Object value, String defaultValue) {
-        return convertQuietly(String.class, value, defaultValue);
+    public static String toString(Object data, String defaultData) {
+        return convertQuietly(String.class, data, defaultData);
     }
 
     /**
@@ -37,22 +39,21 @@ public class ConvertHandler {
      * 如果给定的值为<code>null</code>，或者转换失败，返回默认值<code>null</code><br>
      * 转换失败不会报错
      *
-     * @param value 被转换的值
+     * @param data 被转换的值
      * @return 结果
      */
-    public static String toString(Object value) {
-        return toString(value, null);
+    public static String toString(Object data) {
+        return toString(data, null);
     }
 
     /**
      * 转换为String数组
      *
-     * @param value 被转换的值
+     * @param data 被转换的值
      * @return String数组
-     * @since 3.2.0
      */
-    public static String[] toStringArray(Object value) {
-        return convert(String[].class, value);
+    public static String[] toStringArray(Object data) {
+        return convert(String[].class, data);
     }
 
     /**
@@ -60,12 +61,12 @@ public class ConvertHandler {
      * 如果给定的值为null，或者转换失败，返回默认值<br>
      * 转换失败不会报错
      *
-     * @param value        被转换的值
-     * @param defaultValue 转换错误时的默认值
+     * @param data        被转换的值
+     * @param defaultData 转换错误时的默认值
      * @return 结果
      */
-    public static Character toChar(Object value, Character defaultValue) {
-        return convertQuietly(Character.class, value, defaultValue);
+    public static Character toChar(Object data, Character defaultData) {
+        return convertQuietly(Character.class, data, defaultData);
     }
 
     /**
@@ -73,22 +74,21 @@ public class ConvertHandler {
      * 如果给定的值为<code>null</code>，或者转换失败，返回默认值<code>null</code><br>
      * 转换失败不会报错
      *
-     * @param value 被转换的值
+     * @param data 被转换的值
      * @return 结果
      */
-    public static Character toChar(Object value) {
-        return toChar(value, null);
+    public static Character toChar(Object data) {
+        return toChar(data, null);
     }
 
     /**
      * 转换为Character数组
      *
-     * @param value 被转换的值
+     * @param data 被转换的值
      * @return Character数组
-     * @since 3.2.0
      */
-    public static Character[] toCharArray(Object value) {
-        return convert(Character[].class, value);
+    public static Character[] toCharArray(Object data) {
+        return convert(Character[].class, data);
     }
 
     /**
@@ -96,12 +96,12 @@ public class ConvertHandler {
      * 如果给定的值为<code>null</code>，或者转换失败，返回默认值<br>
      * 转换失败不会报错
      *
-     * @param value        被转换的值
-     * @param defaultValue 转换错误时的默认值
+     * @param data        被转换的值
+     * @param defaultData 转换错误时的默认值
      * @return 结果
      */
-    public static Byte toByte(Object value, Byte defaultValue) {
-        return convertQuietly(Byte.class, value, defaultValue);
+    public static Byte toByte(Object data, Byte defaultData) {
+        return convertQuietly(Byte.class, data, defaultData);
     }
 
     /**
@@ -109,46 +109,78 @@ public class ConvertHandler {
      * 如果给定的值为<code>null</code>，或者转换失败，返回默认值<code>null</code><br>
      * 转换失败不会报错
      *
-     * @param value 被转换的值
+     * @param data 被转换的值
      * @return 结果
      */
-    public static Byte toByte(Object value) {
-        return toByte(value, null);
+    public static Byte toByte(Object data) {
+        return toByte(data, null);
     }
 
     /**
      * 转换为Byte数组
      *
-     * @param value 被转换的值
+     * @param data 被转换的值
      * @return Byte数组
-     * @since 3.2.0
      */
-    public static Byte[] toByteArray(Object value) {
-        return convert(Byte[].class, value);
+    public static Byte[] toByteArray(Object data) {
+        return convert(Byte[].class, data);
     }
 
     /**
      * 转换为Byte数组
      *
-     * @param value 被转换的值
+     * @param data 被转换的值
      * @return Byte数组
-     * @since 5.1.1
      */
-    public static byte[] toPrimitiveByteArray(Object value) {
-        return convert(byte[].class, value);
+    public static byte[] toByteArray(String data) {
+        return data.getBytes(CharsetUtils.CHARSET_UTF_8);
     }
+
+    /**
+     * 转换为Byte数组
+     *
+     * @param data 被转换的值
+     * @param charset 编码格式
+     * @return Byte数组
+     */
+    public static byte[] toByteArray(String data,String charset) {
+        return data.getBytes(CharsetUtils.toCharset(charset));
+    }
+
+    /**
+     * 转换为Byte数组
+     *
+     * @param data 被转换的值
+     * @param charset 编码格式
+     * @return Byte数组
+     */
+    public static byte[] toByteArray(String data, Charset charset) {
+        return data.getBytes(CharsetUtils.toCharset(charset));
+    }
+
+
+    /**
+     * 转换为Byte数组
+     *
+     * @param data 被转换的值
+     * @return Byte数组
+     */
+    public static byte[] toPrimitiveByteArray(Object data) {
+        return convert(byte[].class, data);
+    }
+
 
     /**
      * 转换为Short<br>
      * 如果给定的值为<code>null</code>，或者转换失败，返回默认值<br>
      * 转换失败不会报错
      *
-     * @param value        被转换的值
-     * @param defaultValue 转换错误时的默认值
+     * @param data        被转换的值
+     * @param defaultData 转换错误时的默认值
      * @return 结果
      */
-    public static Short toShort(Object value, Short defaultValue) {
-        return convertQuietly(Short.class, value, defaultValue);
+    public static Short toShort(Object data, Short defaultData) {
+        return convertQuietly(Short.class, data, defaultData);
     }
 
     /**
@@ -424,15 +456,28 @@ public class ConvertHandler {
     }
 
     /**
-     * 转换为BigDecimal<br>
-     * 如果给定的值为空，或者转换失败，返回null<br>
-     * 转换失败不会报错
+     * 数字转{@link BigDecimal}
      *
-     * @param value 被转换的值
-     * @return 结果
+     * @param number 数字
+     * @return {@link BigDecimal}
+     * @since 4.0.9
      */
-    public static BigDecimal toBigDecimal(Object value) {
-        return toBigDecimal(value, null);
+    public static BigDecimal toBigDecimal(Number number) {
+        if (null == number) {
+            return BigDecimal.ZERO;
+        }
+        return toBigDecimal(number.toString());
+    }
+
+    /**
+     * 数字转{@link BigDecimal}
+     *
+     * @param number 数字
+     * @return {@link BigDecimal}
+     * @since 4.0.9
+     */
+    public static BigDecimal toBigDecimal(String number) {
+        return (null == number) ? BigDecimal.ZERO : new BigDecimal(number);
     }
 
     /**
@@ -584,18 +629,6 @@ public class ConvertHandler {
         return convert((Type) type, value);
     }
 
-//	/**
-//	 * 转换值为指定类型
-//	 *
-//	 * @param <T> 目标类型
-//	 * @param reference 类型参考，用于持有转换后的泛型类型
-//	 * @param value 值
-//	 * @return 转换后的值
-//	 * @throws ChaosCoreException 转换器不存在
-//	 */
-//	public static <T> T convert(TypeReference<T> reference, Object value) throws ChaosCoreException{
-//		return convert(reference.getType(), value, null);
-//	}
 
     /**
      * 转换值为指定类型
