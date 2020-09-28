@@ -1,6 +1,6 @@
 package club.gclmit.chaos.http.test;
 
-import club.gclmit.chaos.http.text.CharsetUtils;
+import club.gclmit.chaos.core.text.CharsetUtils;
 
 import java.nio.charset.Charset;
 

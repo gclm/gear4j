@@ -1,8 +1,0 @@
-/**
- * <p>
- * core-常量工具类
- * </p>
- *
- * @author gclm
- */
-package club.gclmit.chaos.http.lang;
