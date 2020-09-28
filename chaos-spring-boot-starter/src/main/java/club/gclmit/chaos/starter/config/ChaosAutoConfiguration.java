@@ -1,7 +1,7 @@
 package club.gclmit.chaos.starter.config;
 
-import club.gclmit.chaos.core.log.Logger;
-import club.gclmit.chaos.core.log.LoggerServer;
+import club.gclmit.chaos.http.log.Logger;
+import club.gclmit.chaos.http.log.LoggerServer;
 import club.gclmit.chaos.starter.properties.ChaosStorageProperties;
 import club.gclmit.chaos.starter.properties.ChaosWebProperties;
 import club.gclmit.chaos.storage.CloudStorageFactory;
