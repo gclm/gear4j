@@ -1,6 +1,6 @@
 package club.gclmit.chaos.http.test;
 
-import club.gclmit.chaos.http.file.FileUtils;
+import club.gclmit.chaos.core.file.FileUtils;
 import java.io.File;
 import java.io.IOException;
 

@@ -1,7 +1,7 @@
 package club.gclmit.chaos.web.controller;
 
-import club.gclmit.chaos.http.log.LoggerServer;
-import club.gclmit.chaos.http.log.Logger;
+import club.gclmit.chaos.core.log.LoggerServer;
+import club.gclmit.chaos.core.log.Logger;
 import club.gclmit.chaos.http.http.UrlUtils;
 import club.gclmit.chaos.web.response.Result;
 import com.baomidou.mybatisplus.extension.service.IService;

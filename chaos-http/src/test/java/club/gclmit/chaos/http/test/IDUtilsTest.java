@@ -1,5 +1,7 @@
 package club.gclmit.chaos.http.test;
 
+import club.gclmit.chaos.core.util.IdUtils;
+
 /**
  * <p>
  * ID 生成器
