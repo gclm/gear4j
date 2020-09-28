@@ -2,6 +2,9 @@ package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.io.IOUtils;
+import club.gclmit.chaos.core.text.CharsetUtils;
+import club.gclmit.chaos.core.text.StringUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;

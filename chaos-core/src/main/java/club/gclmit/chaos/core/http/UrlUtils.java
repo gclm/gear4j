@@ -1,9 +1,9 @@
-package club.gclmit.chaos.core.net.web;
+package club.gclmit.chaos.core.http;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.lang.Assert;
-import club.gclmit.chaos.core.util.CharsetUtils;
-import club.gclmit.chaos.core.util.StringUtils;
+import club.gclmit.chaos.core.text.CharsetUtils;
+import club.gclmit.chaos.core.text.StringUtils;
 import org.springframework.util.AntPathMatcher;
 
 import java.io.UnsupportedEncodingException;

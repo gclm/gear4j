@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.net.html;
+package club.gclmit.chaos.core.html;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

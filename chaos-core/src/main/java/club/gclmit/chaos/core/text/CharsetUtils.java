@@ -1,4 +1,6 @@
-package club.gclmit.chaos.core.util;
+package club.gclmit.chaos.core.text;
+
+import club.gclmit.chaos.core.util.SystemUtils;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -32,6 +34,7 @@ public class CharsetUtils {
      * ISO-8859-1
      */
     public static final Charset CHARSET_ISO_8859_1 = StandardCharsets.ISO_8859_1;
+
     /**
      * UTF-8
      */
