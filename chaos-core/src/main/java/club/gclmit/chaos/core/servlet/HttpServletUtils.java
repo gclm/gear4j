@@ -1,7 +1,7 @@
-package club.gclmit.chaos.core.net.web;
+package club.gclmit.chaos.core.servlet;
 
 import club.gclmit.chaos.core.lang.Assert;
-import club.gclmit.chaos.core.util.StringUtils;
+import club.gclmit.chaos.core.text.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
