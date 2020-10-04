@@ -8,7 +8,7 @@ import org.springframework.lang.Nullable;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.File;
+import java.io.*;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -21,6 +21,83 @@ import java.security.NoSuchAlgorithmException;
  * @author gclm
  */
 public class DigestUtils {
+
+    private static final int STREAM_BUFFER_LENGTH = 1024;
+
+    /**
+     * 获取消息签名
+     *
+     * @param algorithm 算法
+     * @return MessageDigest
+     */
+    public static MessageDigest getDigest(String algorithm) {
+        try {
+            return MessageDigest.getInstance(algorithm);
+        } catch (NoSuchAlgorithmException e) {
+            throw ExceptionUtils.unchecked(e);
+        }
+    }
+
+    /**
+     * digest
+     *
+     * @param algorithm 算法
+     * @param bytes     Data to digest
+     * @return digest byte array
+     */
+    public static byte[] digest(String algorithm, byte[] bytes) {
+        return getDigest(algorithm).digest(bytes);
+    }
+
+    /**
+     * digest
+     *
+     * @param algorithm 算法
+     * @param in        输入流
+     * @return digest byte array
+     */
+    public static byte[] digest(String algorithm, InputStream in) {
+        byte[] buffer = new byte[STREAM_BUFFER_LENGTH];
+        MessageDigest digest = getDigest(algorithm);
+        try {
+            int read = in.read(buffer, 0, STREAM_BUFFER_LENGTH);
+            while (read > -1) {
+                digest.update(buffer, 0, STREAM_BUFFER_LENGTH);
+                read = in.read(buffer, 0, STREAM_BUFFER_LENGTH);
+            }
+            return digest.digest();
+        } catch (IOException e) {
+            throw ExceptionUtils.unchecked(e);
+        }
+    }
+
+    /**
+     * digest
+     *
+     * @param algorithm 算法
+     * @param file      文件
+     * @return digest byte array
+     */
+    public static byte[] digest(String algorithm, File file) {
+        try(FileInputStream fileInputStream = new FileInputStream(file);
+            BufferedInputStream inputStream = new BufferedInputStream(fileInputStream)) {
+           return digest(algorithm,inputStream);
+        } catch (Exception e) {
+            throw ExceptionUtils.unchecked(e);
+        }
+    }
+
+    /**
+     * digest Hex
+     *
+     * @param algorithm 算法
+     * @param bytes     Data to digest
+     * @return digest as a hex string
+     */
+    public static String digestHex(String algorithm, byte[] bytes) {
+        return encodeHex(digest(algorithm, bytes));
+    }
+
 
     /**
      * 将 long 转短字符串 为 62 进制
@@ -42,49 +119,99 @@ public class DigestUtils {
     }
 
     /**
-     * Calculates the MD5 digest.
+     * md5 签名
      *
-     * @param bytes Data to digest
+     * @param file 待加签文件
      * @return MD5 digest as a hex array
      */
-    public static byte[] md5(final byte[] bytes) {
-        return digest("MD5", bytes);
+    public static byte[] md5(File file) {
+        return digest(DigestAlgorithms.MD5, file);
     }
 
     /**
-     * Calculates the MD5 digest.
+     * md5 签名
      *
-     * @param data Data to digest
+     * @param data 输入流
      * @return MD5 digest as a hex array
      */
-    public static byte[] md5(final String data) {
+    public static byte[] md5(InputStream data) {
+        return digest(DigestAlgorithms.MD5, data);
+    }
+
+    /**
+     * md5 签名
+     *
+     * @param bytes 待加签数据
+     * @return MD5 digest as a hex array
+     */
+    public static byte[] md5(byte[] bytes) {
+        return digest(DigestAlgorithms.MD5, bytes);
+    }
+
+    /**
+     * md5 签名
+     *
+     * @param data 待加签数据
+     * @return MD5 digest as a hex array
+     */
+    public static byte[] md5(String data) {
         return md5(ConvertHandler.toByteArray(data));
     }
 
     /**
-     * Calculates the MD5 digest and returns the value as a 32 character hex string.
+     * md5 签名
      *
-     * @param data Data to digest
-     * @return MD5 digest as a hex string
+     * @param data 待加签数据
+     * @return string
      */
-    public static String md5Hex(final String data) {
+    public static String md5Hex(String data) {
         return encodeHex(md5(data));
     }
 
     /**
-     * Return a hexadecimal string representation of the MD5 digest of the given bytes.
+     * md5 签名
      *
-     * @param bytes the bytes to calculate the digest over
-     * @return a hexadecimal digest string
+     * @param bytes 待加签数据
+     * @return string
      */
-    public static String md5Hex(final byte[] bytes) {
+    public static String md5Hex(byte[] bytes) {
         return encodeHex(md5(bytes));
+    }
+
+    /**
+     * md5 签名
+     *
+     * @param file 待加签数据
+     * @return string
+     */
+    public static String md5Hex(File file) {
+        return encodeHex(md5(file));
+    }
+
+    /**
+     * md5 签名
+     *
+     * @param data 待加签数据
+     * @return string
+     */
+    public static String md5Hex(InputStream data) {
+        return encodeHex(md5(data));
     }
 
     /**
      * sha1
      *
-     * @param data Data to digest
+     * @param bytes 待加签数据
+     * @return digest as a hex array
+     */
+    public static byte[] sha1(byte[] bytes) {
+        return digest(DigestAlgorithms.SHA_1, bytes);
+    }
+
+    /**
+     * sha1
+     *
+     * @param data 待加签数据
      * @return digest as a hex array
      */
     public static byte[] sha1(String data) {
@@ -94,31 +221,51 @@ public class DigestUtils {
     /**
      * sha1
      *
-     * @param bytes Data to digest
+     * @param file 待加签数据
      * @return digest as a hex array
      */
-    public static byte[] sha1(final byte[] bytes) {
-        return digest("SHA-1", bytes);
+    public static byte[] sha1(File file) {
+        return digest(DigestAlgorithms.SHA_1, file);
+    }
+
+    /**
+     * sha1
+     *
+     * @param data 待加签数据
+     * @return digest as a hex array
+     */
+    public static byte[] sha1(InputStream data) {
+        return digest(DigestAlgorithms.SHA_1, data);
     }
 
     /**
      * sha1Hex
      *
-     * @param data Data to digest
+     * @param bytes 待加签数据
      * @return digest as a hex string
      */
-    public static String sha1Hex(String data) {
-        return encodeHex(sha1(ConvertHandler.toByteArray(data)));
-    }
-
-    /**
-     * sha1Hex
-     *
-     * @param bytes Data to digest
-     * @return digest as a hex string
-     */
-    public static String sha1Hex(final byte[] bytes) {
+    public static String sha1Hex(byte[] bytes) {
         return encodeHex(sha1(bytes));
+    }
+
+    /**
+     * sha1Hex
+     *
+     * @param file 待加签数据
+     * @return digest as a hex string
+     */
+    public static String sha1Hex(File file) {
+        return encodeHex(sha1(file));
+    }
+
+    /**
+     * sha1Hex
+     *
+     * @param data 待加签数据
+     * @return digest as a hex string
+     */
+    public static String sha1Hex(InputStream data) {
+        return encodeHex(sha1(data));
     }
 
     /**
@@ -138,7 +285,7 @@ public class DigestUtils {
      * @return digest as a byte array
      */
     public static byte[] sha224(final byte[] bytes) {
-        return digest("SHA-224", bytes);
+        return digest(DigestAlgorithms.SHA_224, bytes);
     }
 
     /**
@@ -148,7 +295,7 @@ public class DigestUtils {
      * @return digest as a hex string
      */
     public static String sha224Hex(String data) {
-        return encodeHex(sha224(ConvertHandler.toByteArray(data)));
+        return encodeHex(sha224(data));
     }
 
     /**
@@ -281,32 +428,6 @@ public class DigestUtils {
         return encodeHex(sha512(bytes));
     }
 
-    /**
-     * digest
-     *
-     * @param algorithm 算法
-     * @param bytes     Data to digest
-     * @return digest byte array
-     */
-    public static byte[] digest(String algorithm, byte[] bytes) {
-        try {
-            MessageDigest md = MessageDigest.getInstance(algorithm);
-            return md.digest(bytes);
-        } catch (NoSuchAlgorithmException e) {
-            throw ExceptionUtils.unchecked(e);
-        }
-    }
-
-    /**
-     * digest Hex
-     *
-     * @param algorithm 算法
-     * @param bytes     Data to digest
-     * @return digest as a hex string
-     */
-    public static String digestHex(String algorithm, byte[] bytes) {
-        return encodeHex(digest(algorithm, bytes));
-    }
 
     /**
      * hmacMd5

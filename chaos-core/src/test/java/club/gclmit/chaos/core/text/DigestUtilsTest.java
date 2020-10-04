@@ -18,12 +18,13 @@ import java.io.IOException;
 public class DigestUtilsTest {
 
     public static void main(String[] args) throws IOException {
-        File file = new File("/Users/gclm/Pictures/27618687.jpeg");
-        File file1 = new File("/Users/gclm/Pictures/avatar.jpg");
-        File file2 = new File("/Users/gclm/Pictures/截图/Xnip2020-04-30_16-54-26.jpg");
 
-//        System.out.println("file:  " + DigestUtils.md5(file));
-//        System.out.println("file1: " + DigestUtils.md5(file1));
-//        System.out.println("file2: " + DigestUtils.md5(file2));
+        File file = new File("/Users/gclm/Projects/java/middleware/chaos/chaos-core/src/test/resources/test1.jpg");
+        File file1 = new File("/Users/gclm/Projects/java/middleware/chaos/chaos-core/src/test/resources/test1-1.jpeg");
+        File file2 = new File("/Users/gclm/Projects/java/middleware/chaos/chaos-core/src/test/resources/test1-3.pdf");
+
+        System.out.println("file:  " + DigestUtils.md5Hex(file));
+        System.out.println("file1: " + DigestUtils.md5Hex(file1));
+        System.out.println("file2: " + DigestUtils.md5Hex(file2));
     }
 }
