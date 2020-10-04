@@ -91,7 +91,7 @@ public abstract class StorageClient {
              */
             String key = getPath(storage.getConfig().getPrefix(), FileUtils.getSuffix(file));
             String contentType = FileUtils.getContentType(file);
-            String md5 = DigestUtils.md5(file);
+            String md5 = DigestUtils.md5Hex(file);
             return upload(fileInputStream,new FileInfo(file.getName(),contentType,file.length(), md5,key,storage.getType().getId()));
         } catch (Exception e) {
             throw new ChaosStorageException("文件上传失败",e);
@@ -117,7 +117,7 @@ public abstract class StorageClient {
          * 根据工具类获取 fileInfo 参数
          */
         String contentType = MimeType.TXT.getMimeType();
-        String md5  = DigestUtils.md5(data);
+        String md5  = DigestUtils.md5Hex(data);
         Long size = Long.valueOf(String.valueOf(data.length));
 
         /**
