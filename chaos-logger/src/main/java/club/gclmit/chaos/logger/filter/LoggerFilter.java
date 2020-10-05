@@ -9,8 +9,6 @@ import club.gclmit.chaos.core.servlet.HttpServletUtils;
 import club.gclmit.chaos.core.servlet.RequestWrapper;
 import club.gclmit.chaos.core.servlet.ResponseWrapper;
 import club.gclmit.chaos.core.util.SqlUtils;
-import club.gclmit.chaos.http.http.UrlUtils;
-import club.gclmit.chaos.http.test.*;
 import club.gclmit.chaos.logger.mapper.LoggerMapper;
 import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
 import club.gclmit.chaos.logger.model.HttpTrace;
@@ -105,7 +103,7 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
      * @return boolean
      */
     private boolean checkIgnoreUrl(String uri) {
-        if (uri.startsWith(config.getPrefix()) || UrlUtils.isIgnore(Arrays.asList(config.getIgnoreUrls()), uri)) {
+        if (uri.startsWith(config.getPrefix()) || HttpServletUtils.isIgnore(Arrays.asList(config.getIgnoreUrls()), uri)) {
             return false;
         }
         return true;

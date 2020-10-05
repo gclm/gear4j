@@ -43,7 +43,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
     @Override
     public FileInfo uploadFile(MultipartFile file) {
         File tempFile = FileUtils.multipartFileToFile(file, "");
-        String md5 = DigestUtils.md5(tempFile);
+        String md5 = DigestUtils.md5Hex(tempFile);
         FileInfo fileInfo = queryMd5(md5);
         if (fileInfo == null) {
             fileInfo = storageClient.upload(tempFile);

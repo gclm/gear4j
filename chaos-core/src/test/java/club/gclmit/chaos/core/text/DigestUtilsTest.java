@@ -1,5 +1,6 @@
 package club.gclmit.chaos.core.text;
 
+import club.gclmit.chaos.core.file.FileUtils;
 import club.gclmit.chaos.core.text.DigestUtils;
 
 import java.io.File;
@@ -26,5 +27,7 @@ public class DigestUtilsTest {
         System.out.println("file:  " + DigestUtils.md5Hex(file));
         System.out.println("file1: " + DigestUtils.md5Hex(file1));
         System.out.println("file2: " + DigestUtils.md5Hex(file2));
+
+        System.out.println(FileUtils.checkFile(file,file1));
     }
 }

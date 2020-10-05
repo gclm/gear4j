@@ -2,10 +2,10 @@ package club.gclmit.chaos.starter;
 
 import club.gclmit.chaos.core.exception.AbstractChaosException;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
+import club.gclmit.chaos.core.result.Result;
 import club.gclmit.chaos.logger.exception.ChaosLoggerException;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
 import club.gclmit.chaos.web.exception.ChaosWebException;
-import club.gclmit.chaos.web.response.Result;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;

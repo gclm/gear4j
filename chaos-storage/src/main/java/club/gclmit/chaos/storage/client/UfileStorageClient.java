@@ -17,6 +17,8 @@ import cn.ucloud.ufile.exception.UfileClientException;
 import cn.ucloud.ufile.exception.UfileServerException;
 import cn.ucloud.ufile.http.HttpClient;
 import cn.ucloud.ufile.util.StorageType;
+
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.concurrent.*;
@@ -119,7 +121,7 @@ public class UfileStorageClient extends StorageClient {
         String eTag = null;
 
         try {
-            PutObjectResultBean response = ossClient.putObject(inputStream, fileInfo.getContentType())
+            PutObjectResultBean response = ossClient.putObject(inputStream, inputStream.available(),fileInfo.getContentType())
                     .nameAs(fileInfo.getOssKey())
                     .toBucket(cloudStorage.getBucket())
                     /**
@@ -131,6 +133,8 @@ public class UfileStorageClient extends StorageClient {
         } catch (UfileClientException e) {
             throw new ChaosStorageException("上传失败,Ufile客户端发生异常",e);
         } catch (UfileServerException e) {
+            throw new ChaosStorageException("上传失败,Ufile服务器发生异常",e);
+        } catch (IOException e) {
             throw new ChaosStorageException("上传失败,Ufile服务器发生异常",e);
         }
 

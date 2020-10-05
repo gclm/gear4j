@@ -3,6 +3,7 @@ package club.gclmit.chaos.core.file;
 import club.gclmit.chaos.core.collection.ArrayUtils;
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
+import club.gclmit.chaos.core.text.DigestUtils;
 import club.gclmit.chaos.core.util.IdUtils;
 import club.gclmit.chaos.core.text.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -216,6 +217,18 @@ public class FileUtils {
     }
 
     /**
+     *  判断文件是否相同
+     *
+     * @author gclm
+     * @param file1  文件1
+     * @param file2  文件2
+     * @return 如果文件相同返回 true,否则返回 false
+     */
+    public static boolean checkFile(File file1,File file2){
+        return DigestUtils.md5Hex(file1).equals(DigestUtils.md5Hex(file2)) && DigestUtils.sha1Hex(file1).equals(DigestUtils.sha1Hex(file2));
+    }
+
+    /**
      * 获取文件内容
      *
      * @author gclm
@@ -321,7 +334,6 @@ public class FileUtils {
      */
     private static String byteToHex(byte[] bytes) {
         Assert.isFalse(ArrayUtils.isEmpty(bytes), "字节数组不能为空");
-
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < bytes.length; i++) {
             int v = bytes[i] & 0xFF;
