@@ -50,6 +50,12 @@
 
         <dependency>
             <groupId>club.gclmit</groupId>
+            <artifactId>chaos-http</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>club.gclmit</groupId>
             <artifactId>chaos-storage</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
