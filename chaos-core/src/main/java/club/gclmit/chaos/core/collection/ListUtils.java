@@ -31,4 +31,15 @@ public class ListUtils {
         return !isEmpty(list);
     }
 
+    /**
+     * to String[]
+     * @author gclm
+     * @param list  需要转换的集合
+     * @return: java.lang.String[]
+     */
+    public static String[] toArray(List list){
+        String[] tables = new String[list.size()];
+        return (String[]) list.toArray(tables);
+    }
+
 }

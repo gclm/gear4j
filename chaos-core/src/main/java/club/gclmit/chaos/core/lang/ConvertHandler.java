@@ -8,6 +8,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import club.gclmit.chaos.core.collection.ListUtils;
 import club.gclmit.chaos.core.text.StringUtils;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.text.CharsetUtils;
@@ -52,8 +53,8 @@ public class ConvertHandler {
      * @param data 被转换的值
      * @return String数组
      */
-    public static String[] toStringArray(Object data) {
-        return convert(String[].class, data);
+    public static String[] toStringArray(List data) {
+        return ListUtils.toArray(data);
     }
 
     /**

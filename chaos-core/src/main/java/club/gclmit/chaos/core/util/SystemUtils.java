@@ -1,6 +1,7 @@
 package club.gclmit.chaos.core.util;
 
 
+import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.text.StringUtils;
 import org.springframework.lang.Nullable;
 
@@ -14,7 +15,7 @@ public class SystemUtils {
     /**
      * Linux
      */
-    private static final String OS_LINUX = "LINUX";
+    private static final String OS_LINUX = "Linux";
 
     /**
      * Mac
@@ -77,7 +78,7 @@ public class SystemUtils {
      * @return boolean
      */
     public static boolean isLinux() {
-        return StringUtils.isNotBlank(OS_NAME) && OS_LINUX.equals(OS_NAME.toUpperCase());
+        return StringUtils.isNotBlank(OS_NAME) && OS_NAME.startsWith(OS_LINUX);
     }
 
     /**
@@ -86,7 +87,7 @@ public class SystemUtils {
      * @return boolean
      */
     public static boolean isWindows() {
-        return StringUtils.isNotBlank(OS_NAME) && OS_WINDOWS.equals(OS_NAME.toUpperCase());
+        return StringUtils.isNotBlank(OS_NAME) && OS_NAME.startsWith(OS_WINDOWS);
     }
 
     /**
@@ -95,6 +96,49 @@ public class SystemUtils {
      * @return boolean
      */
     public static boolean isMac() {
-        return StringUtils.isNotBlank(OS_NAME) && OS_MAC.equals(OS_NAME.toUpperCase());
+        return StringUtils.isNotBlank(OS_NAME) && OS_NAME.startsWith(OS_MAC);
+    }
+
+
+    /**
+     * 获取用户名字
+     * @author gclm
+     * @return java.lang.String
+     */
+    public static String getUserName(){
+        return StringUtils.isNoneBlank(USER_NAME) ? USER_NAME : "";
+    }
+
+    /**
+     * 获取用户目录
+     * @author gclm
+     * @return java.lang.String
+     */
+    public static String getUserDir(){
+        return StringUtils.isNoneBlank(USER_DIR) ? USER_DIR : "";
+    }
+
+    /**
+     * 获取 user home
+     * @author gclm
+     * @return java.lang.String
+     */
+    public static String getUserHome(){
+        return StringUtils.isNoneBlank(USER_HOME) ? USER_HOME : "";
+    }
+
+    /**
+     * 更新系统路径
+     * @author gclm
+     * @param path  文件路径
+     * @return: java.lang.String
+     */
+    public static String updateSystemPath(String path){
+        Assert.isTrue(StringUtils.isNotBlank(path),"修改路径不能为空");
+        if (SystemUtils.isWindows()){
+            return path.replace("/", "\\");
+        } else {
+            return path.replace("\\", "/");
+        }
     }
 }

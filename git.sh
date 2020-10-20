@@ -32,6 +32,7 @@ fi
 }
 
 git_push(){
+  # git push origin master --force 强行覆盖远程
   # 推送所有标签
   git push origin --tags
   # 推送所有分支
