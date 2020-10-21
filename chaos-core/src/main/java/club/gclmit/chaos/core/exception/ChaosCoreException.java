@@ -23,8 +23,8 @@ public class ChaosCoreException extends AbstractChaosException{
         super(message);
     }
 
-    public ChaosCoreException(String messageTemplate, Object... params) {
-        super(messageTemplate, params);
+    public ChaosCoreException(String template, Object... params) {
+        super(template, params);
     }
 
     public ChaosCoreException(String message, Throwable cause) {

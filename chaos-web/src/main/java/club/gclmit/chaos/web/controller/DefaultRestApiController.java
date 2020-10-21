@@ -1,9 +1,9 @@
 package club.gclmit.chaos.web.controller;
 
-import club.gclmit.chaos.core.log.LoggerServer;
-import club.gclmit.chaos.core.log.Logger;
-import club.gclmit.chaos.core.result.PageResult;
-import club.gclmit.chaos.core.result.Result;
+import club.gclmit.chaos.core.lang.log.LoggerServer;
+import club.gclmit.chaos.core.lang.log.Logger;
+import club.gclmit.chaos.core.web.result.PageResult;
+import club.gclmit.chaos.core.web.result.Result;
 import club.gclmit.chaos.core.util.ObjectUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;

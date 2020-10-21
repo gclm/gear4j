@@ -1,6 +1,6 @@
 package club.gclmit.chaos.starter.config;
 
-import club.gclmit.chaos.core.log.Logger;
+import club.gclmit.chaos.core.lang.log.Logger;
 import org.springframework.boot.web.context.WebServerInitializedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;

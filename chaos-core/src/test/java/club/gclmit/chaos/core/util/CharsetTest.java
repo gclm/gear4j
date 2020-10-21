@@ -1,6 +1,6 @@
 package club.gclmit.chaos.core.util;
 
-import club.gclmit.chaos.core.text.CharsetUtils;
+import club.gclmit.chaos.core.lang.text.Charsets;
 
 import java.nio.charset.Charset;
 
@@ -17,7 +17,7 @@ import java.nio.charset.Charset;
 public class CharsetTest {
 
     public static void main(String[] args) {
-        Charset en = CharsetUtils.CHARSET_UTF_8;
+        Charset en = Charsets.CHARSET_UTF_8;
         System.out.println(en.name());
         System.out.println(en.toString());
     }

@@ -1,9 +1,8 @@
 package club.gclmit.chaos.core.util;
 
-import club.gclmit.chaos.core.text.NumberUtils;
-import club.gclmit.chaos.core.text.StringUtils;
+import club.gclmit.chaos.core.lang.text.NumberUtils;
+import club.gclmit.chaos.core.lang.text.StringUtils;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
-import club.gclmit.chaos.core.lang.ConvertHandler;
 
 import java.awt.Color;
 import java.math.BigDecimal;
@@ -244,7 +243,7 @@ public class RandomUtils {
 	 * @since 4.0.9
 	 */
 	public static BigDecimal randomBigDecimal() {
-		return ConvertHandler.toBigDecimal(getRandom().nextDouble());
+		return BigDecimalUtils.ConvertHandler.toBigDecimal(getRandom().nextDouble());
 	}
 
 	/**
@@ -255,7 +254,7 @@ public class RandomUtils {
 	 * @since 4.0.9
 	 */
 	public static BigDecimal randomBigDecimal(BigDecimal limit) {
-		return ConvertHandler.toBigDecimal(getRandom().nextDouble(limit.doubleValue()));
+		return BigDecimalUtils.ConvertHandler.toBigDecimal(getRandom().nextDouble(limit.doubleValue()));
 	}
 
 	/**
@@ -267,7 +266,7 @@ public class RandomUtils {
 	 * @since 4.0.9
 	 */
 	public static BigDecimal randomBigDecimal(BigDecimal min, BigDecimal max) {
-		return ConvertHandler.toBigDecimal(getRandom().nextDouble(min.doubleValue(), max.doubleValue()));
+		return BigDecimalUtils.ConvertHandler.toBigDecimal(getRandom().nextDouble(min.doubleValue(), max.doubleValue()));
 	}
 
 	/**

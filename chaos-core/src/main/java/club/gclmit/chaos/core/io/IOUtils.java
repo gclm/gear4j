@@ -1,7 +1,7 @@
 package club.gclmit.chaos.core.io;
 
-import club.gclmit.chaos.core.util.ExceptionUtils;
-import club.gclmit.chaos.core.text.CharsetUtils;
+import club.gclmit.chaos.core.exception.ExceptionUtils;
+import club.gclmit.chaos.core.lang.text.Charsets;
 import com.google.common.io.CharStreams;
 import org.springframework.lang.Nullable;
 
@@ -48,7 +48,7 @@ public class IOUtils extends org.springframework.util.StreamUtils {
      * @return the requested String
      */
     public static String copy(InputStream input) {
-        return copy(input, CharsetUtils.CHARSET_UTF_8);
+        return copy(input, Charsets.CHARSET_UTF_8);
     }
 
     /**

@@ -89,6 +89,12 @@ dependency(){
     exit 0
 }
 
+# 本地测试
+local_test(){
+   mvn clean install
+   exit 0
+}
+
 # 帮助信息
 help(){
 cat <<- eof
@@ -104,8 +110,9 @@ author: 孤城落寞
       -sonatype       发布到 Sonatype
     -d --dependency   最新依赖
     -s --sonar        bug 扫描
+    -t --test         本地测试
 
-脚本版本： v1.1.1
+脚本版本： v1.1.2
 --------------------------------------------------------------------------
 eof
 exit 0
@@ -135,6 +142,9 @@ while [[ -n "$1" ]];do #这里通过判断$1是否存在
    ;;
    -d|--dependency)
         dependency
+   ;;
+   -t|--test)
+        local_test
    ;;
    -h|--help)
         help

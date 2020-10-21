@@ -1,7 +1,7 @@
 package club.gclmit.chaos.starter.service.impl;
 
-import club.gclmit.chaos.core.file.FileUtils;
-import club.gclmit.chaos.core.text.DigestUtils;
+import club.gclmit.chaos.core.io.FileUtils;
+import club.gclmit.chaos.core.lang.text.DigestUtils;
 import club.gclmit.chaos.starter.mapper.FileMapper;
 import club.gclmit.chaos.starter.service.FileService;
 import club.gclmit.chaos.storage.client.StorageClient;

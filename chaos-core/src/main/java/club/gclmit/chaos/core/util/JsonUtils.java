@@ -1,7 +1,7 @@
 package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.exception.JacksonException;
-import club.gclmit.chaos.core.text.StringUtils;
+import club.gclmit.chaos.core.lang.text.StringUtils;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;

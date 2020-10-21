@@ -1,150 +1,172 @@
 package club.gclmit.chaos.core.lang;
 
+import club.gclmit.chaos.core.exception.ChaosCoreException;
+import club.gclmit.chaos.core.lang.text.StringPool;
+import club.gclmit.chaos.core.lang.text.StringUtils;
+import club.gclmit.chaos.core.util.DateUtils;
+
+import java.lang.management.ManagementFactory;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.time.Clock;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
- * 原文： https://my.oschina.net/wangshuhui/blog/3081736
+ * 分布式高效有序 ID 生产黑科技(sequence)
+ *
+ * <p>优化开源项目：https://gitee.com/yu120/sequence</p>
+ * <p>copy Mybatis Plus</p>
  * @author gclm
  */
 public class Snowflake {
 
-    // ==============================Fields===========================================
     /**
-     * 开始时间截 (2015-01-01)
+     * 时间起始标记点，作为基准，一般取系统的最近时间（一旦确定不能变动）
      */
-    private final long twepoch = 1420041600000L;
-
+    private final long twepoch = 1288834974657L;
     /**
-     * 机器id所占的位数
+     * 机器标识位数
      */
     private final long workerIdBits = 5L;
-
-    /**
-     * 数据标识id所占的位数
-     */
     private final long datacenterIdBits = 5L;
-
-    /**
-     * 支持的最大机器id，结果是31 (这个移位算法可以很快的计算出几位二进制数所能表示的最大十进制数)
-     */
     private final long maxWorkerId = -1L ^ (-1L << workerIdBits);
-
-    /**
-     * 支持的最大数据标识id，结果是31
-     */
     private final long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
-
     /**
-     * 序列在id中占的位数
+     * 毫秒内自增位
      */
     private final long sequenceBits = 12L;
-
-    /**
-     * 机器ID向左移12位
-     */
     private final long workerIdShift = sequenceBits;
-
-    /**
-     * 数据标识id向左移17位(12+5)
-     */
     private final long datacenterIdShift = sequenceBits + workerIdBits;
-
     /**
-     * 时间截向左移22位(5+5+12)
+     * 时间戳左移动位
      */
     private final long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
-
-    /**
-     * 生成序列的掩码，这里为4095 (0b111111111111=0xfff=4095)
-     */
     private final long sequenceMask = -1L ^ (-1L << sequenceBits);
 
-    /**
-     * 工作机器ID(0~31)
-     */
-    private long workerId;
+    private final long workerId;
 
     /**
-     * 数据中心ID(0~31)
+     * 数据标识 ID 部分
      */
-    private long datacenterId;
-
+    private final long datacenterId;
     /**
-     * 毫秒内序列(0~4095)
+     * 并发控制
      */
     private long sequence = 0L;
-
     /**
-     * 上次生成ID的时间截
+     * 上次生产 ID 时间戳
      */
     private long lastTimestamp = -1L;
 
-    //==============================Constructors=====================================
+    public Snowflake() {
+        this.datacenterId = getDatacenterId(maxDatacenterId);
+        this.workerId = getMaxWorkerId(datacenterId, maxWorkerId);
+    }
 
     /**
-     * 构造函数
+     * 有参构造器
      *
-     * @param workerId     工作ID (0~31)
-     * @param datacenterId 数据中心ID (0~31)
+     * @param workerId     工作机器 ID
+     * @param datacenterId 序列号
      */
     public Snowflake(long workerId, long datacenterId) {
-        if (workerId > maxWorkerId || workerId < 0) {
-            throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
-        }
-        if (datacenterId > maxDatacenterId || datacenterId < 0) {
-            throw new IllegalArgumentException(String.format("datacenter Id can't be greater than %d or less than 0", maxDatacenterId));
-        }
+        Assert.isFalse(workerId > maxWorkerId || workerId < 0,
+                String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
+        Assert.isFalse(datacenterId > maxDatacenterId || datacenterId < 0,
+                String.format("datacenter Id can't be greater than %d or less than 0", maxDatacenterId));
         this.workerId = workerId;
         this.datacenterId = datacenterId;
     }
 
-    // ==============================Methods==========================================
-
     /**
-     * 获得下一个ID (该方法是线程安全的)
-     *
-     * @return SnowflakeId
+     * 获取 maxWorkerId
      */
-    public synchronized long nextId() {
-        long timestamp = timeGen();
-
-        //如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
-        if (timestamp < lastTimestamp) {
-            throw new RuntimeException(
-                    String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
+    protected static long getMaxWorkerId(long datacenterId, long maxWorkerId) {
+        StringBuilder mpid = new StringBuilder();
+        mpid.append(datacenterId);
+        String name = ManagementFactory.getRuntimeMXBean().getName();
+        if (StringUtils.isNotBlank(name)) {
+            /*
+             * GET jvmPid
+             */
+            mpid.append(name.split(StringPool.AT)[0]);
         }
-
-        //如果是同一时间生成的，则进行毫秒内序列
-        if (lastTimestamp == timestamp) {
-            sequence = (sequence + 1) & sequenceMask;
-            //毫秒内序列溢出
-            if (sequence == 0) {
-                //阻塞到下一个毫秒,获得新的时间戳
-                timestamp = tilNextMillis(lastTimestamp);
-            }
-        }
-        //时间戳改变，毫秒内序列重置
-        else {
-            sequence = 0L;
-        }
-
-        //上次生成ID的时间截
-        lastTimestamp = timestamp;
-
-        //移位并通过或运算拼到一起组成64位的ID
-        return ((timestamp - twepoch) << timestampLeftShift) //
-                | (datacenterId << datacenterIdShift) //
-                | (workerId << workerIdShift) //
-                | sequence;
+        /*
+         * MAC + PID 的 hashcode 获取16个低位
+         */
+        return (mpid.toString().hashCode() & 0xffff) % (maxWorkerId + 1);
     }
 
     /**
-     * 阻塞到下一个毫秒，直到获得新的时间戳
-     *
-     * @param lastTimestamp 上次生成ID的时间截
-     * @return 当前时间戳
+     * 数据标识id部分
      */
+    protected static long getDatacenterId(long maxDatacenterId) {
+        long id = 0L;
+        try {
+            InetAddress ip = InetAddress.getLocalHost();
+            NetworkInterface network = NetworkInterface.getByInetAddress(ip);
+            if (network == null) {
+                id = 1L;
+            } else {
+                byte[] mac = network.getHardwareAddress();
+                if (null != mac) {
+                    id = ((0x000000FF & (long) mac[mac.length - 2]) | (0x0000FF00 & (((long) mac[mac.length - 1]) << 8))) >> 6;
+                    id = id % (maxDatacenterId + 1);
+                }
+            }
+        } catch (Exception e) {
+            throw new ChaosCoreException("getDatacenterId: {}",e.getMessage());
+        }
+        return id;
+    }
+
+    /**
+     * 获取下一个 ID
+     *
+     * @return 下一个 ID
+     */
+    public synchronized long nextId() {
+        long timestamp = timeGen();
+        //闰秒
+        if (timestamp < lastTimestamp) {
+            long offset = lastTimestamp - timestamp;
+            if (offset <= 5) {
+                try {
+                    wait(offset << 1);
+                    timestamp = timeGen();
+                    if (timestamp < lastTimestamp) {
+                        throw new RuntimeException(String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", offset));
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                throw new RuntimeException(String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", offset));
+            }
+        }
+
+        if (lastTimestamp == timestamp) {
+            // 相同毫秒内，序列号自增
+            sequence = (sequence + 1) & sequenceMask;
+            if (sequence == 0) {
+                // 同一毫秒的序列数已经达到最大
+                timestamp = tilNextMillis(lastTimestamp);
+            }
+        } else {
+            // 不同毫秒内，序列号置为 1 - 3 随机数
+            sequence = ThreadLocalRandom.current().nextLong(1, 3);
+        }
+
+        lastTimestamp = timestamp;
+
+        // 时间戳部分 | 数据中心部分 | 机器标识部分 | 序列号部分
+        return ((timestamp - twepoch) << timestampLeftShift)
+                | (datacenterId << datacenterIdShift)
+                | (workerId << workerIdShift)
+                | sequence;
+    }
+
     protected long tilNextMillis(long lastTimestamp) {
         long timestamp = timeGen();
         while (timestamp <= lastTimestamp) {
@@ -153,13 +175,8 @@ public class Snowflake {
         return timestamp;
     }
 
-    /**
-     * 返回以毫秒为单位的当前时间
-     *
-     * @return 当前时间(毫秒)
-     */
     protected long timeGen() {
-        return Clock.systemUTC().millis();
+        return DateUtils.getMilliTimestamp();
     }
 
 }

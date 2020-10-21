@@ -34,11 +34,11 @@ public class QRCodeUtilsTest {
                 content("https://blog.gclmit.club/")
                 .size(400, 400);
 
-        String path = builder.qrCode().generate(BarcodeImageType.JPG, new File(System.getProperty("user.dir"), IdUtils.snowflakeId() + ".jpg"));
+        String path = builder.qrCode().generate(BarcodeImageType.JPG, new File(System.getProperty("user.dir"), IDUtils.snowflakeId() + ".jpg"));
         System.out.println("默认颜色：" + path);
 
         builder.color(0xFFFFFFFF,0xFF00A2FF);
-        String path1 = builder.qrCode().generate(BarcodeImageType.JPG, new File(System.getProperty("user.dir"), IdUtils.snowflakeId() + ".jpg"));
+        String path1 = builder.qrCode().generate(BarcodeImageType.JPG, new File(System.getProperty("user.dir"), IDUtils.snowflakeId() + ".jpg"));
         System.out.println("指定颜色:" + path1);
 
         System.out.println("base64在线预览:\ndata:image/jpg;base64," + builder.qrCode().generate(BarcodeImageType.JPG, true));
@@ -53,7 +53,7 @@ public class QRCodeUtilsTest {
                 content("https://blog.gclmit.club/")
                 .size(400, 400);
 
-        String path = builder.qrCode(logo).generate(BarcodeImageType.JPG, new File(System.getProperty("user.dir"), IdUtils.randomUUID() + ".jpg"));
+        String path = builder.qrCode(logo).generate(BarcodeImageType.JPG, new File(System.getProperty("user.dir"), IDUtils.randomUUID() + ".jpg"));
         System.out.println("logo: "+ path);
     }
 

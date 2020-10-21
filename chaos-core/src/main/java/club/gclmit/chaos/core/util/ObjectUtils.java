@@ -2,7 +2,7 @@ package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
-import club.gclmit.chaos.core.text.StringUtils;
+import club.gclmit.chaos.core.lang.text.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;

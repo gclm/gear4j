@@ -1,6 +1,6 @@
 package club.gclmit.chaos.core.io;
 
-import club.gclmit.chaos.core.text.StringUtils;
+import club.gclmit.chaos.core.lang.text.StringUtils;
 
 import java.io.PrintWriter;
 

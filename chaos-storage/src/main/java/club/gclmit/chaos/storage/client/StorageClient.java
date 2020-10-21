@@ -1,11 +1,11 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.core.file.FileUtils;
-import club.gclmit.chaos.core.file.MimeType;
-import club.gclmit.chaos.core.text.DigestUtils;
+import club.gclmit.chaos.core.io.FileUtils;
+import club.gclmit.chaos.core.io.MimeType;
+import club.gclmit.chaos.core.lang.text.DigestUtils;
 import club.gclmit.chaos.core.util.DateUtils;
-import club.gclmit.chaos.core.util.IdUtils;
-import club.gclmit.chaos.core.text.StringUtils;
+import club.gclmit.chaos.core.util.IDUtils;
+import club.gclmit.chaos.core.lang.text.StringUtils;
 import club.gclmit.chaos.storage.model.FileInfo;
 import club.gclmit.chaos.storage.model.Storage;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
@@ -48,7 +48,7 @@ public abstract class StorageClient {
         /**
          * 这里使用雪花算法目的---> 后期可能会将 key 进行 split，然后进行分类统计
          */
-        Long id = IdUtils.snowflakeId();
+        Long id = IDUtils.snowflakeId();
 
         LocalDate localDate = LocalDate.now();
         String dateFormat = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
