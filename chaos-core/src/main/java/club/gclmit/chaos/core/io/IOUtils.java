@@ -19,6 +19,51 @@ import java.util.List;
 public class IOUtils extends org.springframework.util.StreamUtils {
 
     /**
+     * IO流是否为空
+     *
+     * @param stream IO流
+     * @return 是否为空
+     */
+    public static boolean isEmpty(@Nullable InputStream stream) {
+        try {
+            return stream == null || stream.available() == 0;
+        } catch (IOException e) {
+            throw ExceptionUtils.unchecked(e);
+        }
+    }
+
+    /**
+     * IO流是否为空
+     *
+     * @param stream IO流
+     * @return 是否为空
+     */
+    public static boolean isEmpty(@Nullable OutputStream stream) {
+        return stream == null;
+    }
+
+    /**
+     * IO流是否为空
+     *
+     * @param stream IO流
+     * @return 是否为空
+     */
+    public static boolean isNotEmpty(@Nullable InputStream stream) {
+       return !isEmpty(stream);
+    }
+
+    /**
+     * IO流是否为空
+     *
+     * @param stream IO流
+     * @return 是否为空
+     */
+    public static boolean isNotEmpty(@Nullable OutputStream stream) {
+        return !isEmpty(stream);
+    }
+
+    /**
+     * /**
      * closeQuietly
      *
      * @param closeable 自动关闭
@@ -123,8 +168,8 @@ public class IOUtils extends org.springframework.util.StreamUtils {
     /**
      * 从流中读取内容
      *
-     * @param in         输入流
-     * @param charset    编码格式
+     * @param in      输入流
+     * @param charset 编码格式
      * @return 内容
      */
     public static List<String> readLines(InputStream in, Charset charset) {

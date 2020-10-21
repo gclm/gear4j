@@ -1,6 +1,9 @@
 package club.gclmit.chaos.core.collection;
 
 
+import club.gclmit.chaos.core.lang.Assert;
+import club.gclmit.chaos.core.lang.text.StringUtils;
+
 import java.util.*;
 
 /**
@@ -10,6 +13,33 @@ import java.util.*;
  * @author gclm
  */
 public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
+
+    /**
+     * 去除集合中的空值
+     * @author gclm
+     * @param data 效验集合
+     * @return  返回非空集合
+     */
+    public static String[] removeIfNull(String[] data){
+        Assert.isTrue(isNotEmpty(data),"集合不为空");
+        List<String> result = new ArrayList<>(data.length);
+        for (String s : data){
+            if (StringUtils.isNotBlank(s)){
+                result.add(s);
+            }
+        }
+        return result.toArray(new String[result.size()]);
+    }
+
+    /**
+     * toString
+     * @author gclm
+     * @param data   集合
+     * @return java.lang.String
+     */
+    public static String toString(Object[] data){
+        return Arrays.toString(data).replace(",","");
+    }
 
     /**
      * 如果提供的集合为{@code null}，返回一个不可变的默认空集合，否则返回原集合<br>
