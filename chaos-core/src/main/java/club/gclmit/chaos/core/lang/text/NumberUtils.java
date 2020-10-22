@@ -13,7 +13,7 @@ import java.math.RoundingMode;
  * @since 2020/9/27 17:20
  * @since 1.8
  */
-public class NumberUtils extends org.springframework.util.NumberUtils {
+public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
 
     // round
     // -------------------------------------------------------------------------------------------

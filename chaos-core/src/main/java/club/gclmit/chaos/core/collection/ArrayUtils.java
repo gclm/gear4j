@@ -15,6 +15,19 @@ import java.util.*;
 public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
 
     /**
+     * 判断一个对象是否是一个数组
+     *
+     * @param obj object对象
+     * @return 是数组返回 true,是否返回false
+     */
+    public static boolean isArray(Object obj) {
+        if(obj == null) {
+            return false;
+        }
+        return obj.getClass().isArray();
+    }
+
+    /**
      * 去除集合中的空值
      * @author gclm
      * @param data 效验集合

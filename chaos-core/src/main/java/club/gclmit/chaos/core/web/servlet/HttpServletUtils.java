@@ -4,7 +4,6 @@ import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.lang.text.Charsets;
 import club.gclmit.chaos.core.lang.text.StringUtils;
-import org.springframework.util.AntPathMatcher;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,24 +49,6 @@ public class HttpServletUtils {
     private static final String DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
 
     private HttpServletUtils() {
-    }
-
-    /**
-     * <p>
-     *  判断url 是否忽略
-     * </p>
-     *
-     * @author gclm
-     * @param uri  判断的url
-     * @param ignoreUrls 忽略urls
-     * @return boolean 如果是返回true,否则返回 false
-     */
-    public static boolean isIgnore(List<String> ignoreUrls, String uri){
-        for (String ignoreUrl : ignoreUrls) {
-            AntPathMatcher matcher = new AntPathMatcher();
-            return matcher.match(ignoreUrl,uri);
-        }
-        return false;
     }
 
     // url encode

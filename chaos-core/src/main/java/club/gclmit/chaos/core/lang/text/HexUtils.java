@@ -1,7 +1,7 @@
 package club.gclmit.chaos.core.lang.text;
 
-import org.springframework.lang.Nullable;
 
+import javax.annotation.Nullable;
 import java.nio.charset.Charset;
 
 /**

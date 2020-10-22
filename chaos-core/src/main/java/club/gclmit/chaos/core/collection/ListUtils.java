@@ -33,11 +33,12 @@ public class ListUtils {
 
     /**
      * to String[]
+     *
+     * @param list 需要转换的集合
      * @author gclm
-     * @param list  需要转换的集合
      * @return: java.lang.String[]
      */
-    public static String[] toArray(List list){
+    public static String[] toArray(List list) {
         String[] tables = new String[list.size()];
         return (String[]) list.toArray(tables);
     }

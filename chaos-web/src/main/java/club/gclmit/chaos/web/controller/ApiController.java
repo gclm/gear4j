@@ -3,7 +3,7 @@ package club.gclmit.chaos.web.controller;
 import club.gclmit.chaos.core.lang.log.LoggerServer;
 import club.gclmit.chaos.core.lang.log.Logger;
 import club.gclmit.chaos.core.web.result.Result;
-import club.gclmit.chaos.core.util.UrlUtils;
+import club.gclmit.chaos.core.web.servlet.HttpServletUtils;
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -89,7 +89,7 @@ public abstract class ApiController<Service extends IService<T>, T> {
     public Result batchDelete(@RequestBody String ids) {
         Assert.notNull(ids, "ids不能为空");
         Logger.info(LoggerServer.CONTROLLER, "批量删除，ids:{}", ids);
-        List<String> idList = Arrays.asList(UrlUtils.decode(ids).split(",")).stream().collect(Collectors.toList());
+        List<String> idList = Arrays.asList(HttpServletUtils.decode(ids).split(",")).stream().collect(Collectors.toList());
         return this.service.removeByIds(idList) ? Result.ok() : Result.fail("批量删除失败");
     }
 }

@@ -3,8 +3,8 @@ package club.gclmit.chaos.core.lang.text;
 import club.gclmit.chaos.core.collection.ArrayUtils;
 import club.gclmit.chaos.core.util.BigDecimalUtils;
 import club.gclmit.chaos.core.exception.ExceptionUtils;
-import org.springframework.lang.Nullable;
 
+import javax.annotation.Nullable;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;

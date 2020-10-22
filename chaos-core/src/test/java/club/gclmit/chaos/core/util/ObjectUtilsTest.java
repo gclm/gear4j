@@ -1,6 +1,7 @@
 package club.gclmit.chaos.core.util;
 
 
+import club.gclmit.chaos.core.lang.text.StringUtils;
 import club.gclmit.chaos.core.pojo.User;
 
 /**
@@ -23,7 +24,7 @@ public class ObjectUtilsTest {
         User user = new User();
         user.setId("111");
         user.setName("test");
-        System.out.println(ObjectUtils.toString(user));
+        System.out.println(StringUtils.toString(user));
     }
 
     public static void case2(){

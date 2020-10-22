@@ -2,8 +2,8 @@ package club.gclmit.chaos.core.web.servlet;
 
 import club.gclmit.chaos.core.lang.text.Charsets;
 import club.gclmit.chaos.core.lang.text.StringUtils;
-import org.springframework.lang.Nullable;
 
+import javax.annotation.Nullable;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletResponse;

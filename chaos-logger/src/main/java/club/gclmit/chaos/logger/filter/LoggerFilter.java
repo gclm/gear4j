@@ -1,6 +1,5 @@
 package club.gclmit.chaos.logger.filter;
 
-import club.gclmit.chaos.core.util.BeanUtils;
 import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.JsonUtils;
 import club.gclmit.chaos.core.lang.log.Logger;
@@ -12,8 +11,11 @@ import club.gclmit.chaos.core.util.SQLUtils;
 import club.gclmit.chaos.logger.mapper.LoggerMapper;
 import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
 import club.gclmit.chaos.logger.model.HttpTrace;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
@@ -43,6 +46,8 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
 
     @Autowired
     private ChaosLoggerProperties config;
+
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
@@ -84,13 +89,27 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
              * 保存到数据库
              */
             if (config.getSaveLogger()) {
-                LoggerMapper loggerMapper = BeanUtils.genBean(LoggerMapper.class, request);
+                LoggerMapper loggerMapper = genBean(LoggerMapper.class, request);
                 boolean save = SQLUtils.retBool(loggerMapper.insert(trace));
                 Logger.info(LoggerServer.CHAOS, "当前请求日志：{}\t入库：{}", trace, save);
             } else {
                 Logger.info(LoggerServer.CHAOS, "当前请求日志：{}", trace);
             }
         }
+    }
+
+    /**
+     * 获取Bean对象
+     *
+     * @author gclm
+     * @param clazz 获取 bean 对象
+     * @param <T>  泛型
+     * @param request request 请求
+     * @return T
+     */
+    public static <T> T genBean(Class<T> clazz, HttpServletRequest request) {
+        BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
+        return factory.getBean(clazz);
     }
 
     /**
@@ -103,9 +122,25 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
      * @return boolean
      */
     private boolean checkIgnoreUrl(String uri) {
-        if (uri.startsWith(config.getPrefix()) || HttpServletUtils.isIgnore(Arrays.asList(config.getIgnoreUrls()), uri)) {
+        if (uri.startsWith(config.getPrefix()) || isIgnore(Arrays.asList(config.getIgnoreUrls()), uri)) {
             return false;
         }
         return true;
+    }
+
+    /**
+     *  判断url 是否忽略
+     *
+     * @author gclm
+     * @param uri  判断的url
+     * @param ignoreUrls 忽略urls
+     * @return boolean 如果是返回true,否则返回 false
+     */
+    public static boolean isIgnore(List<String> ignoreUrls, String uri){
+        for (String ignoreUrl : ignoreUrls) {
+            AntPathMatcher matcher = new AntPathMatcher();
+            return matcher.match(ignoreUrl,uri);
+        }
+        return false;
     }
 }

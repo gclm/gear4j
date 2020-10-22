@@ -1,7 +1,6 @@
 package club.gclmit.chaos.core.io;
 
-
-import org.springframework.lang.Nullable;
+import javax.annotation.Nullable;
 import java.io.Writer;
 
 /**

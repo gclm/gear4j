@@ -4,9 +4,7 @@ import club.gclmit.chaos.core.collection.ArrayUtils;
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.lang.text.DigestUtils;
-import club.gclmit.chaos.core.util.IDUtils;
 import club.gclmit.chaos.core.lang.text.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 
 /**
@@ -29,26 +27,6 @@ public class FileUtils {
      */
     public static boolean isEmpty(File file) {
         return file == null || file.isDirectory() || !file.exists();
-    }
-
-    /**
-     * <p>判断文件是否为空 {@code null}.
-     *
-     * @param file 判断文件
-     * @return {@code true} if the file is empty or {@code null}
-     */
-    public static boolean isEmpty(MultipartFile file) {
-        return file == null || file.isEmpty();
-    }
-
-    /**
-     * <p>判断文件是否不为空
-     *
-     * @param file 判断文件
-     * @return {@code true} 当前 file 不为空返回 true
-     */
-    public static boolean isNotEmpty(MultipartFile file) {
-        return !isEmpty(file);
     }
 
     /**
@@ -156,40 +134,6 @@ public class FileUtils {
         } else if (files.length == 1) {
             delete(files[0]);
         }
-    }
-
-    /**
-     * MultipartFile 转 File
-     *
-     * @param multipartFile springmvc封装的上传文件
-     * @param folder        文件夹路径
-     * @return java.io.File
-     */
-    public static File multipartFileToFile(MultipartFile multipartFile, String folder) {
-        Assert.notNull(multipartFile.isEmpty(), "multipartFile 不能为空");
-
-        folder = StringUtils.isEmpty(folder) ? getRootPath() : folder;
-        File localFile = new File(folder, new StringBuilder().append(IDUtils.snowflakeId()).append(".").append(getSuffix(multipartFile)).toString());
-
-        try {
-            multipartFile.transferTo(localFile);
-        } catch (IOException e) {
-            throw new ChaosCoreException("MultipartFile To File 失败", e);
-        }
-
-        return localFile;
-    }
-
-    /**
-     * 获取文件后缀
-     *
-     * @param file MultipartFile
-     * @author 孤城落寞
-     * @return java.lang.String
-     */
-    public static String getSuffix(MultipartFile file) {
-        Assert.notNull(file, "文件不能为空");
-        return getSuffix(file.getOriginalFilename());
     }
 
     /**

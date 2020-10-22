@@ -1,9 +1,9 @@
 package club.gclmit.chaos.core.lang.text;
 
-import club.gclmit.chaos.core.util.ObjectUtils;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.io.IOUtils;
 import club.gclmit.chaos.core.lang.Assert;
+import org.apache.commons.lang3.ObjectUtils;
 
 import java.io.*;
 import java.net.HttpURLConnection;

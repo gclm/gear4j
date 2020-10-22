@@ -3,7 +3,9 @@ package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.lang.Assert;
 import club.gclmit.chaos.core.lang.text.StringUtils;
-import org.springframework.lang.Nullable;
+
+import javax.annotation.Nullable;
+
 
 /**
  * 系统工具类

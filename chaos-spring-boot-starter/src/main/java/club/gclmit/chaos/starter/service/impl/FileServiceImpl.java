@@ -7,6 +7,7 @@ import club.gclmit.chaos.starter.service.FileService;
 import club.gclmit.chaos.storage.client.StorageClient;
 import club.gclmit.chaos.storage.model.FileInfo;
 import club.gclmit.chaos.storage.model.FileStatus;
+import club.gclmit.chaos.web.util.SpringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -42,7 +43,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
      */
     @Override
     public FileInfo uploadFile(MultipartFile file) {
-        File tempFile = FileUtils.multipartFileToFile(file, "");
+        File tempFile = SpringUtils.multipartFileToFile(file, "");
         String md5 = DigestUtils.md5Hex(tempFile);
         FileInfo fileInfo = queryMd5(md5);
         if (fileInfo == null) {
