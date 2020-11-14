@@ -4,8 +4,7 @@ import club.gclmit.chaos.core.util.StringUtils;
 
 /**
  * <p>
- *  封装该项目的所以异常的父类
- *  该类继承运行时异常。
+ *  自定义运行异常。
  * </p>
  *
  * @author gclm
