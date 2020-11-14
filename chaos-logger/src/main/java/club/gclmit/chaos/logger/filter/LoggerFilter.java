@@ -2,14 +2,15 @@ package club.gclmit.chaos.logger.filter;
 
 import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.JsonUtils;
-import club.gclmit.chaos.core.lang.log.Logger;
-import club.gclmit.chaos.core.lang.log.LoggerServer;
-import club.gclmit.chaos.core.web.servlet.HttpServletUtils;
-import club.gclmit.chaos.core.web.servlet.RequestWrapper;
-import club.gclmit.chaos.core.web.servlet.ResponseWrapper;
+import club.gclmit.chaos.core.util.SQLUtils;
 import club.gclmit.chaos.logger.mapper.LoggerMapper;
 import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
 import club.gclmit.chaos.logger.model.HttpTrace;
+import club.gclmit.chaos.web.util.HttpServletUtils;
+import club.gclmit.chaos.web.util.RequestWrapper;
+import club.gclmit.chaos.web.util.ResponseWrapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
@@ -37,6 +38,7 @@ import java.util.List;
 public class LoggerFilter extends OncePerRequestFilter implements Ordered {
 
     private int order = Ordered.LOWEST_PRECEDENCE - 8;
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public int getOrder() {
@@ -45,8 +47,6 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
 
     @Autowired
     private ChaosLoggerProperties config;
-
-
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
@@ -90,9 +90,9 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
             if (config.getSaveLogger()) {
                 LoggerMapper loggerMapper = genBean(LoggerMapper.class, request);
                 boolean save = SQLUtils.retBool(loggerMapper.insert(trace));
-                Logger.info(LoggerServer.CHAOS, "当前请求日志：{}\t入库：{}", trace, save);
+                log.info("当前请求日志：{}\t入库：{}", trace, save);
             } else {
-                Logger.info(LoggerServer.CHAOS, "当前请求日志：{}", trace);
+                log.info("当前请求日志：{}", trace);
             }
         }
     }
