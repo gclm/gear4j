@@ -27,8 +27,9 @@ contains() {
 
 
 # 发布当前 jar 到远程 maven 中
-# mvn clean deploy -P huaweicloud-oss-release
+# mvn clean deploy -P huawei-oss-release
 # mvn clean deploy -P sonatype-oss-release
+# mvn clean deploy -P rbc-oss-release
 push(){
     echo "项目目录: $pwd"
     files=$(ls)
@@ -106,8 +107,9 @@ author: 孤城落寞
     -h --help         帮助文档
     -v --version      修改版本信息
     -p --push         发布代码
-      -huawei         发布到 华为Nexus
+      -huawei         发布到 华为云
       -sonatype       发布到 Sonatype
+      -rbc            发布到 阿里云
     -d --dependency   最新依赖
     -s --sonar        bug 扫描
     -t --test         本地测试
