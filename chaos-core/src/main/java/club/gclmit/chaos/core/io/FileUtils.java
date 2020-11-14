@@ -1,6 +1,6 @@
 package club.gclmit.chaos.core.io;
 
-import club.gclmit.chaos.core.exception.ChaosCoreException;
+import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.util.StringUtils;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.ArrayUtil;
@@ -72,7 +72,7 @@ public class FileUtils {
                 return file.createNewFile() ? file : null;
             }
         } catch (IOException e) {
-            throw new ChaosCoreException("创建文件失败,文件不存在", e);
+            throw new ChaosException("创建文件失败,文件不存在", e);
         }
 
         return null;
@@ -116,7 +116,7 @@ public class FileUtils {
             }
         }
         if (!file.delete()) {
-            throw new ChaosCoreException("文件:" + file.getName() + " 删除失败");
+            throw new ChaosException("文件:[{}]删除失败",file.getName());
         }
     }
 
@@ -266,7 +266,7 @@ public class FileUtils {
         ) {
             inputStream.read(b, 0, 28);
         } catch (Exception e) {
-            throw new ChaosCoreException("读取文件失败", e);
+            throw new ChaosException("读取文件失败", e);
         }
         return byteToHex(b);
     }

@@ -1,9 +1,9 @@
 package club.gclmit.chaos.storage.client;
 
+import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.storage.model.*;
-import club.gclmit.chaos.storage.exception.ChaosStorageException;
 import cn.hutool.core.lang.Assert;
 import cn.ucloud.ufile.UfileClient;
 import cn.ucloud.ufile.api.object.ObjectApiBuilder;
@@ -61,7 +61,7 @@ public class UfileStorageClient extends StorageClient {
             }
             ossClient = build(cloudStorage.getAccessKeyId(),cloudStorage.getAccessKeySecret(),cloudStorage.getRegion(),cloudStorage.getEndpoint());
         } else {
-            throw new ChaosStorageException("[Ufile]上传文件失败，请检查 阿里云OSS 配置");
+            throw new ChaosException("[Ufile]上传文件失败，请检查 阿里云OSS 配置");
         }
     }
 
@@ -95,9 +95,9 @@ public class UfileStorageClient extends StorageClient {
         try {
             ossClient.deleteObject(key,cloudStorage.getBucket()).execute();
         } catch (UfileClientException e) {
-            throw new ChaosStorageException("删除失败,Ufile客户端发生异常",e);
+            throw new ChaosException("删除失败,Ufile客户端发生异常",e);
         } catch (UfileServerException e) {
-            throw new ChaosStorageException("删除失败,Ufile服务器发生异常",e);
+            throw new ChaosException("删除失败,Ufile服务器发生异常",e);
         }
     }
 
@@ -132,11 +132,11 @@ public class UfileStorageClient extends StorageClient {
                     .execute();
             eTag = response.geteTag();
         } catch (UfileClientException e) {
-            throw new ChaosStorageException("上传失败,Ufile客户端发生异常",e);
+            throw new ChaosException("上传失败,Ufile客户端发生异常",e);
         } catch (UfileServerException e) {
-            throw new ChaosStorageException("上传失败,Ufile服务器发生异常",e);
+            throw new ChaosException("上传失败,Ufile服务器发生异常",e);
         } catch (IOException e) {
-            throw new ChaosStorageException("上传失败,Ufile服务器发生异常",e);
+            throw new ChaosException("上传失败,Ufile服务器发生异常",e);
         }
 
         if (key != null) {

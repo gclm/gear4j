@@ -1,12 +1,12 @@
 package club.gclmit.chaos.storage.client;
 
+import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.io.FileUtils;
 import club.gclmit.chaos.core.io.MimeType;
 import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.storage.model.FileInfo;
 import club.gclmit.chaos.storage.model.Storage;
-import club.gclmit.chaos.storage.exception.ChaosStorageException;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.crypto.SecureUtil;
 import org.springframework.util.Assert;
@@ -92,7 +92,7 @@ public abstract class StorageClient {
             String md5 = SecureUtil.md5(file);
             return upload(fileInputStream,new FileInfo(file.getName(),contentType,file.length(), md5,key,storage.getType().getId()));
         } catch (Exception e) {
-            throw new ChaosStorageException("文件上传失败",e);
+            throw new ChaosException("文件上传失败",e);
         }
     }
 
@@ -148,7 +148,7 @@ public abstract class StorageClient {
         try {
             return upload(content.getBytes("UTF-8"),key,fileName);
         } catch (UnsupportedEncodingException e) {
-            throw new ChaosStorageException("String --> Bytes 编码出现问题");
+            throw new ChaosException("String --> Bytes 编码出现问题");
         }
     }
 

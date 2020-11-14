@@ -1,9 +1,9 @@
 package club.gclmit.chaos.storage.client;
 
+import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.storage.model.*;
-import club.gclmit.chaos.storage.exception.ChaosStorageException;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
@@ -59,7 +59,7 @@ public class TencentStorageClient extends StorageClient {
             log.info("腾讯云配置参数:[{}]",storage);
             cosClient = build(cloudStorage.getAccessKeyId(), cloudStorage.getAccessKeySecret(), cloudStorage.getRegion());
         } else {
-            throw new ChaosStorageException("[腾讯云OSS]上传文件失败，请检查配置参数");
+            throw new ChaosException("[腾讯云OSS]上传文件失败，请检查配置参数");
         }
     }
 
@@ -85,11 +85,11 @@ public class TencentStorageClient extends StorageClient {
             cosClient.deleteObjects(deleteObjectsRequest);
         } catch (MultiObjectDeleteException e) {
             List<MultiObjectDeleteException.DeleteError> errors = e.getErrors();
-            throw new ChaosStorageException("[腾讯云OSS]删除文件失败（部分成功部分失败）" + errors.toString());
+            throw new ChaosException("[腾讯云OSS]删除文件失败（部分成功部分失败）" + errors.toString());
         } catch (CosServiceException e) { // 如果是其他错误，例如参数错误， 身份验证不过等会抛出 CosServiceException
-            throw new ChaosStorageException("[腾讯云OSS]其他错误，例如参数错误， 身份验证不过");
+            throw new ChaosException("[腾讯云OSS]其他错误，例如参数错误， 身份验证不过");
         } catch (CosClientException e) { // 如果是客户端错误，例如连接不上COS
-            throw new ChaosStorageException("[腾讯云OSS]客户端错误，例如连接不上COS");
+            throw new ChaosException("[腾讯云OSS]客户端错误，例如连接不上COS");
         }
     }
 
@@ -148,7 +148,7 @@ public class TencentStorageClient extends StorageClient {
             eTag = uploadResult.getETag();
 
         } catch (Exception e) {
-            throw new ChaosStorageException("[腾讯云OSS]上传文件失败，请检查配置信息", e);
+            throw new ChaosException("[腾讯云OSS]上传文件失败，请检查配置信息", e);
         } finally {
             transferManager.shutdownNow();
             cosClient.shutdown();

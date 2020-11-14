@@ -1,6 +1,6 @@
 package club.gclmit.chaos.web.util;
 
-import club.gclmit.chaos.core.exception.ChaosCoreException;
+import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.io.FileUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import cn.hutool.core.lang.Assert;
@@ -55,7 +55,7 @@ public class UploadFileUtils {
         try {
             multipartFile.transferTo(localFile);
         } catch (IOException e) {
-            throw new ChaosCoreException("MultipartFile To File 失败", e);
+            throw new ChaosException("MultipartFile To File 失败", e);
         }
 
         return localFile;

@@ -1,10 +1,10 @@
 package club.gclmit.chaos.starter.config;
 
 import club.gclmit.chaos.core.io.FileUtils;
-import club.gclmit.chaos.core.lang.log.Logger;
-import club.gclmit.chaos.core.lang.log.LoggerServer;
 import club.gclmit.chaos.starter.properties.ChaosWebProperties;
-import club.gclmit.chaos.web.filter.xss.XssFilter;
+import club.gclmit.chaos.web.xss.XssFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
@@ -16,7 +16,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
 import javax.servlet.DispatcherType;
 import javax.servlet.MultipartConfigElement;
 
@@ -30,8 +29,10 @@ import javax.servlet.MultipartConfigElement;
 @Configuration
 public class ChaosStarterConfig implements WebMvcConfigurer {
 
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
-    private ChaosWebProperties properties;
+    private ChaosWebProperties config;
 
     /**
      * 文件上传临时路径
@@ -64,13 +65,15 @@ public class ChaosStarterConfig implements WebMvcConfigurer {
      */
     @Bean
     public FilterRegistrationBean xssFilterRegistration() {
-        //开启动态的xss开关
-        XssFilter xssFilter = new XssFilter(() -> properties.getEnableXss());
-        FilterRegistrationBean bean = new FilterRegistrationBean(xssFilter);
-        bean.setDispatcherTypes(DispatcherType.REQUEST);
-        bean.setOrder(Ordered.LOWEST_PRECEDENCE);
-        bean.addUrlPatterns("/*");
-        return bean;
+        if (config.getEnableXss()) {
+            XssFilter xssFilter = new XssFilter();
+            FilterRegistrationBean bean = new FilterRegistrationBean(xssFilter);
+            bean.setDispatcherTypes(DispatcherType.REQUEST);
+            bean.setOrder(Ordered.LOWEST_PRECEDENCE);
+            bean.addUrlPatterns("/*");
+            return bean;
+        }
+        return new FilterRegistrationBean();
     }
 
     /**
@@ -81,7 +84,7 @@ public class ChaosStarterConfig implements WebMvcConfigurer {
      */
     @Bean
     public FilterRegistrationBean corsFilter() {
-        Logger.info(LoggerServer.CHAOS, "增加 Cors 跨域支持");
+        log.info("增加 Cors 跨域支持");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);

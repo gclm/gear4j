@@ -1,11 +1,7 @@
-package club.gclmit.chaos.starter;
+package club.gclmit.chaos.web.controller;
 
-import club.gclmit.chaos.core.exception.AbstractChaosException;
-import club.gclmit.chaos.core.exception.ChaosCoreException;
-import club.gclmit.chaos.core.web.result.Result;
-import club.gclmit.chaos.logger.exception.ChaosLoggerException;
-import club.gclmit.chaos.storage.exception.ChaosStorageException;
-import club.gclmit.chaos.web.exception.ChaosWebException;
+import club.gclmit.chaos.core.exception.ChaosException;
+import club.gclmit.chaos.web.result.Result;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -62,13 +58,7 @@ public class GlobalExceptionHandler {
      * @return club.gclmit.chaos.web.response.Result
      * @author gclm
      */
-    @ExceptionHandler(value = {
-            AbstractChaosException.class,
-            ChaosCoreException.class,
-            ChaosStorageException.class,
-            ChaosWebException.class,
-            ChaosLoggerException.class
-    })
+    @ExceptionHandler(value = {ChaosException.class})
     public Result chaosException(Exception exception) {
 
         return Result.fail(exception.getMessage());

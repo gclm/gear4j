@@ -1,6 +1,6 @@
 package club.gclmit.chaos.core.util;
 
-import club.gclmit.chaos.core.exception.ChaosCoreException;
+import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.io.IOUtils;
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.util.CharsetUtil;
@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class ShellUtils {
      *
      * @param cmd 命令列表
      * @return 执行结果
-     * @throws ChaosCoreException 自定义异常
+     * @throws ChaosException 自定义异常
      */
     public static String execForString(String cmd){
         InputStream stream = exec(cmd);
@@ -43,7 +42,7 @@ public class ShellUtils {
      *
      * @param cmd 命令列表
      * @return 执行结果
-     * @throws ChaosCoreException 自定义异常
+     * @throws ChaosException 自定义异常
      */
     public static List<String> execForLines(String cmd){
         List<String> empty = ListUtil.empty();
@@ -59,7 +58,7 @@ public class ShellUtils {
      *
      * @param cmd 命令列表，每个元素代表一条命令
      * @return 执行结果，按行区分
-     * @throws ChaosCoreException 自定义异常
+     * @throws ChaosException 自定义异常
      */
     public static InputStream exec(String cmd){
         Long startTime = DateUtils.getMilliTimestamp();
@@ -95,7 +94,7 @@ public class ShellUtils {
                 return null;
             }
         } catch (Exception e){
-            throw new ChaosCoreException("执行 Shell 命令发生异常", e);
+            throw new ChaosException("执行 Shell 命令发生异常", e);
         }
     }
 }

@@ -1,6 +1,6 @@
 package club.gclmit.chaos.core.util;
 
-import club.gclmit.chaos.core.exception.JacksonException;
+import club.gclmit.chaos.core.exception.ChaosException;
 import cn.hutool.core.util.ObjectUtil;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
@@ -26,7 +26,7 @@ import java.util.*;
  */
 public class JsonUtils {
 
-    private Logger log = LoggerFactory.getLogger(this.getClass());
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private JsonUtils() {
     }
@@ -45,7 +45,7 @@ public class JsonUtils {
         try {
             return getInstance().writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            throw new JacksonException(e);
+            throw new ChaosException("jackson 异常",e);
         }
     }
 
@@ -62,7 +62,7 @@ public class JsonUtils {
         try {
             return getInstance().writeValueAsBytes(object);
         } catch (JsonProcessingException e) {
-            throw new JacksonException(e);
+            throw new ChaosException("jackson 异常",e);
         }
     }
 
@@ -77,7 +77,7 @@ public class JsonUtils {
         try {
             return getInstance().readTree(jsonString);
         } catch (IOException e) {
-            throw new JacksonException(e);
+            throw new ChaosException("jackson 异常",e);
         }
     }
 
@@ -92,7 +92,7 @@ public class JsonUtils {
         try {
             return getInstance().readTree(in);
         } catch (IOException e) {
-            throw new JacksonException(e);
+            throw new ChaosException("jackson 异常",e);
         }
     }
 
@@ -107,7 +107,7 @@ public class JsonUtils {
         try {
             return getInstance().readTree(content);
         } catch (IOException e) {
-            throw new JacksonException(e);
+            throw new ChaosException("jackson 异常",e);
         }
     }
 
@@ -122,7 +122,7 @@ public class JsonUtils {
         try {
             return getInstance().readTree(jsonParser);
         } catch (IOException e) {
-            throw new JacksonException(e);
+            throw new ChaosException("jackson 异常",e);
         }
     }
 
@@ -142,7 +142,7 @@ public class JsonUtils {
         try {
             return getInstance().readValue(content, valueType);
         } catch (IOException e) {
-            throw new JacksonException(e);
+            throw new ChaosException("jackson 异常",e);
         }
     }
 
@@ -162,7 +162,7 @@ public class JsonUtils {
         try {
             return getInstance().readValue(jsonString, valueType);
         } catch (IOException e) {
-            throw new JacksonException(e);
+            throw new ChaosException("jackson 异常",e);
         }
     }
 
@@ -182,7 +182,7 @@ public class JsonUtils {
         try {
             return getInstance().readValue(in, valueType);
         } catch (IOException e) {
-            throw new JacksonException(e);
+            throw new ChaosException("jackson 异常",e);
         }
     }
 
@@ -202,7 +202,7 @@ public class JsonUtils {
         try {
             return getInstance().readValue(content, typeReference);
         } catch (IOException e) {
-            throw new JacksonException(e);
+            throw new ChaosException("jackson 异常",e);
         }
     }
 
@@ -222,7 +222,7 @@ public class JsonUtils {
         try {
             return getInstance().readValue(jsonString, typeReference);
         } catch (IOException e) {
-            throw new JacksonException(e);
+            throw new ChaosException("jackson 异常",e);
         }
     }
 
@@ -242,7 +242,7 @@ public class JsonUtils {
         try {
             return getInstance().readValue(in, typeReference);
         } catch (IOException e) {
-            throw new JacksonException(e);
+            throw new ChaosException("jackson 异常",e);
         }
     }
 

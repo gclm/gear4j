@@ -1,12 +1,13 @@
 package club.gclmit.chaos.starter.config;
 
-import club.gclmit.chaos.core.lang.log.Logger;
-import club.gclmit.chaos.core.lang.log.LoggerServer;
+import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.starter.properties.ChaosStorageProperties;
 import club.gclmit.chaos.starter.properties.ChaosWebProperties;
 import club.gclmit.chaos.storage.CloudStorageFactory;
 import club.gclmit.chaos.storage.client.StorageClient;
 import club.gclmit.chaos.storage.model.Storage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -28,21 +29,23 @@ public class ChaosAutoConfiguration {
     @Autowired
     private ChaosStorageProperties properties;
 
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     /**
      * <p>
-     *  配置 StorageClient
+     * 配置 StorageClient
      * </p>
      *
-     * @author gclm
      * @return club.gclmit.chaos.storage.client.StorageClient
+     * @author gclm
      */
     @Bean
-    @ConditionalOnProperty(prefix = "chaos.storage",value = "enabled",havingValue = "true")
-    public StorageClient storageClient (){
-        Logger.debug(LoggerServer.CHAOS,"读取 properties的数据:{}",properties);
+    @ConditionalOnProperty(prefix = "chaos.storage", value = "enabled", havingValue = "true")
+    public StorageClient storageClient() {
+        log.debug("读取 properties的数据:{}", StringUtils.toString(properties));
         Storage storage = new Storage();
-        BeanUtils.copyProperties(properties,storage);
-        Logger.debug(LoggerServer.CHAOS,"自动注入的storage:{}",storage);
+        BeanUtils.copyProperties(properties, storage);
+        log.debug("自动注入的storage:{}", StringUtils.toString(storage));
         return CloudStorageFactory.build(storage);
     }
 }

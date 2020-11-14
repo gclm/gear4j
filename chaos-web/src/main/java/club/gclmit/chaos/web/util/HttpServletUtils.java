@@ -1,6 +1,6 @@
 package club.gclmit.chaos.web.util;
 
-import club.gclmit.chaos.core.exception.ChaosCoreException;
+import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.util.StringUtils;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.CharsetUtil;
@@ -94,7 +94,7 @@ public class HttpServletUtils {
         try {
             return URLEncoder.encode(url, charset);
         } catch (UnsupportedEncodingException e) {
-            throw new ChaosCoreException(e,"URL编码失败,url:{}\t编码格式：{}",url,charset);
+            throw new ChaosException(e,"URL编码失败,url:{}\t编码格式：{}",url,charset);
         }
     }
 
@@ -138,7 +138,7 @@ public class HttpServletUtils {
         try {
             return URLDecoder.decode(url,charset);
         } catch (UnsupportedEncodingException e) {
-            throw new ChaosCoreException(e,"URL解码失败,url:{}\t编码格式：{}",url,charset);
+            throw new ChaosException(e,"URL解码失败,url:{}\t编码格式：{}",url,charset);
         }
     }
     /**

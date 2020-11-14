@@ -1,6 +1,6 @@
 package club.gclmit.chaos.web.util;
 
-import club.gclmit.chaos.core.exception.ChaosCoreException;
+import club.gclmit.chaos.core.exception.ChaosException;
 
 import java.net.*;
 import java.util.ArrayList;
@@ -54,18 +54,18 @@ public class HostUtils {
 
     /**
      * <p>
-     *  获取主机名失败
+     * 获取主机名失败
      * </p>
      *
-     * @author gclm
      * @return java.lang.String
-     * @throws ChaosCoreException 封装自定义异常
+     * @throws ChaosException 封装自定义异常
+     * @author gclm
      */
-    public static String getHostName(){
+    public static String getHostName() {
         try {
             return InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {
-           throw  new ChaosCoreException("获取主机名失败",e);
+            throw new ChaosException("获取主机名失败", e);
         }
     }
 

@@ -1,6 +1,6 @@
 package club.gclmit.chaos.core.lang;
 
-import club.gclmit.chaos.core.exception.ChaosCoreException;
+import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.util.StringUtils;
 import cn.hutool.core.util.CharsetUtil;
 import com.google.zxing.*;
@@ -165,7 +165,7 @@ public class Barcode {
             }
             return generateOrigin();
         } catch (Exception e) {
-            throw new ChaosCoreException("二维码生成失败",e);
+            throw new ChaosException("二维码生成失败",e);
         }
     }
 
@@ -184,7 +184,7 @@ public class Barcode {
                 ImageIO.write(generateOrigin(),format.getCode(),stream);
             }
         } catch (Exception e) {
-            throw new ChaosCoreException("二维码生成失败",e);
+            throw new ChaosException("二维码生成失败",e);
         }
     }
 
@@ -230,7 +230,7 @@ public class Barcode {
             generate(format,new FileOutputStream(file));
             return file.getAbsolutePath();
         } catch (Exception e){
-            throw new ChaosCoreException("二维码生成失败",e);
+            throw new ChaosException("二维码生成失败",e);
         }
     }
 
@@ -381,7 +381,7 @@ public class Barcode {
                 READER.reset();
                 return result;
             } catch (NotFoundException e) {
-                throw new ChaosCoreException("该图片不是二维码图片", e);
+                throw new ChaosException("该图片不是二维码图片", e);
             }
         }
     }

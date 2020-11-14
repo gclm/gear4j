@@ -1,11 +1,10 @@
 package club.gclmit.chaos.core.util;
 
-import club.gclmit.chaos.core.exception.ChaosCoreException;
+import club.gclmit.chaos.core.exception.ChaosException;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 
 import java.lang.reflect.Field;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -52,7 +51,7 @@ public class StringUtils extends StrUtil {
                 Object value = ObjectUtil.isEmpty(field.get(obj)) ? null : field.get(obj);
                 fieldBuilder.append(field.getName()).append("=").append(value).append(", ");
             } catch (IllegalAccessException e) {
-                throw new ChaosCoreException("通过反射拼接ToString异常", e);
+                throw new ChaosException("通过反射拼接ToString异常", e);
             }
             field.setAccessible(false);
         }

@@ -1,4 +1,4 @@
-package club.gclmit.chaos.http;
+package club.gclmit.chaos.core.util;
 
 import com.ejlchina.okhttps.HTTP;
 import com.ejlchina.okhttps.HttpResult;
@@ -6,7 +6,6 @@ import com.ejlchina.okhttps.internal.RealHttpResult;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -26,8 +25,8 @@ public class HttpUtils {
     /**
      * 构建统一配置的 HTTP 客户端
      *
-     * @author gclm
      * @return com.ejlchina.okhttps.HTTP
+     * @author gclm
      */
     public static HTTP buildHttp() {
         return HTTP.builder()
@@ -93,7 +92,6 @@ public class HttpUtils {
      * @author gclm
      */
     public static Map<String, String> requestHeader() {
-
         Map<String, String> header = new HashMap<>(4);
         header.put("Cache-Control", "no-cache");
         header.put("Accept", "*/*");

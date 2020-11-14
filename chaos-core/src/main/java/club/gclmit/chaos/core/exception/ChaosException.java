@@ -10,30 +10,30 @@ import club.gclmit.chaos.core.util.StringUtils;
  *
  * @author gclm
  */
-public abstract class AbstractChaosException extends RuntimeException {
+public class ChaosException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public AbstractChaosException() {
+    public ChaosException() {
     }
 
-    public AbstractChaosException(Throwable cause) {
+    public ChaosException(Throwable cause) {
         super(cause);
     }
 
-    public AbstractChaosException(String message) {
+    public ChaosException(String message) {
         super(message);
     }
 
-    public AbstractChaosException(String messageTemplate, Object... params) {
+    public ChaosException(String messageTemplate, Object... params) {
         super(StringUtils.format(messageTemplate, params));
     }
 
-    public AbstractChaosException(String message, Throwable cause) {
+    public ChaosException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public AbstractChaosException(Throwable cause,String messageTemplate, Object... params) {
+    public ChaosException(Throwable cause,String messageTemplate, Object... params) {
         super(StringUtils.format(messageTemplate, params),cause);
     }
 }

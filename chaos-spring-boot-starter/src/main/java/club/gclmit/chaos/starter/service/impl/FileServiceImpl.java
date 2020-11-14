@@ -1,13 +1,13 @@
 package club.gclmit.chaos.starter.service.impl;
 
 import club.gclmit.chaos.core.io.FileUtils;
-import club.gclmit.chaos.core.lang.text.DigestUtils;
 import club.gclmit.chaos.starter.mapper.FileMapper;
 import club.gclmit.chaos.starter.service.FileService;
 import club.gclmit.chaos.storage.client.StorageClient;
 import club.gclmit.chaos.storage.model.FileInfo;
 import club.gclmit.chaos.storage.model.FileStatus;
-import club.gclmit.chaos.web.util.SpringUtils;
+import club.gclmit.chaos.web.util.UploadFileUtils;
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -43,8 +43,8 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
      */
     @Override
     public FileInfo uploadFile(MultipartFile file) {
-        File tempFile = SpringUtils.multipartFileToFile(file, "");
-        String md5 = DigestUtils.md5Hex(tempFile);
+        File tempFile = UploadFileUtils.multipartFileToFile(file, "");
+        String md5 = SecureUtil.md5(tempFile);
         FileInfo fileInfo = queryMd5(md5);
         if (fileInfo == null) {
             fileInfo = storageClient.upload(tempFile);

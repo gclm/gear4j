@@ -1,9 +1,9 @@
 package club.gclmit.chaos.storage.client;
 
+import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.storage.model.*;
-import club.gclmit.chaos.storage.exception.ChaosStorageException;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.DeleteObjectsRequest;
@@ -59,7 +59,7 @@ public class AliyunStorageClient extends StorageClient {
             // 创建OSSClient实例
             ossClient = new OSSClientBuilder().build(endpoint,cloudStorage.getAccessKeyId(),cloudStorage.getAccessKeySecret());
         } else {
-            throw new ChaosStorageException("[阿里云OSS]上传文件失败，请检查 阿里云OSS 配置");
+            throw new ChaosException("[阿里云OSS]上传文件失败，请检查 阿里云OSS 配置");
         }
     }
 
@@ -117,7 +117,7 @@ public class AliyunStorageClient extends StorageClient {
             PutObjectResult putObject = ossClient.putObject(new PutObjectRequest(cloudStorage.getBucket(), key, inputStream));
             eTag = putObject.getETag();
         } catch (Exception e) {
-            throw new ChaosStorageException("[阿里云OSS]上传文件失败，请检查配置信息", e);
+            throw new ChaosException("[阿里云OSS]上传文件失败，请检查配置信息", e);
         }
 
         if (key != null) {

@@ -24,7 +24,6 @@
         <module>chaos-logger</module>
         <module>chaos-annotations</module>
         <module>chaos-spring-boot-starter</module>
-        <module>chaos-http</module>
     </modules>
 
     <properties>

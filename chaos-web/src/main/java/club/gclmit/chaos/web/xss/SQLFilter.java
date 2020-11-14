@@ -1,7 +1,7 @@
 package club.gclmit.chaos.web.filter;
 
+import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.util.StringUtils;
-import club.gclmit.chaos.web.exception.ChaosWebException;
 
 /**
  * SQL过滤
@@ -33,8 +33,8 @@ public class SQLFilter {
 
         //判断是否包含非法字符
         for (String keyword : keywords) {
-            if (str.indexOf(keyword) != -1) {
-                throw new ChaosWebException("包含非法字符");
+            if (str.contains(keyword)) {
+                throw new ChaosException("包含非法字符");
             }
         }
         return str;
