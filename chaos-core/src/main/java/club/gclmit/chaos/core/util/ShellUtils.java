@@ -2,7 +2,7 @@ package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.io.IOUtils;
-import club.gclmit.chaos.core.lang.text.Charsets;
+import cn.hutool.core.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +32,8 @@ public class ShellUtils {
     public static String execForString(String cmd){
         InputStream stream = exec(cmd);
         if (IOUtils.isNotEmpty(stream)){
-            return IOUtils.copy(stream, Charsets.CHARSET_UTF_8);
+//            IOUtils.cop
+            return IOUtils.copy(stream, CharsetUtil.CHARSET_UTF_8);
         }
         return "";
     }

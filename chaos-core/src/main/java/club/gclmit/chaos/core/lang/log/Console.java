@@ -15,11 +15,11 @@ public class Console {
      * 控制台信息打印
      *
      * @author gclm
-     * @param template       消息模板
-     * @param arguments     消息参数
+     * @param template 消息模板
+     * @param args     消息参数
      */
-    public static void print(String template, Object... arguments){
-        FormattingTuple ft = MessageFormatter.arrayFormat(template, arguments);
+    public static void log(String template, Object... args){
+        FormattingTuple ft = MessageFormatter.arrayFormat(template, args);
         System.out.println(ft.getMessage());
     }
 }
