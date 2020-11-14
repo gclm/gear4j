@@ -87,13 +87,13 @@ Spring Framework | 5.2.0.RELEASE | 最新发布稳定版
 <dependency>
   <groupId>club.gclmit</groupId>
   <artifactId>chaos-spring-boot-starter</artifactId>
-  <version>1.5.2.RELEASE</version>
+  <version>2.0.0.RELEASE</version>
 </dependency>
 ```
 
 **Gradle**
 ```text
-implementation 'club.gclmit:chaos-spring-boot-starter:1.5.2.RELEASE'
+implementation 'club.gclmit:chaos-spring-boot-starter:2.0.0.RELEASE'
 ```
 
 ### 导入SQL
@@ -147,8 +147,9 @@ SET FOREIGN_KEY_CHECKS = 1;
 ```
 
 ## 鸣谢
-> 感谢 JetBrains 提供的非商业开源软件开发授权
-> Thanks for non-commercial open source development authorization by JetBrains
+
+- 感谢 JetBrains 提供的非商业开源软件开发授权
+- Thanks for non-commercial open source development authorization by JetBrains
 
 
 
