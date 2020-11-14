@@ -1,7 +1,6 @@
 package club.gclmit.chaos.core.exception;
 
-
-import club.gclmit.chaos.core.lang.text.StringUtils;
+import club.gclmit.chaos.core.util.StringUtils;
 
 /**
  * <p>

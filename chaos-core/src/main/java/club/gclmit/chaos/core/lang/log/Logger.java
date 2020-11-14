@@ -76,10 +76,10 @@ public class Logger {
      *
      * @author gclm
      * @param format        消息模板
-     * @param arguments     消息参数
+     * @param args     消息参数
      */
-    public static void trace(String format, Object... arguments) {
-        log().trace(build(null, format, arguments));
+    public static void trace(String format, Object... args) {
+        log().trace(build(null, format, args));
     }
 
     /**
@@ -87,10 +87,10 @@ public class Logger {
      *
      * @author gclm
      * @param format        消息模板
-     * @param arguments     消息参数
+     * @param args     消息参数
      */
-    public static void info(String format, Object... arguments) {
-        log().info(build(null, format, arguments));
+    public static void info(String format, Object... args) {
+        log().info(build(null, format, args));
     }
 
     /**
@@ -98,10 +98,10 @@ public class Logger {
      *
      * @author gclm
      * @param format        消息模板
-     * @param arguments     消息参数
+     * @param args     消息参数
      */
-    public static void debug(String format, Object... arguments) {
-        log().debug(build(null, format, arguments));
+    public static void debug(String format, Object... args) {
+        log().debug(build(null, format, args));
     }
 
     /**
@@ -109,10 +109,10 @@ public class Logger {
      *
      * @author gclm
      * @param format        消息模板
-     * @param arguments     消息参数
+     * @param args     消息参数
      */
-    public static void warn(String format, Object... arguments) {
-        log().warn(build(null, format, arguments));
+    public static void warn(String format, Object... args) {
+        log().warn(build(null, format, args));
     }
 
     /**
@@ -120,10 +120,10 @@ public class Logger {
      *
      * @author gclm
      * @param format        消息模板
-     * @param arguments     消息参数
+     * @param args     消息参数
      */
-    public static void error(String format, Object... arguments) {
-        log().error(build(null, format, arguments));
+    public static void error(String format, Object... args) {
+        log().error(build(null, format, args));
     }
 
     /**
@@ -132,10 +132,10 @@ public class Logger {
      * @author gclm
      * @param loggerServer  消息服务类型
      * @param format        消息模板
-     * @param arguments     消息参数
+     * @param args     消息参数
      */
-    public static void trace(LoggerServer loggerServer, String format, Object... arguments) {
-        log().trace(build(loggerServer, format, arguments));
+    public static void trace(LoggerServer loggerServer, String format, Object... args) {
+        log().trace(build(loggerServer, format, args));
     }
 
     /**
@@ -144,10 +144,10 @@ public class Logger {
      * @author gclm
      * @param loggerServer  消息服务类型
      * @param format        消息模板
-     * @param arguments     消息参数
+     * @param args     消息参数
      */
-    public static void info(LoggerServer loggerServer, String format, Object... arguments) {
-        log().info(build(loggerServer, format, arguments));
+    public static void info(LoggerServer loggerServer, String format, Object... args) {
+        log().info(build(loggerServer, format, args));
     }
 
     /**
@@ -156,10 +156,10 @@ public class Logger {
      * @author gclm
      * @param loggerServer  消息服务类型
      * @param format        消息模板
-     * @param arguments     消息参数
+     * @param args     消息参数
      */
-    public static void debug(LoggerServer loggerServer, String format, Object... arguments) {
-        log().debug(build(loggerServer, format, arguments));
+    public static void debug(LoggerServer loggerServer, String format, Object... args) {
+        log().debug(build(loggerServer, format, args));
     }
 
     /**
@@ -168,10 +168,10 @@ public class Logger {
      * @author gclm
      * @param loggerServer  消息服务类型
      * @param format        消息模板
-     * @param arguments     消息参数
+     * @param args     消息参数
      */
-    public static void warn(LoggerServer loggerServer, String format, Object... arguments) {
-        log().warn(build(loggerServer, format, arguments));
+    public static void warn(LoggerServer loggerServer, String format, Object... args) {
+        log().warn(build(loggerServer, format, args));
     }
 
     /**
@@ -180,10 +180,10 @@ public class Logger {
      * @author gclm
      * @param loggerServer  消息服务类型
      * @param format        消息模板
-     * @param arguments     消息参数
+     * @param args     消息参数
      */
-    public static void error(LoggerServer loggerServer, String format, Object... arguments) {
-        log().error(build(loggerServer, format, arguments));
+    public static void error(LoggerServer loggerServer, String format, Object... args) {
+        log().error(build(loggerServer, format, args));
     }
 
     /**
@@ -192,11 +192,11 @@ public class Logger {
      * @author gclm
      * @param loggerServer  消息服务类型
      * @param template      消息模板
-     * @param arguments     消息参数
+     * @param args     消息参数
      * @return java.lang.String
      */
-    private static String build(LoggerServer loggerServer, String template, Object... arguments){
-        FormattingTuple ft = MessageFormatter.arrayFormat(template, arguments);
+    private static String build(LoggerServer loggerServer, String template, Object... args){
+        FormattingTuple ft = MessageFormatter.arrayFormat(template, args);
         if (loggerServer != null) {
             return String.format("[%s]:%s", loggerServer.getKey(), ft.getMessage());
         }

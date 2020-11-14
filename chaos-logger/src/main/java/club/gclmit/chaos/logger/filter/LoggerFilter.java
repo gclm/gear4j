@@ -7,7 +7,6 @@ import club.gclmit.chaos.core.lang.log.LoggerServer;
 import club.gclmit.chaos.core.web.servlet.HttpServletUtils;
 import club.gclmit.chaos.core.web.servlet.RequestWrapper;
 import club.gclmit.chaos.core.web.servlet.ResponseWrapper;
-import club.gclmit.chaos.core.util.SQLUtils;
 import club.gclmit.chaos.logger.mapper.LoggerMapper;
 import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
 import club.gclmit.chaos.logger.model.HttpTrace;

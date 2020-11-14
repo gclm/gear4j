@@ -1,8 +1,6 @@
 package club.gclmit.chaos.core.util;
 
 
-import club.gclmit.chaos.core.lang.Assert;
-import club.gclmit.chaos.core.lang.text.StringUtils;
 
 import javax.annotation.Nullable;
 
@@ -108,7 +106,7 @@ public class SystemUtils {
      * @return java.lang.String
      */
     public static String getUserName(){
-        return StringUtils.isNoneBlank(USER_NAME) ? USER_NAME : "";
+        return StringUtils.isNotBlank(USER_NAME) ? USER_NAME : "";
     }
 
     /**
@@ -117,7 +115,7 @@ public class SystemUtils {
      * @return java.lang.String
      */
     public static String getUserDir(){
-        return StringUtils.isNoneBlank(USER_DIR) ? USER_DIR : "";
+        return StringUtils.isNotBlank(USER_DIR) ? USER_DIR : "";
     }
 
     /**
@@ -126,7 +124,7 @@ public class SystemUtils {
      * @return java.lang.String
      */
     public static String getUserHome(){
-        return StringUtils.isNoneBlank(USER_HOME) ? USER_HOME : "";
+        return StringUtils.isNotBlank(USER_HOME) ? USER_HOME : "";
     }
 
     /**
