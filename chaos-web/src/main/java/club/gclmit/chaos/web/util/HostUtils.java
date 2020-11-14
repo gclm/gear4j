@@ -1,4 +1,4 @@
-package club.gclmit.chaos.web.servlet;
+package club.gclmit.chaos.web.util;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 

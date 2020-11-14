@@ -1,7 +1,7 @@
 package club.gclmit.chaos.web.result;
 
-import club.gclmit.chaos.core.lang.text.StringUtils;
 import club.gclmit.chaos.core.util.DateUtils;
+import club.gclmit.chaos.core.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;

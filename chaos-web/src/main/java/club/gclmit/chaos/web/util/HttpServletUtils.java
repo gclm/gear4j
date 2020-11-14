@@ -1,8 +1,9 @@
-package club.gclmit.chaos.web.servlet;
+package club.gclmit.chaos.web.util;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
-import club.gclmit.chaos.core.lang.text.Charsets;
-import club.gclmit.chaos.core.lang.text.StringUtils;
+import club.gclmit.chaos.core.util.StringUtils;
+import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.CharsetUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -64,7 +65,7 @@ public class HttpServletUtils {
      */
     public static String encode(String url) {
         Assert.isTrue(StringUtils.isBlank(url),"url 不能为空");
-        return encode(url, Charsets.UTF_8);
+        return encode(url, CharsetUtil.UTF_8);
     }
 
     /**
@@ -108,7 +109,7 @@ public class HttpServletUtils {
      */
     public static String decode(String url) {
         Assert.isTrue(StringUtils.isBlank(url),"url 不能为空");
-        return encode(url, Charsets.UTF_8);
+        return encode(url, CharsetUtil.UTF_8);
     }
 
     /**

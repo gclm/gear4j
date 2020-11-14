@@ -2,7 +2,9 @@ package club.gclmit.chaos.web.util;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.io.FileUtils;
-import club.gclmit.chaos.core.lang.text.StringUtils;
+import club.gclmit.chaos.core.util.StringUtils;
+import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.IdUtil;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -48,7 +50,7 @@ public class UploadFileUtils {
         Assert.notNull(multipartFile.isEmpty(), "multipartFile 不能为空");
 
         folder = StringUtils.isEmpty(folder) ? FileUtils.getRootPath() : folder;
-        File localFile = new File(folder, new StringBuilder().append(IDUtils.snowflakeId()).append(".").append(getSuffix(multipartFile)).toString());
+        File localFile = new File(folder, new StringBuilder().append(IdUtil.fastSimpleUUID()).append(".").append(getSuffix(multipartFile)).toString());
 
         try {
             multipartFile.transferTo(localFile);

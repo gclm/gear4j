@@ -1,10 +1,11 @@
 package club.gclmit.chaos.web.controller;
 
-import club.gclmit.chaos.core.lang.log.LoggerServer;
-import club.gclmit.chaos.core.lang.log.Logger;
-import club.gclmit.chaos.core.web.result.Result;
+import club.gclmit.chaos.core.util.StringUtils;
+import club.gclmit.chaos.web.result.Result;
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -19,6 +20,8 @@ import javax.validation.Valid;
 @RestController
 public abstract class RestApiController<Service extends IService<T>, T>  extends ApiController<Service, T>{
 
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     /**
      *  执行添加操作
      * @author gclm
@@ -29,7 +32,7 @@ public abstract class RestApiController<Service extends IService<T>, T>  extends
     @PostMapping
     public Result create(@Valid @RequestBody T t) {
         Assert.notNull(t,"添加的操作数据为空");
-        Logger.info(LoggerServer.CONTROLLER, "添加操作数据:[{}]",t);
+        log.info("添加操作数据:[{}]", StringUtils.toString(t));
         return this.service.save(t) ? Result.ok() : Result.fail("执行添加操作失败");
     }
 

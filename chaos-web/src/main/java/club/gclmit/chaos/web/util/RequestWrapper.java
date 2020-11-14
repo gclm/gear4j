@@ -1,7 +1,7 @@
-package club.gclmit.chaos.web.servlet;
+package club.gclmit.chaos.web.util;
 
-import club.gclmit.chaos.core.lang.text.Charsets;
-import club.gclmit.chaos.core.lang.text.StringUtils;
+import club.gclmit.chaos.core.util.StringUtils;
+import cn.hutool.core.util.CharsetUtil;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
@@ -24,7 +24,7 @@ public class RequestWrapper extends HttpServletRequestWrapper {
     /**
      * 设置默认编码格式为 UTF-8
      */
-    private static final String DEFAULT_CHARSET = Charsets.UTF_8;
+    private static final String DEFAULT_CHARSET = CharsetUtil.UTF_8;
 
     /**
      * Request Body
@@ -40,7 +40,7 @@ public class RequestWrapper extends HttpServletRequestWrapper {
     public RequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
         ServletInputStream stream = request.getInputStream();
-        this.body = StringUtils.toString(stream, DEFAULT_CHARSET);
+        this.body = StringUtils.str(stream, DEFAULT_CHARSET);
     }
 
     @Override

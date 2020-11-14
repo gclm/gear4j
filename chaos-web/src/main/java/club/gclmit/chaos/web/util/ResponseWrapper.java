@@ -1,4 +1,7 @@
-package club.gclmit.chaos.web.servlet;
+package club.gclmit.chaos.web.util;
+
+import club.gclmit.chaos.core.util.StringUtils;
+import cn.hutool.core.util.CharsetUtil;
 
 import javax.annotation.Nullable;
 import javax.servlet.ServletOutputStream;
@@ -74,12 +77,11 @@ public class ResponseWrapper extends HttpServletResponseWrapper {
         if (stream != null) {
             bytes = stream.getCopy();
         }
-        return StringUtils.toString(bytes, getCharset());
+        return StringUtils.str(bytes, getCharset());
     }
 
     private String getCharset() {
-//        return getCharacterEncoding() != null ? getCharacterEncoding() : CharsetUtils.UTF_8;
-        return Charsets.UTF_8;
+        return getCharacterEncoding() != null ? getCharacterEncoding() : CharsetUtil.UTF_8;
     }
 
     private class ResponseServletOutputStream extends ServletOutputStream {
