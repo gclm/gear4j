@@ -1,8 +1,8 @@
 package club.gclmit.chaos.core.lang;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
-import club.gclmit.chaos.core.lang.text.Charsets;
-import club.gclmit.chaos.core.lang.text.StringUtils;
+import club.gclmit.chaos.core.util.StringUtils;
+import cn.hutool.core.util.CharsetUtil;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.client.j2se.MatrixToImageConfig;
@@ -31,7 +31,7 @@ public class Barcode {
     /**
      * 默认编码格式
      */
-    public static final String DEFAULT_CHARACTER_SET = Charsets.UTF_8;
+    public static final String DEFAULT_CHARACTER_SET = CharsetUtil.UTF_8;
 
     private static final MultiFormatWriter WRITER;
 
@@ -214,7 +214,7 @@ public class Barcode {
         if (flag){
             return Base64.getEncoder().encodeToString(bytes).trim();
         }
-        return StringUtils.toString(bytes, Charsets.UTF_8);
+        return StringUtils.str(bytes, CharsetUtil.UTF_8);
     }
 
     /**

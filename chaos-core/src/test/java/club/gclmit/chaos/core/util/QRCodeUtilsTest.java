@@ -2,6 +2,7 @@ package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.lang.Barcode;
 import club.gclmit.chaos.core.lang.BarcodeImageType;
+import cn.hutool.core.util.IdUtil;
 import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.WriterException;
@@ -34,11 +35,11 @@ public class QRCodeUtilsTest {
                 content("https://blog.gclmit.club/")
                 .size(400, 400);
 
-        String path = builder.qrCode().generate(BarcodeImageType.JPG, new File(System.getProperty("user.dir"), IDUtils.snowflakeId() + ".jpg"));
+        String path = builder.qrCode().generate(BarcodeImageType.JPG, new File(System.getProperty("user.dir"), IdUtil.fastSimpleUUID() + ".jpg"));
         System.out.println("默认颜色：" + path);
 
         builder.color(0xFFFFFFFF,0xFF00A2FF);
-        String path1 = builder.qrCode().generate(BarcodeImageType.JPG, new File(System.getProperty("user.dir"), IDUtils.snowflakeId() + ".jpg"));
+        String path1 = builder.qrCode().generate(BarcodeImageType.JPG, new File(System.getProperty("user.dir"), IdUtil.fastSimpleUUID() + ".jpg"));
         System.out.println("指定颜色:" + path1);
 
         System.out.println("base64在线预览:\ndata:image/jpg;base64," + builder.qrCode().generate(BarcodeImageType.JPG, true));
@@ -53,7 +54,7 @@ public class QRCodeUtilsTest {
                 content("https://blog.gclmit.club/")
                 .size(400, 400);
 
-        String path = builder.qrCode(logo).generate(BarcodeImageType.JPG, new File(System.getProperty("user.dir"), IDUtils.randomUUID() + ".jpg"));
+        String path = builder.qrCode(logo).generate(BarcodeImageType.JPG, new File(System.getProperty("user.dir"), IdUtil.fastSimpleUUID() + ".jpg"));
         System.out.println("logo: "+ path);
     }
 

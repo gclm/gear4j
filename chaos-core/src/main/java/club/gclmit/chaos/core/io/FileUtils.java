@@ -1,9 +1,11 @@
 package club.gclmit.chaos.core.io;
 
-import club.gclmit.chaos.core.collection.ArrayUtils;
 import club.gclmit.chaos.core.exception.ChaosCoreException;
-import club.gclmit.chaos.core.lang.text.DigestUtils;
-import club.gclmit.chaos.core.lang.text.StringUtils;
+import club.gclmit.chaos.core.util.StringUtils;
+import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.ArrayUtil;
+import cn.hutool.crypto.SecureUtil;
+
 import java.io.*;
 
 /**
@@ -156,7 +158,7 @@ public class FileUtils {
      */
     public static String getSuffix(String fileName) {
         Assert.isTrue(StringUtils.isNotBlank(fileName), "文件名不能为空");
-        return StringUtils.substringAfter(fileName, ".");
+        return StringUtils.subAfter(fileName, ".",true);
     }
 
     /**
@@ -168,7 +170,7 @@ public class FileUtils {
      * @return 如果文件相同返回 true,否则返回 false
      */
     public static boolean checkFile(File file1,File file2){
-        return DigestUtils.md5Hex(file1).equals(DigestUtils.md5Hex(file2)) && DigestUtils.sha1Hex(file1).equals(DigestUtils.sha1Hex(file2));
+        return SecureUtil.md5(file1).equals(SecureUtil.md5(file2)) && SecureUtil.sha1(file1).equals(SecureUtil.sha1(file2));
     }
 
     /**
@@ -276,7 +278,7 @@ public class FileUtils {
      * @return String
      */
     private static String byteToHex(byte[] bytes) {
-        Assert.isFalse(ArrayUtils.isEmpty(bytes), "字节数组不能为空");
+        Assert.isFalse(ArrayUtil.isEmpty(bytes), "字节数组不能为空");
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < bytes.length; i++) {
             int v = bytes[i] & 0xFF;

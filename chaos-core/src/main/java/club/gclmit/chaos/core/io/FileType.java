@@ -1,6 +1,7 @@
 package club.gclmit.chaos.core.io;
 
-import club.gclmit.chaos.core.lang.text.StringUtils;
+
+import club.gclmit.chaos.core.util.StringUtils;
 
 /**
  * <p>

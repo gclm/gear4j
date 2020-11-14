@@ -2,6 +2,7 @@ package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.exception.ChaosCoreException;
 import club.gclmit.chaos.core.io.IOUtils;
+import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,8 +33,7 @@ public class ShellUtils {
     public static String execForString(String cmd){
         InputStream stream = exec(cmd);
         if (IOUtils.isNotEmpty(stream)){
-//            IOUtils.cop
-            return IOUtils.copy(stream, CharsetUtil.CHARSET_UTF_8);
+            return IOUtils.read(stream, CharsetUtil.CHARSET_UTF_8);
         }
         return "";
     }
@@ -46,11 +46,12 @@ public class ShellUtils {
      * @throws ChaosCoreException 自定义异常
      */
     public static List<String> execForLines(String cmd){
+        List<String> empty = ListUtil.empty();
         InputStream stream = exec(cmd);
         if (IOUtils.isNotEmpty(stream)){
-            return IOUtils.readLines(stream, Charsets.CHARSET_UTF_8);
+            return IOUtils.readLines(stream, CharsetUtil.UTF_8,empty);
         }
-        return new ArrayList<>(0);
+        return empty;
     }
 
     /**
@@ -88,7 +89,7 @@ public class ShellUtils {
             } else {
                 InputStream is = process.getErrorStream();
                 if (is != null) {
-                    String error = IOUtils.copyToString(is,Charsets.CHARSET_UTF_8);
+                    String error = IOUtils.read(is,CharsetUtil.CHARSET_UTF_8);
                     logger.debug("状态:[{}]\t命令:[{}]\n错误:[{}]",false,shell,error);
                 }
                 return null;

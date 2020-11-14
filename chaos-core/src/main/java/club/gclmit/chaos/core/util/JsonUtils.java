@@ -1,17 +1,15 @@
 package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.exception.JacksonException;
-import club.gclmit.chaos.core.lang.text.StringUtils;
+import cn.hutool.core.util.ObjectUtil;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
-import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
@@ -138,7 +136,7 @@ public class JsonUtils {
      */
     @Nullable
     public static <T> T readValue(@Nullable byte[] content, Class<T> valueType) {
-        if (ObjectUtils.isEmpty(content)) {
+        if (ObjectUtil.isEmpty(content)) {
             return null;
         }
         try {
@@ -198,7 +196,7 @@ public class JsonUtils {
      */
     @Nullable
     public static <T> T readValue(@Nullable byte[] content, TypeReference<T> typeReference) {
-        if (ObjectUtils.isEmpty(content)) {
+        if (ObjectUtil.isEmpty(content)) {
             return null;
         }
         try {

@@ -1,8 +1,9 @@
-package club.gclmit.chaos.core.util;
+package club.gclmit.chaos.web.util;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import com.google.common.io.Resources;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.net.URL;
