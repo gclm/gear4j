@@ -2,16 +2,18 @@ package club.gclmit.chaos.storage.client;
 
 import club.gclmit.chaos.core.io.FileUtils;
 import club.gclmit.chaos.core.io.MimeType;
-import club.gclmit.chaos.core.lang.text.DigestUtils;
 import club.gclmit.chaos.core.util.DateUtils;
-import club.gclmit.chaos.core.lang.text.StringUtils;
+import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.storage.model.FileInfo;
 import club.gclmit.chaos.storage.model.Storage;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.crypto.SecureUtil;
 import org.springframework.util.Assert;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -44,10 +46,7 @@ public abstract class StorageClient {
      */
     public String getPath(String prefix, String suffix) {
 
-        /**
-         * 这里使用雪花算法目的---> 后期可能会将 key 进行 split，然后进行分类统计
-         */
-        Long id = IDUtils.snowflakeId();
+
 
         LocalDate localDate = LocalDate.now();
         String dateFormat = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
@@ -63,7 +62,7 @@ public abstract class StorageClient {
             path.append(prefix).append("/");
         }
 
-        path.append(dateFormat).append("/").append(id);
+        path.append(dateFormat).append("/").append(IdUtil.fastSimpleUUID());
 
         if (suffix != null) {
             path = suffix.contains(".") ? path.append(suffix) : path.append(".").append(suffix);
@@ -90,7 +89,7 @@ public abstract class StorageClient {
              */
             String key = getPath(storage.getConfig().getPrefix(), FileUtils.getSuffix(file));
             String contentType = FileUtils.getContentType(file);
-            String md5 = DigestUtils.md5Hex(file);
+            String md5 = SecureUtil.md5(file);
             return upload(fileInputStream,new FileInfo(file.getName(),contentType,file.length(), md5,key,storage.getType().getId()));
         } catch (Exception e) {
             throw new ChaosStorageException("文件上传失败",e);
@@ -116,7 +115,7 @@ public abstract class StorageClient {
          * 根据工具类获取 fileInfo 参数
          */
         String contentType = MimeType.TXT.getMimeType();
-        String md5  = DigestUtils.md5Hex(data);
+        String md5  = SecureUtil.md5(Arrays.toString(data));
         Long size = Long.valueOf(String.valueOf(data.length));
 
         /**
@@ -144,7 +143,7 @@ public abstract class StorageClient {
         Assert.hasLength(key,"上传文件失败，请检查上传文件的 key 是否正常");
 
         if (StringUtils.isBlank(key)) {
-            key = new StringBuilder().append(DateUtils.getMilliTimestamp()).append(".txt").toString();
+            key = DateUtils.getMilliTimestamp() + ".txt";
         }
         try {
             return upload(content.getBytes("UTF-8"),key,fileName);

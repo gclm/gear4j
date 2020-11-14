@@ -1,9 +1,7 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.core.lang.log.Logger;
-import club.gclmit.chaos.core.lang.log.LoggerServer;
 import club.gclmit.chaos.core.util.DateUtils;
-import club.gclmit.chaos.core.lang.text.StringUtils;
+import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.storage.model.*;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
 import com.aliyun.oss.OSS;
@@ -11,6 +9,8 @@ import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.DeleteObjectsRequest;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 import java.io.*;
 import java.util.ArrayList;
@@ -25,6 +25,7 @@ import java.util.List;
  */
 public class AliyunStorageClient extends StorageClient {
 
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
     /**
      * 阿里云域名
      */
@@ -54,7 +55,7 @@ public class AliyunStorageClient extends StorageClient {
         if(storage.getType() == StorageServer.ALIYUN) {
             cloudStorage = storage.getConfig();
             endpoint = cloudStorage.getRegion() + ALIYUN_DOMAIN_SUFFIX;
-            Logger.debug(LoggerServer.CHAOS,"阿里云配置参数:[{}]",storage);
+            log.debug("阿里云配置参数:[{}]",storage);
             // 创建OSSClient实例
             ossClient = new OSSClientBuilder().build(endpoint,cloudStorage.getAccessKeyId(),cloudStorage.getAccessKeySecret());
         } else {

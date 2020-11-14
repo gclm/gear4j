@@ -1,11 +1,10 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.core.lang.log.Logger;
-import club.gclmit.chaos.core.lang.log.LoggerServer;
 import club.gclmit.chaos.core.util.DateUtils;
-import club.gclmit.chaos.core.lang.text.StringUtils;
+import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.storage.model.*;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
+import cn.hutool.core.lang.Assert;
 import cn.ucloud.ufile.UfileClient;
 import cn.ucloud.ufile.api.object.ObjectApiBuilder;
 import cn.ucloud.ufile.api.object.ObjectConfig;
@@ -16,6 +15,8 @@ import cn.ucloud.ufile.exception.UfileClientException;
 import cn.ucloud.ufile.exception.UfileServerException;
 import cn.ucloud.ufile.http.HttpClient;
 import cn.ucloud.ufile.util.StorageType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +32,7 @@ import java.util.concurrent.*;
  */
 public class UfileStorageClient extends StorageClient {
 
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
     /**
      * 客户端
      */
@@ -51,7 +53,7 @@ public class UfileStorageClient extends StorageClient {
      */
     public UfileStorageClient(Storage storage) {
         super(storage);
-        Logger.debug(LoggerServer.CHAOS,"[Ufile]配置参数:[{}]",storage);
+        log.debug("[Ufile]配置参数:[{}]",storage);
         if(storage.getType() == StorageServer.UFILE) {
             cloudStorage = storage.getConfig();
             if (StringUtils.isBlank(cloudStorage.getEndpoint())){

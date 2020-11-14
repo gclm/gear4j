@@ -1,9 +1,7 @@
 package club.gclmit.chaos.storage.client;
 
-import club.gclmit.chaos.core.lang.log.Logger;
-import club.gclmit.chaos.core.lang.log.LoggerServer;
 import club.gclmit.chaos.core.util.DateUtils;
-import club.gclmit.chaos.core.lang.text.StringUtils;
+import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.storage.model.*;
 import club.gclmit.chaos.storage.exception.ChaosStorageException;
 import com.qcloud.cos.COSClient;
@@ -17,6 +15,8 @@ import com.qcloud.cos.model.*;
 import com.qcloud.cos.region.Region;
 import com.qcloud.cos.transfer.TransferManager;
 import com.qcloud.cos.transfer.Upload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 import java.io.*;
 import java.util.ArrayList;
@@ -42,6 +42,8 @@ public class TencentStorageClient extends StorageClient {
      */
     private CloudStorage cloudStorage;
 
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     /**
      * <p>
      *  初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
@@ -54,7 +56,7 @@ public class TencentStorageClient extends StorageClient {
         super(storage);
         if(storage.getType() == StorageServer.TENCENT) {
             cloudStorage = storage.getConfig();
-            Logger.info(LoggerServer.CHAOS,"腾讯云配置参数:[{}]",storage);
+            log.info("腾讯云配置参数:[{}]",storage);
             cosClient = build(cloudStorage.getAccessKeyId(), cloudStorage.getAccessKeySecret(), cloudStorage.getRegion());
         } else {
             throw new ChaosStorageException("[腾讯云OSS]上传文件失败，请检查配置参数");
