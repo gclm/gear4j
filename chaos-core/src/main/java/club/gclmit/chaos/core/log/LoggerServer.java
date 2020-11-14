@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.lang.log;
+package club.gclmit.chaos.core.log;
 
 /**
  * <p>
