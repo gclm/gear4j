@@ -7,6 +7,30 @@ old_version=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' -
 name=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.artifactId}' --non-recursive exec:exec)
 pwd=$(pwd)
 
+# 帮助信息
+help(){
+cat <<- eof
+--------------------------------------------------------------------------
+desc: 项目通用脚本
+usage: ./chaos.sh (-option 操作) (-param 配置参数)
+author: 孤城落寞
+程序选项如下：
+    -h --help         帮助文档
+    -v --version      修改版本信息
+    -p --push         发布代码
+      -huawei         发布到 华为云
+      -sonatype       发布到 Sonatype
+      -rbc            发布到 阿里云
+    -d --dependency   最新依赖
+    -s --sonar        bug 扫描
+    -t --test         本地测试
+
+脚本版本： v1.1.2
+--------------------------------------------------------------------------
+eof
+exit 0
+}
+
 # 判断文件是否存在
 contains() {
     local n=$#
@@ -94,30 +118,6 @@ dependency(){
 local_test(){
    mvn clean install
    exit 0
-}
-
-# 帮助信息
-help(){
-cat <<- eof
---------------------------------------------------------------------------
-desc: 项目通用脚本
-usage: ./chaos.sh (-option 操作) (-param 配置参数)
-author: 孤城落寞
-程序选项如下：
-    -h --help         帮助文档
-    -v --version      修改版本信息
-    -p --push         发布代码
-      -huawei         发布到 华为云
-      -sonatype       发布到 Sonatype
-      -rbc            发布到 阿里云
-    -d --dependency   最新依赖
-    -s --sonar        bug 扫描
-    -t --test         本地测试
-
-脚本版本： v1.1.2
---------------------------------------------------------------------------
-eof
-exit 0
 }
 
 # 定义项目

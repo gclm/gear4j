@@ -2,6 +2,7 @@ package club.gclmit.chaos.core.io;
 
 import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.util.StringUtils;
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.crypto.SecureUtil;
@@ -15,7 +16,7 @@ import java.io.*;
  *
  * @author gclm
  */
-public class FileUtils {
+public class FileUtils extends FileUtil {
 
     private FileUtils() {
     }
@@ -45,8 +46,8 @@ public class FileUtils {
      * 功能如果判断文件是否存在，如果不存在先创建文件多层目录，然后创建文件
      *
      * @param filePath 文件路径
-     * @author 孤城落寞
      * @return java.io.File
+     * @author 孤城落寞
      */
     public static File autoJudgeFile(String filePath) {
         Assert.notNull(filePath, "文件路径不能为空");
@@ -79,70 +80,11 @@ public class FileUtils {
     }
 
     /**
-     * <p>
-     *  获取项目根目录
-     * </p>
-     *
-     * @author gclm
-     * @return java.lang.String
-     */
-    public static String getRootPath() {
-        return System.getProperty("user.dir");
-    }
-
-    /**
-     * 单个文件删除
-     *
-     * @param filePath 文件路径
-     * @author 孤城落寞
-     */
-    public static void delete(String filePath) {
-        Assert.notNull(filePath, "文件路径不能为空");
-        delete(new File(filePath));
-    }
-
-    /**
-     * 文件删除
-     *
-     * @param file 文件
-     * @author 孤城落寞
-     */
-    public static void delete(File file) {
-        Assert.isTrue(file.exists(), "文件对象不能为空");
-        if (file.isDirectory()) {
-            File[] files = file.listFiles();
-            for (File f : files) {
-                delete(f);
-            }
-        }
-        if (!file.delete()) {
-            throw new ChaosException("文件:[{}]删除失败",file.getName());
-        }
-    }
-
-    /**
-     * 批量删除文件
-     * @param files 文件集合
-     */
-    public static void delete(File... files) {
-        Assert.notEmpty(files, "文件集合不能为空");
-        if (files.length > 1) {
-            for (File file : files) {
-                if (file.exists()) {
-                    delete(file);
-                }
-            }
-        } else if (files.length == 1) {
-            delete(files[0]);
-        }
-    }
-
-    /**
      * 获取文件后缀
      *
      * @param file File
-     * @author 孤城落寞
      * @return java.lang.String
+     * @author 孤城落寞
      */
     public static String getSuffix(File file) {
         Assert.isTrue(file.exists(), "文件不能为空");
@@ -152,33 +94,33 @@ public class FileUtils {
     /**
      * 获取文件后缀
      *
-     * @author gclm
      * @param fileName 文件名
      * @return java.lang.String
+     * @author gclm
      */
     public static String getSuffix(String fileName) {
         Assert.isTrue(StringUtils.isNotBlank(fileName), "文件名不能为空");
-        return StringUtils.subAfter(fileName, ".",true);
+        return StringUtils.subAfter(fileName, ".", true);
     }
 
     /**
-     *  判断文件是否相同
+     * 判断文件是否相同
      *
-     * @author gclm
-     * @param file1  文件1
-     * @param file2  文件2
+     * @param file1 文件1
+     * @param file2 文件2
      * @return 如果文件相同返回 true,否则返回 false
+     * @author gclm
      */
-    public static boolean checkFile(File file1,File file2){
+    public static boolean checkFile(File file1, File file2) {
         return SecureUtil.md5(file1).equals(SecureUtil.md5(file2)) && SecureUtil.sha1(file1).equals(SecureUtil.sha1(file2));
     }
 
     /**
      * 获取文件内容
      *
-     * @author gclm
      * @param file File
      * @return java.lang.String
+     * @author gclm
      */
     public static String getContent(File file) {
         Assert.isTrue(file.exists(), "文件不能为空");
@@ -199,9 +141,9 @@ public class FileUtils {
     /**
      * 获取文件内容并去除全部空格
      *
-     * @author gclm
      * @param file File
      * @return java.lang.String
+     * @author gclm
      */
     public static String getContentTrim(File file) {
         return getContent(file).replaceAll("\\s*", "");
@@ -213,8 +155,8 @@ public class FileUtils {
      * 2. 根据魔数筛选结果,进行后缀获取内容类型
      *
      * @param file File
-     * @author 孤城落寞
      * @return java.lang.String
+     * @author 孤城落寞
      */
     public static String getContentType(File file) {
         Assert.isTrue(file.exists(), "文件不能为空");
@@ -237,9 +179,9 @@ public class FileUtils {
     /**
      * 效验文件类型
      *
-     * @author gclm
      * @param file 效验文件
      * @return java.lang.String
+     * @author gclm
      */
     public static String judgeFileType(File file) {
         Assert.isTrue(file.exists(), "文件不能为空");
@@ -255,9 +197,9 @@ public class FileUtils {
      * 获取文件头部
      * </p>
      *
-     * @author gclm
      * @param file File
      * @return java.lang.String
+     * @author gclm
      */
     private static String getFileHeader(File file) {
         byte[] b = new byte[28];

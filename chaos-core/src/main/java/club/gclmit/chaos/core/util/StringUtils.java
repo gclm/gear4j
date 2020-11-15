@@ -59,5 +59,14 @@ public class StringUtils extends StrUtil {
         return StringUtils.builder(className).append("{").append(result).append("}").toString();
     }
 
+    /**
+     * 去除全部空格
+     * @author gclm
+     * @param str  要处理的字符串
+     * @return java.lang.String
+     */
+    public static String trimAll(String str) {
+        return isBlank(str) ? null : str.replaceAll("\\s*", "");
+    }
 
 }
