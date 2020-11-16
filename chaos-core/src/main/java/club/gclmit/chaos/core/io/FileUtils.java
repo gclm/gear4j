@@ -22,23 +22,13 @@ public class FileUtils extends FileUtil {
     }
 
     /**
-     * <p>判断文件是否为空 {@code null}.
+     *  获取项目根目录
      *
-     * @param file 判断文件
-     * @return {@code true} if the file is empty or {@code null}
+     * @author gclm
+     * @return java.lang.String
      */
-    public static boolean isEmpty(File file) {
-        return file == null || file.isDirectory() || !file.exists();
-    }
-
-    /**
-     * <p>判断文件是否不为空
-     *
-     * @param file 判断文件
-     * @return {@code true} 当前 file 不为空返回 true
-     */
-    public static boolean isNotEmpty(File file) {
-        return !isEmpty(file);
+    public static String getRootPath() {
+        return System.getProperty("user.dir");
     }
 
     /**
@@ -79,29 +69,6 @@ public class FileUtils extends FileUtil {
         return null;
     }
 
-    /**
-     * 获取文件后缀
-     *
-     * @param file File
-     * @return java.lang.String
-     * @author 孤城落寞
-     */
-    public static String getSuffix(File file) {
-        Assert.isTrue(file.exists(), "文件不能为空");
-        return getSuffix(file.getName());
-    }
-
-    /**
-     * 获取文件后缀
-     *
-     * @param fileName 文件名
-     * @return java.lang.String
-     * @author gclm
-     */
-    public static String getSuffix(String fileName) {
-        Assert.isTrue(StringUtils.isNotBlank(fileName), "文件名不能为空");
-        return StringUtils.subAfter(fileName, ".", true);
-    }
 
     /**
      * 判断文件是否相同

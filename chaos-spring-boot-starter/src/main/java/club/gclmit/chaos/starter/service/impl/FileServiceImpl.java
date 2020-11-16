@@ -50,7 +50,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
             fileInfo = storageClient.upload(tempFile);
             save(fileInfo);
         }
-        FileUtils.delete(tempFile);
+        FileUtils.del(tempFile);
         return fileInfo;
     }
 
