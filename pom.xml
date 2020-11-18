@@ -22,7 +22,6 @@
         <module>chaos-web</module>
         <module>chaos-storage</module>
         <module>chaos-logger</module>
-        <module>chaos-annotations</module>
         <module>chaos-spring-boot-starter</module>
     </modules>
 

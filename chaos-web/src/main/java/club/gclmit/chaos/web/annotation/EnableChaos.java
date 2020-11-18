@@ -1,9 +1,10 @@
-package club.gclmit.chaos.annotation;
+package club.gclmit.chaos.web.annotation;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
+
 import java.lang.annotation.*;
 
 /**

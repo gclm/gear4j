@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # 定义常量
-Ignore=("LICENSE" "README.md" "bin" "logs" "pom.xml" "target" "docs" "chaos-dependencies")
+nexus=("huawei" "sonatype" "rbc")
 date=$(date "+%Y-%m-%d %H:%M:%S")
 old_version=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)
 name=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.artifactId}' --non-recursive exec:exec)
@@ -18,6 +18,7 @@ author: 孤城落寞
     -h --help         帮助文档
     -v --version      修改版本信息
     -p --push         发布代码
+      -all            发布到下面所有仓库
       -huawei         发布到 华为云
       -sonatype       发布到 Sonatype
       -rbc            发布到 阿里云
@@ -55,18 +56,17 @@ contains() {
 # mvn clean deploy -P sonatype-oss-release
 # mvn clean deploy -P rbc-oss-release
 push(){
-    echo "项目目录: $pwd"
-    files=$(ls)
-    mvn clean install
-    for filename in ${files}
-    do
-        if [[ $(contains "${Ignore[@]}" "$filename") == "n" ]]; then
-            path=${pwd}"/"${filename}
-            echo "项目：$filename 发布：${oss}"
-            cd ${path}
-            mvn clean deploy -P ${oss}"-oss-release"
-        fi
-    done
+    echo "项目目录: $pwd 当前选择参数 $oss"
+    if [[ ${oss} == "all" ]]; then
+        echo "项目发布 --> 华为云"
+        mvn clean deploy -P huawei-oss-release
+        echo "项目发布 --> 阿里云"
+        mvn clean deploy -P rbc-oss-release
+        echo "项目发布 --> 中央仓库"
+        mvn clean deploy -P sonatype-oss-release
+    else
+        mvn clean deploy -P ${oss}-oss-release
+    fi
 }
 
 #------------------------------------------------
