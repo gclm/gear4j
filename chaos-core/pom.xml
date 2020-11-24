@@ -52,7 +52,7 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
-        <!-- http       -->
+        <!-- http -->
         <dependency>
             <groupId>com.ejlchina</groupId>
             <artifactId>okhttps-fastjson</artifactId>
@@ -61,6 +61,12 @@
         <dependency>
             <groupId>com.ejlchina</groupId>
             <artifactId>okhttps-jackson</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
         </dependency>
 
         <dependency>
