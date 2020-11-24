@@ -5,4 +5,4 @@
  *
  * @author gclm
  */
-package club.gclmit.chaos.annotation;
+package club.gclmit.chaos.web.annotation;
