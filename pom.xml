@@ -23,6 +23,7 @@
         <module>chaos-storage</module>
         <module>chaos-logger</module>
         <module>chaos-spring-boot-starter</module>
+        <module>chaos-json</module>
     </modules>
 
     <properties>
