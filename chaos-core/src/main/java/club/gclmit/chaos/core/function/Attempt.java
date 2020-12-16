@@ -28,7 +28,6 @@ public class Attempt {
      * 构造受检的 function
      *
      * @param function CheckedFunction
-     * @param <T>      泛型
      * @return Function
      */
     public static <T, R> Function<T, R> function(CheckedFunction<T, R> function) {

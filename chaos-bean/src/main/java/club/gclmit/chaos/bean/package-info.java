@@ -1,6 +1,6 @@
 /**
- * json 门面工具类
+ * Bean Copy
  *
  * @author gclm
  */
-package club.gclmit.chaos.json;
+package club.gclmit.chaos.bean;

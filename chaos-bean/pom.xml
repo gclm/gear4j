@@ -24,9 +24,21 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>club.gclmit</groupId>
             <artifactId>chaos-core</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>club.gclmit</groupId>
+            <artifactId>chaos-json</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
 

@@ -29,6 +29,12 @@
             <version>${project.parent.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>club.gclmit</groupId>
+            <artifactId>chaos-json</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
     </dependencies>
 
 </project>
