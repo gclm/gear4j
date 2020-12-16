@@ -12,7 +12,7 @@
 
     <artifactId>chaos-web</artifactId>
     <name>${project.artifactId}</name>
-    <description>chaos通用工具类</description>
+    <description>${project.artifactId}</description>
     <url>https://github.com/gclm/chaos</url>
 
     <properties>

@@ -19,11 +19,12 @@
 
     <modules>
         <module>chaos-core</module>
-        <module>chaos-web</module>
         <module>chaos-storage</module>
+        <module>chaos-json</module>
+        <module>chaos-bean</module>
+        <module>chaos-web</module>
         <module>chaos-logger</module>
         <module>chaos-spring-boot-starter</module>
-        <module>chaos-json</module>
     </modules>
 
     <properties>

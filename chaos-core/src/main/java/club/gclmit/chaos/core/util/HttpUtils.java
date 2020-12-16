@@ -39,7 +39,6 @@ public class HttpUtils {
                 }).build();
     }
 
-
     /**
      * <p>
      * 效验链接。 code == 200 ? true : false

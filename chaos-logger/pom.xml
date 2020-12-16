@@ -11,7 +11,8 @@
 
     <artifactId>chaos-logger</artifactId>
     <name>${project.artifactId}</name>
-    <description>基于拦截器进行日志记录</description>
+    <description>${project.artifactId}</description>
+    <url>https://github.com/gclm/chaos</url>
 
     <properties>
         <java.version>1.8</java.version>

@@ -11,9 +11,8 @@
     </parent>
 
     <artifactId>chaos-core</artifactId>
-
     <name>${project.artifactId}</name>
-    <description>核心工具类</description>
+    <description>${project.artifactId}</description>
     <url>https://github.com/gclm/chaos</url>
 
     <properties>
@@ -52,25 +51,14 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
-        <!-- http -->
         <dependency>
             <groupId>com.ejlchina</groupId>
             <artifactId>okhttps-fastjson</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.ejlchina</groupId>
-            <artifactId>okhttps-jackson</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.yangtu222</groupId>
-            <artifactId>BeanUtils</artifactId>
         </dependency>
 
     </dependencies>

@@ -12,7 +12,8 @@
 
     <artifactId>chaos-spring-boot-starter</artifactId>
     <name>${project.artifactId}</name>
-    <description>chaos-spring-boot-starter</description>
+    <description>${project.artifactId}</description>
+    <url>https://github.com/gclm/chaos</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
