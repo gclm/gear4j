@@ -6,7 +6,7 @@
     <parent>
         <groupId>club.gclmit</groupId>
         <artifactId>chaos-dependencies</artifactId>
-        <version>1.6.8</version>
+        <version>1.6.11</version>
     </parent>
 
     <artifactId>chaos</artifactId>
@@ -24,6 +24,7 @@
         <module>chaos-bean</module>
         <module>chaos-web</module>
         <module>chaos-logger</module>
+<!--        <module>chaos-waf</module>-->
         <module>chaos-spring-boot-starter</module>
     </modules>
 

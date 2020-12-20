@@ -2,7 +2,12 @@ package club.gclmit.chaos.web.result;
 
 import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.StringUtils;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,29 +16,38 @@ import java.util.Map;
  *
  * @author gclm
  */
-public class Result {
+@Getter
+@Setter
+@ApiModel(value = "通用消息响应", description = "通用消息响应")
+public class Result implements Serializable {
 
-    private static String TIMESTAMP =  String.valueOf(DateUtils.getMilliTimestamp());
+    private static final long serialVersionUID = 1L;
+    private static final String TIMESTAMP =  String.valueOf(DateUtils.getMilliTimestamp());
 
     /**
      * 响应状态码
      */
+    @ApiModelProperty(value = "响应状态码", required = true)
     private Integer code;
 
     /**
      * 响应提示
      */
+    @ApiModelProperty(value = "响应提示消息", required = true)
     private String message;
 
     /**
      * 响应时间戳
      */
+    @ApiModelProperty(value = "响应时间戳", required = true)
     private String timestamp = TIMESTAMP;
 
     /**
      * 响应数据
      */
+    @ApiModelProperty(value = "响应数据", required = false)
     private Object data;
+
 
     public Result(Integer code, String message, Object data) {
         this.code = code;
@@ -117,37 +131,5 @@ public class Result {
         Map<String, Object> map = new HashMap<>();
         map.put(key, value);
         return result(ApiCode.FAIL, map);
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
     }
 }

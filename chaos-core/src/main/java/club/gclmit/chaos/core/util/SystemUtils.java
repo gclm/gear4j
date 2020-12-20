@@ -1,11 +1,6 @@
 package club.gclmit.chaos.core.util;
 
-
-
 import cn.hutool.core.lang.Assert;
-
-import javax.annotation.Nullable;
-
 
 /**
  * 系统工具类
@@ -32,25 +27,21 @@ public class SystemUtils {
     /**
      * 获取 user home
      */
-    @Nullable
     public static final String USER_HOME = getSystemProperty("user.home");
 
     /**
      * 获取用户地址
      */
-    @Nullable
     public static final String USER_DIR = getSystemProperty("user.dir");
 
     /**
      * 获取用户名
      */
-    @Nullable
     public static final String USER_NAME = getSystemProperty("user.name");
 
     /**
      * os 名
      */
-    @Nullable
     public static final String OS_NAME = getSystemProperty("os.name");
 
     /**
@@ -65,7 +56,6 @@ public class SystemUtils {
      * @param property the system property name
      * @return the system property value or {@code null} if a security problem occurs
      */
-    @Nullable
     private static String getSystemProperty(final String property) {
         try {
             return System.getProperty(property);

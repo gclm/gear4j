@@ -1,6 +1,5 @@
 package club.gclmit.chaos.bean.convert;
 
-import club.gclmit.chaos.bean.util.ConvertUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.extern.slf4j.Slf4j;

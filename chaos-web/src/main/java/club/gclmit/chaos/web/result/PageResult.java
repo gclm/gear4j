@@ -1,32 +1,39 @@
 package club.gclmit.chaos.web.result;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
- * <p>
  *   对PageResult 的封装，方便集成 Layui
- * </p>
  *
  * @author gclm
  */
+@Getter
+@Setter
+@ApiModel(value = "分页消息封装", description = "分页消息封装")
 public class PageResult extends Result {
 
     /**
      *  列表数量
      */
+    @ApiModelProperty(value = "分页总数量")
     private Long count;
 
-    public static PageResult result(ApiCode apiCode, Long count, Object data) {
+    public static PageResult result(ApiCode apiCode, Long count,Object data) {
         return new PageResult(apiCode.getCode(), apiCode.getMessage(),count,data);
     }
 
-    public static PageResult ok(Integer code, String message, Object data) {
+    public static PageResult ok(Integer code, String message,Object data) {
         return new PageResult(code, message, data);
     }
 
-    public static PageResult ok(Long count, Object data) {
+    public static PageResult ok(Long count,Object data) {
         return result(ApiCode.OK,count,data);
     }
 
-    public static PageResult ok(Integer count, Object data) {
+    public static PageResult ok(Integer count,Object data) {
         return ok(Long.valueOf(count),data);
     }
 

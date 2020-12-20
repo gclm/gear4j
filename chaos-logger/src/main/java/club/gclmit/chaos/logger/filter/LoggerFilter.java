@@ -1,14 +1,13 @@
 package club.gclmit.chaos.logger.filter;
 
 import club.gclmit.chaos.core.util.DateUtils;
+import club.gclmit.chaos.core.util.HttpServletUtils;
 import club.gclmit.chaos.core.util.SQLUtils;
+import club.gclmit.chaos.core.http.servlet.*;
 import club.gclmit.chaos.json.JsonUtils;
 import club.gclmit.chaos.logger.mapper.LoggerMapper;
 import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
 import club.gclmit.chaos.logger.model.HttpTrace;
-import club.gclmit.chaos.web.util.HttpServletUtils;
-import club.gclmit.chaos.web.util.RequestWrapper;
-import club.gclmit.chaos.web.util.ResponseWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;

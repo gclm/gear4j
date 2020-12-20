@@ -1,9 +1,8 @@
 package club.gclmit.chaos.bean.convert;
 
-import club.gclmit.chaos.bean.util.ConvertUtils;
 import club.gclmit.chaos.core.function.Attempt;
 import club.gclmit.chaos.core.function.CheckedFunction;
-import club.gclmit.chaos.core.util.ClassUtils;
+import club.gclmit.chaos.web.util.ClassUtils;
 import cn.hutool.core.util.ReflectUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

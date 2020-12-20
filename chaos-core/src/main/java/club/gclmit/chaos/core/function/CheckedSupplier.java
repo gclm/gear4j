@@ -1,6 +1,6 @@
 package club.gclmit.chaos.core.function;
 
-import javax.annotation.Nullable;
+import org.springframework.lang.Nullable;
 import java.io.Serializable;
 
 /**

@@ -9,6 +9,9 @@ package club.gclmit.chaos.web.result;
  */
 public enum ApiCode {
 
+    //--------------------------------------------
+    // 基础类
+    //--------------------------------------------
     /**
      * 操作成功
      **/
@@ -17,62 +20,71 @@ public enum ApiCode {
     /**
      * 未获得数据
      **/
-    FAIL(4000, "未获得数据"),
+    FAIL(1, "未获得数据"),
+
+    //------------------------------------
+    // 登录类
+    //--------------------------------------------
 
     /**
      * 没有权限
      **/
-    NOT_PERMISSION(4001, "没有权限"),
-
-    /**
-     * 系统异常
-     **/
-    SYSTEM_EXCEPTION(5000, "系统异常"),
-
-    /**
-     * 请求参数校验异常
-     **/
-    PARAMETER_EXCEPTION(5001, "请求参数校验异常"),
-
-    /**
-     * 请求参数解析异常
-     **/
-    PARAMETER_PARSE_EXCEPTION(5002, "请求参数解析异常"),
-
-    /**
-     * HTTP内容类型异常
-     **/
-    HTTP_MEDIA_TYPE_EXCEPTION(5003, "HTTP内容类型异常"),
-
-    /**
-     * 系统处理异常
-     **/
-    SPRING_BOOT_PLUS_EXCEPTION(5100, "系统处理异常"),
-
-    /**
-     * 业务处理异常
-     **/
-    BUSINESS_EXCEPTION(5101, "业务处理异常"),
-
-    /**
-     * 数据库处理异常
-     **/
-    DAO_EXCEPTION(5102, "数据库处理异常"),
+    NOT_PERMISSION(10000, "没有权限"),
 
     /**
      * 验证码校验异常
      **/
-    VERIFICATION_CODE_EXCEPTION(5103, "验证码校验异常"),
+    VERIFICATION_CODE_EXCEPTION(10001, "验证码校验异常"),
 
     /**
      * 登录授权异常
      **/
-    AUTHENTICATION_EXCEPTION(5104, "登录授权异常"),
+    AUTHENTICATION_EXCEPTION(10002, "登录授权异常"),
 
     /**
      * JWT Token解析异常
      **/
-    JWTDECODE_EXCEPTION(5107, "Token解析异常");
+    JWTDECODE_EXCEPTION(10003, "Token解析异常"),
+
+    /**
+     * 登录授权异常
+     **/
+    ACCOUNT_PASSWORD_FAIL(10004, "账号或密码错误"),
+
+
+    //--------------------------------------------
+    // 基本业务类
+    //--------------------------------------------
+
+    /**
+     * 请求参数校验异常
+     **/
+    PARAMETER_EXCEPTION(20001, "请求参数校验异常"),
+
+    /**
+     * 请求参数解析异常
+     **/
+    PARAMETER_PARSE_EXCEPTION(20002, "请求参数解析异常"),
+
+    /**
+     * HTTP内容类型异常
+     **/
+    HTTP_MEDIA_TYPE_EXCEPTION(20003, "HTTP内容类型异常"),
+
+    /**
+     * 系统异常
+     **/
+    SYSTEM_EXCEPTION(20004, "系统异常"),
+
+    /**
+     * 业务处理异常
+     **/
+    BUSINESS_EXCEPTION(20005, "业务处理异常"),
+
+    /**
+     * 数据库处理异常
+     **/
+    DAO_EXCEPTION(20006, "数据库处理异常");
 
     /**
      * 状态码
@@ -93,7 +105,7 @@ public enum ApiCode {
      * @param code     状态码
      * @param message  请求消息
      */
-    private ApiCode(Integer code,  String message) {
+    ApiCode(Integer code,  String message) {
         this.code = code;
         this.message = message;
     }

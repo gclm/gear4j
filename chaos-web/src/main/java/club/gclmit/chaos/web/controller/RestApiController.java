@@ -1,9 +1,9 @@
 package club.gclmit.chaos.web.controller;
 
+import club.gclmit.chaos.core.util.HttpServletUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.web.result.PageResult;
 import club.gclmit.chaos.web.result.Result;
-import club.gclmit.chaos.web.util.HttpServletUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.swagger.annotations.ApiOperation;
@@ -51,14 +51,14 @@ public abstract class RestApiController<Service extends IService<T>, T>{
     /**
      * 分页查询所有数据
      *
-     * @param query 分页查询对象
+     * @param queryCondition 分页查询对象
      * @return 所有数据
      */
     @GetMapping
     @ApiOperation(value = "分页查询",httpMethod = "GET")
-    public Result list(QueryCondition query) {
-        log.info("分页查询\t:[{}]", StringUtils.toString(query));
-        Page<T> pages = service.page(new Page<>(query.getPage(),query.getLimit()));
+    public Result list( QueryCondition queryCondition) {
+        log.info("分页查询\t:[{}]", StringUtils.toString(queryCondition));
+        Page<T> pages = service.page(new Page<>(queryCondition.getPage(), queryCondition.getLimit()));
         return PageResult.ok(pages.getTotal(),pages.getRecords());
     }
 

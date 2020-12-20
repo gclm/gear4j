@@ -2,6 +2,7 @@ package club.gclmit.chaos.web.controller;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
  *
  * @author gclm
  */
+@Data
 @ApiModel(value = "查询条件", description = "查询条件")
 public class QueryCondition implements Serializable {
 
@@ -39,35 +41,4 @@ public class QueryCondition implements Serializable {
     @ApiModelProperty(value = "json类型的查询参数")
     private String data;
 
-    public Long getPage() {
-        return page;
-    }
-
-    public void setPage(Long page) {
-        this.page = page;
-    }
-
-    public Long getLimit() {
-        return limit;
-    }
-
-    public void setLimit(Long limit) {
-        this.limit = limit;
-    }
-
-    public int getSort() {
-        return sort;
-    }
-
-    public void setSort(int sort) {
-        this.sort = sort;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
 }
