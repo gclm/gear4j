@@ -2,6 +2,7 @@ package club.gclmit.chaos.core.util;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ReflectUtil;
+import lombok.experimental.UtilityClass;
 import org.apache.commons.beanutils.ConvertUtils;
 
 import java.lang.reflect.Field;
@@ -13,6 +14,7 @@ import java.util.Map;
  *
  * @author gclm
  */
+@UtilityClass
 public class MapUtils extends MapUtil {
 
     /**

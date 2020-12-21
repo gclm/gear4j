@@ -1,6 +1,7 @@
 package club.gclmit.chaos.core.util;
 
 import java.math.BigDecimal;
+import lombok.experimental.UtilityClass;
 
 /**
  * <p>
@@ -10,10 +11,9 @@ import java.math.BigDecimal;
  * @author gclm
  * @since 1.5.1
  */
+@UtilityClass
 public class BigDecimalUtils {
 
-    private BigDecimalUtils() {
-    }
 
     /**
      * <p>

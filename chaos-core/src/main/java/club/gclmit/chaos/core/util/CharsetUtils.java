@@ -1,6 +1,7 @@
 package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.io.FileUtils;
+import lombok.experimental.UtilityClass;
 
 import java.io.File;
 import java.nio.charset.Charset;
@@ -12,6 +13,7 @@ import java.nio.charset.UnsupportedCharsetException;
  *
  * @author gclm
  */
+@UtilityClass
 public class CharsetUtils {
 
 

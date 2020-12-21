@@ -1,10 +1,13 @@
 package club.gclmit.chaos.core.util;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * SQL 常用工具类
  *
  * @author gclm
  */
+@UtilityClass
 public class SQLUtils {
 
     /**

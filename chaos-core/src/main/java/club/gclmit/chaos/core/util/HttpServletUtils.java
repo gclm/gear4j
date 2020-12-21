@@ -4,13 +4,16 @@ import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.http.servlet.RequestWrapper;
 import club.gclmit.chaos.core.http.servlet.ResponseWrapper;
 import cn.hutool.core.lang.Assert;
+import lombok.experimental.UtilityClass;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -24,6 +27,7 @@ import java.util.Map;
  *
  * @author gclm
  */
+@UtilityClass
 public class HttpServletUtils {
 
     /**
@@ -51,96 +55,6 @@ public class HttpServletUtils {
      */
     private static final String DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
 
-    private HttpServletUtils() {
-    }
-
-    // url encode
-    //-----------------------------------------------------------------------
-
-    /**
-     * encode 默认编码 UTF-8
-     *
-     * @param url url
-     * @return String
-     */
-    public static String encode(String url) {
-        Assert.isTrue(StringUtils.isBlank(url),"url 不能为空");
-        return encode(url, CharsetUtils.UTF_8);
-    }
-
-    /**
-     * encode 自定义编码格式
-     *
-     * @param url     url
-     * @param charset 编码格式
-     * @return String
-     */
-    public static String encode(String url, Charset charset) {
-        Assert.isTrue(StringUtils.isBlank(url),"url 不能为空");
-        Assert.isNull(charset,"charset 不能为空");
-        return encode(url,charset.name());
-    }
-
-    /**
-     * encode 自定义编码格式
-     *
-     * @param url     url
-     * @param charset 编码格式
-     * @return String
-     */
-    public static String encode(String url,String charset) {
-        Assert.isTrue(StringUtils.isBlank(url),"url 不能为空");
-        Assert.isTrue(StringUtils.isBlank(charset),"charset 不能为空");
-        try {
-            return URLEncoder.encode(url, charset);
-        } catch (UnsupportedEncodingException e) {
-            throw new ChaosException(e,"URL编码失败,url:{}\t编码格式：{}",url,charset);
-        }
-    }
-
-    // url decode
-    //-----------------------------------------------------------------------
-
-    /**
-     * decode 默认为UTF-8
-     *
-     * @param url URL
-     * @return String
-     */
-    public static String decode(String url) {
-        Assert.isTrue(StringUtils.isBlank(url),"url 不能为空");
-        return encode(url, CharsetUtils.UTF_8);
-    }
-
-    /**
-     * decode 自定义编码格式
-     *
-     * @param url     url
-     * @param charset 编码格式
-     * @return String
-     */
-    public static String decode(String url, Charset charset) {
-        Assert.isTrue(StringUtils.isBlank(url),"url 不能为空");
-        Assert.isNull(charset,"charset 不能为空");
-        return encode(url,charset.name());
-    }
-
-    /**
-     * decode 自定义编码格式
-     *
-     * @param url     url
-     * @param charset 编码格式
-     * @return String
-     */
-    public static String decode(String url,String charset) {
-        Assert.isTrue(StringUtils.isBlank(url),"url 不能为空");
-        Assert.isTrue(StringUtils.isBlank(charset),"charset 不能为空");
-        try {
-            return URLDecoder.decode(url,charset);
-        } catch (UnsupportedEncodingException e) {
-            throw new ChaosException(e,"URL解码失败,url:{}\t编码格式：{}",url,charset);
-        }
-    }
     /**
      * 获取客户端 ip
      *
@@ -180,6 +94,24 @@ public class HttpServletUtils {
 
         return LOCALHOST.equals(ip) ? DEFAULT_HOST : ip;
     }
+
+    /**
+     * <p>
+     * 获取主机名失败
+     * </p>
+     *
+     * @return java.lang.String
+     * @throws ChaosException 封装自定义异常
+     * @author gclm
+     */
+    public static String getHostName() {
+        try {
+            return InetAddress.getLocalHost().getHostName();
+        } catch (UnknownHostException e) {
+            throw new ChaosException("获取主机名失败", e);
+        }
+    }
+
 
     /**
      * get all request header

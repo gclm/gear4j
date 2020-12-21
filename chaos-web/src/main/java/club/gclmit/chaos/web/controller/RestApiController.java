@@ -1,7 +1,7 @@
 package club.gclmit.chaos.web.controller;
 
-import club.gclmit.chaos.core.util.HttpServletUtils;
 import club.gclmit.chaos.core.util.StringUtils;
+import club.gclmit.chaos.core.util.UrlUtils;
 import club.gclmit.chaos.web.result.PageResult;
 import club.gclmit.chaos.web.result.Result;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -122,7 +121,10 @@ public abstract class RestApiController<Service extends IService<T>, T>{
     public Result batchDelete(@RequestBody String ids) {
         Assert.notNull(ids, "ids不能为空");
         log.info("批量删除，ids:{}", ids);
-        List<String> idList = Arrays.asList(HttpServletUtils.decode(ids).split(",")).stream().collect(Collectors.toList());
+        if(UrlUtils.hasUrlEncoded(ids)){
+            ids = UrlUtils.decode(ids);
+        }
+        List<String> idList = Arrays.asList(ids.split(","));
         return this.service.removeByIds(idList) ? Result.ok() : Result.fail("批量删除失败");
     }
 

@@ -6,6 +6,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.crypto.SecureUtil;
+import lombok.experimental.UtilityClass;
 
 import java.io.*;
 
@@ -16,10 +17,8 @@ import java.io.*;
  *
  * @author gclm
  */
+@UtilityClass
 public class FileUtils extends FileUtil {
-
-    private FileUtils() {
-    }
 
     /**
      *  获取项目根目录

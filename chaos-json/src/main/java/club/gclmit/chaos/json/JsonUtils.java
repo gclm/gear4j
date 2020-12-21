@@ -10,8 +10,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
 
 import java.io.IOException;
@@ -27,12 +27,9 @@ import java.util.*;
  *
  * @author gclm
  */
+@Slf4j
+@UtilityClass
 public class JsonUtils {
-
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
-
-    private JsonUtils() {
-    }
 
     /**
      * 将对象序列化成json字符串

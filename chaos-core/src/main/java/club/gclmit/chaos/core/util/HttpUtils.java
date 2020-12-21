@@ -3,6 +3,7 @@ package club.gclmit.chaos.core.util;
 import com.ejlchina.okhttps.HTTP;
 import com.ejlchina.okhttps.HttpResult;
 import com.ejlchina.okhttps.internal.RealHttpResult;
+import lombok.experimental.UtilityClass;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
@@ -17,10 +18,8 @@ import java.util.concurrent.TimeUnit;
  *
  * @since 1.8
  */
+@UtilityClass
 public class HttpUtils {
-
-    private HttpUtils() {
-    }
 
     /**
      * 构建统一配置的 HTTP 客户端

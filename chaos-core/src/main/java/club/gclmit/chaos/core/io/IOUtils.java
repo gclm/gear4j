@@ -6,6 +6,7 @@ import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.CharsetUtil;
+import lombok.experimental.UtilityClass;
 import org.springframework.lang.Nullable;
 
 import java.io.*;
@@ -20,6 +21,7 @@ import java.util.List;
  *
  * @author gclm
  */
+@UtilityClass
 public class IOUtils extends IoUtil {
 
     /**

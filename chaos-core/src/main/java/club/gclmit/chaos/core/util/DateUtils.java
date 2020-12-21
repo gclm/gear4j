@@ -2,6 +2,7 @@ package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.lang.DatePattern;
 import cn.hutool.core.lang.Assert;
+import lombok.experimental.UtilityClass;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +22,7 @@ import java.util.Map;
  *
  * @author gclm
  */
+@UtilityClass
 public class DateUtils {
 
     /**
@@ -62,9 +64,6 @@ public class DateUtils {
         map.put(6, "星期六");
         map.put(7, "星期七");
         WEEKS = Collections.unmodifiableMap(map);
-    }
-
-    private DateUtils() {
     }
 
     /**

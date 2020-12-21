@@ -4,6 +4,7 @@ import club.gclmit.chaos.core.exception.ChaosException;
 import cn.hutool.core.lang.Console;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import lombok.experimental.UtilityClass;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.List;
  *
  * @author gclm
  */
+@UtilityClass
 public class StringUtils extends StrUtil {
 
     /**

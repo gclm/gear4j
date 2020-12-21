@@ -4,6 +4,7 @@ import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.io.IOUtils;
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.util.CharsetUtil;
+import lombok.experimental.UtilityClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +19,7 @@ import java.util.List;
  * @since 2020/10/21 17:16
  * @since 1.8
  */
+@UtilityClass
 public class ShellUtils {
 
     private static Logger logger = LoggerFactory.getLogger(ShellUtils.class);

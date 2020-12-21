@@ -1,12 +1,14 @@
 package club.gclmit.chaos.core.util;
 
 import cn.hutool.core.lang.Assert;
+import lombok.experimental.UtilityClass;
 
 /**
  * 系统工具类
  *
  * @author gclm
  */
+@UtilityClass
 public class SystemUtils {
 
     /**
