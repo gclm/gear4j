@@ -1,8 +1,8 @@
 package club.gclmit.chaos.bean;
 
+import club.gclmit.chaos.bean.convert.MicaConverter;
 import club.gclmit.chaos.bean.core.BeanDiff;
 import club.gclmit.chaos.bean.core.BeanProperty;
-import club.gclmit.chaos.bean.convert.MicaConverter;
 import club.gclmit.chaos.bean.core.MicaBeanCopier;
 import club.gclmit.chaos.bean.core.MicaBeanMap;
 import club.gclmit.chaos.core.exception.ChaosException;
@@ -15,6 +15,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.FastByteArrayOutputStream;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -108,6 +109,7 @@ public class BeanUtils extends org.springframework.beans.BeanUtils {
      * 深度拷贝
      *
      * @param source 待拷贝的对象
+     * @param <T>    泛型标记
      * @return 拷贝之后的对象
      */
     @Nullable

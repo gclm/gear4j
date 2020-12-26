@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+club.gclmit.chaos.starter.config.ChaosStorageConfig,\
+club.gclmit.chaos.starter.config.ChaosLoggerConfig,\
+club.gclmit.chaos.starter.config.ChaosXssConfig

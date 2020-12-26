@@ -1,6 +1,6 @@
 package club.gclmit.chaos.starter.service;
 
-import club.gclmit.chaos.storage.model.FileInfo;
+import club.gclmit.chaos.storage.pojo.FileInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.multipart.MultipartFile;
 

@@ -1,13 +1,16 @@
 package club.gclmit.chaos.core.util;
 
+import club.gclmit.chaos.core.exception.ChaosException;
+import cn.hutool.core.lang.Assert;
+import lombok.experimental.UtilityClass;
+import org.springframework.util.AntPathMatcher;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.BitSet;
-import club.gclmit.chaos.core.exception.ChaosException;
-import cn.hutool.core.lang.Assert;
-import lombok.experimental.UtilityClass;
+import java.util.List;
 
 /**
  * Url工具类
@@ -19,6 +22,21 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class UrlUtils {
 
+    /**
+     *  判断url 是否忽略
+     *
+     * @author gclm
+     * @param uri  判断的url
+     * @param ignoreUrls 忽略urls
+     * @return boolean 如果是返回true,否则返回 false
+     */
+    public static boolean isIgnore(List<String> ignoreUrls, String uri){
+        for (String ignoreUrl : ignoreUrls) {
+            AntPathMatcher matcher = new AntPathMatcher();
+            return matcher.match(ignoreUrl,uri);
+        }
+        return false;
+    }
 
     /**
      * 这里会有误差,比如输入一个字符串 123+456,它到底是原文就是123+456还是123 456做了urlEncode后的内容呢？<br>

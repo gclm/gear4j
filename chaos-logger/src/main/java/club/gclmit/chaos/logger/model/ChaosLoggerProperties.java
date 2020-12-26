@@ -1,6 +1,8 @@
 package club.gclmit.chaos.logger.model;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * <p>
@@ -9,7 +11,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  * @author gclm
  */
-@ConfigurationProperties("chaos.logger")
+@Getter
+@Setter
+@ToString
 public class ChaosLoggerProperties {
 
     /**
@@ -24,30 +28,9 @@ public class ChaosLoggerProperties {
 
     /**
      * 是否保存日志到数据库中
+     * true 为保存到数据库
+     * false 不保存
      */
-    private boolean saveLogger = true;
+    private Boolean save = false;
 
-    public String getPrefix() {
-        return prefix;
-    }
-
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
-    }
-
-    public String[] getIgnoreUrls() {
-        return ignoreUrls;
-    }
-
-    public void setIgnoreUrls(String[] ignoreUrls) {
-        this.ignoreUrls = ignoreUrls;
-    }
-
-    public boolean getSaveLogger() {
-        return saveLogger;
-    }
-
-    public void setSaveLogger(boolean saveLogger) {
-        this.saveLogger = saveLogger;
-    }
 }

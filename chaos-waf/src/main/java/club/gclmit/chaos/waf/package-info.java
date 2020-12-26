@@ -1,8 +1,8 @@
 /**
  * <p>
- * web-web模块
+ * web-waf模块
  * </p>
  *
  * @author gclm
  */
-package club.gclmit.chaos.web;
+package club.gclmit.chaos.waf;

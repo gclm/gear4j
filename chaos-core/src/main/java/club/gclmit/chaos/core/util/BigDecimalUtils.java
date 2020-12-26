@@ -1,7 +1,8 @@
 package club.gclmit.chaos.core.util;
 
-import java.math.BigDecimal;
 import lombok.experimental.UtilityClass;
+
+import java.math.BigDecimal;
 
 /**
  * <p>

@@ -1,14 +1,15 @@
 package club.gclmit.chaos.web.config;
 
+import club.gclmit.chaos.core.io.FileUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import club.gclmit.chaos.core.io.FileUtils;
-import org.springframework.boot.web.servlet.MultipartConfigFactory;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 import javax.servlet.MultipartConfigElement;
 import java.util.List;
 

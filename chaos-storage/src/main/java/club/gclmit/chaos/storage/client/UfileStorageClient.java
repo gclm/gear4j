@@ -3,7 +3,11 @@ package club.gclmit.chaos.storage.client;
 import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.StringUtils;
-import club.gclmit.chaos.storage.model.*;
+import club.gclmit.chaos.storage.contants.FileStatus;
+import club.gclmit.chaos.storage.contants.StorageServer;
+import club.gclmit.chaos.storage.Storage;
+import club.gclmit.chaos.storage.pojo.CloudStorage;
+import club.gclmit.chaos.storage.pojo.FileInfo;
 import cn.hutool.core.lang.Assert;
 import cn.ucloud.ufile.UfileClient;
 import cn.ucloud.ufile.api.object.ObjectApiBuilder;
@@ -15,13 +19,15 @@ import cn.ucloud.ufile.exception.UfileClientException;
 import cn.ucloud.ufile.exception.UfileServerException;
 import cn.ucloud.ufile.http.HttpClient;
 import cn.ucloud.ufile.util.StorageType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -30,9 +36,9 @@ import java.util.concurrent.*;
  *
  * @author gclm
  */
+@Slf4j
 public class UfileStorageClient extends StorageClient {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
     /**
      * 客户端
      */
@@ -54,7 +60,7 @@ public class UfileStorageClient extends StorageClient {
     public UfileStorageClient(Storage storage) {
         super(storage);
         log.debug("[Ufile]配置参数:[{}]",storage);
-        if(storage.getType() == StorageServer.UFILE) {
+        if(storage.getType() == StorageServer.UCLOUD) {
             cloudStorage = storage.getConfig();
             if (StringUtils.isBlank(cloudStorage.getEndpoint())){
                 cloudStorage.setEndpoint("ufileos.com");
@@ -149,7 +155,7 @@ public class UfileStorageClient extends StorageClient {
             url = path.toString();
         }
 
-        fileInfo.seteTag(eTag);
+        fileInfo.setETag(eTag);
         fileInfo.setUrl(url);
         fileInfo.setUploadTime(DateUtils.getMilliTimestamp());
         fileInfo.setStatus(FileStatus.UPLOAD_SUCCESS.getId());

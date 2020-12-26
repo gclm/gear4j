@@ -1,7 +1,6 @@
 package club.gclmit.chaos.storage;
 
 import club.gclmit.chaos.storage.client.*;
-import club.gclmit.chaos.storage.model.Storage;
 
 /**
  * <p>
@@ -27,7 +26,7 @@ public class CloudStorageFactory {
             case QINIU:
                 client = new QiniuStorageClient(storage);
                 break;
-            case UFILE:
+            case UCLOUD:
                 client = new UfileStorageClient(storage);
                 break;
             case ALIYUN:

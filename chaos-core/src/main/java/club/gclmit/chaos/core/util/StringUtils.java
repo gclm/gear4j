@@ -1,10 +1,10 @@
 package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.exception.ChaosException;
-import cn.hutool.core.lang.Console;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import lombok.experimental.UtilityClass;
+import org.springframework.lang.Nullable;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -71,5 +71,4 @@ public class StringUtils extends StrUtil {
     public static String trimAll(String str) {
         return isBlank(str) ? null : str.replaceAll("\\s*", "");
     }
-
 }

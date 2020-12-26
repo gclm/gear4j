@@ -11,7 +11,7 @@
 
     <artifactId>chaos</artifactId>
     <packaging>pom</packaging>
-    <version>2.0.3</version>
+    <version>2.0.4</version>
 
     <name>${project.artifactId}</name>
     <url>https://blog.gclmit.club/</url>
@@ -24,7 +24,7 @@
         <module>chaos-bean</module>
         <module>chaos-web</module>
         <module>chaos-logger</module>
-<!--        <module>chaos-waf</module>-->
+        <module>chaos-waf</module>
         <module>chaos-spring-boot-starter</module>
     </modules>
 

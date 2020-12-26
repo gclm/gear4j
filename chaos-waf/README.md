@@ -1,2 +1,2 @@
-# chaos-web
-> 封装常见 web 操作
+# chaos-waf
+> 封装常见waf防护手段

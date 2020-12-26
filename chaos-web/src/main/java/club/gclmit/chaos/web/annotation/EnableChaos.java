@@ -26,7 +26,6 @@ import java.lang.annotation.*;
 @ComponentScan(basePackages={
         "club.gclmit.chaos"
 })
-@ServletComponentScan(basePackages = "club.gclmit.chaos")
 public @interface EnableChaos {
 
 }

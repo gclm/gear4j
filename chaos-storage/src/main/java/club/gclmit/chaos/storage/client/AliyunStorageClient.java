@@ -3,16 +3,20 @@ package club.gclmit.chaos.storage.client;
 import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.StringUtils;
-import club.gclmit.chaos.storage.model.*;
+import club.gclmit.chaos.storage.contants.FileStatus;
+import club.gclmit.chaos.storage.contants.StorageServer;
+import club.gclmit.chaos.storage.Storage;
+import club.gclmit.chaos.storage.pojo.CloudStorage;
+import club.gclmit.chaos.storage.pojo.FileInfo;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.DeleteObjectsRequest;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
-import java.io.*;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +27,9 @@ import java.util.List;
  *
  * @author gclm
  */
+@Slf4j
 public class AliyunStorageClient extends StorageClient {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
     /**
      * 阿里云域名
      */
@@ -138,7 +142,7 @@ public class AliyunStorageClient extends StorageClient {
             url = path.toString();
         }
 
-        fileInfo.seteTag(eTag);
+        fileInfo.setETag(eTag);
         fileInfo.setUrl(url);
         fileInfo.setUploadTime(DateUtils.getMilliTimestamp());
         fileInfo.setStatus(FileStatus.UPLOAD_SUCCESS.getId());

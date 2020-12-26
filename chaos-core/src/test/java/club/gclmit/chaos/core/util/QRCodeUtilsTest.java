@@ -6,6 +6,7 @@ import cn.hutool.core.util.IdUtil;
 import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.WriterException;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;

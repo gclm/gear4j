@@ -1,17 +1,13 @@
 package club.gclmit.chaos.core.io;
 
 import club.gclmit.chaos.core.exception.ChaosException;
-import club.gclmit.chaos.core.util.CharsetUtils;
 import cn.hutool.core.exceptions.ExceptionUtil;
-import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.IoUtil;
-import cn.hutool.core.util.CharsetUtil;
 import lombok.experimental.UtilityClass;
 import org.springframework.lang.Nullable;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**

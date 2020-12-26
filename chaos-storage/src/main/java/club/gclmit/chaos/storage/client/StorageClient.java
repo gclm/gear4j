@@ -5,11 +5,12 @@ import club.gclmit.chaos.core.io.FileUtils;
 import club.gclmit.chaos.core.io.MimeType;
 import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.StringUtils;
-import club.gclmit.chaos.storage.model.FileInfo;
-import club.gclmit.chaos.storage.model.Storage;
+import club.gclmit.chaos.storage.Storage;
+import club.gclmit.chaos.storage.pojo.FileInfo;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.crypto.SecureUtil;
 import org.springframework.util.Assert;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -90,7 +91,7 @@ public abstract class StorageClient {
             String key = getPath(storage.getConfig().getPrefix(), FileUtils.getSuffix(file));
             String contentType = FileUtils.getContentType(file);
             String md5 = SecureUtil.md5(file);
-            return upload(fileInputStream,new FileInfo(file.getName(),contentType,file.length(), md5,key,storage.getType().getId()));
+            return upload(fileInputStream,new FileInfo(file.getName(),contentType,file.length(), md5,key,storage.getType().getCode()));
         } catch (Exception e) {
             throw new ChaosException("文件上传失败",e);
         }
@@ -125,7 +126,7 @@ public abstract class StorageClient {
             fileName = key;
         }
 
-        return upload(new ByteArrayInputStream(data),new FileInfo(fileName,contentType,size, md5,key,storage.getType().getId()));
+        return upload(new ByteArrayInputStream(data),new FileInfo(fileName,contentType,size, md5,key,storage.getType().getCode()));
     }
 
     /**

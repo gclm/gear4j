@@ -3,7 +3,11 @@ package club.gclmit.chaos.storage.client;
 import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.StringUtils;
-import club.gclmit.chaos.storage.model.*;
+import club.gclmit.chaos.storage.contants.FileStatus;
+import club.gclmit.chaos.storage.contants.StorageServer;
+import club.gclmit.chaos.storage.Storage;
+import club.gclmit.chaos.storage.pojo.CloudStorage;
+import club.gclmit.chaos.storage.pojo.FileInfo;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
@@ -11,17 +15,23 @@ import com.qcloud.cos.auth.COSCredentials;
 import com.qcloud.cos.exception.CosClientException;
 import com.qcloud.cos.exception.CosServiceException;
 import com.qcloud.cos.exception.MultiObjectDeleteException;
-import com.qcloud.cos.model.*;
+import com.qcloud.cos.model.DeleteObjectsRequest;
+import com.qcloud.cos.model.ObjectMetadata;
+import com.qcloud.cos.model.PutObjectRequest;
+import com.qcloud.cos.model.UploadResult;
 import com.qcloud.cos.region.Region;
 import com.qcloud.cos.transfer.TransferManager;
 import com.qcloud.cos.transfer.Upload;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
-import java.io.*;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -30,6 +40,7 @@ import java.util.concurrent.*;
  *
  * @author gclm
  */
+@Slf4j
 public class TencentStorageClient extends StorageClient {
 
     /**
@@ -41,8 +52,6 @@ public class TencentStorageClient extends StorageClient {
      * 服务器配置
      */
     private CloudStorage cloudStorage;
-
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     /**
      * <p>
@@ -164,7 +173,7 @@ public class TencentStorageClient extends StorageClient {
         }
 
         fileInfo.setUrl(url);
-        fileInfo.seteTag(eTag);
+        fileInfo.setETag(eTag);
         fileInfo.setUploadTime(DateUtils.getMilliTimestamp());
         fileInfo.setStatus(FileStatus.UPLOAD_SUCCESS.getId());
         return fileInfo;

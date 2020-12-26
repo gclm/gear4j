@@ -24,6 +24,7 @@ public class MapUtils extends MapUtil {
      * @param map      待转换的Map
      * @param beanClass :  生成的Object
      * @return java.lang.Object
+     * @throws Exception 反射异常
      */
     public static Object mapToObject(Map map, Class<?> beanClass) throws Exception {
 

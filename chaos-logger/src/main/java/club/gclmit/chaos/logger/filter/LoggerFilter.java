@@ -1,21 +1,22 @@
 package club.gclmit.chaos.logger.filter;
 
+import club.gclmit.chaos.core.http.servlet.HttpCacheRequestWrapper;
+import club.gclmit.chaos.core.http.servlet.HttpCacheResponseWrapper;
 import club.gclmit.chaos.core.util.DateUtils;
-import club.gclmit.chaos.core.util.HttpServletUtils;
+import club.gclmit.chaos.core.util.ServletUtils;
 import club.gclmit.chaos.core.util.SQLUtils;
-import club.gclmit.chaos.core.http.servlet.*;
+import club.gclmit.chaos.core.util.UrlUtils;
 import club.gclmit.chaos.json.JsonUtils;
 import club.gclmit.chaos.logger.mapper.LoggerMapper;
 import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
 import club.gclmit.chaos.logger.model.HttpTrace;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
-import org.springframework.util.AntPathMatcher;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebFilter;
@@ -23,7 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * <p>
@@ -33,11 +33,11 @@ import java.util.List;
  * @author gclm
  * @since 1.4
  */
+@Slf4j
 @WebFilter(filterName = "loggerFilter", urlPatterns = "/*")
 public class LoggerFilter extends OncePerRequestFilter implements Ordered {
 
-    private int order = Ordered.LOWEST_PRECEDENCE - 8;
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private int order = Ordered.LOWEST_PRECEDENCE;
 
     @Override
     public int getOrder() {
@@ -51,14 +51,14 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         String uri = request.getRequestURI();
         Long requestTime = DateUtils.getMilliTimestamp();
-        String sessionId = HttpServletUtils.getSessionId(request);
+        String sessionId = ServletUtils.getSessionId(request);
 
-        if (checkIgnoreUrl(uri) || HttpServletUtils.isFileUpload(request)) {
+        if (checkIgnoreUrl(uri) || ServletUtils.isFileUpload(request)) {
             chain.doFilter(request, response);
         } else {
-            RequestWrapper requestWrapper = new RequestWrapper(request);
-            ResponseWrapper responseWrapper = new ResponseWrapper(response);
-            chain.doFilter(requestWrapper, responseWrapper);
+            HttpCacheRequestWrapper httpCacheRequestWrapper = new HttpCacheRequestWrapper(request);
+            HttpCacheResponseWrapper responseWrapper = new HttpCacheResponseWrapper(response);
+            chain.doFilter(httpCacheRequestWrapper, responseWrapper);
             /**
              *  获取 response 相关参数
              *  请求耗时 = 响应时间 - 请求时间
@@ -68,25 +68,25 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
 
             HttpTrace trace = HttpTrace.builder()
                     .uri(uri)
-                    .clientIp(HttpServletUtils.getClientIp(request))
-                    .contentType(HttpServletUtils.getContentType(request))
+                    .clientIp(ServletUtils.getClientIp(request))
+                    .contentType(ServletUtils.getContentType(request))
                     .method(request.getMethod())
-                    .userAgent(HttpServletUtils.getUserAgent(request))
+                    .userAgent(ServletUtils.getUserAgent(request))
                     .sessionId(sessionId)
                     .httpCode(response.getStatus())
                     .requestTime(requestTime)
                     .responseTime(responseTime)
                     .consumingTime(time)
-                    .responseHeader(JsonUtils.toJson(HttpServletUtils.getResponseHeaders(response)))
-                    .requestHeader(JsonUtils.toJson(HttpServletUtils.getRequestHeaders(request)))
-                    .requestBody(HttpServletUtils.getRequestBody(requestWrapper))
-                    .responseBody(HttpServletUtils.getResponseBody(responseWrapper))
+                    .responseHeader(JsonUtils.toJson(ServletUtils.getResponseHeaders(response)))
+                    .requestHeader(JsonUtils.toJson(ServletUtils.getRequestHeaders(request)))
+                    .requestBody(ServletUtils.getRequestBody(httpCacheRequestWrapper))
+                    .responseBody(ServletUtils.getResponseBody(responseWrapper))
                     .build();
 
             /**
              * 保存到数据库
              */
-            if (config.getSaveLogger()) {
+            if (config.getSave()) {
                 LoggerMapper loggerMapper = genBean(LoggerMapper.class, request);
                 boolean save = SQLUtils.retBool(loggerMapper.insert(trace));
                 log.info("当前请求日志：{}\t入库：{}", trace, save);
@@ -120,25 +120,9 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
      * @return boolean
      */
     private boolean checkIgnoreUrl(String uri) {
-        if (uri.startsWith(config.getPrefix()) || isIgnore(Arrays.asList(config.getIgnoreUrls()), uri)) {
+        if (uri.startsWith(config.getPrefix()) || UrlUtils.isIgnore(Arrays.asList(config.getIgnoreUrls()), uri)) {
             return false;
         }
         return true;
-    }
-
-    /**
-     *  判断url 是否忽略
-     *
-     * @author gclm
-     * @param uri  判断的url
-     * @param ignoreUrls 忽略urls
-     * @return boolean 如果是返回true,否则返回 false
-     */
-    public static boolean isIgnore(List<String> ignoreUrls, String uri){
-        for (String ignoreUrl : ignoreUrls) {
-            AntPathMatcher matcher = new AntPathMatcher();
-            return matcher.match(ignoreUrl,uri);
-        }
-        return false;
     }
 }
