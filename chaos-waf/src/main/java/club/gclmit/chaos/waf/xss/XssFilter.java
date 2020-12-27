@@ -36,7 +36,7 @@ public class XssFilter extends OncePerRequestFilter implements Ordered {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         XssProperties xss = wafProperties.getXss();
-        if (handleUrlRule(request, response, xss)) {
+        if (handleUrlRule(request, xss)) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -49,18 +49,17 @@ public class XssFilter extends OncePerRequestFilter implements Ordered {
      * 处理url规则
      *
      * @param request       HttpServletRequest
-     * @param response      HttpServletResponse
      * @param xssProperties : 配置信息
      * @return boolean
      * @author gclm
      */
-    private boolean handleUrlRule(HttpServletRequest request, HttpServletResponse response, XssProperties xssProperties) {
+    private boolean handleUrlRule(HttpServletRequest request, XssProperties xssProperties) {
         String url = request.getServletPath();
         List<String> pathPatterns = xssProperties.getPathPatterns();
         List<String> excludePatterns = xssProperties.getExcludePatterns();
 
         if (CollUtil.isEmpty(pathPatterns)) {
-            return true;
+            return false;
         }
 
         if (CollUtil.isNotEmpty(excludePatterns) && UrlUtils.isIgnore(excludePatterns, url)) {
