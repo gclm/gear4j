@@ -89,7 +89,7 @@ public abstract class StorageClient {
              * 根据工具类获取 fileInfo 参数
              */
             String key = getPath(storage.getConfig().getPrefix(), FileUtils.getSuffix(file));
-            String contentType = FileUtils.getContentType(file);
+            String contentType = FileUtils.getMimeType(file);
             String md5 = SecureUtil.md5(file);
             return upload(fileInputStream,new FileInfo(file.getName(),contentType,file.length(), md5,key,storage.getType().getCode()));
         } catch (Exception e) {

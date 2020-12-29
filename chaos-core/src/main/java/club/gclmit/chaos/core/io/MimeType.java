@@ -134,6 +134,11 @@ public enum MimeType {
      * MP3 audio
      */
     MP3(".mp3", "MP3 audio", "audio/mpeg"),
+
+    /**
+     * MP4 audio
+     */
+    MP4(".mp4", "MP4 audio", "video/mp4"),
     /**
      * MPEG Video
      */
@@ -323,14 +328,31 @@ public enum MimeType {
      * @param suffix 文件后缀
      * @return java.lang.String
      */
-    public static String getMime(String suffix) {
+    public static String getMimeTypeBySuffix(String suffix) {
         MimeType[] mimeTypes = values();
         for (MimeType mimeType : mimeTypes) {
             if (suffix.equals(mimeType.getSufix())) {
                 return mimeType.getMimeType();
             }
         }
-        return DEFAULT_FILE_CONTENT_TYPE;
+        return BIN.getMimeType();
+    }
+
+    /**
+     * 根据Mine获取文档的 后缀
+     *
+     * @author gclm
+     * @param mimeType Mine
+     * @return java.lang.String
+     */
+    public static String getSuffixByMimeType(String mimeType){
+        MimeType[] mimeTypes = values();
+        for (MimeType type : mimeTypes) {
+            if (type.getMimeType().contains(mimeType)) {
+                return type.getSufix();
+            }
+        }
+        return MP4.sufix;
     }
 
     /**

@@ -124,7 +124,7 @@ public class FileUtils extends FileUtil {
      * @return java.lang.String
      * @author 孤城落寞
      */
-    public static String getContentType(File file) {
+    public static String getMimeType(File file) {
         Assert.isTrue(file.exists(), "文件不能为空");
         String fileHeader = getFileHeader(file);
 
@@ -135,11 +135,23 @@ public class FileUtils extends FileUtil {
             String mimeType = FileType.getMimeType(fileHeader.toUpperCase());
             if (MimeType.DEFAULT_FILE_CONTENT_TYPE.equals(mimeType)) {
                 String suffix = getSuffix(file);
-                mimeType = MimeType.getMime(suffix);
+                mimeType = MimeType.getMimeTypeBySuffix(suffix);
             }
             return mimeType;
         }
         return MimeType.DEFAULT_FILE_CONTENT_TYPE;
+    }
+
+    /**
+     * 根据Mine获取文档的 后缀
+     *
+     * @author gclm
+     * @param mime Mine
+     * @return java.lang.String
+     */
+    public static String getSuffix(String mime) {
+        Assert.isTrue(StringUtils.isNotBlank(mime), "MimeType不能为空");
+        return MimeType.getSuffixByMimeType(mime);
     }
 
     /**

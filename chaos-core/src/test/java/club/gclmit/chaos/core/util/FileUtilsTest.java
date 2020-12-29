@@ -35,19 +35,19 @@ public class FileUtilsTest {
 
     private static void getContentTypeTest(){
         String path = getPath();
-        System.out.println(FileUtils.getContentType(new File(path,"test1.jpg")));
-        System.out.println(FileUtils.getContentType(new File(path,"test1-1.jpeg")));
-        System.out.println(FileUtils.getContentType(new File(path,"test1-2.png")));
-        System.out.println(FileUtils.getContentType(new File(path,"test1-3.pdf")));
+        System.out.println(FileUtils.getMimeType(new File(path,"test1.jpg")));
+        System.out.println(FileUtils.getMimeType(new File(path,"test1-1.jpeg")));
+        System.out.println(FileUtils.getMimeType(new File(path,"test1-2.png")));
+        System.out.println(FileUtils.getMimeType(new File(path,"test1-3.pdf")));
     }
 
 
     private static String getPath(){
-        return new StringBuilder(System.getProperty("user.dir"))
-                .append(File.separator).append("chaos-core")
-                .append(File.separator).append("src")
-                .append(File.separator).append("test")
-                .append(File.separator).append("resources").append(File.separator).toString();
+        return System.getProperty("user.dir") +
+                File.separator + "chaos-core" +
+                File.separator + "src" +
+                File.separator + "test" +
+                File.separator + "resources" + File.separator;
     }
 
 }
