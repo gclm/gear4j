@@ -25,7 +25,7 @@ public class RsaUtilsTest {
     }
 
     public static void test3(RsaUtils.RsaKeyPair keyPair, String source) throws Exception {
-        System.out.println("***************** 签名验证 *****************");
+//        System.out.println("***************** 签名验证 *****************");
 
 //        String text1 = RsaUtils.encodeByPublicKey(keyPair.getPublicKey(), source);
 //        boolean verify = RsaUtils.verify(source, text1, keyPair.getPublicKey());
@@ -34,7 +34,7 @@ public class RsaUtilsTest {
 //
 //        System.out.println("公钥加密公钥验证：" + verify);
 //        System.out.println("私钥加密公钥验证：" + verify1);
-        System.out.println("***************** 签名验证 *****************");
+//        System.out.println("***************** 签名验证 *****************");
     }
 
 
