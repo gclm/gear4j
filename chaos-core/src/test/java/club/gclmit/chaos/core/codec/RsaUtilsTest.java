@@ -1,5 +1,7 @@
 package club.gclmit.chaos.core.codec;
 
+import org.junit.Test;
+
 /**
  * RSAUtils
  *
@@ -9,21 +11,9 @@ package club.gclmit.chaos.core.codec;
  */
 public class RsaUtilsTest {
 
-    private static final String src = "12341321212abcdefghijklmnopqrstuvwxyz";
+    private static final String SRC = "12341321212abcdefghijklmnopqrstuvwxyz";
 
-    public static void main(String[] args) throws Exception {
-        RsaUtils.RsaKeyPair keyPair = RsaUtils.generateKeyPair();
-        System.out.println();
-        System.out.println("公钥：" + keyPair.getPublicKey());
-        System.out.println("私钥：" + keyPair.getPrivateKey());
-        System.out.println();
-        test1(keyPair, src);
-        System.out.println();
-        test2(keyPair, src);
-        System.out.println();
-        test3(keyPair,src);
-    }
-
+    @Test
     public static void test3(RsaUtils.RsaKeyPair keyPair, String source) throws Exception {
 //        System.out.println("***************** 签名验证 *****************");
 
@@ -41,7 +31,8 @@ public class RsaUtilsTest {
     /**
      * 公钥加密私钥解密
      */
-    private static void test1(RsaUtils.RsaKeyPair keyPair, String source) throws Exception {
+    @Test
+    public void test1(RsaUtils.RsaKeyPair keyPair, String source) throws Exception {
         System.out.println("***************** 公钥加密私钥解密开始 *****************");
         String text1 = RsaUtils.encodeByPublicKey(keyPair.getPublicKey(), source);
         String text2 = RsaUtils.decodeByPrivateKey(keyPair.getPrivateKey(), text1);
@@ -61,7 +52,8 @@ public class RsaUtilsTest {
      *
      * @throws Exception
      */
-    private static void test2(RsaUtils.RsaKeyPair keyPair, String source) throws Exception {
+    @Test
+    public void test2(RsaUtils.RsaKeyPair keyPair, String source) throws Exception {
         System.out.println("***************** 私钥加密公钥解密开始 *****************");
         String text1 = RsaUtils.encodeByPrivateKey(keyPair.getPrivateKey(), source);
         String text2 = RsaUtils.decodeByPublicKey(keyPair.getPublicKey(), text1);

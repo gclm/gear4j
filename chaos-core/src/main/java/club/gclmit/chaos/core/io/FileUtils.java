@@ -38,7 +38,7 @@ public class FileUtils extends FileUtil {
      * @return java.io.File
      * @author 孤城落寞
      */
-    public static File mkdirToFile(String filePath) {
+    public static File touch(String filePath) {
         Assert.notNull(filePath, "文件路径不能为空");
 
         /**
@@ -67,39 +67,6 @@ public class FileUtils extends FileUtil {
 
         return null;
     }
-
-    /**
-     * 效验文件器
-     * 功能如果判断文件是否存在，如果不存在先创建文件多层目录，然后创建文件
-     *
-     * @param filePath 文件路径
-     * @return java.io.File
-     * @author 孤城落寞
-     */
-    public static void mkdir(String filePath) throws IOException {
-        Assert.notNull(filePath, "文件路径不能为空");
-
-        /**
-         * 创建当前文件和该目录的父文件
-         */
-        File file = new File(filePath);
-        File dirFile = new File(file.getParent());
-
-        /**
-         * 判断父文件是否存在，如果不存在则创建多层目录
-         */
-        if (!dirFile.exists() && !dirFile.isDirectory()) {
-            dirFile.mkdirs();
-        }
-
-        /**
-         * 如果文件不存在则开始创建文件
-         */
-        if (!file.exists()) {
-            file.createNewFile();
-        }
-    }
-
 
     /**
      * 判断文件是否相同

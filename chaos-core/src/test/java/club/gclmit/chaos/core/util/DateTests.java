@@ -11,9 +11,8 @@ import java.time.ZoneOffset;
  *  时间工具测试工具类
  * </p>
  *
- * @author: gclm
- * @date: 2020/3/27 10:35 上午
- * @version: V1.0
+ * @author gclm
+ * @date 2020/3/27 10:35 上午
  * @since 1.8
  */
 public class DateTests {

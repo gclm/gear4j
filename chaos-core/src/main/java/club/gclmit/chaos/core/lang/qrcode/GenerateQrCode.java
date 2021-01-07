@@ -1,30 +1,14 @@
 package club.gclmit.chaos.core.lang.qrcode;
 
-import club.gclmit.chaos.core.exception.ChaosException;
-import club.gclmit.chaos.core.io.FileUtils;
-import club.gclmit.chaos.core.lang.Barcode;
 import club.gclmit.chaos.core.lang.BarcodeImageType;
-import club.gclmit.chaos.core.util.StringUtils;
-import cn.hutool.core.util.CharsetUtil;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageConfig;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
-import java.net.URL;
-import java.nio.file.Path;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * 生成二维码
@@ -55,29 +39,29 @@ public class GenerateQrCode {
         return new Builder();
     }
 
-    private static BufferedImage toBufferedImage(QrCodeOption option) throws WriterException, IOException {
-        BitMatrix bitMatrix = QrCodeUtil.encode(qrCodeConfig);
-        return QrCodeUtil.toBufferedImage(qrCodeConfig, bitMatrix);
-    }
-
-    private static String toString(QrCodeOption option) throws WriterException, IOException {
-        BufferedImage bufferedImage = toBufferedImage(option);
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, qrCodeOptions.getPicType(), outputStream);
-        return Base64Util.encode(outputStream);
-    }
-
-    private static boolean toFile(QrCodeOption qrCodeConfig, String filePath) throws WriterException, IOException {
-        File file = new File(filePath);
-        FileUtils.mkDir(file);
-
-        BufferedImage bufferedImage = asBufferedImage(qrCodeConfig);
-        if (!ImageIO.write(bufferedImage, qrCodeConfig.getPicType(), file)) {
-            throw new IOException("save qrcode image error!");
-        }
-
-        return true;
-    }
+//    private static BufferedImage toBufferedImage(QrCodeOption option) throws WriterException, IOException {
+//        BitMatrix bitMatrix = QrCodeUtil.encode(qrCodeConfig);
+//        return toBufferedImage(qrCodeConfig, bitMatrix);
+//    }
+//
+//    private static String toString(QrCodeOption option) throws WriterException, IOException {
+//        BufferedImage bufferedImage = toBufferedImage(option);
+//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//        ImageIO.write(bufferedImage, qrCodeOptions.getPicType(), outputStream);
+//        return Base64Utils.encode(outputStream);
+//    }
+//
+//    private static boolean toFile(QrCodeOption qrCodeConfig, String filePath) throws WriterException, IOException {
+//        File file = new File(filePath);
+//        FileUtils.touch(file);
+//
+//        BufferedImage bufferedImage = toBufferedImage(qrCodeConfig);
+//        if (!ImageIO.write(bufferedImage, qrCodeConfig.getPicType(), file)) {
+//            throw new IOException("save qrcode image error!");
+//        }
+//
+//        return true;
+//    }
 
     /**
      * 生成条形码
@@ -234,82 +218,82 @@ public class GenerateQrCode {
             return this;
         }
 
-        /**
-         *  设置生成类型(生成二维码还是条形码)
-         *
-         * @author gclm
-         * @param format 生成类型(生成二维码还是条形码)
-         * @return club.gclmit.chaos.core.lang.Barcode.Builder
-         */
-        public GenerateQrCode format(BarcodeFormat format){
-            this.format = format;
-            return new GenerateQrCode(this);
-        }
-
-        /**
-         *  二维码
-         *
-         * @author gclm
-         * @return club.gclmit.chaos.core.lang.Barcode.Builder
-         */
-        public Barcode qrCode(){
-            return format(BarcodeFormat.QR_CODE);
-        }
-
-        /**
-         *  二维码
-         * @param logo 二维码logo
-         * @author gclm
-         * @return club.gclmit.chaos.core.lang.Barcode.Builder
-         */
-        public Barcode qrCode(BufferedImage logo){
-            this.logo = logo;
-            return format(BarcodeFormat.QR_CODE);
-        }
-
-        /**
-         *  二维码
-         * @param logo 二维码logo
-         * @author gclm
-         * @return club.gclmit.chaos.core.lang.Barcode.Builder
-         * @throws IOException if an I/O error occurs
-         *
-         */
-        public Barcode qrCode(URL logo) throws IOException {
-            return qrCode(ImageIO.read(logo));
-        }
-
-        /**
-         *  二维码
-         * @param logo 二维码logo
-         * @author gclm
-         * @return club.gclmit.chaos.core.lang.Barcode.Builder
-         * @throws IOException if an I/O error occurs
-         */
-        public Barcode qrCode(InputStream logo) throws IOException {
-            return qrCode(ImageIO.read(logo));
-        }
-
-        /**
-         *  二维码
-         * @param logo 二维码logo
-         * @author gclm
-         * @return club.gclmit.chaos.core.lang.Barcode.Builder
-         * @throws IOException if an I/O error occurs
-         */
-        public Barcode qrCode(File logo) throws IOException {
-            return qrCode(ImageIO.read(logo));
-        }
-
-        /**
-         *  二维码
-         * @param logo 二维码logo
-         * @author gclm
-         * @return club.gclmit.chaos.core.lang.Barcode.Builder
-         * @throws IOException if an I/O error occurs
-         */
-        public Barcode qrCode(Path logo) throws IOException {
-            return qrCode(ImageIO.read(logo.toFile()));
-        }
+//        /**
+//         *  设置生成类型(生成二维码还是条形码)
+//         *
+//         * @author gclm
+//         * @param format 生成类型(生成二维码还是条形码)
+//         * @return club.gclmit.chaos.core.lang.Barcode.Builder
+//         */
+//        public GenerateQrCode format(BarcodeFormat format){
+//            this.format = format;
+//            return new GenerateQrCode(this);
+//        }
+//
+//        /**
+//         *  二维码
+//         *
+//         * @author gclm
+//         * @return club.gclmit.chaos.core.lang.Barcode.Builder
+//         */
+//        public Barcode qrCode(){
+//            return format(BarcodeFormat.QR_CODE);
+//        }
+//
+//        /**
+//         *  二维码
+//         * @param logo 二维码logo
+//         * @author gclm
+//         * @return club.gclmit.chaos.core.lang.Barcode.Builder
+//         */
+//        public Barcode qrCode(BufferedImage logo){
+//            this.logo = logo;
+//            return format(BarcodeFormat.QR_CODE);
+//        }
+//
+//        /**
+//         *  二维码
+//         * @param logo 二维码logo
+//         * @author gclm
+//         * @return club.gclmit.chaos.core.lang.Barcode.Builder
+//         * @throws IOException if an I/O error occurs
+//         *
+//         */
+//        public Barcode qrCode(URL logo) throws IOException {
+//            return qrCode(ImageIO.read(logo));
+//        }
+//
+//        /**
+//         *  二维码
+//         * @param logo 二维码logo
+//         * @author gclm
+//         * @return club.gclmit.chaos.core.lang.Barcode.Builder
+//         * @throws IOException if an I/O error occurs
+//         */
+//        public Barcode qrCode(InputStream logo) throws IOException {
+//            return qrCode(ImageIO.read(logo));
+//        }
+//
+//        /**
+//         *  二维码
+//         * @param logo 二维码logo
+//         * @author gclm
+//         * @return club.gclmit.chaos.core.lang.Barcode.Builder
+//         * @throws IOException if an I/O error occurs
+//         */
+//        public Barcode qrCode(File logo) throws IOException {
+//            return qrCode(ImageIO.read(logo));
+//        }
+//
+//        /**
+//         *  二维码
+//         * @param logo 二维码logo
+//         * @author gclm
+//         * @return club.gclmit.chaos.core.lang.Barcode.Builder
+//         * @throws IOException if an I/O error occurs
+//         */
+//        public Barcode qrCode(Path logo) throws IOException {
+//            return qrCode(ImageIO.read(logo.toFile()));
+//        }
     }
 }

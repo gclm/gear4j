@@ -10,9 +10,9 @@ import java.io.IOException;
  * FileUtils 测试工具类
  * </p>
  *
- * @author: gclm
- * @date: 2019/11/6 23:56
- * @version: V1.0
+ * @author gclm
+ * @date 2019/11/6 23:56
+ * @version V1.0
  */
 public class FileUtilsTest {
 
