@@ -1,5 +1,7 @@
 package club.gclmit.chaos.core.util;
 
+import org.junit.Test;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -16,13 +18,11 @@ import java.time.ZoneOffset;
  */
 public class DateTests {
 
-    public static void main(String[] args) {
+    @Test
+    public void getWeekName(){
         long timestamp = 1585275097596L;
         LocalDateTime dateTime = LocalDateTime.now();
-        getWeekName(timestamp,dateTime);
-    }
 
-    public static void getWeekName(long timestamp,LocalDateTime dateTime){
         System.out.println(DateUtils.timestampToWeekName(timestamp));
         System.out.println("=========================================");
         System.out.println(DateUtils.localDateTimeToWeekName(LocalDateTime.now()));
@@ -40,7 +40,7 @@ public class DateTests {
         System.out.println(DateUtils.timestampToWeekName(second2));
         System.out.println("-----------------------------------------");
         System.out.println(DateUtils.timestampToWeekName(milli));
-        System.out.println(DateUtils.timestampToWeekName(158527486L));
+        System.out.println(DateUtils.timestampToWeekName(1609939386L));
     }
 }
 
