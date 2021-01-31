@@ -1,4 +1,4 @@
-package club.gclmit.chaos.web.annotation.impl;
+package club.gclmit.chaos.web.config;
 
 import club.gclmit.chaos.web.annotation.ApiVersion;
 import org.springframework.core.annotation.AnnotationUtils;

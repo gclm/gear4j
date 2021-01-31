@@ -1,4 +1,4 @@
-package club.gclmit.chaos.web.annotation.impl;
+package club.gclmit.chaos.web.config;
 
 import org.springframework.web.servlet.mvc.condition.RequestCondition;
 

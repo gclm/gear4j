@@ -15,7 +15,7 @@ import java.time.ZoneOffset;
  * @date 2020/3/27 10:35 上午
  * @since 1.8
  */
-public class DateTests {
+public class DateUtilsTest {
 
     @Test
     public void getWeekName(){
