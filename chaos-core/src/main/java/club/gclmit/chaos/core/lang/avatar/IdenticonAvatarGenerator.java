@@ -23,25 +23,26 @@ public class IdenticonAvatarGenerator extends AvatarGenerator {
      * @author gclm
      */
     public static BufferedImage generate(String text, int width, int height, boolean fillet) {
-        int hash_width = 5, hash_height = 5;
+        int hashWidth = 5, hashHeight = 5;
         byte[] hash = text.getBytes();
 
-        BufferedImage identicon = new BufferedImage(hash_width, hash_height, BufferedImage.TYPE_INT_ARGB);
-        WritableRaster raster = identicon.getRaster();
+        BufferedImage ideation = new BufferedImage(hashWidth, hashHeight, BufferedImage.TYPE_INT_ARGB);
+        WritableRaster raster = ideation.getRaster();
 
         int[] background = new int[]{255, 255, 255, 0};
         int[] foreground = new int[]{hash[0] & 255, hash[1] & 255, hash[2] & 255, 255};
 
-        for (int x = 0; x < hash_width; x++) {
+        for (int x = 0; x < hashWidth; x++) {
             //Enforce horizontal symmetry
             int i = x < 3 ? x : 4 - x;
-            for (int y = 0; y < hash_height; y++) {
+            for (int y = 0; y < hashHeight; y++) {
                 int[] pixelColor;
                 //toggle pixels based on bit being on/off
-                if ((hash[i] >> y & 1) == 1)
+                if ((hash[i] >> y & 1) == 1) {
                     pixelColor = foreground;
-                else
+                } else {
                     pixelColor = background;
+                }
                 raster.setPixel(x, y, pixelColor);
             }
         }
@@ -50,9 +51,9 @@ public class IdenticonAvatarGenerator extends AvatarGenerator {
 
         //Scale image to the size you want
         AffineTransform at = new AffineTransform();
-        at.scale(width / hash_width, height / hash_height);
+        at.scale(width / hashWidth, height / hashHeight);
         AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-        finalImage = op.filter(identicon, finalImage);
+        finalImage = op.filter(ideation, finalImage);
 
         if (fillet) {
             finalImage = makeRoundedCorner(finalImage, 99);
