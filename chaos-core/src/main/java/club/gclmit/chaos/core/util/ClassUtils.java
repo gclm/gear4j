@@ -1,4 +1,4 @@
-package club.gclmit.chaos.web.util;
+package club.gclmit.chaos.core.util;
 
 import lombok.experimental.UtilityClass;
 import org.springframework.core.BridgeMethodResolver;
