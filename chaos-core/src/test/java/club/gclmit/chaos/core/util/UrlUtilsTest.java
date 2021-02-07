@@ -1,7 +1,9 @@
 package club.gclmit.chaos.core.util;
 
+import org.junit.Test;
+
 /**
- * TODO
+ * UrlUtils 测试工具类
  *
  * @author gclm
  * @since 12/21/2020 2:50 PM
@@ -9,7 +11,8 @@ package club.gclmit.chaos.core.util;
  */
 public class UrlUtilsTest {
 
-    public static void main(String[] args) {
+    @Test
+    public void test1(){
         System.out.println(UrlUtils.hasUrlEncoded("13%2C14%2C15"));
         System.out.println(UrlUtils.hasUrlEncoded("13,14,15"));
     }

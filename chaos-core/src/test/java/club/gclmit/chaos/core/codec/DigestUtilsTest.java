@@ -18,7 +18,7 @@ import java.io.File;
 public class DigestUtilsTest {
 
     @Test
-    public static void md5() {
+    public void md5() {
         File file = new File("/Users/gclm/Projects/java/middleware/chaos/chaos-core/src/test/resources/test1.jpg");
         File file1 = new File("/Users/gclm/Projects/java/middleware/chaos/chaos-core/src/test/resources/test1-1.jpeg");
         File file2 = new File("/Users/gclm/Projects/java/middleware/chaos/chaos-core/src/test/resources/test1-3.pdf");

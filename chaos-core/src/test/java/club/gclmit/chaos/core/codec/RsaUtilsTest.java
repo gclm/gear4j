@@ -14,7 +14,7 @@ public class RsaUtilsTest {
     private static final String SRC = "12341321212abcdefghijklmnopqrstuvwxyz";
 
     @Test
-    public static void test3() throws Exception {
+    public void test3() throws Exception {
         RsaUtils.RsaKeyPair keyPair = RsaUtils.generateKeyPair();
         String source = SRC;
 

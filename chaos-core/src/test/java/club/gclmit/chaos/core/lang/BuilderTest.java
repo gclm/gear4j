@@ -15,7 +15,7 @@ import org.junit.Test;
 public class BuilderTest {
 
     @Test
-    public static void build() {
+    public void build() {
         GirlFriend friend = Builder.of(GirlFriend::new)
                 .with(GirlFriend::setAddress, "浦东").build();
 
