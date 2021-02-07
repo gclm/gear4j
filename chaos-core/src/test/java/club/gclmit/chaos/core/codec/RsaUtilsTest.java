@@ -14,7 +14,10 @@ public class RsaUtilsTest {
     private static final String SRC = "12341321212abcdefghijklmnopqrstuvwxyz";
 
     @Test
-    public static void test3(RsaUtils.RsaKeyPair keyPair, String source) throws Exception {
+    public static void test3() throws Exception {
+        RsaUtils.RsaKeyPair keyPair = RsaUtils.generateKeyPair();
+        String source = SRC;
+
 //        System.out.println("***************** 签名验证 *****************");
 
 //        String text1 = RsaUtils.encodeByPublicKey(keyPair.getPublicKey(), source);
@@ -32,7 +35,10 @@ public class RsaUtilsTest {
      * 公钥加密私钥解密
      */
     @Test
-    public void test1(RsaUtils.RsaKeyPair keyPair, String source) throws Exception {
+    public void test1() throws Exception {
+        RsaUtils.RsaKeyPair keyPair = RsaUtils.generateKeyPair();
+        String source = SRC;
+
         System.out.println("***************** 公钥加密私钥解密开始 *****************");
         String text1 = RsaUtils.encodeByPublicKey(keyPair.getPublicKey(), source);
         String text2 = RsaUtils.decodeByPrivateKey(keyPair.getPrivateKey(), text1);
@@ -53,7 +59,10 @@ public class RsaUtilsTest {
      * @throws Exception
      */
     @Test
-    public void test2(RsaUtils.RsaKeyPair keyPair, String source) throws Exception {
+    public void test2() throws Exception {
+        RsaUtils.RsaKeyPair keyPair = RsaUtils.generateKeyPair();
+        String source = SRC;
+
         System.out.println("***************** 私钥加密公钥解密开始 *****************");
         String text1 = RsaUtils.encodeByPrivateKey(keyPair.getPrivateKey(), source);
         String text2 = RsaUtils.decodeByPublicKey(keyPair.getPublicKey(), text1);
