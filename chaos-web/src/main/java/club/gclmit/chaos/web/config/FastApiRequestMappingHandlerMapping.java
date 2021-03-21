@@ -1,6 +1,6 @@
 package club.gclmit.chaos.web.config;
 
-import club.gclmit.chaos.web.annotation.ApiVersion;
+import club.gclmit.chaos.web.annotation.FastApi;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.Assert;
 import org.springframework.web.servlet.mvc.condition.RequestCondition;
@@ -16,7 +16,7 @@ import java.util.Objects;
  *
  * @author gclm
  */
-public class ApiVersionRequestMappingHandlerMapping extends RequestMappingHandlerMapping {
+public class FastApiRequestMappingHandlerMapping extends RequestMappingHandlerMapping {
 
     /**
      *  扫描类上的 @ApiVersion
@@ -27,7 +27,7 @@ public class ApiVersionRequestMappingHandlerMapping extends RequestMappingHandle
      */
     @Override
     protected RequestCondition<?> getCustomTypeCondition(Class<?> handlerType) {
-        ApiVersion version = AnnotationUtils.findAnnotation(handlerType, ApiVersion.class);
+        FastApi version = AnnotationUtils.findAnnotation(handlerType, FastApi.class);
         return createRequestCondition(version);
     }
 
@@ -40,8 +40,8 @@ public class ApiVersionRequestMappingHandlerMapping extends RequestMappingHandle
      */
     @Override
     protected RequestCondition<?> getCustomMethodCondition(Method method) {
-        ApiVersion apiVersion = AnnotationUtils.findAnnotation(method, ApiVersion.class);
-        return createRequestCondition(apiVersion);
+        FastApi fastApi = AnnotationUtils.findAnnotation(method, FastApi.class);
+        return createRequestCondition(fastApi);
     }
 
     /**
@@ -53,13 +53,13 @@ public class ApiVersionRequestMappingHandlerMapping extends RequestMappingHandle
      * @param version ApiVersion
      * @return org.springframework.web.servlet.mvc.condition.RequestCondition<club.gclmit.chaos.annotation.version.ApiVersionCondition>
      */
-    private RequestCondition<ApiVersionCondition> createRequestCondition(ApiVersion version) {
+    private RequestCondition<FastApiCondition> createRequestCondition(FastApi version) {
 
         if (Objects.isNull(version)) {
             return null;
         }
         int versionValue = version.value();
         Assert.isTrue(versionValue >= 1,"Api 版本不能小于 1");
-        return new ApiVersionCondition(versionValue);
+        return new FastApiCondition(versionValue);
     }
 }

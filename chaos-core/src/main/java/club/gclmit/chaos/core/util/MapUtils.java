@@ -2,7 +2,7 @@ package club.gclmit.chaos.core.util;
 
 import cn.hutool.core.util.ReflectUtil;
 import lombok.experimental.UtilityClass;
-
+import org.apache.commons.beanutils.ConvertUtils;
 import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.HashMap;
@@ -89,11 +89,13 @@ public class MapUtils{
 
         for (Field field : fields) {
             field.setAccessible(true);
-
             String name = field.getName();
             if (map.containsKey(name)) {
                 Object value = map.get(name);
-                field.set(obj, ConvertUtils.convert(field.getType(),value));
+//                if (ArrayUtils.isArray(value)) {
+//                    value = Array.get(value,0);
+//                }
+                field.set(obj, ConvertUtils.convert(value, field.getType()));
             }
             field.setAccessible(true);
         }

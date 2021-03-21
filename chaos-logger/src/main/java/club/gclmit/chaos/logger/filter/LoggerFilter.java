@@ -6,7 +6,7 @@ import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.ServletUtils;
 import club.gclmit.chaos.core.util.SQLUtils;
 import club.gclmit.chaos.core.util.UrlUtils;
-import club.gclmit.chaos.json.JsonUtils;
+import club.gclmit.chaos.json.util.JsonUtils;
 import club.gclmit.chaos.logger.mapper.LoggerMapper;
 import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
 import club.gclmit.chaos.logger.model.HttpTrace;

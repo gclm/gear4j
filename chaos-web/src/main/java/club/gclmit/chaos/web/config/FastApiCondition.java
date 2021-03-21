@@ -13,22 +13,22 @@ import java.util.regex.Pattern;
  *
  * @author gclm
  */
-public class ApiVersionCondition implements RequestCondition<ApiVersionCondition> {
+public class FastApiCondition implements RequestCondition<FastApiCondition> {
 
     private static final Pattern VERSION_PREFIX_PATTERN = Pattern.compile("/v(\\d+)/");
 
     private int apiVersion;
 
     @Override
-    public ApiVersionCondition combine(ApiVersionCondition other) {
+    public FastApiCondition combine(FastApiCondition other) {
         /**
          * 最近优先原则，方法定义 @ApiVersion > 类定义的 @ApiVersion
          */
-        return new ApiVersionCondition(other.getApiVersion());
+        return new FastApiCondition(other.getApiVersion());
     }
 
     @Override
-    public ApiVersionCondition getMatchingCondition(HttpServletRequest request) {
+    public FastApiCondition getMatchingCondition(HttpServletRequest request) {
         Matcher matcher = VERSION_PREFIX_PATTERN.matcher(request.getRequestURI());
         if (matcher.find()) {
             /**
@@ -50,11 +50,11 @@ public class ApiVersionCondition implements RequestCondition<ApiVersionCondition
      * @param request HttpServletRequest
      */
     @Override
-    public int compareTo(ApiVersionCondition condition, HttpServletRequest request) {
+    public int compareTo(FastApiCondition condition, HttpServletRequest request) {
         return condition.getApiVersion() - getApiVersion();
     }
 
-    public ApiVersionCondition(int apiVersion) {
+    public FastApiCondition(int apiVersion) {
         this.apiVersion = apiVersion;
     }
 

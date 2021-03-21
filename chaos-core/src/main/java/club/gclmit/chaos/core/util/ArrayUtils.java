@@ -31,4 +31,18 @@ public class ArrayUtils {
         return !isEmpty(array);
     }
 
+    /**
+     * 判断一个对象是否是一个数组
+     *
+     * @param obj 对象
+     * @return boolean
+     * @author gclm
+     * @date 2021/3/21 7:13 下午
+     */
+    public static boolean isArray(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        return obj.getClass().isArray();
+    }
 }

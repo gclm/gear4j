@@ -1,12 +1,12 @@
 package club.gclmit.chaos.starter.service.impl;
 
 import club.gclmit.chaos.core.io.FileUtils;
+import club.gclmit.chaos.core.util.UploadFileUtils;
 import club.gclmit.chaos.starter.mapper.FileMapper;
 import club.gclmit.chaos.starter.service.FileService;
 import club.gclmit.chaos.storage.client.StorageClient;
 import club.gclmit.chaos.storage.contants.FileStatus;
 import club.gclmit.chaos.storage.pojo.FileInfo;
-import club.gclmit.chaos.web.util.UploadFileUtils;
 import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;

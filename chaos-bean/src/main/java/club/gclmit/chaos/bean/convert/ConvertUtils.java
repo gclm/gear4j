@@ -1,6 +1,6 @@
 package club.gclmit.chaos.bean.convert;
 
-import club.gclmit.chaos.web.util.ClassUtils;
+import club.gclmit.chaos.core.util.ClassUtils;
 import lombok.experimental.UtilityClass;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.support.GenericConversionService;
