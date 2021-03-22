@@ -108,6 +108,7 @@ public class MapUtils{
      * @author gclm
      * @param obj 待转换的Object
      * @return java.util.Map
+     * @exception Exception
      */
     public static Map objectToMap(Object obj) throws Exception {
 

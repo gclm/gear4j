@@ -73,6 +73,7 @@ public abstract class AvatarGenerator {
      *
      * @param bufferedImage 生成的 bufferedImage
      * @author gclm
+     * @return OutputStream
      */
     public static OutputStream saveImageToOutputStream(BufferedImage bufferedImage) {
         try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
@@ -88,6 +89,7 @@ public abstract class AvatarGenerator {
      *
      * @param bufferedImage 生成的 bufferedImage
      * @author gclm
+     * @return 字符串
      */
     public static String saveImageToBase64(BufferedImage bufferedImage) {
         ByteArrayOutputStream stream = (ByteArrayOutputStream) saveImageToOutputStream(bufferedImage);

@@ -37,7 +37,6 @@ public class ArrayUtils {
      * @param obj 对象
      * @return boolean
      * @author gclm
-     * @date 2021/3/21 7:13 下午
      */
     public static boolean isArray(Object obj) {
         if (obj == null) {

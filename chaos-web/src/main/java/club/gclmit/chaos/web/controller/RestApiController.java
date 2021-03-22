@@ -118,7 +118,7 @@ public abstract class RestApiController<Service extends IService<T>, T>{
      */
     @ApiOperation(value = "批量删除", notes = "批量删除")
     @DeleteMapping("/batch")
-    public Result batchDelete(@RequestBody String ids) {
+    public Result batchDelete(String ids) {
         Assert.notNull(ids, "ids不能为空");
         log.info("批量删除，ids:{}", ids);
         if(UrlUtils.hasUrlEncoded(ids)){
