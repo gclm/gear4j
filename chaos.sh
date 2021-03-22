@@ -85,7 +85,7 @@ version(){
         # 替换README.md中的版本
 #            sed -i "s/${old_version}/${version}/g" $pwd/README.md
         # 添加版本日志
-        echo -e "$date\t\t发布版本：$old_version" >> $pwd/docs/version.txt
+        echo -e "$date\t\t发布版本：$version" >> $pwd/docs/version.txt
         echo  "当前pom已经更新到$version"
     else
         echo && echo "	已取消..." && echo
