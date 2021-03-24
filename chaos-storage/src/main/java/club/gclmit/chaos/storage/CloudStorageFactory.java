@@ -38,6 +38,9 @@ public class CloudStorageFactory {
             case TENCENT:
                 client = new TencentStorageClient(storage);
                 break;
+            case HUAWEI:
+                client = new HuaweiStorageClient(storage);
+                break;
             default:
                 client = new AliyunStorageClient(storage);
                 break;

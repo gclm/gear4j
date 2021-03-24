@@ -1,7 +1,9 @@
 package club.gclmit.chaos.core.util;
 
 import club.gclmit.chaos.core.exception.ChaosException;
+import club.gclmit.chaos.core.io.FileType;
 import club.gclmit.chaos.core.io.FileUtils;
+import club.gclmit.chaos.core.io.MimeType;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.IdUtil;
 import lombok.experimental.UtilityClass;
@@ -19,6 +21,9 @@ import java.io.IOException;
  */
 @UtilityClass
 public class UploadFileUtils {
+
+//    FileCopyUtils
+//    FileSystemUtils
 
     /**
      * <p>判断文件是否为空 {@code null}.
@@ -71,7 +76,34 @@ public class UploadFileUtils {
      */
     public static String getSuffix(MultipartFile file) {
         Assert.notNull(file, "文件不能为空");
-        return FileUtils.getSuffix(file.getOriginalFilename());
+        return StringUtils.subAfter(file.getOriginalFilename(),".",true);
+    }
+
+    /**
+     * 基于魔数和文件后缀获取内容类型
+     * 1. 先进行魔数筛选
+     * 2. 根据魔数筛选结果,进行后缀获取内容类型
+     *
+     * @param file File
+     * @return java.lang.String
+     * @author 孤城落寞
+     */
+    public static String getMimeType(File file) {
+        Assert.isTrue(file.exists(), "文件不能为空");
+        String fileHeader = FileUtils.getFileHeader(file);
+
+        if (!StringUtils.isEmpty(fileHeader)) {
+            /**
+             * 魔数判断
+             */
+            String mimeType = FileType.getMimeType(fileHeader.toUpperCase());
+            if (MimeType.DEFAULT_FILE_CONTENT_TYPE.equals(mimeType)) {
+                String suffix = FileUtils.getSuffix(file);
+                mimeType = MimeType.getMimeTypeBySuffix(suffix);
+            }
+            return mimeType;
+        }
+        return MimeType.DEFAULT_FILE_CONTENT_TYPE;
     }
 
 }

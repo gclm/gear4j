@@ -38,7 +38,12 @@ public enum StorageServer {
     /**
      * UCLOUD
      */
-    UCLOUD(4,"UCLOUD");
+    UCLOUD(4,"UCLOUD"),
+
+    /**
+     * 华为云
+     */
+    HUAWEI(5,"华为云");
 
     /**
      *  code
