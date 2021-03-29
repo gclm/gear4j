@@ -1,8 +1,12 @@
 package club.gclmit.chaos.storage;
 
+import club.gclmit.chaos.core.util.HttpUtils;
 import club.gclmit.chaos.storage.client.StorageClient;
 import club.gclmit.chaos.storage.contants.StorageServer;
 import club.gclmit.chaos.storage.pojo.CloudStorage;
+import club.gclmit.chaos.storage.pojo.FileInfo;
+import cn.hutool.core.util.IdUtil;
+import org.junit.Test;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -10,22 +14,22 @@ import java.util.List;
 
 /**
  * <p>
- *  测试上传的工具类
+ * 测试上传的工具类
  * </p>
  *
- * @author: gclm
- * @date: 2020/1/2 4:40 下午
- * @version: V1.0
+ * @author gclm
+ * @date 2020/1/2 4:40 下午
  * @since 1.8
  */
 public class StorageClientTest {
 
-    public static final  String FILE_URL = "/Users/gclm/Downloads/index.png";
+    public static final String FILE_URL = "/home/gclm/1617005255007.jpg";
 
     /**
      * 阿里云配置
      */
-    public static  void aliyun() {
+    @Test
+    public void aliyun() {
 
         CloudStorage cloudStorage = new CloudStorage();
         cloudStorage.setAccessKeyId("access-key-id");
@@ -70,7 +74,8 @@ public class StorageClientTest {
     /**
      * 腾讯云
      */
-    public static void qcloud(){
+    @Test
+    public void qcloud() {
         CloudStorage cloudStorage = new CloudStorage();
         cloudStorage.setAccessKeyId("access-key-id");
         cloudStorage.setAccessKeySecret("access-key-secret");
@@ -108,10 +113,56 @@ public class StorageClientTest {
         client.delete(urls);
     }
 
-    public static void main(String[] args) {
-//        aliyun();
-        qcloud();
-//          qcloud();
+    /**
+     * fastdfs
+     */
+    @Test
+    public void fastdfs() {
+        CloudStorage cloudStorage = new CloudStorage();
+        cloudStorage.setBucket("group");
+        cloudStorage.setEndpoint("http://10.32.32.209:9999");
 
+        Storage storage = new Storage();
+        storage.setType(StorageServer.FAST_DFS);
+        storage.setConfig(cloudStorage);
+        StorageClient client = CloudStorageFactory.build(storage);
+        File file = new File(FILE_URL);
+
+        System.out.println("=================================");
+        System.out.println("文件上传");
+        FileInfo url = client.upload(file);
+        System.out.println(url);
+
+//        System.out.println("=================================");
+//        System.out.println("字节上传");
+//        String str = "test" + IdUtil.fastSimpleUUID();
+//        String fileName = IdUtil.fastSimpleUUID() + ".txt";
+//        String key = "xxxx";
+//        System.out.println(client.upload(str, key, fileName));
+
+//        System.out.println("=================================");
+//        System.out.println("文件单个删除");
+//        client.delete("image/20200102/662342784224591872.png");
+//
+//
+//        List<String> urls = new ArrayList<>();
+//
+//        urls.add("662342787223519232.txt");
+//        urls.add("662343182725414912.txt");
+//        urls.add("image/20200102/662343179269308416.png");
+//        client.delete(urls);
     }
+
+
+    @Test
+    public void upload() {
+        String uploadUrl = "http://localhost:9999/group/upload";
+        File file = new File(FILE_URL);
+        String result = HttpUtils.buildHttp().async(uploadUrl)
+                .addFilePara("file", file).addBodyPara("path", IdUtil.fastSimpleUUID() + ".jpg")
+                .addBodyPara("scene", "default").addBodyPara("output", "json")
+                .post().getResult().getBody().toString();
+        System.out.println(result);
+    }
+
 }

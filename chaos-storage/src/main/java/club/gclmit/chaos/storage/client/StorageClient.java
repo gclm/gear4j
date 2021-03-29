@@ -38,7 +38,7 @@ public abstract class StorageClient {
 
     /**
      * 文件路径
-     *
+     * <p>
      * 这里采用的文件命名格式：时间段 + 雪花算法id
      *
      * @param prefix 前缀
@@ -46,8 +46,6 @@ public abstract class StorageClient {
      * @return 返回上传路径
      */
     public String getPath(String prefix, String suffix) {
-
-
 
         LocalDate localDate = LocalDate.now();
         String dateFormat = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
@@ -68,21 +66,20 @@ public abstract class StorageClient {
         if (suffix != null) {
             path = suffix.contains(".") ? path.append(suffix) : path.append(".").append(suffix);
         }
-
         return path.toString();
     }
 
     /**
      * <p>
-     *  上传文件
+     * 上传文件
      * </p>
      *
-     * @author 孤城落寞
      * @param file 文件
      * @return java.lang.String
+     * @author 孤城落寞
      */
     public FileInfo upload(File file) {
-        Assert.isTrue(file.exists(),"上传文件不能为空");
+        Assert.isTrue(file.exists(), "上传文件不能为空");
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
             /**
@@ -91,32 +88,32 @@ public abstract class StorageClient {
             String key = getPath(storage.getConfig().getPrefix(), FileUtils.getSuffix(file));
             String contentType = FileUtils.getMimeType(file);
             String md5 = SecureUtil.md5(file);
-            return upload(fileInputStream,new FileInfo(file.getName(),contentType,file.length(), md5,key,storage.getType().getCode()));
+            return upload(fileInputStream, new FileInfo(file.getName(), contentType, file.length(), md5, key, storage.getType().getCode()));
         } catch (Exception e) {
-            throw new ChaosException("文件上传失败",e);
+            throw new ChaosException("文件上传失败", e);
         }
     }
 
     /**
      * <p>
-     *  上传字节数组
+     * 上传字节数组
      * </p>
      *
-     * @author 孤城落寞
-     * @param data      字节数组
-     * @param key       文件路径
-     * @param fileName  文件名
+     * @param data     字节数组
+     * @param key      文件路径
+     * @param fileName 文件名
      * @return java.lang.String 文件路径
+     * @author 孤城落寞
      */
     public FileInfo upload(byte[] data, String key, String fileName) {
-        Assert.notEmpty(Collections.singleton(data),"上传文件失败，请检查 byte[] 是否正常");
-        Assert.hasLength(key,"上传文件失败，请检查上传文件的 key 是否正常");
+        Assert.notEmpty(Collections.singleton(data), "上传文件失败，请检查 byte[] 是否正常");
+        Assert.hasLength(key, "上传文件失败，请检查上传文件的 key 是否正常");
 
         /**
          * 根据工具类获取 fileInfo 参数
          */
         String contentType = MimeType.TXT.getMimeType();
-        String md5  = SecureUtil.md5(Arrays.toString(data));
+        String md5 = SecureUtil.md5(Arrays.toString(data));
         Long size = Long.valueOf(String.valueOf(data.length));
 
         /**
@@ -126,28 +123,28 @@ public abstract class StorageClient {
             fileName = key;
         }
 
-        return upload(new ByteArrayInputStream(data),new FileInfo(fileName,contentType,size, md5,key,storage.getType().getCode()));
+        return upload(new ByteArrayInputStream(data), new FileInfo(fileName, contentType, size, md5, key, storage.getType().getCode()));
     }
 
     /**
-     *  上传字符串
+     * 上传字符串
      *
-     * @author gclm
-     * @param content     字符串内容
-     * @param key         key
-     * @param fileName    文件名
+     * @param content  字符串内容
+     * @param key      key
+     * @param fileName 文件名
      * @return club.gclmit.chaos.storage.db.pojo.FileInfo
+     * @author gclm
      */
-    public FileInfo upload(String content,String key,String fileName){
+    public FileInfo upload(String content, String key, String fileName) {
 
-        Assert.hasLength(key,"上传文件失败，请检查上传文件的 content 是否正常");
-        Assert.hasLength(key,"上传文件失败，请检查上传文件的 key 是否正常");
+        Assert.hasLength(key, "上传文件失败，请检查上传文件的 content 是否正常");
+        Assert.hasLength(key, "上传文件失败，请检查上传文件的 key 是否正常");
 
         if (StringUtils.isBlank(key)) {
             key = DateUtils.getMilliTimestamp() + ".txt";
         }
         try {
-            return upload(content.getBytes("UTF-8"),key,fileName);
+            return upload(content.getBytes("UTF-8"), key, fileName);
         } catch (UnsupportedEncodingException e) {
             throw new ChaosException("String --> Bytes 编码出现问题");
         }
@@ -155,20 +152,23 @@ public abstract class StorageClient {
 
     /**
      * 上传文件使用默认配置
+     *
      * @param inputStream InputStream
-     * @param fileInfo 文件消息
+     * @param fileInfo    文件消息
      * @return club.gclmit.chaos.storage.db.pojo.FileInfo
      */
     public abstract FileInfo upload(InputStream inputStream, FileInfo fileInfo);
 
     /**
      * 批量删除
+     *
      * @param keys 文件keys
      */
     public abstract void delete(List<String> keys);
 
     /**
      * 删除单个
+     *
      * @param key 文件key
      */
     public abstract void delete(String key);

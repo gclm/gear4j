@@ -41,6 +41,9 @@ public class CloudStorageFactory {
             case HUAWEI:
                 client = new HuaweiStorageClient(storage);
                 break;
+            case FAST_DFS:
+                client = new FastDfsStorageClient(storage);
+                break;
             default:
                 client = new AliyunStorageClient(storage);
                 break;

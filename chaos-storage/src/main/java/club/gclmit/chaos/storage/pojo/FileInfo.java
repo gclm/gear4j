@@ -80,7 +80,7 @@ public class FileInfo implements Serializable {
      * OSS type
      */
     @ApiModelProperty(value = "OSS类型")
-    private Integer ossType = StorageServer.ALIYUN.getCode();
+    private String ossType = StorageServer.ALIYUN.getCode();
 
     /**
      * 上传时间
@@ -98,7 +98,7 @@ public class FileInfo implements Serializable {
         this.status = status;
     }
 
-    public FileInfo(String name, String contentType, Long size, String md5, String ossKey, Integer ossType) {
+    public FileInfo(String name, String contentType, Long size, String md5, String ossKey, String ossType) {
         this.name = name;
         this.contentType = contentType;
         this.size = size;
