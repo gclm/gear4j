@@ -12,7 +12,6 @@ import club.gclmit.chaos.storage.pojo.CloudStorage;
 import club.gclmit.chaos.storage.pojo.FileInfo;
 import com.alibaba.fastjson.JSONObject;
 import com.ejlchina.okhttps.HttpResult;
-import com.ejlchina.okhttps.Mapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
 
@@ -68,7 +67,7 @@ public class FastDfsStorageClient extends StorageClient {
      */
     @Override
     public void delete(List<String> keys) {
-        Assert.notEmpty(keys, "[华为云OBS]批量删除文件的 keys 不能为空");
+        Assert.notEmpty(keys, "[FastDFS]批量删除文件的 keys 不能为空");
         for (String key : keys) {
             delete(key);
         }
@@ -84,8 +83,10 @@ public class FastDfsStorageClient extends StorageClient {
      */
     @Override
     public void delete(String key) {
-        Assert.hasLength(key, "[go-fastdfs]删除文件的key不能为空");
-//        obsClient.deleteObject(cloudStorage.getBucket(), key);
+        Assert.hasLength(key, "[FastDFS]删除文件的key不能为空");
+        String url = serverUrl + "delete?path=" + key;
+        String result = HttpUtils.buildHttp().async(url).get().getResult().getBody().toString();
+        log.info("当前删除状态:[{}]", result);
         List<String> list = new ArrayList<>();
         list.add(key);
     }
@@ -102,8 +103,8 @@ public class FastDfsStorageClient extends StorageClient {
      */
     @Override
     public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {
-        Assert.notNull(inputStream, "[go-fastdfs]上传文件失败，请检查 inputStream 是否正常");
-        Assert.hasLength(fileInfo.getOssKey(), "[go-fastdfs]上传文件失败，请检查上传文件的 key 是否正常");
+        Assert.notNull(inputStream, "[FastDFS]上传文件失败，请检查 inputStream 是否正常");
+        Assert.hasLength(fileInfo.getOssKey(), "[FastDFS]上传文件失败，请检查上传文件的 key 是否正常");
 
         LocalDate localDate = LocalDate.now();
         String dateFormat = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
@@ -120,13 +121,13 @@ public class FastDfsStorageClient extends StorageClient {
                     .post().getResult();
 
             if (result.isSuccessful()) {
-                System.out.println(result.getBody().cache().toString());
-                Mapper mapper = result.getBody().toMapper().getMapper("data");
+                JSONObject mapper = JSONObject.parseObject(result.getBody().toString()).getJSONObject("data");
                 url = mapper.getString("domain") + mapper.getString("path");
                 FileUtils.del(tempFile);
+                fileInfo.setOssKey(mapper.getString("path"));
             }
         } catch (Exception e) {
-            throw new ChaosException("[go-fastdfs]上传文件失败，请检查配置信息", e);
+            throw new ChaosException("[FastDFS]上传文件失败，请检查配置信息", e);
         }
 
         fileInfo.setUrl(url);
