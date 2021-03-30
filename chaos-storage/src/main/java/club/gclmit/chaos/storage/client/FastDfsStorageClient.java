@@ -2,9 +2,9 @@ package club.gclmit.chaos.storage.client;
 
 import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.io.FileUtils;
-import club.gclmit.chaos.core.io.IOUtils;
 import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.HttpUtils;
+import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.storage.Storage;
 import club.gclmit.chaos.storage.contants.FileStatus;
 import club.gclmit.chaos.storage.contants.StorageServer;
@@ -12,11 +12,11 @@ import club.gclmit.chaos.storage.pojo.CloudStorage;
 import club.gclmit.chaos.storage.pojo.FileInfo;
 import com.alibaba.fastjson.JSONObject;
 import com.ejlchina.okhttps.HttpResult;
+import com.google.common.io.Files;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -110,9 +110,11 @@ public class FastDfsStorageClient extends StorageClient {
         String dateFormat = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
         String url = null;
         try {
+
             File tempFile = new File(FileUtils.getRootPath(), fileInfo.getName());
-            FileOutputStream outputStream = new FileOutputStream(tempFile);
-            IOUtils.copy(inputStream, outputStream);
+            byte[] buffer = new byte[inputStream.available()];
+            inputStream.read(buffer);
+            Files.write(buffer, tempFile);
             String uploadUrl = serverUrl + "upload";
             HttpResult result = HttpUtils.buildHttp().async(uploadUrl)
                     .addFilePara("file", tempFile)
@@ -121,10 +123,14 @@ public class FastDfsStorageClient extends StorageClient {
                     .post().getResult();
 
             if (result.isSuccessful()) {
-                JSONObject mapper = JSONObject.parseObject(result.getBody().toString()).getJSONObject("data");
-                url = mapper.getString("domain") + mapper.getString("path");
-                FileUtils.del(tempFile);
-                fileInfo.setOssKey(mapper.getString("path"));
+                String body = StringUtils.trimAll(result.getBody().toString());
+                JSONObject mapper = JSONObject.parseObject(body);
+                if (mapper.containsKey("data")) {
+                    mapper = mapper.getJSONObject("data");
+                    url = mapper.getString("domain") + mapper.getString("path");
+                    FileUtils.del(tempFile);
+                    fileInfo.setOssKey(mapper.getString("path"));
+                }
             }
         } catch (Exception e) {
             throw new ChaosException("[FastDFS]上传文件失败，请检查配置信息", e);

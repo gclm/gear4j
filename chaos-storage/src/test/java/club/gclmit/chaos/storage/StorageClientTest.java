@@ -4,6 +4,7 @@ import club.gclmit.chaos.core.util.HttpUtils;
 import club.gclmit.chaos.storage.client.StorageClient;
 import club.gclmit.chaos.storage.contants.StorageServer;
 import club.gclmit.chaos.storage.pojo.CloudStorage;
+import club.gclmit.chaos.storage.pojo.FileInfo;
 import cn.hutool.core.util.IdUtil;
 import org.junit.Test;
 
@@ -119,7 +120,7 @@ public class StorageClientTest {
     @Test
     public void fastdfs() {
         CloudStorage cloudStorage = new CloudStorage();
-        cloudStorage.setBucket("group1");
+        cloudStorage.setBucket("group");
         cloudStorage.setEndpoint("http://127.0.0.1:9999");
 
         Storage storage = new Storage();
@@ -128,10 +129,10 @@ public class StorageClientTest {
         StorageClient client = CloudStorageFactory.build(storage);
         File file = new File(MAC_FILE_URL);
 
-//        System.out.println("=================================");
-//        System.out.println("文件上传");
-//        FileInfo url = client.upload(file);
-//        System.out.println(url);
+        System.out.println("=================================");
+        System.out.println("文件上传");
+        FileInfo url = client.upload(file);
+        System.out.println(url);
 
 //        System.out.println("=================================");
 //        System.out.println("字节上传");
@@ -140,9 +141,9 @@ public class StorageClientTest {
 //        String key = "xxxx";
 //        System.out.println(client.upload(str, key, fileName));
 
-        System.out.println("=================================");
-        System.out.println("文件单个删除");
-        client.delete("/group1/20210329/e00809c8eb41ba42082f2d34d94cf27c.jpg");
+//        System.out.println("=================================");
+//        System.out.println("文件单个删除");
+//        client.delete("/group1/20210329/e00809c8eb41ba42082f2d34d94cf27c.jpg");
 
 //
 //        List<String> urls = new ArrayList<>();
