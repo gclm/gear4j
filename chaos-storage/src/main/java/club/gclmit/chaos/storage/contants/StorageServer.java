@@ -45,14 +45,13 @@ public enum StorageServer {
      */
     HUAWEI(5, "huawei", ",华为云"),
 
-
     /**
-     * fast-dfs
+     * go-fastDfs
      */
-    FAST_DFS(6, "go-fastdfs", "华为云");
+    FAST_DFS(6, "FAST_DFS", "fastDfs");
 
     /**
-     * code
+     * id
      */
     private Integer id;
 

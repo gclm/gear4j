@@ -23,8 +23,9 @@ import java.util.List;
  */
 public class StorageClientTest {
 
-    public static final String FILE_URL = "/home/gclm/1617005255007.jpg";
-    public static final String MAC_FILE_URL = "/Users/gclm/Pictures/avatar.jpg";
+    public static final String FILE_PATH = "/home/gclm/1617005255007.jpg";
+    public static final String MAC_FILE_PATH = "/Users/gclm/Pictures/avatar.jpg";
+
 
     /**
      * 阿里云配置
@@ -43,33 +44,8 @@ public class StorageClientTest {
         storage.setType(StorageServer.ALIYUN);
         storage.setConfig(cloudStorage);
         StorageClient client = CloudStorageFactory.build(storage);
-        File file = new File(FILE_URL);
-
-//        System.out.println("=================================");
-//        System.out.println("文件上传");
-//        String url = client.upload(file);
-//        System.out.println(url);
-
-//        System.out.println("=================================");
-//        System.out.println("字节上传");
-//        String str = "test";
-//        String upload = client.upload(str.getBytes(), IDHelper.getStringId()+".txt");
-//        System.out.println(upload);
-
-        System.out.println("=================================");
-        System.out.println("文件单个删除");
-        client.delete("image/20200102/662339305615654912.png");
-
-//        client.delete("xxxx.txt");
-//        client.delete("xxxx.txt");
-
-        List<String> urls = new ArrayList<>();
-
-        urls.add("662341317505843200.txt");
-        urls.add("xxxx.txt");
-
-        client.delete(urls);
-
+        File file = new File(FILE_PATH);
+        
     }
 
     /**
@@ -87,38 +63,14 @@ public class StorageClientTest {
         Storage storage = new Storage();
         storage.setType(StorageServer.TENCENT);
         storage.setConfig(cloudStorage);
-        StorageClient client = CloudStorageFactory.build(storage);
-        File file = new File(FILE_URL);
 
-//        System.out.println("=================================");
-//        System.out.println("文件上传");
-//        String url = client.upload(file);
-//        System.out.println(url);
-//
-//        System.out.println("=================================");
-//        System.out.println("字节上传");
-//        String str = "test" + IDHelper.getStringId();
-//        String upload = client.upload(str.getBytes(), IDHelper.getStringId()+".txt");
-//        System.out.println(upload);
-
-        System.out.println("=================================");
-        System.out.println("文件单个删除");
-        client.delete("image/20200102/662342784224591872.png");
-
-
-        List<String> urls = new ArrayList<>();
-
-        urls.add("662342787223519232.txt");
-        urls.add("662343182725414912.txt");
-        urls.add("image/20200102/662343179269308416.png");
-        client.delete(urls);
     }
 
     /**
      * fastdfs
      */
     @Test
-    public void fastdfs() {
+    public void fastDfs_upload() {
         CloudStorage cloudStorage = new CloudStorage();
         cloudStorage.setBucket("group");
         cloudStorage.setEndpoint("http://127.0.0.1:9999");
@@ -126,44 +78,56 @@ public class StorageClientTest {
         Storage storage = new Storage();
         storage.setType(StorageServer.FAST_DFS);
         storage.setConfig(cloudStorage);
-        StorageClient client = CloudStorageFactory.build(storage);
-        File file = new File(MAC_FILE_URL);
 
-        System.out.println("=================================");
-        System.out.println("文件上传");
-        FileInfo url = client.upload(file);
-        System.out.println(url);
+        File file = new File(FILE_PATH);
+        uploadFile(storage, file);
 
-//        System.out.println("=================================");
-//        System.out.println("字节上传");
-//        String str = "test" + IdUtil.fastSimpleUUID();
-//        String fileName = IdUtil.fastSimpleUUID() + ".txt";
-//        String key = "xxxx";
-//        System.out.println(client.upload(str, key, fileName));
+        String content = "test" + IdUtil.fastSimpleUUID();
+        uploadByte(storage, content);
 
-//        System.out.println("=================================");
-//        System.out.println("文件单个删除");
-//        client.delete("/group1/20210329/e00809c8eb41ba42082f2d34d94cf27c.jpg");
-
-//
-//        List<String> urls = new ArrayList<>();
-//
-//        urls.add("662342787223519232.txt");
-//        urls.add("662343182725414912.txt");
-//        urls.add("image/20200102/662343179269308416.png");
-//        client.delete(urls);
     }
-
 
     @Test
     public void upload() {
         String uploadUrl = "http://localhost:9999/group/upload";
-        File file = new File(FILE_URL);
+        File file = new File(FILE_PATH);
         String result = HttpUtils.buildHttp().async(uploadUrl)
                 .addFilePara("file", file).addBodyPara("path", IdUtil.fastSimpleUUID() + ".jpg")
                 .addBodyPara("scene", "default").addBodyPara("output", "json")
                 .post().getResult().getBody().toString();
         System.out.println(result);
+    }
+
+    private static void uploadFile(Storage storage, File file) {
+        StorageClient client = CloudStorageFactory.build(storage);
+        System.out.println("===============文件上传===============");
+        System.out.println(client.upload(file));
+        System.out.println("=================================");
+    }
+
+    private static void uploadByte(Storage storage, String content) {
+        StorageClient client = CloudStorageFactory.build(storage);
+        System.out.println("===============字节上传===============");
+        String fileName = IdUtil.fastSimpleUUID() + ".txt";
+        String key = IdUtil.fastSimpleUUID();
+        System.out.println(client.upload(content, key, fileName));
+        System.out.println("=================================");
+    }
+
+    private static void delete(Storage storage, String key) {
+        StorageClient client = CloudStorageFactory.build(storage);
+        System.out.println("===============文件单个删除===============");
+        client.delete(key);
+        ;
+        System.out.println("=================================");
+    }
+
+    private static void batchDelete(Storage storage, List<String> keys) {
+        StorageClient client = CloudStorageFactory.build(storage);
+        System.out.println("===============文件批量删除===============");
+        client.delete(keys);
+        ;
+        System.out.println("=================================");
     }
 
 }

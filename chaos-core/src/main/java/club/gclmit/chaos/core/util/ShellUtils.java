@@ -31,10 +31,10 @@ public class ShellUtils {
      * @return 执行结果
      * @throws ChaosException 自定义异常
      */
-    public static String execForString(String cmd){
+    public static String execForString(String cmd) {
         InputStream stream = exec(cmd);
-        if (IOUtils.isNotEmpty(stream)){
-            return IOUtils.read(stream, CharsetUtil.CHARSET_UTF_8);
+        if (IOUtils.isNotEmpty(stream)) {
+            return IOUtils.readToString(stream, CharsetUtil.CHARSET_UTF_8);
         }
         return "";
     }
@@ -46,13 +46,12 @@ public class ShellUtils {
      * @return 执行结果
      * @throws ChaosException 自定义异常
      */
-    public static List<String> execForLines(String cmd){
-        List<String> empty = ListUtil.empty();
+    public static List<String> execForLines(String cmd) {
         InputStream stream = exec(cmd);
-        if (IOUtils.isNotEmpty(stream)){
-            return IOUtils.readLines(stream, CharsetUtil.UTF_8,empty);
+        if (IOUtils.isNotEmpty(stream)) {
+            return IOUtils.readToLines(stream);
         }
-        return empty;
+        return ListUtil.empty();
     }
 
     /**
@@ -62,11 +61,11 @@ public class ShellUtils {
      * @return 执行结果，按行区分
      * @throws ChaosException 自定义异常
      */
-    public static InputStream exec(String cmd){
+    public static InputStream exec(String cmd) {
         Long startTime = DateUtils.getMilliTimestamp();
 
         String[] commands = new String[3];
-        if (SystemUtils.isWindows()){
+        if (SystemUtils.isWindows()) {
             commands[0] = "cmd.exe";
             commands[1] = "/c";
         } else {
@@ -85,17 +84,17 @@ public class ShellUtils {
                 Long endTime = DateUtils.getMilliTimestamp();
                 Long distance = endTime - startTime;
 
-                logger.debug("命令:[{}]\t耗时:[{}]",shell,distance);
+                logger.debug("命令:[{}]\t耗时:[{}]", shell, distance);
                 return stream;
             } else {
                 InputStream is = process.getErrorStream();
                 if (is != null) {
-                    String error = IOUtils.read(is,CharsetUtil.CHARSET_UTF_8);
-                    logger.debug("状态:[{}]\t命令:[{}]\n错误:[{}]",false,shell,error);
+                    String error = IOUtils.readToString(is, CharsetUtil.CHARSET_UTF_8);
+                    logger.debug("状态:[{}]\t命令:[{}]\n错误:[{}]", false, shell, error);
                 }
                 return null;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new ChaosException("执行 Shell 命令发生异常", e);
         }
     }

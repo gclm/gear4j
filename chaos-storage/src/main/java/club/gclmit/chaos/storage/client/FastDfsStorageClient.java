@@ -2,6 +2,7 @@ package club.gclmit.chaos.storage.client;
 
 import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.io.FileUtils;
+import club.gclmit.chaos.core.io.IOUtils;
 import club.gclmit.chaos.core.util.DateUtils;
 import club.gclmit.chaos.core.util.HttpUtils;
 import club.gclmit.chaos.core.util.StringUtils;
@@ -110,11 +111,8 @@ public class FastDfsStorageClient extends StorageClient {
         String dateFormat = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
         String url = null;
         try {
-
             File tempFile = new File(FileUtils.getRootPath(), fileInfo.getName());
-            byte[] buffer = new byte[inputStream.available()];
-            inputStream.read(buffer);
-            Files.write(buffer, tempFile);
+            IOUtils.readToFile(inputStream, tempFile);
             String uploadUrl = serverUrl + "upload";
             HttpResult result = HttpUtils.buildHttp().async(uploadUrl)
                     .addFilePara("file", tempFile)

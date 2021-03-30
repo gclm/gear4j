@@ -122,7 +122,6 @@ public class MapUtils{
             field.setAccessible(true);
             map.put(field.getName(), field.get(obj));
         }
-
         return map;
     }
 

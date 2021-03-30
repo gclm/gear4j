@@ -51,37 +51,39 @@ public class UserAgent {
         try {
             URL url = ResourceUtil.getResource("userAgents");
             File file = new File(url.getPath());
-            userAgents = IOUtils.readLines(file);
-        } catch(Exception ex) {}
+            userAgents = IOUtils.readToLines(file);
+        } catch (Exception ex) {
+        }
     }
 
     static {
         try {
             URL url = ResourceUtil.getResource("mobileUserAgents");
             File file = new File(url.getPath());
-            mobileUserAgents = IOUtils.readLines(file);
-        } catch(Exception ex) {}
+            mobileUserAgents = IOUtils.readToLines(file);
+        } catch (Exception ex) {
+        }
     }
 
     private UserAgent() {
     }
 
     /**
-     *  获取随机UserAgent
+     * 获取随机UserAgent
      *
-     * @author gclm
-     * @param isMobile  是否是手机端
+     * @param isMobile 是否是手机端
      * @return 返回随机UserAgent
+     * @author gclm
      */
     public static String getUserAgent(boolean isMobile) {
-        if(isMobile) {
-            if(mobileUserAgents == null || mobileUserAgents.size() == 0) {
+        if (isMobile) {
+            if (mobileUserAgents == null || mobileUserAgents.size() == 0) {
                 return DEFAULT_MOBILE_USER_AGENT;
             }
             Collections.shuffle(mobileUserAgents);
             return mobileUserAgents.get(0);
         } else {
-            if(userAgents == null || userAgents.size() == 0) {
+            if (userAgents == null || userAgents.size() == 0) {
                 return DEFAULT_USER_AGENT;
             }
             Collections.shuffle(userAgents);
