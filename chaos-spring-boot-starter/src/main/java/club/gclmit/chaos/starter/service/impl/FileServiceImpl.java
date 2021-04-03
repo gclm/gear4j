@@ -1,6 +1,7 @@
 package club.gclmit.chaos.starter.service.impl;
 
 import club.gclmit.chaos.core.io.FileUtils;
+import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.core.util.UploadFileUtils;
 import club.gclmit.chaos.starter.mapper.FileMapper;
 import club.gclmit.chaos.starter.service.FileService;
@@ -48,7 +49,9 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
         FileInfo fileInfo = queryMd5(md5);
         if (fileInfo == null) {
             fileInfo = storageClient.upload(tempFile);
-            save(fileInfo);
+            if (StringUtils.isNotBlank(fileInfo.getUrl())) {
+                save(fileInfo);
+            }
         }
         FileUtils.del(tempFile);
         return fileInfo;

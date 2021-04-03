@@ -13,8 +13,8 @@ import club.gclmit.chaos.storage.pojo.CloudStorage;
 import club.gclmit.chaos.storage.pojo.FileInfo;
 import com.alibaba.fastjson.JSONObject;
 import com.ejlchina.okhttps.HttpResult;
-import com.google.common.io.Files;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
 
 import java.io.File;
@@ -120,7 +120,7 @@ public class FastDfsStorageClient extends StorageClient {
                     .addBodyPara("scene", "default").addBodyPara("output", "json2")
                     .post().getResult();
 
-            if (result.isSuccessful()) {
+            if (HttpStatus.OK.value() == result.getStatus()) {
                 String body = StringUtils.trimAll(result.getBody().toString());
                 JSONObject mapper = JSONObject.parseObject(body);
                 if (mapper.containsKey("data")) {
