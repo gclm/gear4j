@@ -1,7 +1,8 @@
 package club.gclmit.chaos.core.lang;
 
+import cn.hutool.core.thread.ThreadUtil;
+
 import java.sql.Timestamp;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
@@ -45,11 +46,7 @@ public class SystemClock {
     }
 
     private void scheduleClockUpdating() {
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor(runnable -> {
-            Thread thread = new Thread(runnable, "System Clock");
-            thread.setDaemon(true);
-            return thread;
-        });
+        ScheduledExecutorService scheduler = (ScheduledExecutorService) ThreadUtil.newExecutor();
         scheduler.scheduleAtFixedRate(() -> now.set(System.currentTimeMillis()), period, period, TimeUnit.MILLISECONDS);
     }
 

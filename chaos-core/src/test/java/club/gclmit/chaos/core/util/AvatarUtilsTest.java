@@ -131,10 +131,11 @@ public class AvatarUtilsTest {
         String regEx = "[\\u4e00-\\u9fa5]+";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(str);
-        if (m.find())
+        if (m.find()){
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     /**
