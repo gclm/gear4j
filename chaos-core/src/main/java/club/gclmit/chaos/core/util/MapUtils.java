@@ -108,7 +108,7 @@ public class MapUtils{
      * @author gclm
      * @param obj 待转换的Object
      * @return java.util.Map
-     * @exception Exception
+     * @exception Exception 反射异常
      */
     public static Map objectToMap(Object obj) throws Exception {
 
