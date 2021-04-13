@@ -29,18 +29,24 @@ public class SqlUtils {
 
     /**
      * 检查字符，防止注入绕过
+     *
+     * @param sql sql 脚本
+     * @return String 返回效验通过的sql
      */
-    public static String escapeOrderBySql(String value) {
-        if (StringUtils.isNotEmpty(value) && !isValidOrderBySql(value)) {
+    public static String escapeOrderBySql(String sql) {
+        if (StringUtils.isBlank(sql) || !isValidOrderBySql(sql)) {
             throw new ChaosException("参数不符合规范，不能进行查询");
         }
-        return value;
+        return sql;
     }
 
     /**
      * 验证 order by 语法是否符合规范
+     *
+     * @param sql sql 脚本
+     * @return boolean
      */
-    public static boolean isValidOrderBySql(String value) {
-        return value.matches(SQL_PATTERN);
+    public static boolean isValidOrderBySql(String sql) {
+        return sql.matches(SQL_PATTERN);
     }
 }
