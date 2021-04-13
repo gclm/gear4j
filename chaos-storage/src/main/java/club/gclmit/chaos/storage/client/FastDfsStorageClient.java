@@ -1,10 +1,11 @@
 package club.gclmit.chaos.storage.client;
 
 import club.gclmit.chaos.core.exception.ChaosException;
+import club.gclmit.chaos.core.http.HttpUtils;
+import club.gclmit.chaos.core.http.RequestClient;
 import club.gclmit.chaos.core.io.FileUtils;
 import club.gclmit.chaos.core.io.IOUtils;
 import club.gclmit.chaos.core.util.DateUtils;
-import club.gclmit.chaos.core.util.HttpUtils;
 import club.gclmit.chaos.core.util.StringUtils;
 import club.gclmit.chaos.storage.Storage;
 import club.gclmit.chaos.storage.contants.FileStatus;
@@ -86,7 +87,7 @@ public class FastDfsStorageClient extends StorageClient {
     public void delete(String key) {
         Assert.hasLength(key, "[FastDFS]删除文件的key不能为空");
         String url = serverUrl + "delete?path=" + key;
-        String result = HttpUtils.buildHttp().async(url).get().getResult().getBody().toString();
+        String result = RequestClient.get(url);
         log.info("当前删除状态:[{}]", result);
         List<String> list = new ArrayList<>();
         list.add(key);

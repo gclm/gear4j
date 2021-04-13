@@ -1,8 +1,9 @@
 package club.gclmit.chaos.core.util;
 
+import club.gclmit.chaos.core.bean.convert.ConvertUtils;
 import cn.hutool.core.util.ReflectUtil;
 import lombok.experimental.UtilityClass;
-import org.apache.commons.beanutils.ConvertUtils;
+
 import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.HashMap;
@@ -108,7 +109,7 @@ public class MapUtils{
      * @author gclm
      * @param obj 待转换的Object
      * @return java.util.Map
-     * @exception Exception
+     * @exception Exception 反射异常
      */
     public static Map objectToMap(Object obj) throws Exception {
 
