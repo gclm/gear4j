@@ -1,7 +1,7 @@
 package club.gclmit.chaos.core.servlet;
 
 import club.gclmit.chaos.core.exception.ChaosException;
-import club.gclmit.chaos.core.util.StringUtils;
+import club.gclmit.chaos.core.utils.StringUtils;
 import cn.hutool.core.lang.Assert;
 import lombok.experimental.UtilityClass;
 

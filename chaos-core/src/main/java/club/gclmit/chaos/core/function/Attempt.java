@@ -1,6 +1,6 @@
 package club.gclmit.chaos.core.function;
 
-import club.gclmit.chaos.core.util.ExceptionUtils;
+import club.gclmit.chaos.core.utils.ExceptionUtils;
 import lombok.experimental.UtilityClass;
 
 import java.util.Comparator;

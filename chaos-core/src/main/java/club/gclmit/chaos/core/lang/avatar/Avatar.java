@@ -1,6 +1,6 @@
 package club.gclmit.chaos.core.lang.avatar;
 
-import club.gclmit.chaos.core.util.CharsetUtils;
+import club.gclmit.chaos.core.utils.CharsetUtils;
 
 /**
  * Avatar 链式表达式

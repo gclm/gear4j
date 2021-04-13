@@ -322,7 +322,7 @@ public enum MimeType {
     }
 
     /**
-     * 根据前缀获取文档的 Mime
+     * 根据后缀获取文档的 Mime
      *
      * @author gclm
      * @param suffix 文件后缀

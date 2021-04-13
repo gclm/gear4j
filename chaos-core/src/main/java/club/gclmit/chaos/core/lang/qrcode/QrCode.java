@@ -1,6 +1,6 @@
 package club.gclmit.chaos.core.lang.qrcode;
 
-import club.gclmit.chaos.core.util.CharsetUtils;
+import club.gclmit.chaos.core.utils.CharsetUtils;
 
 /**
  * 二维码工具类

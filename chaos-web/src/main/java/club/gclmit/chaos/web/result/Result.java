@@ -1,7 +1,7 @@
 package club.gclmit.chaos.web.result;
 
-import club.gclmit.chaos.core.util.DateUtils;
-import club.gclmit.chaos.core.util.StringUtils;
+import club.gclmit.chaos.core.utils.DateUtils;
+import club.gclmit.chaos.core.utils.StringUtils;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

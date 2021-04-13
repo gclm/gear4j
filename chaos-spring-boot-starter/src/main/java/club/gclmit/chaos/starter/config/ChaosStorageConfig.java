@@ -1,6 +1,6 @@
 package club.gclmit.chaos.starter.config;
 
-import club.gclmit.chaos.core.util.StringUtils;
+import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.chaos.starter.properties.ChaosProperties;
 import club.gclmit.chaos.storage.CloudStorageFactory;
 import club.gclmit.chaos.storage.client.StorageClient;

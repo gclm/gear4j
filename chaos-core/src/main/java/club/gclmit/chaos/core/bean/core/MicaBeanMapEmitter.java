@@ -1,6 +1,6 @@
 package club.gclmit.chaos.core.bean.core;
 
-import club.gclmit.chaos.core.util.ReflectionUtils;
+import club.gclmit.chaos.core.utils.ReflectionUtils;
 import org.springframework.asm.ClassVisitor;
 import org.springframework.asm.Label;
 import org.springframework.asm.Type;

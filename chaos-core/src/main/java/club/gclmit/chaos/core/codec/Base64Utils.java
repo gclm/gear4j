@@ -1,6 +1,6 @@
 package club.gclmit.chaos.core.codec;
 
-import club.gclmit.chaos.core.util.CharsetUtils;
+import club.gclmit.chaos.core.utils.CharsetUtils;
 import lombok.experimental.UtilityClass;
 import java.nio.charset.Charset;
 import java.util.Base64;

@@ -1,13 +1,14 @@
 package club.gclmit.chaos.storage.client;
 
 import club.gclmit.chaos.core.exception.ChaosException;
+import club.gclmit.chaos.core.id.IdUtils;
+import club.gclmit.chaos.core.io.FileTypeUtils;
 import club.gclmit.chaos.core.io.FileUtils;
 import club.gclmit.chaos.core.io.MimeType;
-import club.gclmit.chaos.core.util.DateUtils;
-import club.gclmit.chaos.core.util.StringUtils;
+import club.gclmit.chaos.core.utils.DateUtils;
+import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.chaos.storage.Storage;
 import club.gclmit.chaos.storage.pojo.FileInfo;
-import cn.hutool.core.util.IdUtil;
 import cn.hutool.crypto.SecureUtil;
 import org.springframework.util.Assert;
 
@@ -39,7 +40,7 @@ public abstract class StorageClient {
     /**
      * 文件路径
      * <p>
-     * 这里采用的文件命名格式：时间段 + 雪花算法id
+     * 这里采用的文件命名格式：时间段 + 全局id
      *
      * @param prefix 前缀
      * @param suffix 后缀
@@ -61,7 +62,7 @@ public abstract class StorageClient {
             path.append(prefix).append("/");
         }
 
-        path.append(dateFormat).append("/").append(IdUtil.fastSimpleUUID());
+        path.append(dateFormat).append("/").append(IdUtils.getYeinGid());
 
         if (suffix != null) {
             path = suffix.contains(".") ? path.append(suffix) : path.append(".").append(suffix);
@@ -86,7 +87,7 @@ public abstract class StorageClient {
              * 根据工具类获取 fileInfo 参数
              */
             String key = getPath(storage.getConfig().getPrefix(), FileUtils.getSuffix(file));
-            String contentType = FileUtils.getMimeType(file);
+            String contentType = FileTypeUtils.getMimeType(file);
             String md5 = SecureUtil.md5(file);
             return upload(fileInputStream, new FileInfo(file.getName(), contentType, file.length(), md5, key, storage.getType().getCode()));
         } catch (Exception e) {

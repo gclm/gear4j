@@ -2,10 +2,10 @@ package club.gclmit.chaos.logger.filter;
 
 import club.gclmit.chaos.core.servlet.HttpCacheRequestWrapper;
 import club.gclmit.chaos.core.servlet.HttpCacheResponseWrapper;
-import club.gclmit.chaos.core.util.DateUtils;
+import club.gclmit.chaos.core.utils.DateUtils;
 import club.gclmit.chaos.core.servlet.ServletUtils;
-import club.gclmit.chaos.core.util.SQLUtils;
-import club.gclmit.chaos.core.util.UrlUtils;
+import club.gclmit.chaos.core.utils.SqlUtils;
+import club.gclmit.chaos.core.utils.UrlUtils;
 import club.gclmit.chaos.json.util.JsonUtils;
 import club.gclmit.chaos.logger.mapper.LoggerMapper;
 import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
@@ -88,7 +88,7 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
              */
             if (config.getSave()) {
                 LoggerMapper loggerMapper = genBean(LoggerMapper.class, request);
-                boolean save = SQLUtils.retBool(loggerMapper.insert(trace));
+                boolean save = SqlUtils.retBool(loggerMapper.insert(trace));
                 log.info("当前请求日志：{}\t入库：{}", trace, save);
             } else {
                 log.info("当前请求日志：{}", trace);

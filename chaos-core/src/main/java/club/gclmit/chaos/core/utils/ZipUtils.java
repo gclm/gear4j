@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.util;
+package club.gclmit.chaos.core.utils;
 
 import cn.hutool.core.util.ZipUtil;
 

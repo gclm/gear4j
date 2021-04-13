@@ -1,7 +1,7 @@
 package club.gclmit.chaos.web.controller;
 
-import club.gclmit.chaos.core.util.StringUtils;
-import club.gclmit.chaos.core.util.UrlUtils;
+import club.gclmit.chaos.core.utils.StringUtils;
+import club.gclmit.chaos.core.utils.UrlUtils;
 import club.gclmit.chaos.web.result.PageResult;
 import club.gclmit.chaos.web.result.Result;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

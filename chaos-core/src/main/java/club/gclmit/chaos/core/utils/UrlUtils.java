@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.util;
+package club.gclmit.chaos.core.utils;
 
 import club.gclmit.chaos.core.exception.ChaosException;
 import cn.hutool.core.lang.Assert;

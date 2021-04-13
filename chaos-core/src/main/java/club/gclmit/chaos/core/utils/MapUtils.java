@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.util;
+package club.gclmit.chaos.core.utils;
 
 import club.gclmit.chaos.core.bean.convert.ConvertUtils;
 import cn.hutool.core.util.ReflectUtil;

@@ -1,10 +1,9 @@
-package club.gclmit.chaos.core.util;
+package club.gclmit.chaos.core.utils;
 
 import club.gclmit.chaos.core.exception.ChaosException;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import lombok.experimental.UtilityClass;
-import org.springframework.lang.Nullable;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
