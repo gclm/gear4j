@@ -127,14 +127,13 @@ public class FastDfsStorageClient extends StorageClient {
                 if (mapper.containsKey("data")) {
                     mapper = mapper.getJSONObject("data");
                     url = mapper.getString("domain") + mapper.getString("path");
-                    FileUtils.del(tempFile);
                     fileInfo.setOssKey(mapper.getString("path"));
                 }
             }
+            FileUtils.del(tempFile);
         } catch (Exception e) {
             throw new ChaosException("[FastDFS]上传文件失败，请检查配置信息", e);
         }
-
         fileInfo.setUrl(url);
         fileInfo.setUploadTime(DateUtils.getMilliTimestamp());
         fileInfo.setStatus(FileStatus.UPLOAD_SUCCESS.getId());
