@@ -1,11 +1,12 @@
 package club.gclmit.chaos.storage.client;
 
 import club.gclmit.chaos.core.exception.ChaosException;
+import club.gclmit.chaos.core.http.HttpUtils;
+import club.gclmit.chaos.core.http.RequestClient;
 import club.gclmit.chaos.core.io.FileUtils;
 import club.gclmit.chaos.core.io.IOUtils;
-import club.gclmit.chaos.core.util.DateUtils;
-import club.gclmit.chaos.core.util.HttpUtils;
-import club.gclmit.chaos.core.util.StringUtils;
+import club.gclmit.chaos.core.utils.DateUtils;
+import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.chaos.storage.Storage;
 import club.gclmit.chaos.storage.contants.FileStatus;
 import club.gclmit.chaos.storage.contants.StorageServer;
@@ -13,8 +14,8 @@ import club.gclmit.chaos.storage.pojo.CloudStorage;
 import club.gclmit.chaos.storage.pojo.FileInfo;
 import com.alibaba.fastjson.JSONObject;
 import com.ejlchina.okhttps.HttpResult;
-import com.google.common.io.Files;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
 
 import java.io.File;
@@ -86,7 +87,7 @@ public class FastDfsStorageClient extends StorageClient {
     public void delete(String key) {
         Assert.hasLength(key, "[FastDFS]删除文件的key不能为空");
         String url = serverUrl + "delete?path=" + key;
-        String result = HttpUtils.buildHttp().async(url).get().getResult().getBody().toString();
+        String result = RequestClient.get(url);
         log.info("当前删除状态:[{}]", result);
         List<String> list = new ArrayList<>();
         list.add(key);
@@ -120,7 +121,7 @@ public class FastDfsStorageClient extends StorageClient {
                     .addBodyPara("scene", "default").addBodyPara("output", "json2")
                     .post().getResult();
 
-            if (result.isSuccessful()) {
+            if (HttpStatus.OK.value() == result.getStatus()) {
                 String body = StringUtils.trimAll(result.getBody().toString());
                 JSONObject mapper = JSONObject.parseObject(body);
                 if (mapper.containsKey("data")) {

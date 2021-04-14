@@ -1,6 +1,6 @@
 package club.gclmit.chaos.waf.xss;
 
-import club.gclmit.chaos.core.util.StringUtils;
+import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.chaos.waf.util.XssUtils;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;

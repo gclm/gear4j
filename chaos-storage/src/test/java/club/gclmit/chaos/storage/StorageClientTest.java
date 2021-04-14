@@ -1,16 +1,16 @@
 package club.gclmit.chaos.storage;
 
-import club.gclmit.chaos.core.util.HttpUtils;
 import club.gclmit.chaos.storage.client.StorageClient;
 import club.gclmit.chaos.storage.contants.StorageServer;
 import club.gclmit.chaos.storage.pojo.CloudStorage;
-import club.gclmit.chaos.storage.pojo.FileInfo;
 import cn.hutool.core.util.IdUtil;
+import com.ejlchina.okhttps.OkHttps;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -91,9 +91,14 @@ public class StorageClientTest {
     public void upload() {
         String uploadUrl = "http://localhost:9999/group/upload";
         File file = new File(FILE_PATH);
-        String result = HttpUtils.buildHttp().async(uploadUrl)
-                .addFilePara("file", file).addBodyPara("path", IdUtil.fastSimpleUUID() + ".jpg")
-                .addBodyPara("scene", "default").addBodyPara("output", "json")
+        Map<String,Object> params = new HashMap<>();
+        params.put("path", IdUtil.fastSimpleUUID() + ".jpg");
+        params.put("scene", "default");
+        params.put("output", "json");
+        String result = OkHttps.async(uploadUrl)
+                .addFilePara("file", file)
+                .addBodyPara(params)
+                .bodyType("form")
                 .post().getResult().getBody().toString();
         System.out.println(result);
     }

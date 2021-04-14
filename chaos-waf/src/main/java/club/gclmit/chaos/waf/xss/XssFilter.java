@@ -1,6 +1,6 @@
 package club.gclmit.chaos.waf.xss;
 
-import club.gclmit.chaos.core.util.UrlUtils;
+import club.gclmit.chaos.core.utils.UrlUtils;
 import club.gclmit.chaos.waf.properties.ChaosWafProperties;
 import club.gclmit.chaos.waf.properties.XssProperties;
 import cn.hutool.core.collection.CollUtil;

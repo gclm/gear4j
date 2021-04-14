@@ -1,7 +1,7 @@
 package club.gclmit.chaos.waf.rule;
 
 import club.gclmit.chaos.core.exception.ChaosException;
-import club.gclmit.chaos.core.util.StringUtils;
+import club.gclmit.chaos.core.utils.StringUtils;
 
 /**
  * SQL过滤

@@ -14,12 +14,18 @@
 	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
 		<img src="https://img.shields.io/badge/JDK-8+-green.svg" />
 	</a>
-<!--     <a href="https://codecov.io/gh/gclm/chaos"> -->
-<!--         <img src="https://codecov.io/gh/gclm/chaos/branch/master/graph/badge.svg" /> -->
-<!--     </a> -->
-    <a href="https://travis-ci.com/gclm/chaos">
-        <img src="https://travis-ci.com/gclm/chaos.svg?branch=master" />
-    </a>
+
+[comment]: <> (<a href="https://codecov.io/gh/gclm/chaos">)
+
+[comment]: <> (<img src="https://codecov.io/gh/gclm/chaos/branch/master/graph/badge.svg" />)
+
+[comment]: <> (</a> )
+
+[comment]: <> (    <a href="https://travis-ci.com/gclm/chaos">)
+
+[comment]: <> (        <img src="https://travis-ci.com/gclm/chaos.svg?branch=master" />)
+
+[comment]: <> (    </a>)
 </p>
 <p align="center">
     QQ群：<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=4684b1c1194706adcc4ce7c9428935d31c0b2a86b51e96cb807fa30f94cebfde">641633175</a>
