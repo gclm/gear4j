@@ -40,6 +40,18 @@ public class UploadFileUtils {
         return !isEmpty(file);
     }
 
+
+    /**
+     * MultipartFile 转 File
+     *
+     * @param multipartFile springmvc封装的上传文件
+     * @return java.io.File
+     */
+    public static File multipartFileToFile(MultipartFile multipartFile) {
+        Assert.notNull(multipartFile.isEmpty(), "multipartFile 不能为空");
+        return multipartFileToFile(multipartFile,FileUtils.getRootPath());
+    }
+
     /**
      * MultipartFile 转 File
      *
