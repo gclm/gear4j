@@ -13,9 +13,7 @@ import club.gclmit.chaos.storage.contants.StorageServer;
 import club.gclmit.chaos.storage.pojo.CloudStorage;
 import club.gclmit.chaos.storage.pojo.FileInfo;
 import com.alibaba.fastjson.JSONObject;
-import com.ejlchina.okhttps.HttpResult;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
 
 import java.io.File;
@@ -23,7 +21,9 @@ import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -115,20 +115,17 @@ public class FastDfsStorageClient extends StorageClient {
             File tempFile = new File(FileUtils.getRootPath(), fileInfo.getName());
             IOUtils.readToFile(inputStream, tempFile);
             String uploadUrl = serverUrl + "upload";
-            HttpResult result = HttpUtils.buildHttp().async(uploadUrl)
-                    .addFilePara("file", tempFile)
-                    .addBodyPara("path", dateFormat)
-                    .addBodyPara("scene", "default").addBodyPara("output", "json2")
-                    .post().getResult();
-
-            if (HttpStatus.OK.value() == result.getStatus()) {
-                String body = StringUtils.trimAll(result.getBody().toString());
-                JSONObject mapper = JSONObject.parseObject(body);
-                if (mapper.containsKey("data")) {
-                    mapper = mapper.getJSONObject("data");
-                    url = mapper.getString("domain") + mapper.getString("path");
-                    fileInfo.setOssKey(mapper.getString("path"));
-                }
+            Map<String,Object> params = new HashMap<>(6);
+            params.put("path", dateFormat);
+            params.put("scene", "default");
+            params.put("output", "json2");
+            String result = RequestClient.upload(uploadUrl,params,HttpUtils.buildRequestHeader(),"file", tempFile);
+            String body = StringUtils.trimAll(result);
+            JSONObject mapper = JSONObject.parseObject(body);
+            if (mapper.containsKey("data")) {
+                mapper = mapper.getJSONObject("data");
+                url = mapper.getString("domain") + mapper.getString("path");
+                fileInfo.setOssKey(mapper.getString("path"));
             }
             FileUtils.del(tempFile);
         } catch (Exception e) {

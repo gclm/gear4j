@@ -79,7 +79,7 @@ public class StorageClientTest {
         storage.setType(StorageServer.FAST_DFS);
         storage.setConfig(cloudStorage);
 
-        File file = new File(FILE_PATH);
+        File file = new File(MAC_FILE_PATH);
         uploadFile(storage, file);
 
         String content = "test" + IdUtil.fastSimpleUUID();
