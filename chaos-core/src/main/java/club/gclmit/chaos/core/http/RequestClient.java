@@ -133,6 +133,20 @@ public class RequestClient {
      * 上传 请求
      *
      * @param url     请求url
+     * @param headers 请求头
+     * @param fileParam  上传文件参数
+     * @param file  上传文件
+     * @return java.lang.String
+     * @author gclm
+     */
+    public static String upload(String url, Map<String, String> headers, String fileParam, File file) {
+        return HttpUtils.buildHttp().async(url).addFilePara(fileParam,file).post().getResult().getBody().cache().toString();
+    }
+
+    /**
+     * 上传 请求
+     *
+     * @param url     请求url
      * @param params  请求参数
      * @param headers 请求头
      * @param fileParam  上传文件参数
