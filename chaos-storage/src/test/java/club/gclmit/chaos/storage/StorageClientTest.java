@@ -90,7 +90,7 @@ public class StorageClientTest {
     @Test
     public void upload() {
         String uploadUrl = "http://localhost:9999/group/upload";
-        File file = new File(FILE_PATH);
+        File file = new File(MAC_FILE_PATH);
         Map<String,Object> params = new HashMap<>();
         params.put("path", IdUtil.fastSimpleUUID() + ".jpg");
         params.put("scene", "default");
@@ -98,7 +98,7 @@ public class StorageClientTest {
         String result = OkHttps.async(uploadUrl)
                 .addFilePara("file", file)
                 .addBodyPara(params)
-                .bodyType("form")
+//                .bodyType("form")
                 .post().getResult().getBody().toString();
         System.out.println(result);
     }

@@ -1,8 +1,8 @@
 package club.gclmit.chaos.core.http;
 
-import com.ejlchina.okhttps.FastjsonMsgConvertor;
 import com.ejlchina.okhttps.HTTP;
 import com.ejlchina.okhttps.HttpResult;
+import com.ejlchina.okhttps.JacksonMsgConvertor;
 import com.ejlchina.okhttps.internal.RealHttpResult;
 import lombok.experimental.UtilityClass;
 import okhttp3.ConnectionPool;
@@ -30,7 +30,7 @@ public class HttpUtils {
      * @author gclm
      */
     public static HTTP buildHttp() {
-        return HTTP.builder().addMsgConvertor(new FastjsonMsgConvertor())
+        return HTTP.builder().addMsgConvertor(new JacksonMsgConvertor())
                 .config((OkHttpClient.Builder builder) -> {
                     // 配置连接池 最小10个连接（不配置默认为 5）
                     builder.connectionPool(new ConnectionPool(10, 5, TimeUnit.MINUTES));
