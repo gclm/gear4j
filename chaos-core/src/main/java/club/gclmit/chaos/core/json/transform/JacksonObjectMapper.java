@@ -14,10 +14,9 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 /**
- * TODO
+ * 采用单例模式封装 ObjectMapper
  *
  * @author gclm
- * @date 2021/6/8 下午4:59
  * @since 1.0
  */
 public class JacksonObjectMapper {
