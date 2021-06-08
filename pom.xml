@@ -20,7 +20,6 @@
     <modules>
         <module>chaos-core</module>
         <module>chaos-storage</module>
-        <module>chaos-json</module>
         <module>chaos-web</module>
         <module>chaos-logger</module>
         <module>chaos-waf</module>

@@ -1,4 +1,4 @@
-package club.gclmit.chaos.json;
+package club.gclmit.chaos.core.json.data;
 
 /**
  * JSON 公共父类

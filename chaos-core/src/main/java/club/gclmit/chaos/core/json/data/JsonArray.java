@@ -1,4 +1,4 @@
-package club.gclmit.chaos.json;
+package club.gclmit.chaos.core.json.data;
 
 /**
  * 列表结构的只读数据集

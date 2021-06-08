@@ -1,4 +1,4 @@
-package club.gclmit.chaos.json.util;
+package club.gclmit.chaos.core.json.util;
 
 import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.utils.DateUtils;

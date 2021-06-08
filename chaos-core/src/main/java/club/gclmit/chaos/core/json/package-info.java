@@ -3,4 +3,4 @@
  *
  * @author gclm
  */
-package club.gclmit.chaos.json;
+package club.gclmit.chaos.core.json;
