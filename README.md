@@ -5,11 +5,14 @@
 	<strong>一个功能强悍的 Spring Boot Starter 组件（Where dreams originate）</strong>
 </p>
 <p align="center">
-	<a target="_blank" href="https://search.maven.org/search?q=g:%20club.gclmit%20AND%20a:%20chaos-spring-boot-starter">
+	<a target="_blank" href="https://github.com/gclm/chaos/actions">
+        <img src="https://github.com/gclm/chaos/workflows/Java%20CI/badge.svg" />
+	</a>
+    <a target="_blank" href="https://search.maven.org/search?q=g:%20club.gclmit%20AND%20a:%20chaos-spring-boot-starter">
         <img src="https://img.shields.io/maven-central/v/club.gclmit/chaos-spring-boot-starter.svg?label=Maven%20Central" />
 	</a>
-	<a target="_blank" href="http://license.coscl.org.cn/MulanPSL2/">
-        <img src="https://img.shields.io/:license-MulanPSL2-blue.svg" />
+	<a target="_blank" href="https://github.com/gclm/chaos/blob/master/LICENSE/">
+        <img src="https://img.shields.io/:license-Apache2-blue.svg" />
 	</a>
 	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
 		<img src="https://img.shields.io/badge/JDK-8+-green.svg" />
