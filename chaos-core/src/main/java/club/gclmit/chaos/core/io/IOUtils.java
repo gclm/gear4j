@@ -141,9 +141,16 @@ public class IOUtils extends org.springframework.util.StreamUtils {
         } catch (Exception e) {
             throw new ChaosException("读取文件异常", e);
         }
-        return null;
+        return lines;
     }
 
+    /**
+     * InputStream to list String
+     *
+     * @param inputStream 读取流
+     * @return 字符串集合
+     * @author gclm
+     */
     public static List<String> readToLines(InputStream inputStream) {
         List<String> empty = ListUtil.empty();
         return IoUtil.readLines(inputStream, CharsetUtils.CHARSET_UTF_8, empty);

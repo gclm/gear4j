@@ -92,6 +92,12 @@
             <artifactId>okhttps-jackson</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.jsqlparser</groupId>
+            <artifactId>jsqlparser</artifactId>
+            <version>1.2</version>
+        </dependency>
+
     </dependencies>
 
 </project>
