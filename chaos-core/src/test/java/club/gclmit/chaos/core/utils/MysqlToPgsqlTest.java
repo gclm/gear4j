@@ -202,23 +202,111 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.storage.contants;
+package club.gclmit.chaos.core.utils;
+
+import club.gclmit.chaos.core.io.IOUtils;
+import net.sf.jsqlparser.JSQLParserException;
+import net.sf.jsqlparser.parser.CCJSqlParserUtil;
+import net.sf.jsqlparser.schema.Table;
+import net.sf.jsqlparser.statement.Statements;
+import net.sf.jsqlparser.statement.create.table.ColumnDefinition;
+import net.sf.jsqlparser.statement.create.table.CreateTable;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * <p>
- * 响应数据类型
- * </p>
+ * TODO
  *
  * @author gclm
+ * @date 2021/4/19 9:38 下午
+ * @since 1.8
  */
-public enum  ResponseDataType {
+public class MysqlToPgsqlTest {
+    public static void main(String[] args) throws IOException, JSQLParserException {
+        // 你的MySQL DDL路径
+        String mysqlDDLPath = "/Users/gclm/Documents/dandelion.sql";
+        String dDLs = IOUtils.readToString(new FileInputStream(mysqlDDLPath));
+
+        System.out.println(dDLs);
+        System.out.println("++++++++++开始转换SQL语句+++++++++++++");
+
+        Statements statements = CCJSqlParserUtil.parseStatements(dDLs);
+
+        statements.getStatements()
+                .stream()
+                .map(statement -> (CreateTable) statement).forEach(ct -> {
+            Table table = ct.getTable();
+            List<ColumnDefinition> columnDefinitions = ct.getColumnDefinitions();
+            List<String> comments = new ArrayList<>();
+            List<ColumnDefinition> collect = columnDefinitions.stream()
+                    .peek(columnDefinition -> {
+                        List<String> columnSpecStrings = columnDefinition.getColumnSpecStrings();
+
+                        int commentIndex = getCommentIndex(columnSpecStrings);
+
+                        if (commentIndex != -1) {
+                            int commentStringIndex = commentIndex + 1;
+                            String commentString = columnSpecStrings.get(commentStringIndex);
+
+                            String commentSql = genCommentSql(table.toString(), columnDefinition.getColumnName(), commentString);
+                            comments.add(commentSql);
+                            columnSpecStrings.remove(commentStringIndex);
+                            columnSpecStrings.remove(commentIndex);
+                        }
+                        columnDefinition.setColumnSpecStrings(columnSpecStrings);
+                    }).collect(Collectors.toList());
+            ct.setColumnDefinitions(collect);
+            String createSQL = ct.toString()
+                    .replaceAll("`", "\"")
+                    .replaceAll("BIGINT UNIQUE NOT NULL AUTO_INCREMENT", "BIGSERIAL PRIMARY KEY")
+                    .replaceAll("BIGINT NULL AUTO_INCREMENT", "BIGSERIAL PRIMARY KEY")
+                    .replaceAll("BIGINT NOT NULL AUTO_INCREMENT", "BIGSERIAL PRIMARY KEY")
+                    .replaceAll("INT NOT NULL AUTO_INCREMENT", "BIGSERIAL PRIMARY KEY")
+                    .replaceAll("INT NULL AUTO_INCREMENT", "BIGSERIAL PRIMARY KEY")
+                    .replaceAll("IF NOT EXISTS", "")
+                    .replaceAll("TINYINT", "SMALLINT")
+                    .replaceAll("DATETIME", "TIMESTAMP")
+                    .replaceAll(", PRIMARY KEY \\(\"id\"\\)", "");
+
+            // 如果存在表注释
+            if (createSQL.contains("COMMENT")) {
+                createSQL = createSQL.substring(0, createSQL.indexOf("COMMENT"));
+            }
+            System.out.println(createSQL + ";");
+
+            comments.forEach(t -> System.out.println(t.replaceAll("`", "\"") + ";"));
+        });
+    }
 
     /**
-     * 数据全部详情
+     * 获得注释的下标
+     *
+     * @param columnSpecStrings columnSpecStrings
+     * @return 下标
      */
-    DETAIL,
+    private static int getCommentIndex(List<String> columnSpecStrings) {
+        for (int i = 0; i < columnSpecStrings.size(); i++) {
+            if ("COMMENT".equalsIgnoreCase(columnSpecStrings.get(i))) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /**
-     * 只返回URL
+     * 生成COMMENT语句
+     *
+     * @param table        表名
+     * @param column       字段名
+     * @param commentValue 描述文字
+     * @return COMMENT语句
      */
-    SIMPLE;
+    private static String genCommentSql(String table, String column, String commentValue) {
+        return String.format("COMMENT ON COLUMN %s.%s IS %s", table, column, commentValue);
+    }
 }
+
