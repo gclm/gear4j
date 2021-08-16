@@ -22,6 +22,7 @@ author: 孤城落寞
       -huawei         发布到 华为云
       -sonatype       发布到 Sonatype
       -rbc            发布到 阿里云
+      -coding         发布到 腾讯云 Coding
     -d --dependency   最新依赖
     -s --sonar        bug 扫描
     -t --test         本地测试
@@ -60,8 +61,10 @@ push(){
     if [[ ${oss} == "all" ]]; then
         echo "项目发布 --> 华为云"
         mvn clean deploy -P huawei-oss-release
-        echo "项目发布 --> 阿里云"
-        mvn clean deploy -P rbc-oss-release
+#        echo "项目发布 --> 阿里云"
+#        mvn clean deploy -P rbc-oss-release
+        echo "项目发布 --> 腾讯云Coding"
+        mvn clean deploy -P coding-oss-release
         echo "项目发布 --> 中央仓库"
         mvn clean deploy -P sonatype-oss-release
     else

@@ -271,7 +271,7 @@ public interface FileService extends IService<FileInfo> {
      * @author gclm
      * @param startSize  最小
      * @param endSize    最大
-     * @return: FileInfo List
+     * @return FileInfo List
      */
     public List<FileInfo> queryFileSizeBetween(Long startSize, Long endSize);
 

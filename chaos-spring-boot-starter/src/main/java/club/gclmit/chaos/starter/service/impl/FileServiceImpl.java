@@ -244,7 +244,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
      *
      * @param file MultipartFile
      * @author gclm
-     * @return: club.gclmit.chaos.storage.properties.FileInfo
+     * @return club.gclmit.chaos.storage.properties.FileInfo
      */
     @Override
     public FileInfo uploadFile(MultipartFile file) {
@@ -348,7 +348,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
      *
      * @param key OSS Key
      * @author gclm
-     * @return: FileInfo List
+     * @return FileInfo List
      */
     @Override
     public List<FileInfo> linkQueryKey(String key) {

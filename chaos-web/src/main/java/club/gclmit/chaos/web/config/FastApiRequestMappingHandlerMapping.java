@@ -227,7 +227,7 @@ public class FastApiRequestMappingHandlerMapping extends RequestMappingHandlerMa
      *
      * @author gclm
      * @param handlerType  Class
-     * @return: RequestCondition
+     * @return RequestCondition
      */
     @Override
     protected RequestCondition<?> getCustomTypeCondition(Class<?> handlerType) {

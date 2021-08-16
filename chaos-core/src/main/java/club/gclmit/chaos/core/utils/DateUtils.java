@@ -274,7 +274,7 @@ public class DateUtils {
      * 获取当前日期的年
      *
      * @author gclm
-     * @return: java.lang.Integer
+     * @return java.lang.Integer
      */
     public static Integer thisYear() {
         return LocalDate.now().getYear();

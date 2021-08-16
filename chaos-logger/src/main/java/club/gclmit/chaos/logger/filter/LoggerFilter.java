@@ -204,13 +204,13 @@
 
 package club.gclmit.chaos.logger.filter;
 
+import club.gclmit.chaos.core.json.util.JsonUtils;
 import club.gclmit.chaos.core.servlet.HttpCacheRequestWrapper;
 import club.gclmit.chaos.core.servlet.HttpCacheResponseWrapper;
-import club.gclmit.chaos.core.utils.DateUtils;
 import club.gclmit.chaos.core.servlet.ServletUtils;
+import club.gclmit.chaos.core.utils.DateUtils;
 import club.gclmit.chaos.core.utils.SqlUtils;
 import club.gclmit.chaos.core.utils.UrlUtils;
-import club.gclmit.chaos.json.util.JsonUtils;
 import club.gclmit.chaos.logger.mapper.LoggerMapper;
 import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
 import club.gclmit.chaos.logger.model.HttpTrace;
@@ -324,9 +324,6 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
      * @return boolean
      */
     private boolean checkIgnoreUrl(String uri) {
-        if (uri.startsWith(config.getPrefix()) || UrlUtils.isIgnore(Arrays.asList(config.getIgnoreUrls()), uri)) {
-            return false;
-        }
-        return true;
+        return !uri.startsWith(config.getPrefix()) && !UrlUtils.isIgnore(Arrays.asList(config.getIgnoreUrls()), uri);
     }
 }

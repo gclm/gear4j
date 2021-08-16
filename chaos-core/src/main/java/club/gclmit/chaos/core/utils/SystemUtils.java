@@ -329,7 +329,7 @@ public class SystemUtils {
      * 更新系统路径
      * @author gclm
      * @param path  文件路径
-     * @return: java.lang.String
+     * @return java.lang.String
      */
     public static String updateSystemPath(String path){
         Assert.isTrue(StringUtils.isNotBlank(path),"修改路径不能为空");
