@@ -6,7 +6,7 @@
 </p>
 <p align="center">
 	<a target="_blank" href="https://github.com/gclm/chaos/actions">
-        <img src="https://github.com/gclm/chaos/workflows/Java%20CI/badge.svg" />
+        <img src="https://github.com/gclm/chaos/actions/workflows/maven.yml/badge.svg" />
 	</a>
     <a target="_blank" href="https://search.maven.org/search?q=g:%20club.gclmit%20AND%20a:%20chaos-spring-boot-starter">
         <img src="https://img.shields.io/maven-central/v/club.gclmit/chaos-spring-boot-starter.svg?label=Maven%20Central" />
