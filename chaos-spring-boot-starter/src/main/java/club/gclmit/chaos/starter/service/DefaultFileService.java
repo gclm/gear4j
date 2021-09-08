@@ -283,7 +283,7 @@ public interface DefaultFileService extends IService<FileInfo> {
      * @param fileStatus 文件状态
      * @author gclm
      */
-    public void updateStatusByKey(String key, Integer fileStatus);
+    public void updateFileStatus(String key, Integer fileStatus);
 
     /**
      * 根据 id 修改文件状态
@@ -292,7 +292,7 @@ public interface DefaultFileService extends IService<FileInfo> {
      * @param fileStatus 文件状态
      * @author gclm
      */
-    public void updateStatusById(String id, Integer fileStatus);
+    public void updateFileStatusById(String id, Integer fileStatus);
 
     /**
      * 根据OSS key 删除文件
@@ -301,7 +301,7 @@ public interface DefaultFileService extends IService<FileInfo> {
      * @param temp 临时删除
      * @author gclm
      */
-    public void deleteStatusByKey(String key, boolean temp);
+    public void deleteFile(String key, boolean temp);
 
     /**
      * 根据OSS keys 批量删除文件
@@ -309,6 +309,6 @@ public interface DefaultFileService extends IService<FileInfo> {
      * @param keys OSS key
      * @author gclm
      */
-    public void batchDeleteStatusByKey(List<String> keys);
+    public void batchDeleteFile(List<String> keys);
 
 }

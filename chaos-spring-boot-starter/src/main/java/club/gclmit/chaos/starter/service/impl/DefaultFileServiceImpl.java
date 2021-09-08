@@ -291,62 +291,6 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
     }
 
     /**
-     * 根据 key 删除文件
-     *
-     * @param key OSS Key
-     * @author gclm
-     */
-    @Override
-    public void deleteStatusByKey(String key, boolean temp) {
-        if (temp) {
-            updateStatusByKey(key, FileStatus.TEMP_DELETE.getCode());
-        } else {
-            removeById(queryKey(key).getId());
-        }
-    }
-
-    /**
-     * 根据 key 批量删除文件
-     *
-     * @param keys OSS Key
-     * @author gclm
-     */
-    @Override
-    public void batchDeleteStatusByKey(List<String> keys) {
-        for (String key : keys) {
-            deleteStatusByKey(key, false);
-        }
-    }
-
-    /**
-     * 根据 key 修改文件状态
-     *
-     * @param key        OSS Key
-     * @param fileStatus 文件状态
-     * @author gclm
-     */
-    @Override
-    public void updateStatusByKey(String key, Integer fileStatus) {
-        UpdateWrapper<FileInfo> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.lambda()
-                .eq(FileInfo::getOssKey, key);
-        fileMapper.update(new FileInfo(DateUtils.getMilliTimestamp(), fileStatus), updateWrapper);
-    }
-
-    /**
-     * 根据 id 修改文件状态
-     *
-     * @param id         id
-     * @param fileStatus 文件状态
-     * @author gclm
-     */
-    @Override
-    public void updateStatusById(String id, Integer fileStatus) {
-        FileInfo fileInfo = new FileInfo(Long.valueOf(id), DateUtils.getMilliTimestamp(), fileStatus);
-        fileMapper.updateById(fileInfo);
-    }
-
-    /**
      * 根据OSS key 模糊查询
      *
      * @param key OSS Key
@@ -390,5 +334,63 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
         queryWrapper.lambda()
                 .between(FileInfo::getSize, startSize, endSize);
         return fileMapper.selectList(queryWrapper);
+    }
+
+
+    /**
+     * 根据 key 修改文件状态
+     *
+     * @param key        OSS Key
+     * @param fileStatus 文件状态
+     * @author gclm
+     */
+    @Override
+    public void updateFileStatus(String key, Integer fileStatus) {
+        UpdateWrapper<FileInfo> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.lambda()
+                .eq(FileInfo::getOssKey, key);
+        fileMapper.update(new FileInfo(DateUtils.getMilliTimestamp(), fileStatus), updateWrapper);
+    }
+
+    /**
+     * 根据 id 修改文件状态
+     *
+     * @param id         id
+     * @param fileStatus 文件状态
+     * @author gclm
+     */
+    @Override
+    public void updateFileStatusById(String id, Integer fileStatus) {
+        FileInfo fileInfo = new FileInfo(Long.valueOf(id), DateUtils.getMilliTimestamp(), fileStatus);
+        fileMapper.updateById(fileInfo);
+    }
+
+    /**
+     * 根据 key 删除文件
+     *
+     * @param key OSS Key
+     * @author gclm
+     */
+    @Override
+    public void deleteFile(String key, boolean temp) {
+        if (temp) {
+            updateFileStatus(key, FileStatus.TEMP_DELETE.getCode());
+        } else {
+            removeById(queryKey(key).getId());
+            storageClient.delete(key);
+        }
+    }
+
+    /**
+     * 根据 key 批量删除文件
+     *
+     * @param keys OSS Key
+     * @author gclm
+     */
+    @Override
+    public void batchDeleteFile(List<String> keys) {
+        for (String key : keys) {
+            deleteFile(key, false);
+        }
     }
 }
