@@ -224,13 +224,13 @@ import java.util.List;
 
 /**
  * <p>
- *  通用 Restful 风格的 CRUD Controller
+ * 通用 Restful 风格的 CRUD Controller
  * </p>
  *
  * @author gclm
  */
 @RestController
-public abstract class RestApiController<Service extends IService<T>, T>{
+public abstract class RestApiController<Service extends IService<T>, T> {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -238,31 +238,34 @@ public abstract class RestApiController<Service extends IService<T>, T>{
     protected Service service;
 
     /**
-     *  执行添加操作
-     * @author gclm
-     * @param t  泛型 T
+     * 执行添加操作
+     *
+     * @param t 泛型 T
      * @return club.gclmit.chaos.response.Result
+     * @author gclm
      */
-    @ApiOperation(value = "添加数据",notes = "添加数据")
+    @ApiOperation(value = "添加数据", notes = "添加数据")
     @PostMapping
     public Result create(@Valid @RequestBody T t) {
-        Assert.notNull(t,"添加的操作数据为空");
+        Assert.notNull(t, "添加的操作数据为空");
         log.info("添加操作数据:[{}]", StringUtils.toString(t));
         return this.service.save(t) ? Result.ok() : Result.fail("执行添加操作失败");
     }
 
     /**
-     * 分页查询所有数据
+     * 分页查询数据
      *
      * @param queryCondition 分页查询对象
      * @return 所有数据
+     * @author gclm
      */
     @GetMapping
-    @ApiOperation(value = "分页查询",httpMethod = "GET")
-    public Result list( QueryCondition queryCondition) {
+    @ApiOperation(value = "分页查询", httpMethod = "GET")
+    public Result list(QueryCondition queryCondition) {
         log.info("分页查询\t:[{}]", StringUtils.toString(queryCondition));
-        Page<T> pages = service.page(new Page<>(queryCondition.getPage(), queryCondition.getLimit()));
-        return PageResult.ok(pages.getTotal(),pages.getRecords());
+        Page<T> pages = service.page(new Page<>(queryCondition.getPage(), queryCondition.getPageSize()));
+        PageResult pageResult = PageResult.builder().page(queryCondition.getPage()).pageSize(queryCondition.getPageSize()).total(pages.getTotal()).list(pages.getRecords()).build();
+        return Result.ok(pageResult);
     }
 
     /**
@@ -325,7 +328,7 @@ public abstract class RestApiController<Service extends IService<T>, T>{
     public Result batchDelete(String ids) {
         Assert.notNull(ids, "ids不能为空");
         log.info("批量删除，ids:{}", ids);
-        if(UrlUtils.hasUrlEncoded(ids)){
+        if (UrlUtils.hasUrlEncoded(ids)) {
             ids = UrlUtils.decode(ids);
         }
         List<String> idList = Arrays.asList(ids.split(","));

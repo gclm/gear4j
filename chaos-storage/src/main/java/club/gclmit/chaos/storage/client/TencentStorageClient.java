@@ -379,7 +379,7 @@ public class TencentStorageClient extends StorageClient {
         fileInfo.setUrl(url);
         fileInfo.setETag(eTag);
         fileInfo.setUploadTime(DateUtils.getMilliTimestamp());
-        fileInfo.setStatus(FileStatus.UPLOAD_SUCCESS.getId());
+        fileInfo.setStatus(FileStatus.SAVE.getCode());
         return fileInfo;
     }
 

@@ -202,51 +202,44 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.storage.contants;
+package club.gclmit.chaos.core.codec;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import club.gclmit.chaos.core.exception.ChaosException;
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.digest.MD5;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**
- * <p>
- * 文件状态枚举
- * </p>
+ * MD5 加密工具类
  *
  * @author gclm
+ * 2021/7/4 3:16 下午
  */
-@Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public enum FileStatus {
+public class SecureUtils extends SecureUtil {
 
     /**
-     * 保存
+     * MD5加密，生成16进制MD5字符串<br>
+     *
+     * @param data 数据
+     * @return MD5字符串
      */
-    SAVE(0, "保存文件"),
+    public static String md5(byte[] data) {
+        return new MD5().digestHex(data);
+    }
 
     /**
-     * 临时保存
+     * MD5加密，生成16进制MD5字符串<br>
+     *
+     * @param file 数据
+     * @return MD5字符串
      */
-    TEMP_SAVE(1, "临时保存文件"),
-
-    /**
-     * 删除
-     */
-    DELETE(2, "删除文件"),
-
-    /**
-     * 临时删除
-     */
-    TEMP_DELETE(3, "临时删除文件");
-
-    /**
-     * id
-     */
-    private Integer code;
-
-    /**
-     * 消息
-     */
-    private String message;
-
+    public static String md5(MultipartFile file) {
+        try {
+            return new MD5().digestHex(file.getBytes());
+        } catch (IOException e) {
+            throw new ChaosException("md5 加密失败", e);
+        }
+    }
 }

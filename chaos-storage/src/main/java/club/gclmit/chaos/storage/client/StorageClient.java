@@ -204,6 +204,7 @@
 
 package club.gclmit.chaos.storage.client;
 
+import club.gclmit.chaos.core.codec.SecureUtils;
 import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.id.IdUtils;
 import club.gclmit.chaos.core.io.FileTypeUtils;
@@ -215,8 +216,13 @@ import club.gclmit.chaos.storage.Storage;
 import club.gclmit.chaos.storage.pojo.FileInfo;
 import cn.hutool.crypto.SecureUtil;
 import org.springframework.util.Assert;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -240,6 +246,29 @@ public abstract class StorageClient {
     public StorageClient(Storage storage) {
         this.storage = storage;
     }
+
+    /**
+     * 上传文件使用默认配置
+     *
+     * @param inputStream InputStream
+     * @param fileInfo    文件消息
+     * @return club.gclmit.chaos.storage.db.pojo.FileInfo
+     */
+    public abstract FileInfo upload(InputStream inputStream, FileInfo fileInfo);
+
+    /**
+     * 批量删除
+     *
+     * @param keys 文件keys
+     */
+    public abstract void delete(List<String> keys);
+
+    /**
+     * 删除单个
+     *
+     * @param key 文件key
+     */
+    public abstract void delete(String key);
 
     /**
      * 文件路径
@@ -287,13 +316,25 @@ public abstract class StorageClient {
         Assert.isTrue(file.exists(), "上传文件不能为空");
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
-            /**
-             * 根据工具类获取 fileInfo 参数
-             */
-            String key = getPath(storage.getConfig().getPrefix(), FileUtils.getSuffix(file));
-            String contentType = FileTypeUtils.getMimeType(file);
-            String md5 = SecureUtil.md5(file);
-            return upload(fileInputStream, new FileInfo(file.getName(), contentType, file.length(), md5, key, storage.getType().getCode()));
+            return upload(fileInputStream, buildFileInfo(file));
+        } catch (Exception e) {
+            throw new ChaosException("文件上传失败", e);
+        }
+    }
+
+    /**
+     * <p>
+     * 上传文件
+     * </p>
+     *
+     * @param file 文件
+     * @return java.lang.String
+     * @author 孤城落寞
+     */
+    public FileInfo upload(MultipartFile file) {
+        try {
+            InputStream stream = file.getInputStream();
+            return upload(stream, buildFileInfo(file));
         } catch (Exception e) {
             throw new ChaosException("文件上传失败", e);
         }
@@ -348,34 +389,32 @@ public abstract class StorageClient {
         if (StringUtils.isBlank(key)) {
             key = DateUtils.getMilliTimestamp() + ".txt";
         }
-        try {
-            return upload(content.getBytes("UTF-8"), key, fileName);
-        } catch (UnsupportedEncodingException e) {
-            throw new ChaosException("String --> Bytes 编码出现问题");
-        }
+        return upload(content.getBytes(StandardCharsets.UTF_8), key, fileName);
     }
 
     /**
-     * 上传文件使用默认配置
+     * 构造FileInfo
      *
-     * @param inputStream InputStream
-     * @param fileInfo    文件消息
-     * @return club.gclmit.chaos.storage.db.pojo.FileInfo
+     * @param file 文件
+     * @return club.gclmit.chaos.storage.pojo.FileInfo
+     * @author gclm
      */
-    public abstract FileInfo upload(InputStream inputStream, FileInfo fileInfo);
+    public FileInfo buildFileInfo(File file) {
+        String key = getPath(storage.getConfig().getPrefix(), FileUtils.getSuffix(file));
+        String contentType = FileTypeUtils.getMimeType(file);
+        String md5 = SecureUtil.md5(file);
+        return new FileInfo(file.getName(), contentType, file.length(), md5, key, storage.getType().getCode());
+    }
 
     /**
-     * 批量删除
+     * 构造FileInfo
      *
-     * @param keys 文件keys
+     * @param file 文件
+     * @return club.gclmit.chaos.storage.pojo.FileInfo
+     * @author gclm
      */
-    public abstract void delete(List<String> keys);
-
-    /**
-     * 删除单个
-     *
-     * @param key 文件key
-     */
-    public abstract void delete(String key);
-
+    public FileInfo buildFileInfo(MultipartFile file) {
+        String key = getPath(storage.getConfig().getPrefix(), FileTypeUtils.getSuffix(file));
+        return new FileInfo(file.getOriginalFilename(), file.getContentType(), file.getSize(), SecureUtils.md5(file), key, storage.getType().getCode());
+    }
 }

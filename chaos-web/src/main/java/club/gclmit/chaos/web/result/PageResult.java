@@ -206,55 +206,43 @@ package club.gclmit.chaos.web.result;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 /**
- *   对PageResult 的封装，方便集成 Layui
+ * 对页面返回请求进行包装
  *
  * @author gclm
  */
-@Getter
-@Setter
-@ApiModel(value = "分页消息封装", description = "分页消息封装")
-public class PageResult extends Result {
+@Data
+@Builder
+@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@ApiModel(value = "分页数据封装", description = "分页数据封装")
+public class PageResult {
 
     /**
-     *  列表数量
+     * 总数量
      */
-    @ApiModelProperty(value = "分页总数量")
-    private Long count;
+    @ApiModelProperty(value = "总数量")
+    private Long total;
 
-    public static PageResult result(ApiCode apiCode, Long count,Object data) {
-        return new PageResult(apiCode.getCode(), apiCode.getMessage(),count,data);
-    }
+    /**
+     * 分页数据
+     */
+    @ApiModelProperty(value = "分页数据")
+    private Object list;
 
-    public static PageResult ok(Integer code, String message,Object data) {
-        return new PageResult(code, message, data);
-    }
+    /**
+     * 当前页数
+     */
+    @ApiModelProperty(value = "当前页数")
+    private Long page;
 
-    public static PageResult ok(Long count,Object data) {
-        return result(ApiCode.OK,count,data);
-    }
+    /**
+     * 每页数量
+     */
+    @ApiModelProperty(value = "每页数量")
+    private Long pageSize;
 
-    public static PageResult ok(Integer count,Object data) {
-        return ok(Long.valueOf(count),data);
-    }
-
-    public PageResult(Integer code, String message, Long count ,Object data) {
-        super(code, message, data);
-        this.count = count;
-    }
-
-    public PageResult(Integer code, String message, Object data) {
-        super(code, message, data);
-    }
-
-    public Long getCount() {
-        return count;
-    }
-
-    public void setCount(Long count) {
-        this.count = count;
-    }
 }

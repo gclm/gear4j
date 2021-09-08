@@ -204,15 +204,14 @@
 
 package club.gclmit.chaos.starter.service.impl;
 
-import club.gclmit.chaos.core.io.FileUtils;
+import club.gclmit.chaos.core.codec.SecureUtils;
+import club.gclmit.chaos.core.utils.DateUtils;
 import club.gclmit.chaos.core.utils.StringUtils;
-import club.gclmit.chaos.core.io.UploadFileUtils;
 import club.gclmit.chaos.starter.mapper.FileMapper;
-import club.gclmit.chaos.starter.service.FileService;
+import club.gclmit.chaos.starter.service.DefaultFileService;
 import club.gclmit.chaos.storage.client.StorageClient;
 import club.gclmit.chaos.storage.contants.FileStatus;
 import club.gclmit.chaos.storage.pojo.FileInfo;
-import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -220,7 +219,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -231,7 +229,7 @@ import java.util.List;
  * @author 孤城落寞
  */
 @Service
-public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implements FileService {
+public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implements DefaultFileService {
 
     @Autowired
     private FileMapper fileMapper;
@@ -243,21 +241,22 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
      * 上传文件
      *
      * @param file MultipartFile
-     * @author gclm
      * @return club.gclmit.chaos.storage.properties.FileInfo
+     * @author gclm
      */
     @Override
-    public FileInfo uploadFile(MultipartFile file) {
-        File tempFile = UploadFileUtils.multipartFileToFile(file, "");
-        String md5 = SecureUtil.md5(tempFile);
+    public FileInfo uploadFile(MultipartFile file, boolean temp) {
+        String md5 = SecureUtils.md5(file);
         FileInfo fileInfo = queryMd5(md5);
         if (fileInfo == null) {
-            fileInfo = storageClient.upload(tempFile);
+            fileInfo = storageClient.upload(file);
             if (StringUtils.isNotBlank(fileInfo.getUrl())) {
+                if (temp) {
+                    fileInfo.setStatus(FileStatus.TEMP_SAVE.getCode());
+                }
                 save(fileInfo);
             }
         }
-        FileUtils.del(tempFile);
         return fileInfo;
     }
 
@@ -298,8 +297,12 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
      * @author gclm
      */
     @Override
-    public void deleteStatusByKey(String key) {
-        removeById(queryKey(key).getId());
+    public void deleteStatusByKey(String key, boolean temp) {
+        if (temp) {
+            updateStatusByKey(key, FileStatus.TEMP_DELETE.getCode());
+        } else {
+            removeById(queryKey(key).getId());
+        }
     }
 
     /**
@@ -311,44 +314,44 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
     @Override
     public void batchDeleteStatusByKey(List<String> keys) {
         for (String key : keys) {
-            deleteStatusByKey(key);
+            deleteStatusByKey(key, false);
         }
     }
 
     /**
      * 根据 key 修改文件状态
      *
-     * @param key OSS Key
+     * @param key        OSS Key
+     * @param fileStatus 文件状态
      * @author gclm
      */
     @Override
-    public void updateStatusByKey(String key) {
+    public void updateStatusByKey(String key, Integer fileStatus) {
         UpdateWrapper<FileInfo> updateWrapper = new UpdateWrapper<>();
         updateWrapper.lambda()
                 .eq(FileInfo::getOssKey, key);
-
-        fileMapper.update(new FileInfo(FileStatus.OSS_FILE_FAIL.getId()), updateWrapper);
+        fileMapper.update(new FileInfo(DateUtils.getMilliTimestamp(), fileStatus), updateWrapper);
     }
 
     /**
-     * 根据 key 批量修改文件状态
+     * 根据 id 修改文件状态
      *
-     * @param keys OSS Key
+     * @param id         id
+     * @param fileStatus 文件状态
      * @author gclm
      */
     @Override
-    public void batchUpdateStatusByKey(List<String> keys) {
-        for (String key : keys) {
-            updateStatusByKey(key);
-        }
+    public void updateStatusById(String id, Integer fileStatus) {
+        FileInfo fileInfo = new FileInfo(Long.valueOf(id), DateUtils.getMilliTimestamp(), fileStatus);
+        fileMapper.updateById(fileInfo);
     }
 
     /**
      * 根据OSS key 模糊查询
      *
      * @param key OSS Key
-     * @author gclm
      * @return FileInfo List
+     * @author gclm
      */
     @Override
     public List<FileInfo> linkQueryKey(String key) {

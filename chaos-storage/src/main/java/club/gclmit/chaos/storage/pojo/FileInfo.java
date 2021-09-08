@@ -205,7 +205,6 @@
 package club.gclmit.chaos.storage.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import club.gclmit.chaos.storage.contants.StorageServer;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -284,7 +283,7 @@ public class FileInfo implements Serializable {
      * OSS type
      */
     @ApiModelProperty(value = "OSS类型")
-    private String ossType = StorageServer.ALIYUN.getCode();
+    private String ossType;
 
     /**
      * 上传时间
@@ -298,7 +297,14 @@ public class FileInfo implements Serializable {
     @ApiModelProperty(value = "文件状态")
     private Integer status;
 
-    public FileInfo(Integer status) {
+    public FileInfo(long uploadTime, Integer status) {
+        this.uploadTime = uploadTime;
+        this.status = status;
+    }
+
+    public FileInfo(Long id, long uploadTime, Integer status) {
+        this.id = id;
+        this.uploadTime = uploadTime;
         this.status = status;
     }
 

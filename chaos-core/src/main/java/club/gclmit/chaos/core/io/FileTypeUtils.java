@@ -286,6 +286,17 @@ public class FileTypeUtils {
         return MimeType.DEFAULT_FILE_CONTENT_TYPE;
     }
 
+    /**
+     * 文件后缀获取内容类型
+     *
+     * @param file MultipartFile
+     * @return java.lang.String
+     * @author 孤城落寞
+     */
+    public static String getMimeType(MultipartFile file) {
+        String suffix = FileTypeUtils.getSuffix(file);
+        return MimeType.getMimeTypeBySuffix(suffix);
+    }
 
     /**
      * 获取文件类型
@@ -304,8 +315,8 @@ public class FileTypeUtils {
      * 获取文件后缀
      *
      * @param file MultipartFile
-     * @author 孤城落寞
      * @return java.lang.String
+     * @author 孤城落寞
      */
     public static String getSuffix(MultipartFile file) {
         Assert.notNull(file, "文件不能为空");
@@ -315,7 +326,7 @@ public class FileTypeUtils {
         if (separatorIndex < 0) {
             return "";
         }
-        return StringUtils.subAfter(fileName,".",true);
+        return StringUtils.subAfter(fileName, ".", true);
     }
 
     /**
@@ -331,7 +342,7 @@ public class FileTypeUtils {
         if (separatorIndex < 0) {
             return "";
         }
-        return StringUtils.subAfter(fileName,".",true);
+        return StringUtils.subAfter(fileName, ".", true);
     }
 
     /**
@@ -392,8 +403,8 @@ public class FileTypeUtils {
     private static String byteToHex(byte[] bytes) {
         Assert.isFalse(ArrayUtil.isEmpty(bytes), "字节数组不能为空");
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < bytes.length; i++) {
-            int v = bytes[i] & 0xFF;
+        for (byte bit : bytes) {
+            int v = bit & 0xFF;
             String hv = Integer.toHexString(v);
             if (hv.length() < 2) {
                 stringBuilder.append(0);

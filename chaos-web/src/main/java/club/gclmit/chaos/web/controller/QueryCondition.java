@@ -224,14 +224,14 @@ public class QueryCondition implements Serializable {
     /**
      * 当前页码
      */
-    @ApiModelProperty(value = "当前页码",required = false,example = "1")
+    @ApiModelProperty(value = "当前页码", example = "1")
     private Long page = 1L;
 
     /**
      * 每页数据条数
      */
-    @ApiModelProperty(value = "每页数据条数",required = false,example = "15")
-    private Long limit = 15L;
+    @ApiModelProperty(value = "每页数据条数", example = "15")
+    private Long pageSize = 15L;
 
     /**
      * 排序
@@ -239,10 +239,7 @@ public class QueryCondition implements Serializable {
      * 1: 倒序
      * 3: 乱序
      */
-    @ApiModelProperty(value = "排序",required = false,example = "0")
+    @ApiModelProperty(value = "排序", example = "0")
     private int sort;
-
-    @ApiModelProperty(value = "json类型的查询参数")
-    private String data;
 
 }

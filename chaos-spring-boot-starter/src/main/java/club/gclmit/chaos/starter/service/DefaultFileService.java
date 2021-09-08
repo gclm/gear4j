@@ -212,99 +212,102 @@ import java.util.List;
 
 /**
  * <p>
- *  文件服务类
+ * 文件服务类
  * </p>
  *
  * @author 孤城落寞
  */
-public interface FileService extends IService<FileInfo> {
+public interface DefaultFileService extends IService<FileInfo> {
 
     /**
-     *  上传文件到 OSS中
+     * 上传文件到 OSS中
      *
-     * @author gclm
      * @param file MultipartFile
+     * @param temp 临时文件
      * @return club.gclmit.chaos.storage.db.pojo.FileInfo
+     * @author gclm
      */
-    public FileInfo uploadFile(MultipartFile file);
+    public FileInfo uploadFile(MultipartFile file, boolean temp);
 
     /**
-     *  根据文件 MD5 判断文件是否存在
+     * 根据文件 MD5 判断文件是否存在
      *
-     * @author gclm
      * @param md5 md5
      * @return club.gclmit.chaos.storage.db.pojo.FileInfo
+     * @author gclm
      */
     public FileInfo queryMd5(String md5);
 
 
     /**
-     *  根据OSS key 查询
+     * 根据OSS key 查询
      *
-     * @author gclm
      * @param key OSS key
      * @return FileInfo List
+     * @author gclm
      */
     public FileInfo queryKey(String key);
 
     /**
-     *  根据OSS key 模糊查询
+     * 根据OSS key 模糊查询
      *
-     * @author gclm
      * @param key OSS key
      * @return FileInfo List
+     * @author gclm
      */
     public List<FileInfo> linkQueryKey(String key);
 
     /**
-     *  根据文件名字模糊查询
+     * 根据文件名字模糊查询
      *
-     * @author gclm
      * @param fileName 文件名字
      * @return FileInfo List
+     * @author gclm
      */
     public List<FileInfo> linkQueryFileName(String fileName);
 
     /**
-     *  根据文件大小区间查询
+     * 根据文件大小区间查询
      *
-     * @author gclm
-     * @param startSize  最小
-     * @param endSize    最大
+     * @param startSize 最小
+     * @param endSize   最大
      * @return FileInfo List
+     * @author gclm
      */
     public List<FileInfo> queryFileSizeBetween(Long startSize, Long endSize);
 
     /**
-     *  根据OSS key 修改文件状态
+     * 根据OSS key 修改文件状态
      *
-     * @author gclm
      * @param key OSS key
+     * @param fileStatus 文件状态
+     * @author gclm
      */
-    public void updateStatusByKey(String key);
+    public void updateStatusByKey(String key, Integer fileStatus);
 
     /**
-     *  根据OSS keys 批量修改文件状态
+     * 根据 id 修改文件状态
      *
+     * @param id 文件id
+     * @param fileStatus 文件状态
      * @author gclm
-     * @param keys OSS key
      */
-    public void batchUpdateStatusByKey(List<String> keys);
-
+    public void updateStatusById(String id, Integer fileStatus);
 
     /**
-     *  根据OSS key 删除文件
+     * 根据OSS key 删除文件
      *
-     * @author gclm
      * @param key OSS key
+     * @param temp 临时删除
+     * @author gclm
      */
-    public void deleteStatusByKey(String key);
+    public void deleteStatusByKey(String key, boolean temp);
 
     /**
-     *  根据OSS keys 批量删除文件
+     * 根据OSS keys 批量删除文件
      *
-     * @author gclm
      * @param keys OSS key
+     * @author gclm
      */
     public void batchDeleteStatusByKey(List<String> keys);
 

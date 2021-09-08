@@ -343,9 +343,7 @@ public class UfileStorageClient extends StorageClient {
             eTag = response.geteTag();
         } catch (UfileClientException e) {
             throw new ChaosException("上传失败,Ufile客户端发生异常",e);
-        } catch (UfileServerException e) {
-            throw new ChaosException("上传失败,Ufile服务器发生异常",e);
-        } catch (IOException e) {
+        } catch (UfileServerException | IOException e) {
             throw new ChaosException("上传失败,Ufile服务器发生异常",e);
         }
 
@@ -362,7 +360,7 @@ public class UfileStorageClient extends StorageClient {
         fileInfo.setETag(eTag);
         fileInfo.setUrl(url);
         fileInfo.setUploadTime(DateUtils.getMilliTimestamp());
-        fileInfo.setStatus(FileStatus.UPLOAD_SUCCESS.getId());
+        fileInfo.setStatus(FileStatus.SAVE.getCode());
         return fileInfo;
     }
 
