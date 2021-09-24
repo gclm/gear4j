@@ -8,6 +8,9 @@
 	<a target="_blank" href="https://github.com/gclm/chaos/actions">
         <img src="https://github.com/gclm/chaos/actions/workflows/maven.yml/badge.svg" />
 	</a>
+    <a target="_blank" href="https://github.com/gclm/chaos/actions">
+        <img src="https://github.com/gclm/chaos/actions/workflows/codeql-analysis.yml/badge.svg" />
+	</a>
     <a target="_blank" href="https://search.maven.org/search?q=g:%20club.gclmit%20AND%20a:%20chaos-spring-boot-starter">
         <img src="https://img.shields.io/maven-central/v/club.gclmit/chaos-spring-boot-starter.svg?label=Maven%20Central" />
 	</a>
@@ -15,7 +18,7 @@
         <img src="https://img.shields.io/:license-Apache2-blue.svg" />
 	</a>
 	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
-		<img src="https://img.shields.io/badge/JDK-8+-green.svg" />
+		<img src="https://img.shields.io/badge/JDK-11+-green.svg" />
 	</a>
 
 [comment]: <> (<a href="https://codecov.io/gh/gclm/chaos">)
