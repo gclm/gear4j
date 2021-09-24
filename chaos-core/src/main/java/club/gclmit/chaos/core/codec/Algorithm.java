@@ -204,12 +204,6 @@
 
 package club.gclmit.chaos.core.codec;
 
-
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 /**
  * 签名算法
  *
@@ -217,9 +211,6 @@ import lombok.NoArgsConstructor;
  * @since 1/4/2021 4:05 PM
  * @since 1.8
  */
-@Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public enum Algorithm {
 
     //=======================================================
@@ -261,16 +252,22 @@ public enum Algorithm {
     HMAC_MD5("HmacMD5"),
 
 
-
     //=======================================================
     // 非对称加密
 
     /**
-     *RSA
+     * RSA
      */
     RSA("RSA");
 
 
+    private final String code;
 
-    private String value;
+    Algorithm(String code) {
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
+    }
 }

@@ -214,4 +214,6 @@ import cn.hutool.core.util.ZipUtil;
  */
 public class ZipUtils extends ZipUtil {
 
+    private ZipUtils() {
+    }
 }

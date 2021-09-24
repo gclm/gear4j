@@ -206,18 +206,12 @@ package club.gclmit.chaos.web.result;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
 
 /**
  * 对页面返回请求进行包装
  *
  * @author gclm
  */
-@Data
-@Builder
-@EqualsAndHashCode(callSuper = false)
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @ApiModel(value = "分页数据封装", description = "分页数据封装")
 public class PageResult {
 
@@ -245,4 +239,55 @@ public class PageResult {
     @ApiModelProperty(value = "每页数量")
     private Long pageSize;
 
+    public PageResult() {
+    }
+
+    public PageResult(Long total, Object list, Long page, Long pageSize) {
+        this.total = total;
+        this.list = list;
+        this.page = page;
+        this.pageSize = pageSize;
+    }
+
+    public Long getTotal() {
+        return total;
+    }
+
+    public void setTotal(Long total) {
+        this.total = total;
+    }
+
+    public Object getList() {
+        return list;
+    }
+
+    public void setList(Object list) {
+        this.list = list;
+    }
+
+    public Long getPage() {
+        return page;
+    }
+
+    public void setPage(Long page) {
+        this.page = page;
+    }
+
+    public Long getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Long pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    @Override
+    public String toString() {
+        return "PageResult{" +
+                "total=" + total +
+                ", list=" + list +
+                ", page=" + page +
+                ", pageSize=" + pageSize +
+                '}';
+    }
 }

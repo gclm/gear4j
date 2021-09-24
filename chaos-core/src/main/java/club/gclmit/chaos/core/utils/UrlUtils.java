@@ -206,7 +206,6 @@ package club.gclmit.chaos.core.utils;
 
 import club.gclmit.chaos.core.exception.ChaosException;
 import cn.hutool.core.lang.Assert;
-import lombok.experimental.UtilityClass;
 import org.springframework.util.AntPathMatcher;
 
 import java.io.UnsupportedEncodingException;
@@ -223,21 +222,24 @@ import java.util.List;
  * @since 12/21/2020 2:43 PM
  * @since 1.8
  */
-@UtilityClass
 public class UrlUtils {
 
+
+    private UrlUtils() {
+    }
+
     /**
-     *  判断url 是否忽略
+     * 判断url 是否忽略
      *
-     * @author gclm
-     * @param uri  判断的url
+     * @param uri        判断的url
      * @param ignoreUrls 忽略urls
      * @return boolean 如果是返回true,否则返回 false
+     * @author gclm
      */
-    public static boolean isIgnore(List<String> ignoreUrls, String uri){
+    public static boolean isIgnore(List<String> ignoreUrls, String uri) {
         for (String ignoreUrl : ignoreUrls) {
             AntPathMatcher matcher = new AntPathMatcher();
-            return matcher.match(ignoreUrl,uri);
+            return matcher.match(ignoreUrl, uri);
         }
         return false;
     }

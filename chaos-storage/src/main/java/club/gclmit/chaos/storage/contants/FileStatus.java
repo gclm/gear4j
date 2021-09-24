@@ -204,9 +204,6 @@
 
 package club.gclmit.chaos.storage.contants;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 /**
  * <p>
@@ -215,8 +212,6 @@ import lombok.Getter;
  *
  * @author gclm
  */
-@Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum FileStatus {
 
     /**
@@ -249,4 +244,16 @@ public enum FileStatus {
      */
     private String message;
 
+    FileStatus(Integer code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 }

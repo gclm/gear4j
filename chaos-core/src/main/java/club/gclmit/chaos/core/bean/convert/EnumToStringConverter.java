@@ -205,7 +205,8 @@
 package club.gclmit.chaos.core.bean.convert;
 
 import com.fasterxml.jackson.annotation.JsonValue;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.ConditionalGenericConverter;
 import org.springframework.lang.Nullable;
@@ -226,8 +227,10 @@ import java.util.concurrent.ConcurrentMap;
  * @author L.cm
  * @author gclm
  */
-@Slf4j
 public class EnumToStringConverter implements ConditionalGenericConverter {
+
+	private static final Logger logger = LoggerFactory.getLogger(EnumToStringConverter.class);
+
 	/**
 	 * 缓存 Enum 类信息，提供性能
 	 */
@@ -287,7 +290,7 @@ public class EnumToStringConverter implements ConditionalGenericConverter {
 		try {
 			return EnumToStringConverter.invoke(sourceClazz, accessibleObject, source, targetClazz);
 		} catch (Exception e) {
-			log.error(e.getMessage(), e);
+			logger.error(e.getMessage(), e);
 		}
 		return null;
 	}

@@ -210,7 +210,6 @@ import club.gclmit.chaos.core.utils.ExceptionUtils;
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.io.IoUtil;
 import com.google.common.io.Files;
-import lombok.experimental.UtilityClass;
 import org.springframework.lang.Nullable;
 
 import java.io.*;
@@ -225,8 +224,10 @@ import java.util.List;
  *
  * @author gclm
  */
-@UtilityClass
 public class IOUtils extends org.springframework.util.StreamUtils {
+
+    private IOUtils() {
+    }
 
     /**
      * IO流是否为空

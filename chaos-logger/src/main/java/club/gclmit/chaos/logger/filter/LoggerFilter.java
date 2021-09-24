@@ -205,6 +205,7 @@
 package club.gclmit.chaos.logger.filter;
 
 import club.gclmit.chaos.core.json.util.JsonUtils;
+import club.gclmit.chaos.core.lang.Builder;
 import club.gclmit.chaos.core.servlet.HttpCacheRequestWrapper;
 import club.gclmit.chaos.core.servlet.HttpCacheResponseWrapper;
 import club.gclmit.chaos.core.servlet.ServletUtils;
@@ -214,7 +215,8 @@ import club.gclmit.chaos.core.utils.UrlUtils;
 import club.gclmit.chaos.logger.mapper.LoggerMapper;
 import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
 import club.gclmit.chaos.logger.model.HttpTrace;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
@@ -237,15 +239,14 @@ import java.util.Arrays;
  * @author gclm
  * @since 1.4
  */
-@Slf4j
 @WebFilter(filterName = "loggerFilter", urlPatterns = "/*")
 public class LoggerFilter extends OncePerRequestFilter implements Ordered {
 
-    private int order = Ordered.LOWEST_PRECEDENCE;
+    private static final Logger log = LoggerFactory.getLogger(LoggerFilter.class);
 
     @Override
     public int getOrder() {
-        return order;
+        return Ordered.LOWEST_PRECEDENCE;
     }
 
     @Autowired
@@ -270,21 +271,21 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
             Long responseTime = DateUtils.getMilliTimestamp();
             Long time = responseTime - requestTime;
 
-            HttpTrace trace = HttpTrace.builder()
-                    .uri(uri)
-                    .clientIp(ServletUtils.getClientIp(request))
-                    .contentType(ServletUtils.getContentType(request))
-                    .method(request.getMethod())
-                    .userAgent(ServletUtils.getUserAgent(request))
-                    .sessionId(sessionId)
-                    .httpCode(response.getStatus())
-                    .requestTime(requestTime)
-                    .responseTime(responseTime)
-                    .consumingTime(time)
-                    .responseHeader(JsonUtils.toJson(ServletUtils.getResponseHeaders(response)))
-                    .requestHeader(JsonUtils.toJson(ServletUtils.getRequestHeaders(request)))
-                    .requestBody(ServletUtils.getRequestBody(httpCacheRequestWrapper))
-                    .responseBody(ServletUtils.getResponseBody(responseWrapper))
+            HttpTrace trace = Builder.of(HttpTrace::new)
+                    .with(HttpTrace::setUri, uri)
+                    .with(HttpTrace::setClientIp, ServletUtils.getClientIp(request))
+                    .with(HttpTrace::setContentType, ServletUtils.getContentType(request))
+                    .with(HttpTrace::setMethod, request.getMethod())
+                    .with(HttpTrace::setUserAgent, ServletUtils.getUserAgent(request))
+                    .with(HttpTrace::setSessionId, sessionId)
+                    .with(HttpTrace::setHttpCode, response.getStatus())
+                    .with(HttpTrace::setRequestTime, requestTime)
+                    .with(HttpTrace::setResponseTime, responseTime)
+                    .with(HttpTrace::setConsumingTime, time)
+                    .with(HttpTrace::setResponseHeader, JsonUtils.toJson(ServletUtils.getResponseHeaders(response)))
+                    .with(HttpTrace::setRequestHeader, JsonUtils.toJson(ServletUtils.getRequestHeaders(request)))
+                    .with(HttpTrace::setRequestBody, ServletUtils.getRequestBody(httpCacheRequestWrapper))
+                    .with(HttpTrace::setResponseBody, ServletUtils.getResponseBody(responseWrapper))
                     .build();
 
             /**
@@ -303,11 +304,11 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
     /**
      * 获取Bean对象
      *
-     * @author gclm
-     * @param clazz 获取 bean 对象
-     * @param <T>  泛型
+     * @param clazz   获取 bean 对象
+     * @param <T>     泛型
      * @param request request 请求
      * @return T
+     * @author gclm
      */
     public static <T> T genBean(Class<T> clazz, HttpServletRequest request) {
         BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
@@ -316,12 +317,12 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
 
     /**
      * <p>
-     *  效验当前请求是否需要忽略
+     * 效验当前请求是否需要忽略
      * </p>
      *
-     * @author gclm
      * @param uri 效验请求
      * @return boolean
+     * @author gclm
      */
     private boolean checkIgnoreUrl(String uri) {
         return !uri.startsWith(config.getPrefix()) && !UrlUtils.isIgnore(Arrays.asList(config.getIgnoreUrls()), uri);

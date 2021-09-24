@@ -204,7 +204,6 @@
 
 package club.gclmit.chaos.core.utils;
 
-import lombok.experimental.UtilityClass;
 import org.springframework.core.BridgeMethodResolver;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.MethodParameter;
@@ -223,9 +222,11 @@ import java.lang.reflect.Method;
  *
  * @author L.cm
  */
-@UtilityClass
 public class ClassUtils extends org.springframework.util.ClassUtils {
 
+    private ClassUtils() {
+    }
+    
     private static final ParameterNameDiscoverer PARAMETER_NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
 
     /**

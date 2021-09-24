@@ -204,10 +204,6 @@
 
 package club.gclmit.chaos.storage.contants;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 /**
  * <p>
  * 云服务商
@@ -215,8 +211,6 @@ import lombok.Getter;
  *
  * @author gclm
  */
-@Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum StorageServer {
 
     /**
@@ -269,4 +263,21 @@ public enum StorageServer {
      */
     private String name;
 
+    StorageServer(Integer id, String code, String name) {
+        this.id = id;
+        this.code = code;
+        this.name = name;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

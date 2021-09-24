@@ -212,6 +212,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -256,7 +257,7 @@ public class UserAgent {
             URL url = ResourceUtil.getResource("userAgents");
             File file = new File(url.getPath());
             userAgents = IOUtils.readToLines(file);
-        } catch (Exception ex) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -265,7 +266,7 @@ public class UserAgent {
             URL url = ResourceUtil.getResource("mobileUserAgents");
             File file = new File(url.getPath());
             mobileUserAgents = IOUtils.readToLines(file);
-        } catch (Exception ex) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -316,7 +317,7 @@ public class UserAgent {
      * @return boolean 如果是返回 true，否则返回 false
      */
     public static boolean isIe(HttpServletRequest request) {
-        return getCurrentUserAgent(request).contains(IE);
+        return Objects.requireNonNull(getCurrentUserAgent(request)).contains(IE);
     }
 
     /**
@@ -326,7 +327,7 @@ public class UserAgent {
      * @return boolean 如果是返回 true，否则返回 false
      */
     public static boolean isFirefox(HttpServletRequest request) {
-        return getCurrentUserAgent(request).contains(FIREFOX);
+        return Objects.requireNonNull(getCurrentUserAgent(request)).contains(FIREFOX);
     }
 
     /**
@@ -336,7 +337,7 @@ public class UserAgent {
      * @return boolean 如果是返回 true，否则返回 false
      */
     public static boolean isChrome(HttpServletRequest request) {
-        return getCurrentUserAgent(request).contains(CHROME);
+        return Objects.requireNonNull(getCurrentUserAgent(request)).contains(CHROME);
     }
 
     /**
@@ -350,7 +351,8 @@ public class UserAgent {
         boolean flag = false;
         String userAgent = getCurrentUserAgent(request);
         for (String mobileAgent : MOBILE_AGENTS) {
-            if (userAgent.toLowerCase().indexOf(mobileAgent) >= 0 &&
+            assert userAgent != null;
+            if (userAgent.toLowerCase().contains(mobileAgent) &&
                     userAgent.toLowerCase().indexOf("windows nt") <= 0 &&
                     userAgent.toLowerCase().indexOf("macintosh") <= 0) {
                 flag = true;
@@ -368,7 +370,7 @@ public class UserAgent {
      * @author gclm
      */
     public static boolean isAndroid(HttpServletRequest request) {
-        return getCurrentUserAgent(request).contains(ANDROID);
+        return Objects.requireNonNull(getCurrentUserAgent(request)).contains(ANDROID);
     }
 
     /**
@@ -382,9 +384,10 @@ public class UserAgent {
         boolean flag = false;
         String userAgent = getCurrentUserAgent(request);
         for (String agent : IOS_AGENTS) {
-
+            assert userAgent != null;
             if (userAgent.contains(agent)) {
                 flag = true;
+                break;
             }
         }
         return flag;

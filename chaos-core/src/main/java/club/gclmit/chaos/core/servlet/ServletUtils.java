@@ -207,7 +207,6 @@ package club.gclmit.chaos.core.servlet;
 import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.utils.StringUtils;
 import cn.hutool.core.lang.Assert;
-import lombok.experimental.UtilityClass;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -226,8 +225,10 @@ import java.util.Map;
  *
  * @author gclm
  */
-@UtilityClass
 public class ServletUtils {
+
+    private ServletUtils() {
+    }
 
     /**
      * Http 魔法值
@@ -402,9 +403,9 @@ public class ServletUtils {
      * - form
      * - websocket
      *
-     * @author gclm
      * @param request http request instance
      * @return java.lang.String
+     * @author gclm
      */
     public static String getRequestType(HttpServletRequest request) {
         Assert.notNull(request, "request instance is null.");
@@ -414,9 +415,9 @@ public class ServletUtils {
     /**
      * 获取Session Id
      *
-     * @author gclm
      * @param request http request instance
      * @return java.lang.String
+     * @author gclm
      */
     public static String getSessionId(HttpServletRequest request) {
         return request.getSession().getId();
@@ -425,9 +426,9 @@ public class ServletUtils {
     /**
      * 获取用户代理
      *
-     * @author gclm
      * @param request http request instance
      * @return java.lang.String
+     * @author gclm
      */
     public static String getUserAgent(HttpServletRequest request) {
         Assert.notNull(request, "request instance is null.");
@@ -439,9 +440,9 @@ public class ServletUtils {
      * 是否是文件上传类型
      * </p>
      *
-     * @author gclm
      * @param request http request instance
      * @return boolean
+     * @author gclm
      */
     public static boolean isFileUpload(HttpServletRequest request) {
         Assert.notNull(request, "request instance is null.");
@@ -453,9 +454,9 @@ public class ServletUtils {
      * 获取请求内容
      * </p>
      *
-     * @author gclm
      * @param request http request instance
      * @return boolean
+     * @author gclm
      */
     public static String getContentType(HttpServletRequest request) {
         Assert.notNull(request, "request instance is null.");
@@ -466,10 +467,10 @@ public class ServletUtils {
     /**
      * 获取 requestBody 内容
      *
-     * @author gclm
      * @param request http request instance
      * @return java.lang.String
      * @throws IOException 获取HttpServletRequest Body 异常
+     * @author gclm
      */
     public static String getRequestBody(HttpServletRequest request) throws IOException {
         Assert.notNull(request, "request instance is null.");
@@ -485,9 +486,9 @@ public class ServletUtils {
     /**
      * 获取 ResponseBody 内容
      *
-     * @author gclm
      * @param response HttpServletResponse
      * @return java.lang.String
+     * @author gclm
      */
     public static String getResponseBody(HttpServletResponse response) {
         Assert.notNull(response, "response instance is null.");

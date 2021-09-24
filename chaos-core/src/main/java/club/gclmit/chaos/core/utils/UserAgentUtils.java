@@ -211,6 +211,8 @@ package club.gclmit.chaos.core.utils;
  */
 public class UserAgentUtils {
 
+    private UserAgentUtils() {
+    }
 //    public static Map<String,String> getWindowsOsUserAgent(){
 //        Map<String,String> windows_os = new HashMap<>(20);
 //        windows_os.put("Windows NT 10.0","Windows 10");

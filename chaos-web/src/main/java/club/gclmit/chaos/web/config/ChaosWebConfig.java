@@ -205,7 +205,8 @@
 package club.gclmit.chaos.web.config;
 
 import club.gclmit.chaos.core.io.FileUtils;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -222,10 +223,11 @@ import java.util.List;
  *
  * @author gclm
  */
-@Slf4j
 @Configuration
 public class ChaosWebConfig implements WebMvcConfigurer {
 
+	private static final Logger log = LoggerFactory.getLogger(ChaosWebConfig.class);
+	
 	/**
 	 * 添加自定义消息解析器
 	 *

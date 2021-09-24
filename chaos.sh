@@ -59,8 +59,8 @@ contains() {
 push(){
     echo "项目目录: $pwd 当前选择参数 $oss"
     if [[ ${oss} == "all" ]]; then
-        echo "项目发布 --> 华为云"
-        mvn clean deploy -P huawei-oss-release
+#        echo "项目发布 --> 华为云"
+#        mvn clean deploy -P huawei-oss-release
 #        echo "项目发布 --> 阿里云"
 #        mvn clean deploy -P rbc-oss-release
         echo "项目发布 --> 腾讯云Coding"

@@ -506,21 +506,21 @@ public enum MimeType {
     /**
      * 后缀
      */
-    private String sufix;
+    private final String suffix;
 
     /**
      * 文档类型
      */
-    private String docType;
+    private final String docType;
 
     /**
      * mime
      */
-    private String mimeType;
+    private final String mimeType;
 
 
-    MimeType(String sufix, String docType, String mimeType) {
-        this.sufix = sufix;
+    MimeType(String suffix, String docType, String mimeType) {
+        this.suffix = suffix;
         this.docType = docType;
         this.mimeType = mimeType;
     }
@@ -528,14 +528,14 @@ public enum MimeType {
     /**
      * 根据后缀获取文档的 Mime
      *
-     * @author gclm
      * @param suffix 文件后缀
      * @return java.lang.String
+     * @author gclm
      */
     public static String getMimeTypeBySuffix(String suffix) {
         MimeType[] mimeTypes = values();
         for (MimeType mimeType : mimeTypes) {
-            if (suffix.equals(mimeType.getSufix())) {
+            if (suffix.equals(mimeType.getSuffix())) {
                 return mimeType.getMimeType();
             }
         }
@@ -545,18 +545,18 @@ public enum MimeType {
     /**
      * 根据Mine获取文档的 后缀
      *
-     * @author gclm
      * @param mimeType Mine
      * @return java.lang.String
+     * @author gclm
      */
-    public static String getSuffixByMimeType(String mimeType){
+    public static String getSuffixByMimeType(String mimeType) {
         MimeType[] mimeTypes = values();
         for (MimeType type : mimeTypes) {
             if (type.getMimeType().contains(mimeType)) {
-                return type.getSufix();
+                return type.getSuffix();
             }
         }
-        return MP4.sufix;
+        return MP4.suffix;
     }
 
     /**
@@ -564,16 +564,16 @@ public enum MimeType {
      * 生成枚举注释
      * </p>
      *
-     * @author gclm
      * @param type MimeType
      * @return java.lang.String
+     * @author gclm
      */
     public String generate(MimeType type) {
         String template = " /**\n" +
                 "     * %s\n" +
                 "     */\n" +
                 "    %s(\"%s\",\"%s\",\"%s\"),";
-        return String.format(template, type.getDocType(), type.name(), type.getSufix(), type.getDocType(), type.getMimeType());
+        return String.format(template, type.getDocType(), type.name(), type.getSuffix(), type.getDocType(), type.getMimeType());
     }
 
     public static void main(String[] args) {
@@ -583,8 +583,8 @@ public enum MimeType {
         }
     }
 
-    public String getSufix() {
-        return sufix;
+    public String getSuffix() {
+        return suffix;
     }
 
     public String getDocType() {
@@ -598,7 +598,7 @@ public enum MimeType {
     @Override
     public String toString() {
         return "MimeType{" +
-                "sufix='" + sufix + '\'' +
+                "suffix='" + suffix + '\'' +
                 ", docType='" + docType + '\'' +
                 ", mimeType='" + mimeType + '\'' +
                 '}';

@@ -208,8 +208,6 @@ import club.gclmit.chaos.core.utils.DateUtils;
 import club.gclmit.chaos.core.utils.StringUtils;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -220,8 +218,6 @@ import java.util.Map;
  *
  * @author gclm
  */
-@Getter
-@Setter
 @ApiModel(value = "通用消息响应", description = "通用消息响应")
 public class Result implements Serializable {
 
@@ -335,5 +331,47 @@ public class Result implements Serializable {
         Map<String, Object> map = new HashMap<>();
         map.put(key, value);
         return result(ApiCode.FAIL, map);
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                ", timestamp='" + timestamp + '\'' +
+                ", data=" + data +
+                '}';
     }
 }

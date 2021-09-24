@@ -205,7 +205,6 @@
 package club.gclmit.chaos.core.bean.core;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -218,7 +217,6 @@ import java.util.Set;
  * @author L.cm
  * @author gclm
  */
-@Getter
 public class BeanDiff {
 
     /**
@@ -236,5 +234,17 @@ public class BeanDiff {
      */
     @JsonIgnore
     private transient Map<String, Object> newValues = new HashMap<>();
+
+    public Set<String> getFields() {
+        return fields;
+    }
+
+    public Map<String, Object> getOldValues() {
+        return oldValues;
+    }
+
+    public Map<String, Object> getNewValues() {
+        return newValues;
+    }
 }
 

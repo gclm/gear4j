@@ -218,7 +218,7 @@ import org.slf4j.helpers.MessageFormatter;
 public class Logger {
 
     /**
-     *  当前日志类名
+     * 当前日志类名
      */
     private final static String CURRENT_LOG_CLASS_NAME = Logger.class.getName();
 
@@ -230,9 +230,6 @@ public class Logger {
         // 获取堆栈信息
         StackTraceElement[] traceElements = Thread.currentThread()
                 .getStackTrace();
-        if (null == traceElements) {
-            return null;
-        }
 
         // 最原始被调用的堆栈信息
         StackTraceElement caller = null;
@@ -276,130 +273,130 @@ public class Logger {
     }
 
     /**
-     *  trace
+     * trace
      *
+     * @param format 消息模板
+     * @param args   消息参数
      * @author gclm
-     * @param format        消息模板
-     * @param args     消息参数
      */
     public static void trace(String format, Object... args) {
         log().trace(build(null, format, args));
     }
 
     /**
-     *  info
+     * info
      *
+     * @param format 消息模板
+     * @param args   消息参数
      * @author gclm
-     * @param format        消息模板
-     * @param args     消息参数
      */
     public static void info(String format, Object... args) {
         log().info(build(null, format, args));
     }
 
     /**
-     *  debug
+     * debug
      *
+     * @param format 消息模板
+     * @param args   消息参数
      * @author gclm
-     * @param format        消息模板
-     * @param args     消息参数
      */
     public static void debug(String format, Object... args) {
         log().debug(build(null, format, args));
     }
 
     /**
-     *  warn
+     * warn
      *
+     * @param format 消息模板
+     * @param args   消息参数
      * @author gclm
-     * @param format        消息模板
-     * @param args     消息参数
      */
     public static void warn(String format, Object... args) {
         log().warn(build(null, format, args));
     }
 
     /**
-     *  error
+     * error
      *
+     * @param format 消息模板
+     * @param args   消息参数
      * @author gclm
-     * @param format        消息模板
-     * @param args     消息参数
      */
     public static void error(String format, Object... args) {
         log().error(build(null, format, args));
     }
 
     /**
-     *  trace
+     * trace
      *
+     * @param loggerServer 消息服务类型
+     * @param format       消息模板
+     * @param args         消息参数
      * @author gclm
-     * @param loggerServer  消息服务类型
-     * @param format        消息模板
-     * @param args     消息参数
      */
     public static void trace(LoggerServer loggerServer, String format, Object... args) {
         log().trace(build(loggerServer, format, args));
     }
 
     /**
-     *  info
+     * info
      *
+     * @param loggerServer 消息服务类型
+     * @param format       消息模板
+     * @param args         消息参数
      * @author gclm
-     * @param loggerServer  消息服务类型
-     * @param format        消息模板
-     * @param args     消息参数
      */
     public static void info(LoggerServer loggerServer, String format, Object... args) {
         log().info(build(loggerServer, format, args));
     }
 
     /**
-     *  debug
+     * debug
      *
+     * @param loggerServer 消息服务类型
+     * @param format       消息模板
+     * @param args         消息参数
      * @author gclm
-     * @param loggerServer  消息服务类型
-     * @param format        消息模板
-     * @param args     消息参数
      */
     public static void debug(LoggerServer loggerServer, String format, Object... args) {
         log().debug(build(loggerServer, format, args));
     }
 
     /**
-     *  warn
+     * warn
      *
+     * @param loggerServer 消息服务类型
+     * @param format       消息模板
+     * @param args         消息参数
      * @author gclm
-     * @param loggerServer  消息服务类型
-     * @param format        消息模板
-     * @param args     消息参数
      */
     public static void warn(LoggerServer loggerServer, String format, Object... args) {
         log().warn(build(loggerServer, format, args));
     }
 
     /**
-     *  error
+     * error
      *
+     * @param loggerServer 消息服务类型
+     * @param format       消息模板
+     * @param args         消息参数
      * @author gclm
-     * @param loggerServer  消息服务类型
-     * @param format        消息模板
-     * @param args     消息参数
      */
     public static void error(LoggerServer loggerServer, String format, Object... args) {
         log().error(build(loggerServer, format, args));
     }
 
     /**
-     *  消息组建
+     * 消息组建
      *
-     * @author gclm
-     * @param loggerServer  消息服务类型
-     * @param template      消息模板
-     * @param args     消息参数
+     * @param loggerServer 消息服务类型
+     * @param template     消息模板
+     * @param args         消息参数
      * @return java.lang.String
+     * @author gclm
      */
-    private static String build(LoggerServer loggerServer, String template, Object... args){
+    private static String build(LoggerServer loggerServer, String template, Object... args) {
         FormattingTuple ft = MessageFormatter.arrayFormat(template, args);
         if (loggerServer != null) {
             return String.format("[%s]:%s", loggerServer.getKey(), ft.getMessage());

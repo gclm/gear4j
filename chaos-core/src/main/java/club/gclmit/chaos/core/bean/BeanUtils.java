@@ -210,7 +210,6 @@ import club.gclmit.chaos.core.bean.core.BeanProperty;
 import club.gclmit.chaos.core.bean.core.MicaBeanCopier;
 import club.gclmit.chaos.core.bean.core.MicaBeanMap;
 import club.gclmit.chaos.core.exception.ChaosException;
-import lombok.experimental.UtilityClass;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyAccessorFactory;
@@ -230,8 +229,10 @@ import java.util.*;
  *
  * @author gclm
  */
-@UtilityClass
 public class BeanUtils extends org.springframework.beans.BeanUtils {
+
+    private BeanUtils() {
+    }
 
     /**
      * 实例化对象

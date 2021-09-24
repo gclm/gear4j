@@ -217,7 +217,8 @@ import club.gclmit.chaos.storage.contants.StorageServer;
 import club.gclmit.chaos.storage.pojo.CloudStorage;
 import club.gclmit.chaos.storage.pojo.FileInfo;
 import com.alibaba.fastjson.JSONObject;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 import java.io.File;
@@ -237,12 +238,11 @@ import java.util.Map;
  *
  * @author gclm
  */
-@Slf4j
 public class FastDfsStorageClient extends StorageClient {
 
-    private CloudStorage cloudStorage;
+    private static final Logger log = LoggerFactory.getLogger(FastDfsStorageClient.class);
 
-    private String serverUrl;
+    private final String serverUrl;
 
     /**
      * <p>
@@ -256,7 +256,7 @@ public class FastDfsStorageClient extends StorageClient {
         super(storage);
         if (storage.getType() == StorageServer.FAST_DFS) {
             log.debug("[{}]配置参数:[{}]", StorageServer.FAST_DFS.getName(), storage);
-            cloudStorage = storage.getConfig();
+            CloudStorage cloudStorage = storage.getConfig();
             serverUrl = cloudStorage.getEndpoint() + "/" + cloudStorage.getBucket() + "/";
         } else {
             throw new ChaosException("[{}]上传文件失败，请检查 [{}] 配置", StorageServer.FAST_DFS.getName(), StorageServer.FAST_DFS.getName());
@@ -319,11 +319,11 @@ public class FastDfsStorageClient extends StorageClient {
             File tempFile = new File(FileUtils.getRootPath(), fileInfo.getName());
             IOUtils.readToFile(inputStream, tempFile);
             String uploadUrl = serverUrl + "upload";
-            Map<String,Object> params = new HashMap<>(6);
+            Map<String, Object> params = new HashMap<>(6);
             params.put("path", dateFormat);
             params.put("scene", "default");
             params.put("output", "json2");
-            String result = RequestClient.upload(uploadUrl,params,HttpUtils.buildRequestHeader(),"file", tempFile);
+            String result = RequestClient.upload(uploadUrl, params, HttpUtils.buildRequestHeader(), "file", tempFile);
             String body = StringUtils.trimAll(result);
             JSONObject mapper = JSONObject.parseObject(body);
             if (mapper.containsKey("data")) {

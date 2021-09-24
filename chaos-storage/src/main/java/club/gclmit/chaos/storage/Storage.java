@@ -207,10 +207,6 @@ package club.gclmit.chaos.storage;
 import club.gclmit.chaos.storage.contants.ResponseDataType;
 import club.gclmit.chaos.storage.contants.StorageServer;
 import club.gclmit.chaos.storage.pojo.CloudStorage;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 import java.io.Serializable;
 
 /**
@@ -220,9 +216,6 @@ import java.io.Serializable;
  *
  * @author gclm
  */
-@Getter
-@Setter
-@ToString
 public class Storage implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -250,4 +243,46 @@ public class Storage implements Serializable {
      * true 为保存，false为不保存
      */
     private boolean db = false;
+
+    public StorageServer getType() {
+        return type;
+    }
+
+    public void setType(StorageServer type) {
+        this.type = type;
+    }
+
+    public CloudStorage getConfig() {
+        return config;
+    }
+
+    public void setConfig(CloudStorage config) {
+        this.config = config;
+    }
+
+    public ResponseDataType getResult() {
+        return result;
+    }
+
+    public void setResult(ResponseDataType result) {
+        this.result = result;
+    }
+
+    public boolean isDb() {
+        return db;
+    }
+
+    public void setDb(boolean db) {
+        this.db = db;
+    }
+
+    @Override
+    public String toString() {
+        return "Storage{" +
+                "type=" + type +
+                ", config=" + config +
+                ", result=" + result +
+                ", db=" + db +
+                '}';
+    }
 }

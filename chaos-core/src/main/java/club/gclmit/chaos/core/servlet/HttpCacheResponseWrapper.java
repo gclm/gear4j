@@ -288,16 +288,16 @@ public class HttpCacheResponseWrapper extends HttpServletResponseWrapper {
         return getCharacterEncoding() != null ? getCharacterEncoding() : CharsetUtil.UTF_8;
     }
 
-    private class ResponseServletOutputStream extends ServletOutputStream {
+    private static class ResponseServletOutputStream extends ServletOutputStream {
 
         /**
          * Output Stream
          */
-        private OutputStream outputStream;
+        private final OutputStream outputStream;
         /**
          * Copy Byte Array Output Stream
          */
-        private ByteArrayOutputStream copy;
+        private final ByteArrayOutputStream copy;
 
         public ResponseServletOutputStream(OutputStream outputStream) {
             this.outputStream = outputStream;

@@ -205,7 +205,6 @@
 package club.gclmit.chaos.core.function;
 
 import club.gclmit.chaos.core.utils.ExceptionUtils;
-import lombok.experimental.UtilityClass;
 
 import java.util.Comparator;
 import java.util.Objects;
@@ -216,17 +215,18 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
- *
  * 解决 Lambda 受检异常处理
  *
  * <p>
- *  https://segmentfault.com/a/1190000007832130
+ * https://segmentfault.com/a/1190000007832130
  * <p>
  *
  * @author gclm
  */
-@UtilityClass
 public class Attempt {
+
+    private Attempt() {
+    }
 
     /**
      * 构造受检的 function

@@ -204,7 +204,6 @@
 
 package club.gclmit.chaos.core.codec;
 
-import lombok.experimental.UtilityClass;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -213,7 +212,6 @@ import java.util.List;
  *
  * @author gclm
  */
-@UtilityClass
 public class UrlSchemeUtils {
 
     /**
@@ -250,7 +248,6 @@ public class UrlSchemeUtils {
     }
 
     /**
-     *
      * 获取 Data URL scheme
      * data:,文本数据
      * data:text/plain,文本数据
@@ -265,8 +262,8 @@ public class UrlSchemeUtils {
      * data:image/jpeg;base64,base64编码的jpeg图片数据
      * data:image/x-icon;base64,base64编码的icon图片数据
      *
-     * @author gclm
      * @return UrlScheme 集合
+     * @author gclm
      */
     public static List<String> getDataUrlScheme() {
 

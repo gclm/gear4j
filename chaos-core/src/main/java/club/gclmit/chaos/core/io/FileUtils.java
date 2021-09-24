@@ -208,7 +208,6 @@ import club.gclmit.chaos.core.exception.ChaosException;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.crypto.SecureUtil;
-import lombok.experimental.UtilityClass;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -222,14 +221,16 @@ import java.io.IOException;
  *
  * @author gclm
  */
-@UtilityClass
 public class FileUtils extends FileUtil {
 
+    private FileUtils() {
+    }
+
     /**
-     *  获取项目根目录
+     * 获取项目根目录
      *
-     * @author gclm
      * @return java.lang.String
+     * @author gclm
      */
     public static String getRootPath() {
         return System.getProperty("user.dir");

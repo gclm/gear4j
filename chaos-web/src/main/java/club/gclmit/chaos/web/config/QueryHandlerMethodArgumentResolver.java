@@ -207,7 +207,8 @@ package club.gclmit.chaos.web.config;
 import club.gclmit.chaos.core.utils.MapUtils;
 import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.chaos.web.annotation.Query;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -221,9 +222,10 @@ import java.util.Map;
  *
  * @author gclm
  */
-@Slf4j
 public class QueryHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
+    private static final Logger log = LoggerFactory.getLogger(QueryHandlerMethodArgumentResolver.class);
+    
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.hasParameterAnnotation(Query.class);

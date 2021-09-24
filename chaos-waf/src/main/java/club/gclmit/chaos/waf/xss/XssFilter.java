@@ -208,12 +208,14 @@ import club.gclmit.chaos.core.utils.UrlUtils;
 import club.gclmit.chaos.waf.properties.ChaosWafProperties;
 import club.gclmit.chaos.waf.properties.XssProperties;
 import cn.hutool.core.collection.CollUtil;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.*;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -225,9 +227,10 @@ import java.util.List;
  *
  * @author gclm
  */
-@Slf4j
 @WebFilter(filterName = "xssFilter", urlPatterns = "/*")
 public class XssFilter extends OncePerRequestFilter implements Ordered {
+
+    private static final Logger log = LoggerFactory.getLogger(XssFilter.class);
 
     @Autowired
     private ChaosWafProperties wafProperties;

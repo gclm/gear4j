@@ -206,7 +206,6 @@ package club.gclmit.chaos.core.utils;
 
 import club.gclmit.chaos.core.lang.DatePattern;
 import cn.hutool.core.lang.Assert;
-import lombok.experimental.UtilityClass;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -226,7 +225,6 @@ import java.util.Map;
  *
  * @author gclm
  */
-@UtilityClass
 public class DateUtils {
 
     /**
@@ -270,11 +268,14 @@ public class DateUtils {
         WEEKS = Collections.unmodifiableMap(map);
     }
 
+    private DateUtils() {
+    }
+
     /**
      * 获取当前日期的年
      *
-     * @author gclm
      * @return java.lang.Integer
+     * @author gclm
      */
     public static Integer thisYear() {
         return LocalDate.now().getYear();

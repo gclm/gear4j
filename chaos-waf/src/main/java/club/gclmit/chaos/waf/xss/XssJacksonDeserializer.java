@@ -207,20 +207,21 @@ package club.gclmit.chaos.waf.xss;
 import club.gclmit.chaos.waf.util.XssHolder;
 import club.gclmit.chaos.waf.util.XssUtils;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 /**
- * TODO
+ * XssJacksonDeserializer
  *
  * @author gclm
  */
-@Slf4j
 public class XssJacksonDeserializer extends JsonDeserializer<String> {
+
+    private static final Logger log = LoggerFactory.getLogger(XssJacksonDeserializer.class);
 
     @Override
     public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {

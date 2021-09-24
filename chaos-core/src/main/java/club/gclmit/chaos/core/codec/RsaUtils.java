@@ -204,9 +204,8 @@
 
 package club.gclmit.chaos.core.codec;
 
-import lombok.*;
-import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.crypto.Cipher;
 import java.security.*;
@@ -222,17 +221,17 @@ import java.security.spec.X509EncodedKeySpec;
  * @author gclm
  * @since 1.8
  */
-@Slf4j
-@UtilityClass
 public class RsaUtils {
+
+    private static final Logger log = LoggerFactory.getLogger(RsaUtils.class);
 
     /**
      * 获取RSA算法
      *
      * @return 获取Rsa算法
      */
-    public static String getRsaAlgorithm(){
-        return Algorithm.RSA.getValue();
+    public static String getRsaAlgorithm() {
+        return Algorithm.RSA.getCode();
     }
 
     /**
@@ -240,8 +239,8 @@ public class RsaUtils {
      *
      * @param publicKeyText 公钥
      * @param text          加密的文本
-     * @return              解密的文本
-     * @throws Exception    解签异常
+     * @return 解密的文本
+     * @throws Exception 解签异常
      */
     public static String decodeByPublicKey(String publicKeyText, String text) throws Exception {
         X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(Base64Utils.decodeFromString(publicKeyText));
@@ -257,10 +256,10 @@ public class RsaUtils {
     /**
      * 私钥解密
      *
-     * @param privateKeyText  私钥
-     * @param text            加密的文本
-     * @return                解密的文本
-     * @throws Exception      解签异常
+     * @param privateKeyText 私钥
+     * @param text           加密的文本
+     * @return 解密的文本
+     * @throws Exception 解签异常
      */
     public static String decodeByPrivateKey(String privateKeyText, String text) throws Exception {
         PKCS8EncodedKeySpec pkcs8EncodedKeySpec5 = new PKCS8EncodedKeySpec(Base64Utils.decodeFromString(privateKeyText));
@@ -294,7 +293,7 @@ public class RsaUtils {
      * 公钥加密
      *
      * @param publicKeyText 公钥
-     * @param text 待加密的文本
+     * @param text          待加密的文本
      * @return 加密的文本
      * @throws Exception 签名异常
      */
@@ -320,7 +319,8 @@ public class RsaUtils {
         KeyPair keyPair = keyPairGenerator.generateKeyPair();
         RSAPublicKey rsaPublicKey = (RSAPublicKey) keyPair.getPublic();
         RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) keyPair.getPrivate();
-        String publicKeyString = Base64Utils.encodeToString(rsaPublicKey.getEncoded());;
+        String publicKeyString = Base64Utils.encodeToString(rsaPublicKey.getEncoded());
+        ;
         String privateKeyString = Base64Utils.encodeToString(rsaPrivateKey.getEncoded());
         return new RsaKeyPair(publicKeyString, privateKeyString);
     }
@@ -328,12 +328,32 @@ public class RsaUtils {
     /**
      * RSA密钥对对象
      */
-    @Getter
-    @Setter
-    @AllArgsConstructor(access = AccessLevel.PUBLIC)
-    @NoArgsConstructor(access = AccessLevel.PUBLIC)
     public static class RsaKeyPair {
         private String publicKey;
         private String privateKey;
+
+        public RsaKeyPair() {
+        }
+
+        public RsaKeyPair(String publicKey, String privateKey) {
+            this.publicKey = publicKey;
+            this.privateKey = privateKey;
+        }
+
+        public String getPublicKey() {
+            return publicKey;
+        }
+
+        public void setPublicKey(String publicKey) {
+            this.publicKey = publicKey;
+        }
+
+        public String getPrivateKey() {
+            return privateKey;
+        }
+
+        public void setPrivateKey(String privateKey) {
+            this.privateKey = privateKey;
+        }
     }
 }

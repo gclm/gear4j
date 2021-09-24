@@ -205,7 +205,6 @@
 package club.gclmit.chaos.core.bean.convert;
 
 import club.gclmit.chaos.core.utils.ClassUtils;
-import lombok.experimental.UtilityClass;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.lang.Nullable;
@@ -216,7 +215,6 @@ import org.springframework.lang.Nullable;
  * @author L.cm
  * @author gclm
  */
-@UtilityClass
 public class ConvertUtils {
 
     /**

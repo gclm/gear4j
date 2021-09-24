@@ -205,7 +205,6 @@
 package club.gclmit.chaos.core.utils;
 
 import club.gclmit.chaos.core.io.FileUtils;
-import lombok.experimental.UtilityClass;
 
 import java.io.File;
 import java.nio.charset.Charset;
@@ -217,7 +216,6 @@ import java.nio.charset.UnsupportedCharsetException;
  *
  * @author gclm
  */
-@UtilityClass
 public class CharsetUtils {
 
 
@@ -249,13 +247,13 @@ public class CharsetUtils {
 
     static {
         //避免不支持GBK的系统中运行报错 issue#731
-        Charset _CHARSET_GBK = null;
+        Charset initGbkCharset = null;
         try {
-            _CHARSET_GBK = Charset.forName(GBK);
+            initGbkCharset = Charset.forName(GBK);
         } catch (UnsupportedCharsetException e) {
             //ignore
         }
-        CHARSET_GBK = _CHARSET_GBK;
+        CHARSET_GBK = initGbkCharset;
     }
 
     /**
@@ -272,7 +270,7 @@ public class CharsetUtils {
     /**
      * 解析字符串编码为Charset对象，解析失败返回系统默认编码
      *
-     * @param charsetName    字符集，为空则返回默认字符集
+     * @param charsetName 字符集，为空则返回默认字符集
      * @return Charset
      * @since 5.2.6
      */

@@ -207,10 +207,10 @@ package club.gclmit.chaos.starter.config;
 import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.chaos.starter.properties.ChaosProperties;
 import club.gclmit.chaos.storage.CloudStorageFactory;
-import club.gclmit.chaos.storage.client.StorageClient;
 import club.gclmit.chaos.storage.Storage;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import club.gclmit.chaos.storage.client.StorageClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -224,12 +224,12 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author gclm
  */
-@Slf4j
-@RequiredArgsConstructor
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(value = {ChaosProperties.class})
 @ConditionalOnProperty(prefix = "chaos.storage", value = "enabled", havingValue = "true")
 public class ChaosStorageConfig {
+    
+    private static final Logger log = LoggerFactory.getLogger(ChaosStorageConfig.class);
 
     @Autowired
     private ChaosProperties properties;

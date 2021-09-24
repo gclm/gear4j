@@ -207,9 +207,9 @@ package club.gclmit.chaos.storage.client;
 import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.utils.DateUtils;
 import club.gclmit.chaos.core.utils.StringUtils;
+import club.gclmit.chaos.storage.Storage;
 import club.gclmit.chaos.storage.contants.FileStatus;
 import club.gclmit.chaos.storage.contants.StorageServer;
-import club.gclmit.chaos.storage.Storage;
 import club.gclmit.chaos.storage.pojo.CloudStorage;
 import club.gclmit.chaos.storage.pojo.FileInfo;
 import com.qcloud.cos.COSClient;
@@ -226,7 +226,8 @@ import com.qcloud.cos.model.UploadResult;
 import com.qcloud.cos.region.Region;
 import com.qcloud.cos.transfer.TransferManager;
 import com.qcloud.cos.transfer.Upload;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 import java.io.InputStream;
@@ -244,18 +245,18 @@ import java.util.concurrent.TimeUnit;
  *
  * @author gclm
  */
-@Slf4j
 public class TencentStorageClient extends StorageClient {
 
+    private static final Logger log = LoggerFactory.getLogger(TencentStorageClient.class);
     /**
      * 腾讯云 OSS客户端
      */
-    private COSClient cosClient;
+    private final COSClient cosClient;
 
     /**
-     * 服务器配置
+     * OSS 配置参数
      */
-    private CloudStorage cloudStorage;
+    private final CloudStorage cloudStorage;
 
     /**
      * <p>

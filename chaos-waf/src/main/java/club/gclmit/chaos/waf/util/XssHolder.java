@@ -203,26 +203,39 @@
 */
 
 package club.gclmit.chaos.waf.util;
-import lombok.experimental.UtilityClass;
 
 /**
  * 利用 ThreadLocal 缓存线程间的数据
  * @author gclm
  * @author L.cm
  */
-@UtilityClass
 public class XssHolder {
+    
+    private XssHolder() {
+    }
 
     private static final ThreadLocal<Boolean> TL = new ThreadLocal<>();
 
+    /**
+     * 获取 ThreadLocal 缓存数据状态
+     * @author gclm
+     */
     public static boolean isEnabled() {
         return Boolean.TRUE.equals(TL.get());
     }
 
+    /**
+     * 启用 ThreadLocal 缓存数据
+     * @author gclm
+     */
     public static void setEnable() {
         TL.set(Boolean.TRUE);
     }
 
+    /**
+     *  删除 ThreadLocal 缓存的数据
+     * @author gclm
+     */
     public static void remove() {
         TL.remove();
     }

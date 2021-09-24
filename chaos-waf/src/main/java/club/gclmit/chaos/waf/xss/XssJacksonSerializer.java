@@ -209,16 +209,19 @@ import club.gclmit.chaos.waf.util.XssUtils;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 
 /**
- * TODO
+ * Xss Jackson 序列化
  *
  * @author gclm
  */
-@Slf4j
 public class XssJacksonSerializer extends JsonSerializer<String> {
+    
+    private static final Logger log = LoggerFactory.getLogger(XssJacksonSerializer.class);
 
     @Override
     public void serialize(String value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {

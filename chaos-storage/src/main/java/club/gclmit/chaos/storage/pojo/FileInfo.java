@@ -209,8 +209,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
-
 import java.io.Serializable;
 
 /**
@@ -220,10 +218,6 @@ import java.io.Serializable;
  *
  * @author gclm
  */
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @TableName("chaos_file_info")
 @ApiModel(value = "文件服务对象")
 public class FileInfo implements Serializable {
@@ -297,6 +291,9 @@ public class FileInfo implements Serializable {
     @ApiModelProperty(value = "文件状态")
     private Integer status;
 
+    public FileInfo() {
+    }
+
     public FileInfo(long uploadTime, Integer status) {
         this.uploadTime = uploadTime;
         this.status = status;
@@ -315,5 +312,110 @@ public class FileInfo implements Serializable {
         this.md5 = md5;
         this.ossKey = ossKey;
         this.ossType = ossType;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Long getSize() {
+        return size;
+    }
+
+    public void setSize(Long size) {
+        this.size = size;
+    }
+
+    public String getMd5() {
+        return md5;
+    }
+
+    public void setMd5(String md5) {
+        this.md5 = md5;
+    }
+
+    public String getETag() {
+        return eTag;
+    }
+
+    public void setETag(String eTag) {
+        this.eTag = eTag;
+    }
+
+    public String getOssKey() {
+        return ossKey;
+    }
+
+    public void setOssKey(String ossKey) {
+        this.ossKey = ossKey;
+    }
+
+    public String getOssType() {
+        return ossType;
+    }
+
+    public void setOssType(String ossType) {
+        this.ossType = ossType;
+    }
+
+    public long getUploadTime() {
+        return uploadTime;
+    }
+
+    public void setUploadTime(long uploadTime) {
+        this.uploadTime = uploadTime;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "FileInfo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", contentType='" + contentType + '\'' +
+                ", url='" + url + '\'' +
+                ", size=" + size +
+                ", md5='" + md5 + '\'' +
+                ", eTag='" + eTag + '\'' +
+                ", ossKey='" + ossKey + '\'' +
+                ", ossType='" + ossType + '\'' +
+                ", uploadTime=" + uploadTime +
+                ", status=" + status +
+                '}';
     }
 }

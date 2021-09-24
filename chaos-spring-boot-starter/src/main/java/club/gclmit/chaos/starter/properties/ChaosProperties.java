@@ -207,7 +207,6 @@ package club.gclmit.chaos.starter.properties;
 import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
 import club.gclmit.chaos.storage.Storage;
 import club.gclmit.chaos.waf.properties.ChaosWafProperties;
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -215,7 +214,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  * @author gclm
  */
-@Data
 @ConfigurationProperties("chaos")
 public class ChaosProperties {
 
@@ -234,4 +232,36 @@ public class ChaosProperties {
      */
     private ChaosWafProperties waf;
 
+    public Storage getStorage() {
+        return storage;
+    }
+
+    public void setStorage(Storage storage) {
+        this.storage = storage;
+    }
+
+    public ChaosLoggerProperties getLogger() {
+        return logger;
+    }
+
+    public void setLogger(ChaosLoggerProperties logger) {
+        this.logger = logger;
+    }
+
+    public ChaosWafProperties getWaf() {
+        return waf;
+    }
+
+    public void setWaf(ChaosWafProperties waf) {
+        this.waf = waf;
+    }
+
+    @Override
+    public String toString() {
+        return "ChaosProperties{" +
+                "storage=" + storage +
+                ", logger=" + logger +
+                ", waf=" + waf +
+                '}';
+    }
 }

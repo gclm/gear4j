@@ -242,7 +242,7 @@ public class MapUtilsTest {
 
     @Test
     public void objectToMap() throws Exception {
-        User user = User.builder().id("1111").name("str").build();
+        User user = new User("1111", "str", 1);
         Map map = MapUtils.objectToMap(user);
         for (Object key : map.keySet()) {
             System.out.println(key + ":" + map.get(key));

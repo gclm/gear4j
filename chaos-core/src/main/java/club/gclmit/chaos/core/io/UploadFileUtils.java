@@ -208,7 +208,6 @@ import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.utils.StringUtils;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.IdUtil;
-import lombok.experimental.UtilityClass;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -221,8 +220,10 @@ import java.io.IOException;
  * @since 2020/10/22 18:51
  * @since 1.8
  */
-@UtilityClass
 public class UploadFileUtils {
+
+    private UploadFileUtils() {
+    }
 
     /**
      * <p>判断文件是否为空 {@code null}.
@@ -253,7 +254,7 @@ public class UploadFileUtils {
      */
     public static File multipartFileToFile(MultipartFile multipartFile) {
         Assert.notNull(multipartFile.isEmpty(), "multipartFile 不能为空");
-        return multipartFileToFile(multipartFile,FileUtils.getRootPath());
+        return multipartFileToFile(multipartFile, FileUtils.getRootPath());
     }
 
     /**

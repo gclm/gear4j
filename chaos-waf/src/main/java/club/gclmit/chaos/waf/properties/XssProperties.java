@@ -204,9 +204,6 @@
 
 package club.gclmit.chaos.waf.properties;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -215,8 +212,6 @@ import java.util.List;
  *
  * @author gclm
  */
-@Getter
-@Setter
 public class XssProperties {
 
 	/**
@@ -234,4 +229,27 @@ public class XssProperties {
 	 */
 	private List<String> excludePatterns = new ArrayList<>();
 
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public List<String> getPathPatterns() {
+		return pathPatterns;
+	}
+
+	public void setPathPatterns(List<String> pathPatterns) {
+		this.pathPatterns = pathPatterns;
+	}
+
+	public List<String> getExcludePatterns() {
+		return excludePatterns;
+	}
+
+	public void setExcludePatterns(List<String> excludePatterns) {
+		this.excludePatterns = excludePatterns;
+	}
 }

@@ -204,22 +204,38 @@
 
 package club.gclmit.chaos.core.bean.core;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-
 /**
  * copy key
  *
  * @author L.cm
  * @author gclm
  */
-@Getter
-@EqualsAndHashCode
-@AllArgsConstructor
 public class MicaBeanCopierKey {
-	private final Class<?> source;
-	private final Class<?> target;
-	private final boolean useConverter;
-	private final boolean nonNull;
+    private final Class<?> source;
+    private final Class<?> target;
+    private final boolean useConverter;
+    private final boolean nonNull;
+
+    public MicaBeanCopierKey(Class<?> source, Class<?> target, boolean useConverter, boolean nonNull) {
+        this.source = source;
+        this.target = target;
+        this.useConverter = useConverter;
+        this.nonNull = nonNull;
+    }
+
+    public Class<?> getSource() {
+        return source;
+    }
+
+    public Class<?> getTarget() {
+        return target;
+    }
+
+    public boolean isUseConverter() {
+        return useConverter;
+    }
+
+    public boolean isNonNull() {
+        return nonNull;
+    }
 }

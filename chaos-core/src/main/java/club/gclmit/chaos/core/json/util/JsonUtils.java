@@ -217,8 +217,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
 
 import java.io.IOException;
@@ -236,9 +236,12 @@ import java.util.TimeZone;
  *
  * @author gclm
  */
-@Slf4j
-@UtilityClass
 public class JsonUtils {
+
+    private static final Logger log = LoggerFactory.getLogger(JsonUtils.class);
+
+    private JsonUtils() {
+    }
 
     /**
      * 将对象序列化成json字符串
@@ -254,7 +257,7 @@ public class JsonUtils {
         try {
             return getInstance().writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            throw new ChaosException("jackson 异常",e);
+            throw new ChaosException("jackson 异常", e);
         }
     }
 
@@ -271,7 +274,7 @@ public class JsonUtils {
         try {
             return getInstance().writeValueAsBytes(object);
         } catch (JsonProcessingException e) {
-            throw new ChaosException("jackson 异常",e);
+            throw new ChaosException("jackson 异常", e);
         }
     }
 
@@ -286,7 +289,7 @@ public class JsonUtils {
         try {
             return getInstance().readTree(jsonString);
         } catch (IOException e) {
-            throw new ChaosException("jackson 异常",e);
+            throw new ChaosException("jackson 异常", e);
         }
     }
 
@@ -301,7 +304,7 @@ public class JsonUtils {
         try {
             return getInstance().readTree(in);
         } catch (IOException e) {
-            throw new ChaosException("jackson 异常",e);
+            throw new ChaosException("jackson 异常", e);
         }
     }
 
@@ -316,7 +319,7 @@ public class JsonUtils {
         try {
             return getInstance().readTree(content);
         } catch (IOException e) {
-            throw new ChaosException("jackson 异常",e);
+            throw new ChaosException("jackson 异常", e);
         }
     }
 
@@ -331,7 +334,7 @@ public class JsonUtils {
         try {
             return getInstance().readTree(jsonParser);
         } catch (IOException e) {
-            throw new ChaosException("jackson 异常",e);
+            throw new ChaosException("jackson 异常", e);
         }
     }
 
@@ -351,7 +354,7 @@ public class JsonUtils {
         try {
             return getInstance().readValue(content, valueType);
         } catch (IOException e) {
-            throw new ChaosException("jackson 异常",e);
+            throw new ChaosException("jackson 异常", e);
         }
     }
 
@@ -371,7 +374,7 @@ public class JsonUtils {
         try {
             return getInstance().readValue(jsonString, valueType);
         } catch (IOException e) {
-            throw new ChaosException("jackson 异常",e);
+            throw new ChaosException("jackson 异常", e);
         }
     }
 
@@ -391,7 +394,7 @@ public class JsonUtils {
         try {
             return getInstance().readValue(in, valueType);
         } catch (IOException e) {
-            throw new ChaosException("jackson 异常",e);
+            throw new ChaosException("jackson 异常", e);
         }
     }
 
@@ -411,7 +414,7 @@ public class JsonUtils {
         try {
             return getInstance().readValue(content, typeReference);
         } catch (IOException e) {
-            throw new ChaosException("jackson 异常",e);
+            throw new ChaosException("jackson 异常", e);
         }
     }
 
@@ -431,7 +434,7 @@ public class JsonUtils {
         try {
             return getInstance().readValue(jsonString, typeReference);
         } catch (IOException e) {
-            throw new ChaosException("jackson 异常",e);
+            throw new ChaosException("jackson 异常", e);
         }
     }
 
@@ -451,12 +454,13 @@ public class JsonUtils {
         try {
             return getInstance().readValue(in, typeReference);
         } catch (IOException e) {
-            throw new ChaosException("jackson 异常",e);
+            throw new ChaosException("jackson 异常", e);
         }
     }
 
     /**
      * 采用单例模式封装 ObjectMapper
+     *
      * @return ObjectMapper
      */
     public static ObjectMapper getInstance() {

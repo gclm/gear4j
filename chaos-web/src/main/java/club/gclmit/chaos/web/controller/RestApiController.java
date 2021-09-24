@@ -264,7 +264,7 @@ public abstract class RestApiController<Service extends IService<T>, T> {
     public Result list(QueryCondition queryCondition) {
         log.info("分页查询\t:[{}]", StringUtils.toString(queryCondition));
         Page<T> pages = service.page(new Page<>(queryCondition.getPage(), queryCondition.getPageSize()));
-        PageResult pageResult = PageResult.builder().page(queryCondition.getPage()).pageSize(queryCondition.getPageSize()).total(pages.getTotal()).list(pages.getRecords()).build();
+        PageResult pageResult = new PageResult(pages.getTotal(),pages.getRecords(),queryCondition.getPage(),queryCondition.getPageSize());
         return Result.ok(pageResult);
     }
 

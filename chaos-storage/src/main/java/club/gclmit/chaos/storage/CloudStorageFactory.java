@@ -231,10 +231,7 @@ public class CloudStorageFactory {
                 client = new QiniuStorageClient(storage);
                 break;
             case UCLOUD:
-                client = new UfileStorageClient(storage);
-                break;
-            case ALIYUN:
-                client = new AliyunStorageClient(storage);
+                client = new UcloudStorageClient(storage);
                 break;
             case UPYUN:
                 client = new UpyunStorageClient(storage);

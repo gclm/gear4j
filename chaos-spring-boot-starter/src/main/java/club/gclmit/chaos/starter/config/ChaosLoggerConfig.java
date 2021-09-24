@@ -207,8 +207,6 @@ package club.gclmit.chaos.starter.config;
 import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
 import club.gclmit.chaos.starter.properties.ChaosProperties;
 import club.gclmit.chaos.waf.xss.XssJacksonDeserializer;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
@@ -225,8 +223,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  *
  * @author gclm
  */
-@Slf4j
-@RequiredArgsConstructor
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(value = {ChaosProperties.class})
 @ServletComponentScan(basePackages = "club.gclmit.chaos.logger")

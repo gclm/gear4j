@@ -205,14 +205,12 @@
 package club.gclmit.chaos.core.utils;
 
 import club.gclmit.chaos.core.exception.ChaosException;
-import lombok.experimental.UtilityClass;
 
 /**
  * SQL 常用工具类
  *
  * @author gclm
  */
-@UtilityClass
 public class SqlUtils {
 
     /**

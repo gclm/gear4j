@@ -223,9 +223,10 @@ public class DigestUtilsTest {
 
     @Test
     public void md5() {
-        File file = new File("/Users/gclm/Projects/java/middleware/chaos/chaos-core/src/test/resources/test1.jpg");
-        File file1 = new File("/Users/gclm/Projects/java/middleware/chaos/chaos-core/src/test/resources/test1-1.jpeg");
-        File file2 = new File("/Users/gclm/Projects/java/middleware/chaos/chaos-core/src/test/resources/test1-3.pdf");
+        String dirPath = FileUtils.getRootPath() + "/src/main/resources/test";
+        File file = new File(dirPath, "test1.jpg");
+        File file1 = new File(dirPath, "test1-1.jpeg");
+        File file2 = new File(dirPath, "test1-3.pdf");
 
         System.out.println("file:  " + SecureUtil.md5(file));
         System.out.println("file1: " + SecureUtil.md5(file1));

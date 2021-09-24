@@ -204,9 +204,7 @@
 
 package club.gclmit.chaos.logger.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import java.util.Arrays;
 
 /**
  * <p>
@@ -215,9 +213,6 @@ import lombok.ToString;
  *
  * @author gclm
  */
-@Getter
-@Setter
-@ToString
 public class ChaosLoggerProperties {
 
     /**
@@ -237,4 +232,37 @@ public class ChaosLoggerProperties {
      */
     private Boolean save = false;
 
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public String[] getIgnoreUrls() {
+        return ignoreUrls;
+    }
+
+    public void setIgnoreUrls(String[] ignoreUrls) {
+        this.ignoreUrls = ignoreUrls;
+    }
+
+    public Boolean getSave() {
+        return save;
+    }
+
+    public void setSave(Boolean save) {
+        this.save = save;
+    }
+
+    @Override
+    public String toString() {
+        return "ChaosLoggerProperties{" +
+                "prefix='" + prefix + '\'' +
+                ", ignoreUrls=" + Arrays.toString(ignoreUrls) +
+                ", save=" + save +
+                '}';
+    }
 }

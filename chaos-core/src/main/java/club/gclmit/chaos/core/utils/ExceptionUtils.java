@@ -205,7 +205,6 @@
 package club.gclmit.chaos.core.utils;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
-import lombok.experimental.UtilityClass;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -214,7 +213,6 @@ import java.lang.reflect.InvocationTargetException;
  *
  * @author gclm
  */
-@UtilityClass
 public class ExceptionUtils extends ExceptionUtil {
 
     /**

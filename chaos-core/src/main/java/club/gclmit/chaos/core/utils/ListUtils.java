@@ -212,4 +212,7 @@ import cn.hutool.core.collection.ListUtil;
  * @author gclm
  */
 public class ListUtils extends ListUtil {
+
+    private ListUtils() {
+    }
 }

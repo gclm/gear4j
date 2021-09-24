@@ -301,7 +301,7 @@ public enum LoggerServer {
      */
     UTIL("Util");
 
-    private String key;
+    private final String key;
 
     public String getKey() {
         return key;

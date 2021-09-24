@@ -223,7 +223,7 @@ public enum BarcodeImageType {
      */
     PNG("png");
 
-    private String code;
+    private final String code;
 
     BarcodeImageType(String code) {
         this.code = code;

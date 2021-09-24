@@ -206,8 +206,6 @@ package club.gclmit.chaos.web.controller;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-
 import java.io.Serializable;
 
 /**
@@ -217,7 +215,6 @@ import java.io.Serializable;
  *
  * @author gclm
  */
-@Data
 @ApiModel(value = "查询条件", description = "查询条件")
 public class QueryCondition implements Serializable {
 
@@ -242,4 +239,39 @@ public class QueryCondition implements Serializable {
     @ApiModelProperty(value = "排序", example = "0")
     private int sort;
 
+    public QueryCondition() {
+    }
+
+    public Long getPage() {
+        return page;
+    }
+
+    public void setPage(Long page) {
+        this.page = page;
+    }
+
+    public Long getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Long pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getSort() {
+        return sort;
+    }
+
+    public void setSort(int sort) {
+        this.sort = sort;
+    }
+
+    @Override
+    public String toString() {
+        return "QueryCondition{" +
+                "page=" + page +
+                ", pageSize=" + pageSize +
+                ", sort=" + sort +
+                '}';
+    }
 }

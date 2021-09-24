@@ -204,8 +204,6 @@
 
 package club.gclmit.chaos.storage.pojo;
 
-import lombok.*;
-
 import java.io.Serializable;
 
 /**
@@ -215,10 +213,6 @@ import java.io.Serializable;
  *
  * @author gclm
  */
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class CloudStorage implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -263,10 +257,91 @@ public class CloudStorage implements Serializable {
      */
     private String protocol = "https";
 
+    public CloudStorage() {
+    }
+
     public CloudStorage(String accessKeyId, String accessKeySecret, String bucket, String endpoint) {
         this.accessKeyId = accessKeyId;
         this.accessKeySecret = accessKeySecret;
         this.bucket = bucket;
         this.endpoint = endpoint;
+    }
+
+    public String getAccessKeyId() {
+        return accessKeyId;
+    }
+
+    public void setAccessKeyId(String accessKeyId) {
+        this.accessKeyId = accessKeyId;
+    }
+
+    public String getAccessKeySecret() {
+        return accessKeySecret;
+    }
+
+    public void setAccessKeySecret(String accessKeySecret) {
+        this.accessKeySecret = accessKeySecret;
+    }
+
+    public String getBucket() {
+        return bucket;
+    }
+
+    public void setBucket(String bucket) {
+        this.bucket = bucket;
+    }
+
+    public String getEndpoint() {
+        return endpoint;
+    }
+
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public String getStyleName() {
+        return styleName;
+    }
+
+    public void setStyleName(String styleName) {
+        this.styleName = styleName;
+    }
+
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
+
+    @Override
+    public String toString() {
+        return "CloudStorage{" +
+                "accessKeyId='" + accessKeyId + '\'' +
+                ", accessKeySecret='" + accessKeySecret + '\'' +
+                ", bucket='" + bucket + '\'' +
+                ", endpoint='" + endpoint + '\'' +
+                ", region='" + region + '\'' +
+                ", prefix='" + prefix + '\'' +
+                ", styleName='" + styleName + '\'' +
+                ", protocol='" + protocol + '\'' +
+                '}';
     }
 }

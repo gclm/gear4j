@@ -214,7 +214,8 @@ import club.gclmit.chaos.storage.pojo.CloudStorage;
 import club.gclmit.chaos.storage.pojo.FileInfo;
 import com.obs.services.ObsClient;
 import com.obs.services.model.PutObjectResult;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 import java.io.InputStream;
@@ -229,15 +230,19 @@ import java.util.List;
  *
  * @author gclm
  */
-@Slf4j
 public class HuaweiStorageClient extends StorageClient {
+
+    private static final Logger log = LoggerFactory.getLogger(HuaweiStorageClient.class);
 
     /**
      * 华为云 Obs客户端
      */
-    private ObsClient obsClient;
+    private final ObsClient obsClient;
 
-    private CloudStorage cloudStorage;
+    /**
+     * OSS 配置参数
+     */
+    private final CloudStorage cloudStorage;
 
 
     /**

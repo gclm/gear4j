@@ -204,8 +204,6 @@
 
 package club.gclmit.chaos.core.bean.core;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /**
  * Bean属性
@@ -213,10 +211,21 @@ import lombok.RequiredArgsConstructor;
  * @author L.cm
  * @author gclm
  */
-@Getter
-@RequiredArgsConstructor
 public class BeanProperty {
 
     private final String name;
     private final Class<?> type;
+
+    public BeanProperty(String name, Class<?> type) {
+        this.name = name;
+        this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Class<?> getType() {
+        return type;
+    }
 }

@@ -205,14 +205,12 @@
 package club.gclmit.chaos.core.utils;
 
 import cn.hutool.core.lang.Assert;
-import lombok.experimental.UtilityClass;
 
 /**
  * 系统工具类
  *
  * @author gclm
  */
-@UtilityClass
 public class SystemUtils {
 
     /**
@@ -249,6 +247,10 @@ public class SystemUtils {
      * os 名
      */
     public static final String OS_NAME = getSystemProperty("os.name");
+
+
+    private SystemUtils() {
+    }
 
     /**
      * <p>
@@ -300,40 +302,44 @@ public class SystemUtils {
 
     /**
      * 获取用户名字
-     * @author gclm
+     *
      * @return java.lang.String
+     * @author gclm
      */
-    public static String getUserName(){
+    public static String getUserName() {
         return StringUtils.isNotBlank(USER_NAME) ? USER_NAME : "";
     }
 
     /**
      * 获取用户目录
-     * @author gclm
+     *
      * @return java.lang.String
+     * @author gclm
      */
-    public static String getUserDir(){
+    public static String getUserDir() {
         return StringUtils.isNotBlank(USER_DIR) ? USER_DIR : "";
     }
 
     /**
      * 获取 user home
-     * @author gclm
+     *
      * @return java.lang.String
+     * @author gclm
      */
-    public static String getUserHome(){
+    public static String getUserHome() {
         return StringUtils.isNotBlank(USER_HOME) ? USER_HOME : "";
     }
 
     /**
      * 更新系统路径
-     * @author gclm
-     * @param path  文件路径
+     *
+     * @param path 文件路径
      * @return java.lang.String
+     * @author gclm
      */
-    public static String updateSystemPath(String path){
-        Assert.isTrue(StringUtils.isNotBlank(path),"修改路径不能为空");
-        if (SystemUtils.isWindows()){
+    public static String updateSystemPath(String path) {
+        Assert.isTrue(StringUtils.isNotBlank(path), "修改路径不能为空");
+        if (SystemUtils.isWindows()) {
             return path.replace("/", "\\");
         } else {
             return path.replace("\\", "/");

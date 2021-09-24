@@ -244,7 +244,7 @@ public class MysqlToPgsqlTest {
             List<String> comments = new ArrayList<>();
             List<ColumnDefinition> collect = columnDefinitions.stream()
                     .peek(columnDefinition -> {
-                        List<String> columnSpecStrings = columnDefinition.getColumnSpecStrings();
+                        List<String> columnSpecStrings = columnDefinition.getColumnSpecs();
 
                         int commentIndex = getCommentIndex(columnSpecStrings);
 
@@ -257,7 +257,7 @@ public class MysqlToPgsqlTest {
                             columnSpecStrings.remove(commentStringIndex);
                             columnSpecStrings.remove(commentIndex);
                         }
-                        columnDefinition.setColumnSpecStrings(columnSpecStrings);
+                        columnDefinition.setColumnSpecs(columnSpecStrings);
                     }).collect(Collectors.toList());
             ct.setColumnDefinitions(collect);
             String createSQL = ct.toString()

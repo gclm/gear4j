@@ -204,8 +204,6 @@
 
 package club.gclmit.chaos.core.pojo;
 
-import lombok.*;
-
 /**
  * <p>
  * 测试Object
@@ -215,12 +213,6 @@ import lombok.*;
  * @date 2020/4/16 6:43 下午
  * @since 1.8
  */
-@ToString
-@Getter
-@Setter
-@Builder
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class User {
 
     private String id;
@@ -228,4 +220,47 @@ public class User {
     private String name;
 
     private Integer role;
+
+    public User(String id, String name, Integer role) {
+        this.id = id;
+        this.name = name;
+        this.role = role;
+    }
+
+    public User() {
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", role=" + role +
+                '}';
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
+    }
 }

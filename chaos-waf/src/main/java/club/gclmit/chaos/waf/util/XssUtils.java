@@ -215,6 +215,9 @@ import org.jsoup.safety.Whitelist;
  * @author gclm
  */
 public class XssUtils {
+    
+    private XssUtils() {
+    }
 
     /**
      * 使用自带的basicWithImages 白名单

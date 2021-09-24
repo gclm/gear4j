@@ -206,7 +206,6 @@ package club.gclmit.chaos.core.utils;
 
 import club.gclmit.chaos.core.bean.convert.ConvertUtils;
 import cn.hutool.core.util.ReflectUtil;
-import lombok.experimental.UtilityClass;
 
 import java.lang.reflect.Field;
 import java.util.Collections;
@@ -218,8 +217,7 @@ import java.util.Map;
  *
  * @author gclm
  */
-@UtilityClass
-public class MapUtils{
+public class MapUtils {
 
     /**
      * Map是否为空
@@ -275,13 +273,13 @@ public class MapUtils{
     // -----------------------------------------------------------------------------------------------
 
     /**
-     *  Map to Object
+     * Map to Object
      *
-     * @author gclm
-     * @param map      待转换的Map
-     * @param beanClass  生成的Object
+     * @param map       待转换的Map
+     * @param beanClass 生成的Object
      * @return java.lang.Object
      * @throws Exception 反射异常
+     * @author gclm
      */
     public static Object mapToObject(Map map, Class<?> beanClass) throws Exception {
 
@@ -308,12 +306,12 @@ public class MapUtils{
     }
 
     /**
-     *  Object To Map
+     * Object To Map
      *
-     * @author gclm
      * @param obj 待转换的Object
      * @return java.util.Map
-     * @exception Exception 反射异常
+     * @throws Exception 反射异常
+     * @author gclm
      */
     public static Map objectToMap(Object obj) throws Exception {
 

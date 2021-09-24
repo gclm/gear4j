@@ -204,6 +204,7 @@
 
 package club.gclmit.chaos.core.lang;
 
+import club.gclmit.chaos.core.io.FileUtils;
 import club.gclmit.chaos.core.io.IOUtils;
 import club.gclmit.chaos.core.lang.qrcode.QrCode;
 import org.junit.Test;
@@ -225,13 +226,13 @@ public class QrCodeTest {
 
     @Test
     public void parse() throws IOException {
-        String filePath = "/Users/gclm/Projects/java/00-base/chaos/chaos-core/src/test/resources/alipay.jpg";
-        URL url = new URL("https://raw.githubusercontent.com/gclm/payment-code/master/doc/img/alipay.jpg");
-        File file = new File(filePath);
-        InputStream inputStream = new FileInputStream(filePath);
-        Path path = Paths.get(filePath);
+        String dirPath = FileUtils.getRootPath() + "/src/main/resources/test";
+        File file = new File(dirPath, "test1.jpg");
+        URL url = new URL("https://i.loli.net/2021/09/15/WCBXapRJ6lFjTZP.jpg");
+        InputStream inputStream = new FileInputStream(file);
+        Path path = Paths.get(file.getAbsolutePath());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        IOUtils.copy(new FileInputStream(filePath), outputStream);
+        IOUtils.copy(new FileInputStream(file), outputStream);
 
         System.out.println(QrCode.decode().from(url).decode());
         System.out.println(QrCode.decode().from(file).decode());

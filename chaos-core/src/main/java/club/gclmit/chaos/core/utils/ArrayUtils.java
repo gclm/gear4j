@@ -204,15 +204,15 @@
 
 package club.gclmit.chaos.core.utils;
 
-import lombok.experimental.UtilityClass;
-
 /**
  * ArrayUtils工具类
  *
  * @author gclm
  */
-@UtilityClass
 public class ArrayUtils {
+
+    private ArrayUtils() {
+    }
 
     /**
      * 判断数据是否为空

@@ -207,7 +207,6 @@ package club.gclmit.chaos.core.utils;
 import club.gclmit.chaos.core.exception.ChaosException;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import lombok.experimental.UtilityClass;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -221,8 +220,10 @@ import java.util.List;
  *
  * @author gclm
  */
-@UtilityClass
 public class StringUtils extends StrUtil {
+
+    private StringUtils() {
+    }
 
     /**
      * 采用反射获取toString,null会返回“null”
@@ -267,9 +268,10 @@ public class StringUtils extends StrUtil {
 
     /**
      * 去除全部空格
-     * @author gclm
-     * @param str  要处理的字符串
+     *
+     * @param str 要处理的字符串
      * @return java.lang.String
+     * @author gclm
      */
     public static String trimAll(String str) {
         return isBlank(str) ? null : str.replaceAll("\\s*", "");
