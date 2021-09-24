@@ -6,7 +6,7 @@ on: [ push, pull_request ]
 
 jobs:
   ubuntu:
-    name: build on java11 ubuntu
+    name: Build On Java11 Ubuntu
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,7 +18,7 @@ jobs:
         run: mvn -B package --file pom.xml
 
   macos:
-    name: build on java11 MacOS
+    name: Build On Java11 MacOS
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
@@ -30,7 +30,7 @@ jobs:
         run: mvn -B package --file pom.xml
 
   windows:
-    name: build on java11 Windows
+    name: Build On Java11 Windows
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
