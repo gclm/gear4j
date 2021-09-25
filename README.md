@@ -38,6 +38,9 @@
 </p>
 
 ##  项目简介
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/77d4a12e4b104e4e8fbc5ca6c5075f1b)](https://app.codacy.com/gh/gclm/chaos?utm_source=github.com&utm_medium=referral&utm_content=gclm/chaos&utm_campaign=Badge_Grade_Settings)
+
 > 一个功能强悍的 Spring Boot Starter 组件
 
 ### 仓库地址
