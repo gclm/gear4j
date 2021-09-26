@@ -372,13 +372,9 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
      * @author gclm
      */
     @Override
-    public void deleteFile(String key, boolean temp) {
-        if (temp) {
-            updateFileStatus(key, FileStatus.TEMP_DELETE.getCode());
-        } else {
-            removeById(queryKey(key).getId());
-            storageClient.delete(key);
-        }
+    public void deleteFile(String key) {
+        removeById(queryKey(key).getId());
+        storageClient.delete(key);
     }
 
     /**
@@ -390,7 +386,7 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
     @Override
     public void batchDeleteFile(List<String> keys) {
         for (String key : keys) {
-            deleteFile(key, false);
+            deleteFile(key);
         }
     }
 }

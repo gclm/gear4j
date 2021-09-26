@@ -298,10 +298,9 @@ public interface DefaultFileService extends IService<FileInfo> {
      * 根据OSS key 删除文件
      *
      * @param key  OSS key
-     * @param temp 临时删除
      * @author gclm
      */
-    public void deleteFile(String key, boolean temp);
+    public void deleteFile(String key);
 
     /**
      * 根据OSS keys 批量删除文件
