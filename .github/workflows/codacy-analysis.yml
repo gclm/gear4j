@@ -15,7 +15,7 @@ on:
     # The branches below must be a subset of the branches above
     branches: [ master ]
   schedule:
-    - cron: '28 17 * * 0'
+    - cron: '38 23 * * 3'
 
 jobs:
   codacy-security-scan:
@@ -28,11 +28,12 @@ jobs:
 
       # Execute Codacy Analysis CLI and generate a SARIF output with the security issues identified during the analysis
       - name: Run Codacy Analysis CLI
-        uses: codacy/codacy-analysis-cli-action@master
+        uses: codacy/codacy-analysis-cli-action@1.1.0
         with:
           # Check https://github.com/codacy/codacy-analysis-cli#project-token to get your project token from your Codacy repository
           # You can also omit the token and run the tools that support default configurations
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          verbose: true
           output: results.sarif
           format: sarif
           # Adjust severity of non-security issues
@@ -43,6 +44,7 @@ jobs:
 
       # Upload the SARIF file generated in the previous step
       - name: Upload SARIF results file
-        uses: github/codeql-action/upload-sarif@main
+        uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: results.sarif
+
