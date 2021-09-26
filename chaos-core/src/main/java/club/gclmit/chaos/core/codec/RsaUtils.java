@@ -204,9 +204,6 @@
 
 package club.gclmit.chaos.core.codec;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.crypto.Cipher;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
@@ -222,8 +219,6 @@ import java.security.spec.X509EncodedKeySpec;
  * @since 1.8
  */
 public class RsaUtils {
-
-    private static final Logger log = LoggerFactory.getLogger(RsaUtils.class);
 
     /**
      * 获取RSA算法

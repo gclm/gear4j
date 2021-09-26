@@ -287,13 +287,13 @@ public class IOUtils extends org.springframework.util.StreamUtils {
             try {
                 ((Flushable) closeable).flush();
             } catch (IOException ignored) {
-                // ignore
+                throw ExceptionUtils.wrapUnchecked(ignored);
             }
         }
         try {
             closeable.close();
         } catch (IOException ignored) {
-            // ignore
+            throw ExceptionUtils.wrapUnchecked(ignored);
         }
     }
 
@@ -307,7 +307,8 @@ public class IOUtils extends org.springframework.util.StreamUtils {
         if (null != closeable) {
             try {
                 closeable.close();
-            } catch (Exception var2) {
+            } catch (Exception e) {
+                throw ExceptionUtils.wrapUnchecked(e);
             }
         }
 
@@ -373,7 +374,7 @@ public class IOUtils extends org.springframework.util.StreamUtils {
             input.read(buffer);
             Files.write(buffer, tempFile);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw ExceptionUtils.wrapUnchecked(e);
         }
     }
 

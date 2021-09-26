@@ -217,8 +217,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
 
 import java.io.IOException;
@@ -237,8 +235,6 @@ import java.util.TimeZone;
  * @author gclm
  */
 public class JsonUtils {
-
-    private static final Logger log = LoggerFactory.getLogger(JsonUtils.class);
 
     private JsonUtils() {
     }

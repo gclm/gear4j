@@ -269,7 +269,7 @@ public abstract class AvatarGenerator {
         try {
             ImageIO.write(bufferedImage, suffix, file);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ChaosException("头像生成失败", e);
         }
     }
 
