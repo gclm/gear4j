@@ -217,11 +217,8 @@ import javax.servlet.http.HttpServletRequestWrapper;
  */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
-    HttpServletRequest orgRequest = null;
-
     public XssHttpServletRequestWrapper(HttpServletRequest request) {
         super(request);
-        orgRequest = request;
     }
 
     /**

@@ -240,9 +240,6 @@ public class QueryCondition implements Serializable {
     @ApiModelProperty(value = "排序", example = "0")
     private int sort;
 
-    public QueryCondition() {
-    }
-
     public Long getPage() {
         return page;
     }

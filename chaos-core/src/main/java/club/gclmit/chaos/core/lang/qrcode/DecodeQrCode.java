@@ -345,7 +345,7 @@ public class DecodeQrCode {
         }
 
         public String decode() {
-            /**
+            /*
              *  com.google.zxing.client.j2se.BufferedImageLuminanceSource: 缓冲图像亮度源
              *  作用：将 java.awt.image.BufferedImage 转为 zxing 的缓冲图像亮度源
              *  BinaryBitmap：二进制位图
@@ -354,13 +354,13 @@ public class DecodeQrCode {
             BufferedImageLuminanceSource source = new BufferedImageLuminanceSource(image);
             BinaryBitmap binaryBitmap = new BinaryBitmap(new HybridBinarizer(source));
 
-            /**
+            /*
              * 如果内容包含中文，则解码的字符集格式应该和编码时一致
              */
             Hashtable<DecodeHintType, String> hints = new Hashtable<>();
             hints.put(DecodeHintType.CHARACTER_SET, QrCode.DEFAULT_CHARACTER_SET);
 
-            /**
+            /*
              * 如果图片不是二维码图片，则 decode 抛出异常 com.google.zxing.NotFoundException
              * MultiFormatWriter 的 encode 用于对内容进行编码成 2D 矩阵
              * MultiFormatReader 的 decode 用于读取二进制位图数据

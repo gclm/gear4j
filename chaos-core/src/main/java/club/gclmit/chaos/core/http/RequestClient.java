@@ -227,14 +227,17 @@ public class RequestClient {
      * json 请求
      */
     public static final String JSON_REQUEST_TYPE = "json";
+
     /**
      * from 请求
      */
     public static final String FROM_REQUEST_TYPE = "from";
+
     /**
      * 文件上传请求
      */
     public static final String UPLOAD_REQUEST_TYPE = "multipart/form";
+
     private RequestClient() {
     }
 

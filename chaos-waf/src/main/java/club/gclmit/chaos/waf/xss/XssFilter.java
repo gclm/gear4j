@@ -253,7 +253,7 @@ public class XssFilter extends OncePerRequestFilter implements Ordered {
      * 处理url规则
      *
      * @param request       HttpServletRequest
-     * @param xssProperties : 配置信息
+     * @param xssProperties 配置信息
      * @return boolean
      * @author gclm
      */
@@ -265,7 +265,6 @@ public class XssFilter extends OncePerRequestFilter implements Ordered {
         if (CollUtil.isEmpty(pathPatterns)) {
             return false;
         }
-
         return CollUtil.isNotEmpty(excludePatterns) && UrlUtils.isIgnore(excludePatterns, url);
     }
 }

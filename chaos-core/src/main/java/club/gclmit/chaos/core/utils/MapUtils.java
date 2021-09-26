@@ -236,7 +236,7 @@ public class MapUtils {
      * @return 是否为非空
      */
     public static boolean isNotEmpty(Map<?, ?> map) {
-        return null != map && false == map.isEmpty();
+        return null != map && !map.isEmpty();
     }
 
     /**
@@ -281,7 +281,7 @@ public class MapUtils {
      * @throws Exception 反射异常
      * @author gclm
      */
-    public static Object mapToObject(Map map, Class<?> beanClass) throws Exception {
+    public static Object mapToObject(Map<String, ?> map, Class<?> beanClass) throws Exception {
 
         if (map == null) {
             return null;
@@ -313,14 +313,15 @@ public class MapUtils {
      * @throws Exception 反射异常
      * @author gclm
      */
-    public static Map objectToMap(Object obj) throws Exception {
+    public static Map<String, Object> objectToMap(Object obj) throws Exception {
 
         if (obj == null) {
             return null;
         }
 
-        Map<String, Object> map = new HashMap<String, Object>();
         Field[] declaredFields = obj.getClass().getDeclaredFields();
+        Map<String, Object> map = new HashMap<>(declaredFields.length);
+
         for (Field field : declaredFields) {
             field.setAccessible(true);
             map.put(field.getName(), field.get(obj));

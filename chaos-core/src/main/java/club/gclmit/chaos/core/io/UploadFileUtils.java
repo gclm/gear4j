@@ -16,8 +16,8 @@
       "Legal Entity" shall mean the union of the acting entity and all
       other entities that control, are controlled by, or are under common
       control with that entity. For the purposes of this definition,
-      "control" means (i) the power, direct or indirect, to cause the
-      direction or management of such entity, whether by contract or
+      "control" means (i) the power, dirPathect or indirPathect, to cause the
+      dirPathection or management of such entity, whether by contract or
       otherwise, or (ii) ownership of fifty percent (50%) or more of the
       outstanding shares, or (iii) beneficial ownership of such entity.
 
@@ -82,7 +82,7 @@
       with the Work to which such Contribution(s) was submitted. If You
       institute patent litigation against any entity (including a
       cross-claim or counterclaim in a lawsuit) alleging that the Work
-      or a Contribution incorporated within the Work constitutes direct
+      or a Contribution incorporated within the Work constitutes dirPathect
       or contributory patent infringement, then any patent licenses
       granted to You under this License for that Work shall terminate
       as of the date such litigation is filed.
@@ -155,7 +155,7 @@
       whether in tort (including negligence), contract, or otherwise,
       unless required by applicable law (such as deliberate and grossly
       negligent acts) or agreed to in writing, shall any Contributor be
-      liable to You for damages, including any direct, indirect, special,
+      liable to You for damages, including any dirPathect, indirPathect, special,
       incidental, or consequential damages of any character arising as a
       result of this License or out of the use or inability to use the
       Work (including but not limited to damages for loss of goodwill,
@@ -261,14 +261,14 @@ public class UploadFileUtils {
      * MultipartFile 转 File
      *
      * @param multipartFile springmvc封装的上传文件
-     * @param folder        文件夹路径
+     * @param dirPath       文件夹路径
      * @return java.io.File
      */
-    public static File multipartFileToFile(MultipartFile multipartFile, String folder) {
+    public static File multipartFileToFile(MultipartFile multipartFile, String dirPath) {
         Assert.notNull(multipartFile.isEmpty(), "multipartFile 不能为空");
 
-        folder = StringUtils.isEmpty(folder) ? FileUtils.getRootPath() : folder;
-        File localFile = new File(folder, IdUtil.fastSimpleUUID() + "." + FileTypeUtils.getSuffix(multipartFile));
+        dirPath = StringUtils.isEmpty(dirPath) ? FileUtils.getRootPath() : dirPath;
+        File localFile = new File(dirPath, IdUtil.fastSimpleUUID() + "." + FileTypeUtils.getSuffix(multipartFile));
 
         try {
             multipartFile.transferTo(localFile);
