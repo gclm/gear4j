@@ -207,6 +207,7 @@ package club.gclmit.chaos.core.lang.avatar;
 import club.gclmit.chaos.core.codec.Base64Utils;
 import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.io.FileUtils;
+import cn.hutool.core.util.RandomUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -223,7 +224,7 @@ import java.util.Random;
  *
  * @author gclm
  */
-public abstract class AvatarGenerator {
+public class AvatarGenerator {
 
     /**
      * 浏览器地址栏预览的base64编码头
@@ -325,10 +326,9 @@ public abstract class AvatarGenerator {
                         "38,157,128", "201,138,131", "220,162,151", "137,157,192", "175,215,237", "92,167,186",
                         "255,66,93", "147,224,255", "247,68,97", "185,227,217"};
         int len = beautifulColors.length;
-        Random random = new Random();
+        Random random = RandomUtil.getRandom();
         String[] color = beautifulColors[random.nextInt(len)].split(",");
         return new Color(Integer.parseInt(color[0]), Integer.parseInt(color[1]),
                 Integer.parseInt(color[2]));
     }
-
 }
