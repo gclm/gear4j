@@ -204,7 +204,15 @@
 
 package club.gclmit.chaos.core.http;
 
+import club.gclmit.chaos.core.io.IOUtils;
+import com.ejlchina.okhttps.HttpResult;
+import com.ejlchina.okhttps.OkHttps;
+import com.ejlchina.okhttps.internal.RealHttpResult;
+import okhttp3.Response;
+
 import java.io.File;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -232,6 +240,65 @@ public class RequestClient {
     public static final String UPLOAD_REQUEST_TYPE = "multipart/form";
 
     /**
+     * <p>
+     * 效验链接。 code == 200 ? true : false
+     * </p>
+     *
+     * @param url 请求url
+     * @return boolean
+     * @author gclm
+     */
+    public static boolean judgeUrl(String url) {
+        return 200 == statusCode(url);
+    }
+
+    /**
+     * <p>
+     * 获取请求url的状态码
+     * </p>
+     *
+     * @param url 请求url
+     * @return int 状态码
+     * @author gclm
+     */
+    public static int statusCode(String url) {
+        return OkHttps.async(url).addHeader(header()).get().getResult().getStatus();
+    }
+
+    /**
+     * <p>
+     * 链接 ping
+     * </p>
+     *
+     * @param url 请求url
+     * @return java.lang.Long
+     * @author gclm
+     */
+    public static Long ping(String url) {
+        HttpResult result = OkHttps.async(url).addHeader(header()).get().getResult();
+        Response response = ((RealHttpResult) result).getResponse();
+        long responseAtMillis = response.receivedResponseAtMillis();
+        long sentRequestAtMillis = response.sentRequestAtMillis();
+        return responseAtMillis - sentRequestAtMillis;
+    }
+
+    /**
+     * <p>
+     * 通用请求头
+     * </p>
+     *
+     * @return java.util.Map
+     * @author gclm
+     */
+    public static Map<String, String> header() {
+        Map<String, String> header = new HashMap<>(4);
+        header.put("Cache-Control", "no-cache");
+        header.put("Accept", "*/*");
+        header.put("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36");
+        return header;
+    }
+
+    /**
      * get 请求
      *
      * @param url 请求url
@@ -239,7 +306,7 @@ public class RequestClient {
      * @author gclm
      */
     public static String get(String url) {
-        return get(url, HttpUtils.buildRequestHeader());
+        return get(url, header());
     }
 
     /**
@@ -251,7 +318,7 @@ public class RequestClient {
      * @author gclm
      */
     public static String get(String url, Map<String, String> headers) {
-        return HttpUtils.buildHttp().async(url).addHeader(headers).get().getResult().getBody().cache().toString();
+        return OkHttps.async(url).addHeader(headers).get().getResult().getBody().cache().toString();
     }
 
     /**
@@ -264,7 +331,7 @@ public class RequestClient {
      * @author gclm
      */
     public static String post(String url, Map<String, ?> params, String type) {
-        return post(url, params, HttpUtils.buildRequestHeader(), type);
+        return post(url, params, header(), type);
     }
 
     /**
@@ -279,7 +346,7 @@ public class RequestClient {
      */
     public static String post(String url, Map<String, ?> params, Map<String, String> headers, String type) {
         if (JSON_REQUEST_TYPE.equals(type) || FROM_REQUEST_TYPE.equals(type)) {
-            return HttpUtils.buildHttp().async(url).addHeader(headers).addBodyPara(params).bodyType(type).post().getResult().getBody().cache().toString();
+            return OkHttps.async(url).addHeader(headers).addBodyPara(params).bodyType(type).post().getResult().getBody().cache().toString();
         }
         return null;
     }
@@ -293,7 +360,7 @@ public class RequestClient {
      * @author gclm
      */
     public static String put(String url, Map<String, ?> params) {
-        return put(url, params, HttpUtils.buildRequestHeader());
+        return put(url, params, header());
     }
 
 
@@ -307,7 +374,7 @@ public class RequestClient {
      * @author gclm
      */
     public static String put(String url, Map<String, ?> params, Map<String, String> headers) {
-        return HttpUtils.buildHttp().async(url).addHeader(headers).addBodyPara(params).put().getResult().getBody().cache().toString();
+        return OkHttps.async(url).addHeader(headers).addBodyPara(params).put().getResult().getBody().cache().toString();
     }
 
     /**
@@ -318,7 +385,7 @@ public class RequestClient {
      * @author gclm
      */
     public static String delete(String url) {
-        return delete(url, HttpUtils.buildRequestHeader());
+        return delete(url, header());
     }
 
     /**
@@ -330,7 +397,7 @@ public class RequestClient {
      * @author gclm
      */
     public static String delete(String url, Map<String, String> headers) {
-        return HttpUtils.buildHttp().async(url).addHeader(headers).delete().getResult().getBody().cache().toString();
+        return OkHttps.async(url).addHeader(headers).delete().getResult().getBody().cache().toString();
     }
 
     /**
@@ -344,7 +411,24 @@ public class RequestClient {
      * @author gclm
      */
     public static String upload(String url, Map<String, String> headers, String fileParam, File file) {
-        return HttpUtils.buildHttp().async(url).addFilePara(fileParam, file).post().getResult().getBody().cache().toString();
+        return OkHttps.async(url).addHeader(headers).addFilePara(fileParam, file).post().getResult().getBody().cache().toString();
+    }
+
+    /**
+     * 上传 请求
+     *
+     * @param url         请求url
+     * @param headers     请求头
+     * @param params      请求参数
+     * @param fileParam   上传文件参数
+     * @param fileType    上传文件类型
+     * @param fileName    上传文件名
+     * @param inputStream 上传文件流
+     * @return java.lang.String
+     * @author gclm
+     */
+    public static String upload(String url, Map<String, String> headers, Map<String, String> params, String fileParam, String fileType, String fileName, InputStream inputStream) {
+        return OkHttps.async(url).addHeader(headers).addBodyPara(params).addFilePara(fileParam, fileType, fileName, IOUtils.readToByteArray(inputStream)).post().getResult().getBody().cache().toString();
     }
 
     /**
@@ -359,6 +443,6 @@ public class RequestClient {
      * @author gclm
      */
     public static String upload(String url, Map<String, ?> params, Map<String, String> headers, String fileParam, File file) {
-        return HttpUtils.buildHttp().async(url).addBodyPara(params).addFilePara(fileParam, file).post().getResult().getBody().cache().toString();
+        return OkHttps.async(url).addHeader(headers).addBodyPara(params).addFilePara(fileParam, file).post().getResult().getBody().cache().toString();
     }
 }

@@ -228,7 +228,7 @@ import java.util.List;
  *
  * @author 孤城落寞
  */
-@Service
+@Service("defaultFileService")
 public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implements DefaultFileService {
 
     @Autowired

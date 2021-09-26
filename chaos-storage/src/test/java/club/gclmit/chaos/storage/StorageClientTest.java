@@ -204,14 +204,18 @@
 
 package club.gclmit.chaos.storage;
 
+import club.gclmit.chaos.core.io.IOUtils;
 import club.gclmit.chaos.storage.client.StorageClient;
 import club.gclmit.chaos.storage.contants.StorageServer;
 import club.gclmit.chaos.storage.pojo.CloudStorage;
+import cn.hutool.core.io.resource.InputStreamResource;
 import cn.hutool.core.util.IdUtil;
 import com.ejlchina.okhttps.OkHttps;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -249,7 +253,7 @@ public class StorageClientTest {
         storage.setConfig(cloudStorage);
         StorageClient client = CloudStorageFactory.build(storage);
         File file = new File(FILE_PATH);
-        
+
     }
 
     /**
@@ -295,7 +299,7 @@ public class StorageClientTest {
     public void upload() {
         String uploadUrl = "http://localhost:9999/group/upload";
         File file = new File(MAC_FILE_PATH);
-        Map<String,Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("path", IdUtil.fastSimpleUUID() + ".jpg");
         params.put("scene", "default");
         params.put("output", "json");
@@ -337,6 +341,50 @@ public class StorageClientTest {
         client.delete(keys);
         ;
         System.out.println("=================================");
+    }
+
+    @Test
+    public void uploadTest() throws FileNotFoundException {
+        FileInputStream inputStream = new FileInputStream("/Users/gclm/Pictures/avatar.jpg");
+        InputStreamResource isr = new InputStreamResource(inputStream,
+                "avatar.jpg");
+        String url = "http://localhost:8080/group1/upload";
+
+        Map<String, Object> params = new HashMap<>();
+        File file = new File("/Users/gclm/Pictures/avatar.jpg");
+//        params.put("file", isr);
+        params.put("path", "86501729");
+        params.put("output", "json");
+//        params.put("scene","image");
+        String result = OkHttps.async(url).bodyType(OkHttps.FORM_DATA)
+                .addBodyPara(params)
+                .addFilePara("file", "jpg","avatar.jpg", IOUtils.readToByteArray(inputStream))
+                .post().getResult()
+                .getBody().toString();
+//                .setOnResponse((HttpResult result) -> {
+//                    System.out.println(result.getBody().toString());
+//                })
+        System.out.println(result);
+//        String resp = RequestClient.post(url,params,"from");
+//        Console.log("resp: {}", resp);
+//        result = resp;
+//        File tempFile = new File(FileUtils.getRootPath(), fileInfo.getName());
+//        IOUtils.readToFile(inputStream, tempFile);
+//        String uploadUrl = serverUrl + "upload";
+//        Map<String, Object> params = new HashMap<>(6);
+//
+//        params.put("path", dateFormat);
+//        params.put("scene", "default");
+//        params.put("output", "json2");
+//        String result = RequestClient.upload(uploadUrl, params, HttpUtils.buildRequestHeader(), "file", tempFile);
+//        String body = StringUtils.trimAll(result);
+//        JSONObject mapper = JSONObject.parseObject(body);
+//        if (mapper.containsKey("data")) {
+//            mapper = mapper.getJSONObject("data");
+//            url = mapper.getString("domain") + mapper.getString("path");
+//            fileInfo.setOssKey(mapper.getString("path"));
+//        }
+//        FileUtils.del(tempFile);
     }
 
 }

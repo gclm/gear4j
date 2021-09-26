@@ -205,10 +205,7 @@
 package club.gclmit.chaos.storage.client;
 
 import club.gclmit.chaos.core.exception.ChaosException;
-import club.gclmit.chaos.core.http.HttpUtils;
 import club.gclmit.chaos.core.http.RequestClient;
-import club.gclmit.chaos.core.io.FileUtils;
-import club.gclmit.chaos.core.io.IOUtils;
 import club.gclmit.chaos.core.utils.DateUtils;
 import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.chaos.storage.Storage;
@@ -221,7 +218,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-import java.io.File;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -316,14 +312,16 @@ public class FastDfsStorageClient extends StorageClient {
         String dateFormat = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
         String url = null;
         try {
-            File tempFile = new File(FileUtils.getRootPath(), fileInfo.getName());
-            IOUtils.readToFile(inputStream, tempFile);
+
             String uploadUrl = serverUrl + "upload";
-            Map<String, Object> params = new HashMap<>(6);
+            Map<String, String> params = new HashMap<>(6);
+
             params.put("path", dateFormat);
             params.put("scene", "default");
             params.put("output", "json2");
-            String result = RequestClient.upload(uploadUrl, params, HttpUtils.buildRequestHeader(), "file", tempFile);
+
+
+            String result = RequestClient.upload(uploadUrl, RequestClient.header(), params, "file", fileInfo.getContentType(), fileInfo.getName(), inputStream);
             String body = StringUtils.trimAll(result);
             JSONObject mapper = JSONObject.parseObject(body);
             if (mapper.containsKey("data")) {
@@ -331,7 +329,6 @@ public class FastDfsStorageClient extends StorageClient {
                 url = mapper.getString("domain") + mapper.getString("path");
                 fileInfo.setOssKey(mapper.getString("path"));
             }
-            FileUtils.del(tempFile);
         } catch (Exception e) {
             throw new ChaosException("[FastDFS]上传文件失败，请检查配置信息", e);
         }

@@ -219,6 +219,7 @@ public class XssHolder {
     /**
      * 获取 ThreadLocal 缓存数据状态
      * @author gclm
+     * @return Boolean
      */
     public static boolean isEnabled() {
         return Boolean.TRUE.equals(TL.get());
