@@ -202,39 +202,126 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.core.servlet;
+package club.gclmit.chaos.core.http.servlet;
+
+import club.gclmit.chaos.core.utils.StringUtils;
+import cn.hutool.core.util.CharsetUtil;
+import org.springframework.lang.Nullable;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
+import java.io.*;
 
 /**
  * <p>
- * Http 请求类型
+ * HttpServletResponse 缓存
  * </p>
  *
  * @author gclm
  */
-public interface HttpMethod {
+public class HttpCacheResponseWrapper extends HttpServletResponseWrapper {
+
+    @Nullable
+    private ServletOutputStream outputStream;
+
+    @Nullable
+    private PrintWriter writer;
+
+    private ResponseServletOutputStream stream;
 
     /**
-     * get 请求
+     * Create a new ContentCachingResponseWrapper for the given servlet response.
+     *
+     * @param response the original servlet response
      */
-    public static final String GET = "GET";
+    public HttpCacheResponseWrapper(HttpServletResponse response) {
+        super(response);
+    }
 
-    /**
-     * post  请求
-     */
-    public static final String POST = "POST";
+    @Override
+    public ServletOutputStream getOutputStream() throws IOException {
+        if (writer != null) {
+            throw new IllegalStateException("getWriter() has already been called on this response.");
+        }
 
-    /**
-     * update 更新请求
-     */
-    public static final String PUT = "PUT";
+        if (outputStream == null) {
+            outputStream = getResponse().getOutputStream();
+            stream = new ResponseServletOutputStream(outputStream);
+        }
 
-    /**
-     * DELETE 删除请求
-     */
-    public static final String DELETE = "DELETE";
+        return stream;
+    }
 
-    /**
-     * OPTIONS 请求
-     */
-    public static final String OPTIONS = "OPTIONS";
+    @Override
+    public PrintWriter getWriter() throws IOException {
+        if (outputStream != null) {
+            throw new IllegalStateException("getOutputStream() has already been called on this response.");
+        }
+
+        if (writer == null) {
+            stream = new ResponseServletOutputStream(getResponse().getOutputStream());
+            writer = new PrintWriter(new OutputStreamWriter(stream, getCharset()), true);
+        }
+        return writer;
+    }
+
+    @Override
+    public void flushBuffer() throws IOException {
+        if (writer != null) {
+            writer.flush();
+        } else if (outputStream != null) {
+            stream.flush();
+        }
+    }
+
+    public String getBody() {
+        byte[] bytes = new byte[0];
+        if (stream != null) {
+            bytes = stream.getCopy();
+        }
+        return StringUtils.str(bytes, getCharset());
+    }
+
+    private String getCharset() {
+        return getCharacterEncoding() != null ? getCharacterEncoding() : CharsetUtil.UTF_8;
+    }
+
+    private static class ResponseServletOutputStream extends ServletOutputStream {
+
+        /**
+         * Output Stream
+         */
+        private final OutputStream outputStream;
+        /**
+         * Copy Byte Array Output Stream
+         */
+        private final ByteArrayOutputStream copy;
+
+        public ResponseServletOutputStream(OutputStream outputStream) {
+            this.outputStream = outputStream;
+            this.copy = new ByteArrayOutputStream(1024);
+        }
+
+        @Override
+        public void write(int b) throws IOException {
+            outputStream.write(b);
+            copy.write(b);
+        }
+
+        public byte[] getCopy() {
+            return copy.toByteArray();
+        }
+
+        @Override
+        public boolean isReady() {
+            return false;
+        }
+
+        @Override
+        public void setWriteListener(WriteListener writeListener) {
+
+        }
+    }
 }

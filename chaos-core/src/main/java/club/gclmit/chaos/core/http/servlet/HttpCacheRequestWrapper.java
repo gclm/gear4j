@@ -202,126 +202,85 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.core.servlet;
+package club.gclmit.chaos.core.http.servlet;
 
+import club.gclmit.chaos.core.utils.CharsetUtils;
 import club.gclmit.chaos.core.utils.StringUtils;
 import cn.hutool.core.util.CharsetUtil;
-import org.springframework.lang.Nullable;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.WriteListener;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
-import java.io.*;
+import javax.servlet.ReadListener;
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * <p>
- * HttpServletResponse 缓存
+ * 自定义 HttpServletRequestWrapper
+ * 设置缓存快照
  * </p>
  *
  * @author gclm
  */
-public class HttpCacheResponseWrapper extends HttpServletResponseWrapper {
-
-    @Nullable
-    private ServletOutputStream outputStream;
-
-    @Nullable
-    private PrintWriter writer;
-
-    private ResponseServletOutputStream stream;
+public class HttpCacheRequestWrapper extends HttpServletRequestWrapper {
 
     /**
-     * Create a new ContentCachingResponseWrapper for the given servlet response.
-     *
-     * @param response the original servlet response
+     * 设置默认编码格式为 UTF-8
      */
-    public HttpCacheResponseWrapper(HttpServletResponse response) {
-        super(response);
+    private static final String DEFAULT_CHARSET = CharsetUtil.UTF_8;
+
+    /**
+     * Request Body
+     */
+    private final String body;
+
+    /**
+     * Constructs a request object wrapping the given request.
+     *
+     * @param request The request to wrap
+     * @throws IOException if the request is null
+     */
+    public HttpCacheRequestWrapper(HttpServletRequest request) throws IOException {
+        super(request);
+        ServletInputStream stream = request.getInputStream();
+        this.body = StringUtils.str(stream, CharsetUtils.CHARSET_UTF_8);
     }
 
     @Override
-    public ServletOutputStream getOutputStream() throws IOException {
-        if (writer != null) {
-            throw new IllegalStateException("getWriter() has already been called on this response.");
-        }
+    public ServletInputStream getInputStream() throws IOException {
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(body.getBytes(DEFAULT_CHARSET));
+        return new ServletInputStream() {
+            @Override
+            public boolean isFinished() {
+                return false;
+            }
 
-        if (outputStream == null) {
-            outputStream = getResponse().getOutputStream();
-            stream = new ResponseServletOutputStream(outputStream);
-        }
+            @Override
+            public boolean isReady() {
+                return false;
+            }
 
-        return stream;
+            @Override
+            public void setReadListener(ReadListener listener) {
+
+            }
+
+            @Override
+            public int read() {
+                return byteArrayInputStream.read();
+            }
+        };
     }
 
     @Override
-    public PrintWriter getWriter() throws IOException {
-        if (outputStream != null) {
-            throw new IllegalStateException("getOutputStream() has already been called on this response.");
-        }
-
-        if (writer == null) {
-            stream = new ResponseServletOutputStream(getResponse().getOutputStream());
-            writer = new PrintWriter(new OutputStreamWriter(stream, getCharset()), true);
-        }
-        return writer;
-    }
-
-    @Override
-    public void flushBuffer() throws IOException {
-        if (writer != null) {
-            writer.flush();
-        } else if (outputStream != null) {
-            stream.flush();
-        }
+    public BufferedReader getReader() throws IOException {
+        return new BufferedReader(new InputStreamReader(this.getInputStream()));
     }
 
     public String getBody() {
-        byte[] bytes = new byte[0];
-        if (stream != null) {
-            bytes = stream.getCopy();
-        }
-        return StringUtils.str(bytes, getCharset());
-    }
-
-    private String getCharset() {
-        return getCharacterEncoding() != null ? getCharacterEncoding() : CharsetUtil.UTF_8;
-    }
-
-    private static class ResponseServletOutputStream extends ServletOutputStream {
-
-        /**
-         * Output Stream
-         */
-        private final OutputStream outputStream;
-        /**
-         * Copy Byte Array Output Stream
-         */
-        private final ByteArrayOutputStream copy;
-
-        public ResponseServletOutputStream(OutputStream outputStream) {
-            this.outputStream = outputStream;
-            this.copy = new ByteArrayOutputStream(1024);
-        }
-
-        @Override
-        public void write(int b) throws IOException {
-            outputStream.write(b);
-            copy.write(b);
-        }
-
-        public byte[] getCopy() {
-            return copy.toByteArray();
-        }
-
-        @Override
-        public boolean isReady() {
-            return false;
-        }
-
-        @Override
-        public void setWriteListener(WriteListener writeListener) {
-
-        }
+        return body;
     }
 }

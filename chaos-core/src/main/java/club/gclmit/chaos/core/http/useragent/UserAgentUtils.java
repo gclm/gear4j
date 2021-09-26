@@ -202,84 +202,135 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.core.servlet;
+package club.gclmit.chaos.core.http.useragent;
 
-import club.gclmit.chaos.core.utils.StringUtils;
-import cn.hutool.core.util.CharsetUtil;
+import club.gclmit.chaos.core.http.servlet.ServletUtils;
+import cn.hutool.core.io.resource.ResourceUtil;
+import cn.hutool.core.util.RandomUtil;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
-import javax.servlet.ReadListener;
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
- * <p>
- * 自定义 HttpServletRequestWrapper
- * 设置缓存快照
- * </p>
+ * UserAgent 工具类
  *
  * @author gclm
  */
-public class HttpCacheRequestWrapper extends HttpServletRequestWrapper {
+public class UserAgentUtils {
+
+    private UserAgentUtils() {
+    }
+
+    public static final String DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36";
+    public static final String DEFAULT_MOBILE_USER_AGENT = "Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A403 Safari/8536.25";
+
+    private static Map<String, List<String>> userAgents = new HashMap<>();
+
+    static {
+        String agent = ResourceUtil.readUtf8Str("userAgent.json");
+        JSONObject jsonObject = JSONObject.parseObject(agent);
+        for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
+            String key = String.valueOf(entry.getKey());
+            List<String> object = JSONArray.parseArray(jsonObject.getString(key), String.class);
+            userAgents.put(key, object);
+        }
+    }
 
     /**
-     * 设置默认编码格式为 UTF-8
-     */
-    private static final String DEFAULT_CHARSET = CharsetUtil.UTF_8;
-
-    /**
-     * Request Body
-     */
-    private final String body;
-
-    /**
-     * Constructs a request object wrapping the given request.
+     * 获取指定浏览器的随机UserAgent
      *
-     * @param request The request to wrap
-     * @throws IOException if the request is null
+     * @param browser 浏览器类型
+     * @return 返回随机UserAgent
+     * @author gclm
      */
-    public HttpCacheRequestWrapper(HttpServletRequest request) throws IOException {
-        super(request);
-        ServletInputStream stream = request.getInputStream();
-        this.body = StringUtils.str(stream, DEFAULT_CHARSET);
+    public static String getUserAgent(Browsers browser) {
+        List<String> agents = userAgents.get(browser.getCode());
+        return agents.get(RandomUtil.randomInt(agents.size()));
     }
 
-    @Override
-    public ServletInputStream getInputStream() throws IOException {
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(body.getBytes(DEFAULT_CHARSET));
-        return new ServletInputStream() {
-            @Override
-            public boolean isFinished() {
-                return false;
-            }
-
-            @Override
-            public boolean isReady() {
-                return false;
-            }
-
-            @Override
-            public void setReadListener(ReadListener listener) {
-
-            }
-
-            @Override
-            public int read() throws IOException {
-                return byteArrayInputStream.read();
-            }
-        };
+    /**
+     * 获取随机UserAgent
+     *
+     * @return 返回随机UserAgent
+     * @author gclm
+     */
+    public static String getRandomUserAgent() {
+        List<String> agents = userAgents.get(Browsers.CHROME.getCode());
+        return agents.get(RandomUtil.randomInt(agents.size()));
     }
 
-    @Override
-    public BufferedReader getReader() throws IOException {
-        return new BufferedReader(new InputStreamReader(this.getInputStream()));
+
+    /**
+     * 获取当前请求的操作系统
+     *
+     * @param userAgent userAgent字符串
+     * @return java.lang.String
+     * @author gclm
+     */
+    public static String getOs(String userAgent) {
+        UserAgent agent = UserAgentParser.parse(userAgent);
+        assert agent != null;
+        return agent.getOs().getName();
     }
 
-    public String getBody() {
-        return body;
+    /**
+     * 获取当前请求的浏览器
+     *
+     * @param userAgent userAgent字符串
+     * @return java.lang.String
+     * @author gclm
+     */
+    public static String getBrowser(String userAgent) {
+        UserAgent agent = UserAgentParser.parse(userAgent);
+        assert agent != null;
+        return agent.getBrowser().getName();
     }
+
+    /**
+     * 是否是IE浏览器
+     *
+     * @param request HttpServletRequest 请求
+     * @return boolean 如果是返回 true，否则返回 false
+     */
+    public static boolean isIe(HttpServletRequest request) {
+        return Objects.requireNonNull(ServletUtils.getUserAgent(request)).contains(Browsers.IE.getCode());
+    }
+
+    /**
+     * 是否是Firefox浏览器
+     *
+     * @param request HttpServletRequest 请求
+     * @return boolean 如果是返回 true，否则返回 false
+     */
+    public static boolean isFirefox(HttpServletRequest request) {
+        return Objects.requireNonNull(ServletUtils.getUserAgent(request)).contains(Browsers.FIREFOX.getCode());
+    }
+
+    /**
+     * 是否是Chrome浏览器
+     *
+     * @param request HttpServletRequest 请求
+     * @return boolean 如果是返回 true，否则返回 false
+     */
+    public static boolean isChrome(HttpServletRequest request) {
+        return Objects.requireNonNull(ServletUtils.getUserAgent(request)).contains(Browsers.CHROME.getCode());
+    }
+
+    /**
+     * 判断是否为手机端
+     *
+     * @param request HttpServletRequest 请求
+     * @return boolean 如果是返回 true，否则返回 false
+     * @author gclm
+     */
+    public static boolean isMobile(HttpServletRequest request) {
+        String userAgent = ServletUtils.getUserAgent(request);
+        return Objects.requireNonNull(UserAgentParser.parse(userAgent)).isMobile();
+    }
+
 }

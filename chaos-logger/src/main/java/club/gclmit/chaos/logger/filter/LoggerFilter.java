@@ -204,11 +204,11 @@
 
 package club.gclmit.chaos.logger.filter;
 
+import club.gclmit.chaos.core.http.servlet.HttpCacheRequestWrapper;
+import club.gclmit.chaos.core.http.servlet.HttpCacheResponseWrapper;
+import club.gclmit.chaos.core.http.servlet.ServletUtils;
 import club.gclmit.chaos.core.json.util.JsonUtils;
 import club.gclmit.chaos.core.lang.Builder;
-import club.gclmit.chaos.core.servlet.HttpCacheRequestWrapper;
-import club.gclmit.chaos.core.servlet.HttpCacheResponseWrapper;
-import club.gclmit.chaos.core.servlet.ServletUtils;
 import club.gclmit.chaos.core.utils.DateUtils;
 import club.gclmit.chaos.core.utils.SqlUtils;
 import club.gclmit.chaos.core.utils.UrlUtils;
@@ -242,9 +242,10 @@ import java.util.Arrays;
 @WebFilter(filterName = "loggerFilter", urlPatterns = "/*")
 public class LoggerFilter extends OncePerRequestFilter implements Ordered {
 
-    private static final Logger log = LoggerFactory.getLogger(LoggerFilter.class);
     @Autowired
     private ChaosLoggerProperties config;
+
+    private static final Logger log = LoggerFactory.getLogger(LoggerFilter.class);
 
     /**
      * 获取Bean对象
@@ -277,7 +278,7 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
             HttpCacheRequestWrapper httpCacheRequestWrapper = new HttpCacheRequestWrapper(request);
             HttpCacheResponseWrapper responseWrapper = new HttpCacheResponseWrapper(response);
             chain.doFilter(httpCacheRequestWrapper, responseWrapper);
-            /**
+            /*
              *  获取 response 相关参数
              *  请求耗时 = 响应时间 - 请求时间
              */
@@ -301,7 +302,7 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
                     .with(HttpTrace::setResponseBody, ServletUtils.getResponseBody(responseWrapper))
                     .build();
 
-            /**
+            /*
              * 保存到数据库
              */
             if (config.getSave()) {
