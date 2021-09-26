@@ -11,9 +11,9 @@
     <a target="_blank" href="https://github.com/gclm/chaos/actions">
         <img src="https://github.com/gclm/chaos/actions/workflows/codeql-analysis.yml/badge.svg" />
 	</a>
-    <a target="_blank" href="https://app.codacy.com/gh/gclm/chaos?utm_source=github.com&utm_medium=referral&utm_content=gclm/chaos&utm_campaign=Badge_Grade_Settings">
-        <img src="https://api.codacy.com/project/badge/Grade/77d4a12e4b104e4e8fbc5ca6c5075f1b" />
-	</a>
+    <a href="https://www.codacy.com/gh/gclm/chaos/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=gclm/chaos&amp;utm_campaign=Badge_Grade">
+        <img src="https://app.codacy.com/project/badge/Grade/f1c25e46f1924c14a1d41f3718223402"/>
+    </a>
     <a target="_blank" href="https://search.maven.org/search?q=g:%20club.gclmit%20AND%20a:%20chaos-spring-boot-starter">
         <img src="https://img.shields.io/maven-central/v/club.gclmit/chaos-spring-boot-starter.svg?label=Maven%20Central" />
 	</a>
@@ -57,23 +57,8 @@
 - Maven多模块架构
 - 集成mybatis plus快速dao操作，单表操作一键配置
 - 集成Knife4j，可自动生成api文档
-- 使用assembly maven插件进行不同环境打包部署,包含启动、重启命令，配置文件提取到外部config目录
-
-### 技术选型
-
-技术 | 版本 | 备注 -|-|- Spring Boot | 2.2.1.RELEASE | 最新发布稳定版 Spring Framework | 5.2.0.RELEASE | 最新发布稳定版 Mybatis | 3.5.3 |
-持久层框架              
-Mybatis Plus | 3.3.1 | mybatis增强框架         
-HikariCP | 3.4.2 | 数据源                  
-Knife4j | 2.0.2 | api文档生成工具         
-jasypt | 3.0.2 | 加密组件                
-BeanUtils | 1.0.11 | 对象属性复制工具        
-mapstruct | 1.3.1.Final | 对象属性复制工具        
-Fastjson | 1.2.67 | JSON处理工具集          
-reflections | 0.9.9 | 反射工具包 hibernate-validator | 6.0.18.Final | 后台参数校验注解 slf4j | 1.7.30 | 日志组件                
-logback | 1.2.3 | 日志组件                
-zxing | 3.4.0 | 二维码工具              
-lombok | 1.18.12 | 注解生成Java Bean等工具
+- 集成多家OSS存储商，可快速完成oss上传功能
+- 集成请求日志记录，可以查看请求记录
 
 ### 项目结构
 
@@ -85,7 +70,7 @@ lombok | 1.18.12 | 注解生成Java Bean等工具
 ├── chaos-core                      核心模块
 ├── chaos-logger                    日志模块
 ├── chaos-storage                   存储模块
-├── chaos-annotations               注解模块
+├── chaos-waf                       安全模块
 └── chaos-web                       web模块
 ```
 
@@ -102,14 +87,14 @@ lombok | 1.18.12 | 注解生成Java Bean等工具
 <dependency>
     <groupId>club.gclmit</groupId>
     <artifactId>chaos-spring-boot-starter</artifactId>
-    <version>2.0.0.RELEASE</version>
+    <version>2.3.3</version>
 </dependency>
 ```
 
 **Gradle**
 
 ```text
-implementation 'club.gclmit:chaos-spring-boot-starter:2.0.0.RELEASE'
+implementation 'club.gclmit:chaos-spring-boot-starter:2.3.3'
 ```
 
 ### 导入SQL
