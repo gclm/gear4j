@@ -256,6 +256,31 @@ public class StringToEnumConverter implements ConditionalGenericConverter {
         return null;
     }
 
+    @SuppressWarnings("unchecked")
+    private static <T extends Enum<T>> T valueOf(Class<?> clazz, String value) {
+        return Enum.valueOf((Class<T>) clazz, value);
+    }
+
+    @Nullable
+    private static Object invoke(Class<?> clazz, AccessibleObject accessibleObject, String value)
+            throws IllegalAccessException, InvocationTargetException, InstantiationException {
+        if (accessibleObject instanceof Constructor) {
+            Constructor constructor = (Constructor) accessibleObject;
+            Class<?> paramType = constructor.getParameterTypes()[0];
+            // 类型转换
+            Object object = ConvertUtils.convert(value, paramType);
+            return constructor.newInstance(object);
+        }
+        if (accessibleObject instanceof Method) {
+            Method method = (Method) accessibleObject;
+            Class<?> paramType = method.getParameterTypes()[0];
+            // 类型转换
+            Object object = ConvertUtils.convert(value, paramType);
+            return method.invoke(clazz, object);
+        }
+        return null;
+    }
+
     @Override
     public boolean matches(TypeDescriptor sourceType, TypeDescriptor targetType) {
         return true;
@@ -283,31 +308,6 @@ public class StringToEnumConverter implements ConditionalGenericConverter {
             return StringToEnumConverter.invoke(clazz, accessibleObject, value);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-        }
-        return null;
-    }
-
-    @SuppressWarnings("unchecked")
-    private static <T extends Enum<T>> T valueOf(Class<?> clazz, String value) {
-        return Enum.valueOf((Class<T>) clazz, value);
-    }
-
-    @Nullable
-    private static Object invoke(Class<?> clazz, AccessibleObject accessibleObject, String value)
-            throws IllegalAccessException, InvocationTargetException, InstantiationException {
-        if (accessibleObject instanceof Constructor) {
-            Constructor constructor = (Constructor) accessibleObject;
-            Class<?> paramType = constructor.getParameterTypes()[0];
-            // 类型转换
-            Object object = ConvertUtils.convert(value, paramType);
-            return constructor.newInstance(object);
-        }
-        if (accessibleObject instanceof Method) {
-            Method method = (Method) accessibleObject;
-            Class<?> paramType = method.getParameterTypes()[0];
-            // 类型转换
-            Object object = ConvertUtils.convert(value, paramType);
-            return method.invoke(clazz, object);
         }
         return null;
     }

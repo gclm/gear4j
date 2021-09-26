@@ -239,47 +239,47 @@ public class MysqlToPgsqlTest {
         statements.getStatements()
                 .stream()
                 .map(statement -> (CreateTable) statement).forEach(ct -> {
-            Table table = ct.getTable();
-            List<ColumnDefinition> columnDefinitions = ct.getColumnDefinitions();
-            List<String> comments = new ArrayList<>();
-            List<ColumnDefinition> collect = columnDefinitions.stream()
-                    .peek(columnDefinition -> {
-                        List<String> columnSpecStrings = columnDefinition.getColumnSpecs();
+                    Table table = ct.getTable();
+                    List<ColumnDefinition> columnDefinitions = ct.getColumnDefinitions();
+                    List<String> comments = new ArrayList<>();
+                    List<ColumnDefinition> collect = columnDefinitions.stream()
+                            .peek(columnDefinition -> {
+                                List<String> columnSpecStrings = columnDefinition.getColumnSpecs();
 
-                        int commentIndex = getCommentIndex(columnSpecStrings);
+                                int commentIndex = getCommentIndex(columnSpecStrings);
 
-                        if (commentIndex != -1) {
-                            int commentStringIndex = commentIndex + 1;
-                            String commentString = columnSpecStrings.get(commentStringIndex);
+                                if (commentIndex != -1) {
+                                    int commentStringIndex = commentIndex + 1;
+                                    String commentString = columnSpecStrings.get(commentStringIndex);
 
-                            String commentSql = genCommentSql(table.toString(), columnDefinition.getColumnName(), commentString);
-                            comments.add(commentSql);
-                            columnSpecStrings.remove(commentStringIndex);
-                            columnSpecStrings.remove(commentIndex);
-                        }
-                        columnDefinition.setColumnSpecs(columnSpecStrings);
-                    }).collect(Collectors.toList());
-            ct.setColumnDefinitions(collect);
-            String createSQL = ct.toString()
-                    .replaceAll("`", "\"")
-                    .replaceAll("BIGINT UNIQUE NOT NULL AUTO_INCREMENT", "BIGSERIAL PRIMARY KEY")
-                    .replaceAll("BIGINT NULL AUTO_INCREMENT", "BIGSERIAL PRIMARY KEY")
-                    .replaceAll("BIGINT NOT NULL AUTO_INCREMENT", "BIGSERIAL PRIMARY KEY")
-                    .replaceAll("INT NOT NULL AUTO_INCREMENT", "BIGSERIAL PRIMARY KEY")
-                    .replaceAll("INT NULL AUTO_INCREMENT", "BIGSERIAL PRIMARY KEY")
-                    .replaceAll("IF NOT EXISTS", "")
-                    .replaceAll("TINYINT", "SMALLINT")
-                    .replaceAll("DATETIME", "TIMESTAMP")
-                    .replaceAll(", PRIMARY KEY \\(\"id\"\\)", "");
+                                    String commentSql = genCommentSql(table.toString(), columnDefinition.getColumnName(), commentString);
+                                    comments.add(commentSql);
+                                    columnSpecStrings.remove(commentStringIndex);
+                                    columnSpecStrings.remove(commentIndex);
+                                }
+                                columnDefinition.setColumnSpecs(columnSpecStrings);
+                            }).collect(Collectors.toList());
+                    ct.setColumnDefinitions(collect);
+                    String createSQL = ct.toString()
+                            .replaceAll("`", "\"")
+                            .replaceAll("BIGINT UNIQUE NOT NULL AUTO_INCREMENT", "BIGSERIAL PRIMARY KEY")
+                            .replaceAll("BIGINT NULL AUTO_INCREMENT", "BIGSERIAL PRIMARY KEY")
+                            .replaceAll("BIGINT NOT NULL AUTO_INCREMENT", "BIGSERIAL PRIMARY KEY")
+                            .replaceAll("INT NOT NULL AUTO_INCREMENT", "BIGSERIAL PRIMARY KEY")
+                            .replaceAll("INT NULL AUTO_INCREMENT", "BIGSERIAL PRIMARY KEY")
+                            .replaceAll("IF NOT EXISTS", "")
+                            .replaceAll("TINYINT", "SMALLINT")
+                            .replaceAll("DATETIME", "TIMESTAMP")
+                            .replaceAll(", PRIMARY KEY \\(\"id\"\\)", "");
 
-            // 如果存在表注释
-            if (createSQL.contains("COMMENT")) {
-                createSQL = createSQL.substring(0, createSQL.indexOf("COMMENT"));
-            }
-            System.out.println(createSQL + ";");
+                    // 如果存在表注释
+                    if (createSQL.contains("COMMENT")) {
+                        createSQL = createSQL.substring(0, createSQL.indexOf("COMMENT"));
+                    }
+                    System.out.println(createSQL + ";");
 
-            comments.forEach(t -> System.out.println(t.replaceAll("`", "\"") + ";"));
-        });
+                    comments.forEach(t -> System.out.println(t.replaceAll("`", "\"") + ";"));
+                });
     }
 
     /**

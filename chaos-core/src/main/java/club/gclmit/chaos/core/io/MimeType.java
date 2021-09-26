@@ -559,6 +559,13 @@ public enum MimeType {
         return MP4.suffix;
     }
 
+    public static void main(String[] args) {
+        MimeType[] mimeTypes = values();
+        for (MimeType mimeType : mimeTypes) {
+            System.out.println(mimeType.generate(mimeType));
+        }
+    }
+
     /**
      * <p>
      * 生成枚举注释
@@ -574,13 +581,6 @@ public enum MimeType {
                 "     */\n" +
                 "    %s(\"%s\",\"%s\",\"%s\"),";
         return String.format(template, type.getDocType(), type.name(), type.getSuffix(), type.getDocType(), type.getMimeType());
-    }
-
-    public static void main(String[] args) {
-        MimeType[] mimeTypes = values();
-        for (MimeType mimeType : mimeTypes) {
-            System.out.println(mimeType.generate(mimeType));
-        }
     }
 
     public String getSuffix() {

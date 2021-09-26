@@ -216,5 +216,5 @@ import java.lang.annotation.*;
 @Documented
 public @interface Query {
 
-   Class clazz();
+    Class clazz();
 }

@@ -222,7 +222,7 @@ import java.util.Map;
 public class Result implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static final String TIMESTAMP =  String.valueOf(DateUtils.getMilliTimestamp());
+    private static final String TIMESTAMP = String.valueOf(DateUtils.getMilliTimestamp());
 
     /**
      * 响应状态码

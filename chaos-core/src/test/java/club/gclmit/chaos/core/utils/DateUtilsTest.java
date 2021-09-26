@@ -212,7 +212,7 @@ import java.time.ZoneOffset;
 
 /**
  * <p>
- *  时间工具测试工具类
+ * 时间工具测试工具类
  * </p>
  *
  * @author gclm
@@ -222,7 +222,7 @@ import java.time.ZoneOffset;
 public class DateUtilsTest {
 
     @Test
-    public void getWeekName(){
+    public void getWeekName() {
         long timestamp = 1585275097596L;
         LocalDateTime dateTime = LocalDateTime.now();
 
@@ -235,8 +235,8 @@ public class DateUtilsTest {
 
         long second = dateTime.toEpochSecond(ZoneOffset.of("+8"));
         long second2 = dateTime.toInstant(ZoneOffset.of("+8")).toEpochMilli();
-        long milli  =  dateTime.atZone(ZoneId.of("+8")).toInstant().toEpochMilli();
-        System.out.println("second："+ second +"\tsecond2："+ second2 +"\tmilli：" + milli);
+        long milli = dateTime.atZone(ZoneId.of("+8")).toInstant().toEpochMilli();
+        System.out.println("second：" + second + "\tsecond2：" + second2 + "\tmilli：" + milli);
         System.out.println("=========================================");
         System.out.println(DateUtils.timestampToWeekName(second));
         System.out.println("-----------------------------------------");

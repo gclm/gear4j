@@ -228,7 +228,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(value = {ChaosProperties.class})
 @ConditionalOnProperty(prefix = "chaos.storage", value = "enabled", havingValue = "true")
 public class ChaosStorageConfig {
-    
+
     private static final Logger log = LoggerFactory.getLogger(ChaosStorageConfig.class);
 
     @Autowired

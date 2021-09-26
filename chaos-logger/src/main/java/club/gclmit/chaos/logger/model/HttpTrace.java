@@ -220,18 +220,18 @@ import java.io.Serializable;
  * @author gclm
  */
 @TableName("chaos_trace_info")
-@ApiModel(value="HttpTrace 对象")
+@ApiModel(value = "HttpTrace 对象")
 public class HttpTrace implements Serializable {
 
     /**
-     *  主键 编号
+     * 主键 编号
      */
     @ApiModelProperty(value = "主键")
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
-     *  客户端请求ip
+     * 客户端请求ip
      */
     @ApiModelProperty(value = "客户端请求ip")
     private String clientIp;
@@ -249,19 +249,19 @@ public class HttpTrace implements Serializable {
     private String contentType;
 
     /**
-     *  请求方法类型: restful 风格
+     * 请求方法类型: restful 风格
      */
     @ApiModelProperty(value = "请求方法类型")
     private String method;
 
     /**
-     *  请求接口 唯一 session 标识
+     * 请求接口 唯一 session 标识
      */
     @ApiModelProperty(value = "唯一 session 标识")
     private String sessionId;
 
     /**
-     *  请求时间戳（秒）
+     * 请求时间戳（秒）
      */
     @ApiModelProperty(value = "时间戳（秒）")
     private Long requestTime;
@@ -273,13 +273,13 @@ public class HttpTrace implements Serializable {
     private int httpCode;
 
     /**
-     *  请求耗时（秒）
+     * 请求耗时（秒）
      */
     @ApiModelProperty(value = "请求耗时（秒）")
     private Long consumingTime;
 
     /**
-     *  接口返回时间
+     * 接口返回时间
      */
     @ApiModelProperty(value = "接口返回时间")
     private Long responseTime;
@@ -291,19 +291,19 @@ public class HttpTrace implements Serializable {
     private String requestBody;
 
     /**
-     *  responseBody
+     * responseBody
      */
     @ApiModelProperty(value = "接口返回数据")
     private String responseBody;
 
     /**
-     *  request 请求头
+     * request 请求头
      */
     @ApiModelProperty(value = "request 请求头 ")
     private String requestHeader;
 
     /**
-     *  response 响应头
+     * response 响应头
      */
     @ApiModelProperty(value = "response 响应头")
     private String responseHeader;

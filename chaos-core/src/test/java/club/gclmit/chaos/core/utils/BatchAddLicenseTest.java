@@ -223,15 +223,6 @@ public class BatchAddLicenseTest {
 
     public static final String FROM_FILE = "/Users/gclm/Projects/01-base/chaos/chaos-core/LICENSE2";
 
-
-    @Test
-    public void main() {
-//        String[] fromPaths = {"/Users/gclm/Projects/01-base/chaos/chaos-core/LICENSE2","/Users/gclm/Projects/01-base/chaos/chaos-core/src/test/java/club/gclmit/chaos/core/utils/AvatarUtilsTest.java"};
-//        System.out.println(mergeFiles(fromPaths,"/Users/gclm/Projects/01-base/chaos/chaos-core/src/test/java/club/gclmit/chaos/core/utils/AvatarUtilsTest2.java"));
-//        System.out.println(appendFile("/Users/gclm/Projects/01-base/chaos/chaos-core/LICENSE2", "/Users/gclm/Projects/01-base/chaos/chaos-core/src/test/java/club/gclmit/chaos/core/utils/FileUtilsTest.java"));
-        batchAddLicense();
-    }
-
     public static void batchAddLicense() {
         List<File> files = FileUtils.loopFiles("/Users/gclm/Projects/01-base/chaos");
         List<File> updateFiles = files.stream().filter(file ->
@@ -250,17 +241,17 @@ public class BatchAddLicenseTest {
             RandomAccessFile srcRandomAccessFile = new RandomAccessFile(fromFile, "r");
             FileChannel srcAccessFileChannel = srcRandomAccessFile.getChannel();
             long srcLength = srcAccessFileChannel.size();
-            System.out.println("src file size:"+srcLength);  // src file size:296354010
+            System.out.println("src file size:" + srcLength);  // src file size:296354010
             MappedByteBuffer srcMap = srcAccessFileChannel.map(FileChannel.MapMode.READ_ONLY, 0, srcLength);
 
-            File temp = File.createTempFile("temp",null);
+            File temp = File.createTempFile("temp", null);
             System.out.println(temp.getAbsolutePath());
-            FileUtils.copy(toFile,temp.getAbsolutePath(),true);
+            FileUtils.copy(toFile, temp.getAbsolutePath(), true);
             // 映射原文件到内存
             RandomAccessFile tempRandomAccessFile = new RandomAccessFile(temp, "r");
             FileChannel tempAccessFileChannel = tempRandomAccessFile.getChannel();
             long tempLength = tempAccessFileChannel.size();
-            System.out.println("temp file size:"+tempLength);  // src file size:296354010
+            System.out.println("temp file size:" + tempLength);  // src file size:296354010
             MappedByteBuffer tempMap = tempAccessFileChannel.map(FileChannel.MapMode.READ_ONLY, 0, tempLength);
 
 
@@ -268,7 +259,7 @@ public class BatchAddLicenseTest {
             RandomAccessFile destRandomAccessFile = new RandomAccessFile(toFile, "rw");
             FileChannel destAccessFileChannel = destRandomAccessFile.getChannel();
             long destLength = srcLength + tempLength;
-            System.out.println("dest file size:"+destLength);  // dest file size:296354025
+            System.out.println("dest file size:" + destLength);  // dest file size:296354025
             MappedByteBuffer destMap = destAccessFileChannel.map(FileChannel.MapMode.READ_WRITE, 0, destLength);
 
             // 开始文件追加 : 先添加头部内容，再添加原来文件内容
@@ -291,7 +282,6 @@ public class BatchAddLicenseTest {
         String content = FileUtils.getContentTrim(new File(path));
         return content.contains("Apache License");
     }
-
 
     public static boolean mergeFiles(String[] fpaths, String resultPath) {
         if (fpaths == null || fpaths.length < 1 || StringUtils.isEmpty(resultPath)) {
@@ -332,6 +322,14 @@ public class BatchAddLicenseTest {
 //        }
 
         return true;
+    }
+
+    @Test
+    public void main() {
+//        String[] fromPaths = {"/Users/gclm/Projects/01-base/chaos/chaos-core/LICENSE2","/Users/gclm/Projects/01-base/chaos/chaos-core/src/test/java/club/gclmit/chaos/core/utils/AvatarUtilsTest.java"};
+//        System.out.println(mergeFiles(fromPaths,"/Users/gclm/Projects/01-base/chaos/chaos-core/src/test/java/club/gclmit/chaos/core/utils/AvatarUtilsTest2.java"));
+//        System.out.println(appendFile("/Users/gclm/Projects/01-base/chaos/chaos-core/LICENSE2", "/Users/gclm/Projects/01-base/chaos/chaos-core/src/test/java/club/gclmit/chaos/core/utils/FileUtilsTest.java"));
+        batchAddLicense();
     }
 
 }

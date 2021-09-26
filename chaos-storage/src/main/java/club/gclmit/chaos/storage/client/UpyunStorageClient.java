@@ -213,7 +213,7 @@ import java.util.List;
 
 /**
  * <p>
- *  又拍云存储配置
+ * 又拍云存储配置
  * </p>
  *
  * @author gclm
@@ -221,7 +221,7 @@ import java.util.List;
 public class UpyunStorageClient extends StorageClient {
 
     /**
-     *  又拍云客户端配置
+     * 又拍云客户端配置
      */
     private CloudStorage storage;
 

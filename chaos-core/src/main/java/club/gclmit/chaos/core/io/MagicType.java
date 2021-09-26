@@ -379,6 +379,12 @@ public enum MagicType {
     private String mimeType;
 
 
+    MagicType(String suffix, String magicNumber, String mimeType) {
+        this.suffix = suffix;
+        this.magicNumber = magicNumber;
+        this.mimeType = mimeType;
+    }
+
     /**
      * 基于魔数获取文件 mime
      *
@@ -415,12 +421,6 @@ public enum MagicType {
             }
         }
         return null;
-    }
-
-    MagicType(String suffix, String magicNumber, String mimeType) {
-        this.suffix = suffix;
-        this.magicNumber = magicNumber;
-        this.mimeType = mimeType;
     }
 
     public String getSuffix() {

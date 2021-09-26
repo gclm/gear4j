@@ -234,6 +234,37 @@ public class StorageClientTest {
     public static final String FILE_PATH = "/home/gclm/1617005255007.jpg";
     public static final String MAC_FILE_PATH = "/Users/gclm/Pictures/avatar.jpg";
 
+    private static void uploadFile(Storage storage, File file) {
+        StorageClient client = CloudStorageFactory.build(storage);
+        System.out.println("===============文件上传===============");
+        System.out.println(client.upload(file));
+        System.out.println("=================================");
+    }
+
+    private static void uploadByte(Storage storage, String content) {
+        StorageClient client = CloudStorageFactory.build(storage);
+        System.out.println("===============字节上传===============");
+        String fileName = IdUtil.fastSimpleUUID() + ".txt";
+        String key = IdUtil.fastSimpleUUID();
+        System.out.println(client.upload(content, key, fileName));
+        System.out.println("=================================");
+    }
+
+    private static void delete(Storage storage, String key) {
+        StorageClient client = CloudStorageFactory.build(storage);
+        System.out.println("===============文件单个删除===============");
+        client.delete(key);
+        ;
+        System.out.println("=================================");
+    }
+
+    private static void batchDelete(Storage storage, List<String> keys) {
+        StorageClient client = CloudStorageFactory.build(storage);
+        System.out.println("===============文件批量删除===============");
+        client.delete(keys);
+        ;
+        System.out.println("=================================");
+    }
 
     /**
      * 阿里云配置
@@ -311,38 +342,6 @@ public class StorageClientTest {
         System.out.println(result);
     }
 
-    private static void uploadFile(Storage storage, File file) {
-        StorageClient client = CloudStorageFactory.build(storage);
-        System.out.println("===============文件上传===============");
-        System.out.println(client.upload(file));
-        System.out.println("=================================");
-    }
-
-    private static void uploadByte(Storage storage, String content) {
-        StorageClient client = CloudStorageFactory.build(storage);
-        System.out.println("===============字节上传===============");
-        String fileName = IdUtil.fastSimpleUUID() + ".txt";
-        String key = IdUtil.fastSimpleUUID();
-        System.out.println(client.upload(content, key, fileName));
-        System.out.println("=================================");
-    }
-
-    private static void delete(Storage storage, String key) {
-        StorageClient client = CloudStorageFactory.build(storage);
-        System.out.println("===============文件单个删除===============");
-        client.delete(key);
-        ;
-        System.out.println("=================================");
-    }
-
-    private static void batchDelete(Storage storage, List<String> keys) {
-        StorageClient client = CloudStorageFactory.build(storage);
-        System.out.println("===============文件批量删除===============");
-        client.delete(keys);
-        ;
-        System.out.println("=================================");
-    }
-
     @Test
     public void uploadTest() throws FileNotFoundException {
         FileInputStream inputStream = new FileInputStream("/Users/gclm/Pictures/avatar.jpg");
@@ -358,7 +357,7 @@ public class StorageClientTest {
 //        params.put("scene","image");
         String result = OkHttps.async(url).bodyType(OkHttps.FORM_DATA)
                 .addBodyPara(params)
-                .addFilePara("file", "jpg","avatar.jpg", IOUtils.readToByteArray(inputStream))
+                .addFilePara("file", "jpg", "avatar.jpg", IOUtils.readToByteArray(inputStream))
                 .post().getResult()
                 .getBody().toString();
 //                .setOnResponse((HttpResult result) -> {

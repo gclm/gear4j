@@ -227,10 +227,6 @@ import java.util.Hashtable;
  */
 public class DecodeQrCode {
 
-    private static class DecodeQrCodeHolder {
-        private static final DecodeQrCode INSTANCE = new DecodeQrCode();
-    }
-
     /**
      * 单例模式
      *
@@ -296,7 +292,6 @@ public class DecodeQrCode {
         return from(path.toFile());
     }
 
-
     /**
      * <p>
      * 解析二维码
@@ -327,6 +322,10 @@ public class DecodeQrCode {
      */
     public Decoder from(byte[] bytes) throws IOException {
         return new Decoder(ImageIO.read(new ByteArrayInputStream(bytes)));
+    }
+
+    private static class DecodeQrCodeHolder {
+        private static final DecodeQrCode INSTANCE = new DecodeQrCode();
     }
 
     /**

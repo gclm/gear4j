@@ -279,7 +279,7 @@ public interface DefaultFileService extends IService<FileInfo> {
     /**
      * 根据OSS key 修改文件状态
      *
-     * @param key OSS key
+     * @param key        OSS key
      * @param fileStatus 文件状态
      * @author gclm
      */
@@ -288,7 +288,7 @@ public interface DefaultFileService extends IService<FileInfo> {
     /**
      * 根据 id 修改文件状态
      *
-     * @param id 文件id
+     * @param id         文件id
      * @param fileStatus 文件状态
      * @author gclm
      */
@@ -297,7 +297,7 @@ public interface DefaultFileService extends IService<FileInfo> {
     /**
      * 根据OSS key 删除文件
      *
-     * @param key OSS key
+     * @param key  OSS key
      * @param temp 临时删除
      * @author gclm
      */

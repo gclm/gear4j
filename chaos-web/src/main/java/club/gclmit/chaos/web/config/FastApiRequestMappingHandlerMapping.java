@@ -215,7 +215,7 @@ import java.util.Objects;
 
 /**
  * <p>
- *  重写RequestMappingHandlerMapping，使其支持版本控制
+ * 重写RequestMappingHandlerMapping，使其支持版本控制
  * </p>
  *
  * @author gclm
@@ -223,11 +223,11 @@ import java.util.Objects;
 public class FastApiRequestMappingHandlerMapping extends RequestMappingHandlerMapping {
 
     /**
-     *  扫描类上的 @ApiVersion
+     * 扫描类上的 @ApiVersion
      *
-     * @author gclm
-     * @param handlerType  Class
+     * @param handlerType Class
      * @return RequestCondition
+     * @author gclm
      */
     @Override
     protected RequestCondition<?> getCustomTypeCondition(Class<?> handlerType) {
@@ -236,11 +236,11 @@ public class FastApiRequestMappingHandlerMapping extends RequestMappingHandlerMa
     }
 
     /**
-     *  扫描方法上的@ApiVersion
+     * 扫描方法上的@ApiVersion
      *
-     * @author gclm
-     * @param method  扫描方法
+     * @param method 扫描方法
      * @return RequestCondition
+     * @author gclm
      */
     @Override
     protected RequestCondition<?> getCustomMethodCondition(Method method) {
@@ -250,12 +250,12 @@ public class FastApiRequestMappingHandlerMapping extends RequestMappingHandlerMa
 
     /**
      * <p>
-     *  创建 requestRequestCondition
+     * 创建 requestRequestCondition
      * </p>
      *
-     * @author gclm
      * @param version ApiVersion
      * @return org.springframework.web.servlet.mvc.condition.RequestCondition<club.gclmit.chaos.annotation.version.ApiVersionCondition>
+     * @author gclm
      */
     private RequestCondition<FastApiCondition> createRequestCondition(FastApi version) {
 
@@ -263,7 +263,7 @@ public class FastApiRequestMappingHandlerMapping extends RequestMappingHandlerMa
             return null;
         }
         int versionValue = version.value();
-        Assert.isTrue(versionValue >= 1,"Api 版本不能小于 1");
+        Assert.isTrue(versionValue >= 1, "Api 版本不能小于 1");
         return new FastApiCondition(versionValue);
     }
 }

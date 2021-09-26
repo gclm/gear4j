@@ -207,6 +207,7 @@ package club.gclmit.chaos.core.lang.avatar;
 import club.gclmit.chaos.core.codec.Base64Utils;
 import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.io.FileUtils;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
@@ -276,8 +277,8 @@ public abstract class AvatarGenerator {
      * 保存图片到 输出流
      *
      * @param bufferedImage 生成的 bufferedImage
-     * @author gclm
      * @return OutputStream
+     * @author gclm
      */
     public static OutputStream saveImageToOutputStream(BufferedImage bufferedImage) {
         try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
@@ -292,8 +293,8 @@ public abstract class AvatarGenerator {
      * 保存图片到 base64
      *
      * @param bufferedImage 生成的 bufferedImage
-     * @author gclm
      * @return 字符串
+     * @author gclm
      */
     public static String saveImageToBase64(BufferedImage bufferedImage) {
         ByteArrayOutputStream stream = (ByteArrayOutputStream) saveImageToOutputStream(bufferedImage);

@@ -227,33 +227,29 @@ import java.util.Map;
  */
 public class ServletUtils {
 
-    private ServletUtils() {
-    }
-
     /**
      * Http 魔法值
      */
     public static final String UNKNOWN = "UNKNOWN";
-
     /**
      * localhost 魔法值
      */
     public static final String LOCALHOST = "0:0:0:0:0:0:0:1";
-
     /**
      * 默认 host
      */
     public static final String DEFAULT_HOST = "127.0.0.1";
-
     /**
      * 上传内容类型
      */
     private static final String UPLOAD_CONTENT_TYPE = "multipart/form-data";
-
     /**
      * 默认请求内容类型
      */
     private static final String DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
+
+    private ServletUtils() {
+    }
 
     /**
      * 获取客户端 ip

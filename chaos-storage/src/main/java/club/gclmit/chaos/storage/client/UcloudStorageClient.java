@@ -256,21 +256,21 @@ public class UcloudStorageClient extends StorageClient {
 
     /**
      * <p>
-     *  初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
+     * 初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
      * </p>
      *
-     * @author 孤城落寞
      * @param storage Storage
+     * @author 孤城落寞
      */
     public UcloudStorageClient(Storage storage) {
         super(storage);
-        log.debug("[Ufile]配置参数:[{}]",storage);
-        if(storage.getType() == StorageServer.UCLOUD) {
+        log.debug("[Ufile]配置参数:[{}]", storage);
+        if (storage.getType() == StorageServer.UCLOUD) {
             cloudStorage = storage.getConfig();
-            if (StringUtils.isBlank(cloudStorage.getEndpoint())){
+            if (StringUtils.isBlank(cloudStorage.getEndpoint())) {
                 cloudStorage.setEndpoint("ufileos.com");
             }
-            ossClient = build(cloudStorage.getAccessKeyId(),cloudStorage.getAccessKeySecret(),cloudStorage.getRegion(),cloudStorage.getEndpoint());
+            ossClient = build(cloudStorage.getAccessKeyId(), cloudStorage.getAccessKeySecret(), cloudStorage.getRegion(), cloudStorage.getEndpoint());
         } else {
             throw new ChaosException("[Ufile]上传文件失败，请检查 阿里云OSS 配置");
         }
@@ -278,54 +278,54 @@ public class UcloudStorageClient extends StorageClient {
 
     /**
      * <p>
-     *  批量删除多个文件
+     * 批量删除多个文件
      * </p>
      *
-     * @author 孤城落寞
      * @param keys 文件路径集合
+     * @author 孤城落寞
      */
     @Override
     public void delete(List<String> keys) {
-         Assert.notEmpty(keys,"[Ufile]批量删除文件的 keys 不能为空");
-         for (String key: keys){
-             delete(key);
-         }
-    }
-
-    /**
-     * <p>
-     *  删除文件
-     * </p>
-     *
-     * @author 孤城落寞
-     * @param key 文件路径
-     */
-    @Override
-    public void delete(String key) {
-        Assert.notBlank(key,"[Ufile]删除文件的key不能为空");
-        try {
-            ossClient.deleteObject(key,cloudStorage.getBucket()).execute();
-        } catch (UfileClientException e) {
-            throw new ChaosException("删除失败,Ufile客户端发生异常",e);
-        } catch (UfileServerException e) {
-            throw new ChaosException("删除失败,Ufile服务器发生异常",e);
+        Assert.notEmpty(keys, "[Ufile]批量删除文件的 keys 不能为空");
+        for (String key : keys) {
+            delete(key);
         }
     }
 
     /**
      * <p>
-     *  上传文件基础方法
+     * 删除文件
      * </p>
      *
+     * @param key 文件路径
      * @author 孤城落寞
+     */
+    @Override
+    public void delete(String key) {
+        Assert.notBlank(key, "[Ufile]删除文件的key不能为空");
+        try {
+            ossClient.deleteObject(key, cloudStorage.getBucket()).execute();
+        } catch (UfileClientException e) {
+            throw new ChaosException("删除失败,Ufile客户端发生异常", e);
+        } catch (UfileServerException e) {
+            throw new ChaosException("删除失败,Ufile服务器发生异常", e);
+        }
+    }
+
+    /**
+     * <p>
+     * 上传文件基础方法
+     * </p>
+     *
      * @param inputStream 上传文件流
      * @param fileInfo    文件对象
      * @return java.lang.String 返回文件路径
+     * @author 孤城落寞
      */
     @Override
     public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {
-        Assert.notNull(inputStream,"[Ufile]上传文件失败，请检查 inputStream 是否正常");
-        Assert.notBlank(fileInfo.getOssKey(),"[Ufile]上传文件失败，请检查上传文件的 key 是否正常");
+        Assert.notNull(inputStream, "[Ufile]上传文件失败，请检查 inputStream 是否正常");
+        Assert.notBlank(fileInfo.getOssKey(), "[Ufile]上传文件失败，请检查上传文件的 key 是否正常");
 
         String key = fileInfo.getOssKey();
 
@@ -333,7 +333,7 @@ public class UcloudStorageClient extends StorageClient {
         String eTag = null;
 
         try {
-            PutObjectResultBean response = ossClient.putObject(inputStream, inputStream.available(),fileInfo.getContentType())
+            PutObjectResultBean response = ossClient.putObject(inputStream, inputStream.available(), fileInfo.getContentType())
                     .nameAs(fileInfo.getOssKey())
                     .toBucket(cloudStorage.getBucket())
                     /**
@@ -343,9 +343,9 @@ public class UcloudStorageClient extends StorageClient {
                     .execute();
             eTag = response.geteTag();
         } catch (UfileClientException e) {
-            throw new ChaosException("上传失败,Ufile客户端发生异常",e);
+            throw new ChaosException("上传失败,Ufile客户端发生异常", e);
         } catch (UfileServerException | IOException e) {
-            throw new ChaosException("上传失败,Ufile服务器发生异常",e);
+            throw new ChaosException("上传失败,Ufile服务器发生异常", e);
         }
 
         if (key != null) {
@@ -366,23 +366,23 @@ public class UcloudStorageClient extends StorageClient {
     }
 
     /**
-     *  ObjectApiBuilder 认证令牌配置
+     * ObjectApiBuilder 认证令牌配置
      *
-     * @author gclm
-     * @param secretId    secretId
-     * @param secretKey   secretKey
-     * @param region      region
-     * @param endpoint    endpoint
+     * @param secretId  secretId
+     * @param secretKey secretKey
+     * @param region    region
+     * @param endpoint  endpoint
      * @return cn.ucloud.ufile.api.object.ObjectApiBuilder
+     * @author gclm
      */
-    public ObjectApiBuilder build(String secretId,String secretKey,String region,String endpoint){
+    public ObjectApiBuilder build(String secretId, String secretKey, String region, String endpoint) {
 
         ObjectAuthorization auth = new UfileObjectLocalAuthorization(secretId, secretKey);
 
         ObjectConfig config = new ObjectConfig(region, endpoint);
 
         /**
-         * 配置UfileClient，必须在使用UfileClient之前调用
+         * 配置UFileClient，必须在使用UFileClient之前调用
          */
         ExecutorService executorService = new ThreadPoolExecutor(5, 200,
                 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(100));

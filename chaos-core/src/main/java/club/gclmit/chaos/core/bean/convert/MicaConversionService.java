@@ -215,37 +215,37 @@ import org.springframework.lang.Nullable;
  * @author gclm
  */
 public class MicaConversionService extends DefaultFormattingConversionService {
-	@Nullable
-	private static volatile MicaConversionService SHARED_INSTANCE;
+    @Nullable
+    private static volatile MicaConversionService SHARED_INSTANCE;
 
-	public MicaConversionService() {
-		super();
-		super.addConverter(new EnumToStringConverter());
-		super.addConverter(new StringToEnumConverter());
-	}
+    public MicaConversionService() {
+        super();
+        super.addConverter(new EnumToStringConverter());
+        super.addConverter(new StringToEnumConverter());
+    }
 
-	/**
-	 * Return a shared default application {@code ConversionService} instance, lazily
-	 * building it once needed.
-	 * <p>
-	 * Note: This method actually returns an {@link MicaConversionService}
-	 * instance. However, the {@code ConversionService} signature has been preserved for
-	 * binary compatibility.
-	 *
-	 * @return the shared {@code MicaConversionService} instance (never{@code null})
-	 */
-	public static GenericConversionService getInstance() {
-		MicaConversionService sharedInstance = MicaConversionService.SHARED_INSTANCE;
-		if (sharedInstance == null) {
-			synchronized (MicaConversionService.class) {
-				sharedInstance = MicaConversionService.SHARED_INSTANCE;
-				if (sharedInstance == null) {
-					sharedInstance = new MicaConversionService();
-					MicaConversionService.SHARED_INSTANCE = sharedInstance;
-				}
-			}
-		}
-		return sharedInstance;
-	}
+    /**
+     * Return a shared default application {@code ConversionService} instance, lazily
+     * building it once needed.
+     * <p>
+     * Note: This method actually returns an {@link MicaConversionService}
+     * instance. However, the {@code ConversionService} signature has been preserved for
+     * binary compatibility.
+     *
+     * @return the shared {@code MicaConversionService} instance (never{@code null})
+     */
+    public static GenericConversionService getInstance() {
+        MicaConversionService sharedInstance = MicaConversionService.SHARED_INSTANCE;
+        if (sharedInstance == null) {
+            synchronized (MicaConversionService.class) {
+                sharedInstance = MicaConversionService.SHARED_INSTANCE;
+                if (sharedInstance == null) {
+                    sharedInstance = new MicaConversionService();
+                    MicaConversionService.SHARED_INSTANCE = sharedInstance;
+                }
+            }
+        }
+        return sharedInstance;
+    }
 
 }

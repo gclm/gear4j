@@ -224,10 +224,10 @@ import java.lang.reflect.Method;
  */
 public class ClassUtils extends org.springframework.util.ClassUtils {
 
+    private static final ParameterNameDiscoverer PARAMETER_NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
+
     private ClassUtils() {
     }
-    
-    private static final ParameterNameDiscoverer PARAMETER_NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
 
     /**
      * 获取方法参数信息

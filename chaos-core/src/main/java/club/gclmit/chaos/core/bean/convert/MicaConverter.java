@@ -239,6 +239,20 @@ public class MicaConverter implements Converter {
         this.targetClazz = targetClazz;
     }
 
+    private static TypeDescriptor getTypeDescriptor(final Class<?> clazz, final String fieldName) {
+        String srcCacheKey = clazz.getName() + fieldName;
+        // 忽略抛出异常的函数，定义完整泛型，避免编译问题
+        CheckedFunction<String, TypeDescriptor> uncheckedFunction = (key) -> {
+            // 这里 property 理论上不会为 null
+            Field field = ReflectUtil.getField(clazz, fieldName);
+            if (field == null) {
+                throw new NoSuchFieldException(fieldName);
+            }
+            return new TypeDescriptor(field);
+        };
+        return TYPE_CACHE.computeIfAbsent(srcCacheKey, Attempt.function(uncheckedFunction));
+    }
+
     /**
      * cglib convert
      *
@@ -270,19 +284,5 @@ public class MicaConverter implements Converter {
             logger.warn("MicaConverter error", e);
             return null;
         }
-    }
-
-    private static TypeDescriptor getTypeDescriptor(final Class<?> clazz, final String fieldName) {
-        String srcCacheKey = clazz.getName() + fieldName;
-        // 忽略抛出异常的函数，定义完整泛型，避免编译问题
-        CheckedFunction<String, TypeDescriptor> uncheckedFunction = (key) -> {
-            // 这里 property 理论上不会为 null
-            Field field = ReflectUtil.getField(clazz, fieldName);
-            if (field == null) {
-                throw new NoSuchFieldException(fieldName);
-            }
-            return new TypeDescriptor(field);
-        };
-        return TYPE_CACHE.computeIfAbsent(srcCacheKey, Attempt.function(uncheckedFunction));
     }
 }

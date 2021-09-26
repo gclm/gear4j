@@ -211,7 +211,7 @@ package club.gclmit.chaos.storage.contants;
  *
  * @author gclm
  */
-public enum  ResponseDataType {
+public enum ResponseDataType {
 
     /**
      * 数据全部详情

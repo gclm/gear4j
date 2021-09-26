@@ -214,39 +214,33 @@ import cn.hutool.core.lang.Assert;
 public class SystemUtils {
 
     /**
-     * Linux
-     */
-    private static final String OS_LINUX = "Linux";
-
-    /**
-     * Mac
-     */
-    private static final String OS_MAC = "Mac";
-
-    /**
-     * Windows
-     */
-    private static final String OS_WINDOWS = "Windows";
-
-    /**
      * 获取 user home
      */
     public static final String USER_HOME = getSystemProperty("user.home");
-
     /**
      * 获取用户地址
      */
     public static final String USER_DIR = getSystemProperty("user.dir");
-
     /**
      * 获取用户名
      */
     public static final String USER_NAME = getSystemProperty("user.name");
-
     /**
      * os 名
      */
     public static final String OS_NAME = getSystemProperty("os.name");
+    /**
+     * Linux
+     */
+    private static final String OS_LINUX = "Linux";
+    /**
+     * Mac
+     */
+    private static final String OS_MAC = "Mac";
+    /**
+     * Windows
+     */
+    private static final String OS_WINDOWS = "Windows";
 
 
     private SystemUtils() {

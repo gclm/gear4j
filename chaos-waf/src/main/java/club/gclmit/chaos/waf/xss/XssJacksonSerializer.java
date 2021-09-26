@@ -220,12 +220,12 @@ import java.io.IOException;
  * @author gclm
  */
 public class XssJacksonSerializer extends JsonSerializer<String> {
-    
+
     private static final Logger log = LoggerFactory.getLogger(XssJacksonSerializer.class);
 
     @Override
     public void serialize(String value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-        if (StringUtils.isNotBlank(value)){
+        if (StringUtils.isNotBlank(value)) {
             value = XssUtils.clean(value);
         }
         jsonGenerator.writeString(value);

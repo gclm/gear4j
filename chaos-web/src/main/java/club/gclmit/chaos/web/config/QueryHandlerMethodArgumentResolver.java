@@ -225,7 +225,7 @@ import java.util.Map;
 public class QueryHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     private static final Logger log = LoggerFactory.getLogger(QueryHandlerMethodArgumentResolver.class);
-    
+
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.hasParameterAnnotation(Query.class);
@@ -241,7 +241,7 @@ public class QueryHandlerMethodArgumentResolver implements HandlerMethodArgument
         }
 
         Class clazz = query.clazz();
-        log.info("chaos --> 当前转换Class:[{}]",clazz.getName());
+        log.info("chaos --> 当前转换Class:[{}]", clazz.getName());
 
         Map<String, String[]> params = webRequest.getParameterMap();
         Object obj = MapUtils.mapToObject(params, clazz);

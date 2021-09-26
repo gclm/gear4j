@@ -233,11 +233,11 @@ public class AvatarUtilsTest {
     }
 
 
-
     /**
      * 绘制字体头像
      * 如果是英文名，只显示首字母大写
      * 如果是中文名，只显示最后两个字
+     *
      * @param name
      * @param outputPath
      * @param outputName
@@ -283,7 +283,7 @@ public class AvatarUtilsTest {
 
         Font font = null;
         //两个字及以上
-        if(nameWritten.length() >= 2) {
+        if (nameWritten.length() >= 2) {
             font = new Font("微软雅黑", Font.PLAIN, 30);
             g2.setFont(font);
 
@@ -300,14 +300,14 @@ public class AvatarUtilsTest {
 
                 //首英,如 AB
             } else {
-                nameWritten = nameWritten.substring(0,1);
+                nameWritten = nameWritten.substring(0, 1);
             }
 
         }
         //一个字
-        if(nameWritten.length() ==1) {
+        if (nameWritten.length() == 1) {
             //中文
-            if(isChinese(nameWritten)) {
+            if (isChinese(nameWritten)) {
                 font = new Font("微软雅黑", Font.PLAIN, 50);
                 g2.setFont(font);
                 g2.drawString(nameWritten, 25, 70);
@@ -328,6 +328,7 @@ public class AvatarUtilsTest {
 
     /**
      * 判断字符串是否为中文
+     *
      * @param str
      * @return
      */
@@ -335,7 +336,7 @@ public class AvatarUtilsTest {
         String regEx = "[\\u4e00-\\u9fa5]+";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(str);
-        if (m.find()){
+        if (m.find()) {
             return true;
         } else {
             return false;
@@ -344,6 +345,7 @@ public class AvatarUtilsTest {
 
     /**
      * 获得随机颜色
+     *
      * @return
      */
     private static Color getRandomColor() {
@@ -374,6 +376,7 @@ public class AvatarUtilsTest {
 
     /**
      * 图片做圆角处理
+     *
      * @param image
      * @param cornerRadius
      * @return

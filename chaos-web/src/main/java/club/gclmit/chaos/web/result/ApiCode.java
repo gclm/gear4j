@@ -293,40 +293,40 @@ public enum ApiCode {
     /**
      * 状态码
      */
-    private  Integer code;
+    private Integer code;
 
     /**
      * 响应消息
      */
-    private  String message;
+    private String message;
 
     /**
      * <p>
-     *  私有化构造器
+     * 私有化构造器
      * </p>
      *
+     * @param code    状态码
+     * @param message 请求消息
      * @author 孤城落寞
-     * @param code     状态码
-     * @param message  请求消息
      */
-    ApiCode(Integer code,  String message) {
+    ApiCode(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
 
     /**
      * <p>
-     *  根据响应状态码找到枚举对象
+     * 根据响应状态码找到枚举对象
      * </p>
      *
-     * @author 孤城落寞
      * @param apiCode 状态码
      * @return ApiCode
+     * @author 孤城落寞
      */
-    public static ApiCode getApiCode(Integer apiCode){
+    public static ApiCode getApiCode(Integer apiCode) {
         ApiCode[] apiCodes = ApiCode.values();
         for (ApiCode code : apiCodes) {
-            if (code.getCode().equals(apiCode)){
+            if (code.getCode().equals(apiCode)) {
                 return code;
             }
         }

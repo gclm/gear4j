@@ -212,7 +212,7 @@ import java.util.regex.Pattern;
 
 /**
  * <p>
- *  重写 RequestCondition 组件
+ * 重写 RequestCondition 组件
  * </p>
  *
  * @author gclm
@@ -222,6 +222,10 @@ public class FastApiCondition implements RequestCondition<FastApiCondition> {
     private static final Pattern VERSION_PREFIX_PATTERN = Pattern.compile("/v(\\d+)/");
 
     private int apiVersion;
+
+    public FastApiCondition(int apiVersion) {
+        this.apiVersion = apiVersion;
+    }
 
     @Override
     public FastApiCondition combine(FastApiCondition other) {
@@ -247,19 +251,15 @@ public class FastApiCondition implements RequestCondition<FastApiCondition> {
     }
 
     /**
-     *  当出现多个符合匹配条件的ApiVersionCondition， 优先匹配版本号较大的
+     * 当出现多个符合匹配条件的ApiVersionCondition， 优先匹配版本号较大的
      *
-     * @author gclm
      * @param condition ApiVersionCondition
-     * @param request HttpServletRequest
+     * @param request   HttpServletRequest
+     * @author gclm
      */
     @Override
     public int compareTo(FastApiCondition condition, HttpServletRequest request) {
         return condition.getApiVersion() - getApiVersion();
-    }
-
-    public FastApiCondition(int apiVersion) {
-        this.apiVersion = apiVersion;
     }
 
     public int getApiVersion() {

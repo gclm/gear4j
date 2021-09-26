@@ -226,12 +226,12 @@ public class JsonSerializerManage {
 
     /**
      * <p>
-     *  long变成string
+     * long变成string
      * </p>
      *
-     * @author gclm
-     * @param builder  Jackson2ObjectMapperBuilder
+     * @param builder Jackson2ObjectMapperBuilder
      * @return com.fasterxml.jackson.databind.ObjectMapper
+     * @author gclm
      */
     @Bean
     public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {

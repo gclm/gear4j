@@ -215,9 +215,6 @@ import org.jsoup.safety.Whitelist;
  * @author gclm
  */
 public class XssUtils {
-    
-    private XssUtils() {
-    }
 
     /**
      * 使用自带的basicWithImages 白名单
@@ -226,7 +223,6 @@ public class XssUtils {
      * 以及a标签的href,img标签的src,align,alt,height,width,title属性
      */
     private static final Whitelist WHITE_LIST = Whitelist.basicWithImages();
-
     /**
      * 配置过滤化参数,不对代码进行格式化
      */
@@ -240,11 +236,14 @@ public class XssUtils {
         WHITE_LIST.addProtocols("img", "src", "data");
     }
 
+    private XssUtils() {
+    }
+
     public static String clean(String content) {
         return Jsoup.clean(content, "", WHITE_LIST, OUTPUT_SETTINGS);
     }
 
-    public static String encode(String content){
-       return new HtmlFilterRule().filter(content);
+    public static String encode(String content) {
+        return new HtmlFilterRule().filter(content);
     }
 }

@@ -206,7 +206,7 @@ package club.gclmit.chaos.waf.properties;
 
 /**
  * <p>
- *  waf 配置
+ * waf 配置
  * </p>
  *
  * @author gclm

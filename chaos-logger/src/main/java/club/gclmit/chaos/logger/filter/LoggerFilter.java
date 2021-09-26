@@ -243,14 +243,27 @@ import java.util.Arrays;
 public class LoggerFilter extends OncePerRequestFilter implements Ordered {
 
     private static final Logger log = LoggerFactory.getLogger(LoggerFilter.class);
+    @Autowired
+    private ChaosLoggerProperties config;
+
+    /**
+     * 获取Bean对象
+     *
+     * @param clazz   获取 bean 对象
+     * @param <T>     泛型
+     * @param request request 请求
+     * @return T
+     * @author gclm
+     */
+    public static <T> T genBean(Class<T> clazz, HttpServletRequest request) {
+        BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
+        return factory.getBean(clazz);
+    }
 
     @Override
     public int getOrder() {
         return Ordered.LOWEST_PRECEDENCE;
     }
-
-    @Autowired
-    private ChaosLoggerProperties config;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
@@ -299,20 +312,6 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
                 log.info("当前请求日志：{}", trace);
             }
         }
-    }
-
-    /**
-     * 获取Bean对象
-     *
-     * @param clazz   获取 bean 对象
-     * @param <T>     泛型
-     * @param request request 请求
-     * @return T
-     * @author gclm
-     */
-    public static <T> T genBean(Class<T> clazz, HttpServletRequest request) {
-        BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
-        return factory.getBean(clazz);
     }
 
     /**

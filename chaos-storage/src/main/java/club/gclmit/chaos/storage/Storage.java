@@ -207,11 +207,12 @@ package club.gclmit.chaos.storage;
 import club.gclmit.chaos.storage.contants.ResponseDataType;
 import club.gclmit.chaos.storage.contants.StorageServer;
 import club.gclmit.chaos.storage.pojo.CloudStorage;
+
 import java.io.Serializable;
 
 /**
  * <p>
- *  storage 配置
+ * storage 配置
  * </p>
  *
  * @author gclm
@@ -229,7 +230,7 @@ public class Storage implements Serializable {
     private StorageServer type = StorageServer.ALIYUN;
 
     /**
-     *  OSS 厂商配置
+     * OSS 厂商配置
      */
     private CloudStorage config = new CloudStorage();
 

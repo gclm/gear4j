@@ -224,23 +224,22 @@ public class GenerateQrCode {
     private GenerateQrCode() {
     }
 
-    private static class GenerateQrCodeHolder {
-        private static final GenerateQrCode INSTANCE = new GenerateQrCode();
-    }
-
     /**
      * 单例模式
      *
-     * @author gclm
      * @return club.gclmit.chaos.core.lang.qrcode.GenerateQrCode
+     * @author gclm
      */
     public static GenerateQrCode getInstance() {
         return GenerateQrCodeHolder.INSTANCE;
     }
 
-
-    public static Builder of(){
+    public static Builder of() {
         return new Builder();
+    }
+
+    private static class GenerateQrCodeHolder {
+        private static final GenerateQrCode INSTANCE = new GenerateQrCode();
     }
 
 //    private static BufferedImage toBufferedImage(QrCodeOption option) throws WriterException, IOException {
@@ -294,7 +293,7 @@ public class GenerateQrCode {
         private Integer width = 200;
 
         /**
-         *  EncodeHintType：编码提示类型配置
+         * EncodeHintType：编码提示类型配置
          */
         private Map<EncodeHintType, Object> hists;
 
@@ -324,13 +323,13 @@ public class GenerateQrCode {
         }
 
         /**
-         *  初始化默认编码配置
+         * 初始化默认编码配置
          * com.google.zxing.EncodeHintType 编码提示类型，枚举类型
-         *  EncodeHintType.CHARACTER_SET 设置字符编码类型
-         *  EncodeHintType.ERROR_CORRECTION 误差校正级别，详情看 QrCode 的 errorLevel 属性
-         *  EncodeHintType.MARGIN 设置二维码边框，详情看 QrCode 的 margin 属性
+         * EncodeHintType.CHARACTER_SET 设置字符编码类型
+         * EncodeHintType.ERROR_CORRECTION 误差校正级别，详情看 QrCode 的 errorLevel 属性
+         * EncodeHintType.MARGIN 设置二维码边框，详情看 QrCode 的 margin 属性
          */
-        private void initDefaultHints(){
+        private void initDefaultHints() {
             hists = new HashMap<>(10);
             hists.put(EncodeHintType.CHARACTER_SET, QrCode.DEFAULT_CHARACTER_SET);
             /**
@@ -349,24 +348,24 @@ public class GenerateQrCode {
         }
 
         /**
-         *  设置logo占二维码比例
+         * 设置logo占二维码比例
          *
-         * @author gclm
-         * @param rate  比例
+         * @param rate 比例
          * @return club.gclmit.chaos.core.lang.Barcode.Builder
+         * @author gclm
          */
-        public Builder rate(Integer rate){
+        public Builder rate(Integer rate) {
             this.rate = rate;
             return this;
         }
 
         /**
-         *  设置条形码宽高
+         * 设置条形码宽高
          *
-         * @author gclm
-         * @param width        图片宽度
-         * @param height       图片高度
+         * @param width  图片宽度
+         * @param height 图片高度
          * @return club.gclmit.chaos.core.lang.Barcode.Builder
+         * @author gclm
          */
         public Builder size(Integer width, Integer height) {
             this.height = height;
@@ -375,23 +374,23 @@ public class GenerateQrCode {
         }
 
         /**
-         *  设置条形码的尺寸
+         * 设置条形码的尺寸
          *
-         * @author gclm
-         * @param size         图片尺寸（size=width=height）
+         * @param size 图片尺寸（size=width=height）
          * @return club.gclmit.chaos.core.lang.Barcode.Builder
+         * @author gclm
          */
         public Builder size(Integer size) {
-            return size(size,size);
+            return size(size, size);
         }
 
         /**
-         *  设置条形码的颜色
+         * 设置条形码的颜色
          *
-         * @author gclm
-         * @param onColor     前景色 ARGB
-         * @param offColor    背景色 ARGB
+         * @param onColor  前景色 ARGB
+         * @param offColor 背景色 ARGB
          * @return club.gclmit.chaos.core.lang.Barcode.Builder
+         * @author gclm
          */
         public Builder color(Integer onColor, Integer offColor) {
             this.matrixToImageConfig = new MatrixToImageConfig(onColor, offColor);
@@ -399,25 +398,25 @@ public class GenerateQrCode {
         }
 
         /**
-         *  设置条形码内容
+         * 设置条形码内容
          *
-         * @author gclm
          * @param content 条形码内容
          * @return club.gclmit.chaos.core.lang.Barcode.Builder
+         * @author gclm
          */
-        public Builder content(String content){
+        public Builder content(String content) {
             this.content = content;
             return this;
         }
 
         /**
-         *  设置 EncodeHintType
+         * 设置 EncodeHintType
          *
-         * @author gclm
          * @param hists EncodeHintType
          * @return club.gclmit.chaos.core.lang.Barcode.Builder
+         * @author gclm
          */
-        public Builder hints(Map<EncodeHintType, Object> hists){
+        public Builder hints(Map<EncodeHintType, Object> hists) {
             this.hists.putAll(hists);
             return this;
         }

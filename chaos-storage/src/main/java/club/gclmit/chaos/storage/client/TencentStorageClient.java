@@ -240,7 +240,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
- *  腾讯云存储配置
+ * 腾讯云存储配置
  * </p>
  *
  * @author gclm
@@ -260,17 +260,17 @@ public class TencentStorageClient extends StorageClient {
 
     /**
      * <p>
-     *  初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
+     * 初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
      * </p>
      *
-     * @author 孤城落寞
      * @param storage Storage
+     * @author 孤城落寞
      */
     public TencentStorageClient(Storage storage) {
         super(storage);
-        if(storage.getType() == StorageServer.TENCENT) {
+        if (storage.getType() == StorageServer.TENCENT) {
             cloudStorage = storage.getConfig();
-            log.info("腾讯云配置参数:[{}]",storage);
+            log.info("腾讯云配置参数:[{}]", storage);
             cosClient = build(cloudStorage.getAccessKeyId(), cloudStorage.getAccessKeySecret(), cloudStorage.getRegion());
         } else {
             throw new ChaosException("[腾讯云OSS]上传文件失败，请检查配置参数");
@@ -279,16 +279,16 @@ public class TencentStorageClient extends StorageClient {
 
     /**
      * <p>
-     *  批量删除文件
+     * 批量删除文件
      * </p>
      *
-     * @author gclm
      * @param keys 文件keys
+     * @author gclm
      */
     @Override
     public void delete(List<String> keys) {
 
-        Assert.notEmpty(keys,"[腾讯云OSS]批量删除文件的 keys 不能为空");
+        Assert.notEmpty(keys, "[腾讯云OSS]批量删除文件的 keys 不能为空");
         DeleteObjectsRequest deleteObjectsRequest = new DeleteObjectsRequest(cloudStorage.getBucket());
         ArrayList<DeleteObjectsRequest.KeyVersion> keyList = new ArrayList<>();
         for (String key : keys) {
@@ -309,34 +309,34 @@ public class TencentStorageClient extends StorageClient {
 
     /**
      * <p>
-     *  删除文件
+     * 删除文件
      * </p>
      *
-     * @author gclm
      * @param key 文件key
+     * @author gclm
      */
     @Override
     public void delete(String key) {
-        Assert.hasLength(key,"[腾讯云OSS]删除文件的key不能为空");
-        cosClient.deleteObject(cloudStorage.getBucket(),key);
+        Assert.hasLength(key, "[腾讯云OSS]删除文件的key不能为空");
+        cosClient.deleteObject(cloudStorage.getBucket(), key);
     }
 
 
     /**
      * <p>
-     *  上传文件基础方法
+     * 上传文件基础方法
      * </p>
      *
-     * @author 孤城落寞
      * @param inputStream 上传文件流
      * @param fileInfo    文件信息
      * @return FileInfo 文件信息
+     * @author 孤城落寞
      */
     @Override
     public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {
 
-        Assert.notNull(inputStream,"[腾讯云OSS]上传文件失败，请检查 inputStream 是否正常");
-        Assert.hasLength(fileInfo.getOssKey(),"[腾讯云OSS]上传文件失败，请检查上传文件的 key 是否正常");
+        Assert.notNull(inputStream, "[腾讯云OSS]上传文件失败，请检查 inputStream 是否正常");
+        Assert.hasLength(fileInfo.getOssKey(), "[腾讯云OSS]上传文件失败，请检查上传文件的 key 是否正常");
 
 
         String key = fileInfo.getOssKey();
@@ -356,7 +356,7 @@ public class TencentStorageClient extends StorageClient {
             ObjectMetadata objectMetadata = new ObjectMetadata();
             objectMetadata.setContentLength(inputStream.available());
 
-            PutObjectRequest putObjectRequest = new PutObjectRequest(cloudStorage.getBucket(),key,inputStream,objectMetadata);
+            PutObjectRequest putObjectRequest = new PutObjectRequest(cloudStorage.getBucket(), key, inputStream, objectMetadata);
             Upload upload = transferManager.upload(putObjectRequest);
             UploadResult uploadResult = upload.waitForUploadResult();
             eTag = uploadResult.getETag();
@@ -385,15 +385,15 @@ public class TencentStorageClient extends StorageClient {
     }
 
     /**
-     *  构建 COSClient 客户端
+     * 构建 COSClient 客户端
      *
-     * @author gclm
      * @param secretId  secretId
      * @param secretKey secretKey
      * @param region    region
      * @return com.qcloud.cos.COSClient
+     * @author gclm
      */
-    public COSClient build(String secretId,String secretKey,String region){
+    public COSClient build(String secretId, String secretKey, String region) {
 
         COSCredentials cred = new BasicCOSCredentials(secretId, secretKey);
         /**

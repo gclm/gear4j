@@ -219,6 +219,11 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class YeinGid {
 
+    public static final int YEIN_GID_LENGTH = 15;
+    /**
+     * 标识掩码.
+     */
+    public static final int FID_MASK = -1 ^ (-1 << 17);
     /**
      * 32进制编码的字母表.
      */
@@ -226,8 +231,6 @@ public class YeinGid {
             '2', '3', '4', '5', '6', '7', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
             'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
     };
-
-    public static final int YEIN_GID_LENGTH = 15;
     /**
      * 版本号掩码.
      */
@@ -236,10 +239,6 @@ public class YeinGid {
      * 时间戳(秒).
      */
     private static final int SECONDS_MASK = Integer.MAX_VALUE;
-    /**
-     * 标识掩码.
-     */
-    public static final int FID_MASK = -1 ^ (-1 << 17);
     /**
      * 序列掩码.
      */
@@ -283,42 +282,6 @@ public class YeinGid {
         this.timestamp = (int) (System.currentTimeMillis() / 1000);
         this.fid = fid;
         this.seq = SEQUENCE.incrementAndGet();
-    }
-
-    /**
-     * 返回 YeinGid 的版本号.
-     *
-     * @return 版本号
-     */
-    public int getVersion() {
-        return version;
-    }
-
-    /**
-     * 返回 YeinGid 创建时间(unix timestamp).
-     *
-     * @return 创建时间
-     */
-    public int getTimestamp() {
-        return timestamp;
-    }
-
-    /**
-     * 返回标识.
-     *
-     * @return 标识
-     */
-    public int getFid() {
-        return fid;
-    }
-
-    /**
-     * 返回序列号.
-     *
-     * @return 序列号
-     */
-    public int getSeq() {
-        return seq;
     }
 
     /**
@@ -368,6 +331,42 @@ public class YeinGid {
         // seq 有 12bits 是存储在高位中的
         int seq = (int) ((highBits & 0xfff) << 11 | (lowBits >> 53) & 0x7ff);
         return new YeinGid(version, timestamp, fid, seq, hexString);
+    }
+
+    /**
+     * 返回 YeinGid 的版本号.
+     *
+     * @return 版本号
+     */
+    public int getVersion() {
+        return version;
+    }
+
+    /**
+     * 返回 YeinGid 创建时间(unix timestamp).
+     *
+     * @return 创建时间
+     */
+    public int getTimestamp() {
+        return timestamp;
+    }
+
+    /**
+     * 返回标识.
+     *
+     * @return 标识
+     */
+    public int getFid() {
+        return fid;
+    }
+
+    /**
+     * 返回序列号.
+     *
+     * @return 序列号
+     */
+    public int getSeq() {
+        return seq;
     }
 
     /**

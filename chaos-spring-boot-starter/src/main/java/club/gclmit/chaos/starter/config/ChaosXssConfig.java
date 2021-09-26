@@ -227,24 +227,24 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ConditionalOnProperty(prefix = "chaos.waf.xss", value = "enabled", havingValue = "true")
 public class ChaosXssConfig implements WebMvcConfigurer {
 
-	@Autowired
-	private ChaosProperties properties;
+    @Autowired
+    private ChaosProperties properties;
 
-	/**
-	 * <p>
-	 * 配置 {@link ChaosWafProperties}
-	 * </p>
-	 *
-	 * @return club.gclmit.chaos.storage.client.StorageClient
-	 * @author gclm
-	 */
-	@Bean
-	public ChaosWafProperties chaosLoggerProperties() {
-		return properties.getWaf();
-	}
+    /**
+     * <p>
+     * 配置 {@link ChaosWafProperties}
+     * </p>
+     *
+     * @return club.gclmit.chaos.storage.client.StorageClient
+     * @author gclm
+     */
+    @Bean
+    public ChaosWafProperties chaosLoggerProperties() {
+        return properties.getWaf();
+    }
 
-	@Bean
-	public Jackson2ObjectMapperBuilderCustomizer xssJacksonCustomizer() {
-		return builder -> builder.deserializerByType(String.class, new XssJacksonDeserializer());
-	}
+    @Bean
+    public Jackson2ObjectMapperBuilderCustomizer xssJacksonCustomizer() {
+        return builder -> builder.deserializerByType(String.class, new XssJacksonDeserializer());
+    }
 }

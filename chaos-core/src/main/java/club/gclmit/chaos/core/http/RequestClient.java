@@ -223,9 +223,6 @@ import java.util.Map;
  */
 public class RequestClient {
 
-    private RequestClient() {
-    }
-
     /**
      * json 请求
      */
@@ -238,6 +235,8 @@ public class RequestClient {
      * 文件上传请求
      */
     public static final String UPLOAD_REQUEST_TYPE = "multipart/form";
+    private RequestClient() {
+    }
 
     /**
      * <p>

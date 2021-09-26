@@ -208,7 +208,7 @@ import java.util.Arrays;
 
 /**
  * <p>
- *  日志配置工具类
+ * 日志配置工具类
  * </p>
  *
  * @author gclm

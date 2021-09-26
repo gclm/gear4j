@@ -214,42 +214,42 @@ import java.util.List;
  */
 public class XssProperties {
 
-	/**
-	 * 开启xss
-	 */
-	private boolean enabled = true;
+    /**
+     * 开启xss
+     */
+    private boolean enabled = true;
 
-	/**
-	 * 拦截的路由，默认为空
-	 */
-	private List<String> pathPatterns = new ArrayList<>();
+    /**
+     * 拦截的路由，默认为空
+     */
+    private List<String> pathPatterns = new ArrayList<>();
 
-	/**
-	 * 放行的规则，默认为空
-	 */
-	private List<String> excludePatterns = new ArrayList<>();
+    /**
+     * 放行的规则，默认为空
+     */
+    private List<String> excludePatterns = new ArrayList<>();
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
-	public List<String> getPathPatterns() {
-		return pathPatterns;
-	}
+    public List<String> getPathPatterns() {
+        return pathPatterns;
+    }
 
-	public void setPathPatterns(List<String> pathPatterns) {
-		this.pathPatterns = pathPatterns;
-	}
+    public void setPathPatterns(List<String> pathPatterns) {
+        this.pathPatterns = pathPatterns;
+    }
 
-	public List<String> getExcludePatterns() {
-		return excludePatterns;
-	}
+    public List<String> getExcludePatterns() {
+        return excludePatterns;
+    }
 
-	public void setExcludePatterns(List<String> excludePatterns) {
-		this.excludePatterns = excludePatterns;
-	}
+    public void setExcludePatterns(List<String> excludePatterns) {
+        this.excludePatterns = excludePatterns;
+    }
 }

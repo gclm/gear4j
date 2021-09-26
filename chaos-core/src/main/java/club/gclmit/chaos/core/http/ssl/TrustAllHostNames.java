@@ -229,13 +229,13 @@ import javax.net.ssl.SSLSession;
  * @author L.cm
  */
 public enum TrustAllHostNames implements HostnameVerifier {
-	/**
-	 * 实例
-	 */
-	INSTANCE;
+    /**
+     * 实例
+     */
+    INSTANCE;
 
-	@Override
-	public boolean verify(String s, SSLSession sslSession) {
-		return true;
-	}
+    @Override
+    public boolean verify(String s, SSLSession sslSession) {
+        return true;
+    }
 }

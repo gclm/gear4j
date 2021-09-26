@@ -303,11 +303,11 @@ public enum LoggerServer {
 
     private final String key;
 
-    public String getKey() {
-        return key;
-    }
-
     private LoggerServer(String key) {
         this.key = key;
+    }
+
+    public String getKey() {
+        return key;
     }
 }

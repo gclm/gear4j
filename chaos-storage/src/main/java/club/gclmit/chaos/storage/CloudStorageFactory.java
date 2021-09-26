@@ -208,7 +208,7 @@ import club.gclmit.chaos.storage.client.*;
 
 /**
  * <p>
- *  oss 客户端构造器
+ * oss 客户端构造器
  * </p>
  *
  * @author gclm
@@ -217,16 +217,16 @@ public class CloudStorageFactory {
 
     /**
      * <p>
-     *  根据枚举类型返回相应的云存储对象
+     * 根据枚举类型返回相应的云存储对象
      * </p>
      *
-     * @author 孤城落寞
      * @param storage Storage
      * @return club.gclmit.chaos.service.CloudStorageService
+     * @author 孤城落寞
      */
     public static StorageClient build(Storage storage) {
         StorageClient client = null;
-        switch (storage.getType()){
+        switch (storage.getType()) {
             case QINIU:
                 client = new QiniuStorageClient(storage);
                 break;

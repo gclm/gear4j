@@ -224,21 +224,21 @@ public class SpringServiceHandler implements ApplicationListener<WebServerInitia
      */
     private static int serverPort;
 
+    public static int getPort() {
+        return serverPort;
+    }
+
     /**
      * <p>
-     *  获取项目服务端口
+     * 获取项目服务端口
      * </p>
      *
-     * @author gclm
      * @param event WebServerInitializedEvent
+     * @author gclm
      */
     @Override
     public void onApplicationEvent(WebServerInitializedEvent event) {
         serverPort = event.getWebServer().getPort();
-        Logger.info("Get WebServer port {} WebServer Doc http://localhost:{}/doc.html", serverPort,serverPort);
-    }
-
-    public static int getPort() {
-        return serverPort;
+        Logger.info("Get WebServer port {} WebServer Doc http://localhost:{}/doc.html", serverPort, serverPort);
     }
 }

@@ -212,7 +212,7 @@ import java.util.List;
 
 /**
  * <p>
- *  七牛云存储配置
+ * 七牛云存储配置
  * </p>
  *
  * @author gclm

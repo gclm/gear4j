@@ -216,7 +216,7 @@ import org.junit.Test;
 public class UrlUtilsTest {
 
     @Test
-    public void test1(){
+    public void test1() {
         System.out.println(UrlUtils.hasUrlEncoded("13%2C14%2C15"));
         System.out.println(UrlUtils.hasUrlEncoded("13,14,15"));
     }
