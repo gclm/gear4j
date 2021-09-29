@@ -320,8 +320,9 @@ public class FastDfsStorageClient extends StorageClient {
             params.put("scene", "default");
             params.put("output", "json2");
 
+            String fileName = fileInfo.getOssKey().replace(dateFormat + "/", "");
 
-            String result = RequestClient.upload(uploadUrl, RequestClient.header(), params, "file", fileInfo.getContentType(), fileInfo.getName(), inputStream);
+            String result = RequestClient.upload(uploadUrl, RequestClient.header(), params, "file", fileInfo.getContentType(), fileName, inputStream);
             String body = StringUtils.trimAll(result);
             JSONObject mapper = JSONObject.parseObject(body);
             if (mapper.containsKey("data")) {
