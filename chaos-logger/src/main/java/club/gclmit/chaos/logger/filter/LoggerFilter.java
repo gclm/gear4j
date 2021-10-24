@@ -285,21 +285,21 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
             Long responseTime = DateUtils.getMilliTimestamp();
             Long time = responseTime - requestTime;
 
-            HttpTrace trace = Builder.of(HttpTrace::new)
-                    .with(HttpTrace::setUri, uri)
-                    .with(HttpTrace::setClientIp, ServletUtils.getClientIp(request))
-                    .with(HttpTrace::setContentType, ServletUtils.getContentType(request))
-                    .with(HttpTrace::setMethod, request.getMethod())
-                    .with(HttpTrace::setUserAgent, ServletUtils.getUserAgent(request))
-                    .with(HttpTrace::setSessionId, sessionId)
-                    .with(HttpTrace::setHttpCode, response.getStatus())
-                    .with(HttpTrace::setRequestTime, requestTime)
-                    .with(HttpTrace::setResponseTime, responseTime)
-                    .with(HttpTrace::setConsumingTime, time)
-                    .with(HttpTrace::setResponseHeader, JsonUtils.toJson(ServletUtils.getResponseHeaders(response)))
-                    .with(HttpTrace::setRequestHeader, JsonUtils.toJson(ServletUtils.getRequestHeaders(request)))
-                    .with(HttpTrace::setRequestBody, ServletUtils.getRequestBody(httpCacheRequestWrapper))
-                    .with(HttpTrace::setResponseBody, ServletUtils.getResponseBody(responseWrapper))
+            HttpTrace trace = Builder.build(HttpTrace::new)
+                    .val(HttpTrace::setUri, uri)
+                    .val(HttpTrace::setClientIp, ServletUtils.getClientIp(request))
+                    .val(HttpTrace::setContentType, ServletUtils.getContentType(request))
+                    .val(HttpTrace::setMethod, request.getMethod())
+                    .val(HttpTrace::setUserAgent, ServletUtils.getUserAgent(request))
+                    .val(HttpTrace::setSessionId, sessionId)
+                    .val(HttpTrace::setHttpCode, response.getStatus())
+                    .val(HttpTrace::setRequestTime, requestTime)
+                    .val(HttpTrace::setResponseTime, responseTime)
+                    .val(HttpTrace::setConsumingTime, time)
+                    .val(HttpTrace::setResponseHeader, JsonUtils.toJson(ServletUtils.getResponseHeaders(response)))
+                    .val(HttpTrace::setRequestHeader, JsonUtils.toJson(ServletUtils.getRequestHeaders(request)))
+                    .val(HttpTrace::setRequestBody, ServletUtils.getRequestBody(httpCacheRequestWrapper))
+                    .val(HttpTrace::setResponseBody, ServletUtils.getResponseBody(responseWrapper))
                     .build();
 
             /*

@@ -220,8 +220,8 @@ public class BuilderTest {
 
     @Test
     public void build() {
-        GirlFriend friend = Builder.of(GirlFriend::new)
-                .with(GirlFriend::setAddress, "浦东").build();
+        GirlFriend friend = Builder.build(GirlFriend::new)
+                .val(GirlFriend::setAddress, "浦东").build();
 
         System.out.println(friend);
     }

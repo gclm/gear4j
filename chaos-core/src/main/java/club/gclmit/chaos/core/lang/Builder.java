@@ -213,7 +213,6 @@ import java.util.function.Supplier;
 /**
  * <p>
  * 通用的 Builder 模式构建器
- * 来源: http://www.ciphermagic.cn/java8-builder.html#more
  * </p>
  *
  * @author gclm
@@ -228,16 +227,36 @@ public class Builder<T> {
         this.instance = instance;
     }
 
-    public static <T> Builder<T> of(Supplier<T> instance) {
+    /**
+     *  build Supplier
+     * @author gclm
+     * @param instance  Supplier
+     * @param <T> 构造Supplier
+     * @return 构造Supplier
+     */
+    public static <T> Builder<T> build(Supplier<T> instance) {
         return new Builder<T>(instance);
     }
 
-    public <U> Builder<T> with(BiConsumer<T, U> consumer, U value) {
+    /**
+     *  添加参数
+     * @author gclm
+     * @param consumer 类属性
+     * @param <U>      参数值类型
+     * @param value    类属性值
+     * @return 构造Supplier
+     */
+    public <U> Builder<T> val(BiConsumer<T, U> consumer, U value) {
         Consumer<T> c = instance -> consumer.accept(instance, value);
         instanceModifiers.add(c);
         return this;
     }
 
+    /**
+     * 获取 instance
+     * @author gclm
+     * @return 返回构造对象
+     */
     public T build() {
         T value = instance.get();
         instanceModifiers.forEach(modifier -> modifier.accept(value));
