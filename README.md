@@ -9,6 +9,9 @@
         <img src="https://github.com/gclm/chaos/actions/workflows/maven.yml/badge.svg" />
 	</a>
     <a target="_blank" href="https://github.com/gclm/chaos/actions">
+        <img src="https://github.com/gclm/chaos/actions/workflows/javadoc.yml/badge.svg" />
+	</a>
+    <a target="_blank" href="https://github.com/gclm/chaos/actions">
         <img src="https://github.com/gclm/chaos/actions/workflows/codeql-analysis.yml/badge.svg" />
 	</a>
     <a href="https://www.codacy.com/gh/gclm/chaos/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=gclm/chaos&amp;utm_campaign=Badge_Grade">
@@ -23,18 +26,6 @@
 	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
 		<img src="https://img.shields.io/badge/JDK-11+-green.svg" />
 	</a>
-
-[comment]: <> (<a href="https://codecov.io/gh/gclm/chaos">)
-
-[comment]: <> (<img src="https://codecov.io/gh/gclm/chaos/branch/master/graph/badge.svg" />)
-
-[comment]: <> (</a> )
-
-[comment]: <> (    <a href="https://travis-ci.com/gclm/chaos">)
-
-[comment]: <> (        <img src="https://travis-ci.com/gclm/chaos.svg?branch=master" />)
-
-[comment]: <> (    </a>)
 </p>
 <p align="center">
     QQ群：<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=4684b1c1194706adcc4ce7c9428935d31c0b2a86b51e96cb807fa30f94cebfde">641633175</a>
@@ -76,7 +67,10 @@
 
 ## 使用教程
 
-[Java Doc](https://apidoc.gitee.com/gclm/chaos/)
+### JavaDoc
+
+- [JavaDoc](https://gclm.github.io/chaos/)
+- [国内地址](https://gclm.gitee.io/chaos/)
 
 ### 添加依赖
 
