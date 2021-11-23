@@ -205,7 +205,7 @@
 package club.gclmit.chaos.web.controller;
 
 import club.gclmit.chaos.core.exception.ChaosException;
-import club.gclmit.chaos.web.result.Result;
+import club.gclmit.chaos.web.result.ApiResult;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -235,13 +235,11 @@ public class GlobalExceptionHandler {
             BindException.class,
             MethodArgumentNotValidException.class
     })
-    public Result validationExceptionHandler(Exception exception) {
+    public ApiResult validationExceptionHandler(Exception exception) {
 
         BindingResult bindResult = null;
         if (exception instanceof BindException) {
             bindResult = ((BindException) exception).getBindingResult();
-        } else if (exception instanceof MethodArgumentNotValidException) {
-            bindResult = ((MethodArgumentNotValidException) exception).getBindingResult();
         }
         StringBuilder message = new StringBuilder();
 
@@ -252,7 +250,7 @@ public class GlobalExceptionHandler {
         } else {
             message.append("系统繁忙，请稍后重试...");
         }
-        return Result.fail(message.substring(0, message.length() - 1));
+        return ApiResult.fail(message.substring(0, message.length() - 1));
     }
 
     /**
@@ -263,8 +261,8 @@ public class GlobalExceptionHandler {
      * @author gclm
      */
     @ExceptionHandler(value = {ChaosException.class})
-    public Result chaosException(Exception exception) {
+    public ApiResult chaosException(Exception exception) {
 
-        return Result.fail(exception.getMessage());
+        return ApiResult.fail(exception.getMessage());
     }
 }

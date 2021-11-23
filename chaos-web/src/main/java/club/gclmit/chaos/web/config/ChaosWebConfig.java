@@ -212,7 +212,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.MultipartConfigElement;
@@ -250,19 +249,6 @@ public class ChaosWebConfig implements WebMvcConfigurer {
         MultipartConfigFactory factory = new MultipartConfigFactory();
         factory.setLocation(FileUtils.getRootPath());
         return factory.createMultipartConfig();
-    }
-
-    /**
-     * 开启 knife4j（Swagger） 映射
-     *
-     * @param registry ResourceHandlerRegistry
-     * @author gclm
-     */
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        log.info("chaos ---> 开启 knife4j 映射");
-        registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     /**

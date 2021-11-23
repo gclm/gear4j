@@ -204,90 +204,174 @@
 
 package club.gclmit.chaos.web.result;
 
+import club.gclmit.chaos.core.utils.DateUtils;
+import club.gclmit.chaos.core.utils.StringUtils;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * 对页面返回请求进行包装
+ * 返回数据封装
  *
  * @author gclm
  */
-@ApiModel(value = "分页数据封装", description = "分页数据封装")
-public class PageResult {
+@ApiModel(value = "通用消息响应", description = "通用消息响应")
+public class ApiResult implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    private static final String TIMESTAMP = String.valueOf(DateUtils.getMilliTimestamp());
 
     /**
-     * 总数量
+     * 响应状态码
      */
-    @ApiModelProperty(value = "总数量")
-    private Long total;
+    @ApiModelProperty(value = "响应状态码", required = true)
+    private Integer code;
 
     /**
-     * 分页数据
+     * 响应提示
      */
-    @ApiModelProperty(value = "分页数据")
-    private Object list;
+    @ApiModelProperty(value = "响应提示消息", required = true)
+    private String message;
 
     /**
-     * 当前页数
+     * 响应时间戳
      */
-    @ApiModelProperty(value = "当前页数")
-    private Long page;
+    @ApiModelProperty(value = "响应时间戳", required = true)
+    private String timestamp = TIMESTAMP;
 
     /**
-     * 每页数量
+     * 响应数据
      */
-    @ApiModelProperty(value = "每页数量")
-    private Long pageSize;
+    @ApiModelProperty(value = "响应数据", required = false)
+    private Object data;
 
-    public PageResult() {
+
+    public ApiResult(Integer code, String message, Object data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
     }
 
-    public PageResult(Long total, Object list, Long page, Long pageSize) {
-        this.total = total;
-        this.list = list;
-        this.page = page;
-        this.pageSize = pageSize;
+    public static ApiResult result(boolean flag) {
+        if (flag) {
+            return ok();
+        }
+        return fail("");
     }
 
-    public Long getTotal() {
-        return total;
+    public static ApiResult result(ApiCode apiCode, Object data) {
+        return result(apiCode, null, data);
     }
 
-    public void setTotal(Long total) {
-        this.total = total;
+    public static ApiResult result(ApiCode apiCode, String msg, Object data) {
+        String message = apiCode.getMessage();
+        if (StringUtils.isNotBlank(msg)) {
+            message = msg;
+        }
+        return new ApiResult(apiCode.getCode(), message, data);
     }
 
-    public Object getList() {
-        return list;
+    public static ApiResult ok() {
+        return ok(null);
     }
 
-    public void setList(Object list) {
-        this.list = list;
+    public static ApiResult ok(Object data) {
+        return result(ApiCode.OK, data);
     }
 
-    public Long getPage() {
-        return page;
+    public static ApiResult ok(String message, Object data) {
+        return result(ApiCode.OK, message, data);
     }
 
-    public void setPage(Long page) {
-        this.page = page;
+    public static ApiResult ok(Integer code, String message, Object data) {
+        return new ApiResult(code, message, data);
     }
 
-    public Long getPageSize() {
-        return pageSize;
+    public static ApiResult okMap(String key, String value) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(key, value);
+        return ok(map);
     }
 
-    public void setPageSize(Long pageSize) {
-        this.pageSize = pageSize;
+    public static ApiResult fail() {
+        return fail(ApiCode.FAIL);
+    }
+
+    public static ApiResult fail(String message) {
+        return result(ApiCode.FAIL, message, null);
+    }
+
+    public static ApiResult fail(ApiCode apiCode) {
+        return result(apiCode, null);
+    }
+
+    public static ApiResult fail(ApiCode apiCode, Object data) {
+        if (ApiCode.OK == apiCode) {
+            throw new RuntimeException("失败结果状态码不能为：" + apiCode.getCode());
+        }
+        return result(apiCode, data);
+    }
+
+    public static ApiResult fail(Integer code, String message) {
+        return new ApiResult(code, message, null);
+    }
+
+    public static ApiResult fail(String message, Object data) {
+        return new ApiResult(ApiCode.FAIL.getCode(), message, data);
+    }
+
+    public static ApiResult fail(Integer code, String message, Object data) {
+        return new ApiResult(code, message, data);
+    }
+
+    public static ApiResult failMap(String key, String value) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(key, value);
+        return result(ApiCode.FAIL, map);
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
     }
 
     @Override
     public String toString() {
-        return "PageResult{" +
-                "total=" + total +
-                ", list=" + list +
-                ", page=" + page +
-                ", pageSize=" + pageSize +
+        return "Result{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                ", timestamp='" + timestamp + '\'' +
+                ", data=" + data +
                 '}';
     }
 }

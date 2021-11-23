@@ -248,7 +248,7 @@ public enum ApiCode {
     /**
      * JWT Token解析异常
      **/
-    JWTDECODE_EXCEPTION(10003, "Token解析异常"),
+    JWT_DECODE_EXCEPTION(10003, "Token解析异常"),
 
     /**
      * 登录授权异常
@@ -293,12 +293,12 @@ public enum ApiCode {
     /**
      * 状态码
      */
-    private Integer code;
+    private final Integer code;
 
     /**
      * 响应消息
      */
-    private String message;
+    private final String message;
 
     /**
      * <p>

@@ -205,6 +205,8 @@
 package club.gclmit.chaos.core.http;
 
 import club.gclmit.chaos.core.io.IOUtils;
+import club.gclmit.chaos.core.utils.StringUtils;
+import cn.hutool.core.map.MapUtil;
 import com.ejlchina.okhttps.HttpResult;
 import com.ejlchina.okhttps.OkHttps;
 import com.ejlchina.okhttps.internal.RealHttpResult;
@@ -214,6 +216,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 通用请求客户端
@@ -320,7 +323,19 @@ public class RequestClient {
      * @author gclm
      */
     public static String get(String url, Map<String, String> headers) {
-        return OkHttps.async(url).addHeader(headers).get().getResult().getBody().cache().toString();
+        return getResult(url, headers).getBody().toString();
+    }
+
+    /**
+     * get 请求
+     *
+     * @param url     请求url
+     * @param headers 请求头
+     * @return java.lang.String
+     * @author gclm
+     */
+    public static HttpResult getResult(String url, Map<String, String> headers) {
+        return OkHttps.async(url).addHeader(headers).get().getResult();
     }
 
     /**
@@ -348,10 +363,47 @@ public class RequestClient {
      */
     public static String post(String url, Map<String, ?> params, Map<String, String> headers, String type) {
         if (JSON_REQUEST_TYPE.equals(type) || FROM_REQUEST_TYPE.equals(type)) {
-            return OkHttps.async(url).addHeader(headers).addBodyPara(params).bodyType(type).post().getResult().getBody().cache().toString();
+            return OkHttps.async(url).addHeader(headers).addBodyPara(params).bodyType(type).post().getResult().getBody().toString();
         }
         return null;
     }
+
+    /**
+     * post 请求
+     *
+     * @param url     请求url
+     * @param json    请求参数
+     * @param headers 请求头
+     * @return java.lang.String
+     * @author gclm
+     */
+    public static String post(String url, String json, Map<String, String> headers) {
+        return Objects.requireNonNull(postResult(url, null, json, headers, null)).getBody().toString();
+    }
+
+
+    /**
+     * post 请求
+     *
+     * @param url     请求url
+     * @param params  请求参数
+     * @param json    请求参数
+     * @param headers 请求头
+     * @param type    格式类型 json|from
+     * @return java.lang.String
+     * @author gclm
+     */
+    public static HttpResult postResult(String url, Map<String, ?> params, String json, Map<String, String> headers, String type) {
+        if (MapUtil.isNotEmpty(params) && StringUtils.isBlank(json)) {
+            if (JSON_REQUEST_TYPE.equals(type) || FROM_REQUEST_TYPE.equals(type)) {
+                return OkHttps.async(url).addHeader(headers).addBodyPara(params).bodyType(type).post().getResult();
+            }
+        } else if (MapUtil.isEmpty(params) && StringUtils.isNotBlank(json)) {
+            return OkHttps.async(url).addHeader(headers).setBodyPara(json).bodyType(OkHttps.JSON).post().getResult();
+        }
+        return null;
+    }
+
 
     /**
      * put 请求
@@ -376,7 +428,20 @@ public class RequestClient {
      * @author gclm
      */
     public static String put(String url, Map<String, ?> params, Map<String, String> headers) {
-        return OkHttps.async(url).addHeader(headers).addBodyPara(params).put().getResult().getBody().cache().toString();
+        return putResult(url, params, headers).getBody().toString();
+    }
+
+    /**
+     * put 请求
+     *
+     * @param url     请求url
+     * @param params  请求参数
+     * @param headers 请求头
+     * @return java.lang.String
+     * @author gclm
+     */
+    public static HttpResult putResult(String url, Map<String, ?> params, Map<String, String> headers) {
+        return OkHttps.async(url).addHeader(headers).addBodyPara(params).put().getResult();
     }
 
     /**
@@ -399,7 +464,19 @@ public class RequestClient {
      * @author gclm
      */
     public static String delete(String url, Map<String, String> headers) {
-        return OkHttps.async(url).addHeader(headers).delete().getResult().getBody().cache().toString();
+        return deleteResult(url, header()).getBody().toString();
+    }
+
+    /**
+     * delete 请求
+     *
+     * @param url     请求url
+     * @param headers 请求头
+     * @return java.lang.String
+     * @author gclm
+     */
+    public static HttpResult deleteResult(String url, Map<String, String> headers) {
+        return OkHttps.async(url).addHeader(headers).delete().getResult();
     }
 
     /**
@@ -413,7 +490,7 @@ public class RequestClient {
      * @author gclm
      */
     public static String upload(String url, Map<String, String> headers, String fileParam, File file) {
-        return OkHttps.async(url).addHeader(headers).addFilePara(fileParam, file).post().getResult().getBody().cache().toString();
+        return OkHttps.async(url).addHeader(headers).addFilePara(fileParam, file).post().getResult().getBody().toString();
     }
 
     /**
@@ -430,7 +507,7 @@ public class RequestClient {
      * @author gclm
      */
     public static String upload(String url, Map<String, String> headers, Map<String, String> params, String fileParam, String fileType, String fileName, InputStream inputStream) {
-        return OkHttps.async(url).addHeader(headers).addBodyPara(params).addFilePara(fileParam, fileType, fileName, IOUtils.readToByteArray(inputStream)).post().getResult().getBody().cache().toString();
+        return OkHttps.async(url).addHeader(headers).addBodyPara(params).addFilePara(fileParam, fileType, fileName, IOUtils.readToByteArray(inputStream)).post().getResult().getBody().toString();
     }
 
     /**
@@ -445,6 +522,6 @@ public class RequestClient {
      * @author gclm
      */
     public static String upload(String url, Map<String, ?> params, Map<String, String> headers, String fileParam, File file) {
-        return OkHttps.async(url).addHeader(headers).addBodyPara(params).addFilePara(fileParam, file).post().getResult().getBody().cache().toString();
+        return OkHttps.async(url).addHeader(headers).addBodyPara(params).addFilePara(fileParam, file).post().getResult().getBody().toString();
     }
 }

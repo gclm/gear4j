@@ -244,7 +244,6 @@ public class XssFilter extends OncePerRequestFilter implements Ordered {
             filterChain.doFilter(request, response);
             return;
         }
-
         XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper(request);
         filterChain.doFilter(xssRequest, response);
     }
