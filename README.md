@@ -14,7 +14,7 @@
     <a target="_blank" href="https://github.com/gclm/chaos/actions">
         <img src="https://github.com/gclm/chaos/actions/workflows/codeql-analysis.yml/badge.svg" />
 	</a>
-    <a href="https://www.codacy.com/gh/gclm/chaos/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=gclm/chaos&amp;utm_campaign=Badge_Grade">
+    <a href="https://www.codacy.com/gh/gclm/chaos/dashboard?utm_source=github.com&utm_medium=referral&utm_content=gclm/chaos&utm_campaign=Badge_Grade">
         <img src="https://app.codacy.com/project/badge/Grade/f1c25e46f1924c14a1d41f3718223402"/>
     </a>
     <a target="_blank" href="https://search.maven.org/search?q=g:%20club.gclmit%20AND%20a:%20chaos-spring-boot-starter">
@@ -57,7 +57,7 @@
 .
 ├── LICENSE
 ├── README.md                       说明
-├── chaos-spring-boot-starter       Spring Boot Starter     
+├── chaos-spring-boot-starter       Spring Boot Starter   
 ├── chaos-core                      核心模块
 ├── chaos-logger                    日志模块
 ├── chaos-storage                   存储模块
@@ -81,15 +81,13 @@
 <dependency>
     <groupId>club.gclmit</groupId>
     <artifactId>chaos-spring-boot-starter</artifactId>
-    <version>2.3.3</version>
+    <version>2.3.7</version>
 </dependency>
 ```
 
 **Gradle**
 
-```text
-implementation 'club.gclmit:chaos-spring-boot-starter:2.3.3'
-```
+implementation 'club.gclmit:chaos-spring-boot-starter:2.3.7'
 
 ### 导入SQL
 
@@ -150,7 +148,3 @@ FOREIGN_KEY_CHECKS = 1;
 
 - 感谢 JetBrains 提供的非商业开源软件开发授权
 - Thanks for non-commercial open source development authorization by JetBrains
-
-
-
-
