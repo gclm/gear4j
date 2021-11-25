@@ -72,8 +72,13 @@
         </dependency>
 
         <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.ejlchina</groupId>
-            <artifactId>okhttps-fastjson</artifactId>
+            <artifactId>okhttps-jackson</artifactId>
         </dependency>
 
         <dependency>
@@ -82,8 +87,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
