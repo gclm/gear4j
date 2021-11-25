@@ -366,6 +366,18 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
     }
 
     /**
+     * 根据 FileInfo id 删除文件
+     *
+     * @param id FileInfo id
+     * @author gclm
+     */
+    @Override
+    public void deleteFileById(String id) {
+        FileInfo info = getById(id);
+        storageClient.delete(info.getOssKey());
+    }
+
+    /**
      * 根据 key 删除文件
      *
      * @param key OSS Key

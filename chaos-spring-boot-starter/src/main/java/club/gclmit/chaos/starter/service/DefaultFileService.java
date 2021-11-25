@@ -294,6 +294,15 @@ public interface DefaultFileService extends IService<FileInfo> {
      */
     public void updateFileStatusById(String id, Integer fileStatus);
 
+
+    /**
+     * 根据FileInfo id 删除文件
+     *
+     * @param id  FileInfo id
+     * @author gclm
+     */
+    public void deleteFileById(String id);
+
     /**
      * 根据OSS key 删除文件
      *
