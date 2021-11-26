@@ -1,4 +1,10 @@
 *.java linguist-language=Java
+*.py linguist-language=Python
+*.html linguist-language=html
 *.css linguist-language=css
 *.js linguist-language=JavaScript
-*.html linguist-language=html
+*.sh linguist-language=Shell
+
+*.md linguist-language=Markdown
+*.sql linguist-language=MySQL
+
