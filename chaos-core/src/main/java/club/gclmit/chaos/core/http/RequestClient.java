@@ -483,6 +483,19 @@ public class RequestClient {
      * 上传 请求
      *
      * @param url       请求url
+     * @param fileParam 上传文件参数
+     * @param file      上传文件
+     * @return java.lang.String
+     * @author gclm
+     */
+    public static String upload(String url, String fileParam, File file) {
+        return OkHttps.async(url).addHeader(header()).addFilePara(fileParam, file).post().getResult().getBody().toString();
+    }
+
+    /**
+     * 上传 请求
+     *
+     * @param url       请求url
      * @param headers   请求头
      * @param fileParam 上传文件参数
      * @param file      上传文件

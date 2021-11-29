@@ -3,6 +3,7 @@
 - 新增`DefaultFileService`基于id删除的方法
 - 新增`CHANGELOG.md`版本记录管理
 - chaos.sh -> chaos.py
+- requestClient 新增上传文件参数支持
 
 ### 1.3.6
 
@@ -15,4 +16,3 @@
 - 优化通用Build参数
 - 新增Github Action 生成JavaDoc 功能
 
-### 版本：2.3.7 发布时间：2021-11-25 16:19:25
