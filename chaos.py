@@ -89,9 +89,9 @@ def main():
             exit(0)
         result = os.system("mvn versions:set -DnewVersion={}".format(version))
         if result == 0:
-            os.system('echo "{}\t\t发布版本：{}\t\t当前最新版本：{}" >> docs/version.txt'.format(date, old_version, version))
+            os.system('echo "{}\t\t发布版本：{}\t\t当前开发版本：{}" >> docs/version.txt'.format(date, old_version, version))
             add_content_file("CHANGELOG.md", "### 版本：{}\t\t发布时间：{}".format(old_version, date))
-            replace_file_content("README.md", old_version, version)
+#             replace_file_content("README.md", old_version, version)
             print("版本：{}\t发布时间：{}\t当前最新版本：{}".format(old_version, date, version))
     if args.dependency:
         print("start option dependency")

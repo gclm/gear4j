@@ -73,6 +73,7 @@
 - [国内地址](https://gclm.gitee.io/chaos/)
 
 ### 添加依赖
+> 最新版本依赖通过这个链接查询 [最新版本查询链接](https://search.maven.org/search?q=g:%20club.gclmit%20AND%20a:%20chaos-spring-boot-starter)
 
 **Maven**
 
@@ -81,13 +82,13 @@
 <dependency>
     <groupId>club.gclmit</groupId>
     <artifactId>chaos-spring-boot-starter</artifactId>
-    <version>2.3.7</version>
+    <version>最新版本</version>
 </dependency>
 ```
 
 **Gradle**
 
-implementation 'club.gclmit:chaos-spring-boot-starter:2.3.7'
+implementation 'club.gclmit:chaos-spring-boot-starter:最新版本'
 
 ### 导入SQL
 
