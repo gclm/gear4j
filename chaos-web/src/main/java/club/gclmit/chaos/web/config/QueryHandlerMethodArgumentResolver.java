@@ -210,6 +210,7 @@ import club.gclmit.chaos.web.annotation.ChaosQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -232,8 +233,8 @@ public class QueryHandlerMethodArgumentResolver implements HandlerMethodArgument
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-                                  NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+    public Object resolveArgument(MethodParameter parameter,  @Nullable ModelAndViewContainer mavContainer,
+                                  NativeWebRequest webRequest,  @Nullable WebDataBinderFactory binderFactory) throws Exception {
         ChaosQuery chaosQuery = parameter.getParameterAnnotation(ChaosQuery.class);
         if (chaosQuery == null) {
             throw new IllegalArgumentException(

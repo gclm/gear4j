@@ -215,7 +215,6 @@ import club.gclmit.chaos.storage.pojo.FileInfo;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.DeleteObjectsRequest;
-import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -237,11 +236,6 @@ public class AliyunStorageClient extends StorageClient {
     private static final Logger log = LoggerFactory.getLogger(AliyunStorageClient.class);
 
     /**
-     * 阿里云域名
-     */
-    private static final String ALIYUN_DOMAIN_SUFFIX = ".aliyuncs.com";
-
-    /**
      * 阿里云 OSS客户端
      */
     private final OSS ossClient;
@@ -250,11 +244,6 @@ public class AliyunStorageClient extends StorageClient {
      * OSS 配置参数
      */
     private final CloudStorage cloudStorage;
-
-    /**
-     * 阿里云节点地址
-     */
-    private String endpoint;
 
     /**
      * <p>
@@ -268,10 +257,9 @@ public class AliyunStorageClient extends StorageClient {
         super(storage);
         if (storage.getType() == StorageServer.ALIYUN) {
             cloudStorage = storage.getConfig();
-            endpoint = cloudStorage.getRegion() + ALIYUN_DOMAIN_SUFFIX;
             log.debug("阿里云配置参数:[{}]", storage);
             // 创建OSSClient实例
-            ossClient = new OSSClientBuilder().build(endpoint, cloudStorage.getAccessKeyId(), cloudStorage.getAccessKeySecret());
+            ossClient = new OSSClientBuilder().build(cloudStorage.getRegion(), cloudStorage.getAccessKeyId(), cloudStorage.getAccessKeySecret());
         } else {
             throw new ChaosException("[阿里云OSS]上传文件失败，请检查 阿里云OSS 配置");
         }
@@ -328,7 +316,7 @@ public class AliyunStorageClient extends StorageClient {
         String eTag = null;
         try {
             // 简单上传
-            PutObjectResult putObject = ossClient.putObject(new PutObjectRequest(cloudStorage.getBucket(), key, inputStream));
+            PutObjectResult putObject = ossClient.putObject(cloudStorage.getBucket(), key, inputStream);
             eTag = putObject.getETag();
         } catch (Exception e) {
             throw new ChaosException("[阿里云OSS]上传文件失败，请检查配置信息", e);
@@ -341,11 +329,11 @@ public class AliyunStorageClient extends StorageClient {
              */
             StringBuilder path = new StringBuilder();
             if (StringUtils.isNotBlank(cloudStorage.getEndpoint())) {
-                endpoint = cloudStorage.getEndpoint();
+                path.append(cloudStorage.getEndpoint());
             } else {
-                endpoint = new StringBuilder(cloudStorage.getBucket()).append(".").append(endpoint).toString();
+                path.append(cloudStorage.getProtocol()).append("://").append(cloudStorage.getBucket()).append(".").append(cloudStorage.getRegion());
             }
-            path.append(cloudStorage.getProtocol()).append("://").append(endpoint).append("/").append(key);
+            path.append("/").append(key);
             if (StringUtils.isNotBlank(cloudStorage.getStyleName())) {
                 path.append(cloudStorage.getStyleName());
             }

@@ -229,7 +229,7 @@ public class FastApiCondition implements RequestCondition<FastApiCondition> {
 
     @Override
     public FastApiCondition combine(FastApiCondition other) {
-        /**
+        /*
          * 最近优先原则，方法定义 @ApiVersion > 类定义的 @ApiVersion
          */
         return new FastApiCondition(other.getApiVersion());
@@ -239,10 +239,10 @@ public class FastApiCondition implements RequestCondition<FastApiCondition> {
     public FastApiCondition getMatchingCondition(HttpServletRequest request) {
         Matcher matcher = VERSION_PREFIX_PATTERN.matcher(request.getRequestURI());
         if (matcher.find()) {
-            /**
+            /*
              *  获得符合匹配条件的 ApiVersionCodition
              */
-            Integer version = Integer.valueOf(matcher.group(1));
+            int version = Integer.parseInt(matcher.group(1));
             if (version >= getApiVersion()) {
                 return this;
             }

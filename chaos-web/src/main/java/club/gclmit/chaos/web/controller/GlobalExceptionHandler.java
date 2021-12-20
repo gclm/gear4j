@@ -209,9 +209,7 @@ import club.gclmit.chaos.web.result.ApiResult;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -220,8 +218,6 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author 孤城落寞
  */
-@RestController
-@ControllerAdvice
 public class GlobalExceptionHandler {
 
     /**
@@ -262,7 +258,6 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = {ChaosException.class})
     public ApiResult chaosException(Exception exception) {
-
         return ApiResult.fail(exception.getMessage());
     }
 }

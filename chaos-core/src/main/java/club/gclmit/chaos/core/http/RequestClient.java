@@ -226,20 +226,6 @@ import java.util.Objects;
  */
 public class RequestClient {
 
-    /**
-     * json 请求
-     */
-    public static final String JSON_REQUEST_TYPE = "json";
-
-    /**
-     * from 请求
-     */
-    public static final String FROM_REQUEST_TYPE = "from";
-
-    /**
-     * 文件上传请求
-     */
-    public static final String UPLOAD_REQUEST_TYPE = "multipart/form";
 
     private RequestClient() {
     }
@@ -362,10 +348,7 @@ public class RequestClient {
      * @author gclm
      */
     public static String post(String url, Map<String, ?> params, Map<String, String> headers, String type) {
-        if (JSON_REQUEST_TYPE.equals(type) || FROM_REQUEST_TYPE.equals(type)) {
-            return OkHttps.async(url).addHeader(headers).addBodyPara(params).bodyType(type).post().getResult().getBody().toString();
-        }
-        return null;
+        return OkHttps.async(url).addHeader(headers).addBodyPara(params).bodyType(type).post().getResult().getBody().toString();
     }
 
     /**
@@ -395,9 +378,7 @@ public class RequestClient {
      */
     public static HttpResult postResult(String url, Map<String, ?> params, String json, Map<String, String> headers, String type) {
         if (MapUtil.isNotEmpty(params) && StringUtils.isBlank(json)) {
-            if (JSON_REQUEST_TYPE.equals(type) || FROM_REQUEST_TYPE.equals(type)) {
-                return OkHttps.async(url).addHeader(headers).addBodyPara(params).bodyType(type).post().getResult();
-            }
+            return OkHttps.async(url).addHeader(headers).addBodyPara(params).bodyType(type).post().getResult();
         } else if (MapUtil.isEmpty(params) && StringUtils.isNotBlank(json)) {
             return OkHttps.async(url).addHeader(headers).setBodyPara(json).bodyType(OkHttps.JSON).post().getResult();
         }

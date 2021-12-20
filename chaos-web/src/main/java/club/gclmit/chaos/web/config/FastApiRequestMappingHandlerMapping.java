@@ -211,7 +211,6 @@ import org.springframework.web.servlet.mvc.condition.RequestCondition;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import java.lang.reflect.Method;
-import java.util.Objects;
 
 /**
  * <p>
@@ -232,6 +231,7 @@ public class FastApiRequestMappingHandlerMapping extends RequestMappingHandlerMa
     @Override
     protected RequestCondition<?> getCustomTypeCondition(Class<?> handlerType) {
         FastApi version = AnnotationUtils.findAnnotation(handlerType, FastApi.class);
+        assert version != null;
         return createRequestCondition(version);
     }
 
@@ -245,6 +245,7 @@ public class FastApiRequestMappingHandlerMapping extends RequestMappingHandlerMa
     @Override
     protected RequestCondition<?> getCustomMethodCondition(Method method) {
         FastApi fastApi = AnnotationUtils.findAnnotation(method, FastApi.class);
+        assert fastApi != null;
         return createRequestCondition(fastApi);
     }
 
@@ -259,9 +260,6 @@ public class FastApiRequestMappingHandlerMapping extends RequestMappingHandlerMa
      */
     private RequestCondition<FastApiCondition> createRequestCondition(FastApi version) {
 
-        if (Objects.isNull(version)) {
-            return null;
-        }
         int versionValue = version.value();
         Assert.isTrue(versionValue >= 1, "Api 版本不能小于 1");
         return new FastApiCondition(versionValue);

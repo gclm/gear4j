@@ -4,6 +4,10 @@
 - 新增`CHANGELOG.md`版本记录管理
 - chaos.sh -> chaos.py
 - requestClient 新增上传文件参数支持
+- 优化GlobalExceptionHandler、RestApiController类注解
+- 修复chaos-storage中阿里云失效的bug
+- 优化函数注释
+- 升级依赖
 
 ### 1.3.6
 

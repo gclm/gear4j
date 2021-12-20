@@ -238,7 +238,7 @@ public class CloudStorage implements Serializable {
     private String endpoint;
 
     /**
-     * 地域节点
+     * 地域节点 （阿里云: endpoint）
      */
     private String region;
 

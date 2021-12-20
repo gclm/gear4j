@@ -208,6 +208,7 @@ import club.gclmit.chaos.core.io.IOUtils;
 import club.gclmit.chaos.storage.client.StorageClient;
 import club.gclmit.chaos.storage.contants.StorageServer;
 import club.gclmit.chaos.storage.pojo.CloudStorage;
+import club.gclmit.chaos.storage.pojo.FileInfo;
 import cn.hutool.core.io.resource.InputStreamResource;
 import cn.hutool.core.util.IdUtil;
 import com.ejlchina.okhttps.OkHttps;
@@ -231,7 +232,7 @@ import java.util.Map;
  */
 public class StorageClientTest {
 
-    public static final String FILE_PATH = "/home/gclm/1617005255007.jpg";
+    public static final String FILE_PATH = "/Users/gclm/Pictures/064A9498.jpg";
     public static final String MAC_FILE_PATH = "/Users/gclm/Pictures/avatar.jpg";
 
     private static void uploadFile(Storage storage, File file) {
@@ -285,6 +286,8 @@ public class StorageClientTest {
         StorageClient client = CloudStorageFactory.build(storage);
         File file = new File(FILE_PATH);
 
+        FileInfo fileInfo = client.upload(file);
+        System.out.println(fileInfo);
     }
 
     /**

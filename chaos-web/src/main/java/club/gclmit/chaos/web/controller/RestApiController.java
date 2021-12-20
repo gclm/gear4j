@@ -229,8 +229,7 @@ import java.util.List;
  *
  * @author gclm
  */
-@RestController
-public abstract class RestApiController<Service extends IService<T>, T> {
+public class RestApiController<Service extends IService<T>, T> {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -277,7 +276,7 @@ public abstract class RestApiController<Service extends IService<T>, T> {
      */
     @ApiOperation(value = "根据id查询数据详情", notes = "根据id查询数据详情")
     @ApiParam(name = "id", required = true, example = "1111")
-    @GetMapping("/{id:\\d+}")
+    @GetMapping("/{id}")
     public ApiResult getInfo(@PathVariable String id) {
         Assert.notNull(id, "id不能为空");
         log.info("根据Id:[{}]查询数据详情", id);
@@ -309,7 +308,7 @@ public abstract class RestApiController<Service extends IService<T>, T> {
      */
     @ApiOperation(value = "根据id删除数据", notes = "根据id删除数据")
     @ApiParam(name = "id", required = true, example = "1111")
-    @DeleteMapping("/{id:\\d+}")
+    @DeleteMapping("/{id}")
     public ApiResult delete(@PathVariable String id) {
         Assert.notNull(id, "id不能为空");
         log.info("删除操作数据ID:[{}]", id);

@@ -240,7 +240,7 @@ public class JsonSerializerManage {
         //忽略value为null 时 key的输出
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
-        /**
+        /*
          * 序列换成json时,将所有的long变成string
          * 因为js中得数字类型不能包含所有的java long值
          */
