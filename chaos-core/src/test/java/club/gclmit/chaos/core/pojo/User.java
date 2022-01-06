@@ -210,7 +210,6 @@ package club.gclmit.chaos.core.pojo;
  * </p>
  *
  * @author gclm
- * @date 2020/4/16 6:43 下午
  * @since 1.8
  */
 public class User {

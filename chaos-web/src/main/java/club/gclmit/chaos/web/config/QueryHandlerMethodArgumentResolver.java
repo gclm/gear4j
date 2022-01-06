@@ -232,9 +232,20 @@ public class QueryHandlerMethodArgumentResolver implements HandlerMethodArgument
         return parameter.hasParameterAnnotation(ChaosQuery.class);
     }
 
+    /**
+     * 父类转子类
+     *
+     * @param parameter     MethodParameter
+     * @param mavContainer  ModelAndViewContainer
+     * @param webRequest    NativeWebRequest
+     * @param binderFactory WebDataBinderFactory
+     * @return {@link Object}
+     * @author gclm
+     */
     @Override
-    public Object resolveArgument(MethodParameter parameter,  @Nullable ModelAndViewContainer mavContainer,
-                                  NativeWebRequest webRequest,  @Nullable WebDataBinderFactory binderFactory) throws Exception {
+    public Object resolveArgument(MethodParameter parameter, @Nullable ModelAndViewContainer mavContainer,
+                                  NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) throws Exception {
+
         ChaosQuery chaosQuery = parameter.getParameterAnnotation(ChaosQuery.class);
         if (chaosQuery == null) {
             throw new IllegalArgumentException(

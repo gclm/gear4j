@@ -219,7 +219,6 @@ import java.io.FileNotFoundException;
  *
  * @author gclm
  * @version V1.0
- * @date 2019/11/6 23:56
  */
 public class FileTypeUtilsTest {
 

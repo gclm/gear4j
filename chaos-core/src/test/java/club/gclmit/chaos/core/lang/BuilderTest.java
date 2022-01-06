@@ -213,7 +213,6 @@ import org.junit.Test;
  * </p>
  *
  * @author gclm
- * @date 2020/4/16 7:40 下午
  * @since 1.8
  */
 public class BuilderTest {

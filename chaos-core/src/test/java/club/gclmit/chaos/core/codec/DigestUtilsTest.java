@@ -216,7 +216,6 @@ import java.io.File;
  * </p>
  *
  * @author gclm
- * @date 2020/5/23 10:29 上午
  * @since 1.8
  */
 public class DigestUtilsTest {

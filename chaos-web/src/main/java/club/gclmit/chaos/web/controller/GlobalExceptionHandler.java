@@ -224,7 +224,7 @@ public class GlobalExceptionHandler {
      * 处理 validate 异常
      *
      * @param exception 异常
-     * @return club.gclmit.chaos.web.response.Result
+     * @return {@link ApiResult}
      * @author gclm
      */
     @ExceptionHandler(value = {
@@ -253,7 +253,7 @@ public class GlobalExceptionHandler {
      * chaos组件相关的异常
      *
      * @param exception 异常
-     * @return club.gclmit.chaos.web.response.Result
+     * @return {@link ApiResult}
      * @author gclm
      */
     @ExceptionHandler(value = {ChaosException.class})

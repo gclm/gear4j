@@ -215,7 +215,6 @@ import java.util.stream.Collectors;
  * Maven清理 *.lastupload 文件
  *
  * @author gclm
- * @date 2021/5/10 下午2:33
  * @since 1.0
  */
 public class FileUtilsTest {

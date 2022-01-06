@@ -1,3 +1,7 @@
+- style: 修改返回类型风格
+- style: 删除注解@date
+- build: 升级依赖
+
 ### 版本：2.3.7		发布时间：2021-12-20 14:07:05
 - 新增`DefaultFileService`基于id删除的方法
 - 新增`CHANGELOG.md`版本记录管理

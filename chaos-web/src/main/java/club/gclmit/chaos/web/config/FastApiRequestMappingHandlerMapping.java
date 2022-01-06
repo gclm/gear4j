@@ -225,7 +225,7 @@ public class FastApiRequestMappingHandlerMapping extends RequestMappingHandlerMa
      * 扫描类上的 @ApiVersion
      *
      * @param handlerType Class
-     * @return RequestCondition
+     * @return {@link RequestCondition}
      * @author gclm
      */
     @Override
@@ -239,7 +239,7 @@ public class FastApiRequestMappingHandlerMapping extends RequestMappingHandlerMa
      * 扫描方法上的@ApiVersion
      *
      * @param method 扫描方法
-     * @return RequestCondition
+     * @return {@link RequestCondition}
      * @author gclm
      */
     @Override
@@ -250,16 +250,13 @@ public class FastApiRequestMappingHandlerMapping extends RequestMappingHandlerMa
     }
 
     /**
-     * <p>
      * 创建 requestRequestCondition
-     * </p>
      *
      * @param version ApiVersion
-     * @return org.springframework.web.servlet.mvc.condition.RequestCondition<club.gclmit.chaos.annotation.version.ApiVersionCondition>
+     * @return {@link RequestCondition<FastApiCondition>}
      * @author gclm
      */
     private RequestCondition<FastApiCondition> createRequestCondition(FastApi version) {
-
         int versionValue = version.value();
         Assert.isTrue(versionValue >= 1, "Api 版本不能小于 1");
         return new FastApiCondition(versionValue);

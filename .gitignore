@@ -3,6 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+chaos-storage/src/test/java/club/gclmit/chaos/storage/AuthStorageClientTest.java
 
 ### STS ###
 .apt_generated

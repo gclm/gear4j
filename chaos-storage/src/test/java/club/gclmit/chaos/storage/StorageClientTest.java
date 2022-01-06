@@ -227,7 +227,6 @@ import java.util.Map;
  * </p>
  *
  * @author gclm
- * @date 2020/1/2 4:40 下午
  * @since 1.8
  */
 public class StorageClientTest {

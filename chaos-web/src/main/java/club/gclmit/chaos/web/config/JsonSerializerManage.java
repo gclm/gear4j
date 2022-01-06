@@ -230,11 +230,12 @@ public class JsonSerializerManage {
      * </p>
      *
      * @param builder Jackson2ObjectMapperBuilder
-     * @return com.fasterxml.jackson.databind.ObjectMapper
+     * @return {@link ObjectMapper}
      * @author gclm
      */
     @Bean
     public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
+
         Logger.info(LoggerServer.CONFIG, "jackson 配置，解决前端 Long 类型精度丢失");
         ObjectMapper objectMapper = builder.createXmlMapper(false).build();
         //忽略value为null 时 key的输出

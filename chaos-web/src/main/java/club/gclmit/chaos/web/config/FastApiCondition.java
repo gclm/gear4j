@@ -227,20 +227,31 @@ public class FastApiCondition implements RequestCondition<FastApiCondition> {
         this.apiVersion = apiVersion;
     }
 
+    /**
+     * 最近优先原则，方法定义ApiVersion 大于 类定义的ApiVersion
+     *
+     * @param other FastApiCondition
+     * @return {@link FastApiCondition}
+     * @author gclm
+     */
     @Override
     public FastApiCondition combine(FastApiCondition other) {
-        /*
-         * 最近优先原则，方法定义 @ApiVersion > 类定义的 @ApiVersion
-         */
         return new FastApiCondition(other.getApiVersion());
     }
 
+    /**
+     * 从HttpServletRequest匹配FastApiCondition注解
+     *
+     * @param request HttpServletRequest
+     * @return {@link FastApiCondition}
+     * @author gclm
+     */
     @Override
     public FastApiCondition getMatchingCondition(HttpServletRequest request) {
         Matcher matcher = VERSION_PREFIX_PATTERN.matcher(request.getRequestURI());
         if (matcher.find()) {
             /*
-             *  获得符合匹配条件的 ApiVersionCodition
+             *  获得符合匹配条件的 FastApiCondition
              */
             int version = Integer.parseInt(matcher.group(1));
             if (version >= getApiVersion()) {

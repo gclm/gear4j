@@ -240,7 +240,7 @@ public class RestApiController<Service extends IService<T>, T> {
      * 执行添加操作
      *
      * @param t 泛型 T
-     * @return club.gclmit.chaos.response.Result
+     * @return {@link ApiResult}
      * @author gclm
      */
     @ApiOperation(value = "添加数据", notes = "添加数据")
@@ -255,7 +255,7 @@ public class RestApiController<Service extends IService<T>, T> {
      * 分页查询数据
      *
      * @param queryCondition 分页查询对象
-     * @return 所有数据
+     * @return {@link ApiPageResult}
      * @author gclm
      */
     @GetMapping
@@ -271,7 +271,7 @@ public class RestApiController<Service extends IService<T>, T> {
      * 执行查询详情
      *
      * @param id id
-     * @return club.gclmit.chaos.response.Result
+     * @return {@link ApiResult}
      * @author gclm
      */
     @ApiOperation(value = "根据id查询数据详情", notes = "根据id查询数据详情")
@@ -288,7 +288,7 @@ public class RestApiController<Service extends IService<T>, T> {
      * 执行更新操作
      *
      * @param t 泛型 T
-     * @return club.gclmit.chaos.response.Result
+     * @return {@link ApiResult}
      * @author gclm
      */
     @ApiOperation(value = "更新数据", notes = "更新数据")
@@ -303,7 +303,7 @@ public class RestApiController<Service extends IService<T>, T> {
      * 执行删除操作
      *
      * @param id id
-     * @return club.gclmit.chaos.response.Result
+     * @return {@link ApiResult}
      * @author gclm
      */
     @ApiOperation(value = "根据id删除数据", notes = "根据id删除数据")
@@ -319,7 +319,7 @@ public class RestApiController<Service extends IService<T>, T> {
      * 批量删除
      *
      * @param ids 采用,拼接的id
-     * @return club.gclmit.chaos.web.response.Result
+     * @return {@link ApiResult}
      * @author gclm
      */
     @ApiOperation(value = "批量删除", notes = "批量删除")

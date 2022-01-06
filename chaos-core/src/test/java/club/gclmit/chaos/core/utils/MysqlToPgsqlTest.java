@@ -222,10 +222,10 @@ import java.util.stream.Collectors;
  * TODO
  *
  * @author gclm
- * @date 2021/4/19 9:38 下午
  * @since 1.8
  */
 public class MysqlToPgsqlTest {
+
     public static void main(String[] args) throws IOException, JSQLParserException {
         // 你的MySQL DDL路径
         String mysqlDDLPath = "/Users/gclm/Documents/dandelion.sql";

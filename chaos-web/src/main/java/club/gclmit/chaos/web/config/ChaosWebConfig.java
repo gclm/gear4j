@@ -239,9 +239,10 @@ public class ChaosWebConfig implements WebMvcConfigurer {
     }
 
     /**
-     * 文件上传临时路径
+     *  文件上传临时路径
      *
-     * @return MultipartConfigElement
+     * @author gclm
+     * @return {@link MultipartConfigElement}
      */
     @Bean
     public MultipartConfigElement multipartConfigElement() {

@@ -210,7 +210,6 @@ package club.gclmit.chaos.core.pojo;
  * </p>
  *
  * @author gclm
- * @date 2020/5/2 3:39 下午
  * @since 1.8
  */
 public class Test extends Dog {

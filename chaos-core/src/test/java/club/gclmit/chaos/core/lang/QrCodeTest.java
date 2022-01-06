@@ -220,7 +220,6 @@ import java.nio.file.Paths;
  * </p>
  *
  * @author gclm
- * @date 2019/11/7 0:18
  */
 public class QrCodeTest {
 
