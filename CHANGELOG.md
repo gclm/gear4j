@@ -2,8 +2,10 @@
 - style: 删除注解@date
 - style: 删除多余的.gitignore文件
 - build: 升级依赖
+- docs: 取消同步Javadoc文档到gitee
 
-### 版本：2.3.7		发布时间：2021-12-20 14:07:05
+### 版本：2.3.7 发布时间：2021-12-20 14:07:05
+
 - 新增`DefaultFileService`基于id删除的方法
 - 新增`CHANGELOG.md`版本记录管理
 - chaos.sh -> chaos.py

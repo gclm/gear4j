@@ -10,12 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Set up JDK 11
         uses: actions/setup-java@v1
         with:
           java-version: 11
+
       - name: Generate JavaDoc
         run: mvn javadoc:aggregate
+
       - name: Deploy JavaDoc Github
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
@@ -24,24 +27,24 @@ jobs:
           CLEAN: true
           FOLDER: target/site/apidocs
 
-      - name: Sync to Gitee
-        uses: wearerequired/git-mirror-action@master
-        env:
-          # 注意在 Settings->Secrets 配置 GITEE_RSA_PRIVATE_KEY
-          SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }}
-        with:
-          # 注意替换为你的 GitHub 源仓库地址
-          source-repo: git@github.com:gclm/chaos.git
-          # 注意替换为你的 Gitee 目标仓库地址
-          destination-repo: git@gitee.com:gclm/chaos.git
-      - name: Build Gitee Pages
-        uses: yanglbme/gitee-pages-action@main
-        with:
-          # 注意替换为你的 Gitee 用户名
-          gitee-username: gclm
-          # 注意在 Settings->Secrets 配置 GITEE_PASSWORD
-          gitee-password: ${{ secrets.GITEE_PASSWORD }}
-          # 注意替换为你的 Gitee 仓库，仓库名严格区分大小写，请准确填写，否则会出错
-          gitee-repo: gclm/chaos
-          # 要部署的分支，默认是 master，若是其他分支，则需要指定（指定的分支必须存在）
-          branch: gh-pages
+#      - name: Sync to Gitee
+#        uses: wearerequired/git-mirror-action@master
+#        env:
+#          # 注意在 Settings->Secrets 配置 GITEE_RSA_PRIVATE_KEY
+#          SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }}
+#        with:
+#          # 注意替换为你的 GitHub 源仓库地址
+#          source-repo: git@github.com:gclm/chaos.git
+#          # 注意替换为你的 Gitee 目标仓库地址
+#          destination-repo: git@gitee.com:gclm/chaos.git
+#      - name: Build Gitee Pages
+#        uses: yanglbme/gitee-pages-action@main
+#        with:
+#          # 注意替换为你的 Gitee 用户名
+#          gitee-username: gclm
+#          # 注意在 Settings->Secrets 配置 GITEE_PASSWORD
+#          gitee-password: ${{ secrets.GITEE_PASSWORD }}
+#          # 注意替换为你的 Gitee 仓库，仓库名严格区分大小写，请准确填写，否则会出错
+#          gitee-repo: gclm/chaos
+#          # 要部署的分支，默认是 master，若是其他分支，则需要指定（指定的分支必须存在）
+#          branch: gh-pages
