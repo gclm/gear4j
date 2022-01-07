@@ -204,8 +204,8 @@
 
 package club.gclmit.chaos.web.result;
 
-import club.gclmit.chaos.core.utils.DateUtils;
 import club.gclmit.chaos.core.utils.StringUtils;
+import cn.hutool.core.date.DateUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -222,7 +222,7 @@ import java.util.Map;
 public class ApiResult implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static final String TIMESTAMP = String.valueOf(DateUtils.getMilliTimestamp());
+    private static final String TIMESTAMP = String.valueOf(DateUtil.current());
 
     /**
      * 响应状态码

@@ -207,14 +207,14 @@ package club.gclmit.chaos.logger.filter;
 import club.gclmit.chaos.core.http.servlet.HttpCacheRequestWrapper;
 import club.gclmit.chaos.core.http.servlet.HttpCacheResponseWrapper;
 import club.gclmit.chaos.core.http.servlet.ServletUtils;
-import club.gclmit.chaos.core.json.util.JsonUtils;
 import club.gclmit.chaos.core.lang.Builder;
-import club.gclmit.chaos.core.utils.DateUtils;
 import club.gclmit.chaos.core.utils.SqlUtils;
 import club.gclmit.chaos.core.utils.UrlUtils;
 import club.gclmit.chaos.logger.mapper.LoggerMapper;
 import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
 import club.gclmit.chaos.logger.model.HttpTrace;
+import cn.hutool.core.date.DateUtil;
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
@@ -269,7 +269,7 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         String uri = request.getRequestURI();
-        Long requestTime = DateUtils.getMilliTimestamp();
+        Long requestTime = DateUtil.current();
         String sessionId = ServletUtils.getSessionId(request);
 
         if (checkIgnoreUrl(uri) || ServletUtils.isFileUpload(request)) {
@@ -282,7 +282,7 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
              *  获取 response 相关参数
              *  请求耗时 = 响应时间 - 请求时间
              */
-            Long responseTime = DateUtils.getMilliTimestamp();
+            Long responseTime = DateUtil.current();
             Long time = responseTime - requestTime;
 
             HttpTrace trace = Builder.build(HttpTrace::new)
@@ -296,8 +296,8 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
                     .val(HttpTrace::setRequestTime, requestTime)
                     .val(HttpTrace::setResponseTime, responseTime)
                     .val(HttpTrace::setConsumingTime, time)
-                    .val(HttpTrace::setResponseHeader, JsonUtils.toJson(ServletUtils.getResponseHeaders(response)))
-                    .val(HttpTrace::setRequestHeader, JsonUtils.toJson(ServletUtils.getRequestHeaders(request)))
+                    .val(HttpTrace::setResponseHeader, JSONObject.toJSONString(ServletUtils.getResponseHeaders(response)))
+                    .val(HttpTrace::setRequestHeader, JSONObject.toJSONString(ServletUtils.getRequestHeaders(request)))
                     .val(HttpTrace::setRequestBody, ServletUtils.getRequestBody(httpCacheRequestWrapper))
                     .val(HttpTrace::setResponseBody, ServletUtils.getResponseBody(responseWrapper))
                     .build();

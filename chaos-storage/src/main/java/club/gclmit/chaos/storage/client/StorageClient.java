@@ -210,10 +210,10 @@ import club.gclmit.chaos.core.id.IdUtils;
 import club.gclmit.chaos.core.io.FileTypeUtils;
 import club.gclmit.chaos.core.io.FileUtils;
 import club.gclmit.chaos.core.io.MimeType;
-import club.gclmit.chaos.core.utils.DateUtils;
 import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.chaos.storage.Storage;
 import club.gclmit.chaos.storage.pojo.FileInfo;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.crypto.SecureUtil;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
@@ -387,7 +387,7 @@ public abstract class StorageClient {
         Assert.hasLength(key, "上传文件失败，请检查上传文件的 key 是否正常");
 
         if (StringUtils.isBlank(key)) {
-            key = DateUtils.getMilliTimestamp() + ".txt";
+            key = DateUtil.current() + ".txt";
         }
         return upload(content.getBytes(StandardCharsets.UTF_8), key, fileName);
     }

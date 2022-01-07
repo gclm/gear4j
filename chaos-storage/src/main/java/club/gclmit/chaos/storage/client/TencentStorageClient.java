@@ -205,13 +205,13 @@
 package club.gclmit.chaos.storage.client;
 
 import club.gclmit.chaos.core.exception.ChaosException;
-import club.gclmit.chaos.core.utils.DateUtils;
 import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.chaos.storage.Storage;
 import club.gclmit.chaos.storage.contants.FileStatus;
 import club.gclmit.chaos.storage.contants.StorageServer;
 import club.gclmit.chaos.storage.pojo.CloudStorage;
 import club.gclmit.chaos.storage.pojo.FileInfo;
+import cn.hutool.core.date.DateUtil;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
@@ -379,7 +379,7 @@ public class TencentStorageClient extends StorageClient {
 
         fileInfo.setUrl(url);
         fileInfo.setETag(eTag);
-        fileInfo.setUploadTime(DateUtils.getMilliTimestamp());
+        fileInfo.setUploadTime(DateUtil.current());
         fileInfo.setStatus(FileStatus.SAVE.getCode());
         return fileInfo;
     }

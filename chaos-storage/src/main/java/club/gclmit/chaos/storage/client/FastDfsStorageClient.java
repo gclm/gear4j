@@ -206,13 +206,13 @@ package club.gclmit.chaos.storage.client;
 
 import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.http.RequestClient;
-import club.gclmit.chaos.core.utils.DateUtils;
 import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.chaos.storage.Storage;
 import club.gclmit.chaos.storage.contants.FileStatus;
 import club.gclmit.chaos.storage.contants.StorageServer;
 import club.gclmit.chaos.storage.pojo.CloudStorage;
 import club.gclmit.chaos.storage.pojo.FileInfo;
+import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -334,7 +334,7 @@ public class FastDfsStorageClient extends StorageClient {
             throw new ChaosException("[FastDFS]上传文件失败，请检查配置信息", e);
         }
         fileInfo.setUrl(url);
-        fileInfo.setUploadTime(DateUtils.getMilliTimestamp());
+        fileInfo.setUploadTime(DateUtil.current());
         fileInfo.setStatus(FileStatus.SAVE.getCode());
         return fileInfo;
     }

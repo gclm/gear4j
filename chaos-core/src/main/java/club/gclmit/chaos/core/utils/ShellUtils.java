@@ -207,6 +207,7 @@ package club.gclmit.chaos.core.utils;
 import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.io.IOUtils;
 import cn.hutool.core.collection.ListUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -224,7 +225,7 @@ import java.util.List;
  */
 public class ShellUtils {
 
-    private static Logger logger = LoggerFactory.getLogger(ShellUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(ShellUtils.class);
 
     /**
      * 执行系统命令，使用系统默认编码
@@ -264,7 +265,7 @@ public class ShellUtils {
      * @throws ChaosException 自定义异常
      */
     public static InputStream exec(String cmd) {
-        Long startTime = DateUtils.getMilliTimestamp();
+        Long startTime = DateUtil.current();
 
         String[] commands = new String[3];
         if (SystemUtils.isWindows()) {
@@ -283,7 +284,7 @@ public class ShellUtils {
 
             if (process.waitFor() == 0) {
                 InputStream stream = process.getInputStream();
-                Long endTime = DateUtils.getMilliTimestamp();
+                Long endTime = DateUtil.current();
                 Long distance = endTime - startTime;
 
                 logger.debug("命令:[{}]\t耗时:[{}]", shell, distance);

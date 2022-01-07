@@ -205,13 +205,13 @@
 package club.gclmit.chaos.starter.service.impl;
 
 import club.gclmit.chaos.core.codec.SecureUtils;
-import club.gclmit.chaos.core.utils.DateUtils;
 import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.chaos.starter.mapper.FileMapper;
 import club.gclmit.chaos.starter.service.DefaultFileService;
 import club.gclmit.chaos.storage.client.StorageClient;
 import club.gclmit.chaos.storage.contants.FileStatus;
 import club.gclmit.chaos.storage.pojo.FileInfo;
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -349,7 +349,7 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
         UpdateWrapper<FileInfo> updateWrapper = new UpdateWrapper<>();
         updateWrapper.lambda()
                 .eq(FileInfo::getOssKey, key);
-        fileMapper.update(new FileInfo(DateUtils.getMilliTimestamp(), fileStatus), updateWrapper);
+        fileMapper.update(new FileInfo(DateUtil.current(), fileStatus), updateWrapper);
     }
 
     /**
@@ -361,7 +361,7 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
      */
     @Override
     public void updateFileStatusById(String id, Integer fileStatus) {
-        FileInfo fileInfo = new FileInfo(Long.valueOf(id), DateUtils.getMilliTimestamp(), fileStatus);
+        FileInfo fileInfo = new FileInfo(Long.valueOf(id), DateUtil.current(), fileStatus);
         fileMapper.updateById(fileInfo);
     }
 
