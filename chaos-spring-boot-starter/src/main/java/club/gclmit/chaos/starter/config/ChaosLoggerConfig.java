@@ -204,7 +204,7 @@
 
 package club.gclmit.chaos.starter.config;
 
-import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
+import club.gclmit.chaos.logger.model.LoggerProperties;
 import club.gclmit.chaos.starter.properties.ChaosProperties;
 import club.gclmit.chaos.waf.xss.XssJacksonDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -234,14 +234,14 @@ public class ChaosLoggerConfig implements WebMvcConfigurer {
 
     /**
      * <p>
-     * 配置 {@link ChaosLoggerProperties}
+     * 配置 {@link LoggerProperties}
      * </p>
      *
      * @return club.gclmit.chaos.storage.client.StorageClient
      * @author gclm
      */
     @Bean
-    public ChaosLoggerProperties chaosLoggerProperties() {
+    public LoggerProperties chaosLoggerProperties() {
         return properties.getLogger();
     }
 

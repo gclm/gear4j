@@ -204,8 +204,8 @@
 
 package club.gclmit.chaos.starter.properties;
 
-import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
-import club.gclmit.chaos.storage.Storage;
+import club.gclmit.chaos.logger.model.LoggerProperties;
+import club.gclmit.chaos.storage.pojo.CloudStorage;
 import club.gclmit.chaos.waf.properties.ChaosWafProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -217,51 +217,51 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("chaos")
 public class ChaosProperties {
 
-    /**
-     * 存储自动注入
-     */
-    private Storage storage;
+	/**
+	 * 存储自动注入
+	 */
+	private CloudStorage storage;
 
-    /**
-     * 日志管理
-     */
-    private ChaosLoggerProperties logger;
+	/**
+	 * 日志管理
+	 */
+	private LoggerProperties logger;
 
-    /**
-     * waf自动注入
-     */
-    private ChaosWafProperties waf;
+	/**
+	 * waf自动注入
+	 */
+	private ChaosWafProperties waf;
 
-    public Storage getStorage() {
-        return storage;
-    }
+	public CloudStorage getStorage() {
+		return storage;
+	}
 
-    public void setStorage(Storage storage) {
-        this.storage = storage;
-    }
+	public void setStorage(CloudStorage storage) {
+		this.storage = storage;
+	}
 
-    public ChaosLoggerProperties getLogger() {
-        return logger;
-    }
+	public LoggerProperties getLogger() {
+		return logger;
+	}
 
-    public void setLogger(ChaosLoggerProperties logger) {
-        this.logger = logger;
-    }
+	public void setLogger(LoggerProperties logger) {
+		this.logger = logger;
+	}
 
-    public ChaosWafProperties getWaf() {
-        return waf;
-    }
+	public ChaosWafProperties getWaf() {
+		return waf;
+	}
 
-    public void setWaf(ChaosWafProperties waf) {
-        this.waf = waf;
-    }
+	public void setWaf(ChaosWafProperties waf) {
+		this.waf = waf;
+	}
 
-    @Override
-    public String toString() {
-        return "ChaosProperties{" +
-                "storage=" + storage +
-                ", logger=" + logger +
-                ", waf=" + waf +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "ChaosProperties{" +
+			"storage=" + storage +
+			", logger=" + logger +
+			", waf=" + waf +
+			'}';
+	}
 }

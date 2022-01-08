@@ -1,0 +1,51 @@
+// 判断是否启动加签
+tasks.whenTaskAdded { task ->
+    if (task.name.contains('signMavenJavaPublication')) {
+        task.enabled = new File(project.property('signing.secretKeyRingFile') as String).isFile()
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "Sonatype"
+            url = version.endsWith('SNAPSHOT') ? NEXUS_SONATYPE_REPOSITORY_SNAPSHOT : NEXUS_SONATYPE_REPOSITORY_RELEASE
+            credentials {
+                username NEXUS_SONATYPE_USERNAME
+                password NEXUS_SONATYPE_PASSWORD
+            }
+        }
+    }
+    publications {
+        versionPlatform(MavenPublication) {
+            from components.javaPlatform
+            pom {
+                name = PROJECT_NAME
+                description = PROJECT_DESCRIPTION
+                url = PROJECT_GIT_URL
+
+                scm {
+                    connection = PROJECT_GIT_SCM_CONNECTION
+                    developerConnection = PROJECT_GIT_SCM_CONNECTION
+                    url = PROJECT_GIT_URL
+                }
+                licenses {
+                    license {
+                        name = LICENSE_NAME
+                        url = LICENSE_URL
+                    }
+                }
+                developers {
+                    developer {
+                        name = DEVELOPER_NAME
+                        email = DEVELOPER_EMAIL
+                    }
+                }
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.versionPlatform
+}

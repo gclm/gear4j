@@ -1,13 +1,26 @@
-# chaos-core 模块
+# Chaos 核心包
 
->
+## 功能
 
-## 功能介绍
+1. Cglib Bean copy 增强，支持链式 bean、Map、优化性能和支持类型转换。
+2. 基于hutool扩展的工具包
+3. 基于SpringWeb扩展的工具包
 
-- id 生成
-- IP 工具
-- 文件处理
-- 通用异常处理
-- 二维码生成/解析
-- SpringServer 服务端口号和上下文路径获取
-- 通用 Response 封装，支持 Result 和 Page
+## 添加依赖
+
+### maven
+
+```xml
+
+<dependency>
+    <groupId>club.gclmit</groupId>
+    <artifactId>chaos-core</artifactId>
+    <version>${version}</version>
+</dependency>
+```
+
+### gradle
+
+```groovy
+compile("club.gclmit:chaos-core:${version}")
+```

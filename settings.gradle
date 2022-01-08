@@ -1,0 +1,9 @@
+rootProject.name = 'chaos'
+include 'chaos-core'
+include 'chaos-storage'
+include 'chaos-web'
+include 'chaos-logger'
+include 'chaos-waf'
+include 'chaos-spring-boot-starter'
+include 'chaos-bom'
+

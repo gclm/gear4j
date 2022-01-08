@@ -1,0 +1,114 @@
+jar {
+    afterEvaluate {
+        manifest {
+            attributes["Implementation-Title"] = project.name
+            attributes["Implementation-Version"] = project.version
+            attributes["Automatic-Module-Name"] = project.name.replace('-', '.')  // for Jigsaw
+            attributes["Created-By"] = "${System.getProperty("java.version")} (${System.getProperty("java.specification.vendor")})"
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from sourceSets.main.allSource
+}
+
+javadoc {
+    options.addStringOption("charset", "UTF-8")
+    options.addStringOption("encoding", "UTF-8")
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addStringOption("links", "https://docs.oracle.com/en/java/javase/11/docs/api/")
+        options.addBooleanOption('html5', true)
+    } else {
+        options.addStringOption("links", "https://docs.oracle.com/javase/8/docs/api")
+    }
+}
+
+task javadocJar(type: Jar) {
+    archiveClassifier.set('javadoc')
+    from 'build/docs/javadoc'
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+// 判断是否启动加签
+tasks.whenTaskAdded { task ->
+    if (task.name.contains('signMavenJavaPublication')) {
+        task.enabled = new File(project.property('signing.secretKeyRingFile') as String).isFile()
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "Sonatype"
+            url = version.endsWith('SNAPSHOT') ? NEXUS_SONATYPE_REPOSITORY_SNAPSHOT : NEXUS_SONATYPE_REPOSITORY_RELEASE
+            credentials {
+                username NEXUS_SONATYPE_USERNAME
+                password NEXUS_SONATYPE_PASSWORD
+            }
+        }
+    }
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            artifact sourcesJar
+            artifact javadocJar
+
+            pom {
+                name = PROJECT_NAME
+                description = PROJECT_DESCRIPTION
+                url = PROJECT_GIT_URL
+
+                scm {
+                    connection = PROJECT_GIT_SCM_CONNECTION
+                    developerConnection = PROJECT_GIT_SCM_CONNECTION
+                    url = PROJECT_GIT_URL
+                }
+                licenses {
+                    license {
+                        name = LICENSE_NAME
+                        url = LICENSE_URL
+                    }
+                }
+                developers {
+                    developer {
+                        name = DEVELOPER_NAME
+                        email = DEVELOPER_EMAIL
+                    }
+                }
+                withXml {
+                    def root = asNode()
+                    root.dependencies.'*'.findAll {
+                        def d = it
+                        d.scope.text() == 'runtime' && project.configurations
+                            .findByName("implementation").allDependencies.find { dep ->
+                            dep.name == it.artifactId.text()
+                        }.each() {
+                            d.scope*.value = 'compile'
+                            d.appendNode('optional', true)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}
+
+
+javadoc {
+    options.addStringOption("charset", "UTF-8")
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
+

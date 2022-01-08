@@ -204,7 +204,7 @@
 
 package club.gclmit.chaos.logger.mapper;
 
-import club.gclmit.chaos.logger.model.HttpTrace;
+import club.gclmit.chaos.logger.model.ApiTraceRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -216,5 +216,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @author gclm
  */
 @Mapper
-public interface LoggerMapper extends BaseMapper<HttpTrace> {
+public interface LoggerMapper extends BaseMapper<ApiTraceRecord> {
 }

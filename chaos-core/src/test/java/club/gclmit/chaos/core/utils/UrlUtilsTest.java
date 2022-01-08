@@ -204,7 +204,7 @@
 
 package club.gclmit.chaos.core.utils;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * UrlUtils 测试工具类

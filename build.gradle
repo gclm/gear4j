@@ -1,0 +1,75 @@
+plugins {
+    id "org.sonarqube" version "3.3"
+    id 'idea'
+    id 'java-library'
+}
+
+apply from: "${rootProject.projectDir}/gradle/sonar.gradle"
+
+// 所有模块/项目的通用配置
+allprojects {
+    group = GROUPID
+    version = VERSION
+
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
+
+    // ci 自动发布 SNAPSHOT 版本
+    task publishSnapshot(type: GradleBuild) {
+        if (VERSION.endsWith('SNAPSHOT')) {
+            tasks = ['clean', 'build', 'publish']
+        }
+    }
+
+    //maven仓库
+    repositories {
+        mavenLocal()
+        maven { url "https://maven.aliyun.com/repository/public" }
+        maven { url "https://maven.aliyun.com/repository/spring" }
+        maven { url "https://maven.aliyun.com/repository/spring-plugin" }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url "https://repo.spring.io/release" }
+        maven { url "https://repo.spring.io/milestone" }
+        mavenCentral()
+    }
+}
+
+
+configure(subprojects - project(":chaos-bom")) {
+    apply plugin: "idea"
+    apply plugin: "java-library"
+    apply from: "${rootProject.projectDir}/gradle/publish.gradle"
+
+    // 指定JDK版本
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    // 指定编码格式
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    }
+
+    // 子项目依赖，类似于在父maven的dependencies
+    dependencies {
+        // import BOM.
+        implementation platform("club.gclmit:chaos-bom:$VERSION")
+
+        compileOnly "org.slf4j:slf4j-api"
+        compileOnly "jakarta.servlet:jakarta.servlet-api"
+        compileOnly "com.google.code.findbugs:jsr305"
+
+        testCompileOnly "com.google.code.findbugs:jsr305"
+        testImplementation "org.slf4j:slf4j-api"
+        testCompileOnly "org.springframework:spring-test"
+        testImplementation 'org.junit.jupiter:junit-jupiter-api'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    }
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+}

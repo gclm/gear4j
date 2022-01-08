@@ -206,6 +206,7 @@ package club.gclmit.chaos.core.utils;
 
 import club.gclmit.chaos.core.exception.ChaosException;
 import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.CharsetUtil;
 import org.springframework.util.AntPathMatcher;
 
 import java.io.UnsupportedEncodingException;
@@ -331,7 +332,7 @@ public class UrlUtils {
      */
     public static String encode(String url) {
         Assert.isTrue(StringUtils.isNotBlank(url), "url 不能为空");
-        return encode(url, CharsetUtils.UTF_8);
+        return encode(url, CharsetUtil.UTF_8);
     }
 
     /**
@@ -375,7 +376,7 @@ public class UrlUtils {
      */
     public static String decode(String url) {
         Assert.isTrue(StringUtils.isNotBlank(url), "url 不能为空");
-        return decode(url, CharsetUtils.UTF_8);
+        return decode(url, CharsetUtil.UTF_8);
     }
 
     /**

@@ -204,11 +204,14 @@
 
 package club.gclmit.chaos.storage.pojo;
 
+import club.gclmit.chaos.storage.contants.ResponseDataType;
+import club.gclmit.chaos.storage.contants.StorageServer;
+
 import java.io.Serializable;
 
 /**
  * <p>
- * 云存储客户端封装 (支持七牛、阿里云、腾讯云、又拍云)
+ * storage 配置
  * </p>
  *
  * @author gclm
@@ -218,130 +221,68 @@ public class CloudStorage implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * AccessKey ID
+     * 类型
+     * 1：阿里云    2：七牛
+     * 3：腾讯云    4：又拍云
+     * 5：UCLOUD
      */
-    private String accessKeyId;
+    private StorageServer type = StorageServer.ALIYUN;
 
     /**
-     * Access Key Secret
+     * OSS 厂商配置
      */
-    private String accessKeySecret;
+    private CloudStorageConfig config = new CloudStorageConfig();
 
     /**
-     * 仓库/存储桶名称
+     * 数据类型
      */
-    private String bucket;
+    private ResponseDataType result = ResponseDataType.DETAIL;
 
     /**
-     * 对象存储服务的URL
+     * 保存数据库
+     * true 为保存，false为不保存
      */
-    private String endpoint;
+    private boolean db = false;
 
-    /**
-     * 地域节点 （阿里云: endpoint）
-     */
-    private String region;
-
-    /**
-     * 前缀
-     */
-    private String prefix;
-
-    /**
-     * 样式名 - 需要带分隔符
-     */
-    private String styleName;
-
-    /**
-     * 当前网络协议
-     */
-    private String protocol = "https";
-
-    public CloudStorage() {
+    public StorageServer getType() {
+        return type;
     }
 
-    public CloudStorage(String accessKeyId, String accessKeySecret, String bucket, String endpoint) {
-        this.accessKeyId = accessKeyId;
-        this.accessKeySecret = accessKeySecret;
-        this.bucket = bucket;
-        this.endpoint = endpoint;
+    public void setType(StorageServer type) {
+        this.type = type;
     }
 
-    public String getAccessKeyId() {
-        return accessKeyId;
+    public CloudStorageConfig getConfig() {
+        return config;
     }
 
-    public void setAccessKeyId(String accessKeyId) {
-        this.accessKeyId = accessKeyId;
+    public void setConfig(CloudStorageConfig config) {
+        this.config = config;
     }
 
-    public String getAccessKeySecret() {
-        return accessKeySecret;
+    public ResponseDataType getResult() {
+        return result;
     }
 
-    public void setAccessKeySecret(String accessKeySecret) {
-        this.accessKeySecret = accessKeySecret;
+    public void setResult(ResponseDataType result) {
+        this.result = result;
     }
 
-    public String getBucket() {
-        return bucket;
+    public boolean isDb() {
+        return db;
     }
 
-    public void setBucket(String bucket) {
-        this.bucket = bucket;
-    }
-
-    public String getEndpoint() {
-        return endpoint;
-    }
-
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public String getPrefix() {
-        return prefix;
-    }
-
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
-    }
-
-    public String getStyleName() {
-        return styleName;
-    }
-
-    public void setStyleName(String styleName) {
-        this.styleName = styleName;
-    }
-
-    public String getProtocol() {
-        return protocol;
-    }
-
-    public void setProtocol(String protocol) {
-        this.protocol = protocol;
+    public void setDb(boolean db) {
+        this.db = db;
     }
 
     @Override
     public String toString() {
-        return "CloudStorage{" +
-                "accessKeyId='" + accessKeyId + '\'' +
-                ", accessKeySecret='" + accessKeySecret + '\'' +
-                ", bucket='" + bucket + '\'' +
-                ", endpoint='" + endpoint + '\'' +
-                ", region='" + region + '\'' +
-                ", prefix='" + prefix + '\'' +
-                ", styleName='" + styleName + '\'' +
-                ", protocol='" + protocol + '\'' +
+        return "Storage{" +
+                "type=" + type +
+                ", config=" + config +
+                ", result=" + result +
+                ", db=" + db +
                 '}';
     }
 }

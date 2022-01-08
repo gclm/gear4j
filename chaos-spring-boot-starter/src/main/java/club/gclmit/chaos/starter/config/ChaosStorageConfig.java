@@ -207,8 +207,8 @@ package club.gclmit.chaos.starter.config;
 import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.chaos.starter.properties.ChaosProperties;
 import club.gclmit.chaos.storage.CloudStorageFactory;
-import club.gclmit.chaos.storage.Storage;
-import club.gclmit.chaos.storage.client.StorageClient;
+import club.gclmit.chaos.storage.pojo.CloudStorage;
+import club.gclmit.chaos.storage.service.CloudStorageClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -243,8 +243,8 @@ public class ChaosStorageConfig {
      * @author gclm
      */
     @Bean
-    public StorageClient storageClient() {
-        Storage storage = properties.getStorage();
+    public CloudStorageClient storageClient() {
+        CloudStorage storage = properties.getStorage();
         log.debug("读取 properties的数据:{}", StringUtils.toString(storage));
         return CloudStorageFactory.build(storage);
     }

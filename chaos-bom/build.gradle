@@ -1,0 +1,81 @@
+plugins {
+    id "java-platform"
+}
+
+apply from: "${rootProject.projectDir}/gradle/publish-bom.gradle"
+
+javaPlatform {
+    allowDependencies()
+}
+
+// 依赖版本管理
+ext {
+
+    // basic
+    springBootVersion = "2.6.2"
+    junitVersion = "5.8.2"
+    findbugsVersion = "3.0.2"
+    zxingVersion = "3.4.1"
+    hutoolVersion = "5.7.18"
+    jsoupVersion = "1.14.3"
+    lombokVersion = "1.18.22"
+    fastjsonVersion = "1.2.78"
+    junitVersion = "5.8.2"
+
+    // commons
+    commonsPool2Version = "2.11.1"
+    mybatisPlusVersion = "3.4.3.4"
+    p6spyVersion = "3.9.1"
+    knife4jVersion = "3.0.3"
+    okhttpsVersion = "3.4.1"
+    swaggerVersion = "1.5.22"
+    swagger3xVersion = "2.1.10"
+    springdocVersion = "1.5.10"
+    druidVersion = "1.2.8"
+    jsoupVersion = "1.14.3"
+
+    // oss
+    aliyunOssVersion = "3.13.2"
+    qiniuOssVersion = "7.9.1"
+    qcloudOssVersion = "5.6.62"
+    ucloudOssVersion = "2.6.6"
+    huaweicloudOssVersion = "3.21.11"
+    upyunOssVersion = "4.2.3"
+}
+
+dependencies {
+    api platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+    api platform("org.junit:junit-bom:${junitVersion}")
+    constraints {
+        // starter
+        api "com.baomidou:mybatis-plus-boot-starter:${mybatisPlusVersion}"
+        api "com.baomidou:mybatis-plus-extension:${mybatisPlusVersion}"
+        api "com.github.xiaoymin:knife4j-spring-boot-starter:${knife4jVersion}"
+
+        // 综合类库
+        api "com.ejlchina:okhttps-jackson:${okhttpsVersion}"
+        api "cn.hutool:hutool-all:${hutoolVersion}"
+
+        // 综合类库/starter - 依赖组件
+        api "p6spy:p6spy:${p6spyVersion}"
+        api "org.apache.commons:commons-pool2:${commonsPool2Version}"
+        api "io.swagger:swagger-annotations:${swaggerVersion}"
+        api "io.swagger.core.v3:swagger-annotations:${swagger3xVersion}"
+        api "com.google.zxing:javase:${zxingVersion}"
+        api "com.google.zxing:core:${zxingVersion}"
+
+        // 基础组件
+        api "org.projectlombok:lombok:${lombokVersion}"
+        api "com.alibaba:fastjson:${fastjsonVersion}"
+        api "org.jsoup:jsoup:${jsoupVersion}"
+        api "com.google.code.findbugs:jsr305:${findbugsVersion}"
+
+        // oss
+        api "com.aliyun.oss:aliyun-sdk-oss:${aliyunOssVersion}"
+        api "com.qiniu:qiniu-java-sdk:${qiniuOssVersion}"
+        api "com.qcloud:cos_api:${qcloudOssVersion}"
+        api "cn.ucloud.ufile:ufile-client-java:${ucloudOssVersion}"
+        api "com.huaweicloud:esdk-obs-java:${huaweicloudOssVersion}"
+        api "com.upyun:java-sdk:${upyunOssVersion}"
+    }
+}

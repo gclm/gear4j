@@ -222,14 +222,8 @@ import java.util.regex.Pattern;
 public class AvatarUtilsTest {
 
     public static void main(String[] args) throws IOException {
-//        System.out.println(AvatarUtils.getGithubStyle());
-//        System.out.println(AvatarUtils.getGithubStyle());
-//        System.out.println(AvatarUtils.getStartStyle("谢"));
-//        System.out.println(AvatarUtils.getStartStyle("孤"));
-//        String name = "刘";
-//        generateImg(name, "/Users/gclm/Desktop", name);
-
-
+        String name = "刘";
+        generateImg(name, "/Users/gclm/Desktop", name);
     }
 
 

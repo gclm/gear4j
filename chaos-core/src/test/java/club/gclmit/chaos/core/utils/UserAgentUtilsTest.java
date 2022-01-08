@@ -3,7 +3,7 @@ package club.gclmit.chaos.core.utils;
 import cn.hutool.core.io.resource.ResourceUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.List;

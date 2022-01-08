@@ -205,8 +205,8 @@
 package club.gclmit.chaos.core.utils;
 
 import club.gclmit.chaos.core.io.FileTypeUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
@@ -224,7 +224,7 @@ public class FileTypeUtilsTest {
 
     public static String path = "";
 
-    @Before
+    @BeforeEach
     public void init() throws FileNotFoundException {
         File file = ResourceUtils.getFile("classpath:test");
         path = file.getAbsolutePath() + File.separator;
@@ -244,9 +244,9 @@ public class FileTypeUtilsTest {
 
     @Test
     public void getContentTypeTest() {
-        System.out.println(FileTypeUtils.getMimeType(new File(path, "test1.jpg")));
-        System.out.println(FileTypeUtils.getMimeType(new File(path, "test1-1.jpeg")));
-        System.out.println(FileTypeUtils.getMimeType(new File(path, "test1-2.png")));
-        System.out.println(FileTypeUtils.getMimeType(new File(path, "test1-3.pdf")));
+//        System.out.println(FileTypeUtils.getMimeType(new File(path, "test1.jpg")));
+//        System.out.println(FileTypeUtils.getMimeType(new File(path, "test1-1.jpeg")));
+//        System.out.println(FileTypeUtils.getMimeType(new File(path, "test1-2.png")));
+//        System.out.println(FileTypeUtils.getMimeType(new File(path, "test1-3.pdf")));
     }
 }

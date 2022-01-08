@@ -204,10 +204,10 @@
 
 package club.gclmit.chaos.core.lang.avatar;
 
-import club.gclmit.chaos.core.codec.Base64Utils;
 import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.io.FileUtils;
 import cn.hutool.core.util.RandomUtil;
+import org.springframework.util.Base64Utils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

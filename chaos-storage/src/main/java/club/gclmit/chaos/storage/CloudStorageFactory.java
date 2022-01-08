@@ -204,7 +204,10 @@
 
 package club.gclmit.chaos.storage;
 
-import club.gclmit.chaos.storage.client.*;
+import club.gclmit.chaos.core.exception.ChaosException;
+import club.gclmit.chaos.storage.pojo.CloudStorage;
+import club.gclmit.chaos.storage.service.CloudStorageClient;
+import club.gclmit.chaos.storage.service.impl.*;
 
 /**
  * <p>
@@ -215,40 +218,33 @@ import club.gclmit.chaos.storage.client.*;
  */
 public class CloudStorageFactory {
 
-    /**
-     * <p>
-     * 根据枚举类型返回相应的云存储对象
-     * </p>
-     *
-     * @param storage Storage
-     * @return club.gclmit.chaos.service.CloudStorageService
-     * @author 孤城落寞
-     */
-    public static StorageClient build(Storage storage) {
-        StorageClient client = null;
-        switch (storage.getType()) {
-            case QINIU:
-                client = new QiniuStorageClient(storage);
-                break;
-            case UCLOUD:
-                client = new UcloudStorageClient(storage);
-                break;
-            case UPYUN:
-                client = new UpyunStorageClient(storage);
-                break;
-            case TENCENT:
-                client = new TencentStorageClient(storage);
-                break;
-            case HUAWEI:
-                client = new HuaweiStorageClient(storage);
-                break;
-            case FAST_DFS:
-                client = new FastDfsStorageClient(storage);
-                break;
-            default:
-                client = new AliyunStorageClient(storage);
-                break;
-        }
-        return client;
-    }
+	/**
+	 * <p>
+	 * 返回对应服务的实现客户端
+	 * </p>
+	 *
+	 * @param cloudStorage Storage
+	 * @return {@link CloudStorageClient}
+	 * @author 孤城落寞
+	 */
+	public static CloudStorageClient build(CloudStorage cloudStorage) {
+		switch (cloudStorage.getType()) {
+			case ALIYUN:
+				return new AliyunCloudStorageClient(cloudStorage);
+			case QINIU:
+				return new QiniuCloudStorageClient(cloudStorage);
+			case UCLOUD:
+				return new UcloudCloudStorageClient(cloudStorage);
+			case UPYUN:
+				return new UpyunCloudStorageClient(cloudStorage);
+			case TENCENT:
+				return new TencentCloudStorageClient(cloudStorage);
+			case HUAWEI:
+				return new HuaweiCloudStorageClient(cloudStorage);
+			case FASTDFS:
+				return new FastdfsCloudStorageClient(cloudStorage);
+			default:
+				throw new ChaosException("暂不支持该oss存储，当前配置:{}", cloudStorage.toString());
+		}
+	}
 }

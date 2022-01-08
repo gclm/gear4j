@@ -205,7 +205,7 @@
 package club.gclmit.chaos.core.lang;
 
 import club.gclmit.chaos.core.pojo.GirlFriend;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * <p>

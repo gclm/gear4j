@@ -1,12 +1,13 @@
-### 2.3.8
-
+### 2.4.0
+- feat: maven to gradle
+- feat: 合并bom代码到当前项目
+- build: 升级依赖
+- docs: 取消同步Javadoc文档到gitee
 - style: 修改返回类型风格
 - style: 删除注解@date
 - style: 删除多余的.gitignore文件
-- build: 升级依赖
-- docs: 取消同步Javadoc文档到gitee
 
-### 版本：2.3.7 发布时间：2021-12-20 14:07:05
+### 2.3.7 
 
 - 新增`DefaultFileService`基于id删除的方法
 - 新增`CHANGELOG.md`版本记录管理

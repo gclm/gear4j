@@ -204,6 +204,10 @@
 
 package club.gclmit.chaos.storage.contants;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * <p>
  * 云服务商
@@ -213,71 +217,90 @@ package club.gclmit.chaos.storage.contants;
  */
 public enum StorageServer {
 
-    /**
-     * 阿里云
-     */
-    ALIYUN(0, "ali", "阿里云"),
+	/**
+	 * 阿里云
+	 */
+	ALIYUN(0, "aliyun", "阿里云"),
 
-    /**
-     * 七牛云
-     */
-    QINIU(1, "qiniu", "七牛云"),
+	/**
+	 * 七牛云
+	 */
+	QINIU(1, "qiniu", "七牛云"),
 
-    /**
-     * 腾讯云
-     */
-    TENCENT(2, "tencent", "腾讯云"),
+	/**
+	 * 腾讯云
+	 */
+	TENCENT(2, "tencent", "腾讯云"),
 
-    /**
-     * 又拍云
-     */
-    UPYUN(3, "upyun", "又拍云"),
+	/**
+	 * 又拍云
+	 */
+	UPYUN(3, "upyun", "又拍云"),
 
-    /**
-     * UCLOUD
-     */
-    UCLOUD(4, "ucloud", "UCLOUD"),
+	/**
+	 * UCLOUD
+	 */
+	UCLOUD(4, "ucloud", "UCLOUD"),
 
-    /**
-     * 华为云
-     */
-    HUAWEI(5, "huawei", ",华为云"),
+	/**
+	 * 华为云
+	 */
+	HUAWEI(5, "huawei", ",华为云"),
 
-    /**
-     * go-fastDfs
-     */
-    FAST_DFS(6, "FAST_DFS", "fastDfs");
+	/**
+	 * go-fastDfs
+	 */
+	FASTDFS(6, "fastdfs", "自建go-fastdfs");
 
-    /**
-     * id
-     */
-    private Integer id;
+	/**
+	 * id
+	 */
+	private final Integer id;
 
-    /**
-     * code
-     */
-    private String code;
+	/**
+	 * code
+	 */
+	private final String code;
 
-    /**
-     * 服务
-     */
-    private String name;
+	/**
+	 * 服务
+	 */
+	private final String name;
 
-    StorageServer(Integer id, String code, String name) {
-        this.id = id;
-        this.code = code;
-        this.name = name;
-    }
+	StorageServer(Integer id, String code, String name) {
+		this.id = id;
+		this.code = code;
+		this.name = name;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getCode() {
-        return code;
-    }
+	public String getCode() {
+		return code;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * 返回所有服务code
+	 *
+	 * @return {@link String}
+	 * @author gclm
+	 */
+	public static List<String> getServerCodeList() {
+		return Arrays.stream(StorageServer.values()).map(StorageServer::getCode).collect(Collectors.toList());
+	}
+
+	@Override
+	public String toString() {
+		return "StorageServer{" +
+			"id=" + id +
+			", code='" + code + '\'' +
+			", name='" + name + '\'' +
+			'}';
+	}
 }

@@ -205,7 +205,7 @@
 package club.gclmit.chaos.core.utils;
 
 import club.gclmit.chaos.core.pojo.User;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -204,7 +204,6 @@
 
 package club.gclmit.chaos.core.http.servlet;
 
-import club.gclmit.chaos.core.utils.CharsetUtils;
 import club.gclmit.chaos.core.utils.StringUtils;
 import cn.hutool.core.util.CharsetUtil;
 
@@ -246,7 +245,7 @@ public class HttpCacheRequestWrapper extends HttpServletRequestWrapper {
     public HttpCacheRequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
         ServletInputStream stream = request.getInputStream();
-        this.body = StringUtils.str(stream, CharsetUtils.CHARSET_UTF_8);
+        this.body = StringUtils.str(stream, CharsetUtil.CHARSET_UTF_8);
     }
 
     @Override

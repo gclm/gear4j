@@ -206,8 +206,7 @@ package club.gclmit.chaos.core.lang;
 
 import club.gclmit.chaos.core.io.FileUtils;
 import club.gclmit.chaos.core.io.IOUtils;
-import club.gclmit.chaos.core.lang.qrcode.QrCode;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.net.URL;
@@ -233,11 +232,11 @@ public class QrCodeTest {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         IOUtils.copy(new FileInputStream(file), outputStream);
 
-        System.out.println(QrCode.decode().from(url).decode());
-        System.out.println(QrCode.decode().from(file).decode());
-        System.out.println(QrCode.decode().from(inputStream).decode());
-        System.out.println(QrCode.decode().from(path).decode());
-        System.out.println(QrCode.decode().from(outputStream.toByteArray()).decode());
+//        System.out.println(QrCode.decode().from(url).decode());
+//        System.out.println(QrCode.decode().from(file).decode());
+//        System.out.println(QrCode.decode().from(inputStream).decode());
+//        System.out.println(QrCode.decode().from(path).decode());
+//        System.out.println(QrCode.decode().from(outputStream.toByteArray()).decode());
     }
 
 

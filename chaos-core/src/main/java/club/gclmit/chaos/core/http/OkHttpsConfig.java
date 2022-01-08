@@ -206,7 +206,7 @@ package club.gclmit.chaos.core.http;
 
 import com.ejlchina.okhttps.Config;
 import com.ejlchina.okhttps.HTTP;
-import com.ejlchina.okhttps.JacksonMsgConvertor;
+import com.ejlchina.okhttps.jackson.JacksonMsgConvertor;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
@@ -222,45 +222,45 @@ import java.util.concurrent.TimeUnit;
  */
 public class OkHttpsConfig implements Config {
 
-    /**
-     * 对 HTTP.Builder 做一些自定义的配置
-     *
-     * @param builder HTTP.Builder
-     * @author gclm
-     */
-    @Override
-    public void with(HTTP.Builder builder) {
-        builder.addMsgConvertor(new JacksonMsgConvertor())
-                .config((OkHttpClient.Builder client) -> {
-                    // 配置连接池 最小10个连接（不配置默认为 5）
-                    client.connectionPool(new ConnectionPool(10, 5, TimeUnit.MINUTES));
-                    // 配置连接超时时间（默认10秒）
-                    client.connectTimeout(20, TimeUnit.SECONDS);
-                    // 失败重试三次
-                    client.addInterceptor(chain -> {
-                        int retryTimes = 0;
-                        while (true) {
-                            Response response = null;
-                            Exception exception = null;
-                            try {
-                                response = chain.proceed(chain.request());
-                            } catch (Exception e) {
-                                exception = e;
-                            }
-                            if ((exception != null || response.code() == 500) && retryTimes < 3) {
-                                System.out.println("失败重试第" + retryTimes + "次！");
-                                if (response != null) {
-                                    // 注意，这里一定要 close 掉失败的 Response
-                                    response.close();
-                                }
-                                retryTimes++;
-                                continue;
-                            }
-                            assert response != null;
-                            return response;
-                        }
-                    });
-                });
-    }
+	/**
+	 * 对 HTTP.Builder 做一些自定义的配置
+	 *
+	 * @param builder HTTP.Builder
+	 * @author gclm
+	 */
+	@Override
+	public void with(HTTP.Builder builder) {
+		builder.addMsgConvertor(new JacksonMsgConvertor())
+			.config((OkHttpClient.Builder client) -> {
+				// 配置连接池 最小10个连接（不配置默认为 5）
+				client.connectionPool(new ConnectionPool(10, 5, TimeUnit.MINUTES));
+				// 配置连接超时时间（默认10秒）
+				client.connectTimeout(20, TimeUnit.SECONDS);
+				// 失败重试三次
+				client.addInterceptor(chain -> {
+					int retryTimes = 0;
+					while (true) {
+						Response response = null;
+						Exception exception = null;
+						try {
+							response = chain.proceed(chain.request());
+						} catch (Exception e) {
+							exception = e;
+						}
+						if ((exception != null || response.code() == 500) && retryTimes < 3) {
+							System.out.println("失败重试第" + retryTimes + "次！");
+							if (response != null) {
+								// 注意，这里一定要 close 掉失败的 Response
+								response.close();
+							}
+							retryTimes++;
+							continue;
+						}
+						assert response != null;
+						return response;
+					}
+				});
+			});
+	}
 
 }

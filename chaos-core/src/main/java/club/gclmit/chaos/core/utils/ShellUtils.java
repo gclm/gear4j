@@ -213,6 +213,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -225,80 +226,80 @@ import java.util.List;
  */
 public class ShellUtils {
 
-    private static final Logger logger = LoggerFactory.getLogger(ShellUtils.class);
+	private static final Logger logger = LoggerFactory.getLogger(ShellUtils.class);
 
-    /**
-     * 执行系统命令，使用系统默认编码
-     *
-     * @param cmd 命令列表
-     * @return 执行结果
-     * @throws ChaosException 自定义异常
-     */
-    public static String execForString(String cmd) {
-        InputStream stream = exec(cmd);
-        if (IOUtils.isNotEmpty(stream)) {
-            return IOUtils.readToString(stream, CharsetUtil.CHARSET_UTF_8);
-        }
-        return "";
-    }
+	/**
+	 * 执行系统命令，使用系统默认编码
+	 *
+	 * @param cmd 命令列表
+	 * @return 执行结果
+	 * @throws ChaosException 自定义异常
+	 */
+	public static String execForString(String cmd) {
+		InputStream stream = exec(cmd);
+		if (IOUtils.isNotEmpty(stream)) {
+			return IOUtils.readUtf8(stream);
+		}
+		return "";
+	}
 
-    /**
-     * 执行系统命令，使用系统默认编码
-     *
-     * @param cmd 命令列表
-     * @return 执行结果
-     * @throws ChaosException 自定义异常
-     */
-    public static List<String> execForLines(String cmd) {
-        InputStream stream = exec(cmd);
-        if (IOUtils.isNotEmpty(stream)) {
-            return IOUtils.readToLines(stream);
-        }
-        return ListUtil.empty();
-    }
+	/**
+	 * 执行系统命令，使用系统默认编码
+	 *
+	 * @param cmd 命令列表
+	 * @return 执行结果
+	 * @throws ChaosException 自定义异常
+	 */
+	public static List<String> execForLines(String cmd) {
+		InputStream stream = exec(cmd);
+		if (IOUtils.isNotEmpty(stream)) {
+			return IOUtils.readLines(stream, CharsetUtil.CHARSET_UTF_8, new ArrayList<>());
+		}
+		return ListUtil.empty();
+	}
 
-    /**
-     * 执行系统命令，使用系统默认编码
-     *
-     * @param cmd 命令列表，每个元素代表一条命令
-     * @return 执行结果，按行区分
-     * @throws ChaosException 自定义异常
-     */
-    public static InputStream exec(String cmd) {
-        Long startTime = DateUtil.current();
+	/**
+	 * 执行系统命令，使用系统默认编码
+	 *
+	 * @param cmd 命令列表，每个元素代表一条命令
+	 * @return 执行结果，按行区分
+	 * @throws ChaosException 自定义异常
+	 */
+	public static InputStream exec(String cmd) {
+		Long startTime = DateUtil.current();
 
-        String[] commands = new String[3];
-        if (SystemUtils.isWindows()) {
-            commands[0] = "cmd.exe";
-            commands[1] = "/c";
-        } else {
-            commands[0] = "/bin/sh";
-            commands[1] = "-c";
-        }
+		String[] commands = new String[3];
+		if (SystemUtils.isWindows()) {
+			commands[0] = "cmd.exe";
+			commands[1] = "/c";
+		} else {
+			commands[0] = "/bin/sh";
+			commands[1] = "-c";
+		}
 
-        commands[2] = cmd;
+		commands[2] = cmd;
 
-        try {
-            Process process = Runtime.getRuntime().exec(commands);
-            String shell = Arrays.toString(commands);
+		try {
+			Process process = Runtime.getRuntime().exec(commands);
+			String shell = Arrays.toString(commands);
 
-            if (process.waitFor() == 0) {
-                InputStream stream = process.getInputStream();
-                Long endTime = DateUtil.current();
-                Long distance = endTime - startTime;
+			if (process.waitFor() == 0) {
+				InputStream stream = process.getInputStream();
+				Long endTime = DateUtil.current();
+				Long distance = endTime - startTime;
 
-                logger.debug("命令:[{}]\t耗时:[{}]", shell, distance);
-                return stream;
-            } else {
-                InputStream is = process.getErrorStream();
-                if (is != null) {
-                    String error = IOUtils.readToString(is, CharsetUtil.CHARSET_UTF_8);
-                    logger.debug("状态:[{}]\t命令:[{}]\n错误:[{}]", false, shell, error);
-                }
-                return null;
-            }
-        } catch (Exception e) {
-            throw new ChaosException("执行 Shell 命令发生异常", e);
-        }
-    }
+				logger.debug("命令:[{}]\t耗时:[{}]", shell, distance);
+				return stream;
+			} else {
+				InputStream is = process.getErrorStream();
+				if (is != null) {
+					String error = IOUtils.readUtf8(is);
+					logger.debug("状态:[{}]\t命令:[{}]\n错误:[{}]", false, shell, error);
+				}
+				return null;
+			}
+		} catch (Exception e) {
+			throw new ChaosException("执行 Shell 命令发生异常", e);
+		}
+	}
 }

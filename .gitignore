@@ -1,9 +1,17 @@
 HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**
-!**/src/test/**
+logs/
 chaos-storage/src/test/java/club/gclmit/chaos/storage/AuthStorageClientTest.java
+
+### gradle ###
+.gradle
+build/
+chaos-bom/build
+chaos-core/build
+chaos-logger/build
+chaos-storage/build
+chaos-waf/build
+chaos-web/build
+chaos-spring-boot-starter/build
 
 ### STS ###
 .apt_generated

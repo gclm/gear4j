@@ -211,8 +211,8 @@ import club.gclmit.chaos.core.lang.Builder;
 import club.gclmit.chaos.core.utils.SqlUtils;
 import club.gclmit.chaos.core.utils.UrlUtils;
 import club.gclmit.chaos.logger.mapper.LoggerMapper;
-import club.gclmit.chaos.logger.model.ChaosLoggerProperties;
-import club.gclmit.chaos.logger.model.HttpTrace;
+import club.gclmit.chaos.logger.model.LoggerProperties;
+import club.gclmit.chaos.logger.model.ApiTraceRecord;
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
@@ -243,7 +243,7 @@ import java.util.Arrays;
 public class LoggerFilter extends OncePerRequestFilter implements Ordered {
 
     @Autowired
-    private ChaosLoggerProperties config;
+    private LoggerProperties config;
 
     private static final Logger log = LoggerFactory.getLogger(LoggerFilter.class);
 
@@ -285,21 +285,21 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
             Long responseTime = DateUtil.current();
             Long time = responseTime - requestTime;
 
-            HttpTrace trace = Builder.build(HttpTrace::new)
-                    .val(HttpTrace::setUri, uri)
-                    .val(HttpTrace::setClientIp, ServletUtils.getClientIp(request))
-                    .val(HttpTrace::setContentType, ServletUtils.getContentType(request))
-                    .val(HttpTrace::setMethod, request.getMethod())
-                    .val(HttpTrace::setUserAgent, ServletUtils.getUserAgent(request))
-                    .val(HttpTrace::setSessionId, sessionId)
-                    .val(HttpTrace::setHttpCode, response.getStatus())
-                    .val(HttpTrace::setRequestTime, requestTime)
-                    .val(HttpTrace::setResponseTime, responseTime)
-                    .val(HttpTrace::setConsumingTime, time)
-                    .val(HttpTrace::setResponseHeader, JSONObject.toJSONString(ServletUtils.getResponseHeaders(response)))
-                    .val(HttpTrace::setRequestHeader, JSONObject.toJSONString(ServletUtils.getRequestHeaders(request)))
-                    .val(HttpTrace::setRequestBody, ServletUtils.getRequestBody(httpCacheRequestWrapper))
-                    .val(HttpTrace::setResponseBody, ServletUtils.getResponseBody(responseWrapper))
+            ApiTraceRecord trace = Builder.build(ApiTraceRecord::new)
+                    .val(ApiTraceRecord::setUri, uri)
+                    .val(ApiTraceRecord::setClientIp, ServletUtils.getClientIp(request))
+                    .val(ApiTraceRecord::setContentType, ServletUtils.getContentType(request))
+                    .val(ApiTraceRecord::setMethod, request.getMethod())
+                    .val(ApiTraceRecord::setUserAgent, ServletUtils.getUserAgent(request))
+                    .val(ApiTraceRecord::setSessionId, sessionId)
+                    .val(ApiTraceRecord::setHttpCode, response.getStatus())
+                    .val(ApiTraceRecord::setRequestTime, requestTime)
+                    .val(ApiTraceRecord::setResponseTime, responseTime)
+                    .val(ApiTraceRecord::setConsumingTime, time)
+                    .val(ApiTraceRecord::setResponseHeader, JSONObject.toJSONString(ServletUtils.getResponseHeaders(response)))
+                    .val(ApiTraceRecord::setRequestHeader, JSONObject.toJSONString(ServletUtils.getRequestHeaders(request)))
+                    .val(ApiTraceRecord::setRequestBody, ServletUtils.getRequestBody(httpCacheRequestWrapper))
+                    .val(ApiTraceRecord::setResponseBody, ServletUtils.getResponseBody(responseWrapper))
                     .build();
 
             /*

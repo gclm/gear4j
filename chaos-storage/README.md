@@ -1,34 +1,26 @@
-# chaos-storage
-
-> 混沌存储
+# Chaos 核心包
 
 ## 功能
 
-- 文件上传
-    - 本地文件上传
-    - input流上传
-    - byte 数组上传
-- 文件删除
-    - 单个文件删除
-    - 多个文件删除
+1. Cglib Bean copy 增强，支持链式 bean、Map、优化性能和支持类型转换。
+2. 基于hutool扩展的工具包
+3. 基于SpringWeb扩展的工具包
 
-## 对接云厂商
+## 添加依赖
 
-- 阿里云
-- 腾讯云
-- 七牛云
-- 又拍云
+### maven
 
-## 反馈
+```xml
 
-反馈建议地址：<https://github.com/gclm/chaos-storage/issues>
-交流 QQ 群：641633175
+<dependency>
+    <groupId>club.gclmit</groupId>
+    <artifactId>chaos-core</artifactId>
+    <version>${version}</version>
+</dependency>
+```
 
-## About
+### gradle
 
-- Email：[gclm159@gmail.com](mailto:gclm159@gmail.com)
-- Github：<https://github.com/gclm/chaos-storage>
-
-**如果帮助到你了，请不吝赞赏！谢谢！**
-
-![](https://cdn.jsdelivr.net/gh/gclm/images@master/20191230923363Du7so.jpg)
+```groovy
+compile("club.gclmit:chaos-core:${version}")
+```

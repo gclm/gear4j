@@ -1,0 +1,11 @@
+dependencies {
+    api "com.alibaba:fastjson"
+    api "com.google.zxing:core"
+    api "cn.hutool:hutool-all"
+    api "com.ejlchina:okhttps-jackson"
+    api "org.springframework:spring-web"
+    api "org.springframework:spring-context"
+
+    testCompileOnly "org.springframework:spring-web"
+    testCompileOnly "org.springframework:spring-context"
+}
