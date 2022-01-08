@@ -14,13 +14,6 @@ allprojects {
     apply plugin: 'maven-publish'
     apply plugin: 'signing'
 
-    // ci 自动发布 SNAPSHOT 版本
-    task publishSnapshot(type: GradleBuild) {
-        if (VERSION.endsWith('SNAPSHOT')) {
-            tasks = ['clean', 'build', 'publish']
-        }
-    }
-
     //maven仓库
     repositories {
         mavenLocal()

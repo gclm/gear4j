@@ -3,14 +3,12 @@
     <strong>一个功能强悍的 Spring Boot Starter 组件（Where dreams originate）</strong>
 </p>
 
-[![Java CI](https://github.com/antCodelab/chaos/actions/workflows/build.yml/badge.svg)](https://github.com/antCodelab/chaos/actions)
-[![Java CI](https://github.com/antCodelab/chaos/actions/workflows/javadoc.yml/badge.svg)](https://github.com/antCodelab/chaos/actions)
-[![Java CI](https://github.com/antCodelab/chaos/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/antCodelab/chaos/actions)
-[![Java CI](https://github.com/antCodelab/chaos/actions/workflows/publish-snapshot.yml/badge.svg)](https://github.com/antCodelab/chaos/actions)
+[![Chaos CI](https://github.com/antCodelab/chaos/actions/workflows/build.yml/badge.svg)](https://github.com/antCodelab/chaos/actions)
+[![Chaos CI](https://github.com/antCodelab/chaos/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/antCodelab/chaos/actions)
 [![Chaos Maven Release](https://img.shields.io/maven-central/v/club.gclmit/chaos-spring-boot-starter.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%20club.gclmit%20AND%20a:%20chaos-spring-boot-starter)
 [![Chaos Maven Snapshots](https://img.shields.io/nexus/s/https/oss.sonatype.org/club.gclmit/chaos-spring-boot-starter.svg?style=flat-square)](https://oss.sonatype.org/content/repositories/snapshots/club/gclmit/)
 [![JDK11](https://img.shields.io/badge/JDK-11+-brightgreen.svg)](https://github.com/antCodelab/chaos)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/f1c25e46f1924c14a1d41f3718223402)](https://www.codacy.com/gh/gclm/chaos/dashboard?utm_source=github.com&utm_medium=referral&utm_content=gclm/chaos&utm_campaign=Badge_Grade)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=antCodelab_chaos&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=antCodelab_chaos)
 [![License](https://img.shields.io/:license-Apache2-blue.svg)](https://github.com/antCodelab/chaos/blob/master/LICENSE)
 
 简体中文 | [English](README_EN.md)
