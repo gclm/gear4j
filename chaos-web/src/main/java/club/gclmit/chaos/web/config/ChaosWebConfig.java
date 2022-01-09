@@ -204,17 +204,13 @@
 
 package club.gclmit.chaos.web.config;
 
-import club.gclmit.chaos.core.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.web.servlet.MultipartConfigFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import javax.servlet.MultipartConfigElement;
 import java.util.List;
 
 /**
@@ -237,21 +233,7 @@ public class ChaosWebConfig implements WebMvcConfigurer {
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(new QueryHandlerMethodArgumentResolver());
     }
-
-    /**
-     *  文件上传临时路径
-     *
-     * @author gclm
-     * @return {@link MultipartConfigElement}
-     */
-    @Bean
-    public MultipartConfigElement multipartConfigElement() {
-        log.info("chaos ---> 配置文件上传的临时路径");
-        MultipartConfigFactory factory = new MultipartConfigFactory();
-        factory.setLocation(FileUtils.getRootPath());
-        return factory.createMultipartConfig();
-    }
-
+	
     /**
      * SpringBoot2.4.0 [allowedOriginPatterns]代替[allowedOrigins]
      *
