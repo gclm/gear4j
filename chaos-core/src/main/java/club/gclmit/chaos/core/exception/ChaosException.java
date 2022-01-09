@@ -204,7 +204,7 @@
 
 package club.gclmit.chaos.core.exception;
 
-import club.gclmit.chaos.core.utils.StringUtils;
+import cn.hutool.core.text.CharSequenceUtil;
 
 /**
  * <p>
@@ -229,7 +229,7 @@ public class ChaosException extends RuntimeException {
     }
 
     public ChaosException(String messageTemplate, Object... params) {
-        super(StringUtils.format(messageTemplate, params));
+        super(CharSequenceUtil.format(messageTemplate, params));
     }
 
     public ChaosException(String message, Throwable cause) {
@@ -237,6 +237,6 @@ public class ChaosException extends RuntimeException {
     }
 
     public ChaosException(Throwable cause, String messageTemplate, Object... params) {
-        super(StringUtils.format(messageTemplate, params), cause);
+        super(CharSequenceUtil.format(messageTemplate, params), cause);
     }
 }
