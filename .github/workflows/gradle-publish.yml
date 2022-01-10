@@ -32,6 +32,10 @@ jobs:
           rm -rf ~/.gradle/secring.gpg.base64
           rm -rf ~/.gradle/config.properties
 
+      - name: Publish To MavenLocal
+        run: |
+          ./gradlew publishToMavenLocal
+
       - name: Publish To Sonatype
         run: |
           ./gradlew publish
