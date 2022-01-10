@@ -1,3 +1,9 @@
+### 2.4.1
+- ci: 修复github action
+- ci: 使用sonar 优化代码
+- fix: 修复Make sure not setting any maximum content length limit is safe here
+- style: 规范Javadoc
+
 ### 2.4.0
 - feat: maven to gradle
 - feat: 合并bom代码到当前项目
