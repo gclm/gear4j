@@ -209,7 +209,6 @@ import club.gclmit.chaos.storage.pojo.CloudStorage;
 import club.gclmit.chaos.storage.pojo.CloudStorageConfig;
 import club.gclmit.chaos.storage.service.CloudStorageClient;
 import cn.hutool.core.util.IdUtil;
-import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.List;
@@ -260,7 +259,7 @@ public class StorageClientTest {
 	/**
 	 * 阿里云配置
 	 */
-	@Test
+//	@Test
 	public void aliyun() {
 		CloudStorageConfig cloudStorageConfig = new CloudStorageConfig();
 		cloudStorageConfig.setAccessKeyId("access-key-id");
