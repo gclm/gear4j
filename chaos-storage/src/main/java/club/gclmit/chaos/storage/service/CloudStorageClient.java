@@ -10,36 +10,31 @@ import java.util.List;
 /**
  * 使用抽象工厂模式
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since jdk11
  */
 public interface CloudStorageClient {
 
 	/**
-	 * <p>
 	 * 上传文件
 	 * </p>
 	 *
 	 * @param file 文件
 	 * @return {@link FileInfo} 文件信息
-	 * @author 孤城落寞
 	 */
 	public FileInfo upload(File file);
 
 	/**
-	 * <p>
 	 * 上传文件
 	 * </p>
 	 *
 	 * @param file 文件
 	 * @return {@link FileInfo} 文件信息
-	 * @author 孤城落寞
 	 */
 	public FileInfo upload(MultipartFile file);
 
 
 	/**
-	 * <p>
 	 * 上传字节数组
 	 * </p>
 	 *
@@ -47,7 +42,6 @@ public interface CloudStorageClient {
 	 * @param key      文件路径
 	 * @param fileName 文件名
 	 * @return {@link FileInfo} 文件信息
-	 * @author 孤城落寞
 	 */
 	public FileInfo upload(byte[] data, String key, String fileName);
 
@@ -58,7 +52,6 @@ public interface CloudStorageClient {
 	 * @param key      key
 	 * @param fileName 文件名
 	 * @return {@link FileInfo} 文件信息
-	 * @author gclm
 	 */
 	public FileInfo upload(String content, String key, String fileName);
 

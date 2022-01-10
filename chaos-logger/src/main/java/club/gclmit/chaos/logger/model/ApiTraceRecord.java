@@ -217,7 +217,8 @@ import java.io.Serializable;
  * 日志组件实体类
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 @TableName("chaos_trace_info")
 @ApiModel(value = "HttpTrace 对象")

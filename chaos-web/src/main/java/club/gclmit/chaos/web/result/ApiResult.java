@@ -216,7 +216,7 @@ import java.util.Map;
 /**
  * 返回数据封装
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 @ApiModel(value = "通用消息响应", description = "通用消息响应")
 public class ApiResult implements Serializable {

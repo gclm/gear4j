@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 又拍云
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since jdk11
  */
 public class UpyunCloudStorageClient extends AbstractStorageClient {

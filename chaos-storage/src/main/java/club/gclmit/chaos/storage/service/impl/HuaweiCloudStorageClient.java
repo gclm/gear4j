@@ -223,12 +223,11 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * <p>
  * 华为云 服务实现
  * endpoint: https://developer.huaweicloud.com/endpoint?OBS
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class HuaweiCloudStorageClient extends AbstractStorageClient {
 
@@ -246,12 +245,9 @@ public class HuaweiCloudStorageClient extends AbstractStorageClient {
 
 
     /**
-     * <p>
      * 初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
-     * </p>
      *
      * @param cloudStorage Storage
-     * @author 孤城落寞
      */
     public HuaweiCloudStorageClient(CloudStorage cloudStorage) {
         super(cloudStorage);
@@ -266,12 +262,10 @@ public class HuaweiCloudStorageClient extends AbstractStorageClient {
     }
 
     /**
-     * <p>
      * 批量删除多个文件
-     * </p>
      *
      * @param keys 文件路径集合
-     * @author 孤城落寞
+
      */
     @Override
     public void batchDelete(List<String> keys) {
@@ -282,12 +276,10 @@ public class HuaweiCloudStorageClient extends AbstractStorageClient {
     }
 
     /**
-     * <p>
      * 删除文件
-     * </p>
      *
      * @param key 文件路径
-     * @author 孤城落寞
+
      */
     @Override
     public void delete(String key) {
@@ -296,14 +288,12 @@ public class HuaweiCloudStorageClient extends AbstractStorageClient {
     }
 
     /**
-     * <p>
      * 上传文件基础方法
-     * </p>
      *
      * @param inputStream 上传文件流
      * @param fileInfo    文件信息
 	 * @return {@link FileInfo} 文件信息
-     * @author 孤城落寞
+
      */
     @Override
     public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {

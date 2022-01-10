@@ -223,7 +223,7 @@ import java.util.List;
 /**
  * 拦截防止xss注入 通过Jsoup过滤请求参数内的特定字符
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 @WebFilter(filterName = "xssFilter", urlPatterns = "/*")
 public class XssFilter extends OncePerRequestFilter implements Ordered {
@@ -254,7 +254,7 @@ public class XssFilter extends OncePerRequestFilter implements Ordered {
      * @param request       HttpServletRequest
      * @param xssProperties 配置信息
      * @return boolean
-     * @author gclm
+     * @author <a href="https://blog.gclmit.club">gclm</a>
      */
     private boolean handleUrlRule(HttpServletRequest request, XssProperties xssProperties) {
         String url = request.getServletPath();

@@ -222,11 +222,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 /**
- * <p>
  * 文件服务接口
- * </p>
  *
- * @author 孤城落寞
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 @Service("defaultFileService")
 public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implements DefaultFileService {
@@ -241,8 +239,7 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
 	 * 上传文件
 	 *
 	 * @param file MultipartFile
-	 * @return club.gclmit.chaos.storage.properties.FileInfo
-	 * @author gclm
+	 * @return {@link FileInfo}
 	 */
 	@Override
 	public FileInfo uploadFile(MultipartFile file, boolean temp) {
@@ -264,8 +261,7 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
 	 * 根据文件 MD5 判断文件是否存在
 	 *
 	 * @param md5 文件 MD5
-	 * @return club.gclmit.chaos.storage.db.pojo.FileInfo
-	 * @author gclm
+	 * @return {@link FileInfo}
 	 */
 	@Override
 	public FileInfo queryMd5(String md5) {
@@ -279,8 +275,7 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
 	 * 根据文件 key 查看 FileInfo 对象
 	 *
 	 * @param key OSS Key
-	 * @return club.gclmit.chaos.storage.db.pojo.FileInfo
-	 * @author gclm
+	 * @return {@link FileInfo}
 	 */
 	@Override
 	public FileInfo queryKey(String key) {
@@ -294,8 +289,7 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
 	 * 根据OSS key 模糊查询
 	 *
 	 * @param key OSS Key
-	 * @return FileInfo List
-	 * @author gclm
+	 * @return {@link FileInfo} List
 	 */
 	@Override
 	public List<FileInfo> linkQueryKey(String key) {
@@ -309,8 +303,7 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
 	 * 根据文件名字模糊查询
 	 *
 	 * @param fileName 文件名字
-	 * @return FileInfo List
-	 * @author gclm
+	 * @return {@link FileInfo} List
 	 */
 	@Override
 	public List<FileInfo> linkQueryFileName(String fileName) {
@@ -325,8 +318,7 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
 	 *
 	 * @param startSize 最小
 	 * @param endSize   最大
-	 * @return FileInfo List
-	 * @author gclm
+	 * @return {@link FileInfo} List
 	 */
 	@Override
 	public List<FileInfo> queryFileSizeBetween(Long startSize, Long endSize) {
@@ -342,7 +334,6 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
 	 *
 	 * @param key        OSS Key
 	 * @param fileStatus 文件状态
-	 * @author gclm
 	 */
 	@Override
 	public void updateFileStatus(String key, Integer fileStatus) {
@@ -357,7 +348,6 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
 	 *
 	 * @param id         id
 	 * @param fileStatus 文件状态
-	 * @author gclm
 	 */
 	@Override
 	public void updateFileStatusById(String id, Integer fileStatus) {
@@ -369,7 +359,6 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
 	 * 根据 FileInfo id 删除文件
 	 *
 	 * @param id FileInfo id
-	 * @author gclm
 	 */
 	@Override
 	public void deleteFileById(String id) {
@@ -381,7 +370,6 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
 	 * 根据 key 删除文件
 	 *
 	 * @param key OSS Key
-	 * @author gclm
 	 */
 	@Override
 	public void deleteFile(String key) {
@@ -393,7 +381,6 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
 	 * 根据 key 批量删除文件
 	 *
 	 * @param keys OSS Key
-	 * @author gclm
 	 */
 	@Override
 	public void batchDeleteFile(List<String> keys) {

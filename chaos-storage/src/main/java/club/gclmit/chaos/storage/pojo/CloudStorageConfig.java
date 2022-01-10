@@ -207,11 +207,9 @@ package club.gclmit.chaos.storage.pojo;
 import java.io.Serializable;
 
 /**
- * <p>
  * 云存储客户端封装 (支持七牛、阿里云、腾讯云、又拍云)
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 public class CloudStorageConfig implements Serializable {
 

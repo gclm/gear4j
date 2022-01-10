@@ -211,112 +211,99 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 /**
- * <p>
  * 文件服务类
- * </p>
  *
- * @author 孤城落寞
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 public interface DefaultFileService extends IService<FileInfo> {
 
-    /**
-     * 上传文件到 OSS中
-     *
-     * @param file MultipartFile
-     * @param temp 临时文件
-     * @return club.gclmit.chaos.storage.db.pojo.FileInfo
-     * @author gclm
-     */
-    public FileInfo uploadFile(MultipartFile file, boolean temp);
+	/**
+	 * 上传文件到 OSS中
+	 *
+	 * @param file MultipartFile
+	 * @param temp 临时文件
+	 * @return {@link FileInfo}
+	 */
+	public FileInfo uploadFile(MultipartFile file, boolean temp);
 
-    /**
-     * 根据文件 MD5 判断文件是否存在
-     *
-     * @param md5 md5
-     * @return club.gclmit.chaos.storage.db.pojo.FileInfo
-     * @author gclm
-     */
-    public FileInfo queryMd5(String md5);
+	/**
+	 * 根据文件 MD5 判断文件是否存在
+	 *
+	 * @param md5 md5
+	 * @return {@link FileInfo}
+	 */
+	public FileInfo queryMd5(String md5);
 
 
-    /**
-     * 根据OSS key 查询
-     *
-     * @param key OSS key
-     * @return FileInfo List
-     * @author gclm
-     */
-    public FileInfo queryKey(String key);
+	/**
+	 * 根据OSS key 查询
+	 *
+	 * @param key OSS key
+	 * @return {@link FileInfo} List
+	 */
+	public FileInfo queryKey(String key);
 
-    /**
-     * 根据OSS key 模糊查询
-     *
-     * @param key OSS key
-     * @return FileInfo List
-     * @author gclm
-     */
-    public List<FileInfo> linkQueryKey(String key);
+	/**
+	 * 根据OSS key 模糊查询
+	 *
+	 * @param key OSS key
+	 * @return {@link FileInfo} List
+	 */
+	public List<FileInfo> linkQueryKey(String key);
 
-    /**
-     * 根据文件名字模糊查询
-     *
-     * @param fileName 文件名字
-     * @return FileInfo List
-     * @author gclm
-     */
-    public List<FileInfo> linkQueryFileName(String fileName);
+	/**
+	 * 根据文件名字模糊查询
+	 *
+	 * @param fileName 文件名字
+	 * @return {@link FileInfo} List
+	 */
+	public List<FileInfo> linkQueryFileName(String fileName);
 
-    /**
-     * 根据文件大小区间查询
-     *
-     * @param startSize 最小
-     * @param endSize   最大
-     * @return FileInfo List
-     * @author gclm
-     */
-    public List<FileInfo> queryFileSizeBetween(Long startSize, Long endSize);
+	/**
+	 * 根据文件大小区间查询
+	 *
+	 * @param startSize 最小
+	 * @param endSize   最大
+	 * @return {@link FileInfo} List
+	 */
+	public List<FileInfo> queryFileSizeBetween(Long startSize, Long endSize);
 
-    /**
-     * 根据OSS key 修改文件状态
-     *
-     * @param key        OSS key
-     * @param fileStatus 文件状态
-     * @author gclm
-     */
-    public void updateFileStatus(String key, Integer fileStatus);
+	/**
+	 * 根据OSS key 修改文件状态
+	 *
+	 * @param key        OSS key
+	 * @param fileStatus 文件状态
+	 */
+	public void updateFileStatus(String key, Integer fileStatus);
 
-    /**
-     * 根据 id 修改文件状态
-     *
-     * @param id         文件id
-     * @param fileStatus 文件状态
-     * @author gclm
-     */
-    public void updateFileStatusById(String id, Integer fileStatus);
+	/**
+	 * 根据 id 修改文件状态
+	 *
+	 * @param id         文件id
+	 * @param fileStatus 文件状态
+	 */
+	public void updateFileStatusById(String id, Integer fileStatus);
 
 
-    /**
-     * 根据FileInfo id 删除文件
-     *
-     * @param id  FileInfo id
-     * @author gclm
-     */
-    public void deleteFileById(String id);
+	/**
+	 * 根据FileInfo id 删除文件
+	 *
+	 * @param id FileInfo id
+	 */
+	public void deleteFileById(String id);
 
-    /**
-     * 根据OSS key 删除文件
-     *
-     * @param key  OSS key
-     * @author gclm
-     */
-    public void deleteFile(String key);
+	/**
+	 * 根据OSS key 删除文件
+	 *
+	 * @param key OSS key
+	 */
+	public void deleteFile(String key);
 
-    /**
-     * 根据OSS keys 批量删除文件
-     *
-     * @param keys OSS key
-     * @author gclm
-     */
-    public void batchDeleteFile(List<String> keys);
+	/**
+	 * 根据OSS keys 批量删除文件
+	 *
+	 * @param keys OSS key
+	 */
+	public void batchDeleteFile(List<String> keys);
 
 }

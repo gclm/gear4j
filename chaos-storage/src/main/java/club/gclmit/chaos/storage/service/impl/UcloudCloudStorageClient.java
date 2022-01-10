@@ -236,11 +236,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
- * <p>
  * Ucloud 服务实现
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class UcloudCloudStorageClient extends AbstractStorageClient {
 
@@ -256,12 +255,10 @@ public class UcloudCloudStorageClient extends AbstractStorageClient {
 	private final CloudStorageConfig cloudStorageConfig;
 
 	/**
-	 * <p>
 	 * 初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
 	 * </p>
 	 *
 	 * @param cloudStorage Storage
-	 * @author 孤城落寞
 	 */
 	public UcloudCloudStorageClient(CloudStorage cloudStorage) {
 		super(cloudStorage);
@@ -278,12 +275,9 @@ public class UcloudCloudStorageClient extends AbstractStorageClient {
 	}
 
 	/**
-	 * <p>
 	 * 批量删除多个文件
-	 * </p>
 	 *
 	 * @param keys 文件路径集合
-	 * @author 孤城落寞
 	 */
 	@Override
 	public void batchDelete(List<String> keys) {
@@ -294,12 +288,9 @@ public class UcloudCloudStorageClient extends AbstractStorageClient {
 	}
 
 	/**
-	 * <p>
 	 * 删除文件
-	 * </p>
 	 *
 	 * @param key 文件路径
-	 * @author 孤城落寞
 	 */
 	@Override
 	public void delete(String key) {
@@ -314,14 +305,12 @@ public class UcloudCloudStorageClient extends AbstractStorageClient {
 	}
 
 	/**
-	 * <p>
 	 * 上传文件基础方法
 	 * </p>
 	 *
 	 * @param inputStream 上传文件流
 	 * @param fileInfo    文件对象
 	 * @return {@link FileInfo} 文件信息
-	 * @author 孤城落寞
 	 */
 	@Override
 	public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {
@@ -374,7 +363,6 @@ public class UcloudCloudStorageClient extends AbstractStorageClient {
 	 * @param region    region
 	 * @param endpoint  endpoint
 	 * @return {@link ObjectApiBuilder}
-	 * @author gclm
 	 */
 	public ObjectApiBuilder build(String secretId, String secretKey, String region, String endpoint) {
 		ObjectAuthorization auth = new UfileObjectLocalAuthorization(secretId, secretKey);

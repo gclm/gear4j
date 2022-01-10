@@ -205,11 +205,9 @@
 package club.gclmit.chaos.storage.contants;
 
 /**
- * <p>
  * 响应数据类型
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 public enum ResponseDataType {
 

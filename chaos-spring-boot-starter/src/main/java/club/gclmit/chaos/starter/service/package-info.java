@@ -204,9 +204,10 @@
 
 /**
  * <p>
- * starter-service服务接口
+ * chaos-boot-starter: service服务
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 package club.gclmit.chaos.starter.service;

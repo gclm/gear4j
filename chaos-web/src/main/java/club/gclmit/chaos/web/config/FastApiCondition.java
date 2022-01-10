@@ -211,11 +211,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * <p>
  * 重写 RequestCondition 组件
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 public class FastApiCondition implements RequestCondition<FastApiCondition> {
 
@@ -232,7 +230,7 @@ public class FastApiCondition implements RequestCondition<FastApiCondition> {
      *
      * @param other FastApiCondition
      * @return {@link FastApiCondition}
-     * @author gclm
+
      */
     @Override
     public FastApiCondition combine(FastApiCondition other) {
@@ -244,7 +242,7 @@ public class FastApiCondition implements RequestCondition<FastApiCondition> {
      *
      * @param request HttpServletRequest
      * @return {@link FastApiCondition}
-     * @author gclm
+
      */
     @Override
     public FastApiCondition getMatchingCondition(HttpServletRequest request) {
@@ -266,7 +264,7 @@ public class FastApiCondition implements RequestCondition<FastApiCondition> {
      *
      * @param condition ApiVersionCondition
      * @param request   HttpServletRequest
-     * @author gclm
+
      */
     @Override
     public int compareTo(FastApiCondition condition, HttpServletRequest request) {

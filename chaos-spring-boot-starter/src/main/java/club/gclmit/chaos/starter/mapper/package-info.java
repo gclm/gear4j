@@ -204,9 +204,9 @@
 
 /**
  * <p>
- * starter-mapper
+ * chaos-boot-starter: mapper
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 package club.gclmit.chaos.starter.mapper;

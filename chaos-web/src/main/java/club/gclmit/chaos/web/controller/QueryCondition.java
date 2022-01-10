@@ -214,7 +214,7 @@ import java.io.Serializable;
  * 查询条件封装
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 @ApiModel(value = "查询条件", description = "查询条件")
 public class QueryCondition implements Serializable {

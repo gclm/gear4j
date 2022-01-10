@@ -204,9 +204,10 @@
 
 /**
  * <p>
- * storage-存储模块
+ * chaos-storage: 存储模块
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 package club.gclmit.chaos.storage;

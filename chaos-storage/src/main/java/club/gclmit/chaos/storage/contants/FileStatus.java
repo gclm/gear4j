@@ -206,11 +206,9 @@ package club.gclmit.chaos.storage.contants;
 
 
 /**
- * <p>
  * 文件状态枚举
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 public enum FileStatus {
 
@@ -237,12 +235,12 @@ public enum FileStatus {
     /**
      * id
      */
-    private Integer code;
+    private final Integer code;
 
     /**
      * 消息
      */
-    private String message;
+    private final String message;
 
     FileStatus(Integer code, String message) {
         this.code = code;

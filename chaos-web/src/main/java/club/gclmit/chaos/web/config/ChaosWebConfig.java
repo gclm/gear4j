@@ -216,38 +216,36 @@ import java.util.List;
 /**
  * Chaos Web XSS 配置
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 @Configuration
 public class ChaosWebConfig implements WebMvcConfigurer {
 
-    private static final Logger log = LoggerFactory.getLogger(ChaosWebConfig.class);
+	private static final Logger log = LoggerFactory.getLogger(ChaosWebConfig.class);
 
-    /**
-     * 添加自定义消息解析器
-     *
-     * @param resolvers : 消息解析器list
-     * @author gclm
-     */
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(new QueryHandlerMethodArgumentResolver());
-    }
-	
-    /**
-     * SpringBoot2.4.0 [allowedOriginPatterns]代替[allowedOrigins]
-     *
-     * @param registry CorsRegistry
-     * @author gclm
-     */
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        log.info("chaos ---> 开启跨域支持");
-        registry.addMapping("/**")
-                .allowedOriginPatterns("*")
-                .allowedMethods("*")
-                .maxAge(3600)
-                .allowCredentials(true);
-    }
+	/**
+	 * 添加自定义消息解析器
+	 *
+	 * @param resolvers : 消息解析器list
+	 */
+	@Override
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+		resolvers.add(new QueryHandlerMethodArgumentResolver());
+	}
+
+	/**
+	 * SpringBoot2.4.0 [allowedOriginPatterns]代替[allowedOrigins]
+	 *
+	 * @param registry CorsRegistry
+	 */
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		log.info("chaos ---> 开启跨域支持");
+		registry.addMapping("/**")
+			.allowedOriginPatterns("*")
+			.allowedMethods("*")
+			.maxAge(3600)
+			.allowCredentials(true);
+	}
 
 }

@@ -207,7 +207,7 @@ package club.gclmit.chaos.waf.util;
 /**
  * 利用 ThreadLocal 缓存线程间的数据
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  * @author L.cm
  */
 public class XssHolder {
@@ -221,7 +221,7 @@ public class XssHolder {
      * 获取 ThreadLocal 缓存数据状态
      *
      * @return Boolean
-     * @author gclm
+
      */
     public static boolean isEnabled() {
         return Boolean.TRUE.equals(TL.get());
@@ -230,7 +230,7 @@ public class XssHolder {
     /**
      * 启用 ThreadLocal 缓存数据
      *
-     * @author gclm
+
      */
     public static void setEnable() {
         TL.set(Boolean.TRUE);
@@ -239,7 +239,7 @@ public class XssHolder {
     /**
      * 删除 ThreadLocal 缓存的数据
      *
-     * @author gclm
+
      */
     public static void remove() {
         TL.remove();

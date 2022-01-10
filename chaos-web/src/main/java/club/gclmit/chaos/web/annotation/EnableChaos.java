@@ -207,6 +207,7 @@ package club.gclmit.chaos.web.annotation;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.ComponentScan;
+
 import java.lang.annotation.*;
 
 /**
@@ -214,7 +215,7 @@ import java.lang.annotation.*;
  * Spring Boot启动注解。主要用户自动扫描chaos组件的包
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

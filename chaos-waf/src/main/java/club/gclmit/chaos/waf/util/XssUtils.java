@@ -212,7 +212,7 @@ import org.jsoup.safety.Safelist;
 /**
  * Xss Utils
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 public class XssUtils {
 

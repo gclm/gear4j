@@ -204,9 +204,10 @@
 
 /**
  * <p>
- * logger-Mapper
+ * chaos-logger: mybatis-Mapper
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 package club.gclmit.chaos.logger.mapper;

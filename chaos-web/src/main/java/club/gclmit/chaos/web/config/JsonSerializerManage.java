@@ -219,38 +219,35 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
  * 配置自定义转换器，解决前端 js long类型数据精度丢失
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 @JsonComponent
 public class JsonSerializerManage {
 
-    /**
-     * <p>
-     * long变成string
-     * </p>
-     *
-     * @param builder Jackson2ObjectMapperBuilder
-     * @return {@link ObjectMapper}
-     * @author gclm
-     */
-    @Bean
-    public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
+	/**
+	 * long变成string
+	 *
+	 * @param builder Jackson2ObjectMapperBuilder
+	 * @return {@link ObjectMapper}
+	 */
+	@Bean
+	public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
 
-        Logger.info(LoggerServer.CONFIG, "jackson 配置，解决前端 Long 类型精度丢失");
-        ObjectMapper objectMapper = builder.createXmlMapper(false).build();
-        //忽略value为null 时 key的输出
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+		Logger.info(LoggerServer.CONFIG, "jackson 配置，解决前端 Long 类型精度丢失");
+		ObjectMapper objectMapper = builder.createXmlMapper(false).build();
+		//忽略value为null 时 key的输出
+		objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
-        /*
-         * 序列换成json时,将所有的long变成string
-         * 因为js中得数字类型不能包含所有的java long值
-         */
-        SimpleModule module = new SimpleModule();
-        module.addSerializer(Long.class, ToStringSerializer.instance);
-        module.addSerializer(Long.TYPE, ToStringSerializer.instance);
-        objectMapper.registerModule(module);
-        return objectMapper;
-    }
+		/*
+		 * 序列换成json时,将所有的long变成string
+		 * 因为js中得数字类型不能包含所有的java long值
+		 */
+		SimpleModule module = new SimpleModule();
+		module.addSerializer(Long.class, ToStringSerializer.instance);
+		module.addSerializer(Long.TYPE, ToStringSerializer.instance);
+		objectMapper.registerModule(module);
+		return objectMapper;
+	}
 
 }
 

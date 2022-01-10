@@ -214,31 +214,28 @@ import org.springframework.stereotype.Component;
  * Spring Service 服务工具类
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 @Component
 public class SpringServiceHandler implements ApplicationListener<WebServerInitializedEvent> {
 
-    /**
-     * 服务端口号
-     */
-    private static int serverPort;
+	/**
+	 * 服务端口号
+	 */
+	private static int serverPort;
 
-    public static int getPort() {
-        return serverPort;
-    }
+	public static int getPort() {
+		return serverPort;
+	}
 
-    /**
-     * <p>
-     * 获取项目服务端口
-     * </p>
-     *
-     * @param event WebServerInitializedEvent
-     * @author gclm
-     */
-    @Override
-    public void onApplicationEvent(WebServerInitializedEvent event) {
-        serverPort = event.getWebServer().getPort();
-        Logger.info("Get WebServer port {} WebServer Doc http://localhost:{}/doc.html", serverPort, serverPort);
-    }
+	/**
+	 * 获取项目服务端口
+	 *
+	 * @param event WebServerInitializedEvent
+	 */
+	@Override
+	public void onApplicationEvent(WebServerInitializedEvent event) {
+		serverPort = event.getWebServer().getPort();
+		Logger.info("Get WebServer port {} WebServer Doc http://localhost:{}/doc.html", serverPort, serverPort);
+	}
 }

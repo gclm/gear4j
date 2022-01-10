@@ -214,7 +214,7 @@ import java.io.Serializable;
  * storage 配置
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 public class CloudStorage implements Serializable {
 

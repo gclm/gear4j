@@ -218,34 +218,30 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * <p>
  * chaos-storage 自动配置
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(value = {ChaosProperties.class})
 @ConditionalOnProperty(prefix = "chaos.storage", value = "enabled", havingValue = "true")
 public class ChaosStorageConfig {
 
-    private static final Logger log = LoggerFactory.getLogger(ChaosStorageConfig.class);
+	private static final Logger log = LoggerFactory.getLogger(ChaosStorageConfig.class);
 
-    @Autowired
-    private ChaosProperties properties;
+	@Autowired
+	private ChaosProperties properties;
 
-    /**
-     * <p>
-     * 配置 StorageClient
-     * </p>
-     *
-     * @return club.gclmit.chaos.storage.client.StorageClient
-     * @author gclm
-     */
-    @Bean
-    public CloudStorageClient storageClient() {
-        CloudStorage storage = properties.getStorage();
-        log.debug("读取 properties的数据:{}", StringUtils.toString(storage));
-        return CloudStorageFactory.build(storage);
-    }
+	/**
+	 * 配置 StorageClient
+	 *
+	 * @return {@link CloudStorageClient}
+	 */
+	@Bean
+	public CloudStorageClient storageClient() {
+		CloudStorage storage = properties.getStorage();
+		log.debug("读取 properties的数据:{}", StringUtils.toString(storage));
+		return CloudStorageFactory.build(storage);
+	}
 }

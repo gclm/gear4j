@@ -217,7 +217,7 @@ import java.io.IOException;
 /**
  * XssJacksonDeserializer
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 public class XssJacksonDeserializer extends JsonDeserializer<String> {
 

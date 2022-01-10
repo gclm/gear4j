@@ -209,7 +209,7 @@ import cn.hutool.http.HTMLFilter;
 /**
  * Html过滤 预防xss注入
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 public class HtmlFilterRule {
 

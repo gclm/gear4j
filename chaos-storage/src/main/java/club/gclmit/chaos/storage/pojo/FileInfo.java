@@ -217,7 +217,7 @@ import java.io.Serializable;
  * 文件详情
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 @TableName("chaos_file_info")
 @ApiModel(value = "文件服务对象")

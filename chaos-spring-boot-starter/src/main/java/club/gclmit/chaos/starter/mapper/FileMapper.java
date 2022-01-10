@@ -213,7 +213,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 文件管理
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 @Mapper
 public interface FileMapper extends BaseMapper<FileInfo> {

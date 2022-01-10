@@ -204,9 +204,9 @@
 
 /**
  * <p>
- * starter-starter模块
+ * chaos-boot-starter模块
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 package club.gclmit.chaos.starter;

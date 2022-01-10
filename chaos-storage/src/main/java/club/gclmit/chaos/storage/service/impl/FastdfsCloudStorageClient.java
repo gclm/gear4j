@@ -205,7 +205,7 @@
 package club.gclmit.chaos.storage.service.impl;
 
 import club.gclmit.chaos.core.exception.ChaosException;
-import club.gclmit.chaos.core.http.RequestClient;
+import club.gclmit.chaos.core.http.HttpRequestClient;
 import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.chaos.storage.contants.FileStatus;
 import club.gclmit.chaos.storage.contants.StorageServer;
@@ -227,12 +227,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <p>
  * go-fastdfs 服务实现
  *
- * </p>
- *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class FastdfsCloudStorageClient extends AbstractStorageClient {
 
@@ -241,12 +239,10 @@ public class FastdfsCloudStorageClient extends AbstractStorageClient {
 	private final String serverUrl;
 
 	/**
-	 * <p>
 	 * 初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
 	 * </p>
 	 *
 	 * @param cloudStorage Storage
-	 * @author 孤城落寞
 	 */
 	public FastdfsCloudStorageClient(CloudStorage cloudStorage) {
 		super(cloudStorage);
@@ -260,12 +256,10 @@ public class FastdfsCloudStorageClient extends AbstractStorageClient {
 	}
 
 	/**
-	 * <p>
 	 * 批量删除多个文件
 	 * </p>
 	 *
 	 * @param keys 文件路径集合
-	 * @author 孤城落寞
 	 */
 	@Override
 	public void batchDelete(List<String> keys) {
@@ -276,30 +270,26 @@ public class FastdfsCloudStorageClient extends AbstractStorageClient {
 	}
 
 	/**
-	 * <p>
 	 * 删除文件
 	 * </p>
 	 *
 	 * @param key 文件路径
-	 * @author 孤城落寞
 	 */
 	@Override
 	public void delete(String key) {
 		Assert.hasLength(key, "[FastDFS]删除文件的key不能为空");
 		String url = serverUrl + "delete?path=" + key;
-		String result = RequestClient.get(url);
+		String result = HttpRequestClient.get(url);
 		log.info("当前删除状态:[{}]", result);
 	}
 
 	/**
-	 * <p>
 	 * 上传文件基础方法
 	 * </p>
 	 *
 	 * @param inputStream 上传文件流
 	 * @param fileInfo    文件信息
 	 * @return {@link FileInfo} 文件信息
-	 * @author 孤城落寞
 	 */
 	@Override
 	public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {
@@ -320,7 +310,7 @@ public class FastdfsCloudStorageClient extends AbstractStorageClient {
 
 			String fileName = fileInfo.getOssKey().replace(dateFormat + "/", "");
 
-			String result = RequestClient.upload(uploadUrl, RequestClient.header(), params, "file", fileInfo.getContentType(), fileName, inputStream);
+			String result = HttpRequestClient.upload(uploadUrl, HttpRequestClient.header(), params, "file", fileInfo.getContentType(), fileName, inputStream);
 			String body = StringUtils.trimAll(result);
 			JSONObject mapper = JSONObject.parseObject(body);
 			if (mapper.containsKey("data")) {

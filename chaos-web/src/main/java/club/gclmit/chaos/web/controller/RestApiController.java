@@ -223,115 +223,107 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * <p>
  * 通用 Restful 风格的 CRUD Controller
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 public class RestApiController<Service extends IService<T>, T> {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    protected Service service;
+	@Autowired
+	protected Service service;
 
-    /**
-     * 执行添加操作
-     *
-     * @param t 泛型 T
-     * @return {@link ApiResult}
-     * @author gclm
-     */
-    @ApiOperation(value = "添加数据", notes = "添加数据")
-    @PostMapping
-    public ApiResult create(@Valid @RequestBody T t) {
-        Assert.notNull(t, "添加的操作数据为空");
-        log.info("添加操作数据:[{}]", StringUtils.toString(t));
-        return this.service.save(t) ? ApiResult.ok() : ApiResult.fail("执行添加操作失败");
-    }
+	/**
+	 * 执行添加操作
+	 *
+	 * @param t 泛型 T
+	 * @return {@link ApiResult}
+	 */
+	@ApiOperation(value = "添加数据", notes = "添加数据")
+	@PostMapping
+	public ApiResult create(@Valid @RequestBody T t) {
+		Assert.notNull(t, "添加的操作数据为空");
+		log.info("添加操作数据:[{}]", StringUtils.toString(t));
+		return this.service.save(t) ? ApiResult.ok() : ApiResult.fail("执行添加操作失败");
+	}
 
-    /**
-     * 分页查询数据
-     *
-     * @param queryCondition 分页查询对象
-     * @return {@link ApiPageResult}
-     * @author gclm
-     */
-    @GetMapping
-    @ApiOperation(value = "分页查询", httpMethod = "GET")
-    public ApiResult list(QueryCondition queryCondition) {
-        log.info("分页查询\t:[{}]", StringUtils.toString(queryCondition));
-        Page<T> pages = service.page(new Page<>(queryCondition.getPage(), queryCondition.getPageSize()));
-        ApiPageResult apiPageResult = new ApiPageResult(pages.getTotal(), pages.getRecords(), queryCondition.getPage(), queryCondition.getPageSize());
-        return ApiResult.ok(apiPageResult);
-    }
+	/**
+	 * 分页查询数据
+	 *
+	 * @param queryCondition 分页查询对象
+	 * @return {@link ApiPageResult}
+	 */
+	@GetMapping
+	@ApiOperation(value = "分页查询", httpMethod = "GET")
+	public ApiResult list(QueryCondition queryCondition) {
+		log.info("分页查询\t:[{}]", StringUtils.toString(queryCondition));
+		Page<T> pages = service.page(new Page<>(queryCondition.getPage(), queryCondition.getPageSize()));
+		ApiPageResult apiPageResult = new ApiPageResult(pages.getTotal(), pages.getRecords(), queryCondition.getPage(), queryCondition.getPageSize());
+		return ApiResult.ok(apiPageResult);
+	}
 
-    /**
-     * 执行查询详情
-     *
-     * @param id id
-     * @return {@link ApiResult}
-     * @author gclm
-     */
-    @ApiOperation(value = "根据id查询数据详情", notes = "根据id查询数据详情")
-    @ApiParam(name = "id", required = true, example = "1111")
-    @GetMapping("/{id}")
-    public ApiResult getInfo(@PathVariable String id) {
-        Assert.notNull(id, "id不能为空");
-        log.info("根据Id:[{}]查询数据详情", id);
-        T t = this.service.getById(id);
-        return t != null ? ApiResult.ok(t) : ApiResult.fail("执行查询详情操作失败");
-    }
+	/**
+	 * 执行查询详情
+	 *
+	 * @param id id
+	 * @return {@link ApiResult}
+	 */
+	@ApiOperation(value = "根据id查询数据详情", notes = "根据id查询数据详情")
+	@ApiParam(name = "id", required = true, example = "1111")
+	@GetMapping("/{id}")
+	public ApiResult getInfo(@PathVariable String id) {
+		Assert.notNull(id, "id不能为空");
+		log.info("根据Id:[{}]查询数据详情", id);
+		T t = this.service.getById(id);
+		return t != null ? ApiResult.ok(t) : ApiResult.fail("执行查询详情操作失败");
+	}
 
-    /**
-     * 执行更新操作
-     *
-     * @param t 泛型 T
-     * @return {@link ApiResult}
-     * @author gclm
-     */
-    @ApiOperation(value = "更新数据", notes = "更新数据")
-    @PutMapping
-    public ApiResult update(@Valid @RequestBody T t) {
-        Assert.notNull(t, "添加的操作数据为空");
-        log.info("更新操作数据:[{}]", StringUtils.toString(t));
-        return this.service.updateById(t) ? ApiResult.ok() : ApiResult.fail("执行更新操作失败");
-    }
+	/**
+	 * 执行更新操作
+	 *
+	 * @param t 泛型 T
+	 * @return {@link ApiResult}
+	 */
+	@ApiOperation(value = "更新数据", notes = "更新数据")
+	@PutMapping
+	public ApiResult update(@Valid @RequestBody T t) {
+		Assert.notNull(t, "添加的操作数据为空");
+		log.info("更新操作数据:[{}]", StringUtils.toString(t));
+		return this.service.updateById(t) ? ApiResult.ok() : ApiResult.fail("执行更新操作失败");
+	}
 
-    /**
-     * 执行删除操作
-     *
-     * @param id id
-     * @return {@link ApiResult}
-     * @author gclm
-     */
-    @ApiOperation(value = "根据id删除数据", notes = "根据id删除数据")
-    @ApiParam(name = "id", required = true, example = "1111")
-    @DeleteMapping("/{id}")
-    public ApiResult delete(@PathVariable String id) {
-        Assert.notNull(id, "id不能为空");
-        log.info("删除操作数据ID:[{}]", id);
-        return this.service.removeById(id) ? ApiResult.ok() : ApiResult.fail("执行删除操作失败");
-    }
+	/**
+	 * 执行删除操作
+	 *
+	 * @param id id
+	 * @return {@link ApiResult}
+	 */
+	@ApiOperation(value = "根据id删除数据", notes = "根据id删除数据")
+	@ApiParam(name = "id", required = true, example = "1111")
+	@DeleteMapping("/{id}")
+	public ApiResult delete(@PathVariable String id) {
+		Assert.notNull(id, "id不能为空");
+		log.info("删除操作数据ID:[{}]", id);
+		return this.service.removeById(id) ? ApiResult.ok() : ApiResult.fail("执行删除操作失败");
+	}
 
-    /**
-     * 批量删除
-     *
-     * @param ids 采用,拼接的id
-     * @return {@link ApiResult}
-     * @author gclm
-     */
-    @ApiOperation(value = "批量删除", notes = "批量删除")
-    @DeleteMapping("/batch")
-    public ApiResult batchDelete(String ids) {
-        Assert.notNull(ids, "ids不能为空");
-        log.info("批量删除，ids:{}", ids);
-        if (UrlUtils.hasUrlEncoded(ids)) {
-            ids = UrlUtils.decode(ids);
-        }
-        List<String> idList = Arrays.asList(ids.split(","));
-        return this.service.removeByIds(idList) ? ApiResult.ok() : ApiResult.fail("批量删除失败");
-    }
+	/**
+	 * 批量删除
+	 *
+	 * @param ids 采用,拼接的id
+	 * @return {@link ApiResult}
+	 */
+	@ApiOperation(value = "批量删除", notes = "批量删除")
+	@DeleteMapping("/batch")
+	public ApiResult batchDelete(String ids) {
+		Assert.notNull(ids, "ids不能为空");
+		log.info("批量删除，ids:{}", ids);
+		if (UrlUtils.hasUrlEncoded(ids)) {
+			ids = UrlUtils.decode(ids);
+		}
+		List<String> idList = Arrays.asList(ids.split(","));
+		return this.service.removeByIds(idList) ? ApiResult.ok() : ApiResult.fail("批量删除失败");
+	}
 
 }

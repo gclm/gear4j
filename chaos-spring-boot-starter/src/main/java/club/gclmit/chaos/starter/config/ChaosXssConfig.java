@@ -219,7 +219,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * Chaos Web XSS 配置
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(value = {ChaosProperties.class})
@@ -227,24 +228,26 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ConditionalOnProperty(prefix = "chaos.waf.xss", value = "enabled", havingValue = "true")
 public class ChaosXssConfig implements WebMvcConfigurer {
 
-    @Autowired
-    private ChaosProperties properties;
+	@Autowired
+	private ChaosProperties properties;
 
-    /**
-     * <p>
-     * 配置 {@link ChaosWafProperties}
-     * </p>
-     *
-     * @return club.gclmit.chaos.storage.client.StorageClient
-     * @author gclm
-     */
-    @Bean
-    public ChaosWafProperties chaosLoggerProperties() {
-        return properties.getWaf();
-    }
+	/**
+	 * 配置 {@link ChaosWafProperties}
+	 *
+	 * @return club.gclmit.chaos.storage.client.StorageClient
+	 */
+	@Bean
+	public ChaosWafProperties chaosLoggerProperties() {
+		return properties.getWaf();
+	}
 
-    @Bean
-    public Jackson2ObjectMapperBuilderCustomizer xssJacksonCustomizer() {
-        return builder -> builder.deserializerByType(String.class, new XssJacksonDeserializer());
-    }
+	/**
+	 * 配置jackson xss 防御
+	 *
+	 * @return {@link Jackson2ObjectMapperBuilderCustomizer}
+	 */
+	@Bean
+	public Jackson2ObjectMapperBuilderCustomizer xssJacksonCustomizer() {
+		return builder -> builder.deserializerByType(String.class, new XssJacksonDeserializer());
+	}
 }

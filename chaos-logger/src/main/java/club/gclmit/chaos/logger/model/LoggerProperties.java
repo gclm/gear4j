@@ -211,58 +211,59 @@ import java.util.Arrays;
  * 日志配置工具类
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class LoggerProperties {
 
-    /**
-     * 需要记录日志的前缀
-     */
-    private String prefix = "/api";
+	/**
+	 * 需要记录日志的前缀
+	 */
+	private String prefix = "/api";
 
-    /**
-     * 需要忽略的url
-     */
-    private String[] ignoreUrls = {};
+	/**
+	 * 需要忽略的url
+	 */
+	private String[] ignoreUrls = {};
 
-    /**
-     * 是否保存日志到数据库中
-     * true 为保存到数据库
-     * false 不保存
-     */
-    private Boolean save = false;
+	/**
+	 * 是否保存日志到数据库中
+	 * true 为保存到数据库
+	 * false 不保存
+	 */
+	private Boolean save = false;
 
 
-    public String getPrefix() {
-        return prefix;
-    }
+	public String getPrefix() {
+		return prefix;
+	}
 
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
-    }
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
 
-    public String[] getIgnoreUrls() {
-        return ignoreUrls;
-    }
+	public String[] getIgnoreUrls() {
+		return ignoreUrls;
+	}
 
-    public void setIgnoreUrls(String[] ignoreUrls) {
-        this.ignoreUrls = ignoreUrls;
-    }
+	public void setIgnoreUrls(String[] ignoreUrls) {
+		this.ignoreUrls = ignoreUrls;
+	}
 
-    public Boolean getSave() {
-        return save;
-    }
+	public Boolean getSave() {
+		return save;
+	}
 
-    public void setSave(Boolean save) {
-        this.save = save;
-    }
+	public void setSave(Boolean save) {
+		this.save = save;
+	}
 
-    @Override
-    public String toString() {
-        return "ChaosLoggerProperties{" +
-                "prefix='" + prefix + '\'' +
-                ", ignoreUrls=" + Arrays.toString(ignoreUrls) +
-                ", save=" + save +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "ChaosLoggerProperties{" +
+			"prefix='" + prefix + '\'' +
+			", ignoreUrls=" + Arrays.toString(ignoreUrls) +
+			", save=" + save +
+			'}';
+	}
 }

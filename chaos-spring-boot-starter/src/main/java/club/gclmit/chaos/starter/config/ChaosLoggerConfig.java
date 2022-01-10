@@ -206,10 +206,8 @@ package club.gclmit.chaos.starter.config;
 
 import club.gclmit.chaos.logger.model.LoggerProperties;
 import club.gclmit.chaos.starter.properties.ChaosProperties;
-import club.gclmit.chaos.waf.xss.XssJacksonDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
@@ -221,7 +219,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * chaos-storage 自动配置
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(value = {ChaosProperties.class})
@@ -229,24 +228,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ConditionalOnProperty(prefix = "chaos.logger", value = "enabled", havingValue = "true")
 public class ChaosLoggerConfig implements WebMvcConfigurer {
 
-    @Autowired
-    private ChaosProperties properties;
+	@Autowired
+	private ChaosProperties properties;
 
-    /**
-     * <p>
-     * 配置 {@link LoggerProperties}
-     * </p>
-     *
-     * @return club.gclmit.chaos.storage.client.StorageClient
-     * @author gclm
-     */
-    @Bean
-    public LoggerProperties chaosLoggerProperties() {
-        return properties.getLogger();
-    }
+	/**
+	 * <p>
+	 * 配置 {@link LoggerProperties}
+	 * </p>
+	 *
+	 * @return {@link LoggerProperties}
+	 */
+	@Bean
+	public LoggerProperties chaosLoggerProperties() {
+		return properties.getLogger();
+	}
 
-    @Bean
-    public Jackson2ObjectMapperBuilderCustomizer xssJacksonCustomizer() {
-        return builder -> builder.deserializerByType(String.class, new XssJacksonDeserializer());
-    }
 }

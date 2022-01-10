@@ -210,7 +210,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * 对页面返回请求进行包装
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 @ApiModel(value = "分页数据封装", description = "分页数据封装")
 public class ApiPageResult {

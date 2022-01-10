@@ -212,52 +212,49 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
- * <p>
  * 统一异常处理控制器
- * </p>
  *
- * @author 孤城落寞
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class GlobalExceptionHandler {
 
-    /**
-     * 处理 validate 异常
-     *
-     * @param exception 异常
-     * @return {@link ApiResult}
-     * @author gclm
-     */
-    @ExceptionHandler(value = {
-            BindException.class,
-            MethodArgumentNotValidException.class
-    })
-    public ApiResult validationExceptionHandler(Exception exception) {
+	/**
+	 * 处理 validate 异常
+	 *
+	 * @param exception 异常
+	 * @return {@link ApiResult}
+	 */
+	@ExceptionHandler(value = {
+		BindException.class,
+		MethodArgumentNotValidException.class
+	})
+	public ApiResult validationExceptionHandler(Exception exception) {
 
-        BindingResult bindResult = null;
-        if (exception instanceof BindException) {
-            bindResult = ((BindException) exception).getBindingResult();
-        }
-        StringBuilder message = new StringBuilder();
+		BindingResult bindResult = null;
+		if (exception instanceof BindException) {
+			bindResult = ((BindException) exception).getBindingResult();
+		}
+		StringBuilder message = new StringBuilder();
 
-        if (bindResult != null && bindResult.hasErrors()) {
-            bindResult.getAllErrors().forEach(objectError -> {
-                message.append(objectError.getDefaultMessage()).append(",");
-            });
-        } else {
-            message.append("系统繁忙，请稍后重试...");
-        }
-        return ApiResult.fail(message.substring(0, message.length() - 1));
-    }
+		if (bindResult != null && bindResult.hasErrors()) {
+			bindResult.getAllErrors().forEach(objectError -> {
+				message.append(objectError.getDefaultMessage()).append(",");
+			});
+		} else {
+			message.append("系统繁忙，请稍后重试...");
+		}
+		return ApiResult.fail(message.substring(0, message.length() - 1));
+	}
 
-    /**
-     * chaos组件相关的异常
-     *
-     * @param exception 异常
-     * @return {@link ApiResult}
-     * @author gclm
-     */
-    @ExceptionHandler(value = {ChaosException.class})
-    public ApiResult chaosException(Exception exception) {
-        return ApiResult.fail(exception.getMessage());
-    }
+	/**
+	 * chaos组件相关的异常
+	 *
+	 * @param exception 异常
+	 * @return {@link ApiResult}
+	 */
+	@ExceptionHandler(value = {ChaosException.class})
+	public ApiResult chaosException(Exception exception) {
+		return ApiResult.fail(exception.getMessage());
+	}
 }

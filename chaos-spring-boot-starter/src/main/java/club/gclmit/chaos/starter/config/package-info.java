@@ -203,10 +203,8 @@
 */
 
 /**
- * <p>
- * starter-spring配置
- * </p>
+ * chaos-boot-starter: config
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 package club.gclmit.chaos.starter.config;

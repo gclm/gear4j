@@ -227,11 +227,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 
 /**
- * <p>
  * 抽象存储类
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public abstract class AbstractStorageClient implements CloudStorageClient {
 
@@ -246,13 +245,11 @@ public abstract class AbstractStorageClient implements CloudStorageClient {
 
 
 	/**
-	 * <p>
 	 * 上传文件
 	 * </p>
 	 *
 	 * @param file 文件
 	 * @return {@link FileInfo} 文件信息
-	 * @author 孤城落寞
 	 */
 	@Override
 	public FileInfo upload(File file) {
@@ -266,13 +263,11 @@ public abstract class AbstractStorageClient implements CloudStorageClient {
 	}
 
 	/**
-	 * <p>
 	 * 上传文件
 	 * </p>
 	 *
 	 * @param file 文件
 	 * @return {@link FileInfo} 文件信息
-	 * @author 孤城落寞
 	 */
 	@Override
 	public FileInfo upload(MultipartFile file) {
@@ -285,7 +280,6 @@ public abstract class AbstractStorageClient implements CloudStorageClient {
 	}
 
 	/**
-	 * <p>
 	 * 上传字节数组
 	 * </p>
 	 *
@@ -293,7 +287,6 @@ public abstract class AbstractStorageClient implements CloudStorageClient {
 	 * @param key      文件路径
 	 * @param fileName 文件名
 	 * @return {@link FileInfo} 文件信息
-	 * @author 孤城落寞
 	 */
 	@Override
 	public FileInfo upload(byte[] data, String key, String fileName) {
@@ -324,7 +317,6 @@ public abstract class AbstractStorageClient implements CloudStorageClient {
 	 * @param key      key
 	 * @param fileName 文件名
 	 * @return {@link FileInfo} 文件信息
-	 * @author gclm
 	 */
 	@Override
 	public FileInfo upload(String content, String key, String fileName) {
@@ -342,7 +334,6 @@ public abstract class AbstractStorageClient implements CloudStorageClient {
 	 *
 	 * @param file 文件
 	 * @return {@link FileInfo} 文件信息
-	 * @author gclm
 	 */
 	public FileInfo buildFileInfo(File file) {
 		String key = getPath(cloudStorage.getConfig().getPrefix(), FileUtils.getSuffix(file));
@@ -356,7 +347,6 @@ public abstract class AbstractStorageClient implements CloudStorageClient {
 	 *
 	 * @param file 文件
 	 * @return {@link FileInfo} 文件信息
-	 * @author gclm
 	 */
 	public FileInfo buildFileInfo(MultipartFile file) {
 		String key = getPath(cloudStorage.getConfig().getPrefix(), FileTypeUtils.getSuffix(file));

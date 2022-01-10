@@ -217,48 +217,45 @@ import java.lang.reflect.Method;
  * 重写RequestMappingHandlerMapping，使其支持版本控制
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 public class FastApiRequestMappingHandlerMapping extends RequestMappingHandlerMapping {
 
-    /**
-     * 扫描类上的 @ApiVersion
-     *
-     * @param handlerType Class
-     * @return {@link RequestCondition}
-     * @author gclm
-     */
-    @Override
-    protected RequestCondition<?> getCustomTypeCondition(Class<?> handlerType) {
-        FastApi version = AnnotationUtils.findAnnotation(handlerType, FastApi.class);
-        assert version != null;
-        return createRequestCondition(version);
-    }
+	/**
+	 * 扫描类上的 @ApiVersion
+	 *
+	 * @param handlerType Class
+	 * @return {@link RequestCondition}
+	 */
+	@Override
+	protected RequestCondition<?> getCustomTypeCondition(Class<?> handlerType) {
+		FastApi version = AnnotationUtils.findAnnotation(handlerType, FastApi.class);
+		assert version != null;
+		return createRequestCondition(version);
+	}
 
-    /**
-     * 扫描方法上的@ApiVersion
-     *
-     * @param method 扫描方法
-     * @return {@link RequestCondition}
-     * @author gclm
-     */
-    @Override
-    protected RequestCondition<?> getCustomMethodCondition(Method method) {
-        FastApi fastApi = AnnotationUtils.findAnnotation(method, FastApi.class);
-        assert fastApi != null;
-        return createRequestCondition(fastApi);
-    }
+	/**
+	 * 扫描方法上的@ApiVersion
+	 *
+	 * @param method 扫描方法
+	 * @return {@link RequestCondition}
+	 */
+	@Override
+	protected RequestCondition<?> getCustomMethodCondition(Method method) {
+		FastApi fastApi = AnnotationUtils.findAnnotation(method, FastApi.class);
+		assert fastApi != null;
+		return createRequestCondition(fastApi);
+	}
 
-    /**
-     * 创建 requestRequestCondition
-     *
-     * @param version ApiVersion
-     * @return {@link RequestCondition<FastApiCondition>}
-     * @author gclm
-     */
-    private RequestCondition<FastApiCondition> createRequestCondition(FastApi version) {
-        int versionValue = version.value();
-        Assert.isTrue(versionValue >= 1, "Api 版本不能小于 1");
-        return new FastApiCondition(versionValue);
-    }
+	/**
+	 * 创建 requestRequestCondition
+	 *
+	 * @param version ApiVersion
+	 * @return {@link RequestCondition<FastApiCondition>}
+	 */
+	private RequestCondition<FastApiCondition> createRequestCondition(FastApi version) {
+		int versionValue = version.value();
+		Assert.isTrue(versionValue >= 1, "Api 版本不能小于 1");
+		return new FastApiCondition(versionValue);
+	}
 }

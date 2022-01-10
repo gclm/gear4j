@@ -239,13 +239,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- * <p>
  * 腾讯云存储配置
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
-public class TencentCloudStorageClient extends AbstractStorageClient{
+public class TencentCloudStorageClient extends AbstractStorageClient {
 
 	private static final Logger log = LoggerFactory.getLogger(TencentCloudStorageClient.class);
 	/**
@@ -259,12 +258,9 @@ public class TencentCloudStorageClient extends AbstractStorageClient{
 	private final CloudStorageConfig cloudStorageConfig;
 
 	/**
-	 * <p>
 	 * 初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
-	 * </p>
 	 *
 	 * @param cloudStorage Storage
-	 * @author 孤城落寞
 	 */
 	public TencentCloudStorageClient(CloudStorage cloudStorage) {
 		super(cloudStorage);
@@ -278,12 +274,9 @@ public class TencentCloudStorageClient extends AbstractStorageClient{
 	}
 
 	/**
-	 * <p>
 	 * 批量删除文件
-	 * </p>
 	 *
 	 * @param keys 文件keys
-	 * @author gclm
 	 */
 	@Override
 	public void batchDelete(List<String> keys) {
@@ -308,12 +301,9 @@ public class TencentCloudStorageClient extends AbstractStorageClient{
 	}
 
 	/**
-	 * <p>
 	 * 删除文件
-	 * </p>
 	 *
 	 * @param key 文件key
-	 * @author gclm
 	 */
 	@Override
 	public void delete(String key) {
@@ -323,14 +313,11 @@ public class TencentCloudStorageClient extends AbstractStorageClient{
 
 
 	/**
-	 * <p>
 	 * 上传文件基础方法
-	 * </p>
 	 *
 	 * @param inputStream 上传文件流
 	 * @param fileInfo    文件信息
 	 * @return {@link FileInfo} 文件信息
-	 * @author 孤城落寞
 	 */
 	@Override
 	public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {
@@ -391,8 +378,7 @@ public class TencentCloudStorageClient extends AbstractStorageClient{
 	 * @param secretId  secretId
 	 * @param secretKey secretKey
 	 * @param region    region
-	 * @return com.qcloud.cos.COSClient
-	 * @author gclm
+	 * @return {@link COSClient}
 	 */
 	public COSClient build(String secretId, String secretKey, String region) {
 

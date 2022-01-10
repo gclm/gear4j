@@ -209,7 +209,7 @@ package club.gclmit.chaos.waf.properties;
  * waf 配置
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 public class ChaosWafProperties {
 

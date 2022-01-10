@@ -212,11 +212,10 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * <p>
  * 七牛云存储配置
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class QiniuCloudStorageClient extends AbstractStorageClient {
 

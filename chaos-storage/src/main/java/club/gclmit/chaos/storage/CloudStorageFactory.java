@@ -210,22 +210,19 @@ import club.gclmit.chaos.storage.service.CloudStorageClient;
 import club.gclmit.chaos.storage.service.impl.*;
 
 /**
- * <p>
  * oss 客户端构造器
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 public class CloudStorageFactory {
 
 	/**
-	 * <p>
+
 	 * 返回对应服务的实现客户端
 	 * </p>
 	 *
 	 * @param cloudStorage Storage
 	 * @return {@link CloudStorageClient}
-	 * @author 孤城落寞
 	 */
 	public static CloudStorageClient build(CloudStorage cloudStorage) {
 		switch (cloudStorage.getType()) {

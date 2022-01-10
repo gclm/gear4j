@@ -210,7 +210,7 @@ import java.util.List;
 /**
  * Xss配置类
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 public class XssProperties {
 

@@ -210,7 +210,7 @@ import club.gclmit.chaos.core.utils.StringUtils;
 /**
  * SQL过滤
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 public class SqlFilterRule {
 

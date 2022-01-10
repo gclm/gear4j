@@ -211,8 +211,8 @@ import club.gclmit.chaos.core.lang.Builder;
 import club.gclmit.chaos.core.utils.SqlUtils;
 import club.gclmit.chaos.core.utils.UrlUtils;
 import club.gclmit.chaos.logger.mapper.LoggerMapper;
-import club.gclmit.chaos.logger.model.LoggerProperties;
 import club.gclmit.chaos.logger.model.ApiTraceRecord;
+import club.gclmit.chaos.logger.model.LoggerProperties;
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
@@ -236,95 +236,93 @@ import java.util.Arrays;
  * 日志 Filter
  * </p>
  *
- * @author gclm
- * @since 1.4
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 @WebFilter(filterName = "loggerFilter", urlPatterns = "/*")
 public class LoggerFilter extends OncePerRequestFilter implements Ordered {
 
-    @Autowired
-    private LoggerProperties config;
+	@Autowired
+	private LoggerProperties config;
 
-    private static final Logger log = LoggerFactory.getLogger(LoggerFilter.class);
+	private static final Logger log = LoggerFactory.getLogger(LoggerFilter.class);
 
-    /**
-     * 获取Bean对象
-     *
-     * @param clazz   获取 bean 对象
-     * @param <T>     泛型
-     * @param request request 请求
-     * @return T
-     * @author gclm
-     */
-    public static <T> T genBean(Class<T> clazz, HttpServletRequest request) {
-        BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
-        return factory.getBean(clazz);
-    }
+	/**
+	 * 获取Bean对象
+	 *
+	 * @param clazz   获取 bean 对象
+	 * @param <T>     泛型
+	 * @param request request 请求
+	 * @return T
+	 */
+	public static <T> T genBean(Class<T> clazz, HttpServletRequest request) {
+		BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
+		return factory.getBean(clazz);
+	}
 
-    @Override
-    public int getOrder() {
-        return Ordered.LOWEST_PRECEDENCE;
-    }
+	@Override
+	public int getOrder() {
+		return Ordered.LOWEST_PRECEDENCE;
+	}
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        String uri = request.getRequestURI();
-        Long requestTime = DateUtil.current();
-        String sessionId = ServletUtils.getSessionId(request);
+	@Override
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+		String uri = request.getRequestURI();
+		Long requestTime = DateUtil.current();
+		String sessionId = ServletUtils.getSessionId(request);
 
-        if (checkIgnoreUrl(uri) || ServletUtils.isFileUpload(request)) {
-            chain.doFilter(request, response);
-        } else {
-            HttpCacheRequestWrapper httpCacheRequestWrapper = new HttpCacheRequestWrapper(request);
-            HttpCacheResponseWrapper responseWrapper = new HttpCacheResponseWrapper(response);
-            chain.doFilter(httpCacheRequestWrapper, responseWrapper);
-            /*
-             *  获取 response 相关参数
-             *  请求耗时 = 响应时间 - 请求时间
-             */
-            Long responseTime = DateUtil.current();
-            Long time = responseTime - requestTime;
+		if (checkIgnoreUrl(uri) || ServletUtils.isFileUpload(request)) {
+			chain.doFilter(request, response);
+		} else {
+			HttpCacheRequestWrapper httpCacheRequestWrapper = new HttpCacheRequestWrapper(request);
+			HttpCacheResponseWrapper responseWrapper = new HttpCacheResponseWrapper(response);
+			chain.doFilter(httpCacheRequestWrapper, responseWrapper);
+			/*
+			 *  获取 response 相关参数
+			 *  请求耗时 = 响应时间 - 请求时间
+			 */
+			Long responseTime = DateUtil.current();
+			Long time = responseTime - requestTime;
 
-            ApiTraceRecord trace = Builder.build(ApiTraceRecord::new)
-                    .val(ApiTraceRecord::setUri, uri)
-                    .val(ApiTraceRecord::setClientIp, ServletUtils.getClientIp(request))
-                    .val(ApiTraceRecord::setContentType, ServletUtils.getContentType(request))
-                    .val(ApiTraceRecord::setMethod, request.getMethod())
-                    .val(ApiTraceRecord::setUserAgent, ServletUtils.getUserAgent(request))
-                    .val(ApiTraceRecord::setSessionId, sessionId)
-                    .val(ApiTraceRecord::setHttpCode, response.getStatus())
-                    .val(ApiTraceRecord::setRequestTime, requestTime)
-                    .val(ApiTraceRecord::setResponseTime, responseTime)
-                    .val(ApiTraceRecord::setConsumingTime, time)
-                    .val(ApiTraceRecord::setResponseHeader, JSONObject.toJSONString(ServletUtils.getResponseHeaders(response)))
-                    .val(ApiTraceRecord::setRequestHeader, JSONObject.toJSONString(ServletUtils.getRequestHeaders(request)))
-                    .val(ApiTraceRecord::setRequestBody, ServletUtils.getRequestBody(httpCacheRequestWrapper))
-                    .val(ApiTraceRecord::setResponseBody, ServletUtils.getResponseBody(responseWrapper))
-                    .build();
+			ApiTraceRecord trace = Builder.build(ApiTraceRecord::new)
+				.val(ApiTraceRecord::setUri, uri)
+				.val(ApiTraceRecord::setClientIp, ServletUtils.getClientIp(request))
+				.val(ApiTraceRecord::setContentType, ServletUtils.getContentType(request))
+				.val(ApiTraceRecord::setMethod, request.getMethod())
+				.val(ApiTraceRecord::setUserAgent, ServletUtils.getUserAgent(request))
+				.val(ApiTraceRecord::setSessionId, sessionId)
+				.val(ApiTraceRecord::setHttpCode, response.getStatus())
+				.val(ApiTraceRecord::setRequestTime, requestTime)
+				.val(ApiTraceRecord::setResponseTime, responseTime)
+				.val(ApiTraceRecord::setConsumingTime, time)
+				.val(ApiTraceRecord::setResponseHeader, JSONObject.toJSONString(ServletUtils.getResponseHeaders(response)))
+				.val(ApiTraceRecord::setRequestHeader, JSONObject.toJSONString(ServletUtils.getRequestHeaders(request)))
+				.val(ApiTraceRecord::setRequestBody, ServletUtils.getRequestBody(httpCacheRequestWrapper))
+				.val(ApiTraceRecord::setResponseBody, ServletUtils.getResponseBody(responseWrapper))
+				.build();
 
-            /*
-             * 保存到数据库
-             */
-            if (config.getSave()) {
-                LoggerMapper loggerMapper = genBean(LoggerMapper.class, request);
-                boolean save = SqlUtils.retBool(loggerMapper.insert(trace));
-                log.info("当前请求日志：{}\t入库：{}", trace, save);
-            } else {
-                log.info("当前请求日志：{}", trace);
-            }
-        }
-    }
+			/*
+			 * 保存到数据库
+			 */
+			if (config.getSave()) {
+				LoggerMapper loggerMapper = genBean(LoggerMapper.class, request);
+				boolean save = SqlUtils.retBool(loggerMapper.insert(trace));
+				log.info("当前请求日志：{}\t入库：{}", trace, save);
+			} else {
+				log.info("当前请求日志：{}", trace);
+			}
+		}
+	}
 
-    /**
-     * <p>
-     * 效验当前请求是否需要忽略
-     * </p>
-     *
-     * @param uri 效验请求
-     * @return boolean
-     * @author gclm
-     */
-    private boolean checkIgnoreUrl(String uri) {
-        return !uri.startsWith(config.getPrefix()) && !UrlUtils.isIgnore(Arrays.asList(config.getIgnoreUrls()), uri);
-    }
+	/**
+	 * <p>
+	 * 效验当前请求是否需要忽略
+	 * </p>
+	 *
+	 * @param uri 效验请求
+	 * @return boolean
+	 */
+	private boolean checkIgnoreUrl(String uri) {
+		return !uri.startsWith(config.getPrefix()) && !UrlUtils.isIgnore(Arrays.asList(config.getIgnoreUrls()), uri);
+	}
 }

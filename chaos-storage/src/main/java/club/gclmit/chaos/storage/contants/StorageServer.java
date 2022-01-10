@@ -209,11 +209,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * <p>
  * 云服务商
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 public enum StorageServer {
 
@@ -289,7 +287,7 @@ public enum StorageServer {
 	 * 返回所有服务code
 	 *
 	 * @return {@link String}
-	 * @author gclm
+	 * @author <a href="https://blog.gclmit.club">gclm</a>
 	 */
 	public static List<String> getServerCodeList() {
 		return Arrays.stream(StorageServer.values()).map(StorageServer::getCode).collect(Collectors.toList());

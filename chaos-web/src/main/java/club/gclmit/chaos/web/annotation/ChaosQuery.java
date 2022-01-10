@@ -209,7 +209,7 @@ import java.lang.annotation.*;
 /**
  * 快速查询
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 @Target({ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)

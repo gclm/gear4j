@@ -215,7 +215,7 @@ import java.io.IOException;
 /**
  * Xss Jackson 序列化
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 public class XssJacksonSerializer extends JsonSerializer<String> {
 

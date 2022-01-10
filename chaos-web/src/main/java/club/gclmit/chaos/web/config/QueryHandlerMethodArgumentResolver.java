@@ -221,46 +221,45 @@ import java.util.Map;
 /**
  * 自定义查询解析器
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 public class QueryHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
-    private static final Logger log = LoggerFactory.getLogger(QueryHandlerMethodArgumentResolver.class);
+	private static final Logger log = LoggerFactory.getLogger(QueryHandlerMethodArgumentResolver.class);
 
-    @Override
-    public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.hasParameterAnnotation(ChaosQuery.class);
-    }
+	@Override
+	public boolean supportsParameter(MethodParameter parameter) {
+		return parameter.hasParameterAnnotation(ChaosQuery.class);
+	}
 
-    /**
-     * 父类转子类
-     *
-     * @param parameter     MethodParameter
-     * @param mavContainer  ModelAndViewContainer
-     * @param webRequest    NativeWebRequest
-     * @param binderFactory WebDataBinderFactory
-     * @return {@link Object}
-     * @author gclm
-     */
-    @Override
-    public Object resolveArgument(MethodParameter parameter, @Nullable ModelAndViewContainer mavContainer,
-                                  NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) throws Exception {
+	/**
+	 * 父类转子类
+	 *
+	 * @param parameter     MethodParameter
+	 * @param mavContainer  ModelAndViewContainer
+	 * @param webRequest    NativeWebRequest
+	 * @param binderFactory WebDataBinderFactory
+	 * @return {@link Object}
+	 */
+	@Override
+	public Object resolveArgument(MethodParameter parameter, @Nullable ModelAndViewContainer mavContainer,
+								  NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) throws Exception {
 
-        ChaosQuery chaosQuery = parameter.getParameterAnnotation(ChaosQuery.class);
-        if (chaosQuery == null) {
-            throw new IllegalArgumentException(
-                    "Unknown parameter type [" + parameter.getParameterType().getName() + "]");
-        }
+		ChaosQuery chaosQuery = parameter.getParameterAnnotation(ChaosQuery.class);
+		if (chaosQuery == null) {
+			throw new IllegalArgumentException(
+				"Unknown parameter type [" + parameter.getParameterType().getName() + "]");
+		}
 
-        Class<?> clazz = chaosQuery.clazz();
-        log.info("chaos --> 当前转换Class:[{}]", clazz.getName());
+		Class<?> clazz = chaosQuery.clazz();
+		log.info("chaos --> 当前转换Class:[{}]", clazz.getName());
 
-        Map<String, String[]> params = webRequest.getParameterMap();
-        Object obj = MapUtils.mapToObject(params, clazz);
+		Map<String, String[]> params = webRequest.getParameterMap();
+		Object obj = MapUtils.mapToObject(params, clazz);
 
-        log.info("chaos --> 解析后Object:[{}]", StringUtils.toString(obj));
+		log.info("chaos --> 解析后Object:[{}]", StringUtils.toString(obj));
 
-        return obj;
-    }
+		return obj;
+	}
 }
 
