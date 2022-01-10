@@ -47,6 +47,14 @@ dependencies {
     api platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
     api platform("org.junit:junit-bom:${junitVersion}")
     constraints {
+        // chaos
+        api "club.gclmit:chaos-core:${VERSION}"
+        api "club.gclmit:chaos-logger:${VERSION}"
+        api "club.gclmit:chaos-spring-boot-starter:${VERSION}"
+        api "club.gclmit:chaos-storage:${VERSION}"
+        api "club.gclmit:chaos-waf:${VERSION}"
+        api "club.gclmit:chaos-web:${VERSION}"
+
         // starter
         api "com.baomidou:mybatis-plus-boot-starter:${mybatisPlusVersion}"
         api "com.baomidou:mybatis-plus-extension:${mybatisPlusVersion}"
