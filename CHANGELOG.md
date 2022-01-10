@@ -1,10 +1,16 @@
+### 2.4.2
+
+- ci: 修复自动发布包异常
+
 ### 2.4.1
+
 - ci: 修复github action
 - ci: 使用sonar 优化代码
 - fix: 修复Make sure not setting any maximum content length limit is safe here
 - style: 规范Javadoc
 
 ### 2.4.0
+
 - feat: maven to gradle
 - feat: 合并bom代码到当前项目
 - build: 升级依赖
@@ -13,7 +19,7 @@
 - style: 删除注解@date
 - style: 删除多余的.gitignore文件
 
-### 2.3.7 
+### 2.3.7
 
 - 新增`DefaultFileService`基于id删除的方法
 - 新增`CHANGELOG.md`版本记录管理
