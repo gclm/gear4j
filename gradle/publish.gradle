@@ -20,25 +20,20 @@ task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
 }
 
-javadoc {
-    options {
-        encoding "UTF-8"
-        charSet 'UTF-8'
-        author true
-        version true
-        failOnError false
-    }
-    if (JavaVersion.current().isJava9Compatible()) {
-        options.addStringOption("link", "https://docs.oracle.com/en/java/javase/11/docs/api/")
-        options.addBooleanOption('html5', true)
-    } else {
-        options.addStringOption("link", "https://docs.oracle.com/javase/8/docs/api")
-    }
-}
-
 task javadocJar(type: Jar) {
     archiveClassifier.set('javadoc')
     from 'build/docs/javadoc'
+}
+
+javadoc {
+    options.addStringOption("charset", "UTF-8")
+    options.addStringOption("encoding", "UTF-8")
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+        options.addStringOption("link", "https://docs.oracle.com/en/java/javase/11/docs/api/")
+    } else {
+        options.addStringOption("link", "https://docs.oracle.com/javase/8/docs/api")
+    }
 }
 
 artifacts {
@@ -109,10 +104,5 @@ signing {
 }
 
 
-javadoc {
-    options.addStringOption("charset", "UTF-8")
-    if (JavaVersion.current().isJava9Compatible()) {
-        options.addBooleanOption('html5', true)
-    }
-}
+
 
