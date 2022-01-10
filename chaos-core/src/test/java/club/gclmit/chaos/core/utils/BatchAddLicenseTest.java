@@ -216,8 +216,8 @@ import java.util.stream.Collectors;
 /**
  * 批量添加授权证书
  *
- * @author gclm
- * 2021/7/4 3:16 下午
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since 2021/7/4 3:16 下午
  */
 public class BatchAddLicenseTest {
 

@@ -202,156 +202,289 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.core.id;
+package club.gclmit.chaos.core.http;
 
-import club.gclmit.chaos.core.exception.ChaosException;
+import club.gclmit.chaos.core.io.IOUtils;
+import club.gclmit.chaos.core.utils.StringUtils;
+import cn.hutool.core.map.MapUtil;
+import com.ejlchina.okhttps.HttpResult;
+import com.ejlchina.okhttps.OkHttps;
+import com.ejlchina.okhttps.internal.RealHttpResult;
+import okhttp3.Response;
 
-import java.time.Clock;
+import java.io.File;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
- * 原文： https://my.oschina.net/wangshuhui/blog/3081736
+ * 通用请求客户端
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
-public class Snowflake {
+public class HttpRequestClient {
 
-    // ==============================Fields===========================================
 
-    /**
-     * 机器id所占的位数
-     */
-    private final long workerIdBits = 5L;
+	private HttpRequestClient() {
+	}
 
-    /**
-     * 数据标识id所占的位数
-     */
-    private final long datacenterIdBits = 5L;
+	/**
+	 * 效验链接。 code == 200 ? true : false
+	 *
+	 * @param url 请求url
+	 * @return {@link boolean}
+	 */
+	public static boolean judgeUrl(String url) {
+		return 200 == statusCode(url);
+	}
 
-    /**
-     * 工作机器ID(0~31)
-     */
-    private final long workerId;
+	/**
+	 * 获取请求url的状态码
+	 *
+	 * @param url 请求url
+	 * @return {@link int} 状态码
+	 */
+	public static int statusCode(String url) {
+		return OkHttps.async(url).addHeader(header()).get().getResult().getStatus();
+	}
 
-    /**
-     * 数据中心ID(0~31)
-     */
-    private final long datacenterId;
+	/**
+	 * 服务 ping
+	 *
+	 * @param url 请求url
+	 * @return {@link Long} 请求ping值
+	 */
+	public static Long ping(String url) {
+		HttpResult result = OkHttps.async(url).addHeader(header()).get().getResult();
+		Response response = ((RealHttpResult) result).getResponse();
+		long responseAtMillis = response.receivedResponseAtMillis();
+		long sentRequestAtMillis = response.sentRequestAtMillis();
+		return responseAtMillis - sentRequestAtMillis;
+	}
 
-    /**
-     * 毫秒内序列(0~4095)
-     */
-    private long sequence = 0L;
+	/**
+	 * 通用请求头
+	 *
+	 * @return {@link Map}
+	 */
+	public static Map<String, String> header() {
+		Map<String, String> header = new HashMap<>(4);
+		header.put("Cache-Control", "no-cache");
+		header.put("Accept", "*/*");
+		header.put("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36");
+		return header;
+	}
 
-    /**
-     * 上次生成ID的时间截
-     */
-    private long lastTimestamp = -1L;
+	/**
+	 * get 请求
+	 *
+	 * @param url 请求url
+	 * @return {@link String}
+	 */
+	public static String get(String url) {
+		return get(url, header());
+	}
 
-    //==============================Constructors=====================================
+	/**
+	 * get 请求
+	 *
+	 * @param url     请求url
+	 * @param headers 请求头
+	 * @return {@link String}
+	 */
+	public static String get(String url, Map<String, String> headers) {
+		return getResult(url, headers).getBody().toString();
+	}
 
-    /**
-     * 构造函数
-     *
-     * @param workerId     工作ID (0~31)
-     * @param datacenterId 数据中心ID (0~31)
-     */
-    public Snowflake(long workerId, long datacenterId) {
-        /*
-         * 支持的最大机器id，结果是31 (这个移位算法可以很快的计算出几位二进制数所能表示的最大十进制数)
-         */
-        long maxWorkerId = ~(-1L << workerIdBits);
-        if (workerId > maxWorkerId || workerId < 0) {
-            throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
-        }
-        /*
-         * 支持的最大数据标识id，结果是31
-         */
-        long maxDatacenterId = ~(-1L << datacenterIdBits);
-        if (datacenterId > maxDatacenterId || datacenterId < 0) {
-            throw new IllegalArgumentException(String.format("datacenter Id can't be greater than %d or less than 0", maxDatacenterId));
-        }
-        this.workerId = workerId;
-        this.datacenterId = datacenterId;
-    }
+	/**
+	 * get 请求
+	 *
+	 * @param url     请求url
+	 * @param headers 请求头
+	 * @return {@link String}
+	 */
+	public static HttpResult getResult(String url, Map<String, String> headers) {
+		return OkHttps.async(url).addHeader(headers).get().getResult();
+	}
 
-    // ==============================Methods==========================================
+	/**
+	 * post 请求
+	 *
+	 * @param url    请求url
+	 * @param params 请求参数
+	 * @param type   格式类型 json|from
+	 * @return {@link String}
+	 */
+	public static String post(String url, Map<String, ?> params, String type) {
+		return post(url, params, header(), type);
+	}
 
-    /**
-     * 获得下一个ID (该方法是线程安全的)
-     *
-     * @return SnowflakeId
-     */
-    public synchronized long nextId() {
-        long timestamp = timeGen();
+	/**
+	 * post 请求
+	 *
+	 * @param url     请求url
+	 * @param params  请求参数
+	 * @param headers 请求头
+	 * @param type    格式类型 json|from
+	 * @return {@link String}
+	 */
+	public static String post(String url, Map<String, ?> params, Map<String, String> headers, String type) {
+		return OkHttps.async(url).addHeader(headers).addBodyPara(params).bodyType(type).post().getResult().getBody().toString();
+	}
 
-        //如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
-        if (timestamp < lastTimestamp) {
-            throw new ChaosException(String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
-        }
+	/**
+	 * post 请求
+	 *
+	 * @param url     请求url
+	 * @param json    请求参数
+	 * @param headers 请求头
+	 * @return {@link String}
+	 */
+	public static String post(String url, String json, Map<String, String> headers) {
+		return Objects.requireNonNull(postResult(url, null, json, headers, null)).getBody().toString();
+	}
 
-        //如果是同一时间生成的，则进行毫秒内序列
-        /*
-         * 序列在id中占的位数
-         */
-        long sequenceBits = 12L;
-        if (lastTimestamp == timestamp) {
-            /*
-             * 生成序列的掩码，这里为4095 (0b111111111111=0xfff=4095)
-             */
-            long sequenceMask = ~(-1L << sequenceBits);
-            sequence = (sequence + 1) & sequenceMask;
-            //毫秒内序列溢出
-            if (sequence == 0) {
-                //阻塞到下一个毫秒,获得新的时间戳
-                timestamp = tilNextMillis(lastTimestamp);
-            }
-        }
-        //时间戳改变，毫秒内序列重置
-        else {
-            sequence = 0L;
-        }
 
-        //上次生成ID的时间截
-        lastTimestamp = timestamp;
+	/**
+	 * post 请求
+	 *
+	 * @param url     请求url
+	 * @param params  请求参数
+	 * @param json    请求参数
+	 * @param headers 请求头
+	 * @param type    格式类型 json|from
+	 * @return {@link HttpResult}
+	 */
+	public static HttpResult postResult(String url, Map<String, ?> params, String json, Map<String, String> headers, String type) {
+		if (MapUtil.isNotEmpty(params) && StringUtils.isBlank(json)) {
+			return OkHttps.async(url).addHeader(headers).addBodyPara(params).bodyType(type).post().getResult();
+		} else if (MapUtil.isEmpty(params) && StringUtils.isNotBlank(json)) {
+			return OkHttps.async(url).addHeader(headers).setBodyPara(json).bodyType(OkHttps.JSON).post().getResult();
+		}
+		return null;
+	}
 
-        /* - 移位并通过或运算拼到一起组成64位的ID
-         * - 机器ID向左移12位
-         * - 时间截向左移22位(5+5+12)
-         */
-        long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
 
-        /*
-         * 数据标识id向左移17位(12+5)
-         */
-        long datacenterIdShift = sequenceBits + workerIdBits;
-        /*
-         * 开始时间截 (2015-01-01)
-         */
-        long twepoch = 1420041600000L;
-        return ((timestamp - twepoch) << timestampLeftShift) | (datacenterId << datacenterIdShift) | (workerId << sequenceBits) | sequence;
-    }
+	/**
+	 * put 请求
+	 *
+	 * @param url    请求url
+	 * @param params 请求参数
+	 * @return {@link String}
+	 */
+	public static String put(String url, Map<String, ?> params) {
+		return put(url, params, header());
+	}
 
-    /**
-     * 阻塞到下一个毫秒，直到获得新的时间戳
-     *
-     * @param lastTimestamp 上次生成ID的时间截
-     * @return 当前时间戳
-     */
-    protected long tilNextMillis(long lastTimestamp) {
-        long timestamp = timeGen();
-        while (timestamp <= lastTimestamp) {
-            timestamp = timeGen();
-        }
-        return timestamp;
-    }
 
-    /**
-     * 返回以毫秒为单位的当前时间
-     *
-     * @return 当前时间(毫秒)
-     */
-    protected long timeGen() {
-        return Clock.systemUTC().millis();
-    }
+	/**
+	 * put 请求
+	 *
+	 * @param url     请求url
+	 * @param params  请求参数
+	 * @param headers 请求头
+	 * @return {@link String}
+	 */
+	public static String put(String url, Map<String, ?> params, Map<String, String> headers) {
+		return putResult(url, params, headers).getBody().toString();
+	}
 
+	/**
+	 * put 请求
+	 *
+	 * @param url     请求url
+	 * @param params  请求参数
+	 * @param headers 请求头
+	 * @return {@link HttpResult}
+	 */
+	public static HttpResult putResult(String url, Map<String, ?> params, Map<String, String> headers) {
+		return OkHttps.async(url).addHeader(headers).addBodyPara(params).put().getResult();
+	}
+
+	/**
+	 * delete 请求
+	 *
+	 * @param url 请求url
+	 */
+	public static void delete(String url) {
+		delete(url, header());
+	}
+
+	/**
+	 * delete 请求
+	 *
+	 * @param url     请求url
+	 * @param headers 请求头
+	 */
+	public static void delete(String url, Map<String, String> headers) {
+		deleteResult(url, header()).getBody();
+	}
+
+	/**
+	 * delete 请求
+	 *
+	 * @param url     请求url
+	 * @param headers 请求头
+	 * @return {@link HttpResult}
+	 */
+	public static HttpResult deleteResult(String url, Map<String, String> headers) {
+		return OkHttps.async(url).addHeader(headers).delete().getResult();
+	}
+
+	/**
+	 * 上传 请求
+	 *
+	 * @param url       请求url
+	 * @param fileParam 上传文件参数
+	 * @param file      上传文件
+	 * @return {@link String}
+	 */
+	public static String upload(String url, String fileParam, File file) {
+		return OkHttps.async(url).addHeader(header()).addFilePara(fileParam, file).post().getResult().getBody().toString();
+	}
+
+	/**
+	 * 上传 请求
+	 *
+	 * @param url       请求url
+	 * @param headers   请求头
+	 * @param fileParam 上传文件参数
+	 * @param file      上传文件
+	 * @return {@link String}
+	 */
+	public static String upload(String url, Map<String, String> headers, String fileParam, File file) {
+		return OkHttps.async(url).addHeader(headers).addFilePara(fileParam, file).post().getResult().getBody().toString();
+	}
+
+	/**
+	 * 上传 请求
+	 *
+	 * @param url         请求url
+	 * @param headers     请求头
+	 * @param params      请求参数
+	 * @param fileParam   上传文件参数
+	 * @param fileType    上传文件类型
+	 * @param fileName    上传文件名
+	 * @param inputStream 上传文件流
+	 * @return {@link String}
+	 */
+	public static String upload(String url, Map<String, String> headers, Map<String, String> params, String fileParam, String fileType, String fileName, InputStream inputStream) {
+		return OkHttps.async(url).addHeader(headers).addBodyPara(params).addFilePara(fileParam, fileType, fileName, IOUtils.readBytes(inputStream)).post().getResult().getBody().toString();
+	}
+
+	/**
+	 * 上传 请求
+	 *
+	 * @param url       请求url
+	 * @param params    请求参数
+	 * @param headers   请求头
+	 * @param fileParam 上传文件参数
+	 * @param file      上传文件
+	 * @return {@link String}
+	 */
+	public static String upload(String url, Map<String, ?> params, Map<String, String> headers, String fileParam, File file) {
+		return OkHttps.async(url).addHeader(headers).addBodyPara(params).addFilePara(fileParam, file).post().getResult().getBody().toString();
+	}
 }

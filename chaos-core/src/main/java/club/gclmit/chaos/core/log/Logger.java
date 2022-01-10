@@ -213,194 +213,184 @@ import org.slf4j.helpers.MessageFormatter;
  * Slf4j 日志封装
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class Logger {
 
-    /**
-     * 当前日志类名
-     */
-    private final static String CURRENT_LOG_CLASS_NAME = Logger.class.getName();
+	/**
+	 * 当前日志类名
+	 */
+	private final static String CURRENT_LOG_CLASS_NAME = Logger.class.getName();
 
-    /**
-     * 获取最原始被调用的堆栈信息
-     */
-    private static StackTraceElement getCaller() {
+	/**
+	 * 获取最原始被调用的堆栈信息
+	 */
+	private static StackTraceElement getCaller() {
 
-        // 获取堆栈信息
-        StackTraceElement[] traceElements = Thread.currentThread()
-                .getStackTrace();
+		// 获取堆栈信息
+		StackTraceElement[] traceElements = Thread.currentThread()
+			.getStackTrace();
 
-        // 最原始被调用的堆栈信息
-        StackTraceElement caller = null;
+		// 最原始被调用的堆栈信息
+		StackTraceElement caller = null;
 
-        // 循环遍历到日志类标识
-        boolean isEachLogFlag = false;
+		// 循环遍历到日志类标识
+		boolean isEachLogFlag = false;
 
-        // 遍历堆栈信息，获取出最原始被调用的方法信息
-        // 当前日志类的堆栈信息完了就是调用该日志类对象信息
-        for (StackTraceElement element : traceElements) {
-            // 遍历到日志类
-            if (element.getClassName().equals(CURRENT_LOG_CLASS_NAME)) {
-                isEachLogFlag = true;
-            }
+		// 遍历堆栈信息，获取出最原始被调用的方法信息
+		// 当前日志类的堆栈信息完了就是调用该日志类对象信息
+		for (StackTraceElement element : traceElements) {
+			// 遍历到日志类
+			if (element.getClassName().equals(CURRENT_LOG_CLASS_NAME)) {
+				isEachLogFlag = true;
+			}
 
-            // 下一个非日志类的堆栈，就是最原始被调用的方法
-            if (isEachLogFlag) {
-                if (!element.getClassName().equals(CURRENT_LOG_CLASS_NAME)) {
-                    caller = element;
-                    break;
-                }
-            }
-        }
+			// 下一个非日志类的堆栈，就是最原始被调用的方法
+			if (isEachLogFlag) {
+				if (!element.getClassName().equals(CURRENT_LOG_CLASS_NAME)) {
+					caller = element;
+					break;
+				}
+			}
+		}
 
-        return caller;
-    }
+		return caller;
+	}
 
-    /**
-     * 自动匹配请求类名，生成logger对象
-     */
-    private static org.slf4j.Logger log() {
-        // 最原始被调用的堆栈对象
-        StackTraceElement caller = getCaller();
-        // 空堆栈处理
-        if (caller == null) {
-            return LoggerFactory.getLogger(Logger.class);
-        }
+	/**
+	 * 自动匹配请求类名，生成logger对象
+	 */
+	private static org.slf4j.Logger log() {
+		// 最原始被调用的堆栈对象
+		StackTraceElement caller = getCaller();
+		// 空堆栈处理
+		if (caller == null) {
+			return LoggerFactory.getLogger(Logger.class);
+		}
 
-        // 取出被调用对象的类名，并构造一个Logger对象返回
-        return LoggerFactory.getLogger(caller.getClassName());
-    }
+		// 取出被调用对象的类名，并构造一个Logger对象返回
+		return LoggerFactory.getLogger(caller.getClassName());
+	}
 
-    /**
-     * trace
-     *
-     * @param format 消息模板
-     * @param args   消息参数
-     * @author gclm
-     */
-    public static void trace(String format, Object... args) {
-        log().trace(build(null, format, args));
-    }
+	/**
+	 * trace
+	 *
+	 * @param format 消息模板
+	 * @param args   消息参数
+	 */
+	public static void trace(String format, Object... args) {
+		log().trace(build(null, format, args));
+	}
 
-    /**
-     * info
-     *
-     * @param format 消息模板
-     * @param args   消息参数
-     * @author gclm
-     */
-    public static void info(String format, Object... args) {
-        log().info(build(null, format, args));
-    }
+	/**
+	 * info
+	 *
+	 * @param format 消息模板
+	 * @param args   消息参数
+	 */
+	public static void info(String format, Object... args) {
+		log().info(build(null, format, args));
+	}
 
-    /**
-     * debug
-     *
-     * @param format 消息模板
-     * @param args   消息参数
-     * @author gclm
-     */
-    public static void debug(String format, Object... args) {
-        log().debug(build(null, format, args));
-    }
+	/**
+	 * debug
+	 *
+	 * @param format 消息模板
+	 * @param args   消息参数
+	 */
+	public static void debug(String format, Object... args) {
+		log().debug(build(null, format, args));
+	}
 
-    /**
-     * warn
-     *
-     * @param format 消息模板
-     * @param args   消息参数
-     * @author gclm
-     */
-    public static void warn(String format, Object... args) {
-        log().warn(build(null, format, args));
-    }
+	/**
+	 * warn
+	 *
+	 * @param format 消息模板
+	 * @param args   消息参数
+	 */
+	public static void warn(String format, Object... args) {
+		log().warn(build(null, format, args));
+	}
 
-    /**
-     * error
-     *
-     * @param format 消息模板
-     * @param args   消息参数
-     * @author gclm
-     */
-    public static void error(String format, Object... args) {
-        log().error(build(null, format, args));
-    }
+	/**
+	 * error
+	 *
+	 * @param format 消息模板
+	 * @param args   消息参数
+	 */
+	public static void error(String format, Object... args) {
+		log().error(build(null, format, args));
+	}
 
-    /**
-     * trace
-     *
-     * @param loggerServer 消息服务类型
-     * @param format       消息模板
-     * @param args         消息参数
-     * @author gclm
-     */
-    public static void trace(LoggerServer loggerServer, String format, Object... args) {
-        log().trace(build(loggerServer, format, args));
-    }
+	/**
+	 * trace
+	 *
+	 * @param loggerServer 消息服务类型
+	 * @param format       消息模板
+	 * @param args         消息参数
+	 */
+	public static void trace(LoggerServer loggerServer, String format, Object... args) {
+		log().trace(build(loggerServer, format, args));
+	}
 
-    /**
-     * info
-     *
-     * @param loggerServer 消息服务类型
-     * @param format       消息模板
-     * @param args         消息参数
-     * @author gclm
-     */
-    public static void info(LoggerServer loggerServer, String format, Object... args) {
-        log().info(build(loggerServer, format, args));
-    }
+	/**
+	 * info
+	 *
+	 * @param loggerServer 消息服务类型
+	 * @param format       消息模板
+	 * @param args         消息参数
+	 */
+	public static void info(LoggerServer loggerServer, String format, Object... args) {
+		log().info(build(loggerServer, format, args));
+	}
 
-    /**
-     * debug
-     *
-     * @param loggerServer 消息服务类型
-     * @param format       消息模板
-     * @param args         消息参数
-     * @author gclm
-     */
-    public static void debug(LoggerServer loggerServer, String format, Object... args) {
-        log().debug(build(loggerServer, format, args));
-    }
+	/**
+	 * debug
+	 *
+	 * @param loggerServer 消息服务类型
+	 * @param format       消息模板
+	 * @param args         消息参数
+	 */
+	public static void debug(LoggerServer loggerServer, String format, Object... args) {
+		log().debug(build(loggerServer, format, args));
+	}
 
-    /**
-     * warn
-     *
-     * @param loggerServer 消息服务类型
-     * @param format       消息模板
-     * @param args         消息参数
-     * @author gclm
-     */
-    public static void warn(LoggerServer loggerServer, String format, Object... args) {
-        log().warn(build(loggerServer, format, args));
-    }
+	/**
+	 * warn
+	 *
+	 * @param loggerServer 消息服务类型
+	 * @param format       消息模板
+	 * @param args         消息参数
+	 */
+	public static void warn(LoggerServer loggerServer, String format, Object... args) {
+		log().warn(build(loggerServer, format, args));
+	}
 
-    /**
-     * error
-     *
-     * @param loggerServer 消息服务类型
-     * @param format       消息模板
-     * @param args         消息参数
-     * @author gclm
-     */
-    public static void error(LoggerServer loggerServer, String format, Object... args) {
-        log().error(build(loggerServer, format, args));
-    }
+	/**
+	 * error
+	 *
+	 * @param loggerServer 消息服务类型
+	 * @param format       消息模板
+	 * @param args         消息参数
+	 */
+	public static void error(LoggerServer loggerServer, String format, Object... args) {
+		log().error(build(loggerServer, format, args));
+	}
 
-    /**
-     * 消息组建
-     *
-     * @param loggerServer 消息服务类型
-     * @param template     消息模板
-     * @param args         消息参数
-     * @return java.lang.String
-     * @author gclm
-     */
-    private static String build(LoggerServer loggerServer, String template, Object... args) {
-        FormattingTuple ft = MessageFormatter.arrayFormat(template, args);
-        if (loggerServer != null) {
-            return String.format("[%s]:%s", loggerServer.getKey(), ft.getMessage());
-        }
-        return ft.getMessage();
-    }
+	/**
+	 * 消息组建
+	 *
+	 * @param loggerServer 消息服务类型
+	 * @param template     消息模板
+	 * @param args         消息参数
+	 * @return {@link String}
+	 */
+	private static String build(LoggerServer loggerServer, String template, Object... args) {
+		FormattingTuple ft = MessageFormatter.arrayFormat(template, args);
+		if (loggerServer != null) {
+			return String.format("[%s]:%s", loggerServer.getKey(), ft.getMessage());
+		}
+		return ft.getMessage();
+	}
 }

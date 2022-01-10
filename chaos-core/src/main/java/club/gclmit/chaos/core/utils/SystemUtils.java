@@ -209,7 +209,8 @@ import cn.hutool.core.lang.Assert;
 /**
  * 系统工具类
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class SystemUtils {
 
@@ -297,8 +298,8 @@ public class SystemUtils {
     /**
      * 获取用户名字
      *
-     * @return java.lang.String
-     * @author gclm
+     * @return {@link String}
+
      */
     public static String getUserName() {
         return StringUtils.isNotBlank(USER_NAME) ? USER_NAME : "";
@@ -307,8 +308,8 @@ public class SystemUtils {
     /**
      * 获取用户目录
      *
-     * @return java.lang.String
-     * @author gclm
+     * @return {@link String}
+
      */
     public static String getUserDir() {
         return StringUtils.isNotBlank(USER_DIR) ? USER_DIR : "";
@@ -317,8 +318,8 @@ public class SystemUtils {
     /**
      * 获取 user home
      *
-     * @return java.lang.String
-     * @author gclm
+     * @return {@link String}
+
      */
     public static String getUserHome() {
         return StringUtils.isNotBlank(USER_HOME) ? USER_HOME : "";
@@ -328,8 +329,8 @@ public class SystemUtils {
      * 更新系统路径
      *
      * @param path 文件路径
-     * @return java.lang.String
-     * @author gclm
+     * @return {@link String}
+
      */
     public static String updateSystemPath(String path) {
         Assert.isTrue(StringUtils.isNotBlank(path), "修改路径不能为空");

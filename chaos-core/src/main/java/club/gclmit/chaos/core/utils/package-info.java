@@ -204,9 +204,9 @@
 
 /**
  * <p>
- * core-工具类集合
+ * chaos-core: 工具类集合
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 package club.gclmit.chaos.core.utils;

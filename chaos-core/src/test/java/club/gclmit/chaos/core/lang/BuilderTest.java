@@ -212,8 +212,8 @@ import org.junit.jupiter.api.Test;
  * TODO
  * </p>
  *
- * @author gclm
- * @since 1.8
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class BuilderTest {
 

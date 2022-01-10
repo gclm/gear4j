@@ -211,7 +211,8 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * 异常工具类
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class ExceptionUtils extends ExceptionUtil {
 

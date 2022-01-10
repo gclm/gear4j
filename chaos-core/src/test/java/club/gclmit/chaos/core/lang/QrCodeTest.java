@@ -214,11 +214,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * <p>
  * 二维码工具
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class QrCodeTest {
 

@@ -221,8 +221,9 @@ import java.util.List;
 /**
  * 反射工具类
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  * @author L.cm
+ * @since jdk11
  */
 public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 

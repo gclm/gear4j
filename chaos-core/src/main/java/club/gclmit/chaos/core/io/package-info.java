@@ -203,10 +203,9 @@
 */
 
 /**
- * <p>
- * core-IO相关工具类
- * </p>
+ * chaos-core: IO相关工具类
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 package club.gclmit.chaos.core.io;

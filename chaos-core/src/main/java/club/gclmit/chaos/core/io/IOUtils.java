@@ -214,11 +214,10 @@ import java.io.OutputStream;
 import java.util.Arrays;
 
 /**
- * <p>
  * IO 流工具类
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class IOUtils extends IoUtil {
 
@@ -274,7 +273,7 @@ public class IOUtils extends IoUtil {
 	 * 从流中读取String，读取完毕后关闭流
 	 *
 	 * @param in {@link InputStream}
-	 * @return String
+	 * @return {@link String}
 	 * @throws IORuntimeException IO异常
 	 */
 	public static String readString(InputStream in) throws IORuntimeException {

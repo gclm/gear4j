@@ -207,11 +207,10 @@ package club.gclmit.chaos.core.exception;
 import cn.hutool.core.text.CharSequenceUtil;
 
 /**
- * <p>
  * 自定义运行异常。
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class ChaosException extends RuntimeException {
 

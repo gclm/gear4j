@@ -222,9 +222,9 @@ import java.util.concurrent.atomic.AtomicLong;
  * <p>1000万：480,12,40.0%</p>
  * <p>100万：50,10,5.0%</p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since 2020/10/21 15:39
- * @since 1.8
+ * @since jdk11
  */
 public class SystemClock {
 

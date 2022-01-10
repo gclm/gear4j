@@ -217,8 +217,7 @@ import java.io.FileNotFoundException;
  * FileUtils 测试工具类
  * </p>
  *
- * @author gclm
- * @version V1.0
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 public class FileTypeUtilsTest {
 

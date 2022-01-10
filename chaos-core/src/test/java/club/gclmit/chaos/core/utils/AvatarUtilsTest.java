@@ -217,7 +217,8 @@ import java.util.regex.Pattern;
 /**
  * TODO
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class AvatarUtilsTest {
 
@@ -225,7 +226,6 @@ public class AvatarUtilsTest {
         String name = "刘";
         generateImg(name, "/Users/gclm/Desktop", name);
     }
-
 
     /**
      * 绘制字体头像

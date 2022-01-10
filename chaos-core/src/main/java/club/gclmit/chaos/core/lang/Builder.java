@@ -211,56 +211,55 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * <p>
  * 通用的 Builder 模式构建器
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class Builder<T> {
 
-    private final Supplier<T> instance;
+	private final Supplier<T> instance;
 
-    private final List<Consumer<T>> instanceModifiers = new ArrayList<>();
+	private final List<Consumer<T>> instanceModifiers = new ArrayList<>();
 
-    public Builder(Supplier<T> instance) {
-        this.instance = instance;
-    }
+	public Builder(Supplier<T> instance) {
+		this.instance = instance;
+	}
 
-    /**
-     *  build Supplier
-     * @author gclm
-     * @param instance  Supplier
-     * @param <T> 构造Supplier
-     * @return 构造Supplier
-     */
-    public static <T> Builder<T> build(Supplier<T> instance) {
-        return new Builder<T>(instance);
-    }
+	/**
+	 * build Supplier
+	 *
+	 * @param instance Supplier
+	 * @param <T>      构造Supplier
+	 * @return 构造Supplier
+	 */
+	public static <T> Builder<T> build(Supplier<T> instance) {
+		return new Builder<T>(instance);
+	}
 
-    /**
-     *  添加参数
-     * @author gclm
-     * @param consumer 类属性
-     * @param <U>      参数值类型
-     * @param value    类属性值
-     * @return 构造Supplier
-     */
-    public <U> Builder<T> val(BiConsumer<T, U> consumer, U value) {
-        Consumer<T> c = instance -> consumer.accept(instance, value);
-        instanceModifiers.add(c);
-        return this;
-    }
+	/**
+	 * 添加参数
+	 *
+	 * @param consumer 类属性
+	 * @param <U>      参数值类型
+	 * @param value    类属性值
+	 * @return 构造Supplier
+	 */
+	public <U> Builder<T> val(BiConsumer<T, U> consumer, U value) {
+		Consumer<T> c = instance -> consumer.accept(instance, value);
+		instanceModifiers.add(c);
+		return this;
+	}
 
-    /**
-     * 获取 instance
-     * @author gclm
-     * @return 返回构造对象
-     */
-    public T build() {
-        T value = instance.get();
-        instanceModifiers.forEach(modifier -> modifier.accept(value));
-        instanceModifiers.clear();
-        return value;
-    }
+	/**
+	 * 获取 instance
+	 *
+	 * @return 返回构造对象
+	 */
+	public T build() {
+		T value = instance.get();
+		instanceModifiers.forEach(modifier -> modifier.accept(value));
+		instanceModifiers.clear();
+		return value;
+	}
 }

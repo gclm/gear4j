@@ -205,12 +205,10 @@
 package club.gclmit.chaos.core.pojo;
 
 /**
- * <p>
  * 测试Object
- * </p>
  *
- * @author gclm
- * @since 1.8
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class Dog extends User {
 

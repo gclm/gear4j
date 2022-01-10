@@ -216,9 +216,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * 配置 OkHttps
  *
- * @author gclm
- * @version 1.0.0
- * @since 11
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class OkHttpsConfig implements Config {
 
@@ -226,7 +225,6 @@ public class OkHttpsConfig implements Config {
 	 * 对 HTTP.Builder 做一些自定义的配置
 	 *
 	 * @param builder HTTP.Builder
-	 * @author gclm
 	 */
 	@Override
 	public void with(HTTP.Builder builder) {

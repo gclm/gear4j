@@ -5,7 +5,7 @@ import org.springframework.format.support.DefaultFormattingConversionService;
 /**
  * 通过单例模式获取 DefaultFormattingConversionService
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since jdk11
  */
 public class ChaosConversionService extends DefaultFormattingConversionService {
@@ -18,7 +18,6 @@ public class ChaosConversionService extends DefaultFormattingConversionService {
 	 * 实例化单例ChaosConversionService
 	 *
 	 * @return {@link ChaosConversionService}
-	 * @author gclm
 	 */
 	public static ChaosConversionService getInstance() {
 		return ChaosConversionServiceHandler.instance;

@@ -217,12 +217,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * <p>
  * 自定义 HttpServletRequestWrapper
- * 设置缓存快照
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class HttpCacheRequestWrapper extends HttpServletRequestWrapper {
 

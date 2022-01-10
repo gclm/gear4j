@@ -209,7 +209,8 @@ import cn.hutool.core.collection.ListUtil;
 /**
  * 基于hutool ListUtil 封装
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class ListUtils extends ListUtil {
 

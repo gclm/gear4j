@@ -209,9 +209,9 @@ import org.junit.jupiter.api.Test;
 /**
  * UrlUtils 测试工具类
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since 12/21/2020 2:50 PM
- * @since 1.8
+ * @since jdk11
  */
 public class UrlUtilsTest {
 

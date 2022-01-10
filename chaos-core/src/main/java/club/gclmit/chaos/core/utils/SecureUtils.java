@@ -214,8 +214,9 @@ import java.io.IOException;
 /**
  * MD5 加密工具类
  *
- * @author gclm
- * 2021/7/4 3:16 下午
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since 2021/7/4 3:16 下午
+ * @since jdk11
  */
 public class SecureUtils extends SecureUtil {
 

@@ -216,66 +216,66 @@ import java.io.IOException;
 /**
  * Spring MVC 文件上传
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since 2020/10/22 18:51
- * @since 1.8
+ * @since jdk11
  */
 public class UploadFileUtils {
 
-    private UploadFileUtils() {
-    }
+	private UploadFileUtils() {
+	}
 
-    /**
-     * <p>判断文件是否为空 {@code null}.
-     *
-     * @param file 判断文件
-     * @return {@code true} if the file is empty or {@code null}
-     */
-    public static boolean isEmpty(MultipartFile file) {
-        return file == null || file.isEmpty();
-    }
+	/**
+判断文件是否为空 {@code null}.
+	 *
+	 * @param file 判断文件
+	 * @return {@code true} if the file is empty or {@code null}
+	 */
+	public static boolean isEmpty(MultipartFile file) {
+		return file == null || file.isEmpty();
+	}
 
-    /**
-     * <p>判断文件是否不为空
-     *
-     * @param file 判断文件
-     * @return {@code true} 当前 file 不为空返回 true
-     */
-    public static boolean isNotEmpty(MultipartFile file) {
-        return !isEmpty(file);
-    }
+	/**
+判断文件是否不为空
+	 *
+	 * @param file 判断文件
+	 * @return {@code true} 当前 file 不为空返回 true
+	 */
+	public static boolean isNotEmpty(MultipartFile file) {
+		return !isEmpty(file);
+	}
 
 
-    /**
-     * MultipartFile 转 File
-     *
-     * @param multipartFile springmvc封装的上传文件
-     * @return java.io.File
-     */
-    public static File multipartFileToFile(MultipartFile multipartFile) {
-        Assert.notNull(multipartFile.isEmpty(), "multipartFile 不能为空");
-        return multipartFileToFile(multipartFile, FileUtils.getRootPath());
-    }
+	/**
+	 * MultipartFile 转 File
+	 *
+	 * @param multipartFile springmvc封装的上传文件
+	 * @return java.io.File
+	 */
+	public static File multipartFileToFile(MultipartFile multipartFile) {
+		Assert.notNull(multipartFile.isEmpty(), "multipartFile 不能为空");
+		return multipartFileToFile(multipartFile, FileUtils.getRootPath());
+	}
 
-    /**
-     * MultipartFile 转 File
-     *
-     * @param multipartFile springmvc封装的上传文件
-     * @param dirPath       文件夹路径
-     * @return java.io.File
-     */
-    public static File multipartFileToFile(MultipartFile multipartFile, String dirPath) {
-        Assert.notNull(multipartFile.isEmpty(), "multipartFile 不能为空");
+	/**
+	 * MultipartFile 转 File
+	 *
+	 * @param multipartFile springmvc封装的上传文件
+	 * @param dirPath       文件夹路径
+	 * @return java.io.File
+	 */
+	public static File multipartFileToFile(MultipartFile multipartFile, String dirPath) {
+		Assert.notNull(multipartFile.isEmpty(), "multipartFile 不能为空");
 
-        dirPath = StringUtils.isEmpty(dirPath) ? FileUtils.getRootPath() : dirPath;
-        File localFile = new File(dirPath, IdUtil.fastSimpleUUID() + "." + FileTypeUtils.getSuffix(multipartFile));
+		dirPath = StringUtils.isEmpty(dirPath) ? FileUtils.getRootPath() : dirPath;
+		File localFile = new File(dirPath, IdUtil.fastSimpleUUID() + "." + FileTypeUtils.getSuffix(multipartFile));
 
-        try {
-            multipartFile.transferTo(localFile);
-        } catch (IOException e) {
-            throw new ChaosException("MultipartFile To File 失败", e);
-        }
-        return localFile;
-    }
+		try {
+			multipartFile.transferTo(localFile);
+		} catch (IOException e) {
+			throw new ChaosException("MultipartFile To File 失败", e);
+		}
+		return localFile;
+	}
 
 }

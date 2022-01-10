@@ -203,8 +203,9 @@
 */
 
 /**
- * TODO
+ * chaos-core: http 工具类
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 package club.gclmit.chaos.core.http;

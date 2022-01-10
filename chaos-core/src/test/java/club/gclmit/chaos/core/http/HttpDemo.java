@@ -10,8 +10,7 @@ import java.net.http.HttpResponse;
 /**
  * 测试 jdk11 httpclient
  *
- * @author gclm
- * @version Version 1.0.0
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since 2021/9/15 6:11 下午
  * @since 11
  */

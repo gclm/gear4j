@@ -214,8 +214,8 @@ import java.util.stream.Collectors;
 /**
  * Maven清理 *.lastupload 文件
  *
- * @author gclm
- * @since 1.0
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class FileUtilsTest {
 

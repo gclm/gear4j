@@ -209,11 +209,11 @@ import cn.hutool.core.util.ZipUtil;
 /**
  * ZIP工具类
  *
- * @author gclm
- * @since 1.8
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class ZipUtils extends ZipUtil {
 
-    private ZipUtils() {
-    }
+	private ZipUtils() {
+	}
 }

@@ -209,7 +209,8 @@ import cn.hutool.core.util.CharsetUtil;
 /**
  * Avatar 链式表达式
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class Avatar {
 

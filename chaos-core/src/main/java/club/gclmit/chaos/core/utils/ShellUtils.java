@@ -220,9 +220,9 @@ import java.util.List;
 /**
  * 系统运行时工具类，用于执行系统命令的工具
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since 2020/10/21 17:16
- * @since 1.8
+ * @since jdk11
  */
 public class ShellUtils {
 

@@ -209,9 +209,9 @@ import cn.hutool.core.util.HexUtil;
 /**
  * hex 工具，编解码全用 byte
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since 2/7/2021 10:14 AM
- * @since 1.8
+ * @since jdk11
  */
 public class HexUtils extends HexUtil {
 

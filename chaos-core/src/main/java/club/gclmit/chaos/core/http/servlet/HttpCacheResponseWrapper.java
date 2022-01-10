@@ -215,11 +215,10 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.*;
 
 /**
- * <p>
  * HttpServletResponse 缓存
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class HttpCacheResponseWrapper extends HttpServletResponseWrapper {
 

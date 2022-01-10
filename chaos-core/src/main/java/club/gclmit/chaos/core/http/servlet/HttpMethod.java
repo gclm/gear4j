@@ -205,11 +205,10 @@
 package club.gclmit.chaos.core.http.servlet;
 
 /**
- * <p>
  * Http 请求类型
- * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11 * @since jdk11
  */
 public enum HttpMethod {
 

@@ -221,7 +221,8 @@ import java.lang.reflect.Method;
  * 类工具类
  *
  * @author L.cm
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public class ClassUtils extends org.springframework.util.ClassUtils {
 

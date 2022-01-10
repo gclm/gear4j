@@ -203,10 +203,9 @@
 */
 
 /**
- * <p>
- * core-自定义异常
- * </p>
+ * chaos-core: 自定义异常
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 package club.gclmit.chaos.core.exception;

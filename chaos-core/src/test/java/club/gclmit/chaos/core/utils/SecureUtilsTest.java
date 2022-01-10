@@ -219,9 +219,9 @@ import java.security.KeyPair;
 /**
  * RSAUtils
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since 1/4/2021 4:03 PM
- * @since 1.8
+ * @since jdk11
  */
 @DisplayName("加密算法测试")
 public class SecureUtilsTest {

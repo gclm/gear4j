@@ -209,7 +209,8 @@ package club.gclmit.chaos.core.log;
  * log 常见服务
  * </p>
  *
- * @author gclm
+ * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
 public enum LoggerServer {
 
