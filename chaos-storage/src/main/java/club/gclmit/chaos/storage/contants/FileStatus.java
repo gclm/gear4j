@@ -212,46 +212,46 @@ package club.gclmit.chaos.storage.contants;
  */
 public enum FileStatus {
 
-    /**
-     * 保存
-     */
-    SAVE(0, "保存文件"),
+	/**
+	 * 保存
+	 */
+	SAVE(0, "保存文件"),
 
-    /**
-     * 临时保存
-     */
-    TEMP_SAVE(1, "临时保存文件"),
+	/**
+	 * 临时保存
+	 */
+	TEMP_SAVE(1, "临时保存文件"),
 
-    /**
-     * 删除
-     */
-    DELETE(2, "删除文件"),
+	/**
+	 * 删除
+	 */
+	DELETE(2, "删除文件"),
 
-    /**
-     * 临时删除
-     */
-    TEMP_DELETE(3, "临时删除文件");
+	/**
+	 * 临时删除
+	 */
+	TEMP_DELETE(3, "临时删除文件");
 
-    /**
-     * id
-     */
-    private final Integer code;
+	/**
+	 * id
+	 */
+	private final Integer code;
 
-    /**
-     * 消息
-     */
-    private final String message;
+	/**
+	 * 消息
+	 */
+	private final String message;
 
-    FileStatus(Integer code, String message) {
-        this.code = code;
-        this.message = message;
-    }
+	FileStatus(Integer code, String message) {
+		this.code = code;
+		this.message = message;
+	}
 
-    public Integer getCode() {
-        return code;
-    }
+	public Integer getCode() {
+		return code;
+	}
 
-    public String getMessage() {
-        return message;
-    }
+	public String getMessage() {
+		return message;
+	}
 }

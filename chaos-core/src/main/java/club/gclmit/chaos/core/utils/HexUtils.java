@@ -215,6 +215,6 @@ import cn.hutool.core.util.HexUtil;
  */
 public class HexUtils extends HexUtil {
 
-    private HexUtils() {
-    }
+	private HexUtils() {
+	}
 }

@@ -271,6 +271,15 @@ public enum StorageServer {
 		this.name = name;
 	}
 
+	/**
+	 * 返回所有服务code
+	 *
+	 * @return {@link String}
+	 */
+	public static List<String> getServerCodeList() {
+		return Arrays.stream(StorageServer.values()).map(StorageServer::getCode).collect(Collectors.toList());
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -281,16 +290,6 @@ public enum StorageServer {
 
 	public String getName() {
 		return name;
-	}
-
-	/**
-	 * 返回所有服务code
-	 *
-	 * @return {@link String}
-	 * @author <a href="https://blog.gclmit.club">gclm</a>
-	 */
-	public static List<String> getServerCodeList() {
-		return Arrays.stream(StorageServer.values()).map(StorageServer::getCode).collect(Collectors.toList());
 	}
 
 	@Override

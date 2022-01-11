@@ -212,37 +212,32 @@ package club.gclmit.chaos.waf.util;
  */
 public class XssHolder {
 
-    private static final ThreadLocal<Boolean> TL = new ThreadLocal<>();
+	private static final ThreadLocal<Boolean> TL = new ThreadLocal<>();
 
-    private XssHolder() {
-    }
+	private XssHolder() {
+	}
 
-    /**
-     * 获取 ThreadLocal 缓存数据状态
-     *
-     * @return Boolean
+	/**
+	 * 获取 ThreadLocal 缓存数据状态
+	 *
+	 * @return Boolean
+	 */
+	public static boolean isEnabled() {
+		return Boolean.TRUE.equals(TL.get());
+	}
 
-     */
-    public static boolean isEnabled() {
-        return Boolean.TRUE.equals(TL.get());
-    }
+	/**
+	 * 启用 ThreadLocal 缓存数据
+	 */
+	public static void setEnable() {
+		TL.set(Boolean.TRUE);
+	}
 
-    /**
-     * 启用 ThreadLocal 缓存数据
-     *
-
-     */
-    public static void setEnable() {
-        TL.set(Boolean.TRUE);
-    }
-
-    /**
-     * 删除 ThreadLocal 缓存的数据
-     *
-
-     */
-    public static void remove() {
-        TL.remove();
-    }
+	/**
+	 * 删除 ThreadLocal 缓存的数据
+	 */
+	public static void remove() {
+		TL.remove();
+	}
 
 }

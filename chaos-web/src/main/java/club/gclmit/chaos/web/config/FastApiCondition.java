@@ -217,66 +217,63 @@ import java.util.regex.Pattern;
  */
 public class FastApiCondition implements RequestCondition<FastApiCondition> {
 
-    private static final Pattern VERSION_PREFIX_PATTERN = Pattern.compile("/v(\\d+)/");
+	private static final Pattern VERSION_PREFIX_PATTERN = Pattern.compile("/v(\\d+)/");
 
-    private int apiVersion;
+	private int apiVersion;
 
-    public FastApiCondition(int apiVersion) {
-        this.apiVersion = apiVersion;
-    }
+	public FastApiCondition(int apiVersion) {
+		this.apiVersion = apiVersion;
+	}
 
-    /**
-     * 最近优先原则，方法定义ApiVersion 大于 类定义的ApiVersion
-     *
-     * @param other FastApiCondition
-     * @return {@link FastApiCondition}
+	/**
+	 * 最近优先原则，方法定义ApiVersion 大于 类定义的ApiVersion
+	 *
+	 * @param other FastApiCondition
+	 * @return {@link FastApiCondition}
+	 */
+	@Override
+	public FastApiCondition combine(FastApiCondition other) {
+		return new FastApiCondition(other.getApiVersion());
+	}
 
-     */
-    @Override
-    public FastApiCondition combine(FastApiCondition other) {
-        return new FastApiCondition(other.getApiVersion());
-    }
+	/**
+	 * 从HttpServletRequest匹配FastApiCondition注解
+	 *
+	 * @param request HttpServletRequest
+	 * @return {@link FastApiCondition}
+	 */
+	@Override
+	public FastApiCondition getMatchingCondition(HttpServletRequest request) {
+		Matcher matcher = VERSION_PREFIX_PATTERN.matcher(request.getRequestURI());
+		if (matcher.find()) {
+			/*
+			 *  获得符合匹配条件的 FastApiCondition
+			 */
+			int version = Integer.parseInt(matcher.group(1));
+			if (version >= getApiVersion()) {
+				return this;
+			}
+		}
+		return null;
+	}
 
-    /**
-     * 从HttpServletRequest匹配FastApiCondition注解
-     *
-     * @param request HttpServletRequest
-     * @return {@link FastApiCondition}
+	/**
+	 * 当出现多个符合匹配条件的ApiVersionCondition， 优先匹配版本号较大的
+	 *
+	 * @param condition ApiVersionCondition
+	 * @param request   HttpServletRequest
+	 */
+	@Override
+	public int compareTo(FastApiCondition condition, HttpServletRequest request) {
+		return condition.getApiVersion() - getApiVersion();
+	}
 
-     */
-    @Override
-    public FastApiCondition getMatchingCondition(HttpServletRequest request) {
-        Matcher matcher = VERSION_PREFIX_PATTERN.matcher(request.getRequestURI());
-        if (matcher.find()) {
-            /*
-             *  获得符合匹配条件的 FastApiCondition
-             */
-            int version = Integer.parseInt(matcher.group(1));
-            if (version >= getApiVersion()) {
-                return this;
-            }
-        }
-        return null;
-    }
+	public int getApiVersion() {
+		return apiVersion;
+	}
 
-    /**
-     * 当出现多个符合匹配条件的ApiVersionCondition， 优先匹配版本号较大的
-     *
-     * @param condition ApiVersionCondition
-     * @param request   HttpServletRequest
-
-     */
-    @Override
-    public int compareTo(FastApiCondition condition, HttpServletRequest request) {
-        return condition.getApiVersion() - getApiVersion();
-    }
-
-    public int getApiVersion() {
-        return apiVersion;
-    }
-
-    public void setApiVersion(int apiVersion) {
-        this.apiVersion = apiVersion;
-    }
+	public void setApiVersion(int apiVersion) {
+		this.apiVersion = apiVersion;
+	}
 }
 

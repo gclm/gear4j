@@ -221,21 +221,21 @@ import java.io.IOException;
  */
 public class XssJacksonDeserializer extends JsonDeserializer<String> {
 
-    private static final Logger log = LoggerFactory.getLogger(XssJacksonDeserializer.class);
+	private static final Logger log = LoggerFactory.getLogger(XssJacksonDeserializer.class);
 
-    @Override
-    public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
-        // XSS filter
-        String text = jsonParser.getValueAsString();
-        if (text == null) {
-            return null;
-        } else if (XssHolder.isEnabled()) {
-            String value = XssUtils.clean(text);
-            log.debug("Json property value:{} cleaned up by mica-xss, current value is:{}.", text, value);
-            return value;
-        } else {
-            return text;
-        }
-    }
+	@Override
+	public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+		// XSS filter
+		String text = jsonParser.getValueAsString();
+		if (text == null) {
+			return null;
+		} else if (XssHolder.isEnabled()) {
+			String value = XssUtils.clean(text);
+			log.debug("Json property value:{} cleaned up by mica-xss, current value is:{}.", text, value);
+			return value;
+		} else {
+			return text;
+		}
+	}
 
 }

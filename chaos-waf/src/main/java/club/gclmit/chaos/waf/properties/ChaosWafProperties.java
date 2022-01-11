@@ -213,16 +213,16 @@ package club.gclmit.chaos.waf.properties;
  */
 public class ChaosWafProperties {
 
-    /**
-     * xss 配置
-     */
-    private XssProperties xss;
+	/**
+	 * xss 配置
+	 */
+	private XssProperties xss;
 
-    public XssProperties getXss() {
-        return xss;
-    }
+	public XssProperties getXss() {
+		return xss;
+	}
 
-    public void setXss(XssProperties xss) {
-        this.xss = xss;
-    }
+	public void setXss(XssProperties xss) {
+		this.xss = xss;
+	}
 }

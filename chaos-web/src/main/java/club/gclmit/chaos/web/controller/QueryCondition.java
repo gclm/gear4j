@@ -219,57 +219,57 @@ import java.io.Serializable;
 @ApiModel(value = "查询条件", description = "查询条件")
 public class QueryCondition implements Serializable {
 
-    /**
-     * 当前页码
-     */
-    @ApiModelProperty(value = "当前页码", example = "1")
-    private Long page = 1L;
+	/**
+	 * 当前页码
+	 */
+	@ApiModelProperty(value = "当前页码", example = "1")
+	private Long page = 1L;
 
-    /**
-     * 每页数据条数
-     */
-    @ApiModelProperty(value = "每页数据条数", example = "15")
-    private Long pageSize = 15L;
+	/**
+	 * 每页数据条数
+	 */
+	@ApiModelProperty(value = "每页数据条数", example = "15")
+	private Long pageSize = 15L;
 
-    /**
-     * 排序
-     * 0: 正序
-     * 1: 倒序
-     * 3: 乱序
-     */
-    @ApiModelProperty(value = "排序", example = "0")
-    private int sort;
+	/**
+	 * 排序
+	 * 0: 正序
+	 * 1: 倒序
+	 * 3: 乱序
+	 */
+	@ApiModelProperty(value = "排序", example = "0")
+	private int sort;
 
-    public Long getPage() {
-        return page;
-    }
+	public Long getPage() {
+		return page;
+	}
 
-    public void setPage(Long page) {
-        this.page = page;
-    }
+	public void setPage(Long page) {
+		this.page = page;
+	}
 
-    public Long getPageSize() {
-        return pageSize;
-    }
+	public Long getPageSize() {
+		return pageSize;
+	}
 
-    public void setPageSize(Long pageSize) {
-        this.pageSize = pageSize;
-    }
+	public void setPageSize(Long pageSize) {
+		this.pageSize = pageSize;
+	}
 
-    public int getSort() {
-        return sort;
-    }
+	public int getSort() {
+		return sort;
+	}
 
-    public void setSort(int sort) {
-        this.sort = sort;
-    }
+	public void setSort(int sort) {
+		this.sort = sort;
+	}
 
-    @Override
-    public String toString() {
-        return "QueryCondition{" +
-                "page=" + page +
-                ", pageSize=" + pageSize +
-                ", sort=" + sort +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "QueryCondition{" +
+			"page=" + page +
+			", pageSize=" + pageSize +
+			", sort=" + sort +
+			'}';
+	}
 }

@@ -214,6 +214,6 @@ import cn.hutool.core.collection.ListUtil;
  */
 public class ListUtils extends ListUtil {
 
-    private ListUtils() {
-    }
+	private ListUtils() {
+	}
 }

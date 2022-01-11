@@ -224,60 +224,60 @@ import java.io.InputStreamReader;
  */
 public class HttpCacheRequestWrapper extends HttpServletRequestWrapper {
 
-    /**
-     * 设置默认编码格式为 UTF-8
-     */
-    private static final String DEFAULT_CHARSET = CharsetUtil.UTF_8;
+	/**
+	 * 设置默认编码格式为 UTF-8
+	 */
+	private static final String DEFAULT_CHARSET = CharsetUtil.UTF_8;
 
-    /**
-     * Request Body
-     */
-    private final String body;
+	/**
+	 * Request Body
+	 */
+	private final String body;
 
-    /**
-     * Constructs a request object wrapping the given request.
-     *
-     * @param request The request to wrap
-     * @throws IOException if the request is null
-     */
-    public HttpCacheRequestWrapper(HttpServletRequest request) throws IOException {
-        super(request);
-        ServletInputStream stream = request.getInputStream();
-        this.body = StringUtils.str(stream, CharsetUtil.CHARSET_UTF_8);
-    }
+	/**
+	 * Constructs a request object wrapping the given request.
+	 *
+	 * @param request The request to wrap
+	 * @throws IOException if the request is null
+	 */
+	public HttpCacheRequestWrapper(HttpServletRequest request) throws IOException {
+		super(request);
+		ServletInputStream stream = request.getInputStream();
+		this.body = StringUtils.str(stream, CharsetUtil.CHARSET_UTF_8);
+	}
 
-    @Override
-    public ServletInputStream getInputStream() throws IOException {
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(body.getBytes(DEFAULT_CHARSET));
-        return new ServletInputStream() {
-            @Override
-            public boolean isFinished() {
-                return false;
-            }
+	@Override
+	public ServletInputStream getInputStream() throws IOException {
+		ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(body.getBytes(DEFAULT_CHARSET));
+		return new ServletInputStream() {
+			@Override
+			public boolean isFinished() {
+				return false;
+			}
 
-            @Override
-            public boolean isReady() {
-                return false;
-            }
+			@Override
+			public boolean isReady() {
+				return false;
+			}
 
-            @Override
-            public void setReadListener(ReadListener listener) {
+			@Override
+			public void setReadListener(ReadListener listener) {
 
-            }
+			}
 
-            @Override
-            public int read() {
-                return byteArrayInputStream.read();
-            }
-        };
-    }
+			@Override
+			public int read() {
+				return byteArrayInputStream.read();
+			}
+		};
+	}
 
-    @Override
-    public BufferedReader getReader() throws IOException {
-        return new BufferedReader(new InputStreamReader(this.getInputStream()));
-    }
+	@Override
+	public BufferedReader getReader() throws IOException {
+		return new BufferedReader(new InputStreamReader(this.getInputStream()));
+	}
 
-    public String getBody() {
-        return body;
-    }
+	public String getBody() {
+		return body;
+	}
 }

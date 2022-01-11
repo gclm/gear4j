@@ -212,52 +212,52 @@ package club.gclmit.chaos.core.pojo;
  */
 public class User {
 
-    private String id;
+	private String id;
 
-    private String name;
+	private String name;
 
-    private Integer role;
+	private Integer role;
 
-    public User(String id, String name, Integer role) {
-        this.id = id;
-        this.name = name;
-        this.role = role;
-    }
+	public User(String id, String name, Integer role) {
+		this.id = id;
+		this.name = name;
+		this.role = role;
+	}
 
-    public User() {
-    }
+	public User() {
+	}
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", role=" + role +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "User{" +
+			"id='" + id + '\'' +
+			", name='" + name + '\'' +
+			", role=" + role +
+			'}';
+	}
 
 
-    public String getId() {
-        return id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public Integer getRole() {
-        return role;
-    }
+	public Integer getRole() {
+		return role;
+	}
 
-    public void setRole(Integer role) {
-        this.role = role;
-    }
+	public void setRole(Integer role) {
+		this.role = role;
+	}
 }

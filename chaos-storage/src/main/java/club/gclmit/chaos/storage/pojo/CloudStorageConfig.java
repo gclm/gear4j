@@ -213,133 +213,133 @@ import java.io.Serializable;
  */
 public class CloudStorageConfig implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * AccessKey ID
-     */
-    private String accessKeyId;
+	/**
+	 * AccessKey ID
+	 */
+	private String accessKeyId;
 
-    /**
-     * Access Key Secret
-     */
-    private String accessKeySecret;
+	/**
+	 * Access Key Secret
+	 */
+	private String accessKeySecret;
 
-    /**
-     * 仓库/存储桶名称
-     */
-    private String bucket;
+	/**
+	 * 仓库/存储桶名称
+	 */
+	private String bucket;
 
-    /**
-     * 对象存储服务的URL
-     */
-    private String endpoint;
+	/**
+	 * 对象存储服务的URL
+	 */
+	private String endpoint;
 
-    /**
-     * 地域节点 （阿里云: endpoint）
-     */
-    private String region;
+	/**
+	 * 地域节点 （阿里云: endpoint）
+	 */
+	private String region;
 
-    /**
-     * 前缀
-     */
-    private String prefix;
+	/**
+	 * 前缀
+	 */
+	private String prefix;
 
-    /**
-     * 样式名 - 需要带分隔符
-     */
-    private String styleName;
+	/**
+	 * 样式名 - 需要带分隔符
+	 */
+	private String styleName;
 
-    /**
-     * 当前网络协议
-     */
-    private String protocol = "https";
+	/**
+	 * 当前网络协议
+	 */
+	private String protocol = "https";
 
-    public CloudStorageConfig() {
-    }
+	public CloudStorageConfig() {
+	}
 
-    public CloudStorageConfig(String accessKeyId, String accessKeySecret, String bucket, String endpoint) {
-        this.accessKeyId = accessKeyId;
-        this.accessKeySecret = accessKeySecret;
-        this.bucket = bucket;
-        this.endpoint = endpoint;
-    }
+	public CloudStorageConfig(String accessKeyId, String accessKeySecret, String bucket, String endpoint) {
+		this.accessKeyId = accessKeyId;
+		this.accessKeySecret = accessKeySecret;
+		this.bucket = bucket;
+		this.endpoint = endpoint;
+	}
 
-    public String getAccessKeyId() {
-        return accessKeyId;
-    }
+	public String getAccessKeyId() {
+		return accessKeyId;
+	}
 
-    public void setAccessKeyId(String accessKeyId) {
-        this.accessKeyId = accessKeyId;
-    }
+	public void setAccessKeyId(String accessKeyId) {
+		this.accessKeyId = accessKeyId;
+	}
 
-    public String getAccessKeySecret() {
-        return accessKeySecret;
-    }
+	public String getAccessKeySecret() {
+		return accessKeySecret;
+	}
 
-    public void setAccessKeySecret(String accessKeySecret) {
-        this.accessKeySecret = accessKeySecret;
-    }
+	public void setAccessKeySecret(String accessKeySecret) {
+		this.accessKeySecret = accessKeySecret;
+	}
 
-    public String getBucket() {
-        return bucket;
-    }
+	public String getBucket() {
+		return bucket;
+	}
 
-    public void setBucket(String bucket) {
-        this.bucket = bucket;
-    }
+	public void setBucket(String bucket) {
+		this.bucket = bucket;
+	}
 
-    public String getEndpoint() {
-        return endpoint;
-    }
+	public String getEndpoint() {
+		return endpoint;
+	}
 
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
-    }
+	public void setEndpoint(String endpoint) {
+		this.endpoint = endpoint;
+	}
 
-    public String getRegion() {
-        return region;
-    }
+	public String getRegion() {
+		return region;
+	}
 
-    public void setRegion(String region) {
-        this.region = region;
-    }
+	public void setRegion(String region) {
+		this.region = region;
+	}
 
-    public String getPrefix() {
-        return prefix;
-    }
+	public String getPrefix() {
+		return prefix;
+	}
 
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
-    }
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
 
-    public String getStyleName() {
-        return styleName;
-    }
+	public String getStyleName() {
+		return styleName;
+	}
 
-    public void setStyleName(String styleName) {
-        this.styleName = styleName;
-    }
+	public void setStyleName(String styleName) {
+		this.styleName = styleName;
+	}
 
-    public String getProtocol() {
-        return protocol;
-    }
+	public String getProtocol() {
+		return protocol;
+	}
 
-    public void setProtocol(String protocol) {
-        this.protocol = protocol;
-    }
+	public void setProtocol(String protocol) {
+		this.protocol = protocol;
+	}
 
-    @Override
-    public String toString() {
-        return "CloudStorage{" +
-                "accessKeyId='" + accessKeyId + '\'' +
-                ", accessKeySecret='" + accessKeySecret + '\'' +
-                ", bucket='" + bucket + '\'' +
-                ", endpoint='" + endpoint + '\'' +
-                ", region='" + region + '\'' +
-                ", prefix='" + prefix + '\'' +
-                ", styleName='" + styleName + '\'' +
-                ", protocol='" + protocol + '\'' +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "CloudStorage{" +
+			"accessKeyId='" + accessKeyId + '\'' +
+			", accessKeySecret='" + accessKeySecret + '\'' +
+			", bucket='" + bucket + '\'' +
+			", endpoint='" + endpoint + '\'' +
+			", region='" + region + '\'' +
+			", prefix='" + prefix + '\'' +
+			", styleName='" + styleName + '\'' +
+			", protocol='" + protocol + '\'' +
+			'}';
+	}
 }

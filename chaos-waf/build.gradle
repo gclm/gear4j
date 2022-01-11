@@ -1,4 +1,4 @@
 dependencies {
-    api project (":chaos-web")
+    api project(":chaos-web")
     api "org.jsoup:jsoup"
 }

@@ -214,101 +214,101 @@ package club.gclmit.chaos.core.log;
  */
 public enum LoggerServer {
 
-    // ~ Chaos 组件
-    // ===================================================================================================
+	// ~ Chaos 组件
+	// ===================================================================================================
 
-    /**
-     * Chaos
-     */
-    CHAOS("Chaos"),
+	/**
+	 * Chaos
+	 */
+	CHAOS("Chaos"),
 
-    // ~ MVC 架构 Controller
-    // ===================================================================================================
+	// ~ MVC 架构 Controller
+	// ===================================================================================================
 
-    /**
-     * Controller
-     */
-    CONTROLLER("Controller"),
+	/**
+	 * Controller
+	 */
+	CONTROLLER("Controller"),
 
-    /**
-     * Interceptor
-     */
-    INTERCEPTOR("Interceptor"),
+	/**
+	 * Interceptor
+	 */
+	INTERCEPTOR("Interceptor"),
 
-    /**
-     * Filter
-     */
-    FILTER("Filter"),
+	/**
+	 * Filter
+	 */
+	FILTER("Filter"),
 
-    /**
-     * Aspect
-     */
-    ASPECT("Aspect"),
+	/**
+	 * Aspect
+	 */
+	ASPECT("Aspect"),
 
-    /**
-     * config
-     */
-    CONFIG("config"),
+	/**
+	 * config
+	 */
+	CONFIG("config"),
 
-    // ~ MVC 架构 Model
-    // ===================================================================================================
+	// ~ MVC 架构 Model
+	// ===================================================================================================
 
-    /**
-     * pojo
-     */
-    POJO("pojo"),
+	/**
+	 * pojo
+	 */
+	POJO("pojo"),
 
-    /**
-     * entity
-     */
-    ENTITY("entity"),
+	/**
+	 * entity
+	 */
+	ENTITY("entity"),
 
-    /**
-     * DTO
-     */
-    DTO("DTO"),
+	/**
+	 * DTO
+	 */
+	DTO("DTO"),
 
-    /**
-     * VO
-     */
-    VO("VO"),
+	/**
+	 * VO
+	 */
+	VO("VO"),
 
-    /**
-     * Param
-     */
-    PARAM("Param"),
+	/**
+	 * Param
+	 */
+	PARAM("Param"),
 
-    /**
-     * Query
-     */
-    QUERY("Query"),
+	/**
+	 * Query
+	 */
+	QUERY("Query"),
 
 
-    // ~ MVC 架构
-    // ===================================================================================================
+	// ~ MVC 架构
+	// ===================================================================================================
 
-    /**
-     * Service
-     */
-    SERVICE("Service"),
+	/**
+	 * Service
+	 */
+	SERVICE("Service"),
 
-    /**
-     * Mapper
-     */
-    MAPPER("Mapper"),
+	/**
+	 * Mapper
+	 */
+	MAPPER("Mapper"),
 
-    /**
-     * Util
-     */
-    UTIL("Util");
+	/**
+	 * Util
+	 */
+	UTIL("Util");
 
-    private final String key;
+	private final String key;
 
-    private LoggerServer(String key) {
-        this.key = key;
-    }
+	private LoggerServer(String key) {
+		this.key = key;
+	}
 
-    public String getKey() {
-        return key;
-    }
+	public String getKey() {
+		return key;
+	}
 }

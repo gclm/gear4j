@@ -242,10 +242,9 @@ import java.util.Arrays;
 @WebFilter(filterName = "loggerFilter", urlPatterns = "/*")
 public class LoggerFilter extends OncePerRequestFilter implements Ordered {
 
+	private static final Logger log = LoggerFactory.getLogger(LoggerFilter.class);
 	@Autowired
 	private LoggerProperties config;
-
-	private static final Logger log = LoggerFactory.getLogger(LoggerFilter.class);
 
 	/**
 	 * 获取Bean对象

@@ -10,10 +10,6 @@ import org.springframework.format.support.DefaultFormattingConversionService;
  */
 public class ChaosConversionService extends DefaultFormattingConversionService {
 
-	private static class ChaosConversionServiceHandler {
-		static ChaosConversionService instance = new ChaosConversionService();
-	}
-
 	/**
 	 * 实例化单例ChaosConversionService
 	 *
@@ -21,5 +17,9 @@ public class ChaosConversionService extends DefaultFormattingConversionService {
 	 */
 	public static ChaosConversionService getInstance() {
 		return ChaosConversionServiceHandler.instance;
+	}
+
+	private static class ChaosConversionServiceHandler {
+		static ChaosConversionService instance = new ChaosConversionService();
 	}
 }

@@ -214,28 +214,28 @@ import cn.hutool.core.text.CharSequenceUtil;
  */
 public class ChaosException extends RuntimeException {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    public ChaosException() {
-    }
+	public ChaosException() {
+	}
 
-    public ChaosException(Throwable cause) {
-        super(cause);
-    }
+	public ChaosException(Throwable cause) {
+		super(cause);
+	}
 
-    public ChaosException(String message) {
-        super(message);
-    }
+	public ChaosException(String message) {
+		super(message);
+	}
 
-    public ChaosException(String messageTemplate, Object... params) {
-        super(CharSequenceUtil.format(messageTemplate, params));
-    }
+	public ChaosException(String messageTemplate, Object... params) {
+		super(CharSequenceUtil.format(messageTemplate, params));
+	}
 
-    public ChaosException(String message, Throwable cause) {
-        super(message, cause);
-    }
+	public ChaosException(String message, Throwable cause) {
+		super(message, cause);
+	}
 
-    public ChaosException(Throwable cause, String messageTemplate, Object... params) {
-        super(CharSequenceUtil.format(messageTemplate, params), cause);
-    }
+	public ChaosException(Throwable cause, String messageTemplate, Object... params) {
+		super(CharSequenceUtil.format(messageTemplate, params), cause);
+	}
 }

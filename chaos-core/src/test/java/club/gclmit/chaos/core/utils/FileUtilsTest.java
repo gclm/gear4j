@@ -219,13 +219,13 @@ import java.util.stream.Collectors;
  */
 public class FileUtilsTest {
 
-    @Test
-    public void maven_clean() {
-        List<File> files = FileUtils.loopFiles("/home/gclm/.m2/repository");
-        List<File> deleteFiles = files.stream().filter(file -> FileUtils.getName(file).endsWith(".lastUpdated")).collect(Collectors.toList());
-        deleteFiles.forEach(file -> {
-            System.out.println("删除文件：" + file.getAbsolutePath());
-            FileUtils.del(file);
-        });
-    }
+	@Test
+	public void maven_clean() {
+		List<File> files = FileUtils.loopFiles("/home/gclm/.m2/repository");
+		List<File> deleteFiles = files.stream().filter(file -> FileUtils.getName(file).endsWith(".lastUpdated")).collect(Collectors.toList());
+		deleteFiles.forEach(file -> {
+			System.out.println("删除文件：" + file.getAbsolutePath());
+			FileUtils.del(file);
+		});
+	}
 }

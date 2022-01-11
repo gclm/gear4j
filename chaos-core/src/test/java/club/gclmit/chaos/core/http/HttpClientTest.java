@@ -19,17 +19,17 @@ import java.net.http.HttpResponse;
  */
 public class HttpClientTest {
 
-    @Test
-    public void get() throws IOException, InterruptedException {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://i.loli.net/2021/09/15/WCBXapRJ6lFjTZP.jpg"))
-                .header("User-Agent",
-                        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.90 Safari/537.36")
-                .GET().build();
+	@Test
+	public void get() throws IOException, InterruptedException {
+		HttpRequest request = HttpRequest.newBuilder()
+			.uri(URI.create("https://i.loli.net/2021/09/15/WCBXapRJ6lFjTZP.jpg"))
+			.header("User-Agent",
+				"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.90 Safari/537.36")
+			.GET().build();
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
-        System.out.println(response.statusCode());
-        System.out.println(response.body().available());
-    }
+		HttpClient client = HttpClient.newHttpClient();
+		HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
+		System.out.println(response.statusCode());
+		System.out.println(response.body().available());
+	}
 }

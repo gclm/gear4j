@@ -217,7 +217,6 @@ import club.gclmit.chaos.storage.service.impl.*;
 public class CloudStorageFactory {
 
 	/**
-
 	 * 返回对应服务的实现客户端
 	 * </p>
 	 *

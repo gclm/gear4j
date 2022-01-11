@@ -212,43 +212,43 @@ package club.gclmit.chaos.core.http.servlet;
  */
 public enum HttpMethod {
 
-    /**
-     * get 请求
-     */
-    GET("GET"),
+	/**
+	 * get 请求
+	 */
+	GET("GET"),
 
-    /**
-     * post  请求
-     */
-    POST("POST"),
+	/**
+	 * post  请求
+	 */
+	POST("POST"),
 
-    /**
-     * update 更新请求
-     */
-    PUT("PUT"),
+	/**
+	 * update 更新请求
+	 */
+	PUT("PUT"),
 
-    /**
-     * DELETE 删除请求
-     */
-    DELETE("DELETE"),
+	/**
+	 * DELETE 删除请求
+	 */
+	DELETE("DELETE"),
 
-    /**
-     * OPTIONS 请求
-     */
-    OPTIONS("OPTIONS");
+	/**
+	 * OPTIONS 请求
+	 */
+	OPTIONS("OPTIONS");
 
-    /**
-     * 状态码
-     */
-    private String code;
+	/**
+	 * 状态码
+	 */
+	private final String code;
 
-    HttpMethod(String code) {
-        this.code = code;
-    }
+	HttpMethod(String code) {
+		this.code = code;
+	}
 
-    public String getCode() {
-        return code;
-    }
+	public String getCode() {
+		return code;
+	}
 
 
 }

@@ -231,103 +231,98 @@ import java.util.List;
  */
 public class HuaweiCloudStorageClient extends AbstractStorageClient {
 
-    private static final Logger log = LoggerFactory.getLogger(HuaweiCloudStorageClient.class);
+	private static final Logger log = LoggerFactory.getLogger(HuaweiCloudStorageClient.class);
 
-    /**
-     * 华为云 Obs客户端
-     */
-    private final ObsClient obsClient;
+	/**
+	 * 华为云 Obs客户端
+	 */
+	private final ObsClient obsClient;
 
-    /**
-     * OSS 配置参数
-     */
-    private final CloudStorageConfig cloudStorageConfig;
+	/**
+	 * OSS 配置参数
+	 */
+	private final CloudStorageConfig cloudStorageConfig;
 
 
-    /**
-     * 初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
-     *
-     * @param cloudStorage Storage
-     */
-    public HuaweiCloudStorageClient(CloudStorage cloudStorage) {
-        super(cloudStorage);
-        if (cloudStorage.getType() == StorageServer.HUAWEI) {
-            cloudStorageConfig = cloudStorage.getConfig();
-            log.debug("[{}]配置参数:[{}]", StorageServer.HUAWEI.getName(), cloudStorage);
-            // 创建OSSClient实例
-            obsClient = new ObsClient(cloudStorageConfig.getAccessKeyId(), cloudStorageConfig.getAccessKeySecret(), cloudStorageConfig.getEndpoint());
-        } else {
-            throw new ChaosException("[{}]上传文件失败，请检查 [{}] 配置", StorageServer.HUAWEI.getName(), StorageServer.HUAWEI.getName());
-        }
-    }
+	/**
+	 * 初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
+	 *
+	 * @param cloudStorage Storage
+	 */
+	public HuaweiCloudStorageClient(CloudStorage cloudStorage) {
+		super(cloudStorage);
+		if (cloudStorage.getType() == StorageServer.HUAWEI) {
+			cloudStorageConfig = cloudStorage.getConfig();
+			log.debug("[{}]配置参数:[{}]", StorageServer.HUAWEI.getName(), cloudStorage);
+			// 创建OSSClient实例
+			obsClient = new ObsClient(cloudStorageConfig.getAccessKeyId(), cloudStorageConfig.getAccessKeySecret(), cloudStorageConfig.getEndpoint());
+		} else {
+			throw new ChaosException("[{}]上传文件失败，请检查 [{}] 配置", StorageServer.HUAWEI.getName(), StorageServer.HUAWEI.getName());
+		}
+	}
 
-    /**
-     * 批量删除多个文件
-     *
-     * @param keys 文件路径集合
+	/**
+	 * 批量删除多个文件
+	 *
+	 * @param keys 文件路径集合
+	 */
+	@Override
+	public void batchDelete(List<String> keys) {
+		Assert.notEmpty(keys, "[华为云OBS]批量删除文件的 keys 不能为空");
+		for (String key : keys) {
+			delete(key);
+		}
+	}
 
-     */
-    @Override
-    public void batchDelete(List<String> keys) {
-        Assert.notEmpty(keys, "[华为云OBS]批量删除文件的 keys 不能为空");
-        for (String key : keys) {
-            delete(key);
-        }
-    }
+	/**
+	 * 删除文件
+	 *
+	 * @param key 文件路径
+	 */
+	@Override
+	public void delete(String key) {
+		Assert.hasLength(key, "[华为云OBS]删除文件的key不能为空");
+		obsClient.deleteObject(cloudStorageConfig.getBucket(), key);
+	}
 
-    /**
-     * 删除文件
-     *
-     * @param key 文件路径
-
-     */
-    @Override
-    public void delete(String key) {
-        Assert.hasLength(key, "[华为云OBS]删除文件的key不能为空");
-        obsClient.deleteObject(cloudStorageConfig.getBucket(), key);
-    }
-
-    /**
-     * 上传文件基础方法
-     *
-     * @param inputStream 上传文件流
-     * @param fileInfo    文件信息
+	/**
+	 * 上传文件基础方法
+	 *
+	 * @param inputStream 上传文件流
+	 * @param fileInfo    文件信息
 	 * @return {@link FileInfo} 文件信息
+	 */
+	@Override
+	public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {
+		Assert.notNull(inputStream, "[华为云OBS]上传文件失败，请检查 inputStream 是否正常");
+		Assert.hasLength(fileInfo.getOssKey(), "[华为云OBS]上传文件失败，请检查上传文件的 key 是否正常");
 
-     */
-    @Override
-    public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {
-        Assert.notNull(inputStream, "[华为云OBS]上传文件失败，请检查 inputStream 是否正常");
-        Assert.hasLength(fileInfo.getOssKey(), "[华为云OBS]上传文件失败，请检查上传文件的 key 是否正常");
+		String key = fileInfo.getOssKey();
 
-        String key = fileInfo.getOssKey();
+		String url = null;
+		try {
+			PutObjectResult putObject = obsClient.putObject(cloudStorageConfig.getBucket(), key, inputStream);
+			fileInfo.setETag(putObject.getEtag());
+		} catch (Exception e) {
+			throw new ChaosException("[华为云OBS]上传文件失败，请检查配置信息", e);
+		}
 
-        String url = null;
-        String eTag = null;
-        try {
-            PutObjectResult putObject = obsClient.putObject(cloudStorageConfig.getBucket(), key, inputStream);
-            eTag = putObject.getEtag();
-        } catch (Exception e) {
-            throw new ChaosException("[华为云OBS]上传文件失败，请检查配置信息", e);
-        }
+		if (key != null) {
+			/*
+			 *  拼接文件访问路径。由于拼接的字符串大多为String对象，而不是""的形式，所以直接用+拼接的方式没有优势
+			 *  2020.04.09 补充，jdk8之后 + 底层采用 StringBuilder 和 + 没有什么区别，但是建议使用StringBuilder
+			 */
+			StringBuilder path = new StringBuilder();
+			path.append(cloudStorageConfig.getProtocol()).append("://").append(cloudStorageConfig.getBucket()).append(".").append(cloudStorageConfig.getEndpoint()).append("/").append(key);
+			if (StringUtils.isNotBlank(cloudStorageConfig.getStyleName())) {
+				path.append(cloudStorageConfig.getStyleName());
+			}
+			url = path.toString();
+		}
 
-        if (key != null) {
-            /*
-             *  拼接文件访问路径。由于拼接的字符串大多为String对象，而不是""的形式，所以直接用+拼接的方式没有优势
-             *  2020.04.09 补充，jdk8之后 + 底层采用 StringBuilder 和 + 没有什么区别，但是建议使用StringBuilder
-             */
-            StringBuilder path = new StringBuilder();
-            path.append(cloudStorageConfig.getProtocol()).append("://").append(cloudStorageConfig.getBucket()).append(".").append(cloudStorageConfig.getEndpoint()).append("/").append(key);
-            if (StringUtils.isNotBlank(cloudStorageConfig.getStyleName())) {
-                path.append(cloudStorageConfig.getStyleName());
-            }
-            url = path.toString();
-        }
-
-        fileInfo.setETag(eTag);
-        fileInfo.setUrl(url);
-        fileInfo.setUploadTime(DateUtil.current());
-        fileInfo.setStatus(FileStatus.SAVE.getCode());
-        return fileInfo;
-    }
+		fileInfo.setUrl(url);
+		fileInfo.setUploadTime(DateUtil.current());
+		fileInfo.setStatus(FileStatus.SAVE.getCode());
+		return fileInfo;
+	}
 }

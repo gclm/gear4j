@@ -218,71 +218,71 @@ import java.io.Serializable;
  */
 public class CloudStorage implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * 类型
-     * 1：阿里云    2：七牛
-     * 3：腾讯云    4：又拍云
-     * 5：UCLOUD
-     */
-    private StorageServer type = StorageServer.ALIYUN;
+	/**
+	 * 类型
+	 * 1：阿里云    2：七牛
+	 * 3：腾讯云    4：又拍云
+	 * 5：UCLOUD
+	 */
+	private StorageServer type = StorageServer.ALIYUN;
 
-    /**
-     * OSS 厂商配置
-     */
-    private CloudStorageConfig config = new CloudStorageConfig();
+	/**
+	 * OSS 厂商配置
+	 */
+	private CloudStorageConfig config = new CloudStorageConfig();
 
-    /**
-     * 数据类型
-     */
-    private ResponseDataType result = ResponseDataType.DETAIL;
+	/**
+	 * 数据类型
+	 */
+	private ResponseDataType result = ResponseDataType.DETAIL;
 
-    /**
-     * 保存数据库
-     * true 为保存，false为不保存
-     */
-    private boolean db = false;
+	/**
+	 * 保存数据库
+	 * true 为保存，false为不保存
+	 */
+	private boolean db = false;
 
-    public StorageServer getType() {
-        return type;
-    }
+	public StorageServer getType() {
+		return type;
+	}
 
-    public void setType(StorageServer type) {
-        this.type = type;
-    }
+	public void setType(StorageServer type) {
+		this.type = type;
+	}
 
-    public CloudStorageConfig getConfig() {
-        return config;
-    }
+	public CloudStorageConfig getConfig() {
+		return config;
+	}
 
-    public void setConfig(CloudStorageConfig config) {
-        this.config = config;
-    }
+	public void setConfig(CloudStorageConfig config) {
+		this.config = config;
+	}
 
-    public ResponseDataType getResult() {
-        return result;
-    }
+	public ResponseDataType getResult() {
+		return result;
+	}
 
-    public void setResult(ResponseDataType result) {
-        this.result = result;
-    }
+	public void setResult(ResponseDataType result) {
+		this.result = result;
+	}
 
-    public boolean isDb() {
-        return db;
-    }
+	public boolean isDb() {
+		return db;
+	}
 
-    public void setDb(boolean db) {
-        this.db = db;
-    }
+	public void setDb(boolean db) {
+		this.db = db;
+	}
 
-    @Override
-    public String toString() {
-        return "Storage{" +
-                "type=" + type +
-                ", config=" + config +
-                ", result=" + result +
-                ", db=" + db +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "Storage{" +
+			"type=" + type +
+			", config=" + config +
+			", result=" + result +
+			", db=" + db +
+			'}';
+	}
 }

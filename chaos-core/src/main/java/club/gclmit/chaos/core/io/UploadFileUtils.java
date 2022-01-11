@@ -226,7 +226,7 @@ public class UploadFileUtils {
 	}
 
 	/**
-判断文件是否为空 {@code null}.
+	 * 判断文件是否为空 {@code null}.
 	 *
 	 * @param file 判断文件
 	 * @return {@code true} if the file is empty or {@code null}
@@ -236,7 +236,7 @@ public class UploadFileUtils {
 	}
 
 	/**
-判断文件是否不为空
+	 * 判断文件是否不为空
 	 *
 	 * @param file 判断文件
 	 * @return {@code true} 当前 file 不为空返回 true

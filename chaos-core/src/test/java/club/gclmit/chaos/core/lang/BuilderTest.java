@@ -217,11 +217,11 @@ import org.junit.jupiter.api.Test;
  */
 public class BuilderTest {
 
-    @Test
-    public void build() {
-        GirlFriend friend = Builder.build(GirlFriend::new)
-                .val(GirlFriend::setAddress, "浦东").build();
+	@Test
+	public void build() {
+		GirlFriend friend = Builder.build(GirlFriend::new)
+			.val(GirlFriend::setAddress, "浦东").build();
 
-        System.out.println(friend);
-    }
+		System.out.println(friend);
+	}
 }

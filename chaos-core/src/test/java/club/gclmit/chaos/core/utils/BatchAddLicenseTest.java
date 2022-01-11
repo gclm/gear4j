@@ -221,115 +221,112 @@ import java.util.stream.Collectors;
  */
 public class BatchAddLicenseTest {
 
-    public static final String FROM_FILE = "/Users/gclm/Projects/01-base/chaos/chaos-core/LICENSE2";
+	public static final String FROM_FILE = "/Users/gclm/Projects/01-base/chaos/chaos-core/LICENSE2";
 
-    public static void batchAddLicense() {
-        List<File> files = FileUtils.loopFiles("/Users/gclm/Projects/01-base/chaos");
-        List<File> updateFiles = files.stream().filter(file ->
-                FileUtils.getName(file).endsWith(".java") && !checkLicense(file.getAbsolutePath())
-        ).collect(Collectors.toList());
-        System.out.println(updateFiles.size());
-        updateFiles.forEach(file -> {
-            System.out.println(appendFile(FROM_FILE, file.getAbsolutePath()));
-        });
+	public static void batchAddLicense() {
+		List<File> files = FileUtils.loopFiles("/Users/gclm/Projects/01-base/chaos");
+		List<File> updateFiles = files.stream().filter(file ->
+			FileUtils.getName(file).endsWith(".java") && !checkLicense(file.getAbsolutePath())
+		).collect(Collectors.toList());
+		System.out.println(updateFiles.size());
+		updateFiles.forEach(file -> {
+			System.out.println(appendFile(FROM_FILE, file.getAbsolutePath()));
+		});
 
-    }
+	}
 
-    public static boolean appendFile(String fromFile, String toFile) {
-        try {
-            // 映射原文件到内存
-            RandomAccessFile srcRandomAccessFile = new RandomAccessFile(fromFile, "r");
-            FileChannel srcAccessFileChannel = srcRandomAccessFile.getChannel();
-            long srcLength = srcAccessFileChannel.size();
-            System.out.println("src file size:" + srcLength);  // src file size:296354010
-            MappedByteBuffer srcMap = srcAccessFileChannel.map(FileChannel.MapMode.READ_ONLY, 0, srcLength);
+	public static boolean appendFile(String fromFile, String toFile) {
+		try {
+			// 映射原文件到内存
+			RandomAccessFile srcRandomAccessFile = new RandomAccessFile(fromFile, "r");
+			FileChannel srcAccessFileChannel = srcRandomAccessFile.getChannel();
+			long srcLength = srcAccessFileChannel.size();
+			System.out.println("src file size:" + srcLength);  // src file size:296354010
+			MappedByteBuffer srcMap = srcAccessFileChannel.map(FileChannel.MapMode.READ_ONLY, 0, srcLength);
 
-            File temp = File.createTempFile("temp", null);
-            System.out.println(temp.getAbsolutePath());
-            FileUtils.copy(toFile, temp.getAbsolutePath(), true);
-            // 映射原文件到内存
-            RandomAccessFile tempRandomAccessFile = new RandomAccessFile(temp, "r");
-            FileChannel tempAccessFileChannel = tempRandomAccessFile.getChannel();
-            long tempLength = tempAccessFileChannel.size();
-            System.out.println("temp file size:" + tempLength);  // src file size:296354010
-            MappedByteBuffer tempMap = tempAccessFileChannel.map(FileChannel.MapMode.READ_ONLY, 0, tempLength);
+			File temp = File.createTempFile("temp", null);
+			System.out.println(temp.getAbsolutePath());
+			FileUtils.copy(toFile, temp.getAbsolutePath(), true);
+			// 映射原文件到内存
+			RandomAccessFile tempRandomAccessFile = new RandomAccessFile(temp, "r");
+			FileChannel tempAccessFileChannel = tempRandomAccessFile.getChannel();
+			long tempLength = tempAccessFileChannel.size();
+			System.out.println("temp file size:" + tempLength);  // src file size:296354010
+			MappedByteBuffer tempMap = tempAccessFileChannel.map(FileChannel.MapMode.READ_ONLY, 0, tempLength);
 
 
-            // 映射目标文件到内存
-            RandomAccessFile destRandomAccessFile = new RandomAccessFile(toFile, "rw");
-            FileChannel destAccessFileChannel = destRandomAccessFile.getChannel();
-            long destLength = srcLength + tempLength;
-            System.out.println("dest file size:" + destLength);  // dest file size:296354025
-            MappedByteBuffer destMap = destAccessFileChannel.map(FileChannel.MapMode.READ_WRITE, 0, destLength);
+			// 映射目标文件到内存
+			RandomAccessFile destRandomAccessFile = new RandomAccessFile(toFile, "rw");
+			FileChannel destAccessFileChannel = destRandomAccessFile.getChannel();
+			long destLength = srcLength + tempLength;
+			System.out.println("dest file size:" + destLength);  // dest file size:296354025
+			MappedByteBuffer destMap = destAccessFileChannel.map(FileChannel.MapMode.READ_WRITE, 0, destLength);
 
-            // 开始文件追加 : 先添加头部内容，再添加原来文件内容
-            destMap.position(0);
-            destMap.put(srcMap);
-            destMap.put(tempMap);
+			// 开始文件追加 : 先添加头部内容，再添加原来文件内容
+			destMap.position(0);
+			destMap.put(srcMap);
+			destMap.put(tempMap);
 
-            destAccessFileChannel.close();
-            srcAccessFileChannel.close();
-            tempAccessFileChannel.close();
+			destAccessFileChannel.close();
+			srcAccessFileChannel.close();
+			tempAccessFileChannel.close();
 
-            temp.delete();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return true;
-    }
+			temp.delete();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
 
-    public static boolean checkLicense(String path) {
-        String content = FileUtils.getContentTrim(new File(path));
-        return content.contains("Apache License");
-    }
+	public static boolean checkLicense(String path) {
+		String content = FileUtils.getContentTrim(new File(path));
+		return content.contains("Apache License");
+	}
 
-    public static boolean mergeFiles(String[] fpaths, String resultPath) {
-        if (fpaths == null || fpaths.length < 1 || StringUtils.isEmpty(resultPath)) {
-            return false;
-        }
-        if (fpaths.length == 1) {
-            return new File(fpaths[0]).renameTo(new File(resultPath));
-        }
+	public static boolean mergeFiles(String[] fpaths, String resultPath) {
+		if (fpaths == null || fpaths.length < 1 || StringUtils.isEmpty(resultPath)) {
+			return false;
+		}
+		if (fpaths.length == 1) {
+			return new File(fpaths[0]).renameTo(new File(resultPath));
+		}
 
-        File[] files = new File[fpaths.length];
-        for (int i = 0; i < fpaths.length; i++) {
-            files[i] = new File(fpaths[i]);
-            if (StringUtils.isEmpty(fpaths[i]) || !files[i].exists() || !files[i].isFile()) {
-                return false;
-            }
-        }
+		File[] files = new File[fpaths.length];
+		for (int i = 0; i < fpaths.length; i++) {
+			files[i] = new File(fpaths[i]);
+			if (StringUtils.isEmpty(fpaths[i]) || !files[i].exists() || !files[i].isFile()) {
+				return false;
+			}
+		}
 
-        File resultFile = new File(resultPath);
+		File resultFile = new File(resultPath);
 
-        try {
-            FileChannel resultFileChannel = new FileOutputStream(resultFile, true).getChannel();
-            for (int i = 0; i < fpaths.length; i++) {
-                FileChannel blk = new FileInputStream(files[i]).getChannel();
-                resultFileChannel.transferFrom(blk, resultFileChannel.size(), blk.size());
-                blk.close();
-            }
-            resultFileChannel.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+		try {
+			FileChannel resultFileChannel = new FileOutputStream(resultFile, true).getChannel();
+			for (int i = 0; i < fpaths.length; i++) {
+				FileChannel blk = new FileInputStream(files[i]).getChannel();
+				resultFileChannel.transferFrom(blk, resultFileChannel.size(), blk.size());
+				blk.close();
+			}
+			resultFileChannel.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
 
 //        for (int i = 0; i < fpaths.length; i ++) {
 //            files[i].delete();
 //        }
 
-        return true;
-    }
+		return true;
+	}
 
-    @Test
-    public void main() {
+	@Test
+	public void main() {
 //        String[] fromPaths = {"/Users/gclm/Projects/01-base/chaos/chaos-core/LICENSE2","/Users/gclm/Projects/01-base/chaos/chaos-core/src/test/java/club/gclmit/chaos/core/utils/AvatarUtilsTest.java"};
 //        System.out.println(mergeFiles(fromPaths,"/Users/gclm/Projects/01-base/chaos/chaos-core/src/test/java/club/gclmit/chaos/core/utils/AvatarUtilsTest2.java"));
 //        System.out.println(appendFile("/Users/gclm/Projects/01-base/chaos/chaos-core/LICENSE2", "/Users/gclm/Projects/01-base/chaos/chaos-core/src/test/java/club/gclmit/chaos/core/utils/FileUtilsTest.java"));
-        batchAddLicense();
-    }
+		batchAddLicense();
+	}
 
 }

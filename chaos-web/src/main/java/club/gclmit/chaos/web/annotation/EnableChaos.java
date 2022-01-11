@@ -223,10 +223,10 @@ import java.lang.annotation.*;
 @ConditionalOnWebApplication
 // 自定义注解配置
 @MapperScan(basePackages = {
-        "club.gclmit.chaos.*.mapper"
+	"club.gclmit.chaos.*.mapper"
 })
 @ComponentScan(basePackages = {
-        "club.gclmit.chaos"
+	"club.gclmit.chaos"
 })
 public @interface EnableChaos {
 

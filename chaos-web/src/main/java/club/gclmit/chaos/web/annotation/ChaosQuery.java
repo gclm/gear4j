@@ -216,5 +216,5 @@ import java.lang.annotation.*;
 @Documented
 public @interface ChaosQuery {
 
-    Class<?> clazz();
+	Class<?> clazz();
 }

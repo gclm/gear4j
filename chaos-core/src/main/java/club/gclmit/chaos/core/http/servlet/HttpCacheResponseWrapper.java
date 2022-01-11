@@ -222,105 +222,105 @@ import java.io.*;
  */
 public class HttpCacheResponseWrapper extends HttpServletResponseWrapper {
 
-    @Nullable
-    private ServletOutputStream outputStream;
+	@Nullable
+	private ServletOutputStream outputStream;
 
-    @Nullable
-    private PrintWriter writer;
+	@Nullable
+	private PrintWriter writer;
 
-    private ResponseServletOutputStream stream;
+	private ResponseServletOutputStream stream;
 
-    /**
-     * Create a new ContentCachingResponseWrapper for the given servlet response.
-     *
-     * @param response the original servlet response
-     */
-    public HttpCacheResponseWrapper(HttpServletResponse response) {
-        super(response);
-    }
+	/**
+	 * Create a new ContentCachingResponseWrapper for the given servlet response.
+	 *
+	 * @param response the original servlet response
+	 */
+	public HttpCacheResponseWrapper(HttpServletResponse response) {
+		super(response);
+	}
 
-    @Override
-    public ServletOutputStream getOutputStream() throws IOException {
-        if (writer != null) {
-            throw new IllegalStateException("getWriter() has already been called on this response.");
-        }
+	@Override
+	public ServletOutputStream getOutputStream() throws IOException {
+		if (writer != null) {
+			throw new IllegalStateException("getWriter() has already been called on this response.");
+		}
 
-        if (outputStream == null) {
-            outputStream = getResponse().getOutputStream();
-            stream = new ResponseServletOutputStream(outputStream);
-        }
+		if (outputStream == null) {
+			outputStream = getResponse().getOutputStream();
+			stream = new ResponseServletOutputStream(outputStream);
+		}
 
-        return stream;
-    }
+		return stream;
+	}
 
-    @Override
-    public PrintWriter getWriter() throws IOException {
-        if (outputStream != null) {
-            throw new IllegalStateException("getOutputStream() has already been called on this response.");
-        }
+	@Override
+	public PrintWriter getWriter() throws IOException {
+		if (outputStream != null) {
+			throw new IllegalStateException("getOutputStream() has already been called on this response.");
+		}
 
-        if (writer == null) {
-            stream = new ResponseServletOutputStream(getResponse().getOutputStream());
-            writer = new PrintWriter(new OutputStreamWriter(stream, getCharset()), true);
-        }
-        return writer;
-    }
+		if (writer == null) {
+			stream = new ResponseServletOutputStream(getResponse().getOutputStream());
+			writer = new PrintWriter(new OutputStreamWriter(stream, getCharset()), true);
+		}
+		return writer;
+	}
 
-    @Override
-    public void flushBuffer() throws IOException {
-        if (writer != null) {
-            writer.flush();
-        } else if (outputStream != null) {
-            stream.flush();
-        }
-    }
+	@Override
+	public void flushBuffer() throws IOException {
+		if (writer != null) {
+			writer.flush();
+		} else if (outputStream != null) {
+			stream.flush();
+		}
+	}
 
-    public String getBody() {
-        byte[] bytes = new byte[0];
-        if (stream != null) {
-            bytes = stream.getCopy();
-        }
-        return StringUtils.str(bytes, getCharset());
-    }
+	public String getBody() {
+		byte[] bytes = new byte[0];
+		if (stream != null) {
+			bytes = stream.getCopy();
+		}
+		return StringUtils.str(bytes, getCharset());
+	}
 
-    private String getCharset() {
-        return getCharacterEncoding() != null ? getCharacterEncoding() : CharsetUtil.UTF_8;
-    }
+	private String getCharset() {
+		return getCharacterEncoding() != null ? getCharacterEncoding() : CharsetUtil.UTF_8;
+	}
 
-    private static class ResponseServletOutputStream extends ServletOutputStream {
+	private static class ResponseServletOutputStream extends ServletOutputStream {
 
-        /**
-         * Output Stream
-         */
-        private final OutputStream outputStream;
-        /**
-         * Copy Byte Array Output Stream
-         */
-        private final ByteArrayOutputStream copy;
+		/**
+		 * Output Stream
+		 */
+		private final OutputStream outputStream;
+		/**
+		 * Copy Byte Array Output Stream
+		 */
+		private final ByteArrayOutputStream copy;
 
-        public ResponseServletOutputStream(OutputStream outputStream) {
-            this.outputStream = outputStream;
-            this.copy = new ByteArrayOutputStream(1024);
-        }
+		public ResponseServletOutputStream(OutputStream outputStream) {
+			this.outputStream = outputStream;
+			this.copy = new ByteArrayOutputStream(1024);
+		}
 
-        @Override
-        public void write(int b) throws IOException {
-            outputStream.write(b);
-            copy.write(b);
-        }
+		@Override
+		public void write(int b) throws IOException {
+			outputStream.write(b);
+			copy.write(b);
+		}
 
-        public byte[] getCopy() {
-            return copy.toByteArray();
-        }
+		public byte[] getCopy() {
+			return copy.toByteArray();
+		}
 
-        @Override
-        public boolean isReady() {
-            return false;
-        }
+		@Override
+		public boolean isReady() {
+			return false;
+		}
 
-        @Override
-        public void setWriteListener(WriteListener writeListener) {
+		@Override
+		public void setWriteListener(WriteListener writeListener) {
 
-        }
-    }
+		}
+	}
 }

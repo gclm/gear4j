@@ -214,130 +214,138 @@ import cn.hutool.core.lang.Assert;
  */
 public class SystemUtils {
 
-    /**
-     * 获取 user home
-     */
-    public static final String USER_HOME = getSystemProperty("user.home");
-    /**
-     * 获取用户地址
-     */
-    public static final String USER_DIR = getSystemProperty("user.dir");
-    /**
-     * 获取用户名
-     */
-    public static final String USER_NAME = getSystemProperty("user.name");
-    /**
-     * os 名
-     */
-    public static final String OS_NAME = getSystemProperty("os.name");
-    /**
-     * Linux
-     */
-    private static final String OS_LINUX = "Linux";
-    /**
-     * Mac
-     */
-    private static final String OS_MAC = "Mac";
-    /**
-     * Windows
-     */
-    private static final String OS_WINDOWS = "Windows";
+	/**
+	 * 获取 user home
+	 */
+	public static final String USER_HOME = getSystemProperty("user.home");
+	/**
+	 * 获取用户地址
+	 */
+	public static final String USER_DIR = getSystemProperty("user.dir");
+	/**
+	 * 获取用户名
+	 */
+	public static final String USER_NAME = getSystemProperty("user.name");
+	/**
+	 * os 名
+	 */
+	public static final String OS_NAME = getSystemProperty("os.name");
+	/**
+	 * Linux
+	 */
+	private static final String OS_LINUX = "Linux";
+	/**
+	 * Mac
+	 */
+	private static final String OS_MAC = "Mac";
+	/**
+	 * Windows
+	 */
+	private static final String OS_WINDOWS = "Windows";
 
 
-    private SystemUtils() {
-    }
+	private SystemUtils() {
+	}
 
-    /**
-     * <p>
-     * Gets a System property, defaulting to {@code null} if the property cannot be read.
-     * </p>
-     * <p>
-     * If a {@code SecurityException} is caught, the return value is {@code null} and a message is written to
-     * {@code System.err}.
-     * </p>
-     *
-     * @param property the system property name
-     * @return the system property value or {@code null} if a security problem occurs
-     */
-    private static String getSystemProperty(final String property) {
-        try {
-            return System.getProperty(property);
-        } catch (final SecurityException ex) {
-            return null;
-        }
-    }
+	/**
+	 * <p>
+	 * Gets a System property, defaulting to {@code null} if the property cannot be read.
+	 * </p>
+	 * <p>
+	 * If a {@code SecurityException} is caught, the return value is {@code null} and a message is written to
+	 * {@code System.err}.
+	 * </p>
+	 *
+	 * @param property the system property name
+	 * @return the system property value or {@code null} if a security problem occurs
+	 */
+	private static String getSystemProperty(final String property) {
+		try {
+			return System.getProperty(property);
+		} catch (final SecurityException ex) {
+			return null;
+		}
+	}
 
-    /**
-     * 判断是否为Linux
-     *
-     * @return boolean
-     */
-    public static boolean isLinux() {
-        return StringUtils.isNotBlank(OS_NAME) && OS_NAME.startsWith(OS_LINUX);
-    }
+	/**
+	 * 判断是否为Linux
+	 *
+	 * @return boolean
+	 */
+	public static boolean isLinux() {
+		if (!StringUtils.isNotBlank(OS_NAME)) {
+			return false;
+		}
+		assert OS_NAME != null;
+		return OS_NAME.startsWith(OS_LINUX);
+	}
 
-    /**
-     * 判断是否为 Windows
-     *
-     * @return boolean
-     */
-    public static boolean isWindows() {
-        return StringUtils.isNotBlank(OS_NAME) && OS_NAME.startsWith(OS_WINDOWS);
-    }
+	/**
+	 * 判断是否为 Windows
+	 *
+	 * @return boolean
+	 */
+	public static boolean isWindows() {
+		if (!StringUtils.isNotBlank(OS_NAME)) {
+			return false;
+		}
+		assert OS_NAME != null;
+		return OS_NAME.startsWith(OS_WINDOWS);
+	}
 
-    /**
-     * 判断是否为 mac
-     *
-     * @return boolean
-     */
-    public static boolean isMac() {
-        return StringUtils.isNotBlank(OS_NAME) && OS_NAME.startsWith(OS_MAC);
-    }
+	/**
+	 * 判断是否为 mac
+	 *
+	 * @return boolean
+	 */
+	public static boolean isMac() {
+		if (!StringUtils.isNotBlank(OS_NAME)) {
+			return false;
+		}
+		assert OS_NAME != null;
+		return OS_NAME.startsWith(OS_MAC);
+	}
 
 
-    /**
-     * 获取用户名字
-     *
-     * @return {@link String}
+	/**
+	 * 获取用户名字
+	 *
+	 * @return {@link String}
+	 */
+	public static String getUserName() {
+		return StringUtils.isNotBlank(USER_NAME) ? USER_NAME : "";
+	}
 
-     */
-    public static String getUserName() {
-        return StringUtils.isNotBlank(USER_NAME) ? USER_NAME : "";
-    }
+	/**
+	 * 获取用户目录
+	 *
+	 * @return {@link String}
+	 */
+	public static String getUserDir() {
+		return StringUtils.isNotBlank(USER_DIR) ? USER_DIR : "";
+	}
 
-    /**
-     * 获取用户目录
-     *
-     * @return {@link String}
+	/**
+	 * 获取 user home
+	 *
+	 * @return {@link String}
+	 */
+	public static String getUserHome() {
+		return StringUtils.isNotBlank(USER_HOME) ? USER_HOME : "";
+	}
 
-     */
-    public static String getUserDir() {
-        return StringUtils.isNotBlank(USER_DIR) ? USER_DIR : "";
-    }
-
-    /**
-     * 获取 user home
-     *
-     * @return {@link String}
-
-     */
-    public static String getUserHome() {
-        return StringUtils.isNotBlank(USER_HOME) ? USER_HOME : "";
-    }
-
-    /**
-     * 更新系统路径
-     *
-     * @param path 文件路径
-     * @return {@link String}
-
-     */
-    public static String updateSystemPath(String path) {
-        Assert.isTrue(StringUtils.isNotBlank(path), "修改路径不能为空");
-        if (SystemUtils.isWindows()) {
-            return path.replace("/", "\\");
-        } else {
-            return path.replace("\\", "/");
-        }
-    }
+	/**
+	 * 更新系统路径
+	 *
+	 * @param path 文件路径
+	 * @return {@link String}
+	 */
+	public static String updateSystemPath(String path) {
+		Assert.isTrue(StringUtils.isNotBlank(path), "修改路径不能为空");
+		if (SystemUtils.isWindows()) {
+			return path.replace("/", "\\");
+		} else {
+			return path.replace("\\", "/");
+		}
+	}
 }

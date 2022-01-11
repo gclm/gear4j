@@ -215,9 +215,9 @@ import org.junit.jupiter.api.Test;
  */
 public class UrlUtilsTest {
 
-    @Test
-    public void test1() {
-        System.out.println(UrlUtils.hasUrlEncoded("13%2C14%2C15"));
-        System.out.println(UrlUtils.hasUrlEncoded("13,14,15"));
-    }
+	@Test
+	public void test1() {
+		System.out.println(UrlUtils.hasUrlEncoded("13%2C14%2C15"));
+		System.out.println(UrlUtils.hasUrlEncoded("13,14,15"));
+	}
 }

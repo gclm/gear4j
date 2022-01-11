@@ -214,8 +214,8 @@ import cn.hutool.core.util.CharsetUtil;
  */
 public class Avatar {
 
-    public static final String DEFAULT_CHARACTER_SET = CharsetUtil.UTF_8;
+	public static final String DEFAULT_CHARACTER_SET = CharsetUtil.UTF_8;
 
-    private Avatar() {
-    }
+	private Avatar() {
+	}
 }

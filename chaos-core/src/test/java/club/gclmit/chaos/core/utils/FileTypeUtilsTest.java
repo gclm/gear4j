@@ -221,31 +221,31 @@ import java.io.FileNotFoundException;
  */
 public class FileTypeUtilsTest {
 
-    public static String path = "";
+	public static String path = "";
 
-    @BeforeEach
-    public void init() throws FileNotFoundException {
-        File file = ResourceUtils.getFile("classpath:test");
-        path = file.getAbsolutePath() + File.separator;
-    }
+	@BeforeEach
+	public void init() throws FileNotFoundException {
+		File file = ResourceUtils.getFile("classpath:test");
+		path = file.getAbsolutePath() + File.separator;
+	}
 
-    /**
-     * 获取文件类型测试
-     */
-    @Test
-    public void judgeFileTypeTest() throws FileNotFoundException {
-        System.out.println(FileTypeUtils.getSuffixByMagic(new File(path, "test1.jpg")));
-        System.out.println(FileTypeUtils.getSuffixByMagic(new File(path, "test1-1.jpeg")));
-        System.out.println(FileTypeUtils.getSuffixByMagic(new File(path, "test1-2.png")));
-        System.out.println(FileTypeUtils.getSuffixByMagic(new File(path, "test1-3.pdf")));
-        System.out.println("============================");
-    }
+	/**
+	 * 获取文件类型测试
+	 */
+	@Test
+	public void judgeFileTypeTest() {
+		System.out.println(FileTypeUtils.getSuffixByMagic(new File(path, "test1.jpg")));
+		System.out.println(FileTypeUtils.getSuffixByMagic(new File(path, "test1-1.jpeg")));
+		System.out.println(FileTypeUtils.getSuffixByMagic(new File(path, "test1-2.png")));
+		System.out.println(FileTypeUtils.getSuffixByMagic(new File(path, "test1-3.pdf")));
+		System.out.println("============================");
+	}
 
-    @Test
-    public void getContentTypeTest() {
+	@Test
+	public void getContentTypeTest() {
 //        System.out.println(FileTypeUtils.getMimeType(new File(path, "test1.jpg")));
 //        System.out.println(FileTypeUtils.getMimeType(new File(path, "test1-1.jpeg")));
 //        System.out.println(FileTypeUtils.getMimeType(new File(path, "test1-2.png")));
 //        System.out.println(FileTypeUtils.getMimeType(new File(path, "test1-3.pdf")));
-    }
+	}
 }

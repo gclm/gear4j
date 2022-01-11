@@ -220,27 +220,27 @@ import java.io.IOException;
  */
 public class SecureUtils extends SecureUtil {
 
-    /**
-     * MD5加密，生成16进制MD5字符串<br>
-     *
-     * @param data 数据
-     * @return MD5字符串
-     */
-    public static String md5(byte[] data) {
-        return new MD5().digestHex(data);
-    }
+	/**
+	 * MD5加密，生成16进制MD5字符串<br>
+	 *
+	 * @param data 数据
+	 * @return MD5字符串
+	 */
+	public static String md5(byte[] data) {
+		return new MD5().digestHex(data);
+	}
 
-    /**
-     * MD5加密，生成16进制MD5字符串<br>
-     *
-     * @param file 数据
-     * @return MD5字符串
-     */
-    public static String md5(MultipartFile file) {
-        try {
-            return new MD5().digestHex(file.getBytes());
-        } catch (IOException e) {
-            throw new ChaosException("md5 加密失败", e);
-        }
-    }
+	/**
+	 * MD5加密，生成16进制MD5字符串<br>
+	 *
+	 * @param file 数据
+	 * @return MD5字符串
+	 */
+	public static String md5(MultipartFile file) {
+		try {
+			return new MD5().digestHex(file.getBytes());
+		} catch (IOException e) {
+			throw new ChaosException("md5 加密失败", e);
+		}
+	}
 }

@@ -265,7 +265,6 @@ public class FileTypeUtils {
 	 *
 	 * @param file File
 	 * @return {@link String}String
-
 	 */
 	public static String getMimeType(File file) {
 		Assert.isTrue(file.exists(), "文件不能为空");
@@ -377,7 +376,7 @@ public class FileTypeUtils {
 	 */
 	public static String getFileHeader(File file) {
 		byte[] b = new byte[28];
-		try (InputStream inputStream = new FileInputStream(file);) {
+		try (InputStream inputStream = new FileInputStream(file)) {
 			inputStream.read(b, 0, 28);
 		} catch (Exception e) {
 			throw new ChaosException("读取文件失败", e);

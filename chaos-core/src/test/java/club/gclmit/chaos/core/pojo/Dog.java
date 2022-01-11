@@ -212,13 +212,13 @@ package club.gclmit.chaos.core.pojo;
  */
 public class Dog extends User {
 
-    private boolean flag;
+	private boolean flag;
 
-    public boolean isFlag() {
-        return flag;
-    }
+	public boolean isFlag() {
+		return flag;
+	}
 
-    public void setFlag(boolean flag) {
-        this.flag = flag;
-    }
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
 }

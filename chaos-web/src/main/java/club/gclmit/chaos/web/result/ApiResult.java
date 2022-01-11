@@ -221,157 +221,157 @@ import java.util.Map;
 @ApiModel(value = "通用消息响应", description = "通用消息响应")
 public class ApiResult implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    private static final String TIMESTAMP = String.valueOf(DateUtil.current());
+	private static final long serialVersionUID = 1L;
+	private static final String TIMESTAMP = String.valueOf(DateUtil.current());
 
-    /**
-     * 响应状态码
-     */
-    @ApiModelProperty(value = "响应状态码", required = true)
-    private Integer code;
+	/**
+	 * 响应状态码
+	 */
+	@ApiModelProperty(value = "响应状态码", required = true)
+	private Integer code;
 
-    /**
-     * 响应提示
-     */
-    @ApiModelProperty(value = "响应提示消息", required = true)
-    private String message;
+	/**
+	 * 响应提示
+	 */
+	@ApiModelProperty(value = "响应提示消息", required = true)
+	private String message;
 
-    /**
-     * 响应时间戳
-     */
-    @ApiModelProperty(value = "响应时间戳", required = true)
-    private String timestamp = TIMESTAMP;
+	/**
+	 * 响应时间戳
+	 */
+	@ApiModelProperty(value = "响应时间戳", required = true)
+	private String timestamp = TIMESTAMP;
 
-    /**
-     * 响应数据
-     */
-    @ApiModelProperty(value = "响应数据", required = false)
-    private Object data;
+	/**
+	 * 响应数据
+	 */
+	@ApiModelProperty(value = "响应数据")
+	private Object data;
 
 
-    public ApiResult(Integer code, String message, Object data) {
-        this.code = code;
-        this.message = message;
-        this.data = data;
-    }
+	public ApiResult(Integer code, String message, Object data) {
+		this.code = code;
+		this.message = message;
+		this.data = data;
+	}
 
-    public static ApiResult result(boolean flag) {
-        if (flag) {
-            return ok();
-        }
-        return fail("");
-    }
+	public static ApiResult result(boolean flag) {
+		if (flag) {
+			return ok();
+		}
+		return fail("");
+	}
 
-    public static ApiResult result(ApiCode apiCode, Object data) {
-        return result(apiCode, null, data);
-    }
+	public static ApiResult result(ApiCode apiCode, Object data) {
+		return result(apiCode, null, data);
+	}
 
-    public static ApiResult result(ApiCode apiCode, String msg, Object data) {
-        String message = apiCode.getMessage();
-        if (StringUtils.isNotBlank(msg)) {
-            message = msg;
-        }
-        return new ApiResult(apiCode.getCode(), message, data);
-    }
+	public static ApiResult result(ApiCode apiCode, String msg, Object data) {
+		String message = apiCode.getMessage();
+		if (StringUtils.isNotBlank(msg)) {
+			message = msg;
+		}
+		return new ApiResult(apiCode.getCode(), message, data);
+	}
 
-    public static ApiResult ok() {
-        return ok(null);
-    }
+	public static ApiResult ok() {
+		return ok(null);
+	}
 
-    public static ApiResult ok(Object data) {
-        return result(ApiCode.OK, data);
-    }
+	public static ApiResult ok(Object data) {
+		return result(ApiCode.OK, data);
+	}
 
-    public static ApiResult ok(String message, Object data) {
-        return result(ApiCode.OK, message, data);
-    }
+	public static ApiResult ok(String message, Object data) {
+		return result(ApiCode.OK, message, data);
+	}
 
-    public static ApiResult ok(Integer code, String message, Object data) {
-        return new ApiResult(code, message, data);
-    }
+	public static ApiResult ok(Integer code, String message, Object data) {
+		return new ApiResult(code, message, data);
+	}
 
-    public static ApiResult okMap(String key, String value) {
-        Map<String, Object> map = new HashMap<>();
-        map.put(key, value);
-        return ok(map);
-    }
+	public static ApiResult okMap(String key, String value) {
+		Map<String, Object> map = new HashMap<>();
+		map.put(key, value);
+		return ok(map);
+	}
 
-    public static ApiResult fail() {
-        return fail(ApiCode.FAIL);
-    }
+	public static ApiResult fail() {
+		return fail(ApiCode.FAIL);
+	}
 
-    public static ApiResult fail(String message) {
-        return result(ApiCode.FAIL, message, null);
-    }
+	public static ApiResult fail(String message) {
+		return result(ApiCode.FAIL, message, null);
+	}
 
-    public static ApiResult fail(ApiCode apiCode) {
-        return result(apiCode, null);
-    }
+	public static ApiResult fail(ApiCode apiCode) {
+		return result(apiCode, null);
+	}
 
-    public static ApiResult fail(ApiCode apiCode, Object data) {
-        if (ApiCode.OK == apiCode) {
-            throw new RuntimeException("失败结果状态码不能为：" + apiCode.getCode());
-        }
-        return result(apiCode, data);
-    }
+	public static ApiResult fail(ApiCode apiCode, Object data) {
+		if (ApiCode.OK == apiCode) {
+			throw new RuntimeException("失败结果状态码不能为：" + apiCode.getCode());
+		}
+		return result(apiCode, data);
+	}
 
-    public static ApiResult fail(Integer code, String message) {
-        return new ApiResult(code, message, null);
-    }
+	public static ApiResult fail(Integer code, String message) {
+		return new ApiResult(code, message, null);
+	}
 
-    public static ApiResult fail(String message, Object data) {
-        return new ApiResult(ApiCode.FAIL.getCode(), message, data);
-    }
+	public static ApiResult fail(String message, Object data) {
+		return new ApiResult(ApiCode.FAIL.getCode(), message, data);
+	}
 
-    public static ApiResult fail(Integer code, String message, Object data) {
-        return new ApiResult(code, message, data);
-    }
+	public static ApiResult fail(Integer code, String message, Object data) {
+		return new ApiResult(code, message, data);
+	}
 
-    public static ApiResult failMap(String key, String value) {
-        Map<String, Object> map = new HashMap<>();
-        map.put(key, value);
-        return result(ApiCode.FAIL, map);
-    }
+	public static ApiResult failMap(String key, String value) {
+		Map<String, Object> map = new HashMap<>();
+		map.put(key, value);
+		return result(ApiCode.FAIL, map);
+	}
 
-    public Integer getCode() {
-        return code;
-    }
+	public Integer getCode() {
+		return code;
+	}
 
-    public void setCode(Integer code) {
-        this.code = code;
-    }
+	public void setCode(Integer code) {
+		this.code = code;
+	}
 
-    public String getMessage() {
-        return message;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-    public String getTimestamp() {
-        return timestamp;
-    }
+	public String getTimestamp() {
+		return timestamp;
+	}
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
 
-    public Object getData() {
-        return data;
-    }
+	public Object getData() {
+		return data;
+	}
 
-    public void setData(Object data) {
-        this.data = data;
-    }
+	public void setData(Object data) {
+		this.data = data;
+	}
 
-    @Override
-    public String toString() {
-        return "Result{" +
-                "code=" + code +
-                ", message='" + message + '\'' +
-                ", timestamp='" + timestamp + '\'' +
-                ", data=" + data +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "Result{" +
+			"code=" + code +
+			", message='" + message + '\'' +
+			", timestamp='" + timestamp + '\'' +
+			", data=" + data +
+			'}';
+	}
 }
