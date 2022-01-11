@@ -1,6 +1,8 @@
 dependencies {
     api "com.alibaba:fastjson"
     api "com.google.zxing:core"
+    api "com.github.yangtu222:BeanUtils"
+
     api "cn.hutool:hutool-all"
     api "com.ejlchina:okhttps-jackson"
     api "org.springframework:spring-web"

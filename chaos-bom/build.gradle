@@ -21,17 +21,13 @@ ext {
     lombokVersion = "1.18.22"
     fastjsonVersion = "1.2.78"
     junitVersion = "5.8.2"
+    BeanUtilsVersion = "1.0.11"
 
     // commons
-    commonsPool2Version = "2.11.1"
     mybatisPlusVersion = "3.4.3.4"
-    p6spyVersion = "3.9.1"
-    knife4jVersion = "3.0.3"
     okhttpsVersion = "3.4.1"
     swaggerVersion = "1.5.22"
     swagger3xVersion = "2.1.10"
-    springdocVersion = "1.5.10"
-    druidVersion = "1.2.8"
     jsoupVersion = "1.14.3"
 
     // oss
@@ -56,17 +52,13 @@ dependencies {
         api "club.gclmit:chaos-web:${VERSION}"
 
         // starter
-        api "com.baomidou:mybatis-plus-boot-starter:${mybatisPlusVersion}"
         api "com.baomidou:mybatis-plus-extension:${mybatisPlusVersion}"
-        api "com.github.xiaoymin:knife4j-spring-boot-starter:${knife4jVersion}"
 
         // 综合类库
         api "com.ejlchina:okhttps-jackson:${okhttpsVersion}"
         api "cn.hutool:hutool-all:${hutoolVersion}"
 
         // 综合类库/starter - 依赖组件
-        api "p6spy:p6spy:${p6spyVersion}"
-        api "org.apache.commons:commons-pool2:${commonsPool2Version}"
         api "io.swagger:swagger-annotations:${swaggerVersion}"
         api "io.swagger.core.v3:swagger-annotations:${swagger3xVersion}"
         api "com.google.zxing:javase:${zxingVersion}"
@@ -77,6 +69,7 @@ dependencies {
         api "com.alibaba:fastjson:${fastjsonVersion}"
         api "org.jsoup:jsoup:${jsoupVersion}"
         api "com.google.code.findbugs:jsr305:${findbugsVersion}"
+        api "com.github.yangtu222:BeanUtils:${BeanUtilsVersion}"
 
         // oss
         api "com.aliyun.oss:aliyun-sdk-oss:${aliyunOssVersion}"

@@ -204,50 +204,72 @@
 
 package club.gclmit.chaos.core.utils;
 
+import club.gclmit.chaos.core.pojo.Dog;
 import club.gclmit.chaos.core.pojo.User;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
- * MapUtils 测试
+ * BeanUtils 测试
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since jdk11
  */
-public class MapUtilsTest {
+@DisplayName("BeanUtils 测试")
+public class BeanUtilsTest {
 
-    /**
-     * 配置静态 MAP
-     */
-    public static Map<String, Object> MAP = new HashMap<>(10);
+	/**
+	 * 配置静态 MAP
+	 */
+	public static Map<String, Object> MAP = new HashMap<>(10);
 
-    @Test
-    public void mapToObject() throws Exception {
-        MAP.put("id", 1111);
-        MAP.put("name", "str");
-        User user = (User) MapUtils.mapToObject(MAP, User.class);
-        System.out.println(user);
-    }
+	@Test
+	public void mapToObject() throws Exception {
+		MAP.put("id", 1111);
+		MAP.put("name", "str");
+		User user = BeanUtils.mapToBean(MAP, User.class);
+		System.out.println(user);
+	}
 
-    @Test
-    public void mapToObject2() throws Exception {
-        String[] strArray = {"111"};
-        MAP.put("id", 1111);
-        MAP.put("name", strArray);
-        MAP.put("role", strArray);
-        User user = (User) MapUtils.mapToObject(MAP, User.class);
-        System.out.println(user);
-    }
+	@Test
+	public void mapToObject2() throws Exception {
+		String[] strArray = {"111"};
+		MAP.put("id", 1111);
+		MAP.put("name", strArray);
+		MAP.put("role", strArray);
+		User user = BeanUtils.mapToBean(MAP, User.class);
+		System.out.println(user);
+	}
 
-    @Test
-    public void objectToMap() throws Exception {
-        User user = new User("1111", "str", 1);
-        Map map = MapUtils.objectToMap(user);
-        for (Object key : map.keySet()) {
-            System.out.println(key + ":" + map.get(key));
-        }
-    }
+	@Test
+	public void objectToMap() throws Exception {
+		User user = new User("1111", "str", 1);
+		Map<?, ?> map = BeanUtils.beanToMap(user);
+		for (Object key : map.keySet()) {
+			System.out.println(key + ":" + map.get(key));
+		}
+	}
+
+	@Test
+	public void beanCopy() {
+		User user = new User("1111", "str", 1);
+		Dog dog = BeanUtils.copyBean(user, Dog.class);
+		System.out.println(dog);
+	}
+
+	@Test
+	public void beanCopyList() {
+		List<User> userList = new ArrayList<>(10);
+		for (int i = 1; i < 11; i++) {
+			userList.add(new User("id-" + i, "name-" + i, i));
+		}
+		List<Dog> dogs = BeanUtils.copyList(userList, Dog.class);
+		dogs.forEach(System.out::println);
+	}
 
 }

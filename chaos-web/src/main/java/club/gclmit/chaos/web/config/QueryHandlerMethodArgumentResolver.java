@@ -204,7 +204,7 @@
 
 package club.gclmit.chaos.web.config;
 
-import club.gclmit.chaos.core.utils.MapUtils;
+import club.gclmit.chaos.core.utils.BeanUtils;
 import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.chaos.web.annotation.ChaosQuery;
 import org.slf4j.Logger;
@@ -253,12 +253,9 @@ public class QueryHandlerMethodArgumentResolver implements HandlerMethodArgument
 
 		Class<?> clazz = chaosQuery.clazz();
 		log.info("chaos --> 当前转换Class:[{}]", clazz.getName());
-
 		Map<String, String[]> params = webRequest.getParameterMap();
-		Object obj = MapUtils.mapToObject(params, clazz);
-
+		Object obj = BeanUtils.mapToBean(params, clazz);
 		log.info("chaos --> 解析后Object:[{}]", StringUtils.toString(obj));
-
 		return obj;
 	}
 }
