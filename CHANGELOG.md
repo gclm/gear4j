@@ -1,3 +1,11 @@
+### 2.4.3
+
+- build: 采用最小依赖的方法优化依赖
+- fix: 修复chaos-bom模块缺少本项目依赖
+- style: 调整javadoc参数
+- style: 调整错误命名
+- style: 基于idea格式化代码
+
 ### 2.4.2
 
 - ci: 修复自动发布包异常
