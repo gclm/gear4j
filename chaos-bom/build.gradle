@@ -42,6 +42,7 @@ ext {
 dependencies {
     api platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
     api platform("org.junit:junit-bom:${junitVersion}")
+    api platform("cn.hutool:hutool-bom:${hutoolVersion}")
     constraints {
         // chaos
         api "club.gclmit:chaos-core:${VERSION}"
@@ -56,7 +57,6 @@ dependencies {
 
         // 综合类库
         api "com.ejlchina:okhttps-jackson:${okhttpsVersion}"
-        api "cn.hutool:hutool-all:${hutoolVersion}"
 
         // 综合类库/starter - 依赖组件
         api "io.swagger:swagger-annotations:${swaggerVersion}"

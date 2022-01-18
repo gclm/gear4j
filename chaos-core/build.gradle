@@ -3,7 +3,8 @@ dependencies {
     api "com.google.zxing:core"
     api "com.github.yangtu222:BeanUtils"
 
-    api "cn.hutool:hutool-all"
+    api "cn.hutool:hutool-core"
+    api "cn.hutool:hutool-crypto"
     api "com.ejlchina:okhttps-jackson"
     api "org.springframework:spring-web"
     api "org.springframework:spring-context"
