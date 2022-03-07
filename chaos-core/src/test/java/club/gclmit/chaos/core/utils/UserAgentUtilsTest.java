@@ -22,7 +22,7 @@ public class UserAgentUtilsTest {
 	@Test
 	public void getUserAgentTest() {
 		Map<String, List<String>> userAgents = new HashMap<>();
-		String agent = ResourceUtil.readUtf8Str("userAgent.json");
+		String agent = ResourceUtil.readUtf8Str("UserAgent.json");
 		JSONObject jsonObject = JSONObject.parseObject(agent);
 		for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
 			String key = String.valueOf(entry.getKey());
@@ -40,7 +40,7 @@ public class UserAgentUtilsTest {
 
 //    static {
 //        try {
-//            String userAgent = ResourceUtil.readUtf8Str("userAgent.json");
+//            String userAgent = ResourceUtil.readUtf8Str("UserAgent.json");
 //            JSONObject jsonObject = JSONObject.parseObject(userAgent);
 //            for (int i = 0; i < jsonObject.size(); i++) {
 //
