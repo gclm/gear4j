@@ -1,5 +1,7 @@
 ### 2.4.3
 
+- feat: 新增随机成功UserAgent方法
+- fix: 优化提供的文件上传方法
 - build: 采用最小依赖的方法优化依赖
 - fix: 修复chaos-bom模块缺少本项目依赖
 - style: 调整javadoc参数
