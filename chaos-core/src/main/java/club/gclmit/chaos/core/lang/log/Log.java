@@ -1,4 +1,4 @@
-package club.gclmit.chaos.core.log;
+package club.gclmit.chaos.core.lang.log;
 
 import cn.hutool.core.lang.Console;
 

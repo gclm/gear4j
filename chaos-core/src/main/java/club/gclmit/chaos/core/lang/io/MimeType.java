@@ -202,233 +202,401 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.core.io;
+package club.gclmit.chaos.core.lang.io;
 
-import club.gclmit.chaos.core.utils.StringUtils;
 
 /**
- * 常见文件类型的魔数枚举
+ * Mime type
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since jdk11
  */
-public enum MagicType {
+public enum MimeType {
 
 	/**
-	 * JPEG
+	 * AAC audio
 	 */
-	JPEG("jpeg", "FFD8FF", MimeType.JPEG.getMimeType()),
+	AAC(".aac", "AAC audio", "audio/aac"),
+	/**
+	 * AbiWord document
+	 */
+	ABW(".abw", "AbiWord document", "application/x-abiword"),
+	/**
+	 * Archive document (multiple files embedded)
+	 */
+	ARC(".arc", "Archive document (multiple files embedded)", "application/x-freearc"),
+	/**
+	 * AVI: Audio Video Interleave
+	 */
+	AVI(".avi", "AVI: Audio Video Interleave", "video/x-msvideo"),
+	/**
+	 * Amazon Kindle eBook format
+	 */
+	AZW(".azw", "Amazon Kindle eBook format", "application/vnd.amazon.ebook"),
+	/**
+	 * Any kind of binary data
+	 */
+	BIN(".bin", "Any kind of binary data", "application/octet-stream"),
+	/**
+	 * Windows OS/2 Bitmap Graphics
+	 */
+	BMP(".bmp", "Windows OS/2 Bitmap Graphics", "image/bmp"),
+	/**
+	 * BZip archive
+	 */
+	BZ(".bz", "BZip archive", "application/x-bzip"),
+	/**
+	 * BZip2 archive
+	 */
+	BZ2(".bz2", "BZip2 archive", "application/x-bzip2"),
+	/**
+	 * C-Shell script
+	 */
+	CSH(".csh", "C-Shell script", "application/x-csh"),
+	/**
+	 * Cascading Style Sheets (CSS)
+	 */
+	CSS(".css", "Cascading Style Sheets (CSS)", "text/css"),
+	/**
+	 * Comma-separated values (CSV)
+	 */
+	CSV(".csv", "Comma-separated values (CSV)", "text/csv"),
+	/**
+	 * Microsoft Word
+	 */
+	DOC(".doc", "Microsoft Word", "application/msword"),
+	/**
+	 * Microsoft Word (OpenXML)
+	 */
+	DOCX(".docx", "Microsoft Word (OpenXML)", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
+	/**
+	 * MS Embedded OpenType fonts
+	 */
+	EOT(".eot", "MS Embedded OpenType fonts", "application/vnd.ms-fontobject"),
+	/**
+	 * Electronic publication (EPUB)
+	 */
+	EPUB(".epub", "Electronic publication (EPUB)", "application/epub+zip"),
+	/**
+	 * Graphics Interchange Format (GIF)
+	 */
+	GIF(".gif", "Graphics Interchange Format (GIF)", "image/gif"),
+	/**
+	 * HyperText Markup Language (HTML)
+	 */
+	HTM(".htm", "HyperText Markup Language (HTML)", "text/html"),
+	/**
+	 * HyperText Markup Language (HTML)
+	 */
+	HTML(".html", "HyperText Markup Language (HTML)", "text/html"),
+	/**
+	 * Icon format
+	 */
+	ICO(".ico", "Icon format", "image/vnd.microsoft.icon"),
+	/**
+	 * iCalendar format
+	 */
+	ICS(".ics", "iCalendar format", "text/calendar"),
+	/**
+	 * Java Archive (JAR)
+	 */
+	JAR(".jar", "Java Archive (JAR)", "application/java-archive"),
+	/**
+	 * JPEG images
+	 */
+	JPG(".jpg", "JPEG images", "image/jpeg"),
+	/**
+	 * JPEG images
+	 */
+	JPEG(".jpeg", "JPEG images", "image/jpeg"),
+	/**
+	 * JavaScript
+	 */
+	JS(".js", "JavaScript", "text/javascript"),
+	/**
+	 * JSON format
+	 */
+	JSON(".json", "JSON format", "application/json"),
+	/**
+	 * JSON-LD format
+	 */
+	JSONLD(".jsonld", "JSON-LD format", "application/ld+json"),
+	/**
+	 * Musical Instrument Digital Interface (MIDI)
+	 */
+	MID(".mid", "Musical Instrument Digital Interface (MIDI)", "audio/midi audio/x-midi"),
+	/**
+	 * Musical Instrument Digital Interface (MIDI)
+	 */
+	MIDI(".midi", "Musical Instrument Digital Interface (MIDI)", "audio/midi audio/x-midi"),
+	/**
+	 * JavaScript module
+	 */
+	MJS(".mjs", "JavaScript module", "text/javascript"),
+	/**
+	 * MP3 audio
+	 */
+	MP3(".mp3", "MP3 audio", "audio/mpeg"),
 
 	/**
-	 * JPG
+	 * MP4 audio
 	 */
-	JPG("jpg", "FFD8FF", MimeType.JPG.getMimeType()),
-
+	MP4(".mp4", "MP4 audio", "video/mp4"),
 	/**
-	 * PNG
+	 * MPEG Video
 	 */
-	PNG("png", "89504E47", MimeType.PNG.getMimeType()),
-
+	MPEG(".mpeg", "MPEG Video", "video/mpeg"),
 	/**
-	 * GIF
+	 * Apple Installer Package
 	 */
-	GIF("gif", "47494638", MimeType.GIF.getMimeType()),
-
+	MPKG(".mpkg", "Apple Installer Package", "application/vnd.apple.installer+xml"),
 	/**
-	 * TIFF
+	 * OpenDocument presentation document
 	 */
-	TIFF("tiff", "49492A00", MimeType.TIFF.getMimeType()),
-
+	ODP(".odp", "OpenDocument presentation document", "application/vnd.oasis.opendocument.presentation"),
 	/**
-	 * Windows bitmap
+	 * OpenDocument spreadsheet document
 	 */
-	BMP("bmp", "424D", MimeType.BMP.getMimeType()),
-
+	ODS(".ods", "OpenDocument spreadsheet document", "application/vnd.oasis.opendocument.spreadsheet"),
 	/**
-	 * CAD
+	 * OpenDocument text document
 	 */
-	DWG("dwg", "41433130", ""),
-
+	ODT(".odt", "OpenDocument text document", "application/vnd.oasis.opendocument.text"),
 	/**
-	 * Adobe photoshop
+	 * OGG audio
 	 */
-	PSD("psd", "38425053", ""),
-
+	OGA(".oga", "OGG audio", "audio/ogg"),
 	/**
-	 * Rich Text Format
+	 * OGG video
 	 */
-	RTF("rtf", "7B5C727466", MimeType.RTF.getMimeType()),
-
+	OGV(".ogv", "OGG video", "video/ogg"),
+	/**
+	 * OGG
+	 */
+	OGX(".ogx", "OGG", "application/ogg"),
+	/**
+	 * OpenType font
+	 */
+	OTF(".otf", "OpenType font", "font/otf"),
+	/**
+	 * Portable Network Graphics
+	 */
+	PNG(".png", "Portable Network Graphics", "image/png"),
+	/**
+	 * Adobe Portable Document Format (PDF)
+	 */
+	PDF(".pdf", "Adobe Portable Document Format (PDF)", "application/pdf"),
+	/**
+	 * Microsoft PowerPoint
+	 */
+	PPT(".ppt", "Microsoft PowerPoint", "application/vnd.ms-powerpoint"),
+	/**
+	 * Microsoft PowerPoint (OpenXML)
+	 */
+	PPTX(".pptx", "Microsoft PowerPoint (OpenXML)", "application/vnd.openxmlformats-officedocument.presentationml.presentation"),
+	/**
+	 * RAR archive
+	 */
+	RAR(".rar", "RAR archive", "application/x-rar-compressed"),
+	/**
+	 * Rich Text Format (RTF)
+	 */
+	RTF(".rtf", "Rich Text Format (RTF)", "application/rtf"),
+	/**
+	 * Bourne shell script
+	 */
+	SH(".sh", "Bourne shell script", "application/x-sh"),
+	/**
+	 * Scalable Vector Graphics (SVG)
+	 */
+	SVG(".svg", "Scalable Vector Graphics (SVG)", "image/svg+xml"),
+	/**
+	 * Small web format (SWF) or Adobe Flash document
+	 */
+	SWF(".swf", "Small web format (SWF) or Adobe Flash document", "application/x-shockwave-flash"),
+	/**
+	 * Tape Archive (TAR)
+	 */
+	TAR(".tar", "Tape Archive (TAR)", "application/x-tar"),
+	/**
+	 * Tagged Image File Format (TIFF)
+	 */
+	TIF(".tif", "Tagged Image File Format (TIFF)", "image/tiff"),
+	/**
+	 * Tagged Image File Format (TIFF)
+	 */
+	TIFF(".tiff", "Tagged Image File Format (TIFF)", "image/tiff"),
+	/**
+	 * TrueType Font
+	 */
+	TTF(".ttf", "TrueType Font", "font/ttf"),
+	/**
+	 * Text, (generally ASCII or ISO 8859-n)
+	 */
+	TXT(".txt", "Text, (generally ASCII or ISO 8859-n)", "text/plain"),
+	/**
+	 * Microsoft Visio
+	 */
+	VSD(".vsd", "Microsoft Visio", "application/vnd.visio"),
+	/**
+	 * Waveform Audio Format
+	 */
+	WAV(".wav", "Waveform Audio Format", "audio/wav"),
+	/**
+	 * WEBM audio
+	 */
+	WEBA(".weba", "WEBM audio", "audio/webm"),
+	/**
+	 * WEBM video
+	 */
+	WEBM(".webm", "WEBM video", "video/webm"),
+	/**
+	 * WEBP image
+	 */
+	WEBP(".webp", "WEBP image", "image/webp"),
+	/**
+	 * Web Open Font Format (WOFF)
+	 */
+	WOFF(".woff", "Web Open Font Format (WOFF)", "font/woff"),
+	/**
+	 * Web Open Font Format (WOFF)
+	 */
+	WOFF2(".woff2", "Web Open Font Format (WOFF)", "font/woff2"),
+	/**
+	 * XHTML
+	 */
+	XHTML(".xhtml", "XHTML", "application/xhtml+xml"),
+	/**
+	 * Microsoft Excel
+	 */
+	XLS(".xls", "Microsoft Excel", "application/vnd.ms-excel"),
+	/**
+	 * Microsoft Excel (OpenXML)
+	 */
+	XLSX(".xlsx", "Microsoft Excel (OpenXML)", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
 	/**
 	 * XML
 	 */
-	XML("xml", "3C3F786D6C", MimeType.XML.getMimeType()),
+	XML(".xml", "XML", "text/xml"),
+	/**
+	 * XUL
+	 */
+	XUL(".xul", "XUL", "application/vnd.mozilla.xul+xml"),
+	/**
+	 * ZIP archive
+	 */
+	ZIP(".zip", "ZIP archive", "application/zip"),
+	/**
+	 * 3GPP audio/video container
+	 */
+	V_3GP(".3gp", "3GPP audio/video container", "video/3gpp"),
+	/**
+	 * 3GPP2 audio/video container
+	 */
+	V_3G2(".3g2", "3GPP2 audio/video container", "video/3gpp2"),
+	/**
+	 * 7-zip archive
+	 */
+	Z_7Z(".7z", "7-zip archive", "application/x-7z-compressed");
 
-	/**
-	 * HTML
-	 */
-	HTML("html", "68746D6C3E", MimeType.HTML.getMimeType()),
-	/**
-	 *
-	 */
-	HTM("htm", "68746D6C3E", MimeType.HTM.getMimeType()),
 
-	/**
-	 * Outlook Express
-	 */
-	DBX("dbx", "CFAD12FEC5FD746F", ""),
-
-	/**
-	 * Outlook
-	 */
-	PST("pst", "2142444E", ""),
-
-	/**
-	 * doc;xls;dot;ppt;xla;ppa;pps;pot;msi;sdw;db
-	 */
-	OLE2("ole2", "0xD0CF11E0A1B11AE1", MimeType.DOC.getMimeType()),
-
-	/**
-	 * Microsoft Word/Excel
-	 */
-	XLS_DOC("xls_doc", "D0CF11E0", MimeType.DOCX.getMimeType()),
-
-	/**
-	 * Microsoft Access
-	 */
-	MDB("mdb", "5374616E64617264204A", ""),
-
-	/**
-	 * Word Perfect
-	 */
-	WPB("wpb", "FF575043", ""),
-
-	/**
-	 * Postscript
-	 */
-	EPS_PS("EPS_PS", "252150532D41646F6265", ""),
-
-	/**
-	 * Adobe Acrobat
-	 */
-	PDF("pdf", "255044462D312E", MimeType.PDF.getMimeType()),
-
-	/**
-	 * Windows Password
-	 */
-	PWL("pwl", "E3828596", ""),
-
-	/**
-	 * ZIP Archive
-	 */
-	ZIP("zip", "504B0304", MimeType.ZIP.getMimeType()),
-
-	/**
-	 * ARAR Archive
-	 */
-	RAR("rar", "52617221", MimeType.RAR.getMimeType()),
-
-	/**
-	 * WAVE
-	 */
-	WAV("wav", "57415645", MimeType.WAV.getMimeType()),
-
-	/**
-	 * AVI
-	 */
-	AVI("avi", "41564920", MimeType.AVI.getMimeType()),
-
-	/**
-	 * Real Audio
-	 */
-	RAM("ram", "2E7261FD", ""),
-
-	/**
-	 * Real Media
-	 */
-	RM("rm", "2E524D46", ""),
-
-	/**
-	 * Quicktime
-	 */
-	MOV("mov", "6D6F6F76", ""),
-
-	/**
-	 * Windows Media
-	 */
-	ASF("asf", "3026B2758E66CF11", ""),
-
-	/**
-	 * MIDI
-	 */
-	MID("mid", "4D546864", MimeType.MID.getMimeType());
+	public static final String DEFAULT_FILE_CONTENT_TYPE = "application/octet-stream";
 
 	/**
 	 * 后缀
 	 */
-	private String suffix;
+	private final String suffix;
 
 	/**
-	 * 魔术
+	 * 文档类型
 	 */
-	private String magicNumber;
+	private final String docType;
+
 	/**
-	 * mime 类型
+	 * mime
 	 */
-	private String mimeType;
+	private final String mimeType;
 
 
-	MagicType(String suffix, String magicNumber, String mimeType) {
+	MimeType(String suffix, String docType, String mimeType) {
 		this.suffix = suffix;
-		this.magicNumber = magicNumber;
+		this.docType = docType;
 		this.mimeType = mimeType;
 	}
 
 	/**
-	 * 基于魔数获取文件 mime
+	 * 根据后缀获取文档的 Mime
 	 *
-	 * @param fileHeader 文件头
+	 * @param suffix 文件后缀
 	 * @return {@link String}
 	 */
-	public static String getMimeType(String fileHeader) {
-		MagicType[] magicTypes = values();
-		for (MagicType magicType : magicTypes) {
-			if (fileHeader.startsWith(magicType.getMagicNumber())) {
-				String mimeType = magicType.getMimeType();
-				if (StringUtils.isEmpty(mimeType)) {
-					return MimeType.DEFAULT_FILE_CONTENT_TYPE;
-				}
-				return mimeType;
+	public static String getMimeTypeBySuffix(String suffix) {
+		MimeType[] mimeTypes = values();
+		for (MimeType mimeType : mimeTypes) {
+			if (suffix.equals(mimeType.getSuffix())) {
+				return mimeType.getMimeType();
 			}
 		}
-		return MimeType.DEFAULT_FILE_CONTENT_TYPE;
+		return BIN.getMimeType();
 	}
 
 	/**
-	 * 基于魔数效验文件后缀
+	 * 根据Mine获取文档的 后缀
 	 *
-	 * @param fileHeader 文件头
+	 * @param mimeType Mine
 	 * @return {@link String}
 	 */
-	public static String getSuffix(String fileHeader) {
-		MagicType[] magicTypes = values();
-		for (MagicType magicType : magicTypes) {
-			if (fileHeader.startsWith(magicType.getMagicNumber())) {
-				return magicType.getSuffix();
+	public static String getSuffixByMimeType(String mimeType) {
+		MimeType[] mimeTypes = values();
+		for (MimeType type : mimeTypes) {
+			if (type.getMimeType().contains(mimeType)) {
+				return type.getSuffix();
 			}
 		}
-		return null;
+		return MP4.suffix;
+	}
+
+	public static void main(String[] args) {
+		MimeType[] mimeTypes = values();
+		for (MimeType mimeType : mimeTypes) {
+			System.out.println(mimeType.generate(mimeType));
+		}
+	}
+
+	/**
+	 * <p>
+	 * 生成枚举注释
+	 * </p>
+	 *
+	 * @param type MimeType
+	 * @return {@link String}
+	 */
+	public String generate(MimeType type) {
+		String template = " /**\n" +
+			"     * %s\n" +
+			"     */\n" +
+			"    %s(\"%s\",\"%s\",\"%s\"),";
+		return String.format(template, type.getDocType(), type.name(), type.getSuffix(), type.getDocType(), type.getMimeType());
 	}
 
 	public String getSuffix() {
 		return suffix;
 	}
 
-	public String getMagicNumber() {
-		return magicNumber;
+	public String getDocType() {
+		return docType;
 	}
 
 	public String getMimeType() {
 		return mimeType;
+	}
+
+	@Override
+	public String toString() {
+		return "MimeType{" +
+			"suffix='" + suffix + '\'' +
+			", docType='" + docType + '\'' +
+			", mimeType='" + mimeType + '\'' +
+			'}';
 	}
 }

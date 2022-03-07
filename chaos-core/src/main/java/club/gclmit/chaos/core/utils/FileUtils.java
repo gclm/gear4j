@@ -202,401 +202,116 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.core.io;
+package club.gclmit.chaos.core.utils;
 
+import club.gclmit.chaos.core.exception.ChaosException;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.lang.Assert;
+import cn.hutool.crypto.SecureUtil;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
- * Mime type
+ * 文件辅助工具类
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since jdk11
  */
-public enum MimeType {
+public class FileUtils extends FileUtil {
 
-	/**
-	 * AAC audio
-	 */
-	AAC(".aac", "AAC audio", "audio/aac"),
-	/**
-	 * AbiWord document
-	 */
-	ABW(".abw", "AbiWord document", "application/x-abiword"),
-	/**
-	 * Archive document (multiple files embedded)
-	 */
-	ARC(".arc", "Archive document (multiple files embedded)", "application/x-freearc"),
-	/**
-	 * AVI: Audio Video Interleave
-	 */
-	AVI(".avi", "AVI: Audio Video Interleave", "video/x-msvideo"),
-	/**
-	 * Amazon Kindle eBook format
-	 */
-	AZW(".azw", "Amazon Kindle eBook format", "application/vnd.amazon.ebook"),
-	/**
-	 * Any kind of binary data
-	 */
-	BIN(".bin", "Any kind of binary data", "application/octet-stream"),
-	/**
-	 * Windows OS/2 Bitmap Graphics
-	 */
-	BMP(".bmp", "Windows OS/2 Bitmap Graphics", "image/bmp"),
-	/**
-	 * BZip archive
-	 */
-	BZ(".bz", "BZip archive", "application/x-bzip"),
-	/**
-	 * BZip2 archive
-	 */
-	BZ2(".bz2", "BZip2 archive", "application/x-bzip2"),
-	/**
-	 * C-Shell script
-	 */
-	CSH(".csh", "C-Shell script", "application/x-csh"),
-	/**
-	 * Cascading Style Sheets (CSS)
-	 */
-	CSS(".css", "Cascading Style Sheets (CSS)", "text/css"),
-	/**
-	 * Comma-separated values (CSV)
-	 */
-	CSV(".csv", "Comma-separated values (CSV)", "text/csv"),
-	/**
-	 * Microsoft Word
-	 */
-	DOC(".doc", "Microsoft Word", "application/msword"),
-	/**
-	 * Microsoft Word (OpenXML)
-	 */
-	DOCX(".docx", "Microsoft Word (OpenXML)", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
-	/**
-	 * MS Embedded OpenType fonts
-	 */
-	EOT(".eot", "MS Embedded OpenType fonts", "application/vnd.ms-fontobject"),
-	/**
-	 * Electronic publication (EPUB)
-	 */
-	EPUB(".epub", "Electronic publication (EPUB)", "application/epub+zip"),
-	/**
-	 * Graphics Interchange Format (GIF)
-	 */
-	GIF(".gif", "Graphics Interchange Format (GIF)", "image/gif"),
-	/**
-	 * HyperText Markup Language (HTML)
-	 */
-	HTM(".htm", "HyperText Markup Language (HTML)", "text/html"),
-	/**
-	 * HyperText Markup Language (HTML)
-	 */
-	HTML(".html", "HyperText Markup Language (HTML)", "text/html"),
-	/**
-	 * Icon format
-	 */
-	ICO(".ico", "Icon format", "image/vnd.microsoft.icon"),
-	/**
-	 * iCalendar format
-	 */
-	ICS(".ics", "iCalendar format", "text/calendar"),
-	/**
-	 * Java Archive (JAR)
-	 */
-	JAR(".jar", "Java Archive (JAR)", "application/java-archive"),
-	/**
-	 * JPEG images
-	 */
-	JPG(".jpg", "JPEG images", "image/jpeg"),
-	/**
-	 * JPEG images
-	 */
-	JPEG(".jpeg", "JPEG images", "image/jpeg"),
-	/**
-	 * JavaScript
-	 */
-	JS(".js", "JavaScript", "text/javascript"),
-	/**
-	 * JSON format
-	 */
-	JSON(".json", "JSON format", "application/json"),
-	/**
-	 * JSON-LD format
-	 */
-	JSONLD(".jsonld", "JSON-LD format", "application/ld+json"),
-	/**
-	 * Musical Instrument Digital Interface (MIDI)
-	 */
-	MID(".mid", "Musical Instrument Digital Interface (MIDI)", "audio/midi audio/x-midi"),
-	/**
-	 * Musical Instrument Digital Interface (MIDI)
-	 */
-	MIDI(".midi", "Musical Instrument Digital Interface (MIDI)", "audio/midi audio/x-midi"),
-	/**
-	 * JavaScript module
-	 */
-	MJS(".mjs", "JavaScript module", "text/javascript"),
-	/**
-	 * MP3 audio
-	 */
-	MP3(".mp3", "MP3 audio", "audio/mpeg"),
-
-	/**
-	 * MP4 audio
-	 */
-	MP4(".mp4", "MP4 audio", "video/mp4"),
-	/**
-	 * MPEG Video
-	 */
-	MPEG(".mpeg", "MPEG Video", "video/mpeg"),
-	/**
-	 * Apple Installer Package
-	 */
-	MPKG(".mpkg", "Apple Installer Package", "application/vnd.apple.installer+xml"),
-	/**
-	 * OpenDocument presentation document
-	 */
-	ODP(".odp", "OpenDocument presentation document", "application/vnd.oasis.opendocument.presentation"),
-	/**
-	 * OpenDocument spreadsheet document
-	 */
-	ODS(".ods", "OpenDocument spreadsheet document", "application/vnd.oasis.opendocument.spreadsheet"),
-	/**
-	 * OpenDocument text document
-	 */
-	ODT(".odt", "OpenDocument text document", "application/vnd.oasis.opendocument.text"),
-	/**
-	 * OGG audio
-	 */
-	OGA(".oga", "OGG audio", "audio/ogg"),
-	/**
-	 * OGG video
-	 */
-	OGV(".ogv", "OGG video", "video/ogg"),
-	/**
-	 * OGG
-	 */
-	OGX(".ogx", "OGG", "application/ogg"),
-	/**
-	 * OpenType font
-	 */
-	OTF(".otf", "OpenType font", "font/otf"),
-	/**
-	 * Portable Network Graphics
-	 */
-	PNG(".png", "Portable Network Graphics", "image/png"),
-	/**
-	 * Adobe Portable Document Format (PDF)
-	 */
-	PDF(".pdf", "Adobe Portable Document Format (PDF)", "application/pdf"),
-	/**
-	 * Microsoft PowerPoint
-	 */
-	PPT(".ppt", "Microsoft PowerPoint", "application/vnd.ms-powerpoint"),
-	/**
-	 * Microsoft PowerPoint (OpenXML)
-	 */
-	PPTX(".pptx", "Microsoft PowerPoint (OpenXML)", "application/vnd.openxmlformats-officedocument.presentationml.presentation"),
-	/**
-	 * RAR archive
-	 */
-	RAR(".rar", "RAR archive", "application/x-rar-compressed"),
-	/**
-	 * Rich Text Format (RTF)
-	 */
-	RTF(".rtf", "Rich Text Format (RTF)", "application/rtf"),
-	/**
-	 * Bourne shell script
-	 */
-	SH(".sh", "Bourne shell script", "application/x-sh"),
-	/**
-	 * Scalable Vector Graphics (SVG)
-	 */
-	SVG(".svg", "Scalable Vector Graphics (SVG)", "image/svg+xml"),
-	/**
-	 * Small web format (SWF) or Adobe Flash document
-	 */
-	SWF(".swf", "Small web format (SWF) or Adobe Flash document", "application/x-shockwave-flash"),
-	/**
-	 * Tape Archive (TAR)
-	 */
-	TAR(".tar", "Tape Archive (TAR)", "application/x-tar"),
-	/**
-	 * Tagged Image File Format (TIFF)
-	 */
-	TIF(".tif", "Tagged Image File Format (TIFF)", "image/tiff"),
-	/**
-	 * Tagged Image File Format (TIFF)
-	 */
-	TIFF(".tiff", "Tagged Image File Format (TIFF)", "image/tiff"),
-	/**
-	 * TrueType Font
-	 */
-	TTF(".ttf", "TrueType Font", "font/ttf"),
-	/**
-	 * Text, (generally ASCII or ISO 8859-n)
-	 */
-	TXT(".txt", "Text, (generally ASCII or ISO 8859-n)", "text/plain"),
-	/**
-	 * Microsoft Visio
-	 */
-	VSD(".vsd", "Microsoft Visio", "application/vnd.visio"),
-	/**
-	 * Waveform Audio Format
-	 */
-	WAV(".wav", "Waveform Audio Format", "audio/wav"),
-	/**
-	 * WEBM audio
-	 */
-	WEBA(".weba", "WEBM audio", "audio/webm"),
-	/**
-	 * WEBM video
-	 */
-	WEBM(".webm", "WEBM video", "video/webm"),
-	/**
-	 * WEBP image
-	 */
-	WEBP(".webp", "WEBP image", "image/webp"),
-	/**
-	 * Web Open Font Format (WOFF)
-	 */
-	WOFF(".woff", "Web Open Font Format (WOFF)", "font/woff"),
-	/**
-	 * Web Open Font Format (WOFF)
-	 */
-	WOFF2(".woff2", "Web Open Font Format (WOFF)", "font/woff2"),
-	/**
-	 * XHTML
-	 */
-	XHTML(".xhtml", "XHTML", "application/xhtml+xml"),
-	/**
-	 * Microsoft Excel
-	 */
-	XLS(".xls", "Microsoft Excel", "application/vnd.ms-excel"),
-	/**
-	 * Microsoft Excel (OpenXML)
-	 */
-	XLSX(".xlsx", "Microsoft Excel (OpenXML)", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
-	/**
-	 * XML
-	 */
-	XML(".xml", "XML", "text/xml"),
-	/**
-	 * XUL
-	 */
-	XUL(".xul", "XUL", "application/vnd.mozilla.xul+xml"),
-	/**
-	 * ZIP archive
-	 */
-	ZIP(".zip", "ZIP archive", "application/zip"),
-	/**
-	 * 3GPP audio/video container
-	 */
-	V_3GP(".3gp", "3GPP audio/video container", "video/3gpp"),
-	/**
-	 * 3GPP2 audio/video container
-	 */
-	V_3G2(".3g2", "3GPP2 audio/video container", "video/3gpp2"),
-	/**
-	 * 7-zip archive
-	 */
-	Z_7Z(".7z", "7-zip archive", "application/x-7z-compressed");
-
-
-	public static final String DEFAULT_FILE_CONTENT_TYPE = "application/octet-stream";
-
-	/**
-	 * 后缀
-	 */
-	private final String suffix;
-
-	/**
-	 * 文档类型
-	 */
-	private final String docType;
-
-	/**
-	 * mime
-	 */
-	private final String mimeType;
-
-
-	MimeType(String suffix, String docType, String mimeType) {
-		this.suffix = suffix;
-		this.docType = docType;
-		this.mimeType = mimeType;
+	private FileUtils() {
 	}
 
 	/**
-	 * 根据后缀获取文档的 Mime
+	 * 获取项目根目录
 	 *
-	 * @param suffix 文件后缀
 	 * @return {@link String}
 	 */
-	public static String getMimeTypeBySuffix(String suffix) {
-		MimeType[] mimeTypes = values();
-		for (MimeType mimeType : mimeTypes) {
-			if (suffix.equals(mimeType.getSuffix())) {
-				return mimeType.getMimeType();
+	public static String getRootPath() {
+		return System.getProperty("user.dir");
+	}
+
+	/**
+	 * 效验文件器
+	 * 功能如果判断文件是否存在，如果不存在先创建文件多层目录，然后创建文件
+	 *
+	 * @param filePath 文件路径
+	 * @return java.io.File
+	 */
+	public static File touch(String filePath) {
+		Assert.notNull(filePath, "文件路径不能为空");
+
+		/*
+		 * 创建当前文件和该目录的父文件
+		 */
+		File file = new File(filePath);
+		File dirFile = new File(file.getParent());
+
+		/*
+		 * 判断父文件是否存在，如果不存在则创建多层目录
+		 */
+		if (!dirFile.exists() && !dirFile.isDirectory()) {
+			dirFile.mkdirs();
+		}
+
+		/*
+		 * 如果文件不存在则开始创建文件
+		 */
+		try {
+			if (!file.exists()) {
+				return file.createNewFile() ? file : null;
 			}
+		} catch (IOException e) {
+			throw new ChaosException("创建文件失败,文件不存在", e);
 		}
-		return BIN.getMimeType();
+
+		return null;
 	}
 
 	/**
-	 * 根据Mine获取文档的 后缀
+	 * 判断文件是否相同
 	 *
-	 * @param mimeType Mine
+	 * @param file1 文件1
+	 * @param file2 文件2
+	 * @return 如果文件相同返回 true,否则返回 false
+	 */
+	public static boolean checkFile(File file1, File file2) {
+		return SecureUtil.md5(file1).equals(SecureUtil.md5(file2)) && SecureUtil.sha1(file1).equals(SecureUtil.sha1(file2));
+	}
+
+	/**
+	 * 获取文件内容
+	 *
+	 * @param file File
 	 * @return {@link String}
 	 */
-	public static String getSuffixByMimeType(String mimeType) {
-		MimeType[] mimeTypes = values();
-		for (MimeType type : mimeTypes) {
-			if (type.getMimeType().contains(mimeType)) {
-				return type.getSuffix();
+	public static String getContent(File file) {
+		Assert.isTrue(file.exists(), "文件不能为空");
+		StringBuilder str = new StringBuilder();
+		try (
+			FileReader fileReader = new FileReader(file);
+			BufferedReader reader = new BufferedReader(fileReader);
+		) {
+			String line;
+			while ((line = reader.readLine()) != null) {
+				str.append(line);
 			}
+		} catch (Exception ignored) {
 		}
-		return MP4.suffix;
-	}
-
-	public static void main(String[] args) {
-		MimeType[] mimeTypes = values();
-		for (MimeType mimeType : mimeTypes) {
-			System.out.println(mimeType.generate(mimeType));
-		}
+		return str.toString();
 	}
 
 	/**
-	 * <p>
-	 * 生成枚举注释
-	 * </p>
+	 * 获取文件内容并去除全部空格
 	 *
-	 * @param type MimeType
+	 * @param file File
 	 * @return {@link String}
 	 */
-	public String generate(MimeType type) {
-		String template = " /**\n" +
-			"     * %s\n" +
-			"     */\n" +
-			"    %s(\"%s\",\"%s\",\"%s\"),";
-		return String.format(template, type.getDocType(), type.name(), type.getSuffix(), type.getDocType(), type.getMimeType());
+	public static String getContentTrim(File file) {
+		return getContent(file).replaceAll("\\s*", "");
 	}
 
-	public String getSuffix() {
-		return suffix;
-	}
-
-	public String getDocType() {
-		return docType;
-	}
-
-	public String getMimeType() {
-		return mimeType;
-	}
-
-	@Override
-	public String toString() {
-		return "MimeType{" +
-			"suffix='" + suffix + '\'' +
-			", docType='" + docType + '\'' +
-			", mimeType='" + mimeType + '\'' +
-			'}';
-	}
 }

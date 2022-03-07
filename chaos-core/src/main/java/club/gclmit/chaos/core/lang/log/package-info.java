@@ -5,4 +5,4 @@
  * @since 2022/1/10 11:51 AM
  * @since jdk11
  */
-package club.gclmit.chaos.core.log;
+package club.gclmit.chaos.core.lang.log;

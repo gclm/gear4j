@@ -202,116 +202,113 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.core.io;
-
-import club.gclmit.chaos.core.exception.ChaosException;
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.lang.Assert;
-import cn.hutool.crypto.SecureUtil;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+package club.gclmit.chaos.core.lang.log;
 
 /**
- * 文件辅助工具类
+ * <p>
+ * log 常见服务
+ * </p>
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since jdk11
  */
-public class FileUtils extends FileUtil {
+public enum LoggerServer {
 
-	private FileUtils() {
-	}
-
-	/**
-	 * 获取项目根目录
-	 *
-	 * @return {@link String}
-	 */
-	public static String getRootPath() {
-		return System.getProperty("user.dir");
-	}
+	// ~ Chaos 组件
+	// ===================================================================================================
 
 	/**
-	 * 效验文件器
-	 * 功能如果判断文件是否存在，如果不存在先创建文件多层目录，然后创建文件
-	 *
-	 * @param filePath 文件路径
-	 * @return java.io.File
+	 * Chaos
 	 */
-	public static File touch(String filePath) {
-		Assert.notNull(filePath, "文件路径不能为空");
+	CHAOS("Chaos"),
 
-		/*
-		 * 创建当前文件和该目录的父文件
-		 */
-		File file = new File(filePath);
-		File dirFile = new File(file.getParent());
-
-		/*
-		 * 判断父文件是否存在，如果不存在则创建多层目录
-		 */
-		if (!dirFile.exists() && !dirFile.isDirectory()) {
-			dirFile.mkdirs();
-		}
-
-		/*
-		 * 如果文件不存在则开始创建文件
-		 */
-		try {
-			if (!file.exists()) {
-				return file.createNewFile() ? file : null;
-			}
-		} catch (IOException e) {
-			throw new ChaosException("创建文件失败,文件不存在", e);
-		}
-
-		return null;
-	}
+	// ~ MVC 架构 Controller
+	// ===================================================================================================
 
 	/**
-	 * 判断文件是否相同
-	 *
-	 * @param file1 文件1
-	 * @param file2 文件2
-	 * @return 如果文件相同返回 true,否则返回 false
+	 * Controller
 	 */
-	public static boolean checkFile(File file1, File file2) {
-		return SecureUtil.md5(file1).equals(SecureUtil.md5(file2)) && SecureUtil.sha1(file1).equals(SecureUtil.sha1(file2));
-	}
+	CONTROLLER("Controller"),
 
 	/**
-	 * 获取文件内容
-	 *
-	 * @param file File
-	 * @return {@link String}
+	 * Interceptor
 	 */
-	public static String getContent(File file) {
-		Assert.isTrue(file.exists(), "文件不能为空");
-		StringBuilder str = new StringBuilder();
-		try (
-			FileReader fileReader = new FileReader(file);
-			BufferedReader reader = new BufferedReader(fileReader);
-		) {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				str.append(line);
-			}
-		} catch (Exception ignored) {
-		}
-		return str.toString();
-	}
+	INTERCEPTOR("Interceptor"),
 
 	/**
-	 * 获取文件内容并去除全部空格
-	 *
-	 * @param file File
-	 * @return {@link String}
+	 * Filter
 	 */
-	public static String getContentTrim(File file) {
-		return getContent(file).replaceAll("\\s*", "");
+	FILTER("Filter"),
+
+	/**
+	 * Aspect
+	 */
+	ASPECT("Aspect"),
+
+	/**
+	 * config
+	 */
+	CONFIG("config"),
+
+	// ~ MVC 架构 Model
+	// ===================================================================================================
+
+	/**
+	 * pojo
+	 */
+	POJO("pojo"),
+
+	/**
+	 * entity
+	 */
+	ENTITY("entity"),
+
+	/**
+	 * DTO
+	 */
+	DTO("DTO"),
+
+	/**
+	 * VO
+	 */
+	VO("VO"),
+
+	/**
+	 * Param
+	 */
+	PARAM("Param"),
+
+	/**
+	 * Query
+	 */
+	QUERY("Query"),
+
+
+	// ~ MVC 架构
+	// ===================================================================================================
+
+	/**
+	 * Service
+	 */
+	SERVICE("Service"),
+
+	/**
+	 * Mapper
+	 */
+	MAPPER("Mapper"),
+
+	/**
+	 * Util
+	 */
+	UTIL("Util");
+
+	private final String key;
+
+	private LoggerServer(String key) {
+		this.key = key;
 	}
 
+	public String getKey() {
+		return key;
+	}
 }

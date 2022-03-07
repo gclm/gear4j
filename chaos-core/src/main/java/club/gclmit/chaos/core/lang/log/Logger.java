@@ -202,205 +202,195 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.core.io;
+package club.gclmit.chaos.core.lang.log;
 
-import club.gclmit.chaos.core.exception.ChaosException;
-import club.gclmit.chaos.core.utils.StringUtils;
-import cn.hutool.core.io.file.FileNameUtil;
-import cn.hutool.core.lang.Assert;
-import cn.hutool.core.util.ArrayUtil;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import org.slf4j.LoggerFactory;
+import org.slf4j.helpers.FormattingTuple;
+import org.slf4j.helpers.MessageFormatter;
 
 /**
- * 文件类型工具类
+ * <p>
+ * Slf4j 日志封装
+ * </p>
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since jdk11
  */
-public class FileTypeUtils {
+public class Logger {
 
 	/**
-	 * 图片
+	 * 当前日志类名
 	 */
-	public static final String[] IMAGE_EXTENSION = {"bmp", "gif", "jpg", "jpeg", "png"};
+	private final static String CURRENT_LOG_CLASS_NAME = Logger.class.getName();
 
 	/**
-	 * flash
+	 * 获取最原始被调用的堆栈信息
 	 */
-	public static final String[] FLASH_EXTENSION = {"swf", "flv"};
+	private static StackTraceElement getCaller() {
 
-	/**
-	 * media 后缀
-	 */
-	public static final String[] MEDIA_EXTENSION = {"swf", "flv", "mp3", "wav", "wma", "wmv", "mid", "avi", "mpg", "asf", "rm", "rmvb"};
+		// 获取堆栈信息
+		StackTraceElement[] traceElements = Thread.currentThread()
+			.getStackTrace();
 
-	/**
-	 * video 后缀
-	 */
-	public static final String[] VIDEO_EXTENSION = {"mp4", "avi", "rmvb"};
+		// 最原始被调用的堆栈信息
+		StackTraceElement caller = null;
 
-	/**
-	 * 默认允许的后缀名
-	 */
-	public static final String[] DEFAULT_ALLOWED_EXTENSION = {
-		// 图片
-		"bmp", "gif", "jpg", "jpeg", "png",
-		// word excel powerpoint
-		"doc", "docx", "xls", "xlsx", "ppt", "pptx", "html", "htm", "txt",
-		// 压缩文件
-		"rar", "zip", "gz", "bz2",
-		// 视频格式
-		"mp4", "avi", "rmvb",
-		// pdf
-		"pdf"};
+		// 循环遍历到日志类标识
+		boolean isEachLogFlag = false;
 
-	/**
-	 * 基于魔数和文件后缀获取内容类型
-	 * 1. 先进行魔数筛选
-	 * 2. 根据魔数筛选结果,进行后缀获取内容类型
-	 *
-	 * @param file File
-	 * @return {@link String}String
-	 */
-	public static String getMimeType(File file) {
-		Assert.isTrue(file.exists(), "文件不能为空");
-		String fileHeader = getFileHeader(file);
-
-		if (!StringUtils.isEmpty(fileHeader)) {
-			/**
-			 * 魔数判断
-			 */
-			String mimeType = MagicType.getMimeType(fileHeader.toUpperCase());
-			if (MimeType.DEFAULT_FILE_CONTENT_TYPE.equals(mimeType)) {
-				String suffix = FileNameUtil.getSuffix(file);
-				mimeType = MimeType.getMimeTypeBySuffix(suffix);
+		// 遍历堆栈信息，获取出最原始被调用的方法信息
+		// 当前日志类的堆栈信息完了就是调用该日志类对象信息
+		for (StackTraceElement element : traceElements) {
+			// 遍历到日志类
+			if (element.getClassName().equals(CURRENT_LOG_CLASS_NAME)) {
+				isEachLogFlag = true;
 			}
-			return mimeType;
-		}
-		return MimeType.DEFAULT_FILE_CONTENT_TYPE;
-	}
 
-	/**
-	 * 文件后缀获取内容类型
-	 *
-	 * @param file MultipartFile
-	 * @return {@link String}
-	 */
-	public static String getMimeType(MultipartFile file) {
-		String suffix = FileTypeUtils.getSuffix(file);
-		return MimeType.getMimeTypeBySuffix(suffix);
-	}
-
-	/**
-	 * 获取文件类型
-	 * <p>
-	 * 例如: chaos.txt, 返回: txt
-	 *
-	 * @param file 文件名
-	 * @return 后缀（不含".")
-	 */
-	public static String getSuffix(File file) {
-		Assert.notNull(file, "文件不能为空");
-		return getSuffix(file.getName());
-	}
-
-	/**
-	 * 获取文件后缀
-	 *
-	 * @param file MultipartFile
-	 * @return {@link String}
-	 */
-	public static String getSuffix(MultipartFile file) {
-		Assert.notNull(file, "文件不能为空");
-		String fileName = file.getOriginalFilename();
-		assert fileName != null;
-		int separatorIndex = fileName.lastIndexOf(".");
-		if (separatorIndex < 0) {
-			return "";
-		}
-		return StringUtils.subAfter(fileName, ".", true);
-	}
-
-	/**
-	 * 获取文件类型
-	 * <p>
-	 * 例如: chaos.txt, 返回: txt
-	 *
-	 * @param fileName 文件名
-	 * @return {@link String} 后缀（不含".")
-	 */
-	public static String getSuffix(String fileName) {
-		int separatorIndex = fileName.lastIndexOf(".");
-		if (separatorIndex < 0) {
-			return "";
-		}
-		return StringUtils.subAfter(fileName, ".", true);
-	}
-
-	/**
-	 * 根据Mine获取文档的 后缀
-	 *
-	 * @param mime Mine
-	 * @return {@link String} 后缀（不含".")
-	 */
-	public static String getSuffixByMimeType(String mime) {
-		Assert.isTrue(StringUtils.isNotBlank(mime), "MimeType不能为空");
-		return MimeType.getSuffixByMimeType(mime);
-	}
-
-	/**
-	 * 根据Magic获取文档的 后缀
-	 *
-	 * @param file 效验文件
-	 * @return {@link String} 后缀（不含".")
-	 */
-	public static String getSuffixByMagic(File file) {
-		Assert.isTrue(file.exists(), "文件不能为空");
-		String fileHeader = getFileHeader(file);
-		if (!StringUtils.isEmpty(fileHeader)) {
-			return MagicType.getSuffix(fileHeader.toUpperCase());
-		}
-		return null;
-	}
-
-	/**
-	 * 获取文件头部
-	 * </p>
-	 *
-	 * @param file File
-	 * @return {@link String}
-	 */
-	public static String getFileHeader(File file) {
-		byte[] b = new byte[28];
-		try (InputStream inputStream = new FileInputStream(file)) {
-			inputStream.read(b, 0, 28);
-		} catch (Exception e) {
-			throw new ChaosException("读取文件失败", e);
-		}
-		return byteToHex(b);
-	}
-
-	/**
-	 * 将字节数组转换成16进制字符串
-	 *
-	 * @param bytes 字节数组
-	 * @return {@link String}
-	 */
-	private static String byteToHex(byte[] bytes) {
-		Assert.isFalse(ArrayUtil.isEmpty(bytes), "字节数组不能为空");
-		StringBuilder stringBuilder = new StringBuilder();
-		for (byte bit : bytes) {
-			int v = bit & 0xFF;
-			String hv = Integer.toHexString(v);
-			if (hv.length() < 2) {
-				stringBuilder.append(0);
+			// 下一个非日志类的堆栈，就是最原始被调用的方法
+			if (isEachLogFlag) {
+				if (!element.getClassName().equals(CURRENT_LOG_CLASS_NAME)) {
+					caller = element;
+					break;
+				}
 			}
-			stringBuilder.append(hv);
 		}
-		return stringBuilder.toString();
+
+		return caller;
+	}
+
+	/**
+	 * 自动匹配请求类名，生成logger对象
+	 */
+	private static org.slf4j.Logger log() {
+		// 最原始被调用的堆栈对象
+		StackTraceElement caller = getCaller();
+		// 空堆栈处理
+		if (caller == null) {
+			return LoggerFactory.getLogger(Logger.class);
+		}
+
+		// 取出被调用对象的类名，并构造一个Logger对象返回
+		return LoggerFactory.getLogger(caller.getClassName());
+	}
+
+	/**
+	 * trace
+	 *
+	 * @param format 消息模板
+	 * @param args   消息参数
+	 */
+	public static void trace(String format, Object... args) {
+		log().trace(build(null, format, args));
+	}
+
+	/**
+	 * info
+	 *
+	 * @param format 消息模板
+	 * @param args   消息参数
+	 */
+	public static void info(String format, Object... args) {
+		log().info(build(null, format, args));
+	}
+
+	/**
+	 * debug
+	 *
+	 * @param format 消息模板
+	 * @param args   消息参数
+	 */
+	public static void debug(String format, Object... args) {
+		log().debug(build(null, format, args));
+	}
+
+	/**
+	 * warn
+	 *
+	 * @param format 消息模板
+	 * @param args   消息参数
+	 */
+	public static void warn(String format, Object... args) {
+		log().warn(build(null, format, args));
+	}
+
+	/**
+	 * error
+	 *
+	 * @param format 消息模板
+	 * @param args   消息参数
+	 */
+	public static void error(String format, Object... args) {
+		log().error(build(null, format, args));
+	}
+
+	/**
+	 * trace
+	 *
+	 * @param loggerServer 消息服务类型
+	 * @param format       消息模板
+	 * @param args         消息参数
+	 */
+	public static void trace(LoggerServer loggerServer, String format, Object... args) {
+		log().trace(build(loggerServer, format, args));
+	}
+
+	/**
+	 * info
+	 *
+	 * @param loggerServer 消息服务类型
+	 * @param format       消息模板
+	 * @param args         消息参数
+	 */
+	public static void info(LoggerServer loggerServer, String format, Object... args) {
+		log().info(build(loggerServer, format, args));
+	}
+
+	/**
+	 * debug
+	 *
+	 * @param loggerServer 消息服务类型
+	 * @param format       消息模板
+	 * @param args         消息参数
+	 */
+	public static void debug(LoggerServer loggerServer, String format, Object... args) {
+		log().debug(build(loggerServer, format, args));
+	}
+
+	/**
+	 * warn
+	 *
+	 * @param loggerServer 消息服务类型
+	 * @param format       消息模板
+	 * @param args         消息参数
+	 */
+	public static void warn(LoggerServer loggerServer, String format, Object... args) {
+		log().warn(build(loggerServer, format, args));
+	}
+
+	/**
+	 * error
+	 *
+	 * @param loggerServer 消息服务类型
+	 * @param format       消息模板
+	 * @param args         消息参数
+	 */
+	public static void error(LoggerServer loggerServer, String format, Object... args) {
+		log().error(build(loggerServer, format, args));
+	}
+
+	/**
+	 * 消息组建
+	 *
+	 * @param loggerServer 消息服务类型
+	 * @param template     消息模板
+	 * @param args         消息参数
+	 * @return {@link String}
+	 */
+	private static String build(LoggerServer loggerServer, String template, Object... args) {
+		FormattingTuple ft = MessageFormatter.arrayFormat(template, args);
+		if (loggerServer != null) {
+			return String.format("[%s]:%s", loggerServer.getKey(), ft.getMessage());
+		}
+		return ft.getMessage();
 	}
 }

@@ -16,8 +16,8 @@
       "Legal Entity" shall mean the union of the acting entity and all
       other entities that control, are controlled by, or are under common
       control with that entity. For the purposes of this definition,
-      "control" means (i) the power, dirPathect or indirPathect, to cause the
-      dirPathection or management of such entity, whether by contract or
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
       otherwise, or (ii) ownership of fifty percent (50%) or more of the
       outstanding shares, or (iii) beneficial ownership of such entity.
 
@@ -82,7 +82,7 @@
       with the Work to which such Contribution(s) was submitted. If You
       institute patent litigation against any entity (including a
       cross-claim or counterclaim in a lawsuit) alleging that the Work
-      or a Contribution incorporated within the Work constitutes dirPathect
+      or a Contribution incorporated within the Work constitutes direct
       or contributory patent infringement, then any patent licenses
       granted to You under this License for that Work shall terminate
       as of the date such litigation is filed.
@@ -155,7 +155,7 @@
       whether in tort (including negligence), contract, or otherwise,
       unless required by applicable law (such as deliberate and grossly
       negligent acts) or agreed to in writing, shall any Contributor be
-      liable to You for damages, including any dirPathect, indirPathect, special,
+      liable to You for damages, including any direct, indirect, special,
       incidental, or consequential damages of any character arising as a
       result of this License or out of the use or inability to use the
       Work (including but not limited to damages for loss of goodwill,
@@ -202,80 +202,82 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.core.io;
+package club.gclmit.chaos.core.utils;
 
-import club.gclmit.chaos.core.exception.ChaosException;
-import club.gclmit.chaos.core.utils.StringUtils;
-import cn.hutool.core.lang.Assert;
-import cn.hutool.core.util.IdUtil;
-import org.springframework.web.multipart.MultipartFile;
+import club.gclmit.chaos.core.utils.ExceptionUtils;
+import cn.hutool.core.io.IORuntimeException;
+import cn.hutool.core.io.IoUtil;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Arrays;
 
 /**
- * Spring MVC 文件上传
+ * IO 流工具类
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
- * @since 2020/10/22 18:51
  * @since jdk11
  */
-public class UploadFileUtils {
+public class IOUtils extends IoUtil {
 
-	private UploadFileUtils() {
+	private IOUtils() {
 	}
 
 	/**
-	 * 判断文件是否为空 {@code null}.
+	 * IO流是否为空
 	 *
-	 * @param file 判断文件
-	 * @return {@code true} if the file is empty or {@code null}
+	 * @param stream IO流
+	 * @return 是否为空
 	 */
-	public static boolean isEmpty(MultipartFile file) {
-		return file == null || file.isEmpty();
-	}
-
-	/**
-	 * 判断文件是否不为空
-	 *
-	 * @param file 判断文件
-	 * @return {@code true} 当前 file 不为空返回 true
-	 */
-	public static boolean isNotEmpty(MultipartFile file) {
-		return !isEmpty(file);
-	}
-
-
-	/**
-	 * MultipartFile 转 File
-	 *
-	 * @param multipartFile springmvc封装的上传文件
-	 * @return java.io.File
-	 */
-	public static File multipartFileToFile(MultipartFile multipartFile) {
-		Assert.notNull(multipartFile.isEmpty(), "multipartFile 不能为空");
-		return multipartFileToFile(multipartFile, FileUtils.getRootPath());
-	}
-
-	/**
-	 * MultipartFile 转 File
-	 *
-	 * @param multipartFile springmvc封装的上传文件
-	 * @param dirPath       文件夹路径
-	 * @return java.io.File
-	 */
-	public static File multipartFileToFile(MultipartFile multipartFile, String dirPath) {
-		Assert.notNull(multipartFile.isEmpty(), "multipartFile 不能为空");
-
-		dirPath = StringUtils.isEmpty(dirPath) ? FileUtils.getRootPath() : dirPath;
-		File localFile = new File(dirPath, IdUtil.fastSimpleUUID() + "." + FileTypeUtils.getSuffix(multipartFile));
-
+	public static boolean isEmpty(InputStream stream) {
 		try {
-			multipartFile.transferTo(localFile);
+			return stream == null || stream.available() == 0;
 		} catch (IOException e) {
-			throw new ChaosException("MultipartFile To File 失败", e);
+			throw ExceptionUtils.wrapRuntime(e);
 		}
-		return localFile;
 	}
 
+	/**
+	 * IO流是否为空
+	 *
+	 * @param stream IO流
+	 * @return 是否为空
+	 */
+	public static boolean isEmpty(OutputStream stream) {
+		return stream == null;
+	}
+
+	/**
+	 * IO流是否为空
+	 *
+	 * @param stream IO流
+	 * @return 是否为空
+	 */
+	public static boolean isNotEmpty(InputStream stream) {
+		return !isEmpty(stream);
+	}
+
+	/**
+	 * IO流是否为空
+	 *
+	 * @param stream IO流
+	 * @return 是否为空
+	 */
+	public static boolean isNotEmpty(OutputStream stream) {
+		return !isEmpty(stream);
+	}
+
+
+	/**
+	 * 从流中读取String，读取完毕后关闭流
+	 *
+	 * @param in {@link InputStream}
+	 * @return {@link String}
+	 * @throws IORuntimeException IO异常
+	 */
+	public static String readString(InputStream in) throws IORuntimeException {
+		return Arrays.toString(readBytes(in, true));
+	}
 }
+

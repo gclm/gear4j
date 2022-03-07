@@ -202,82 +202,48 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.core.io;
+package club.gclmit.chaos.core.utils;
 
-import club.gclmit.chaos.core.utils.ExceptionUtils;
-import cn.hutool.core.io.IORuntimeException;
-import cn.hutool.core.io.IoUtil;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Arrays;
+import club.gclmit.chaos.core.lang.YeinGid;
+import cn.hutool.core.lang.Singleton;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.RandomUtil;
 
 /**
- * IO 流工具类
+ * Id 控制器
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since jdk11
  */
-public class IOUtils extends IoUtil {
+public class IdUtils extends IdUtil {
 
-	private IOUtils() {
+	/**
+	 * 非单例创建 YeinGid 算法生成器。
+	 *
+	 * @param workerId 标识 {@code 0-131071 }区间内的数字
+	 * @return {@link YeinGid}
+	 */
+	public static YeinGid createYeinGid(Integer workerId) {
+		return new YeinGid(workerId);
 	}
 
 	/**
-	 * IO流是否为空
+	 * 获取YeinGid
 	 *
-	 * @param stream IO流
-	 * @return 是否为空
+	 * @return {@link String} YeinGid 全局id
 	 */
-	public static boolean isEmpty(InputStream stream) {
-		try {
-			return stream == null || stream.available() == 0;
-		} catch (IOException e) {
-			throw ExceptionUtils.wrapRuntime(e);
-		}
+	public static String getYeinGid() {
+		int workId = RandomUtil.randomInt(0, 131071);
+		return getYeinGid(workId).toHexString();
 	}
 
 	/**
-	 * IO流是否为空
+	 * 获取单例的YeinGid算法生成器对象<br>
 	 *
-	 * @param stream IO流
-	 * @return 是否为空
+	 * @param workerId 标识 {@code 0-131071 }区间内的数字
+	 * @return {@link YeinGid}
 	 */
-	public static boolean isEmpty(OutputStream stream) {
-		return stream == null;
-	}
-
-	/**
-	 * IO流是否为空
-	 *
-	 * @param stream IO流
-	 * @return 是否为空
-	 */
-	public static boolean isNotEmpty(InputStream stream) {
-		return !isEmpty(stream);
-	}
-
-	/**
-	 * IO流是否为空
-	 *
-	 * @param stream IO流
-	 * @return 是否为空
-	 */
-	public static boolean isNotEmpty(OutputStream stream) {
-		return !isEmpty(stream);
-	}
-
-
-	/**
-	 * 从流中读取String，读取完毕后关闭流
-	 *
-	 * @param in {@link InputStream}
-	 * @return {@link String}
-	 * @throws IORuntimeException IO异常
-	 */
-	public static String readString(InputStream in) throws IORuntimeException {
-		return Arrays.toString(readBytes(in, true));
+	public static YeinGid getYeinGid(Integer workerId) {
+		return Singleton.get(YeinGid.class, workerId);
 	}
 }
-

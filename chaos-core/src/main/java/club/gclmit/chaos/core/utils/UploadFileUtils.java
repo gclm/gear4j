@@ -16,8 +16,8 @@
       "Legal Entity" shall mean the union of the acting entity and all
       other entities that control, are controlled by, or are under common
       control with that entity. For the purposes of this definition,
-      "control" means (i) the power, direct or indirect, to cause the
-      direction or management of such entity, whether by contract or
+      "control" means (i) the power, dirPathect or indirPathect, to cause the
+      dirPathection or management of such entity, whether by contract or
       otherwise, or (ii) ownership of fifty percent (50%) or more of the
       outstanding shares, or (iii) beneficial ownership of such entity.
 
@@ -82,7 +82,7 @@
       with the Work to which such Contribution(s) was submitted. If You
       institute patent litigation against any entity (including a
       cross-claim or counterclaim in a lawsuit) alleging that the Work
-      or a Contribution incorporated within the Work constitutes direct
+      or a Contribution incorporated within the Work constitutes dirPathect
       or contributory patent infringement, then any patent licenses
       granted to You under this License for that Work shall terminate
       as of the date such litigation is filed.
@@ -155,7 +155,7 @@
       whether in tort (including negligence), contract, or otherwise,
       unless required by applicable law (such as deliberate and grossly
       negligent acts) or agreed to in writing, shall any Contributor be
-      liable to You for damages, including any direct, indirect, special,
+      liable to You for damages, including any dirPathect, indirPathect, special,
       incidental, or consequential damages of any character arising as a
       result of this License or out of the use or inability to use the
       Work (including but not limited to damages for loss of goodwill,
@@ -202,47 +202,79 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.core.id;
+package club.gclmit.chaos.core.utils;
 
-import cn.hutool.core.lang.Singleton;
+import club.gclmit.chaos.core.exception.ChaosException;
+import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.RandomUtil;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
- * Id 控制器
+ * Spring MVC 文件上传
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since 2020/10/22 18:51
  * @since jdk11
  */
-public class IdUtils extends IdUtil {
+public class UploadFileUtils {
 
-	/**
-	 * 非单例创建 YeinGid 算法生成器。
-	 *
-	 * @param workerId 标识 {@code 0-131071 }区间内的数字
-	 * @return {@link YeinGid}
-	 */
-	public static YeinGid createYeinGid(Integer workerId) {
-		return new YeinGid(workerId);
+	private UploadFileUtils() {
 	}
 
 	/**
-	 * 获取YeinGid
+	 * 判断文件是否为空 {@code null}.
 	 *
-	 * @return {@link String} YeinGid 全局id
+	 * @param file 判断文件
+	 * @return {@code true} if the file is empty or {@code null}
 	 */
-	public static String getYeinGid() {
-		int workId = RandomUtil.randomInt(0, 131071);
-		return getYeinGid(workId).toHexString();
+	public static boolean isEmpty(MultipartFile file) {
+		return file == null || file.isEmpty();
 	}
 
 	/**
-	 * 获取单例的YeinGid算法生成器对象<br>
+	 * 判断文件是否不为空
 	 *
-	 * @param workerId 标识 {@code 0-131071 }区间内的数字
-	 * @return {@link YeinGid}
+	 * @param file 判断文件
+	 * @return {@code true} 当前 file 不为空返回 true
 	 */
-	public static YeinGid getYeinGid(Integer workerId) {
-		return Singleton.get(YeinGid.class, workerId);
+	public static boolean isNotEmpty(MultipartFile file) {
+		return !isEmpty(file);
 	}
+
+
+	/**
+	 * MultipartFile 转 File
+	 *
+	 * @param multipartFile springmvc封装的上传文件
+	 * @return java.io.File
+	 */
+	public static File multipartFileToFile(MultipartFile multipartFile) {
+		Assert.notNull(multipartFile.isEmpty(), "multipartFile 不能为空");
+		return multipartFileToFile(multipartFile, FileUtils.getRootPath());
+	}
+
+	/**
+	 * MultipartFile 转 File
+	 *
+	 * @param multipartFile springmvc封装的上传文件
+	 * @param dirPath       文件夹路径
+	 * @return java.io.File
+	 */
+	public static File multipartFileToFile(MultipartFile multipartFile, String dirPath) {
+		Assert.notNull(multipartFile.isEmpty(), "multipartFile 不能为空");
+
+		dirPath = StringUtils.isEmpty(dirPath) ? FileUtils.getRootPath() : dirPath;
+		File localFile = new File(dirPath, IdUtil.fastSimpleUUID() + "." + FileTypeUtils.getSuffix(multipartFile));
+
+		try {
+			multipartFile.transferTo(localFile);
+		} catch (IOException e) {
+			throw new ChaosException("MultipartFile To File 失败", e);
+		}
+		return localFile;
+	}
+
 }

@@ -202,215 +202,206 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.core.id;
+package club.gclmit.chaos.core.utils;
 
-import java.security.SecureRandom;
-import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicInteger;
+import club.gclmit.chaos.core.exception.ChaosException;
+import club.gclmit.chaos.core.lang.io.MagicType;
+import club.gclmit.chaos.core.lang.io.MimeType;
+import cn.hutool.core.io.file.FileNameUtil;
+import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.ArrayUtil;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 /**
- * 分布式全局唯一 ID. 做了jdk8兼容
+ * 文件类型工具类
  *
- * <p>YeinGid 采用 <b>75bits</b> 组成, 基于<b>32进制</b>编码的15字节的字符串.
- * 每 {@code 5bits }编码为一个字符, {@link YeinGid }总长度为15字节.
- *
- * @author KK (kzou227@qq.com)
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since jdk11
  */
-public class YeinGid {
-
-	public static final int YEIN_GID_LENGTH = 15;
-	/**
-	 * 标识掩码.
-	 */
-	public static final int FID_MASK = ~(-1 << 17);
-	/**
-	 * 32进制编码的字母表.
-	 */
-	private static final char[] DIGITS = {
-		'2', '3', '4', '5', '6', '7', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-		'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-	};
-	/**
-	 * 版本号掩码.
-	 */
-	private static final int VERSION_MASK = ~(-1 << 3);
-	/**
-	 * 时间戳(秒).
-	 */
-	private static final int SECONDS_MASK = Integer.MAX_VALUE;
-	/**
-	 * 序列掩码.
-	 */
-	private static final int SEQ_MASK = ~(-1 << 23);
+public class FileTypeUtils {
 
 	/**
-	 * 当前版本号.
+	 * 图片
 	 */
-	private static final int CURRENT_VERSION = 1;
-
-	private static final int SEQ_BOUND = SEQ_MASK + 1;
-	private static final AtomicInteger SEQUENCE = new AtomicInteger(new SecureRandom().nextInt(SEQ_MASK));
-
-	private final int version;
-	private final int timestamp;
-	private final int fid;
-	private final int seq;
+	public static final String[] IMAGE_EXTENSION = {"bmp", "gif", "jpg", "jpeg", "png"};
 
 	/**
-	 * 32进制编码的字符串
+	 * flash
 	 */
-	private String hexString;
-
-	private YeinGid(int version, int timestamp, int fid, int seq, String hexString) {
-		this.version = version;
-		this.timestamp = timestamp;
-		this.fid = fid;
-		this.seq = seq;
-		this.hexString = hexString;
-	}
+	public static final String[] FLASH_EXTENSION = {"swf", "flv"};
 
 	/**
-	 * 采用标识构建全局唯一 ID.
+	 * media 后缀
+	 */
+	public static final String[] MEDIA_EXTENSION = {"swf", "flv", "mp3", "wav", "wma", "wmv", "mid", "avi", "mpg", "asf", "rm", "rmvb"};
+
+	/**
+	 * video 后缀
+	 */
+	public static final String[] VIDEO_EXTENSION = {"mp4", "avi", "rmvb"};
+
+	/**
+	 * 默认允许的后缀名
+	 */
+	public static final String[] DEFAULT_ALLOWED_EXTENSION = {
+		// 图片
+		"bmp", "gif", "jpg", "jpeg", "png",
+		// word excel powerpoint
+		"doc", "docx", "xls", "xlsx", "ppt", "pptx", "html", "htm", "txt",
+		// 压缩文件
+		"rar", "zip", "gz", "bz2",
+		// 视频格式
+		"mp4", "avi", "rmvb",
+		// pdf
+		"pdf"};
+
+	/**
+	 * 基于魔数和文件后缀获取内容类型
+	 * 1. 先进行魔数筛选
+	 * 2. 根据魔数筛选结果,进行后缀获取内容类型
 	 *
-	 * @param fid 标识 {@code 0-131071 }区间内的数字
+	 * @param file File
+	 * @return {@link String}String
 	 */
-	public YeinGid(int fid) {
-		if (fid < 0 || fid > FID_MASK) {
-			throw new IllegalArgumentException("非 0-131071 区间内的数字[fid=" + fid + "]");
-		}
-		SEQUENCE.compareAndSet(SEQ_BOUND, 0);
-		this.version = CURRENT_VERSION;
-		this.timestamp = (int) (System.currentTimeMillis() / 1000);
-		this.fid = fid;
-		this.seq = SEQUENCE.incrementAndGet();
-	}
+	public static String getMimeType(File file) {
+		Assert.isTrue(file.exists(), "文件不能为空");
+		String fileHeader = getFileHeader(file);
 
-	/**
-	 * 从编码字符串解析 {@link YeinGid}.
-	 *
-	 * @param hexString 32进制编码的字符串
-	 * @return {@link YeinGid}
-	 */
-	public static YeinGid fromString(String hexString) {
-		if (hexString == null || hexString.isEmpty()) {
-			throw new IllegalArgumentException("YeinGid: hexString 参数为 null");
-		}
-		if (hexString.length() > YEIN_GID_LENGTH) {
-			throw new IllegalArgumentException("YeinGid: 非法的 hexString 参数 \"" + hexString + "\"");
-		}
-
-		long[] longs = new long[YEIN_GID_LENGTH];
-		char[] chars = hexString.toCharArray();
-		for (int i = 0; i < chars.length; i++) {
-			int idx = Arrays.binarySearch(DIGITS, chars[i]);
-			if (idx < 0) {
-				throw new IllegalArgumentException("YeinGid: 非法的 hexString 编码 \"" + hexString + "\"");
+		if (!StringUtils.isEmpty(fileHeader)) {
+			/**
+			 * 魔数判断
+			 */
+			String mimeType = MagicType.getMimeType(fileHeader.toUpperCase());
+			if (MimeType.DEFAULT_FILE_CONTENT_TYPE.equals(mimeType)) {
+				String suffix = FileNameUtil.getSuffix(file);
+				mimeType = MimeType.getMimeTypeBySuffix(suffix);
 			}
-			longs[i] = idx;
+			return mimeType;
 		}
-
-		long highBits =
-			longs[0] << 59
-				| longs[1] << 54
-				| longs[2] << 49
-				| longs[3] << 44
-				| longs[4] << 39
-				| longs[5] << 34
-				| longs[6] << 29
-				| longs[7] << 24
-				| longs[8] << 19
-				| longs[9] << 14
-				| longs[10] << 9
-				| longs[11] << 4
-				| (longs[12] >> 1 & 0xf);
-		long lowBits = (longs[12] & 0x1) << 63 | longs[13] << 58 | longs[14] << 53;
-
-		int version = (int) (highBits >> 61 & VERSION_MASK);
-		int timestamp = (int) (highBits >> 29 & SECONDS_MASK);
-		int fid = (int) (highBits >> 12 & FID_MASK);
-
-		// seq 有 12bits 是存储在高位中的
-		int seq = (int) ((highBits & 0xfff) << 11 | (lowBits >> 53) & 0x7ff);
-		return new YeinGid(version, timestamp, fid, seq, hexString);
+		return MimeType.DEFAULT_FILE_CONTENT_TYPE;
 	}
 
 	/**
-	 * 返回 YeinGid 的版本号.
+	 * 文件后缀获取内容类型
 	 *
-	 * @return 版本号
+	 * @param file MultipartFile
+	 * @return {@link String}
 	 */
-	public int getVersion() {
-		return version;
+	public static String getMimeType(MultipartFile file) {
+		String suffix = FileTypeUtils.getSuffix(file);
+		return MimeType.getMimeTypeBySuffix(suffix);
 	}
 
 	/**
-	 * 返回 YeinGid 创建时间(unix timestamp).
+	 * 获取文件类型
+	 * <p>
+	 * 例如: chaos.txt, 返回: txt
 	 *
-	 * @return 创建时间
+	 * @param file 文件名
+	 * @return 后缀（不含".")
 	 */
-	public int getTimestamp() {
-		return timestamp;
+	public static String getSuffix(File file) {
+		Assert.notNull(file, "文件不能为空");
+		return getSuffix(file.getName());
 	}
 
 	/**
-	 * 返回标识.
+	 * 获取文件后缀
 	 *
-	 * @return 标识
+	 * @param file MultipartFile
+	 * @return {@link String}
 	 */
-	public int getFid() {
-		return fid;
-	}
-
-	/**
-	 * 返回序列号.
-	 *
-	 * @return 序列号
-	 */
-	public int getSeq() {
-		return seq;
-	}
-
-	/**
-	 * 返回 YeinGid 32进制编码的字符串.
-	 *
-	 * @return 32进制编码的字符串
-	 */
-	public String toHexString() {
-		if (hexString != null) {
-			return hexString;
+	public static String getSuffix(MultipartFile file) {
+		Assert.notNull(file, "文件不能为空");
+		String fileName = file.getOriginalFilename();
+		assert fileName != null;
+		int separatorIndex = fileName.lastIndexOf(".");
+		if (separatorIndex < 0) {
+			return "";
 		}
-
-		char[] value = new char[YEIN_GID_LENGTH];
-		long highBits =
-			(long) CURRENT_VERSION << 61 | (long) timestamp << 29 | (long) fid << 12 | (long) seq >> 11;
-		// seq 剩余 11bits
-		long lowBits = ((long) seq & 0x7ff) << 53;
-
-		value[0] = DIGITS[(int) (highBits >> 59 & 0x1f)];
-		value[1] = DIGITS[(int) (highBits >> 54 & 0x1f)];
-		value[2] = DIGITS[(int) (highBits >> 49 & 0x1f)];
-		value[3] = DIGITS[(int) (highBits >> 44 & 0x1f)];
-		value[4] = DIGITS[(int) (highBits >> 39 & 0x1f)];
-		value[5] = DIGITS[(int) (highBits >> 34 & 0x1f)];
-		value[6] = DIGITS[(int) (highBits >> 29 & 0x1f)];
-		value[7] = DIGITS[(int) (highBits >> 24 & 0x1f)];
-		value[8] = DIGITS[(int) (highBits >> 19 & 0x1f)];
-		value[9] = DIGITS[(int) (highBits >> 14 & 0x1f)];
-		value[10] = DIGITS[(int) (highBits >> 9 & 0x1f)];
-		value[11] = DIGITS[(int) (highBits >> 4 & 0x1f)]; // highBits 还剩余 4bits 需要在后续编码
-		value[12] = DIGITS[(int) ((highBits & 0xf) << 1 | lowBits >> 63 & 0x1)];
-		value[13] = DIGITS[(int) (lowBits >> 58 & 0x1f)];
-		value[14] = DIGITS[(int) (lowBits >> 53 & 0x1f)];
-
-		this.hexString = new String(value);
-		return hexString;
+		return StringUtils.subAfter(fileName, ".", true);
 	}
 
-	@Override
-	public String toString() {
-		return toHexString();
+	/**
+	 * 获取文件类型
+	 * <p>
+	 * 例如: chaos.txt, 返回: txt
+	 *
+	 * @param fileName 文件名
+	 * @return {@link String} 后缀（不含".")
+	 */
+	public static String getSuffix(String fileName) {
+		int separatorIndex = fileName.lastIndexOf(".");
+		if (separatorIndex < 0) {
+			return "";
+		}
+		return StringUtils.subAfter(fileName, ".", true);
+	}
+
+	/**
+	 * 根据Mine获取文档的 后缀
+	 *
+	 * @param mime Mine
+	 * @return {@link String} 后缀（不含".")
+	 */
+	public static String getSuffixByMimeType(String mime) {
+		Assert.isTrue(StringUtils.isNotBlank(mime), "MimeType不能为空");
+		return MimeType.getSuffixByMimeType(mime);
+	}
+
+	/**
+	 * 根据Magic获取文档的 后缀
+	 *
+	 * @param file 效验文件
+	 * @return {@link String} 后缀（不含".")
+	 */
+	public static String getSuffixByMagic(File file) {
+		Assert.isTrue(file.exists(), "文件不能为空");
+		String fileHeader = getFileHeader(file);
+		if (!StringUtils.isEmpty(fileHeader)) {
+			return MagicType.getSuffix(fileHeader.toUpperCase());
+		}
+		return null;
+	}
+
+	/**
+	 * 获取文件头部
+	 * </p>
+	 *
+	 * @param file File
+	 * @return {@link String}
+	 */
+	public static String getFileHeader(File file) {
+		byte[] b = new byte[28];
+		try (InputStream inputStream = new FileInputStream(file)) {
+			inputStream.read(b, 0, 28);
+		} catch (Exception e) {
+			throw new ChaosException("读取文件失败", e);
+		}
+		return byteToHex(b);
+	}
+
+	/**
+	 * 将字节数组转换成16进制字符串
+	 *
+	 * @param bytes 字节数组
+	 * @return {@link String}
+	 */
+	private static String byteToHex(byte[] bytes) {
+		Assert.isFalse(ArrayUtil.isEmpty(bytes), "字节数组不能为空");
+		StringBuilder stringBuilder = new StringBuilder();
+		for (byte bit : bytes) {
+			int v = bit & 0xFF;
+			String hv = Integer.toHexString(v);
+			if (hv.length() < 2) {
+				stringBuilder.append(0);
+			}
+			stringBuilder.append(hv);
+		}
+		return stringBuilder.toString();
 	}
 }
-

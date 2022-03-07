@@ -204,8 +204,8 @@
 
 package club.gclmit.chaos.web.config;
 
-import club.gclmit.chaos.core.log.Logger;
-import club.gclmit.chaos.core.log.LoggerServer;
+import club.gclmit.chaos.core.lang.log.Logger;
+import club.gclmit.chaos.core.lang.log.LoggerServer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
