@@ -208,7 +208,6 @@ import club.gclmit.chaos.core.utils.SecureUtils;
 import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.chaos.starter.mapper.FileMapper;
 import club.gclmit.chaos.starter.service.DefaultFileService;
-import club.gclmit.chaos.storage.contants.FileStatus;
 import club.gclmit.chaos.storage.pojo.FileInfo;
 import club.gclmit.chaos.storage.service.CloudStorageClient;
 import cn.hutool.core.date.DateUtil;
@@ -242,15 +241,12 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
 	 * @return {@link FileInfo}
 	 */
 	@Override
-	public FileInfo uploadFile(MultipartFile file, boolean temp) {
+	public FileInfo uploadFile(MultipartFile file) {
 		String md5 = SecureUtils.md5(file);
 		FileInfo fileInfo = queryMd5(md5);
 		if (fileInfo == null) {
 			fileInfo = storageClient.upload(file);
 			if (StringUtils.isNotBlank(fileInfo.getUrl())) {
-				if (temp) {
-					fileInfo.setStatus(FileStatus.TEMP_SAVE.getCode());
-				}
 				save(fileInfo);
 			}
 		}

@@ -221,10 +221,9 @@ public interface DefaultFileService extends IService<FileInfo> {
 	 * 上传文件到 OSS中
 	 *
 	 * @param file MultipartFile
-	 * @param temp 临时文件
 	 * @return {@link FileInfo}
 	 */
-	public FileInfo uploadFile(MultipartFile file, boolean temp);
+	public FileInfo uploadFile(MultipartFile file);
 
 	/**
 	 * 根据文件 MD5 判断文件是否存在
