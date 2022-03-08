@@ -232,9 +232,7 @@ public class ChaosLoggerConfig implements WebMvcConfigurer {
 	private ChaosProperties properties;
 
 	/**
-	 * <p>
 	 * 配置 {@link LoggerProperties}
-	 * </p>
 	 *
 	 * @return {@link LoggerProperties}
 	 */

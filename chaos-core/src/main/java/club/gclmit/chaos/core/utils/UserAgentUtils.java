@@ -224,14 +224,9 @@ import java.util.Map;
  */
 public class UserAgentUtils extends UserAgentUtil {
 
-	private UserAgentUtils() {
-	}
-
 	public static final String DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36";
 	public static final String DEFAULT_MOBILE_USER_AGENT = "Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A403 Safari/8536.25";
-
 	private static final Map<String, List<String>> USERAGENT_LIST = new HashMap<>();
-
 
 	static {
 		String agent = ResourceUtil.readUtf8Str("UserAgent.json");
@@ -241,6 +236,10 @@ public class UserAgentUtils extends UserAgentUtil {
 			List<String> object = JSONArray.parseArray(jsonObject.getString(key), String.class);
 			USERAGENT_LIST.put(key, object);
 		}
+	}
+
+
+	private UserAgentUtils() {
 	}
 
 	/**

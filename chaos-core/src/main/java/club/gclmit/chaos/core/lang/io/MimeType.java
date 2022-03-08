@@ -564,9 +564,7 @@ public enum MimeType {
 	}
 
 	/**
-	 * <p>
 	 * 生成枚举注释
-	 * </p>
 	 *
 	 * @param type MimeType
 	 * @return {@link String}

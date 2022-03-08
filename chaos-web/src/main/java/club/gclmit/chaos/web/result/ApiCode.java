@@ -299,9 +299,7 @@ public enum ApiCode {
 	private final String message;
 
 	/**
-	 * <p>
 	 * 私有化构造器
-	 * </p>
 	 *
 	 * @param code    状态码
 	 * @param message 请求消息
@@ -312,9 +310,7 @@ public enum ApiCode {
 	}
 
 	/**
-	 * <p>
 	 * 根据响应状态码找到枚举对象
-	 * </p>
 	 *
 	 * @param apiCode 状态码
 	 * @return ApiCode

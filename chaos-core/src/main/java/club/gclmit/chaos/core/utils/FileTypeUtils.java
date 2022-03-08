@@ -370,7 +370,6 @@ public class FileTypeUtils {
 
 	/**
 	 * 获取文件头部
-	 * </p>
 	 *
 	 * @param file File
 	 * @return {@link String}

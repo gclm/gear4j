@@ -204,19 +204,14 @@
 
 package club.gclmit.chaos.core.http;
 
-import club.gclmit.chaos.core.utils.IOUtils;
-import club.gclmit.chaos.core.utils.StringUtils;
-import cn.hutool.core.map.MapUtil;
+import club.gclmit.chaos.core.utils.UserAgentUtils;
 import com.ejlchina.okhttps.HttpResult;
 import com.ejlchina.okhttps.OkHttps;
 import com.ejlchina.okhttps.internal.RealHttpResult;
 import okhttp3.Response;
 
-import java.io.File;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * 通用请求客户端
@@ -270,221 +265,10 @@ public class HttpRequestClient {
 	 * @return {@link Map}
 	 */
 	public static Map<String, String> header() {
-		Map<String, String> header = new HashMap<>(4);
+		Map<String, String> header = new HashMap<>(15);
 		header.put("Cache-Control", "no-cache");
 		header.put("Accept", "*/*");
-		header.put("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36");
+		header.put("User-Agent", UserAgentUtils.getRandomUserAgent());
 		return header;
-	}
-
-	/**
-	 * get 请求
-	 *
-	 * @param url 请求url
-	 * @return {@link String}
-	 */
-	public static String get(String url) {
-		return get(url, header());
-	}
-
-	/**
-	 * get 请求
-	 *
-	 * @param url     请求url
-	 * @param headers 请求头
-	 * @return {@link String}
-	 */
-	public static String get(String url, Map<String, String> headers) {
-		return getResult(url, headers).getBody().toString();
-	}
-
-	/**
-	 * get 请求
-	 *
-	 * @param url     请求url
-	 * @param headers 请求头
-	 * @return {@link String}
-	 */
-	public static HttpResult getResult(String url, Map<String, String> headers) {
-		return OkHttps.async(url).addHeader(headers).get().getResult();
-	}
-
-	/**
-	 * post 请求
-	 *
-	 * @param url    请求url
-	 * @param params 请求参数
-	 * @param type   格式类型 json|from
-	 * @return {@link String}
-	 */
-	public static String post(String url, Map<String, ?> params, String type) {
-		return post(url, params, header(), type);
-	}
-
-	/**
-	 * post 请求
-	 *
-	 * @param url     请求url
-	 * @param params  请求参数
-	 * @param headers 请求头
-	 * @param type    格式类型 json|from
-	 * @return {@link String}
-	 */
-	public static String post(String url, Map<String, ?> params, Map<String, String> headers, String type) {
-		return OkHttps.async(url).addHeader(headers).addBodyPara(params).bodyType(type).post().getResult().getBody().toString();
-	}
-
-	/**
-	 * post 请求
-	 *
-	 * @param url     请求url
-	 * @param json    请求参数
-	 * @param headers 请求头
-	 * @return {@link String}
-	 */
-	public static String post(String url, String json, Map<String, String> headers) {
-		return Objects.requireNonNull(postResult(url, null, json, headers, null)).getBody().toString();
-	}
-
-
-	/**
-	 * post 请求
-	 *
-	 * @param url     请求url
-	 * @param params  请求参数
-	 * @param json    请求参数
-	 * @param headers 请求头
-	 * @param type    格式类型 json|from
-	 * @return {@link HttpResult}
-	 */
-	public static HttpResult postResult(String url, Map<String, ?> params, String json, Map<String, String> headers, String type) {
-		if (MapUtil.isNotEmpty(params) && StringUtils.isBlank(json)) {
-			return OkHttps.async(url).addHeader(headers).addBodyPara(params).bodyType(type).post().getResult();
-		} else if (MapUtil.isEmpty(params) && StringUtils.isNotBlank(json)) {
-			return OkHttps.async(url).addHeader(headers).setBodyPara(json).bodyType(OkHttps.JSON).post().getResult();
-		}
-		return null;
-	}
-
-
-	/**
-	 * put 请求
-	 *
-	 * @param url    请求url
-	 * @param params 请求参数
-	 * @return {@link String}
-	 */
-	public static String put(String url, Map<String, ?> params) {
-		return put(url, params, header());
-	}
-
-
-	/**
-	 * put 请求
-	 *
-	 * @param url     请求url
-	 * @param params  请求参数
-	 * @param headers 请求头
-	 * @return {@link String}
-	 */
-	public static String put(String url, Map<String, ?> params, Map<String, String> headers) {
-		return putResult(url, params, headers).getBody().toString();
-	}
-
-	/**
-	 * put 请求
-	 *
-	 * @param url     请求url
-	 * @param params  请求参数
-	 * @param headers 请求头
-	 * @return {@link HttpResult}
-	 */
-	public static HttpResult putResult(String url, Map<String, ?> params, Map<String, String> headers) {
-		return OkHttps.async(url).addHeader(headers).addBodyPara(params).put().getResult();
-	}
-
-	/**
-	 * delete 请求
-	 *
-	 * @param url 请求url
-	 */
-	public static void delete(String url) {
-		delete(url, header());
-	}
-
-	/**
-	 * delete 请求
-	 *
-	 * @param url     请求url
-	 * @param headers 请求头
-	 */
-	public static void delete(String url, Map<String, String> headers) {
-		deleteResult(url, header()).getBody();
-	}
-
-	/**
-	 * delete 请求
-	 *
-	 * @param url     请求url
-	 * @param headers 请求头
-	 * @return {@link HttpResult}
-	 */
-	public static HttpResult deleteResult(String url, Map<String, String> headers) {
-		return OkHttps.async(url).addHeader(headers).delete().getResult();
-	}
-
-	/**
-	 * 上传 请求
-	 *
-	 * @param url       请求url
-	 * @param fileParam 上传文件参数
-	 * @param file      上传文件
-	 * @return {@link String}
-	 */
-	public static String upload(String url, String fileParam, File file) {
-		return OkHttps.async(url).addHeader(header()).addFilePara(fileParam, file).post().getResult().getBody().toString();
-	}
-
-	/**
-	 * 上传 请求
-	 *
-	 * @param url       请求url
-	 * @param headers   请求头
-	 * @param fileParam 上传文件参数
-	 * @param file      上传文件
-	 * @return {@link String}
-	 */
-	public static String upload(String url, Map<String, String> headers, String fileParam, File file) {
-		return OkHttps.async(url).addHeader(headers).addFilePara(fileParam, file).post().getResult().getBody().toString();
-	}
-
-	/**
-	 * 上传 请求
-	 *
-	 * @param url         请求url
-	 * @param headers     请求头
-	 * @param params      请求参数
-	 * @param fileParam   上传文件参数
-	 * @param fileType    上传文件类型
-	 * @param fileName    上传文件名
-	 * @param inputStream 上传文件流
-	 * @return {@link String}
-	 */
-	public static String upload(String url, Map<String, String> headers, Map<String, String> params, String fileParam, String fileType, String fileName, InputStream inputStream) {
-		return OkHttps.async(url).addHeader(headers).addBodyPara(params).addFilePara(fileParam, fileType, fileName, IOUtils.readBytes(inputStream)).post().getResult().getBody().toString();
-	}
-
-	/**
-	 * 上传 请求
-	 *
-	 * @param url       请求url
-	 * @param params    请求参数
-	 * @param headers   请求头
-	 * @param fileParam 上传文件参数
-	 * @param file      上传文件
-	 * @return {@link String}
-	 */
-	public static String upload(String url, Map<String, ?> params, Map<String, String> headers, String fileParam, File file) {
-		return OkHttps.async(url).addHeader(headers).addBodyPara(params).addFilePara(fileParam, file).post().getResult().getBody().toString();
 	}
 }

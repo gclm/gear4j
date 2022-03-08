@@ -206,6 +206,7 @@ package club.gclmit.chaos.storage.service.impl;
 
 import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.core.http.HttpRequestClient;
+import club.gclmit.chaos.core.utils.IOUtils;
 import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.chaos.storage.contants.FileStatus;
 import club.gclmit.chaos.storage.contants.StorageServer;
@@ -215,6 +216,8 @@ import club.gclmit.chaos.storage.pojo.FileInfo;
 import club.gclmit.chaos.storage.service.AbstractStorageClient;
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSONObject;
+import com.ejlchina.okhttps.HttpResult;
+import com.ejlchina.okhttps.OkHttps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -240,7 +243,6 @@ public class FastdfsCloudStorageClient extends AbstractStorageClient {
 
 	/**
 	 * 初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
-	 * </p>
 	 *
 	 * @param cloudStorage Storage
 	 */
@@ -257,7 +259,6 @@ public class FastdfsCloudStorageClient extends AbstractStorageClient {
 
 	/**
 	 * 批量删除多个文件
-	 * </p>
 	 *
 	 * @param keys 文件路径集合
 	 */
@@ -271,7 +272,6 @@ public class FastdfsCloudStorageClient extends AbstractStorageClient {
 
 	/**
 	 * 删除文件
-	 * </p>
 	 *
 	 * @param key 文件路径
 	 */
@@ -279,13 +279,14 @@ public class FastdfsCloudStorageClient extends AbstractStorageClient {
 	public void delete(String key) {
 		Assert.hasLength(key, "[FastDFS]删除文件的key不能为空");
 		String url = serverUrl + "delete?path=" + key;
-		String result = HttpRequestClient.get(url);
+		String result = OkHttps.async(url)
+			.addHeader(HttpRequestClient.header()).get()
+			.getResult().getBody().toString();
 		log.info("当前删除状态:[{}]", result);
 	}
 
 	/**
 	 * 上传文件基础方法
-	 * </p>
 	 *
 	 * @param inputStream 上传文件流
 	 * @param fileInfo    文件信息
@@ -310,14 +311,22 @@ public class FastdfsCloudStorageClient extends AbstractStorageClient {
 
 			String fileName = fileInfo.getOssKey().replace(dateFormat + "/", "");
 
-			String result = HttpRequestClient.upload(uploadUrl, HttpRequestClient.header(), params, "file", fileInfo.getContentType(), fileName, inputStream);
-			String body = StringUtils.trimAll(result);
-			JSONObject mapper = JSONObject.parseObject(body);
-			if (mapper.containsKey("data")) {
-				mapper = mapper.getJSONObject("data");
-				url = mapper.getString("domain") + mapper.getString("path");
-				fileInfo.setOssKey(mapper.getString("path"));
+			HttpResult result = OkHttps.async(uploadUrl)
+				.addHeader(HttpRequestClient.header())
+				.addBodyPara(params)
+				.addFilePara("file", fileInfo.getContentType(), fileName, IOUtils.readBytes(inputStream))
+				.post()
+				.getResult();
+			if (result.isSuccessful()) {
+				String body = StringUtils.trimAll(result.getBody().cache().toString());
+				JSONObject mapper = JSONObject.parseObject(body);
+				if (mapper.containsKey("data")) {
+					mapper = mapper.getJSONObject("data");
+					url = mapper.getString("domain") + mapper.getString("path");
+					fileInfo.setOssKey(mapper.getString("path"));
+				}
 			}
+
 		} catch (Exception e) {
 			throw new ChaosException("[FastDFS]上传文件失败，请检查配置信息", e);
 		}

@@ -256,7 +256,6 @@ public class UcloudCloudStorageClient extends AbstractStorageClient {
 
 	/**
 	 * 初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
-	 * </p>
 	 *
 	 * @param cloudStorage Storage
 	 */
@@ -306,7 +305,6 @@ public class UcloudCloudStorageClient extends AbstractStorageClient {
 
 	/**
 	 * 上传文件基础方法
-	 * </p>
 	 *
 	 * @param inputStream 上传文件流
 	 * @param fileInfo    文件对象

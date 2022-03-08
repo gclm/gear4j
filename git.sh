@@ -7,14 +7,14 @@
 # 4. 推送本地代码、分支、标签到远程（可以使用git_push）
 
 # 拉去所有分支
-git_pull(){
-  git fetch --all
-  git pull --all
+git_pull() {
+    git fetch --all
+    git pull --all
 }
 
 # 批量修改
-git_update_username_email(){
-git filter-branch -f --env-filter '
+git_update_username_email() {
+    git filter-branch -f --env-filter '
 OLD_EMAIL="更正前邮箱"
 CORRECT_NAME="更正的用户名"
 CORRECT_EMAIL="更正的邮箱"
@@ -31,12 +31,12 @@ fi
 ' --tag-name-filter cat -- --branches --tags
 }
 
-git_push(){
-  # git push origin master --force 强行覆盖远程
-  # 推送所有标签
-  git push origin --tags
-  # 推送所有分支
-  git push REMOTE '*:*'
-  git push REMOTE --all
-  git push --all origin
+git_push() {
+    # git push origin master --force 强行覆盖远程
+    # 推送所有标签
+    git push origin --tags
+    # 推送所有分支
+    git push REMOTE '*:*'
+    git push REMOTE --all
+    git push --all origin
 }

@@ -314,9 +314,7 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
 	}
 
 	/**
-	 * <p>
 	 * 效验当前请求是否需要忽略
-	 * </p>
 	 *
 	 * @param uri 效验请求
 	 * @return boolean

@@ -248,13 +248,9 @@ public class SystemUtils {
 	}
 
 	/**
-	 * <p>
 	 * Gets a System property, defaulting to {@code null} if the property cannot be read.
-	 * </p>
-	 * <p>
 	 * If a {@code SecurityException} is caught, the return value is {@code null} and a message is written to
 	 * {@code System.err}.
-	 * </p>
 	 *
 	 * @param property the system property name
 	 * @return the system property value or {@code null} if a security problem occurs

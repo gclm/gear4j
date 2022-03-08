@@ -219,9 +219,7 @@ public class BigDecimalUtils {
 	}
 
 	/**
-	 * <p>
 	 * 加法
-	 * </p>
 	 *
 	 * @param v1 第一个数
 	 * @param v2 第二个数
@@ -234,9 +232,7 @@ public class BigDecimalUtils {
 	}
 
 	/**
-	 * <p>
 	 * 减法
-	 * </p>
 	 *
 	 * @param v1 第一个数
 	 * @param v2 第二个数
@@ -249,9 +245,7 @@ public class BigDecimalUtils {
 	}
 
 	/**
-	 * <p>
 	 * 除法
-	 * </p>
 	 *
 	 * @param v1 第一个数
 	 * @param v2 第二个数
@@ -264,9 +258,7 @@ public class BigDecimalUtils {
 	}
 
 	/**
-	 * <p>
 	 * 除法
-	 * </p>
 	 *
 	 * @param v1 第一个数
 	 * @param v2 第二个数

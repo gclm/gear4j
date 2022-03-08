@@ -17,7 +17,6 @@ public interface CloudStorageClient {
 
 	/**
 	 * 上传文件
-	 * </p>
 	 *
 	 * @param file 文件
 	 * @return {@link FileInfo} 文件信息
@@ -26,7 +25,6 @@ public interface CloudStorageClient {
 
 	/**
 	 * 上传文件
-	 * </p>
 	 *
 	 * @param file 文件
 	 * @return {@link FileInfo} 文件信息
@@ -36,7 +34,6 @@ public interface CloudStorageClient {
 
 	/**
 	 * 上传字节数组
-	 * </p>
 	 *
 	 * @param data     字节数组
 	 * @param key      文件路径
