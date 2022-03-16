@@ -1,3 +1,9 @@
+### 2.4.4
+
+- feat: 优化获取文件后缀的逻辑
+- feat: 新增上传文件白名单
+- feat: 新增springdoc支持
+
 ### 2.4.3
 
 - feat: 新增随机成功UserAgent方法

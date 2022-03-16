@@ -206,12 +206,14 @@ package club.gclmit.chaos.web.result;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * 对页面返回请求进行包装
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
+@Schema(description = "分页数据封装")
 @ApiModel(value = "分页数据封装", description = "分页数据封装")
 public class ApiPageResult {
 
@@ -219,24 +221,28 @@ public class ApiPageResult {
 	 * 总数量
 	 */
 	@ApiModelProperty(value = "总数量")
+	@Schema(description = "总数量")
 	private Long total;
 
 	/**
 	 * 分页数据
 	 */
 	@ApiModelProperty(value = "分页数据")
+	@Schema(description = "分页数据")
 	private Object list;
 
 	/**
 	 * 当前页数
 	 */
 	@ApiModelProperty(value = "当前页数")
+	@Schema(description = "当前页数")
 	private Long page;
 
 	/**
 	 * 每页数量
 	 */
 	@ApiModelProperty(value = "每页数量")
+	@Schema(description = "每页数量")
 	private Long pageSize;
 
 	public ApiPageResult() {

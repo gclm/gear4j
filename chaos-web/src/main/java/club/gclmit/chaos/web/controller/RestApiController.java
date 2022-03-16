@@ -212,6 +212,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -241,6 +242,7 @@ public class RestApiController<Service extends IService<T>, T> {
 	 * @return {@link ApiResult}
 	 */
 	@ApiOperation(value = "添加数据", notes = "添加数据")
+	@Operation(summary = "添加数据")
 	@PostMapping
 	public ApiResult create(@Valid @RequestBody T t) {
 		Assert.notNull(t, "添加的操作数据为空");
@@ -256,6 +258,7 @@ public class RestApiController<Service extends IService<T>, T> {
 	 */
 	@GetMapping
 	@ApiOperation(value = "分页查询", httpMethod = "GET")
+	@Operation(summary = "分页查询")
 	public ApiResult list(QueryCondition queryCondition) {
 		log.info("分页查询\t:[{}]", StringUtils.toString(queryCondition));
 		Page<T> pages = service.page(new Page<>(queryCondition.getPage(), queryCondition.getPageSize()));
@@ -270,6 +273,7 @@ public class RestApiController<Service extends IService<T>, T> {
 	 * @return {@link ApiResult}
 	 */
 	@ApiOperation(value = "根据id查询数据详情", notes = "根据id查询数据详情")
+	@Operation(summary = "根据id查询数据详情")
 	@ApiParam(name = "id", required = true, example = "1111")
 	@GetMapping("/{id}")
 	public ApiResult getInfo(@PathVariable String id) {
@@ -286,6 +290,7 @@ public class RestApiController<Service extends IService<T>, T> {
 	 * @return {@link ApiResult}
 	 */
 	@ApiOperation(value = "更新数据", notes = "更新数据")
+	@Operation(summary = "更新数据")
 	@PutMapping
 	public ApiResult update(@Valid @RequestBody T t) {
 		Assert.notNull(t, "添加的操作数据为空");
@@ -300,6 +305,7 @@ public class RestApiController<Service extends IService<T>, T> {
 	 * @return {@link ApiResult}
 	 */
 	@ApiOperation(value = "根据id删除数据", notes = "根据id删除数据")
+	@Operation(summary = "根据id删除数据")
 	@ApiParam(name = "id", required = true, example = "1111")
 	@DeleteMapping("/{id}")
 	public ApiResult delete(@PathVariable String id) {
@@ -315,6 +321,7 @@ public class RestApiController<Service extends IService<T>, T> {
 	 * @return {@link ApiResult}
 	 */
 	@ApiOperation(value = "批量删除", notes = "批量删除")
+	@Operation(summary = "批量删除")
 	@DeleteMapping("/batch")
 	public ApiResult batchDelete(String ids) {
 		Assert.notNull(ids, "ids不能为空");

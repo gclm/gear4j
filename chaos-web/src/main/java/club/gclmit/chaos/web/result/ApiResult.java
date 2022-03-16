@@ -208,6 +208,7 @@ import club.gclmit.chaos.core.utils.StringUtils;
 import cn.hutool.core.date.DateUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -218,7 +219,8 @@ import java.util.Map;
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-@ApiModel(value = "通用消息响应", description = "通用消息响应")
+@ApiModel(value = "通用消息响应")
+@Schema(description = "通用消息响应")
 public class ApiResult implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -228,24 +230,28 @@ public class ApiResult implements Serializable {
 	 * 响应状态码
 	 */
 	@ApiModelProperty(value = "响应状态码", required = true)
+	@Schema(description = "响应状态码", required = true)
 	private Integer code;
 
 	/**
 	 * 响应提示
 	 */
 	@ApiModelProperty(value = "响应提示消息", required = true)
+	@Schema(description = "响应提示消息", required = true)
 	private String message;
 
 	/**
 	 * 响应时间戳
 	 */
 	@ApiModelProperty(value = "响应时间戳", required = true)
+	@Schema(description = "响应时间戳", required = true)
 	private String timestamp = TIMESTAMP;
 
 	/**
 	 * 响应数据
 	 */
 	@ApiModelProperty(value = "响应数据")
+	@Schema(description = "响应数据")
 	private Object data;
 
 
