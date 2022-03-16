@@ -205,12 +205,13 @@
 package club.gclmit.chaos.core.utils;
 
 import club.gclmit.chaos.core.exception.ChaosException;
-import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.IdUtil;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Spring MVC 文件上传
@@ -220,6 +221,42 @@ import java.io.IOException;
  * @since jdk11
  */
 public class UploadFileUtils {
+
+	/**
+	 * 图片
+	 */
+	public static final String[] IMAGE_EXTENSION = {"bmp", "gif", "jpg", "jpeg", "png"};
+
+	/**
+	 * flash
+	 */
+	public static final String[] FLASH_EXTENSION = {"swf", "flv"};
+
+	/**
+	 * media 后缀
+	 */
+	public static final String[] MEDIA_EXTENSION = {"swf", "flv", "mp3", "wav", "wma", "wmv", "mid", "avi", "mpg", "asf", "rm", "rmvb"};
+
+	/**
+	 * video 后缀
+	 */
+	public static final String[] VIDEO_EXTENSION = {"mp4", "avi", "rmvb"};
+
+	/**
+	 * 默认允许的后缀名
+	 */
+	public static final String[] DEFAULT_ALLOWED_EXTENSION = {
+		// 图片
+		"bmp", "gif", "jpg", "jpeg", "png",
+		// word excel powerpoint
+		"doc", "docx", "xls", "xlsx", "ppt", "pptx", "html", "htm", "txt",
+		// 压缩文件
+		"rar", "zip", "gz", "bz2",
+		// 视频格式
+		"mp4", "avi", "rmvb",
+		// pdf
+		"pdf"};
+
 
 	private UploadFileUtils() {
 	}
@@ -252,8 +289,7 @@ public class UploadFileUtils {
 	 * @return java.io.File
 	 */
 	public static File multipartFileToFile(MultipartFile multipartFile) {
-		Assert.notNull(multipartFile.isEmpty(), "multipartFile 不能为空");
-		return multipartFileToFile(multipartFile, FileUtils.getRootPath());
+		return multipartFileToFile(multipartFile, FileUtils.getRootPath(), Arrays.asList(DEFAULT_ALLOWED_EXTENSION));
 	}
 
 	/**
@@ -264,17 +300,29 @@ public class UploadFileUtils {
 	 * @return java.io.File
 	 */
 	public static File multipartFileToFile(MultipartFile multipartFile, String dirPath) {
-		Assert.notNull(multipartFile.isEmpty(), "multipartFile 不能为空");
-
-		dirPath = StringUtils.isEmpty(dirPath) ? FileUtils.getRootPath() : dirPath;
-		File localFile = new File(dirPath, IdUtil.fastSimpleUUID() + "." + FileTypeUtils.getSuffix(multipartFile));
-
-		try {
-			multipartFile.transferTo(localFile);
-		} catch (IOException e) {
-			throw new ChaosException("MultipartFile To File 失败", e);
-		}
-		return localFile;
+		return multipartFileToFile(multipartFile, dirPath, Arrays.asList(DEFAULT_ALLOWED_EXTENSION));
 	}
 
+	/**
+	 * MultipartFile 转 File
+	 *
+	 * @param multipartFile springmvc封装的上传文件
+	 * @param dirPath       文件夹路径
+	 * @return java.io.File
+	 */
+	public static File multipartFileToFile(MultipartFile multipartFile, String dirPath, List<String> whiteList) {
+		String suffix = FileTypeUtils.getSuffix(multipartFile);
+		if (whiteList.contains(suffix)) {
+			dirPath = StringUtils.isEmpty(dirPath) ? FileUtils.getRootPath() : dirPath;
+			File localFile = new File(dirPath, IdUtil.fastSimpleUUID() + "." + suffix);
+
+			try {
+				multipartFile.transferTo(localFile);
+			} catch (IOException e) {
+				throw new ChaosException("MultipartFile To File 失败", e);
+			}
+			return localFile;
+		}
+		return null;
+	}
 }

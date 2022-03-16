@@ -214,6 +214,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -224,40 +225,8 @@ import java.io.InputStream;
  */
 public class FileTypeUtils {
 
-	/**
-	 * 图片
-	 */
-	public static final String[] IMAGE_EXTENSION = {"bmp", "gif", "jpg", "jpeg", "png"};
-
-	/**
-	 * flash
-	 */
-	public static final String[] FLASH_EXTENSION = {"swf", "flv"};
-
-	/**
-	 * media 后缀
-	 */
-	public static final String[] MEDIA_EXTENSION = {"swf", "flv", "mp3", "wav", "wma", "wmv", "mid", "avi", "mpg", "asf", "rm", "rmvb"};
-
-	/**
-	 * video 后缀
-	 */
-	public static final String[] VIDEO_EXTENSION = {"mp4", "avi", "rmvb"};
-
-	/**
-	 * 默认允许的后缀名
-	 */
-	public static final String[] DEFAULT_ALLOWED_EXTENSION = {
-		// 图片
-		"bmp", "gif", "jpg", "jpeg", "png",
-		// word excel powerpoint
-		"doc", "docx", "xls", "xlsx", "ppt", "pptx", "html", "htm", "txt",
-		// 压缩文件
-		"rar", "zip", "gz", "bz2",
-		// 视频格式
-		"mp4", "avi", "rmvb",
-		// pdf
-		"pdf"};
+	private FileTypeUtils() {
+	}
 
 	/**
 	 * 基于魔数和文件后缀获取内容类型
@@ -270,9 +239,8 @@ public class FileTypeUtils {
 	public static String getMimeType(File file) {
 		Assert.isTrue(file.exists(), "文件不能为空");
 		String fileHeader = getFileHeader(file);
-
 		if (!StringUtils.isEmpty(fileHeader)) {
-			/**
+			/*
 			 * 魔数判断
 			 */
 			String mimeType = MagicType.getMimeType(fileHeader.toUpperCase());
@@ -298,7 +266,6 @@ public class FileTypeUtils {
 
 	/**
 	 * 获取文件类型
-	 * <p>
 	 * 例如: chaos.txt, 返回: txt
 	 *
 	 * @param file 文件名
@@ -306,7 +273,7 @@ public class FileTypeUtils {
 	 */
 	public static String getSuffix(File file) {
 		Assert.notNull(file, "文件不能为空");
-		return getSuffix(file.getName());
+		return getSuffix(getSuffix(file.getName()), getSuffixByMagic(file));
 	}
 
 	/**
@@ -319,16 +286,30 @@ public class FileTypeUtils {
 		Assert.notNull(file, "文件不能为空");
 		String fileName = file.getOriginalFilename();
 		assert fileName != null;
-		int separatorIndex = fileName.lastIndexOf(".");
-		if (separatorIndex < 0) {
-			return "";
+		return getSuffix(getSuffix(fileName), getSuffixByMagic(file));
+	}
+
+	/**
+	 * 获取文件后缀
+	 *
+	 * @param suffix 基于文件名获取的后缀
+	 * @param magic  基于magic获取的后缀
+	 * @return {@link String}
+	 */
+	private static String getSuffix(String suffix, String magic) {
+		if (StringUtils.isBlank(suffix) && StringUtils.isBlank(magic)) {
+			return null;
+		} else if (StringUtils.isBlank(magic) && StringUtils.isNotBlank(suffix)) {
+			return suffix;
+		} else if (StringUtils.isNotBlank(magic) && StringUtils.isBlank(suffix)) {
+			return magic;
+		} else {
+			return magic;
 		}
-		return StringUtils.subAfter(fileName, ".", true);
 	}
 
 	/**
 	 * 获取文件类型
-	 * <p>
 	 * 例如: chaos.txt, 返回: txt
 	 *
 	 * @param fileName 文件名
@@ -337,7 +318,7 @@ public class FileTypeUtils {
 	public static String getSuffix(String fileName) {
 		int separatorIndex = fileName.lastIndexOf(".");
 		if (separatorIndex < 0) {
-			return "";
+			return null;
 		}
 		return StringUtils.subAfter(fileName, ".", true);
 	}
@@ -361,12 +342,34 @@ public class FileTypeUtils {
 	 */
 	public static String getSuffixByMagic(File file) {
 		Assert.isTrue(file.exists(), "文件不能为空");
-		String fileHeader = getFileHeader(file);
+		String header = getFileHeader(file);
+		return getSuffixByMagic(header);
+	}
+
+	/**
+	 * 根据Magic获取文档的 后缀
+	 *
+	 * @param file 效验文件
+	 * @return {@link String} 后缀（不含".")
+	 */
+	public static String getSuffixByMagic(MultipartFile file) {
+		String header = getFileHeader(file);
+		return getSuffixByMagic(header);
+	}
+
+	/**
+	 * 根据Magic获取文档的 后缀
+	 *
+	 * @param fileHeader Magic
+	 * @return {@link String} 后缀（不含".")
+	 */
+	public static String getSuffixByMagic(String fileHeader) {
 		if (!StringUtils.isEmpty(fileHeader)) {
 			return MagicType.getSuffix(fileHeader.toUpperCase());
 		}
 		return null;
 	}
+
 
 	/**
 	 * 获取文件头部
@@ -375,12 +378,36 @@ public class FileTypeUtils {
 	 * @return {@link String}
 	 */
 	public static String getFileHeader(File file) {
-		byte[] b = new byte[28];
 		try (InputStream inputStream = new FileInputStream(file)) {
-			inputStream.read(b, 0, 28);
+			return getFileHeader(inputStream);
 		} catch (Exception e) {
 			throw new ChaosException("读取文件失败", e);
 		}
+	}
+
+	/**
+	 * 获取文件头部
+	 *
+	 * @param file File
+	 * @return {@link String}
+	 */
+	public static String getFileHeader(MultipartFile file) {
+		try (InputStream inputStream = file.getInputStream()) {
+			return getFileHeader(inputStream);
+		} catch (Exception e) {
+			throw new ChaosException("读取文件失败", e);
+		}
+	}
+
+	/**
+	 * 获取文件头部
+	 *
+	 * @param steam File
+	 * @return {@link String}
+	 */
+	public static String getFileHeader(InputStream steam) throws IOException {
+		byte[] b = new byte[28];
+		steam.read(b, 0, 28);
 		return byteToHex(b);
 	}
 
