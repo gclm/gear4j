@@ -253,7 +253,7 @@ public class QueryHandlerMethodArgumentResolver implements HandlerMethodArgument
 
 		Class<?> clazz = chaosQuery.clazz();
 		log.info("chaos --> 当前转换Class:[{}]", clazz.getName());
-		Map<String, String[]> params = webRequest.getParameterMap();
+		Map<String, ?> params = webRequest.getParameterMap();
 		Object obj = BeanUtils.mapToBean(params, clazz);
 		log.info("chaos --> 解析后Object:[{}]", StringUtils.toString(obj));
 		return obj;

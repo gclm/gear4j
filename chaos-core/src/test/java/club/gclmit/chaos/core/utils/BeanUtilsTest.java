@@ -206,6 +206,7 @@ package club.gclmit.chaos.core.utils;
 
 import club.gclmit.chaos.core.pojo.Dog;
 import club.gclmit.chaos.core.pojo.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -243,6 +244,14 @@ public class BeanUtilsTest {
 		MAP.put("name", strArray);
 		MAP.put("role", strArray);
 		User user = BeanUtils.mapToBean(MAP, User.class);
+		System.out.println(user);
+	}
+
+	@Test
+	public void mapToObject3() throws Exception {
+		MAP.put("id", 1111);
+		ObjectMapper mapper = new ObjectMapper();
+		User user = mapper.convertValue(MAP, User.class);
 		System.out.println(user);
 	}
 

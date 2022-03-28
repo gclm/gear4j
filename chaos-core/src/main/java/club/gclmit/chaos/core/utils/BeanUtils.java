@@ -1,13 +1,12 @@
 package club.gclmit.chaos.core.utils;
 
+import club.gclmit.chaos.core.exception.ChaosException;
+import cn.hutool.core.util.ReflectUtil;
 import com.tuyang.beanutils.BeanCopyUtils;
 import org.springframework.cglib.beans.BeanMap;
 
-import java.beans.BeanInfo;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
 import java.lang.reflect.Array;
-import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,9 +24,13 @@ public class BeanUtils extends BeanCopyUtils {
 
 	/**
 	 * 将对象属性转化为map结合
+	 *
+	 * @param bean 待转换的object
+	 * @return {@link Map}
+	 * @author gclm
 	 */
 	public static <T> Map<String, Object> beanToMap(T bean) {
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>(33);
 		if (bean != null) {
 			BeanMap beanMap = BeanMap.create(bean);
 			for (Object key : beanMap.keySet()) {
@@ -39,26 +42,36 @@ public class BeanUtils extends BeanCopyUtils {
 
 	/**
 	 * 将map集合中的数据转化为指定对象的同名属性中
+	 *
+	 * @param map   待转换的Map
+	 * @param clazz 生成的Object
+	 * @return {@link Object}
+	 * @throws Exception 反射异常
+	 * @author gclm
 	 */
 	public static <T> T mapToBean(Map<String, ?> map, Class<T> clazz) throws Exception {
-		// 1、通过字节码对象创建空的实例
-		T bean = clazz.getDeclaredConstructor().newInstance();
-		// 2、通过 Introspector 类把bean对象信息封装到 beanInfo 中
-		BeanInfo beanInfo = Introspector.getBeanInfo(clazz, Object.class);
-		// 3、通过 getPropertyDescriptors() 获取一个属性(get/set)数组
-		PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-		// 4、遍历该数组，把获取的名字作为 map 的 key，通过 key 取出对应的 value 值
-		for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
-			String key = propertyDescriptor.getName();
-			Object value = map.get(key);
-			if (ArrayUtils.isArray(value)) {
-				value = Array.get(value, 0);
-			}
-			Class<?> propertyType = propertyDescriptor.getPropertyType();
-			Method writeMethod = propertyDescriptor.getWriteMethod();
-			writeMethod.invoke(bean, ConvertUtils.convert(value, propertyType));
+		if (map == null) {
+			return null;
 		}
-		return bean;
-	}
 
+		T obj = ReflectUtil.newInstance(clazz);
+		Field[] fields = ReflectUtil.getFields(clazz);
+
+		for (Field field : fields) {
+			field.setAccessible(true);
+			String name = field.getName();
+			if (map.containsKey(name)) {
+				Object value = map.get(name);
+				if (ArrayUtils.isArray(value)) {
+					if (Array.getLength(value) > 1) {
+						throw new ChaosException("不支持数组参数");
+					}
+					value = Array.get(value, 0);
+				}
+				field.set(obj, ConvertUtils.convert(value, field.getType()));
+			}
+			field.setAccessible(true);
+		}
+		return obj;
+	}
 }

@@ -214,9 +214,9 @@ public class User {
 
 	private String id;
 
-	private String name;
+	private String name = "111";
 
-	private Integer role;
+	private Integer role = 0;
 
 	public User(String id, String name, Integer role) {
 		this.id = id;
