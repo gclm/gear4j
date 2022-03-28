@@ -206,6 +206,7 @@ package club.gclmit.chaos.web.controller;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serializable;
 
@@ -216,6 +217,7 @@ import java.io.Serializable;
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
+@Schema(description = "查询条件")
 @ApiModel(value = "查询条件", description = "查询条件")
 public class QueryCondition implements Serializable {
 
@@ -223,12 +225,14 @@ public class QueryCondition implements Serializable {
 	 * 当前页码
 	 */
 	@ApiModelProperty(value = "当前页码", example = "1")
+	@Schema(description = "当前页码", example = "1")
 	private Long page = 1L;
 
 	/**
 	 * 每页数据条数
 	 */
 	@ApiModelProperty(value = "每页数据条数", example = "15")
+	@Schema(description = "每页数据条数", example = "15")
 	private Long pageSize = 15L;
 
 	/**
@@ -238,6 +242,7 @@ public class QueryCondition implements Serializable {
 	 * 3: 乱序
 	 */
 	@ApiModelProperty(value = "排序", example = "0")
+	@Schema(description = "排序", example = "0")
 	private int sort;
 
 	public Long getPage() {
