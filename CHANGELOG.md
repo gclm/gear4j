@@ -1,9 +1,11 @@
 ### 2.4.4
 
-- feat: 优化获取文件后缀的逻辑
-- feat: 新增上传文件白名单
-- feat: 新增springdoc支持
-- fix: 修复BOM依赖bug
+- 🎨: 优化获取文件后缀的逻辑和新增上传文件白名单🎨: 优化获取文件后缀的逻辑和新增上传文件白名单
+- ✨: 新增springdoc支持
+- 🎨: 新增jackson工具类和修复map to object🎨: 新增jackson工具类和修复map to object
+- 🐛: 修复bom依赖bug
+- 🐛: 修复UserAgentUtils 加载依赖错误
+- 🔊: 更新日志
 
 ### 2.4.3
 
