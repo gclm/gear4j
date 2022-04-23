@@ -9,7 +9,7 @@ apply from: "${rootProject.projectDir}/gradle/sonar.gradle"
 
 // 所有模块/项目的通用配置
 allprojects {
-    group = GROUPID
+    group = GROUP_ID
     version = VERSION
 
     apply plugin: 'maven-publish'
@@ -57,7 +57,7 @@ configure(subprojects - project(":chaos-bom")) {
     // 子项目依赖，类似于在父maven的dependencies
     dependencies {
         // import BOM.
-        implementation platform("club.gclmit:chaos-bom:$VERSION")
+        api platform(project(':chaos-bom'))
 
         compileOnly "org.slf4j:slf4j-api"
         compileOnly "jakarta.servlet:jakarta.servlet-api"
