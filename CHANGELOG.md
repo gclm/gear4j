@@ -3,6 +3,7 @@
 - feat: 优化获取文件后缀的逻辑
 - feat: 新增上传文件白名单
 - feat: 新增springdoc支持
+- fix: 修复BOM依赖bug
 
 ### 2.4.3
 
