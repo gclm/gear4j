@@ -26,8 +26,6 @@ public class BeanUtils extends BeanCopyUtils {
 	 * 将对象属性转化为map结合
 	 *
 	 * @param bean 待转换的object
-	 * @return {@link Map}
-	 * @author gclm
 	 */
 	public static <T> Map<String, Object> beanToMap(T bean) {
 		Map<String, Object> map = new HashMap<>(33);
@@ -45,9 +43,7 @@ public class BeanUtils extends BeanCopyUtils {
 	 *
 	 * @param map   待转换的Map
 	 * @param clazz 生成的Object
-	 * @return {@link Object}
 	 * @throws Exception 反射异常
-	 * @author gclm
 	 */
 	public static <T> T mapToBean(Map<String, ?> map, Class<T> clazz) throws Exception {
 		if (map == null) {

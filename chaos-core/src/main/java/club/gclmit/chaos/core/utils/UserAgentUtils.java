@@ -245,7 +245,6 @@ public class UserAgentUtils extends UserAgentUtil {
 	 *
 	 * @param browser 浏览器类型
 	 * @return 返回随机UserAgent
-	 * @author gclm
 	 */
 	public static String getUserAgent(Browsers browser) {
 		List<String> agents = USERAGENT_LIST.get(Browsers.getCode(browser));
@@ -256,7 +255,6 @@ public class UserAgentUtils extends UserAgentUtil {
 	 * 获取随机UserAgent
 	 *
 	 * @return 返回随机UserAgent
-	 * @author gclm
 	 */
 	public static String getRandomUserAgent() {
 		int index = RandomUtil.randomInt(Browsers.values().length);
