@@ -204,7 +204,7 @@
 
 package club.gclmit.chaos.core.utils;
 
-import cn.hutool.core.io.resource.ResourceUtil;
+import club.gclmit.chaos.core.lang.Browsers;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.alibaba.fastjson.JSONArray;
@@ -212,7 +212,6 @@ import com.alibaba.fastjson.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -229,7 +228,7 @@ public class UserAgentUtils extends UserAgentUtil {
 	private static final Map<String, List<String>> USERAGENT_LIST = new HashMap<>();
 
 	static {
-		String agent = ResourceUtil.readUtf8Str("UserAgent.json");
+		String agent = IOUtils.readUtf8(UserAgentUtils.class.getClassLoader().getResourceAsStream("UserAgent.json"));
 		JSONObject jsonObject = JSONObject.parseObject(agent);
 		for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
 			String key = String.valueOf(entry.getKey());
@@ -237,7 +236,6 @@ public class UserAgentUtils extends UserAgentUtil {
 			USERAGENT_LIST.put(key, object);
 		}
 	}
-
 
 	private UserAgentUtils() {
 	}
@@ -261,34 +259,9 @@ public class UserAgentUtils extends UserAgentUtil {
 	 * @author gclm
 	 */
 	public static String getRandomUserAgent() {
-		List<String> agents = USERAGENT_LIST.get(Browsers.getCode(Browsers.Chrome));
+		int index = RandomUtil.randomInt(Browsers.values().length);
+		Browsers browser = Browsers.values()[index];
+		List<String> agents = USERAGENT_LIST.get(Browsers.getCode(browser));
 		return agents.get(RandomUtil.randomInt(agents.size()));
-	}
-
-	enum Browsers {
-		/**
-		 * chrome
-		 */
-		Chrome,
-		/**
-		 * opera
-		 */
-		Opera,
-		/**
-		 * firefox
-		 */
-		Firefox,
-		/**
-		 * safari
-		 */
-		Safari,
-		/**
-		 * IE
-		 */
-		IE;
-
-		private static String getCode(Browsers browsers) {
-			return browsers.name().toLowerCase(Locale.ROOT);
-		}
 	}
 }
