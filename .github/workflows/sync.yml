@@ -5,8 +5,7 @@ name: Chaos CI Sync Gitee
 on: [ push, pull_request ]
 
 jobs:
-  docs:
-    name: Build JavaDoc
+  gradle:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,3 +20,5 @@ jobs:
           source-repo: git@github.com:gclm/chaos.git
           # 注意替换为你的 Gitee 目标仓库地址
           destination-repo: git@gitee.com:gclm/chaos.git
+
+
