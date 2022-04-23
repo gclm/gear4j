@@ -3,8 +3,9 @@
     <strong>一个功能强悍的 Spring Boot Starter 组件（Where dreams originate）</strong>
 </p>
 
-[![Chaos CI](https://github.com/antCodelab/chaos/actions/workflows/build.yml/badge.svg)](https://github.com/antCodelab/chaos/actions)
-[![Chaos CI](https://github.com/antCodelab/chaos/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/antCodelab/chaos/actions)
+[![Chaos CI](https://github.com/antCodelab/chaos/actions/workflows/build.yml/badge.svg)](https://github.com/antCodelab/chaos/actions/workflows/build.yml)
+[![Chaos CI](https://github.com/antCodelab/chaos/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/antCodelab/chaos/actions/workflows/gradle-publish.yml)
+[![Chaos CI](https://github.com/antCodelab/chaos/actions/workflows/sync.yml/badge.svg)](https://github.com/antCodelab/chaos/actions/workflows/sync.yml)
 [![Sonatype Maven Release](https://img.shields.io/nexus/r/https/oss.sonatype.org/club.gclmit/chaos-bom.svg?style=flat-square)](https://search.maven.org/search?q=g:%20club.gclmit%20AND%20a:%20chaos-bom)
 [![Sonatype Maven Snapshots](https://img.shields.io/nexus/s/https/oss.sonatype.org/club.gclmit/chaos-bom.svg?style=flat-square)](https://oss.sonatype.org/content/repositories/snapshots/club/gclmit/)
 [![JDK11](https://img.shields.io/badge/JDK-11+-brightgreen.svg)](https://github.com/antCodelab/chaos)
