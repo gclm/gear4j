@@ -205,6 +205,7 @@
 package club.gclmit.chaos.core.http.servlet;
 
 import club.gclmit.chaos.core.exception.ChaosException;
+import club.gclmit.chaos.core.lang.$;
 import club.gclmit.chaos.core.utils.StringUtils;
 import cn.hutool.core.lang.Assert;
 
@@ -224,28 +225,6 @@ import java.util.Map;
  * @since jdk11
  */
 public class ServletUtils {
-
-	/**
-	 * Http 魔法值
-	 */
-	public static final String UNKNOWN = "UNKNOWN";
-	/**
-	 * localhost 魔法值
-	 */
-	public static final String LOCALHOST = "0:0:0:0:0:0:0:1";
-	/**
-	 * 默认 host
-	 */
-	public static final String DEFAULT_HOST = "127.0.0.1";
-	/**
-	 * 上传内容类型
-	 */
-	private static final String UPLOAD_CONTENT_TYPE = "multipart/form-data";
-	/**
-	 * 默认请求内容类型
-	 */
-	private static final String DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
-
 	private ServletUtils() {
 	}
 
@@ -258,7 +237,7 @@ public class ServletUtils {
 	public static String getClientIp(HttpServletRequest request) {
 		Assert.notNull(request, "request instance is null.");
 		String ip = request.getHeader("X-Forwarded-For");
-		if (StringUtils.isNotEmpty(ip) && !UNKNOWN.equalsIgnoreCase(ip)) {
+		if (StringUtils.isNotEmpty(ip) && !$.UNKNOWN.equalsIgnoreCase(ip)) {
 			int index = ip.indexOf(",");
 			if (index != -1) {
 				return ip.substring(0, index);
@@ -267,26 +246,26 @@ public class ServletUtils {
 			}
 		}
 		ip = request.getHeader("X-Real-IP");
-		if (StringUtils.isNotEmpty(ip) && !UNKNOWN.equalsIgnoreCase(ip)) {
+		if (StringUtils.isNotEmpty(ip) && !$.UNKNOWN.equalsIgnoreCase(ip)) {
 			return ip;
 		}
-		if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+		if (StringUtils.isEmpty(ip) || $.UNKNOWN.equalsIgnoreCase(ip)) {
 			ip = request.getHeader("Proxy-Client-IP");
 		}
-		if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+		if (StringUtils.isEmpty(ip) || $.UNKNOWN.equalsIgnoreCase(ip)) {
 			ip = request.getHeader("WL-Proxy-Client-IP");
 		}
-		if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+		if (StringUtils.isEmpty(ip) || $.UNKNOWN.equalsIgnoreCase(ip)) {
 			ip = request.getHeader("HTTP_CLIENT_IP");
 		}
-		if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+		if (StringUtils.isEmpty(ip) || $.UNKNOWN.equalsIgnoreCase(ip)) {
 			ip = request.getHeader("HTTP_X_FORWARDED_FOR");
 		}
-		if (StringUtils.isEmpty(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+		if (StringUtils.isEmpty(ip) || $.UNKNOWN.equalsIgnoreCase(ip)) {
 			ip = request.getRemoteAddr();
 		}
 
-		return LOCALHOST.equals(ip) ? DEFAULT_HOST : ip;
+		return $.LOCALHOST.equals(ip) ? $.DEFAULT_HOST : ip;
 	}
 
 	/**
@@ -429,7 +408,7 @@ public class ServletUtils {
 	 */
 	public static boolean isFileUpload(HttpServletRequest request) {
 		Assert.notNull(request, "request instance is null.");
-		return getContentType(request).startsWith(UPLOAD_CONTENT_TYPE);
+		return getContentType(request).startsWith($.UPLOAD_CONTENT_TYPE);
 	}
 
 	/**
@@ -440,7 +419,7 @@ public class ServletUtils {
 	 */
 	public static String getContentType(HttpServletRequest request) {
 		Assert.notNull(request, "request instance is null.");
-		return StringUtils.isEmpty(request.getContentType()) ? DEFAULT_CONTENT_TYPE : request.getContentType();
+		return StringUtils.isEmpty(request.getContentType()) ? $.DEFAULT_CONTENT_TYPE : request.getContentType();
 	}
 
 
