@@ -213,11 +213,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
  * 统一异常处理控制器
+ * <p>
+ * 1. 参数校验异常
+ * 2. chaos组件异常
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since jdk11
  */
-public class GlobalExceptionHandler {
+public class ChaosGlobalExceptionHandler {
 
 	/**
 	 * 处理 validate 异常
