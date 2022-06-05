@@ -202,42 +202,49 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.waf.util;
+package club.gclmit.chaos.web.waf.util;
+
+import club.gclmit.chaos.web.waf.rule.HtmlFilterRule;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.safety.Safelist;
 
 /**
- * 利用 ThreadLocal 缓存线程间的数据
+ * Xss Utils
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
- * @author L.cm
  */
-public class XssHolder {
-
-	private static final ThreadLocal<Boolean> TL = new ThreadLocal<>();
-
-	private XssHolder() {
-	}
+public class XssUtils {
 
 	/**
-	 * 获取 ThreadLocal 缓存数据状态
-	 *
-	 * @return Boolean
+	 * 使用自带的basicWithImages 白名单
+	 * 允许的便签有a,b,blockquote,br,cite,code,dd,dl,dt,em,i,li,ol,p,pre,q,small,span,
+	 * strike,strong,sub,sup,u,ul,img
+	 * 以及a标签的href,img标签的src,align,alt,height,width,title属性
 	 */
-	public static boolean isEnabled() {
-		return Boolean.TRUE.equals(TL.get());
-	}
+	private static final Safelist WHITE_LIST = Safelist.basicWithImages();
 
 	/**
-	 * 启用 ThreadLocal 缓存数据
+	 * 配置过滤化参数,不对代码进行格式化
 	 */
-	public static void setEnable() {
-		TL.set(Boolean.TRUE);
+	private static final Document.OutputSettings OUTPUT_SETTINGS = new Document.OutputSettings().prettyPrint(false);
+
+	static {
+		// 富文本编辑时一些样式是使用style来进行实现的
+		// 比如红色字体 style="color:red;"
+		// 所以需要给所有标签添加style属性
+		WHITE_LIST.addAttributes(":all", "style");
+		WHITE_LIST.addProtocols("img", "src", "data");
 	}
 
-	/**
-	 * 删除 ThreadLocal 缓存的数据
-	 */
-	public static void remove() {
-		TL.remove();
+	private XssUtils() {
 	}
 
+	public static String clean(String content) {
+		return Jsoup.clean(content, "", WHITE_LIST, OUTPUT_SETTINGS);
+	}
+
+	public static String encode(String content) {
+		return HtmlFilterRule.filter(content);
+	}
 }

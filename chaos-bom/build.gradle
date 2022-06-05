@@ -16,10 +16,10 @@ ext {
     junitVersion = "5.8.2"
     findbugsVersion = "3.0.2"
     zxingVersion = "3.4.1"
-    hutoolVersion = "5.7.18"
+    hutoolVersion = "5.8.2"
     jsoupVersion = "1.14.3"
     lombokVersion = "1.18.22"
-    fastjsonVersion = "1.2.78"
+    fastjsonVersion = "1.2.83"
     junitVersion = "5.8.2"
     BeanUtilsVersion = "1.0.11"
 

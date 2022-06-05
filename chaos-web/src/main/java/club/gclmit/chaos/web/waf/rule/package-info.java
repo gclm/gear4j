@@ -203,10 +203,8 @@
 */
 
 /**
- * <p>
- * starter-properties 配置文件
- * </p>
+ * TODO
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-package club.gclmit.chaos.waf.properties;
+package club.gclmit.chaos.web.waf.rule;

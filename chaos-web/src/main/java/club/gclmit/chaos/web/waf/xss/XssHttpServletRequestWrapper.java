@@ -202,40 +202,63 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.waf.xss;
+package club.gclmit.chaos.web.waf.xss;
 
-import club.gclmit.chaos.waf.util.XssHolder;
-import club.gclmit.chaos.waf.util.XssUtils;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import club.gclmit.chaos.core.utils.StringUtils;
+import club.gclmit.chaos.web.waf.util.XssUtils;
 
-import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 
 /**
- * XssJacksonDeserializer
+ * Xss Request
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-public class XssJacksonDeserializer extends JsonDeserializer<String> {
+public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
-	private static final Logger log = LoggerFactory.getLogger(XssJacksonDeserializer.class);
-
-	@Override
-	public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
-		// XSS filter
-		String text = jsonParser.getValueAsString();
-		if (text == null) {
-			return null;
-		} else if (XssHolder.isEnabled()) {
-			String value = XssUtils.clean(text);
-			log.debug("Json property value:{} cleaned up by mica-xss, current value is:{}.", text, value);
-			return value;
-		} else {
-			return text;
-		}
+	public XssHttpServletRequestWrapper(HttpServletRequest request) {
+		super(request);
 	}
 
+	/**
+	 * 覆盖getParameter方法，将参数名和参数值都做xss过滤.
+	 * 如果需要获得原始的值，则通过super.getParameterValues(name)来获取
+	 * getParameterNames,getParameterValues和getParameterMap也可能需要覆盖
+	 */
+	@Override
+	public String getParameter(String name) {
+		name = XssUtils.clean(name);
+		String value = super.getParameter(name);
+		if (StringUtils.isNotBlank(value)) {
+			value = XssUtils.clean(value);
+		}
+		return value;
+	}
+
+	@Override
+	public String[] getParameterValues(String name) {
+		String[] arr = super.getParameterValues(name);
+		if (arr != null) {
+			for (int i = 0; i < arr.length; i++) {
+				arr[i] = XssUtils.clean(arr[i]);
+			}
+		}
+		return arr;
+	}
+
+	/**
+	 * 覆盖getHeader方法，将参数名和参数值都做xss过滤
+	 * 如果需要获得原始的值，则通过super.getHeaders(name)来获取
+	 * getHeaderNames 也可能需要覆盖
+	 */
+	@Override
+	public String getHeader(String name) {
+		name = XssUtils.clean(name);
+		String value = super.getHeader(name);
+		if (StringUtils.isNotBlank(value)) {
+			value = XssUtils.clean(value);
+		}
+		return value;
+	}
 }

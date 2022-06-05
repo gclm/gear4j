@@ -1,26 +1,31 @@
-# Chaos 核心包
+# chaos-spring-boot-starter
 
-## 功能
+## 基本介绍
 
-1. Cglib Bean copy 增强，支持链式 bean、Map、优化性能和支持类型转换。
-2. 基于hutool扩展的工具包
-3. 基于SpringWeb扩展的工具包
+1. 封装各个chaos组件,提供springboot自动注入支持
+2. 提供Spring Service 服务工具类，增强相关服务信息展示
+3. 封装chaos-storage组件，提供自动去重、快速查询功能
 
-## 添加依赖
+## 使用方式
 
-### maven
+### 添加依赖
+
+#### maven
 
 ```xml
 
 <dependency>
     <groupId>club.gclmit</groupId>
-    <artifactId>chaos-core</artifactId>
+    <artifactId>chaos-spring-boot-starter</artifactId>
     <version>${version}</version>
 </dependency>
 ```
 
-### gradle
+#### gradle
 
 ```groovy
-compile("club.gclmit:chaos-core:${version}")
+compile("club.gclmit:chaos-spring-boot-starter:${version}")
 ```
+
+### 相关代码
+具体使用，请看官方示例[摸鱼导航](https://github.com/DandelionAdmin/mess-fish)

@@ -16,7 +16,7 @@
 
 ### 👥 仓库地址
 
-- [Github](https://github.com/antCodelab/chaos)
+- [Github](https://github.com/DandelionAdmin/chaos)
 - [Gitee](https://gitee.com/gclm/chaos)
 
 > Gitee 是同步的镜像仓库，有问题请使用 Github Issue 反馈
@@ -27,21 +27,18 @@
 
 - `release` 版本号格式为 `x.x.x`
 - `snapshots` 版本号格式为 `x.x.x-SNAPSHOT`
-
 > `snapshots` 版本 `push` 后会自动发布，及时响应修复最新的 `bug` 和需求。
 
 ### 📝 使用文档
 
-**使用文档**详见：[https://antcodelab.github.io/chaos/](https://antcodelab.github.io/chaos/)
+**使用文档**详见：[https://dandelion.gclmit.club/pages/9cf655/](https://dandelion.gclmit.club/pages/9cf655/)
 
 **更新记录**详见：[Chaos 更新记录](CHANGELOG.md)
 
 ### 📱 沟通交流
 
 - Issues交流：[https://github.com/antCodelab/chaos/issues](https://github.com/antCodelab/chaos/issues)
--
-
-QQ群交流：[641633175](https://shang.qq.com/wpa/qunwpa?idkey=4684b1c1194706adcc4ce7c9428935d31c0b2a86b51e96cb807fa30f94cebfde)
+- QQ群交流：[641633175](https://shang.qq.com/wpa/qunwpa?idkey=4684b1c1194706adcc4ce7c9428935d31c0b2a86b51e96cb807fa30f94cebfde)
 
 ![孤城落寞博客](docs/img/wechat.png)
 

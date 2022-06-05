@@ -1,8 +1,14 @@
 ## chaos-bom
 
+## 基本介绍
+
 > `chaos-bom`，主要用来集中管理项目依赖的版本，更加灵活地维护所有依赖的版本信息。
 
-### Maven
+## 使用方式
+
+### 使用 Releases 版本
+
+#### Maven
 
 ```xml
 
@@ -19,7 +25,7 @@
 </dependencyManagement>
 ```
 
-### Gradle
+#### Gradle
 
 Spring boot 环境中可以开启 `apply plugin: "io.spring.dependency-management"` 插件。
 
@@ -31,11 +37,11 @@ dependencyManagement {
 }
 ```
 
-## 使用 snapshots
+### 使用 Snapshots 版本
 
 `注意`：`snapshots` 版本会及时响应，修复最新的 `bug` 或者必要的需求。
 
-### maven
+#### maven
 
 ```xml
 
@@ -54,7 +60,7 @@ dependencyManagement {
 </repositories>
 ```
 
-### gradle
+#### gradle
 
 ```groovy
 repositories {

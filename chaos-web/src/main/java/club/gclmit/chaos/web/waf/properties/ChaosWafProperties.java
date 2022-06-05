@@ -202,54 +202,27 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.waf.properties;
-
-import java.util.ArrayList;
-import java.util.List;
+package club.gclmit.chaos.web.waf.properties;
 
 /**
- * Xss配置类
+ * <p>
+ * waf 配置
+ * </p>
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-public class XssProperties {
+public class ChaosWafProperties {
 
 	/**
-	 * 开启xss
+	 * xss 配置
 	 */
-	private boolean enabled = true;
+	private XssProperties xss;
 
-	/**
-	 * 拦截的路由，默认为空
-	 */
-	private List<String> pathPatterns = new ArrayList<>();
-
-	/**
-	 * 放行的规则，默认为空
-	 */
-	private List<String> excludePatterns = new ArrayList<>();
-
-	public boolean isEnabled() {
-		return enabled;
+	public XssProperties getXss() {
+		return xss;
 	}
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public List<String> getPathPatterns() {
-		return pathPatterns;
-	}
-
-	public void setPathPatterns(List<String> pathPatterns) {
-		this.pathPatterns = pathPatterns;
-	}
-
-	public List<String> getExcludePatterns() {
-		return excludePatterns;
-	}
-
-	public void setExcludePatterns(List<String> excludePatterns) {
-		this.excludePatterns = excludePatterns;
+	public void setXss(XssProperties xss) {
+		this.xss = xss;
 	}
 }

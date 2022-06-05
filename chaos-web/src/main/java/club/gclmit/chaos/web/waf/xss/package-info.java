@@ -5,4 +5,4 @@
  * @since 2022/1/10 2:35 PM
  * @since jdk11
  */
-package club.gclmit.chaos.waf.xss;
+package club.gclmit.chaos.web.waf.xss;

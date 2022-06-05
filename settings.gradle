@@ -4,6 +4,6 @@ include 'chaos-core'
 include 'chaos-storage'
 include 'chaos-web'
 include 'chaos-logger'
-include 'chaos-waf'
+include 'chaos-extra'
 include 'chaos-spring-boot-starter'
 

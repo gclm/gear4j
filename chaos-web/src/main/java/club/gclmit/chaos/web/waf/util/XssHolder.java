@@ -202,47 +202,42 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.waf.rule;
-
-import club.gclmit.chaos.core.exception.ChaosException;
-import club.gclmit.chaos.core.utils.StringUtils;
+package club.gclmit.chaos.web.waf.util;
 
 /**
- * SQL过滤
+ * 利用 ThreadLocal 缓存线程间的数据
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @author L.cm
  */
-public class SqlFilterRule {
+public class XssHolder {
+
+	private static final ThreadLocal<Boolean> TL = new ThreadLocal<>();
+
+	private XssHolder() {
+	}
 
 	/**
-	 * SQL注入过滤
+	 * 获取 ThreadLocal 缓存数据状态
 	 *
-	 * @param str 待验证的字符串
-	 * @return 过滤后的内容
+	 * @return Boolean
 	 */
-	public static String filter(String str) {
-		if (StringUtils.isBlank(str)) {
-			return null;
-		}
-		//去掉'|"|;|\字符
-		str = StringUtils.replace(str, "'", "");
-		str = StringUtils.replace(str, "\"", "");
-		str = StringUtils.replace(str, ";", "");
-		str = StringUtils.replace(str, "\\", "");
-
-		//转换成小写
-		str = str.toLowerCase();
-
-		//非法字符
-		String[] keywords = {"master", "truncate", "insert", "select", "delete", "update", "declare", "alter", "drop"};
-
-		//判断是否包含非法字符
-		for (String keyword : keywords) {
-			if (str.contains(keyword)) {
-				throw new ChaosException("包含非法字符");
-			}
-		}
-		return str;
+	public static boolean isEnabled() {
+		return Boolean.TRUE.equals(TL.get());
 	}
-}
 
+	/**
+	 * 启用 ThreadLocal 缓存数据
+	 */
+	public static void setEnable() {
+		TL.set(Boolean.TRUE);
+	}
+
+	/**
+	 * 删除 ThreadLocal 缓存的数据
+	 */
+	public static void remove() {
+		TL.remove();
+	}
+
+}

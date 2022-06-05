@@ -1,26 +1,53 @@
-# Chaos 核心包
+# chaos-web
 
-## 功能
+## 基本介绍
 
-1. Cglib Bean copy 增强，支持链式 bean、Map、优化性能和支持类型转换。
-2. 基于hutool扩展的工具包
-3. 基于SpringWeb扩展的工具包
+- 扩展
+  1. 基于MyBatis Plus 提供默认Restful API
+  2. 封装通用Query请求和统一的ApiResult返回
+  3. 基于jsoup、压缩提供简单waf支持
+  4. 基于自定义版本注解提供版本支持
+  5. 提供validate、chaos组件的统一异常处理
+- 增强
+  1. 提供json序列化支持、解决js long精度丢失问题
+  2. 提供跨域支持
 
-## 添加依赖
+## 使用方式
 
-### maven
+### 添加依赖
+
+#### maven
 
 ```xml
 
 <dependency>
     <groupId>club.gclmit</groupId>
-    <artifactId>chaos-core</artifactId>
+    <artifactId>chaos-web</artifactId>
     <version>${version}</version>
 </dependency>
 ```
 
-### gradle
+#### gradle
 
 ```groovy
-compile("club.gclmit:chaos-core:${version}")
+compile("club.gclmit:chaos-web:${version}")
 ```
+### 相关代码
+
+### 新增ChaosConfig获取chaos-web增强支持
+
+```java
+import club.gclmit.chaos.web.annotation.EnableChaos;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * Chaos 配置
+ *
+ * @author gclm
+ */
+@Configuration
+@EnableChaos
+public class ChaosConfig {
+}
+```
+### 其余扩展使用，请看官方示例[摸鱼导航](https://github.com/DandelionAdmin/mess-fish)

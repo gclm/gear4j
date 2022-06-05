@@ -1,14 +1,15 @@
-# Chaos 核心包
+# chaos-core
 
-## 功能
+## 基本介绍
 
-1. Cglib Bean copy 增强，支持链式 bean、Map、优化性能和支持类型转换。
-2. 基于hutool扩展的工具包
-3. 基于SpringWeb扩展的工具包
+1. 基于Hutool、SpringWeb、Okhttps封装的工具包
+2. Cglib Bean copy 增强，支持链式 bean、Map、优化性能和支持类型转换。
 
-## 添加依赖
+## 使用方式
 
-### maven
+### 添加依赖
+
+#### maven
 
 ```xml
 
@@ -19,8 +20,14 @@
 </dependency>
 ```
 
-### gradle
+#### gradle
 
 ```groovy
 compile("club.gclmit:chaos-core:${version}")
 ```
+### 使用文档
+
+- 查看[Hutool文档](https://hutool.cn/docs/#/)
+- 查看API文档
+
+

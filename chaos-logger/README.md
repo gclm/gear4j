@@ -1,26 +1,28 @@
-# Chaos 核心包
+# chaos-logger
 
-## 功能
+## 基本介绍
 
-1. Cglib Bean copy 增强，支持链式 bean、Map、优化性能和支持类型转换。
-2. 基于hutool扩展的工具包
-3. 基于SpringWeb扩展的工具包
+基于Filter实现的请求日志记录方案
 
-## 添加依赖
+## 使用方式
 
-### maven
+### 添加依赖
+
+#### maven
 
 ```xml
 
 <dependency>
     <groupId>club.gclmit</groupId>
-    <artifactId>chaos-core</artifactId>
+    <artifactId>chaos-logger</artifactId>
     <version>${version}</version>
 </dependency>
 ```
 
-### gradle
+#### gradle
 
 ```groovy
-compile("club.gclmit:chaos-core:${version}")
+compile("club.gclmit:chaos-logger:${version}")
 ```
+
+> logger 模块不建议单独引用使用，请配合chaos-spring-boot-starter 模块使用

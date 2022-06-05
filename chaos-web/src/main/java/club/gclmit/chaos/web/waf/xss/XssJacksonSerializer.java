@@ -202,63 +202,30 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.waf.xss;
+package club.gclmit.chaos.web.waf.xss;
 
 import club.gclmit.chaos.core.utils.StringUtils;
-import club.gclmit.chaos.waf.util.XssUtils;
+import club.gclmit.chaos.web.waf.util.XssUtils;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
+import java.io.IOException;
 
 /**
- * Xss Request
+ * Xss Jackson 序列化
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
+public class XssJacksonSerializer extends JsonSerializer<String> {
 
-	public XssHttpServletRequestWrapper(HttpServletRequest request) {
-		super(request);
-	}
+//    private static final Logger log = LoggerFactory.getLogger(XssJacksonSerializer.class);
 
-	/**
-	 * 覆盖getParameter方法，将参数名和参数值都做xss过滤.
-	 * 如果需要获得原始的值，则通过super.getParameterValues(name)来获取
-	 * getParameterNames,getParameterValues和getParameterMap也可能需要覆盖
-	 */
 	@Override
-	public String getParameter(String name) {
-		name = XssUtils.clean(name);
-		String value = super.getParameter(name);
+	public void serialize(String value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
 		if (StringUtils.isNotBlank(value)) {
 			value = XssUtils.clean(value);
 		}
-		return value;
-	}
-
-	@Override
-	public String[] getParameterValues(String name) {
-		String[] arr = super.getParameterValues(name);
-		if (arr != null) {
-			for (int i = 0; i < arr.length; i++) {
-				arr[i] = XssUtils.clean(arr[i]);
-			}
-		}
-		return arr;
-	}
-
-	/**
-	 * 覆盖getHeader方法，将参数名和参数值都做xss过滤
-	 * 如果需要获得原始的值，则通过super.getHeaders(name)来获取
-	 * getHeaderNames 也可能需要覆盖
-	 */
-	@Override
-	public String getHeader(String name) {
-		name = XssUtils.clean(name);
-		String value = super.getHeader(name);
-		if (StringUtils.isNotBlank(value)) {
-			value = XssUtils.clean(value);
-		}
-		return value;
+		jsonGenerator.writeString(value);
 	}
 }

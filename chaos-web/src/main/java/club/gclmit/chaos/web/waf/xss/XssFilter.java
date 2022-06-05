@@ -202,52 +202,68 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.starter.config;
+package club.gclmit.chaos.web.waf.xss;
 
-import club.gclmit.chaos.starter.properties.ChaosProperties;
+import club.gclmit.chaos.core.utils.UrlUtils;
 import club.gclmit.chaos.web.waf.properties.ChaosWafProperties;
-import club.gclmit.chaos.web.waf.xss.XssJacksonDeserializer;
+import club.gclmit.chaos.web.waf.properties.XssProperties;
+import cn.hutool.core.collection.CollUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.core.Ordered;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 
 /**
- * Chaos Web XSS 配置
+ * 拦截防止xss注入 通过Jsoup过滤请求参数内的特定字符
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
- * @since jdk11
  */
-@Configuration(proxyBeanMethods = false)
-@EnableConfigurationProperties(value = {ChaosProperties.class})
-@ServletComponentScan(basePackages = "club.gclmit.chaos.waf")
-@ConditionalOnProperty(prefix = "chaos.waf.xss", value = "enabled", havingValue = "true")
-public class ChaosXssConfig implements WebMvcConfigurer {
+@WebFilter(filterName = "xssFilter", urlPatterns = "/*")
+public class XssFilter extends OncePerRequestFilter implements Ordered {
+
 
 	@Autowired
-	private ChaosProperties properties;
+	private ChaosWafProperties wafProperties;
 
-	/**
-	 * 配置 {@link ChaosWafProperties}
-	 *
-	 * @return club.gclmit.chaos.storage.client.StorageClient
-	 */
-	@Bean
-	public ChaosWafProperties chaosLoggerProperties() {
-		return properties.getWaf();
+	@Override
+	public int getOrder() {
+		return Ordered.LOWEST_PRECEDENCE;
+	}
+
+	@Override
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+		XssProperties xss = wafProperties.getXss();
+		if (handleUrlRule(request, xss)) {
+			filterChain.doFilter(request, response);
+			return;
+		}
+		XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper(request);
+		filterChain.doFilter(xssRequest, response);
 	}
 
 	/**
-	 * 配置jackson xss 防御
+	 * 处理url规则
 	 *
-	 * @return {@link Jackson2ObjectMapperBuilderCustomizer}
+	 * @param request       HttpServletRequest
+	 * @param xssProperties 配置信息
+	 * @return boolean
+	 * @author <a href="https://blog.gclmit.club">gclm</a>
 	 */
-	@Bean
-	public Jackson2ObjectMapperBuilderCustomizer xssJacksonCustomizer() {
-		return builder -> builder.deserializerByType(String.class, new XssJacksonDeserializer());
+	private boolean handleUrlRule(HttpServletRequest request, XssProperties xssProperties) {
+		String url = request.getServletPath();
+		List<String> pathPatterns = xssProperties.getPathPatterns();
+		List<String> excludePatterns = xssProperties.getExcludePatterns();
+
+		if (CollUtil.isEmpty(pathPatterns)) {
+			return false;
+		}
+		return CollUtil.isNotEmpty(excludePatterns) && UrlUtils.isIgnore(excludePatterns, url);
 	}
 }

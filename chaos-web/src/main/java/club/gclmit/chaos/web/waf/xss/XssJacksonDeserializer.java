@@ -202,10 +202,40 @@
    limitations under the License.
 */
 
+package club.gclmit.chaos.web.waf.xss;
+
+import club.gclmit.chaos.web.waf.util.XssHolder;
+import club.gclmit.chaos.web.waf.util.XssUtils;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+
 /**
- * chaos-waf: waf模块
+ * XssJacksonDeserializer
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
- * @since jdk11
  */
-package club.gclmit.chaos.waf;
+public class XssJacksonDeserializer extends JsonDeserializer<String> {
+
+	private static final Logger log = LoggerFactory.getLogger(XssJacksonDeserializer.class);
+
+	@Override
+	public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+		// XSS filter
+		String text = jsonParser.getValueAsString();
+		if (text == null) {
+			return null;
+		} else if (XssHolder.isEnabled()) {
+			String value = XssUtils.clean(text);
+			log.debug("Json property value:{} cleaned up by mica-xss, current value is:{}.", text, value);
+			return value;
+		} else {
+			return text;
+		}
+	}
+
+}
