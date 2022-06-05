@@ -34,15 +34,12 @@ UUID(Universally unique identifier) 是一种软件建构的标准，亦为自�
 * version(3bits)
 
   YeinGid 算法的版本号，当前固定取值为： `1`。
-
 * timestamp(32bits)
 
   当前时间戳，单位：秒，可支持到 **2089** 年。
-
 * fid(17bits)
 
   标识 ID，用于区分在同一时间不同并发序列的标识，最多同时支持 **131071** 个并发序列。
-
 * sequence(23bits)
 
   第秒下的并发序列，23bits 可支持每秒 **8388607** 并发。
