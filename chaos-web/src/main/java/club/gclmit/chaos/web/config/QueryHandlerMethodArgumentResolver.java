@@ -206,7 +206,7 @@ package club.gclmit.chaos.web.config;
 
 import club.gclmit.chaos.core.utils.BeanUtils;
 import club.gclmit.chaos.core.utils.StringUtils;
-import club.gclmit.chaos.web.annotation.ChaosQuery;
+import club.gclmit.chaos.web.annotation.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
@@ -229,7 +229,7 @@ public class QueryHandlerMethodArgumentResolver implements HandlerMethodArgument
 
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
-		return parameter.hasParameterAnnotation(ChaosQuery.class);
+		return parameter.hasParameterAnnotation(Query.class);
 	}
 
 	/**
@@ -245,13 +245,13 @@ public class QueryHandlerMethodArgumentResolver implements HandlerMethodArgument
 	public Object resolveArgument(MethodParameter parameter, @Nullable ModelAndViewContainer mavContainer,
 								  NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) throws Exception {
 
-		ChaosQuery chaosQuery = parameter.getParameterAnnotation(ChaosQuery.class);
-		if (chaosQuery == null) {
+		Query query = parameter.getParameterAnnotation(Query.class);
+		if (query == null) {
 			throw new IllegalArgumentException(
 				"Unknown parameter type [" + parameter.getParameterType().getName() + "]");
 		}
 
-		Class<?> clazz = chaosQuery.clazz();
+		Class<?> clazz = query.clazz();
 		log.info("chaos --> 当前转换Class:[{}]", clazz.getName());
 		Map<String, ?> params = webRequest.getParameterMap();
 		Object obj = BeanUtils.mapToBean(params, clazz);

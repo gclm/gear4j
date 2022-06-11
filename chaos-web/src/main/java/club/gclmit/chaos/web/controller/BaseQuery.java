@@ -219,7 +219,7 @@ import java.io.Serializable;
  */
 @Schema(description = "查询条件")
 @ApiModel(value = "查询条件", description = "查询条件")
-public class QueryCondition implements Serializable {
+public class BaseQuery implements Serializable {
 
 	/**
 	 * 当前页码
@@ -241,9 +241,9 @@ public class QueryCondition implements Serializable {
 	 * 1: 倒序
 	 * 3: 乱序
 	 */
-	@ApiModelProperty(value = "排序", example = "0")
-	@Schema(description = "排序", example = "0")
-	private int sort;
+	@ApiModelProperty(value = "排序(0: 正序 1: 倒序 3: 乱序)", example = "0")
+	@Schema(description = "排序(0: 正序 1: 倒序 3: 乱序)", example = "0")
+	private int sort = 0;
 
 	public Long getPage() {
 		return page;

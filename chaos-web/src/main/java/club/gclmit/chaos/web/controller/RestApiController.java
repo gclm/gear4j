@@ -244,7 +244,7 @@ public class RestApiController<Service extends IService<T>, T> {
 	@ApiOperation(value = "添加数据", notes = "添加数据")
 	@Operation(summary = "添加数据")
 	@PostMapping
-	public ApiResult create(@Valid @RequestBody T t) {
+	public ApiResult create(@io.swagger.v3.oas.annotations.parameters.RequestBody(description = "添加对象") @Valid @RequestBody T t) {
 		Assert.notNull(t, "添加的操作数据为空");
 		log.info("添加操作数据:[{}]", StringUtils.toString(t));
 		return this.service.save(t) ? ApiResult.ok() : ApiResult.fail("执行添加操作失败");
@@ -253,16 +253,16 @@ public class RestApiController<Service extends IService<T>, T> {
 	/**
 	 * 分页查询数据
 	 *
-	 * @param queryCondition 分页查询对象
+	 * @param baseQuery 分页查询对象
 	 * @return {@link ApiPageResult}
 	 */
 	@GetMapping
-	@ApiOperation(value = "分页查询", httpMethod = "GET")
+	@ApiOperation(value = "分页查询")
 	@Operation(summary = "分页查询")
-	public ApiResult list(QueryCondition queryCondition) {
-		log.info("分页查询\t:[{}]", StringUtils.toString(queryCondition));
-		Page<T> pages = service.page(new Page<>(queryCondition.getPage(), queryCondition.getPageSize()));
-		ApiPageResult apiPageResult = new ApiPageResult(pages.getTotal(), pages.getRecords(), queryCondition.getPage(), queryCondition.getPageSize());
+	public ApiResult list(BaseQuery baseQuery) {
+		log.info("分页查询\t:[{}]", StringUtils.toString(baseQuery));
+		Page<T> pages = service.page(new Page<>(baseQuery.getPage(), baseQuery.getPageSize()));
+		ApiPageResult apiPageResult = new ApiPageResult(pages.getTotal(), pages.getRecords(), baseQuery.getPage(), baseQuery.getPageSize());
 		return ApiResult.ok(apiPageResult);
 	}
 
@@ -272,7 +272,7 @@ public class RestApiController<Service extends IService<T>, T> {
 	 * @param id id
 	 * @return {@link ApiResult}
 	 */
-	@ApiOperation(value = "根据id查询数据详情", notes = "根据id查询数据详情")
+	@ApiOperation(value = "根据id查询数据详情")
 	@Operation(summary = "根据id查询数据详情")
 	@ApiParam(name = "id", required = true, example = "1111")
 	@GetMapping("/{id}")
@@ -289,7 +289,7 @@ public class RestApiController<Service extends IService<T>, T> {
 	 * @param t 泛型 T
 	 * @return {@link ApiResult}
 	 */
-	@ApiOperation(value = "更新数据", notes = "更新数据")
+	@ApiOperation(value = "更新数据")
 	@Operation(summary = "更新数据")
 	@PutMapping
 	public ApiResult update(@Valid @RequestBody T t) {
@@ -304,7 +304,7 @@ public class RestApiController<Service extends IService<T>, T> {
 	 * @param id id
 	 * @return {@link ApiResult}
 	 */
-	@ApiOperation(value = "根据id删除数据", notes = "根据id删除数据")
+	@ApiOperation(value = "根据id删除数据")
 	@Operation(summary = "根据id删除数据")
 	@ApiParam(name = "id", required = true, example = "1111")
 	@DeleteMapping("/{id}")
@@ -320,7 +320,7 @@ public class RestApiController<Service extends IService<T>, T> {
 	 * @param ids 采用,拼接的id
 	 * @return {@link ApiResult}
 	 */
-	@ApiOperation(value = "批量删除", notes = "批量删除")
+	@ApiOperation(value = "批量删除")
 	@Operation(summary = "批量删除")
 	@DeleteMapping("/batch")
 	public ApiResult batchDelete(String ids) {
