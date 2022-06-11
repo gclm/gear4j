@@ -204,9 +204,12 @@
 
 package club.gclmit.chaos.core.utils;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.util.ResourceUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -218,6 +221,14 @@ import java.util.stream.Collectors;
  */
 public class FileUtilsTest {
 
+	public static String path = "";
+
+	@BeforeEach
+	public void init() throws FileNotFoundException {
+		File file = ResourceUtils.getFile("classpath:test");
+		path = file.getAbsolutePath() + File.separator;
+	}
+
 	@Test
 	public void maven_clean() {
 		List<File> files = FileUtils.loopFiles("/home/gclm/.m2/repository");
@@ -226,5 +237,13 @@ public class FileUtilsTest {
 			System.out.println("删除文件：" + file.getAbsolutePath());
 			FileUtils.del(file);
 		});
+	}
+
+	@Test
+	public void getMimeType() {
+		System.out.println(FileUtils.getMimeType(path + "test1.jpg"));
+		System.out.println(FileUtils.getMimeType(path +"test1-1.jpeg"));
+		System.out.println(FileUtils.getMimeType(path +"test1-2.png"));
+		System.out.println(FileUtils.getMimeType(path +"test1-3.pdf"));
 	}
 }

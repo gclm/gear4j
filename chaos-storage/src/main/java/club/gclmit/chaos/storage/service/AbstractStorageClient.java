@@ -330,7 +330,7 @@ public abstract class AbstractStorageClient implements CloudStorageClient {
 	 */
 	public FileInfo buildFileInfo(File file) {
 		String key = getPath(cloudStorage.getConfig().getPrefix(), FileUtils.getSuffix(file));
-		String contentType = FileTypeUtils.getMimeType(file);
+		String contentType = FileUtils.getMimeType(file.getAbsolutePath());
 		String md5 = SecureUtils.md5(file);
 		return new FileInfo(file.getName(), contentType, file.length(), md5, key, cloudStorage.getType().getCode());
 	}

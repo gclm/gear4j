@@ -288,8 +288,8 @@ public class UploadFileUtils {
 	 * @param multipartFile springmvc封装的上传文件
 	 * @return java.io.File
 	 */
-	public static File multipartFileToFile(MultipartFile multipartFile) {
-		return multipartFileToFile(multipartFile, FileUtils.getRootPath(), Arrays.asList(DEFAULT_ALLOWED_EXTENSION));
+	public static File toFile(MultipartFile multipartFile) {
+		return toFile(multipartFile, FileUtils.getRootPath(), Arrays.asList(DEFAULT_ALLOWED_EXTENSION));
 	}
 
 	/**
@@ -299,8 +299,8 @@ public class UploadFileUtils {
 	 * @param dirPath       文件夹路径
 	 * @return java.io.File
 	 */
-	public static File multipartFileToFile(MultipartFile multipartFile, String dirPath) {
-		return multipartFileToFile(multipartFile, dirPath, Arrays.asList(DEFAULT_ALLOWED_EXTENSION));
+	public static File toFile(MultipartFile multipartFile, String dirPath) {
+		return toFile(multipartFile, dirPath, Arrays.asList(DEFAULT_ALLOWED_EXTENSION));
 	}
 
 	/**
@@ -310,12 +310,11 @@ public class UploadFileUtils {
 	 * @param dirPath       文件夹路径
 	 * @return java.io.File
 	 */
-	public static File multipartFileToFile(MultipartFile multipartFile, String dirPath, List<String> whiteList) {
+	public static File toFile(MultipartFile multipartFile, String dirPath, List<String> whiteList) {
 		String suffix = FileTypeUtils.getSuffix(multipartFile);
 		if (whiteList.contains(suffix)) {
 			dirPath = StringUtils.isEmpty(dirPath) ? FileUtils.getRootPath() : dirPath;
 			File localFile = new File(dirPath, IdUtil.fastSimpleUUID() + "." + suffix);
-
 			try {
 				multipartFile.transferTo(localFile);
 			} catch (IOException e) {

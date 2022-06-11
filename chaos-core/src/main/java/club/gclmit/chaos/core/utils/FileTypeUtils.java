@@ -205,16 +205,10 @@
 package club.gclmit.chaos.core.utils;
 
 import club.gclmit.chaos.core.exception.ChaosException;
-import club.gclmit.chaos.core.lang.io.MagicType;
-import club.gclmit.chaos.core.lang.io.MimeType;
-import cn.hutool.core.io.file.FileNameUtil;
+import cn.hutool.core.io.FileTypeUtil;
 import cn.hutool.core.lang.Assert;
-import cn.hutool.core.util.ArrayUtil;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -223,57 +217,9 @@ import java.io.InputStream;
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since jdk11
  */
-public class FileTypeUtils {
+public class FileTypeUtils extends FileTypeUtil {
 
 	private FileTypeUtils() {
-	}
-
-	/**
-	 * 基于魔数和文件后缀获取内容类型
-	 * 1. 先进行魔数筛选
-	 * 2. 根据魔数筛选结果,进行后缀获取内容类型
-	 *
-	 * @param file File
-	 * @return {@link String}String
-	 */
-	public static String getMimeType(File file) {
-		Assert.isTrue(file.exists(), "文件不能为空");
-		String fileHeader = getFileHeader(file);
-		if (!StringUtils.isEmpty(fileHeader)) {
-			/*
-			 * 魔数判断
-			 */
-			String mimeType = MagicType.getMimeType(fileHeader.toUpperCase());
-			if (MimeType.DEFAULT_FILE_CONTENT_TYPE.equals(mimeType)) {
-				String suffix = FileNameUtil.getSuffix(file);
-				mimeType = MimeType.getMimeTypeBySuffix(suffix);
-			}
-			return mimeType;
-		}
-		return MimeType.DEFAULT_FILE_CONTENT_TYPE;
-	}
-
-	/**
-	 * 文件后缀获取内容类型
-	 *
-	 * @param file MultipartFile
-	 * @return {@link String}
-	 */
-	public static String getMimeType(MultipartFile file) {
-		String suffix = FileTypeUtils.getSuffix(file);
-		return MimeType.getMimeTypeBySuffix(suffix);
-	}
-
-	/**
-	 * 获取文件类型
-	 * 例如: chaos.txt, 返回: txt
-	 *
-	 * @param file 文件名
-	 * @return 后缀（不含".")
-	 */
-	public static String getSuffix(File file) {
-		Assert.notNull(file, "文件不能为空");
-		return getSuffix(getSuffix(file.getName()), getSuffixByMagic(file));
 	}
 
 	/**
@@ -284,150 +230,10 @@ public class FileTypeUtils {
 	 */
 	public static String getSuffix(MultipartFile file) {
 		Assert.notNull(file, "文件不能为空");
-		String fileName = file.getOriginalFilename();
-		assert fileName != null;
-		return getSuffix(getSuffix(fileName), getSuffixByMagic(file));
-	}
-
-	/**
-	 * 获取文件后缀
-	 *
-	 * @param suffix 基于文件名获取的后缀
-	 * @param magic  基于magic获取的后缀
-	 * @return {@link String}
-	 */
-	private static String getSuffix(String suffix, String magic) {
-		if (StringUtils.isBlank(suffix) && StringUtils.isBlank(magic)) {
-			return null;
-		} else if (StringUtils.isBlank(magic) && StringUtils.isNotBlank(suffix)) {
-			return suffix;
-		} else if (StringUtils.isNotBlank(magic) && StringUtils.isBlank(suffix)) {
-			return magic;
-		} else {
-			return magic;
-		}
-	}
-
-	/**
-	 * 获取文件类型
-	 * 例如: chaos.txt, 返回: txt
-	 *
-	 * @param fileName 文件名
-	 * @return {@link String} 后缀（不含".")
-	 */
-	public static String getSuffix(String fileName) {
-		int separatorIndex = fileName.lastIndexOf(".");
-		if (separatorIndex < 0) {
-			return null;
-		}
-		return StringUtils.subAfter(fileName, ".", true);
-	}
-
-	/**
-	 * 根据Mine获取文档的 后缀
-	 *
-	 * @param mime Mine
-	 * @return {@link String} 后缀（不含".")
-	 */
-	public static String getSuffixByMimeType(String mime) {
-		Assert.isTrue(StringUtils.isNotBlank(mime), "MimeType不能为空");
-		return MimeType.getSuffixByMimeType(mime);
-	}
-
-	/**
-	 * 根据Magic获取文档的 后缀
-	 *
-	 * @param file 效验文件
-	 * @return {@link String} 后缀（不含".")
-	 */
-	public static String getSuffixByMagic(File file) {
-		Assert.isTrue(file.exists(), "文件不能为空");
-		String header = getFileHeader(file);
-		return getSuffixByMagic(header);
-	}
-
-	/**
-	 * 根据Magic获取文档的 后缀
-	 *
-	 * @param file 效验文件
-	 * @return {@link String} 后缀（不含".")
-	 */
-	public static String getSuffixByMagic(MultipartFile file) {
-		String header = getFileHeader(file);
-		return getSuffixByMagic(header);
-	}
-
-	/**
-	 * 根据Magic获取文档的 后缀
-	 *
-	 * @param fileHeader Magic
-	 * @return {@link String} 后缀（不含".")
-	 */
-	public static String getSuffixByMagic(String fileHeader) {
-		if (!StringUtils.isEmpty(fileHeader)) {
-			return MagicType.getSuffix(fileHeader.toUpperCase());
-		}
-		return null;
-	}
-
-
-	/**
-	 * 获取文件头部
-	 *
-	 * @param file File
-	 * @return {@link String}
-	 */
-	public static String getFileHeader(File file) {
-		try (InputStream inputStream = new FileInputStream(file)) {
-			return getFileHeader(inputStream);
-		} catch (Exception e) {
-			throw new ChaosException("读取文件失败", e);
-		}
-	}
-
-	/**
-	 * 获取文件头部
-	 *
-	 * @param file File
-	 * @return {@link String}
-	 */
-	public static String getFileHeader(MultipartFile file) {
 		try (InputStream inputStream = file.getInputStream()) {
-			return getFileHeader(inputStream);
+			return getType(inputStream);
 		} catch (Exception e) {
 			throw new ChaosException("读取文件失败", e);
 		}
-	}
-
-	/**
-	 * 获取文件头部
-	 *
-	 * @param steam File
-	 * @return {@link String}
-	 */
-	public static String getFileHeader(InputStream steam) throws IOException {
-		byte[] b = new byte[28];
-		steam.read(b, 0, 28);
-		return byteToHex(b);
-	}
-
-	/**
-	 * 将字节数组转换成16进制字符串
-	 *
-	 * @param bytes 字节数组
-	 * @return {@link String}
-	 */
-	private static String byteToHex(byte[] bytes) {
-		Assert.isFalse(ArrayUtil.isEmpty(bytes), "字节数组不能为空");
-		StringBuilder stringBuilder = new StringBuilder();
-		for (byte bit : bytes) {
-			int v = bit & 0xFF;
-			String hv = Integer.toHexString(v);
-			if (hv.length() < 2) {
-				stringBuilder.append(0);
-			}
-			stringBuilder.append(hv);
-		}
-		return stringBuilder.toString();
 	}
 }
