@@ -205,7 +205,8 @@
 package club.gclmit.chaos.storage.service.impl;
 
 import club.gclmit.chaos.core.exception.ChaosException;
-import club.gclmit.chaos.core.http.HttpRequestClient;
+import club.gclmit.chaos.core.http.HttpClient;
+import club.gclmit.chaos.core.utils.DateUtils;
 import club.gclmit.chaos.core.utils.IOUtils;
 import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.chaos.storage.contants.FileStatus;
@@ -214,7 +215,6 @@ import club.gclmit.chaos.storage.pojo.CloudStorage;
 import club.gclmit.chaos.storage.pojo.CloudStorageConfig;
 import club.gclmit.chaos.storage.pojo.FileInfo;
 import club.gclmit.chaos.storage.service.AbstractStorageClient;
-import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.ejlchina.okhttps.HttpResult;
 import com.ejlchina.okhttps.OkHttps;
@@ -280,7 +280,7 @@ public class FastdfsCloudStorageClient extends AbstractStorageClient {
 		Assert.hasLength(key, "[FastDFS]删除文件的key不能为空");
 		String url = serverUrl + "delete?path=" + key;
 		String result = OkHttps.async(url)
-			.addHeader(HttpRequestClient.header()).get()
+			.addHeader(HttpClient.header()).get()
 			.getResult().getBody().toString();
 		log.info("当前删除状态:[{}]", result);
 	}
@@ -312,7 +312,7 @@ public class FastdfsCloudStorageClient extends AbstractStorageClient {
 			String fileName = fileInfo.getOssKey().replace(dateFormat + "/", "");
 
 			HttpResult result = OkHttps.async(uploadUrl)
-				.addHeader(HttpRequestClient.header())
+				.addHeader(HttpClient.header())
 				.addBodyPara(params)
 				.addFilePara("file", fileInfo.getContentType(), fileName, IOUtils.readBytes(inputStream))
 				.post()
@@ -331,7 +331,7 @@ public class FastdfsCloudStorageClient extends AbstractStorageClient {
 			throw new ChaosException("[FastDFS]上传文件失败，请检查配置信息", e);
 		}
 		fileInfo.setUrl(url);
-		fileInfo.setUploadTime(DateUtil.current());
+		fileInfo.setUploadTime(DateUtils.current());
 		fileInfo.setStatus(FileStatus.SAVE.getCode());
 		return fileInfo;
 	}

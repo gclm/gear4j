@@ -3,5 +3,6 @@ dependencies {
     api project(":chaos-web")
     api project(":chaos-storage")
     api project(":chaos-logger")
+    api project(":chaos-extra")
     compileOnly("org.springframework.boot:spring-boot-starter-web")
 }

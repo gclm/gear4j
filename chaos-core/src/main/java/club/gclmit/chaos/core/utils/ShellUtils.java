@@ -265,7 +265,7 @@ public class ShellUtils {
 	 * @throws ChaosException 自定义异常
 	 */
 	public static InputStream exec(String cmd) {
-		Long startTime = DateUtil.current();
+		Long startTime = DateUtils.current();
 
 		String[] commands = new String[3];
 		if (SystemUtils.isWindows()) {
@@ -284,7 +284,7 @@ public class ShellUtils {
 
 			if (process.waitFor() == 0) {
 				InputStream stream = process.getInputStream();
-				Long endTime = DateUtil.current();
+				Long endTime = DateUtils.current();
 				Long distance = endTime - startTime;
 
 				logger.debug("命令:[{}]\t耗时:[{}]", shell, distance);

@@ -202,10 +202,27 @@
    limitations under the License.
 */
 
+package club.gclmit.chaos.extra.waf.properties;
+
 /**
- * chaos-waf: waf模块
+ * <p>
+ * waf 配置
+ * </p>
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
- * @since jdk11
  */
-package club.gclmit.chaos.web.waf;
+public class ChaosWafProperties {
+
+	/**
+	 * xss 配置
+	 */
+	private XssProperties xss;
+
+	public XssProperties getXss() {
+		return xss;
+	}
+
+	public void setXss(XssProperties xss) {
+		this.xss = xss;
+	}
+}

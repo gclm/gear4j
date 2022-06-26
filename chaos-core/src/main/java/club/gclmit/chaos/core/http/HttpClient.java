@@ -202,39 +202,72 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.storage.service.impl;
+package club.gclmit.chaos.core.http;
 
-import club.gclmit.chaos.storage.pojo.CloudStorage;
-import club.gclmit.chaos.storage.pojo.FileInfo;
-import club.gclmit.chaos.storage.service.AbstractStorageClient;
+import club.gclmit.chaos.core.utils.UserAgentUtils;
+import com.ejlchina.okhttps.HttpResult;
+import com.ejlchina.okhttps.OkHttps;
+import com.ejlchina.okhttps.internal.RealHttpResult;
+import okhttp3.Response;
 
-import java.io.InputStream;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * 七牛云存储配置
+ * 通用请求客户端
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since jdk11
  */
-public class QiniuCloudStorageClient extends AbstractStorageClient {
+public class HttpClient {
 
-	public QiniuCloudStorageClient(CloudStorage cloudStorage) {
-		super(cloudStorage);
+	private HttpClient() {
 	}
 
-	@Override
-	public void batchDelete(List<String> keys) {
-
+	/**
+	 * 效验链接。 code == 200 ? true : false
+	 *
+	 * @param url 请求url
+	 * @return {@link boolean}
+	 */
+	public static boolean isOk(String url) {
+		return 200 == getHttpStatus(url);
 	}
 
-	@Override
-	public void delete(String key) {
-
+	/**
+	 * 获取请求url的状态码
+	 *
+	 * @param url 请求url
+	 * @return {@link int} 状态码
+	 */
+	public static int getHttpStatus(String url) {
+		return OkHttps.async(url).addHeader(header()).get().getResult().getStatus();
 	}
 
-	@Override
-	public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {
-		return null;
+	/**
+	 * 服务 ping
+	 *
+	 * @param url 请求url
+	 * @return {@link Long} 请求ping值
+	 */
+	public static Long ping(String url) {
+		HttpResult result = OkHttps.async(url).addHeader(header()).get().getResult();
+		Response response = ((RealHttpResult) result).getResponse();
+		long responseAtMillis = response.receivedResponseAtMillis();
+		long sentRequestAtMillis = response.sentRequestAtMillis();
+		return responseAtMillis - sentRequestAtMillis;
+	}
+
+	/**
+	 * 通用请求头
+	 *
+	 * @return {@link Map}
+	 */
+	public static Map<String, String> header() {
+		Map<String, String> header = new HashMap<>(15);
+		header.put("Cache-Control", "no-cache");
+		header.put("Accept", "*/*");
+		header.put("User-Agent", UserAgentUtils.getRandomUserAgent());
+		return header;
 	}
 }

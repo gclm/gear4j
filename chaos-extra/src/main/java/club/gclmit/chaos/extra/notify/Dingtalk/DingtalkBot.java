@@ -7,10 +7,10 @@ import club.gclmit.chaos.extra.notify.Dingtalk.channel.Link;
 import club.gclmit.chaos.extra.notify.Dingtalk.channel.Markdown;
 import club.gclmit.chaos.extra.notify.Dingtalk.channel.Text;
 import cn.hutool.core.util.CharsetUtil;
-import cn.hutool.http.HttpStatus;
 import com.alibaba.fastjson.JSONObject;
 import com.ejlchina.okhttps.HttpResult;
 import com.ejlchina.okhttps.OkHttps;
+import org.springframework.http.HttpStatus;
 
 import java.net.URLEncoder;
 
@@ -81,7 +81,7 @@ public class DingtalkBot {
         HttpResult result = OkHttps.async(url).setBodyPara(content).bodyType(OkHttps.JSON).post().getResult();
         String body = result.getBody().toString();
         System.out.println(StringUtils.format("钉钉消息发送({}): -->{}", result.getStatus(), body));
-        if (HttpStatus.HTTP_OK == result.getStatus()) {
+        if (HttpStatus.OK.value() == result.getStatus()) {
             return 0 == JSONObject.parseObject(body).getInteger("errcode");
         }
         return false;

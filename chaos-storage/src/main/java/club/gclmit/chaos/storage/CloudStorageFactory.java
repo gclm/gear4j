@@ -208,12 +208,14 @@ import club.gclmit.chaos.core.exception.ChaosException;
 import club.gclmit.chaos.storage.pojo.CloudStorage;
 import club.gclmit.chaos.storage.service.CloudStorageClient;
 import club.gclmit.chaos.storage.service.impl.*;
+import org.springframework.stereotype.Component;
 
 /**
  * oss 客户端构造器
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
+@Component
 public class CloudStorageFactory {
 
 	/**
@@ -226,12 +228,8 @@ public class CloudStorageFactory {
 		switch (cloudStorage.getType()) {
 			case ALIYUN:
 				return new AliyunCloudStorageClient(cloudStorage);
-			case QINIU:
-				return new QiniuCloudStorageClient(cloudStorage);
 			case UCLOUD:
 				return new UcloudCloudStorageClient(cloudStorage);
-			case UPYUN:
-				return new UpyunCloudStorageClient(cloudStorage);
 			case TENCENT:
 				return new TencentCloudStorageClient(cloudStorage);
 			case HUAWEI:

@@ -202,54 +202,25 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.web.waf.properties;
+package club.gclmit.chaos.extra.waf.rule;
 
-import java.util.ArrayList;
-import java.util.List;
+import cn.hutool.http.HTMLFilter;
 
 /**
- * Xss配置类
+ * Html过滤 预防xss注入
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-public class XssProperties {
+public class HtmlFilterRule {
 
 	/**
-	 * 开启xss
+	 * html 过滤
+	 *
+	 * @param str 待验证的字符串
+	 * @return 过滤后的内容
 	 */
-	private boolean enabled = true;
-
-	/**
-	 * 拦截的路由，默认为空
-	 */
-	private List<String> pathPatterns = new ArrayList<>();
-
-	/**
-	 * 放行的规则，默认为空
-	 */
-	private List<String> excludePatterns = new ArrayList<>();
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public List<String> getPathPatterns() {
-		return pathPatterns;
-	}
-
-	public void setPathPatterns(List<String> pathPatterns) {
-		this.pathPatterns = pathPatterns;
-	}
-
-	public List<String> getExcludePatterns() {
-		return excludePatterns;
-	}
-
-	public void setExcludePatterns(List<String> excludePatterns) {
-		this.excludePatterns = excludePatterns;
+	public static String filter(String str) {
+		return new HTMLFilter().filter(str);
 	}
 }
+

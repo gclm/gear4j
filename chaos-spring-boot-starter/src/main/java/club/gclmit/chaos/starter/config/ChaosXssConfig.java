@@ -204,9 +204,9 @@
 
 package club.gclmit.chaos.starter.config;
 
+import club.gclmit.chaos.extra.waf.properties.ChaosWafProperties;
+import club.gclmit.chaos.extra.waf.xss.XssJacksonDeserializer;
 import club.gclmit.chaos.starter.properties.ChaosProperties;
-import club.gclmit.chaos.web.waf.properties.ChaosWafProperties;
-import club.gclmit.chaos.web.waf.xss.XssJacksonDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;

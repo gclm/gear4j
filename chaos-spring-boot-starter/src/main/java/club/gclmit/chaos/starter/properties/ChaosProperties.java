@@ -204,9 +204,9 @@
 
 package club.gclmit.chaos.starter.properties;
 
+import club.gclmit.chaos.extra.waf.properties.ChaosWafProperties;
 import club.gclmit.chaos.logger.model.LoggerProperties;
 import club.gclmit.chaos.storage.pojo.CloudStorage;
-import club.gclmit.chaos.web.waf.properties.ChaosWafProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**

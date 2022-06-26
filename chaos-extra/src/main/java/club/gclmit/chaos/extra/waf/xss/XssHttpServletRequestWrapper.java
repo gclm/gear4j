@@ -202,49 +202,63 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.web.waf.util;
+package club.gclmit.chaos.extra.waf.xss;
 
-import club.gclmit.chaos.web.waf.rule.HtmlFilterRule;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.safety.Safelist;
+import club.gclmit.chaos.core.utils.StringUtils;
+import club.gclmit.chaos.extra.waf.util.XssUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 
 /**
- * Xss Utils
+ * Xss Request
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-public class XssUtils {
+public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
+
+	public XssHttpServletRequestWrapper(HttpServletRequest request) {
+		super(request);
+	}
 
 	/**
-	 * 使用自带的basicWithImages 白名单
-	 * 允许的便签有a,b,blockquote,br,cite,code,dd,dl,dt,em,i,li,ol,p,pre,q,small,span,
-	 * strike,strong,sub,sup,u,ul,img
-	 * 以及a标签的href,img标签的src,align,alt,height,width,title属性
+	 * 覆盖getParameter方法，将参数名和参数值都做xss过滤.
+	 * 如果需要获得原始的值，则通过super.getParameterValues(name)来获取
+	 * getParameterNames,getParameterValues和getParameterMap也可能需要覆盖
 	 */
-	private static final Safelist WHITE_LIST = Safelist.basicWithImages();
+	@Override
+	public String getParameter(String name) {
+		name = XssUtils.clean(name);
+		String value = super.getParameter(name);
+		if (StringUtils.isNotBlank(value)) {
+			value = XssUtils.clean(value);
+		}
+		return value;
+	}
+
+	@Override
+	public String[] getParameterValues(String name) {
+		String[] arr = super.getParameterValues(name);
+		if (arr != null) {
+			for (int i = 0; i < arr.length; i++) {
+				arr[i] = XssUtils.clean(arr[i]);
+			}
+		}
+		return arr;
+	}
 
 	/**
-	 * 配置过滤化参数,不对代码进行格式化
+	 * 覆盖getHeader方法，将参数名和参数值都做xss过滤
+	 * 如果需要获得原始的值，则通过super.getHeaders(name)来获取
+	 * getHeaderNames 也可能需要覆盖
 	 */
-	private static final Document.OutputSettings OUTPUT_SETTINGS = new Document.OutputSettings().prettyPrint(false);
-
-	static {
-		// 富文本编辑时一些样式是使用style来进行实现的
-		// 比如红色字体 style="color:red;"
-		// 所以需要给所有标签添加style属性
-		WHITE_LIST.addAttributes(":all", "style");
-		WHITE_LIST.addProtocols("img", "src", "data");
-	}
-
-	private XssUtils() {
-	}
-
-	public static String clean(String content) {
-		return Jsoup.clean(content, "", WHITE_LIST, OUTPUT_SETTINGS);
-	}
-
-	public static String encode(String content) {
-		return HtmlFilterRule.filter(content);
+	@Override
+	public String getHeader(String name) {
+		name = XssUtils.clean(name);
+		String value = super.getHeader(name);
+		if (StringUtils.isNotBlank(value)) {
+			value = XssUtils.clean(value);
+		}
+		return value;
 	}
 }

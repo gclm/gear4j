@@ -205,7 +205,6 @@
 package club.gclmit.chaos.storage.service;
 
 import club.gclmit.chaos.core.exception.ChaosException;
-import club.gclmit.chaos.core.lang.io.MimeType;
 import club.gclmit.chaos.core.utils.*;
 import club.gclmit.chaos.storage.pojo.CloudStorage;
 import club.gclmit.chaos.storage.pojo.FileInfo;
@@ -289,7 +288,7 @@ public abstract class AbstractStorageClient implements CloudStorageClient {
 		/*
 		 * 根据工具类获取 fileInfo 参数
 		 */
-		String contentType = MimeType.TXT.getMimeType();
+		String contentType = MimeTypeUtils.TEXT_PLAIN_VALUE;
 		String md5 = SecureUtils.md5(data);
 		Long size = Long.valueOf(String.valueOf(data.length));
 
@@ -317,7 +316,7 @@ public abstract class AbstractStorageClient implements CloudStorageClient {
 		Assert.hasLength(key, "上传文件失败，请检查上传文件的 key 是否正常");
 
 		if (StringUtils.isBlank(key)) {
-			key = DateUtil.current() + ".txt";
+			key = DateUtils.current() + ".txt";
 		}
 		return upload(content.getBytes(StandardCharsets.UTF_8), key, fileName);
 	}

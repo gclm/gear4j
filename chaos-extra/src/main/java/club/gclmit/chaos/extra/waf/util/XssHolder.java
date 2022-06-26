@@ -202,30 +202,42 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.web.waf.xss;
-
-import club.gclmit.chaos.core.utils.StringUtils;
-import club.gclmit.chaos.web.waf.util.XssUtils;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-
-import java.io.IOException;
+package club.gclmit.chaos.extra.waf.util;
 
 /**
- * Xss Jackson 序列化
+ * 利用 ThreadLocal 缓存线程间的数据
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @author L.cm
  */
-public class XssJacksonSerializer extends JsonSerializer<String> {
+public class XssHolder {
 
-//    private static final Logger log = LoggerFactory.getLogger(XssJacksonSerializer.class);
+	private static final ThreadLocal<Boolean> TL = new ThreadLocal<>();
 
-	@Override
-	public void serialize(String value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-		if (StringUtils.isNotBlank(value)) {
-			value = XssUtils.clean(value);
-		}
-		jsonGenerator.writeString(value);
+	private XssHolder() {
 	}
+
+	/**
+	 * 获取 ThreadLocal 缓存数据状态
+	 *
+	 * @return Boolean
+	 */
+	public static boolean isEnabled() {
+		return Boolean.TRUE.equals(TL.get());
+	}
+
+	/**
+	 * 启用 ThreadLocal 缓存数据
+	 */
+	public static void setEnable() {
+		TL.set(Boolean.TRUE);
+	}
+
+	/**
+	 * 删除 ThreadLocal 缓存的数据
+	 */
+	public static void remove() {
+		TL.remove();
+	}
+
 }

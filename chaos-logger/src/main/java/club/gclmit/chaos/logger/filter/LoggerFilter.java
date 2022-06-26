@@ -206,14 +206,14 @@ package club.gclmit.chaos.logger.filter;
 
 import club.gclmit.chaos.core.http.servlet.HttpCacheRequestWrapper;
 import club.gclmit.chaos.core.http.servlet.HttpCacheResponseWrapper;
-import club.gclmit.chaos.core.http.servlet.ServletUtils;
 import club.gclmit.chaos.core.lang.Builder;
+import club.gclmit.chaos.core.utils.DateUtils;
+import club.gclmit.chaos.core.utils.ServletUtils;
 import club.gclmit.chaos.core.utils.SqlUtils;
 import club.gclmit.chaos.core.utils.UrlUtils;
 import club.gclmit.chaos.logger.mapper.LoggerMapper;
 import club.gclmit.chaos.logger.model.ApiTraceRecord;
 import club.gclmit.chaos.logger.model.LoggerProperties;
-import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -267,7 +267,7 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
 		String uri = request.getRequestURI();
-		Long requestTime = DateUtil.current();
+		Long requestTime = DateUtils.current();
 		String sessionId = ServletUtils.getSessionId(request);
 
 		if (checkIgnoreUrl(uri) || ServletUtils.isFileUpload(request)) {
@@ -280,7 +280,7 @@ public class LoggerFilter extends OncePerRequestFilter implements Ordered {
 			 *  获取 response 相关参数
 			 *  请求耗时 = 响应时间 - 请求时间
 			 */
-			Long responseTime = DateUtil.current();
+			Long responseTime = DateUtils.current();
 			Long time = responseTime - requestTime;
 
 			ApiTraceRecord trace = Builder.build(ApiTraceRecord::new)

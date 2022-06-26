@@ -202,25 +202,30 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.web.waf.rule;
+package club.gclmit.chaos.extra.waf.xss;
 
-import cn.hutool.http.HTMLFilter;
+import club.gclmit.chaos.core.utils.StringUtils;
+import club.gclmit.chaos.extra.waf.util.XssUtils;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+
+import java.io.IOException;
 
 /**
- * Html过滤 预防xss注入
+ * Xss Jackson 序列化
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-public class HtmlFilterRule {
+public class XssJacksonSerializer extends JsonSerializer<String> {
 
-	/**
-	 * html 过滤
-	 *
-	 * @param str 待验证的字符串
-	 * @return 过滤后的内容
-	 */
-	public static String filter(String str) {
-		return new HTMLFilter().filter(str);
+//    private static final Logger log = LoggerFactory.getLogger(XssJacksonSerializer.class);
+
+	@Override
+	public void serialize(String value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+		if (StringUtils.isNotBlank(value)) {
+			value = XssUtils.clean(value);
+		}
+		jsonGenerator.writeString(value);
 	}
 }
-

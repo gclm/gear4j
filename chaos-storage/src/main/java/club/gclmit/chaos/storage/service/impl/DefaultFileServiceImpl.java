@@ -202,27 +202,186 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.web.waf.properties;
+package club.gclmit.chaos.starter.service.impl;
+
+import club.gclmit.chaos.core.utils.DateUtils;
+import club.gclmit.chaos.core.utils.SecureUtils;
+import club.gclmit.chaos.core.utils.StringUtils;
+import club.gclmit.chaos.starter.mapper.FileMapper;
+import club.gclmit.chaos.starter.service.DefaultFileService;
+import club.gclmit.chaos.storage.pojo.FileInfo;
+import club.gclmit.chaos.storage.service.CloudStorageClient;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
- * <p>
- * waf 配置
- * </p>
+ * 文件服务接口
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-public class ChaosWafProperties {
+@Service("defaultFileService")
+public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implements DefaultFileService {
+
+	@Autowired
+	private FileMapper fileMapper;
+
+	@Autowired(required = false)
+	private CloudStorageClient storageClient;
 
 	/**
-	 * xss 配置
+	 * 上传文件
+	 *
+	 * @param file MultipartFile
+	 * @return {@link FileInfo}
 	 */
-	private XssProperties xss;
-
-	public XssProperties getXss() {
-		return xss;
+	@Override
+	public FileInfo uploadFile(MultipartFile file) {
+		String md5 = SecureUtils.md5(file);
+		FileInfo fileInfo = queryMd5(md5);
+		if (fileInfo == null) {
+			fileInfo = storageClient.upload(file);
+			if (StringUtils.isNotBlank(fileInfo.getUrl())) {
+				save(fileInfo);
+			}
+		}
+		return fileInfo;
 	}
 
-	public void setXss(XssProperties xss) {
-		this.xss = xss;
+	/**
+	 * 根据文件 MD5 判断文件是否存在
+	 *
+	 * @param md5 文件 MD5
+	 * @return {@link FileInfo}
+	 */
+	@Override
+	public FileInfo queryMd5(String md5) {
+		QueryWrapper<FileInfo> queryWrapper = new QueryWrapper<>();
+		queryWrapper.lambda()
+			.eq(FileInfo::getMd5, md5);
+		return fileMapper.selectOne(queryWrapper);
+	}
+
+	/**
+	 * 根据文件 key 查看 FileInfo 对象
+	 *
+	 * @param key OSS Key
+	 * @return {@link FileInfo}
+	 */
+	@Override
+	public FileInfo queryKey(String key) {
+		QueryWrapper<FileInfo> queryWrapper = new QueryWrapper<>();
+		queryWrapper.lambda()
+			.eq(FileInfo::getOssKey, key);
+		return fileMapper.selectOne(queryWrapper);
+	}
+
+	/**
+	 * 根据OSS key 模糊查询
+	 *
+	 * @param key OSS Key
+	 * @return {@link FileInfo} List
+	 */
+	@Override
+	public List<FileInfo> linkQueryKey(String key) {
+		QueryWrapper<FileInfo> queryWrapper = new QueryWrapper<>();
+		queryWrapper.lambda()
+			.like(FileInfo::getOssKey, key);
+		return fileMapper.selectList(queryWrapper);
+	}
+
+	/**
+	 * 根据文件名字模糊查询
+	 *
+	 * @param fileName 文件名字
+	 * @return {@link FileInfo} List
+	 */
+	@Override
+	public List<FileInfo> linkQueryFileName(String fileName) {
+		QueryWrapper<FileInfo> queryWrapper = new QueryWrapper<>();
+		queryWrapper.lambda()
+			.like(FileInfo::getName, fileName);
+		return fileMapper.selectList(queryWrapper);
+	}
+
+	/**
+	 * 根据文件大小区间查询
+	 *
+	 * @param startSize 最小
+	 * @param endSize   最大
+	 * @return {@link FileInfo} List
+	 */
+	@Override
+	public List<FileInfo> queryFileSizeBetween(Long startSize, Long endSize) {
+		QueryWrapper<FileInfo> queryWrapper = new QueryWrapper<>();
+		queryWrapper.lambda()
+			.between(FileInfo::getSize, startSize, endSize);
+		return fileMapper.selectList(queryWrapper);
+	}
+
+
+	/**
+	 * 根据 key 修改文件状态
+	 *
+	 * @param key        OSS Key
+	 * @param fileStatus 文件状态
+	 */
+	@Override
+	public void updateFileStatus(String key, Integer fileStatus) {
+		UpdateWrapper<FileInfo> updateWrapper = new UpdateWrapper<>();
+		updateWrapper.lambda()
+			.eq(FileInfo::getOssKey, key);
+		fileMapper.update(new FileInfo(DateUtils.current(), fileStatus), updateWrapper);
+	}
+
+	/**
+	 * 根据 id 修改文件状态
+	 *
+	 * @param id         id
+	 * @param fileStatus 文件状态
+	 */
+	@Override
+	public void updateFileStatusById(String id, Integer fileStatus) {
+		FileInfo fileInfo = new FileInfo(Long.valueOf(id), DateUtils.current(), fileStatus);
+		fileMapper.updateById(fileInfo);
+	}
+
+	/**
+	 * 根据 FileInfo id 删除文件
+	 *
+	 * @param id FileInfo id
+	 */
+	@Override
+	public void deleteFileById(String id) {
+		FileInfo info = getById(id);
+		storageClient.delete(info.getOssKey());
+	}
+
+	/**
+	 * 根据 key 删除文件
+	 *
+	 * @param key OSS Key
+	 */
+	@Override
+	public void deleteFile(String key) {
+		removeById(queryKey(key).getId());
+		storageClient.delete(key);
+	}
+
+	/**
+	 * 根据 key 批量删除文件
+	 *
+	 * @param keys OSS Key
+	 */
+	@Override
+	public void batchDeleteFile(List<String> keys) {
+		for (String key : keys) {
+			deleteFile(key);
+		}
 	}
 }

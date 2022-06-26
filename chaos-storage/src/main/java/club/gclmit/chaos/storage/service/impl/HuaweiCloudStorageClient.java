@@ -205,6 +205,7 @@
 package club.gclmit.chaos.storage.service.impl;
 
 import club.gclmit.chaos.core.exception.ChaosException;
+import club.gclmit.chaos.core.utils.DateUtils;
 import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.chaos.storage.contants.FileStatus;
 import club.gclmit.chaos.storage.contants.StorageServer;
@@ -212,7 +213,6 @@ import club.gclmit.chaos.storage.pojo.CloudStorage;
 import club.gclmit.chaos.storage.pojo.CloudStorageConfig;
 import club.gclmit.chaos.storage.pojo.FileInfo;
 import club.gclmit.chaos.storage.service.AbstractStorageClient;
-import cn.hutool.core.date.DateUtil;
 import com.obs.services.ObsClient;
 import com.obs.services.model.PutObjectResult;
 import org.slf4j.Logger;
@@ -321,7 +321,7 @@ public class HuaweiCloudStorageClient extends AbstractStorageClient {
 		}
 
 		fileInfo.setUrl(url);
-		fileInfo.setUploadTime(DateUtil.current());
+		fileInfo.setUploadTime(DateUtils.current());
 		fileInfo.setStatus(FileStatus.SAVE.getCode());
 		return fileInfo;
 	}

@@ -202,73 +202,40 @@
    limitations under the License.
 */
 
-package club.gclmit.chaos.core.http;
+package club.gclmit.chaos.extra.waf.xss;
 
-import club.gclmit.chaos.core.utils.UserAgentUtils;
-import com.ejlchina.okhttps.HttpResult;
-import com.ejlchina.okhttps.OkHttps;
-import com.ejlchina.okhttps.internal.RealHttpResult;
-import okhttp3.Response;
+import club.gclmit.chaos.extra.waf.util.XssHolder;
+import club.gclmit.chaos.extra.waf.util.XssUtils;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /**
- * 通用请求客户端
+ * XssJacksonDeserializer
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
- * @since jdk11
  */
-public class HttpRequestClient {
+public class XssJacksonDeserializer extends JsonDeserializer<String> {
 
+	private static final Logger log = LoggerFactory.getLogger(XssJacksonDeserializer.class);
 
-	private HttpRequestClient() {
+	@Override
+	public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+		// XSS filter
+		String text = jsonParser.getValueAsString();
+		if (text == null) {
+			return null;
+		} else if (XssHolder.isEnabled()) {
+			String value = XssUtils.clean(text);
+			log.debug("Json property value:{} cleaned up by mica-xss, current value is:{}.", text, value);
+			return value;
+		} else {
+			return text;
+		}
 	}
 
-	/**
-	 * 效验链接。 code == 200 ? true : false
-	 *
-	 * @param url 请求url
-	 * @return {@link boolean}
-	 */
-	public static boolean judgeUrl(String url) {
-		return 200 == statusCode(url);
-	}
-
-	/**
-	 * 获取请求url的状态码
-	 *
-	 * @param url 请求url
-	 * @return {@link int} 状态码
-	 */
-	public static int statusCode(String url) {
-		return OkHttps.async(url).addHeader(header()).get().getResult().getStatus();
-	}
-
-	/**
-	 * 服务 ping
-	 *
-	 * @param url 请求url
-	 * @return {@link Long} 请求ping值
-	 */
-	public static Long ping(String url) {
-		HttpResult result = OkHttps.async(url).addHeader(header()).get().getResult();
-		Response response = ((RealHttpResult) result).getResponse();
-		long responseAtMillis = response.receivedResponseAtMillis();
-		long sentRequestAtMillis = response.sentRequestAtMillis();
-		return responseAtMillis - sentRequestAtMillis;
-	}
-
-	/**
-	 * 通用请求头
-	 *
-	 * @return {@link Map}
-	 */
-	public static Map<String, String> header() {
-		Map<String, String> header = new HashMap<>(15);
-		header.put("Cache-Control", "no-cache");
-		header.put("Accept", "*/*");
-		header.put("User-Agent", UserAgentUtils.getRandomUserAgent());
-		return header;
-	}
 }

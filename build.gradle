@@ -70,6 +70,17 @@ configure(subprojects - project(":chaos-bom")) {
         testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     }
 
+    configurations.all {
+        //移除org.json:json
+        exclude module: 'json'
+        //升级spring-beans 版本
+//        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+//            if (details.requested.group == 'org.springframework:spring-beans') {
+//                details.useVersion '5.3.21'
+//            }
+//        }
+    }
+
     test {
         useJUnitPlatform()
         testLogging {
