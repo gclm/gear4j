@@ -11,31 +11,29 @@ javaPlatform {
 // 依赖版本管理
 ext {
 
-    // basic
-    springBootVersion = "2.6.2"
+    // core
+    springBootVersion = "2.6.9"
+    hutoolVersion = "5.8.3"
+    mybatisPlusVersion = "3.5.2"
+
+    // tool
+    okhttpsVersion = "3.5.2"
+    jsoupVersion = "1.15.1"
     junitVersion = "5.8.2"
-    findbugsVersion = "3.0.2"
-    zxingVersion = "3.4.1"
-    hutoolVersion = "5.8.2"
-    jsoupVersion = "1.14.3"
-    lombokVersion = "1.18.22"
+    zxingVersion = "3.5.0"
     fastjsonVersion = "1.2.83"
-    junitVersion = "5.8.2"
     BeanUtilsVersion = "1.0.11"
 
-    // commons
-    mybatisPlusVersion = "3.4.3.4"
-    okhttpsVersion = "3.4.1"
-    swaggerVersion = "1.5.22"
-    swagger3xVersion = "2.1.10"
-    jsoupVersion = "1.14.3"
+    findbugsVersion = "3.0.2"
+    swaggerVersion = "1.6.6"
+    swagger3xVersion = "2.2.1"
 
     // oss
-    aliyunOssVersion = "3.13.2"
-    qiniuOssVersion = "7.9.1"
-    qcloudOssVersion = "5.6.62"
+    aliyunOssVersion = "3.15.1"
+    qiniuOssVersion = "7.11.0"
+    qcloudOssVersion = "5.6.93"
     ucloudOssVersion = "2.6.6"
-    huaweicloudOssVersion = "3.21.11"
+    huaweicloudOssVersion = "3.22.3.1"
     upyunOssVersion = "4.2.3"
 }
 
@@ -43,6 +41,7 @@ dependencies {
     api platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
     api platform("org.junit:junit-bom:${junitVersion}")
     api platform("cn.hutool:hutool-bom:${hutoolVersion}")
+
     constraints {
         // chaos
         api "club.gclmit:chaos-core:${VERSION}"
@@ -55,17 +54,13 @@ dependencies {
         // starter
         api "com.baomidou:mybatis-plus-extension:${mybatisPlusVersion}"
 
-        // 综合类库
-        api "com.ejlchina:okhttps-jackson:${okhttpsVersion}"
-
-        // 综合类库/starter - 依赖组件
         api "io.swagger:swagger-annotations:${swaggerVersion}"
         api "io.swagger.core.v3:swagger-annotations:${swagger3xVersion}"
+
+        // tool
+        api "com.ejlchina:okhttps-jackson:${okhttpsVersion}"
         api "com.google.zxing:javase:${zxingVersion}"
         api "com.google.zxing:core:${zxingVersion}"
-
-        // 基础组件
-        api "org.projectlombok:lombok:${lombokVersion}"
         api "com.alibaba:fastjson:${fastjsonVersion}"
         api "org.jsoup:jsoup:${jsoupVersion}"
         api "com.google.code.findbugs:jsr305:${findbugsVersion}"
