@@ -1,11 +1,11 @@
 <p align="center">
-	<a href="https://github.com/antCodelab/chaos"><img src="docs/img/logo.png"></a>
-    <strong>一个功能强悍的 Spring Boot Starter 组件（Where dreams originate）</strong>
+	<a href="https://github.com/gclm/gear4j"><img src="docs/img/Gear4j.png"></a>
+    <strong>Spring Boot快速开发助手，Spring Cloud 微服务开发核心包</strong>
 </p>
 
-[![Chaos CI](https://github.com/antCodelab/chaos/actions/workflows/build.yml/badge.svg)](https://github.com/antCodelab/chaos/actions/workflows/build.yml)
-[![Chaos CI](https://github.com/antCodelab/chaos/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/antCodelab/chaos/actions/workflows/gradle-publish.yml)
-[![Chaos CI](https://github.com/antCodelab/chaos/actions/workflows/sync.yml/badge.svg)](https://github.com/antCodelab/chaos/actions/workflows/sync.yml)
+[![Gear4j CI](https://github.com/antCodelab/chaos/actions/workflows/build.yml/badge.svg)](https://github.com/antCodelab/chaos/actions/workflows/build.yml)
+[![Gear4j CI](https://github.com/antCodelab/chaos/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/antCodelab/chaos/actions/workflows/gradle-publish.yml)
+[![Gear4j CI](https://github.com/antCodelab/chaos/actions/workflows/sync.yml/badge.svg)](https://github.com/antCodelab/chaos/actions/workflows/sync.yml)
 [![Sonatype Maven Release](https://img.shields.io/nexus/r/https/oss.sonatype.org/club.gclmit/chaos-bom.svg?style=flat-square)](https://search.maven.org/search?q=g:%20club.gclmit%20AND%20a:%20chaos-bom)
 [![Sonatype Maven Snapshots](https://img.shields.io/nexus/s/https/oss.sonatype.org/club.gclmit/chaos-bom.svg?style=flat-square)](https://oss.sonatype.org/content/repositories/snapshots/club/gclmit/)
 [![JDK11](https://img.shields.io/badge/JDK-11+-brightgreen.svg)](https://github.com/antCodelab/chaos)
@@ -13,6 +13,27 @@
 [![License](https://img.shields.io/:license-Apache2-blue.svg)](https://github.com/antCodelab/chaos/blob/master/LICENSE)
 
 简体中文 | [English](README_EN.md)
+
+## 简介
+
+`Gear4j`定位是Spring Boot快速开发助手及Spring Cloud 微服务开发核心包。`Gear4j`提供了缓存、安全框架以及主流产商云服务快速集成能力。
+基于`Gear4j`可以不用关注技术细节快速搭建高并发高可用基于微服务的分布式架构。
+
+### 发展历程 `Sabre` → `Chaos` → `Gear4j`
+
+1. 从入行到实习之前，自己沉淀了不少工具类，所以在2017年发布第一版取名叫Sabre。原本只有自己在使用，后来有同学用了这个工具类感觉说比较好用，因此发布此工具到Maven中央仓库。
+2. 在实习时，接触了不同的业务，再加上国内SpringBoot刚不断推广。因此工具类基于SpringBoot做了整体重构，故改名为`Chaos`
+3. 随着微服务的逐渐发展，我发现`Chaos`有点不满足我的需求，因此打算调整`Chaos`的方向，准备向分布式架构及云原生架构发展，故改名为`Gear4j`
+
+<p align="center">
+	<a href="https://github.com/gclm/gear4j"><img src="https://image.coderlab.cn/preview/1541268372946223105"></a>
+</p>
+
+### 定位
+
+✅寓意：Gear（超级轮子），解决各种框架整合、各种场景的融合的问题、形成一整套完全自洽的解决方案
+✅理念：融合、增强、包容、自洽
+✅原则：贴近业务场景只做有用的功能
 
 ### 👥 仓库地址
 
@@ -27,6 +48,7 @@
 
 - `release` 版本号格式为 `x.x.x`
 - `snapshots` 版本号格式为 `x.x.x-SNAPSHOT`
+
 > `snapshots` 版本 `push` 后会自动发布，及时响应修复最新的 `bug` 和需求。
 
 ### 📝 使用文档
