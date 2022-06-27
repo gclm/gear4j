@@ -6,9 +6,5 @@ dependencies {
     api "org.jsoup:jsoup"
     api "cn.hutool:hutool-http"
 
-    compileOnly "jakarta.validation:jakarta.validation-api"
-    compileOnly("org.springframework.boot:spring-boot-starter-web") {
-        exclude group: "org.springframework", module: "spring-boot-starter-tomcat"
-        exclude group: "org.springframework", module: "spring-boot-starter-logging"
-    }
+    compileOnly "org.springframework.boot:spring-boot-starter-web"
 }

@@ -204,48 +204,39 @@
 
 package club.gclmit.gear4j.web.config;
 
-import java.util.List;
+import org.springframework.boot.web.context.WebServerInitializedEvent;
+import org.springframework.context.ApplicationListener;
+import org.springframework.stereotype.Component;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import club.gclmit.gear4j.core.lang.log.Logger;
 
 /**
- * Chaos Web XSS 配置
+ * <p>
+ * Spring Service 服务工具类
+ * </p>
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-@Configuration
-public class ChaosWebConfig implements WebMvcConfigurer {
-
-	private static final Logger log = LoggerFactory.getLogger(ChaosWebConfig.class);
+@Component
+public class SpringServiceHandler implements ApplicationListener<WebServerInitializedEvent> {
 
 	/**
-	 * 添加自定义消息解析器
-	 *
-	 * @param resolvers : 消息解析器list
-	 */
-	@Override
-	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-		resolvers.add(new QueryHandlerMethodArgumentResolver());
-	}
+     * 服务端口号
+     */
+    private static int serverPort;
+
+    public static int getPort() {
+        return serverPort;
+    }
 
 	/**
-	 * SpringBoot2.4.0 [allowedOriginPatterns]代替[allowedOrigins]
-	 *
-	 * @param registry CorsRegistry
-	 */
-	@Override
-	public void addCorsMappings(CorsRegistry registry) {
-		log.info("chaos ---> 开启跨域支持");
-		registry.addMapping("/**")
-			.allowedOriginPatterns("*")
-			.allowedMethods("*")
-			.maxAge(3600)
-			.allowCredentials(true);
+     * 获取项目服务端口
+     *
+     * @param event WebServerInitializedEvent
+     */
+    @Override
+    public void onApplicationEvent(WebServerInitializedEvent event) {
+        serverPort = event.getWebServer().getPort();
+        Logger.info("Get WebServer port {} WebServer Doc http://localhost:{}/doc.html", serverPort, serverPort);
 	}
-
 }

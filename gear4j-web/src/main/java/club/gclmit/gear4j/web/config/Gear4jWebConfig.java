@@ -202,41 +202,50 @@
    limitations under the License.
 */
 
-package club.gclmit.gear4j.starter.config;
+package club.gclmit.gear4j.web.config;
 
-import org.springframework.boot.web.context.WebServerInitializedEvent;
-import org.springframework.context.ApplicationListener;
-import org.springframework.stereotype.Component;
+import java.util.List;
 
-import club.gclmit.gear4j.core.lang.log.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * <p>
- * Spring Service 服务工具类
- * </p>
+ * Chaos Web XSS 配置
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-@Component
-public class SpringServiceHandler implements ApplicationListener<WebServerInitializedEvent> {
+@Configuration
+public class Gear4jWebConfig implements WebMvcConfigurer {
+
+    private static final Logger log = LoggerFactory.getLogger(Gear4jWebConfig.class);
 
 	/**
-	 * 服务端口号
-	 */
-	private static int serverPort;
-
-	public static int getPort() {
-		return serverPort;
-	}
-
-	/**
-	 * 获取项目服务端口
+	 * 添加自定义消息解析器
 	 *
-	 * @param event WebServerInitializedEvent
+	 * @param resolvers : 消息解析器list
 	 */
 	@Override
-	public void onApplicationEvent(WebServerInitializedEvent event) {
-		serverPort = event.getWebServer().getPort();
-		Logger.info("Get WebServer port {} WebServer Doc http://localhost:{}/doc.html", serverPort, serverPort);
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+		resolvers.add(new QueryHandlerMethodArgumentResolver());
 	}
+
+	/**
+	 * SpringBoot2.4.0 [allowedOriginPatterns]代替[allowedOrigins]
+	 *
+	 * @param registry CorsRegistry
+	 */
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		log.info("chaos ---> 开启跨域支持");
+		registry.addMapping("/**")
+			.allowedOriginPatterns("*")
+			.allowedMethods("*")
+			.maxAge(3600)
+			.allowCredentials(true);
+	}
+
 }
