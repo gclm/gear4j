@@ -3,14 +3,15 @@
     <strong>Spring Boot快速开发助手，Spring Cloud 微服务开发核心包</strong>
 </p>
 
+[![JDK11](https://img.shields.io/badge/JDK-11+-brightgreen.svg)](https://github.com/antCodelab/chaos)
+[![Sonatype Maven Release](https://img.shields.io/nexus/r/https/oss.sonatype.org/club.gclmit/gear4j-bom.svg?style=flat-square)](https://search.maven.org/search?q=g:%20club.gclmit%20AND%20a:%20gear4j-bom)
+[![Sonatype Maven Snapshots](https://img.shields.io/nexus/s/https/oss.sonatype.org/club.gclmit/gear4j-bom.svg?style=flat-square)](https://oss.sonatype.org/content/repositories/snapshots/club/gclmit/)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=antCodelab_chaos&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=antCodelab_chaos)
+[![License](https://img.shields.io/:license-Apache2-blue.svg)](https://github.com/antCodelab/chaos/blob/master/LICENSE)
+<br>
 [![Gear4j CI](https://github.com/antCodelab/chaos/actions/workflows/build.yml/badge.svg)](https://github.com/antCodelab/chaos/actions/workflows/build.yml)
 [![Gear4j CI](https://github.com/antCodelab/chaos/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/antCodelab/chaos/actions/workflows/gradle-publish.yml)
 [![Gear4j CI](https://github.com/antCodelab/chaos/actions/workflows/sync.yml/badge.svg)](https://github.com/antCodelab/chaos/actions/workflows/sync.yml)
-[![Sonatype Maven Release](https://img.shields.io/nexus/r/https/oss.sonatype.org/club.gclmit/chaos-bom.svg?style=flat-square)](https://search.maven.org/search?q=g:%20club.gclmit%20AND%20a:%20chaos-bom)
-[![Sonatype Maven Snapshots](https://img.shields.io/nexus/s/https/oss.sonatype.org/club.gclmit/chaos-bom.svg?style=flat-square)](https://oss.sonatype.org/content/repositories/snapshots/club/gclmit/)
-[![JDK11](https://img.shields.io/badge/JDK-11+-brightgreen.svg)](https://github.com/antCodelab/chaos)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=antCodelab_chaos&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=antCodelab_chaos)
-[![License](https://img.shields.io/:license-Apache2-blue.svg)](https://github.com/antCodelab/chaos/blob/master/LICENSE)
 
 简体中文 | [English](README_EN.md)
 
@@ -31,9 +32,9 @@
 
 ### 定位
 
-✅寓意：Gear（超级轮子），解决各种框架整合、各种场景的融合的问题、形成一整套完全自洽的解决方案
-✅理念：融合、增强、包容、自洽
-✅原则：贴近业务场景只做有用的功能
+- 寓意：Gear（超级轮子），解决各种框架整合、各种场景的融合的问题、形成一整套完全自洽的解决方案
+- 理念：融合、增强、包容、自洽
+- 原则：贴近业务场景只做有用的功能
 
 ### 👥 仓库地址
 
