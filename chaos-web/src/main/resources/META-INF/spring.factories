@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-club.gclmit.chaos.web.config.ChaosWebConfig
