@@ -4,13 +4,6 @@
     "Code Inspection": 22
   },
   "attributes": {
-    "vcs": {
-      "sarifIdea": {
-        "repositoryUri": "https://github.com/gclm/gear4j",
-        "revisionId": "237464a0126969472a747d005a4c85d987a59a9d",
-        "branch": "dev"
-      }
-    },
     "deviceId": "200820300000000-057c-9554-c182-deb773b2d6c9"
   }
 }

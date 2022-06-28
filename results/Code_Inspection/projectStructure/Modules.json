@@ -1845,13 +1845,13 @@
           "path": "file://$PROJECT_DIR$/gear4j-extra/src/main",
           "sourceFolders": [
             {
-              "path": "file://$PROJECT_DIR$/gear4j-extra/src/main/resources",
-              "type": "Resource",
+              "path": "file://$PROJECT_DIR$/gear4j-extra/src/main/java",
+              "type": "Source",
               "packagePrefix": ""
             },
             {
-              "path": "file://$PROJECT_DIR$/gear4j-extra/src/main/java",
-              "type": "Source",
+              "path": "file://$PROJECT_DIR$/gear4j-extra/src/main/resources",
+              "type": "Resource",
               "packagePrefix": ""
             }
           ]
