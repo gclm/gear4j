@@ -6,5 +6,6 @@ dependencies {
     api "org.jsoup:jsoup"
     api "cn.hutool:hutool-http"
 
+    compileOnly "jakarta.validation:jakarta.validation-api"
     compileOnly "org.springframework.boot:spring-boot-starter-web"
 }

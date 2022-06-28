@@ -202,32 +202,63 @@
    limitations under the License.
 */
 
-package club.gclmit.gear4j.web.annotation;
+package club.gclmit.gear4j.web.controller;
 
-import java.lang.annotation.*;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.context.annotation.ComponentScan;
+import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.web.model.result.ApiResult;
 
 /**
+ * 统一异常处理控制器
  * <p>
- * Spring Boot启动注解。主要用户自动扫描chaos组件的包
- * </p>
+ * 1. 参数校验异常
+ * 2. chaos组件异常
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@ConditionalOnWebApplication
-// 自定义注解配置
-@MapperScan(basePackages = {
-	"club.gclmit.chaos.*.mapper"
-})
-@ComponentScan(basePackages = {
-	"club.gclmit.chaos"
-})
-public @interface EnableChaos {
+public class Gear4jGlobalExceptionHandler {
 
+	/**
+	 * 处理 validate 异常
+	 *
+	 * @param exception 异常
+	 * @return {@link ApiResult}
+	 */
+	@ExceptionHandler(value = {
+		BindException.class,
+		MethodArgumentNotValidException.class
+	})
+	public ApiResult validationExceptionHandler(Exception exception) {
+
+		BindingResult bindResult = null;
+		if (exception instanceof BindException) {
+			bindResult = ((BindException) exception).getBindingResult();
+		}
+		StringBuilder message = new StringBuilder();
+
+		if (bindResult != null && bindResult.hasErrors()) {
+			bindResult.getAllErrors().forEach(objectError -> {
+				message.append(objectError.getDefaultMessage()).append(",");
+			});
+		} else {
+			message.append("系统繁忙，请稍后重试...");
+		}
+		return ApiResult.fail(message.substring(0, message.length() - 1));
+	}
+
+	/**
+	 * chaos组件相关的异常
+	 *
+	 * @param exception 异常
+	 * @return {@link ApiResult}
+	 */
+	@ExceptionHandler(value = {ChaosException.class})
+	public ApiResult chaosException(Exception exception) {
+		return ApiResult.fail(exception.getMessage());
+	}
 }

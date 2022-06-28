@@ -204,13 +204,7 @@
 
 package club.gclmit.gear4j.core.utils;
 
-import java.io.InputStream;
-
-import org.springframework.web.multipart.MultipartFile;
-
-import club.gclmit.gear4j.core.exception.ChaosException;
 import cn.hutool.core.io.FileTypeUtil;
-import cn.hutool.core.lang.Assert;
 
 /**
  * 文件类型工具类
@@ -221,20 +215,5 @@ import cn.hutool.core.lang.Assert;
 public class FileTypeUtils extends FileTypeUtil {
 
 	private FileTypeUtils() {
-	}
-
-	/**
-	 * 获取文件后缀
-	 *
-	 * @param file MultipartFile
-	 * @return {@link String}
-	 */
-	public static String getSuffix(MultipartFile file) {
-		Assert.notNull(file, "文件不能为空");
-		try (InputStream inputStream = file.getInputStream()) {
-			return getType(inputStream);
-		} catch (Exception e) {
-			throw new ChaosException("读取文件失败", e);
-		}
 	}
 }

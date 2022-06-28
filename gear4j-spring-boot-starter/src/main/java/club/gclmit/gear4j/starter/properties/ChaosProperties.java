@@ -208,7 +208,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import club.gclmit.gear4j.extra.waf.properties.ChaosWafProperties;
 import club.gclmit.gear4j.logger.model.LoggerProperties;
-import club.gclmit.gear4j.storage.model.pojo.CloudStorage;
 
 /**
  * Chaos Properties
@@ -217,11 +216,6 @@ import club.gclmit.gear4j.storage.model.pojo.CloudStorage;
  */
 @ConfigurationProperties("chaos")
 public class ChaosProperties {
-
-	/**
-	 * 存储自动注入
-	 */
-	private CloudStorage storage;
 
 	/**
 	 * 日志管理
@@ -233,13 +227,6 @@ public class ChaosProperties {
 	 */
 	private ChaosWafProperties waf;
 
-	public CloudStorage getStorage() {
-		return storage;
-	}
-
-	public void setStorage(CloudStorage storage) {
-		this.storage = storage;
-	}
 
 	public LoggerProperties getLogger() {
 		return logger;
@@ -260,8 +247,7 @@ public class ChaosProperties {
 	@Override
 	public String toString() {
 		return "ChaosProperties{" +
-			"storage=" + storage +
-			", logger=" + logger +
+            "logger=" + logger +
 			", waf=" + waf +
 			'}';
 	}

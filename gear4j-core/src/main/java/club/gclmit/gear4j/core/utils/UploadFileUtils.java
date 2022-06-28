@@ -312,7 +312,7 @@ public class UploadFileUtils {
 	 * @return java.io.File
 	 */
 	public static File toFile(MultipartFile multipartFile, String dirPath, List<String> whiteList) {
-		String suffix = FileTypeUtils.getSuffix(multipartFile);
+        String suffix = FileUtils.getSuffix(multipartFile);
 		if (whiteList.contains(suffix)) {
 			dirPath = StringUtils.isEmpty(dirPath) ? FileUtils.getRootPath() : dirPath;
 			File localFile = new File(dirPath, IdUtil.fastSimpleUUID() + "." + suffix);

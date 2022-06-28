@@ -138,224 +138,26 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package club.gclmit.gear4j.core.utils;
+package club.gclmit.gear4j.web.annotation;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.function.Predicate;
+import java.lang.annotation.*;
 
-import org.springframework.core.BridgeMethodResolver;
-import org.springframework.core.DefaultParameterNameDiscoverer;
-import org.springframework.core.MethodParameter;
-import org.springframework.core.ParameterNameDiscoverer;
-import org.springframework.core.annotation.AnnotatedElementUtils;
-import org.springframework.core.annotation.SynthesizingMethodParameter;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.core.io.support.ResourcePatternResolver;
-import org.springframework.core.type.classreading.MetadataReader;
-import org.springframework.core.type.classreading.MetadataReaderFactory;
-import org.springframework.core.type.classreading.SimpleMetadataReaderFactory;
-import org.springframework.lang.Nullable;
-import org.springframework.util.ResourceUtils;
-import org.springframework.web.method.HandlerMethod;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
- * 类工具类
+ * Spring Boot启动注解。主要用户自动扫描chaos组件的包
  *
- * @author L.cm
  * @author <a href="https://blog.gclmit.club">gclm</a>
- * @since jdk11
  */
-public class ClassUtils extends org.springframework.util.ClassUtils {
-    /**
-     * 默认过滤器（无实现）
-     */
-    private final static Predicate<Class<?>> EMPTY_FILTER = clazz -> true;
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@ConditionalOnWebApplication
+// 自定义注解配置
+@MapperScan(basePackages = {"club.gclmit.gear4j.*.mapper"})
+@ComponentScan(basePackages = {"club.gclmit.gear4j"})
+public @interface EnableGear4j {
 
-	private static final ParameterNameDiscoverer PARAMETER_NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
-
-    private ClassUtils() {}
-
-    /**
-     * 获取方法参数信息
-     *
-     * @param constructor 构造器
-     * @param parameterIndex 参数序号
-     * @return {MethodParameter}
-     */
-    public static MethodParameter getMethodParameter(Constructor<?> constructor, int parameterIndex) {
-        MethodParameter methodParameter = new SynthesizingMethodParameter(constructor, parameterIndex);
-        methodParameter.initParameterNameDiscovery(PARAMETER_NAME_DISCOVERER);
-        return methodParameter;
-    }
-
-    /**
-     * 获取方法参数信息
-     *
-     * @param method 方法
-     * @param parameterIndex 参数序号
-     * @return {MethodParameter}
-     */
-    public static MethodParameter getMethodParameter(Method method, int parameterIndex) {
-        MethodParameter methodParameter = new SynthesizingMethodParameter(method, parameterIndex);
-        methodParameter.initParameterNameDiscovery(PARAMETER_NAME_DISCOVERER);
-        return methodParameter;
-    }
-
-    /**
-     * 获取Annotation
-     *
-     * @param method Method
-     * @param annotationType 注解类
-     * @param <A> 泛型标记
-     * @return {Annotation}
-     */
-    @Nullable
-    public static <A extends Annotation> A getAnnotation(Method method, Class<A> annotationType) {
-        Class<?> targetClass = method.getDeclaringClass();
-        // The method may be on an interface, but we need attributes from the target class.
-        // If the target class is null, the method will be unchanged.
-        Method specificMethod = getMostSpecificMethod(method, targetClass);
-        // If we are dealing with method with generic parameters, find the original method.
-        specificMethod = BridgeMethodResolver.findBridgedMethod(specificMethod);
-        // 先找方法，再找方法上的类
-        A annotation = AnnotatedElementUtils.findMergedAnnotation(specificMethod, annotationType);
-        if (null != annotation) {
-            return annotation;
-        }
-        // 获取类上面的Annotation，可能包含组合注解，故采用spring的工具类
-        return AnnotatedElementUtils.findMergedAnnotation(specificMethod.getDeclaringClass(), annotationType);
-    }
-
-    /**
-     * 获取Annotation
-     *
-     * @param handlerMethod HandlerMethod
-     * @param annotationType 注解类
-     * @param <A> 泛型标记
-     * @return {Annotation}
-     */
-    @Nullable
-    public static <A extends Annotation> A getAnnotation(HandlerMethod handlerMethod, Class<A> annotationType) {
-        // 先找方法，再找方法上的类
-        A annotation = handlerMethod.getMethodAnnotation(annotationType);
-        if (null != annotation) {
-            return annotation;
-        }
-        // 获取类上面的Annotation，可能包含组合注解，故采用spring的工具类
-        Class<?> beanType = handlerMethod.getBeanType();
-        return AnnotatedElementUtils.findMergedAnnotation(beanType, annotationType);
-    }
-
-    /**
-     * 判断是否有注解 Annotation
-     *
-     * @param method Method
-     * @param annotationType 注解类
-     * @param <A> 泛型标记
-     * @return {boolean}
-     */
-    public static <A extends Annotation> boolean isAnnotated(Method method, Class<A> annotationType) {
-        // 先找方法，再找方法上的类
-        boolean isMethodAnnotated = AnnotatedElementUtils.isAnnotated(method, annotationType);
-        if (isMethodAnnotated) {
-            return true;
-        }
-        // 获取类上面的Annotation，可能包含组合注解，故采用spring的工具类
-        Class<?> targetClass = method.getDeclaringClass();
-        return AnnotatedElementUtils.isAnnotated(targetClass, annotationType);
-    }
-
-    /**
-     * 扫描目录下的所有class文件
-     *
-     * @param scanPackage 搜索的包根路径
-     * @return
-     */
-    public static Set<Class<?>> getClasses(String scanPackage) {
-        return getClasses(scanPackage, EMPTY_FILTER);
-    }
-
-    /**
-     * 返回所有的子类（不包括抽象类）
-     *
-     * @param scanPackage 搜索的包根路径
-     * @param parent
-     * @return
-     */
-    public static Set<Class<?>> listAllSubclasses(String scanPackage, Class<?> parent) {
-        return getClasses(scanPackage, (clazz) -> {
-            return parent.isAssignableFrom(clazz) && !Modifier.isAbstract(clazz.getModifiers());
-        });
-    }
-
-    /**
-     * 返回所有的子类（不包括抽象类）
-     *
-     * @param parent
-     * @return
-     */
-    public static Set<Class<?>> listAllSubclasses(Class<?> parent) {
-        String packageName = getPackageName(parent);
-        return getClasses(packageName, (clazz) -> {
-            return parent.isAssignableFrom(clazz) && !Modifier.isAbstract(clazz.getModifiers());
-        });
-    }
-
-    /**
-     * 返回所有带制定注解的class列表
-     *
-     * @param scanPackage 搜索的包根路径
-     * @param annotation
-     * @return
-     */
-    public static <A extends Annotation> Set<Class<?>> listClassesWithAnnotation(String scanPackage,
-        Class<A> annotation) {
-        return getClasses(scanPackage, (clazz) -> {
-            return clazz.getAnnotation(annotation) != null;
-        });
-    }
-
-    /**
-     * 扫描目录下的所有class文件
-     *
-     * @param pack 包路径
-     * @param filter 自定义类过滤器
-     * @return
-     */
-    public static Set<Class<?>> getClasses(String pack, Predicate<Class<?>> filter) {
-        ResourcePatternResolver patternResolver = new PathMatchingResourcePatternResolver();
-        MetadataReaderFactory metaFactory = new SimpleMetadataReaderFactory(patternResolver);
-
-        String path = ClassUtils.convertClassNameToResourcePath(pack);
-        String location = ResourceUtils.CLASSPATH_URL_PREFIX + path + "/**/*.class";
-        Resource[] resources;
-
-        Set<Class<?>> result = new HashSet<>();
-        try {
-            resources = patternResolver.getResources(location);
-            for (Resource resource : resources) {
-                MetadataReader metaReader = metaFactory.getMetadataReader(resource);
-                if (resource.isReadable()) {
-                    String clazzName = metaReader.getClassMetadata().getClassName();
-                    if (clazzName.contains("$")) {
-                        // 忽略内部类
-                        continue;
-                    }
-                    // Class<?> clazz = Class.forName(clazzName);
-                    Class<?> clazz = Thread.currentThread().getContextClassLoader().loadClass(clazzName);
-                    if (filter.test(clazz)) {
-                        result.add(clazz);
-                    }
-                }
-            }
-        } catch (Exception e) {
-        }
-        return result;
-    }
 }
