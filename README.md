@@ -38,8 +38,8 @@
 
 ### 👥 仓库地址
 
-- [Github](https://github.com/DandelionAdmin/chaos)
-- [Gitee](https://gitee.com/gclm/chaos)
+- [Github](https://github.com/gclm/gear4j)
+- [Gitee](https://gitee.com/gclm/gear4j)
 
 > Gitee 是同步的镜像仓库，有问题请使用 Github Issue 反馈
 
@@ -60,8 +60,9 @@
 
 ### 📱 沟通交流
 
-- Issues交流：[https://github.com/antCodelab/chaos/issues](https://github.com/antCodelab/chaos/issues)
-- QQ群交流：[641633175](https://shang.qq.com/wpa/qunwpa?idkey=4684b1c1194706adcc4ce7c9428935d31c0b2a86b51e96cb807fa30f94cebfde)
+- Issues交流：[https://github.com/gclm/gear4j/issues](https://github.com/gclm/gear4j/issues)
+-
+QQ群交流：[641633175](https://shang.qq.com/wpa/qunwpa?idkey=4684b1c1194706adcc4ce7c9428935d31c0b2a86b51e96cb807fa30f94cebfde)
 
 ![孤城落寞博客](docs/img/wechat.png)
 
