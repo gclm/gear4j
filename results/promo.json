@@ -1,0 +1,63 @@
+{"version":"3","listProblem":[{
+  "tool": "Code Inspection",
+  "category": "Class",
+  "type": "Class name same as ancestor name",
+  "tags": [
+    "JAVA"
+  ],
+  "severity": "High",
+  "comment": "Class name <code>ClassUtils</code> is the same as one of its superclass' names",
+  "detailsInfo": "Reports classes that have the same name as one of their superclasses, while their fully qualified names remain different. Such class names may be very confusing.\n\n**Example:**\n\n\n      package util;\n      abstract class Iterable<T> implements java.lang.Iterable<T> {}\n\nA quick-fix that renames such classes is available only in the editor.",
+  "sources": [
+    {
+      "type": "class",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ClassUtils.java",
+      "language": "JAVA",
+      "line": 174,
+      "offset": 13,
+      "length": 10,
+      "code": {
+        "startLine": 172,
+        "length": 10,
+        "offset": 33,
+        "surroundingCode": " * @since jdk11\n */\npublic class ClassUtils extends org.springframework.util.ClassUtils {\n    /**\n     * 默认过滤器（无实现）"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "ClassNameSameAsAncestorName"
+  },
+  "hash": "-4098624514124096267"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Use of 'System.out' or 'System.err'",
+  "tags": [
+    "JAVA"
+  ],
+  "severity": "High",
+  "comment": "Uses of <code>System.out</code> should probably be replaced with more robust logging",
+  "detailsInfo": "Reports usages of `System.out` or `System.err`.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code, or replaced by a more robust\nlogging facility.",
+  "sources": [
+    {
+      "type": "method",
+      "path": "gear4j-extra/src/main/java/club/gclmit/gear4j/extra/notify/Dingtalk/DingtalkBot.java",
+      "language": "JAVA",
+      "line": 85,
+      "offset": 8,
+      "length": 10,
+      "code": {
+        "startLine": 83,
+        "length": 10,
+        "offset": 170,
+        "surroundingCode": "        HttpResult result = OkHttps.async(url).setBodyPara(content).bodyType(OkHttps.JSON).post().getResult();\n        String body = result.getBody().toString();\n        System.out.println(StringUtils.format(\"钉钉消息发送({}): -->{}\", result.getStatus(), body));\n        if (HttpStatus.OK.value() == result.getStatus()) {\n            return 0 == JSONObject.parseObject(body).getInteger(\"errcode\");"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-extra.main",
+    "inspectionName": "SystemOutErr"
+  },
+  "hash": "-9027162165725336727"
+}]}
