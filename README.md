@@ -27,7 +27,7 @@
 3. 随着微服务的逐渐发展，我发现`Chaos`有点不满足我的需求，因此打算调整`Chaos`的方向，准备向分布式架构及云原生架构发展，故改名为`Gear4j`
 
 <p align="center">
-	<a href="https://github.com/gclm/gear4j"><img src="https://image.coderlab.cn/preview/1541268372946223105"></a>
+	<a href="https://github.com/gclm/gear4j"><img src="https://pic.rmb.bdstatic.com/bjh/cb6405a44e6b3240c41ba3a1d9bb9145.png@s_0,w_2000"></a>
 </p>
 
 ### 定位
