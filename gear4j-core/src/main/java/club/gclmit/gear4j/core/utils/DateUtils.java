@@ -12,7 +12,21 @@ import cn.hutool.core.date.DateUtil;
  */
 public class DateUtils extends DateUtil {
 
-	public static long current() {
-		return SystemClock.now();
-	}
+    /**
+     * 当前时间的时间戳（毫秒）
+     *
+     * @return 当前时间毫秒数
+     */
+    public static long getTime() {
+        return SystemClock.now();
+    }
+
+    /**
+     * 当前时间的时间戳（秒）
+     *
+     * @return 当前时间秒数
+     */
+    public static long getTimeSeconds() {
+        return SystemClock.now() / 1000;
+    }
 }

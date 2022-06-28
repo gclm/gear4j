@@ -224,7 +224,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class ApiResult implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private static final String TIMESTAMP = String.valueOf(DateUtils.current());
+    private static final String TIMESTAMP = String.valueOf(DateUtils.getTime());
 
 	/**
 	 * 响应状态码
