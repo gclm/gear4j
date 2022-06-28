@@ -25,7 +25,7 @@
     "module": "gear4j.gear4j-web.main",
     "inspectionName": "NonSerializableFieldInSerializableClass"
   },
-  "hash": "8a63b533ed2fd9606992e8d74dd2dc71449c5db8989af7582d3a9981c7b355b5"
+  "hash": "62ce9d5367aecc7bdff92c9178f08c422b993c65e83aac381325b010399df176"
 },{
   "tool": "Code Inspection",
   "category": "Error handling",
@@ -143,6 +143,34 @@
   "category": "Probable bugs",
   "type": "Infinite recursion",
   "severity": "High",
+  "comment": "Method 'getField()' recurses infinitely, and can only end by throwing an exception",
+  "detailsInfo": "Reports methods that call themselves infinitely unless an exception is thrown.\n\n\nMethods reported by this inspection cannot return normally.\nWhile such behavior may be intended, in many cases this is just an oversight.\n\n**Example:**\n\n      int baz() {\n          return baz();\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
+      "language": "JAVA",
+      "line": 337,
+      "offset": 26,
+      "length": 8,
+      "code": {
+        "startLine": 335,
+        "length": 8,
+        "offset": 47,
+        "surroundingCode": "     */\n    @Nullable\n    public static Object getField(Field field, @Nullable Object target) {\n        makeAccessible(field);\n        return getField(field, target);"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "InfiniteRecursion"
+  },
+  "hash": "a33c9c05e2d0ec0758c71e0a4bba27b814ac8820a684ee6a506310e32a2687d0"
+},{
+  "tool": "Code Inspection",
+  "category": "Probable bugs",
+  "type": "Infinite recursion",
+  "severity": "High",
   "comment": "Method 'invokeMethod()' recurses infinitely, and can only end by throwing an exception",
   "detailsInfo": "Reports methods that call themselves infinitely unless an exception is thrown.\n\n\nMethods reported by this inspection cannot return normally.\nWhile such behavior may be intended, in many cases this is just an oversight.\n\n**Example:**\n\n      int baz() {\n          return baz();\n      }\n",
   "sources": [
@@ -194,34 +222,6 @@
     "inspectionName": "InfiniteRecursion"
   },
   "hash": "41117a41252d487bfc8934bdb48406dce5644881c0bdc4ed5b647241b915ed6d"
-},{
-  "tool": "Code Inspection",
-  "category": "Probable bugs",
-  "type": "Infinite recursion",
-  "severity": "High",
-  "comment": "Method 'getField()' recurses infinitely, and can only end by throwing an exception",
-  "detailsInfo": "Reports methods that call themselves infinitely unless an exception is thrown.\n\n\nMethods reported by this inspection cannot return normally.\nWhile such behavior may be intended, in many cases this is just an oversight.\n\n**Example:**\n\n      int baz() {\n          return baz();\n      }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
-      "language": "JAVA",
-      "line": 337,
-      "offset": 26,
-      "length": 8,
-      "code": {
-        "startLine": 335,
-        "length": 8,
-        "offset": 47,
-        "surroundingCode": "     */\n    @Nullable\n    public static Object getField(Field field, @Nullable Object target) {\n        makeAccessible(field);\n        return getField(field, target);"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-core.main",
-    "inspectionName": "InfiniteRecursion"
-  },
-  "hash": "a33c9c05e2d0ec0758c71e0a4bba27b814ac8820a684ee6a506310e32a2687d0"
 },{
   "tool": "Code Inspection",
   "category": "Numeric issues",
@@ -311,6 +311,34 @@
   "category": "Visibility",
   "type": "Method tries to override 'static' method of superclass",
   "severity": "High",
+  "comment": "Method 'getField()' tries to override a static method of a superclass",
+  "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
+      "language": "JAVA",
+      "line": 337,
+      "offset": 26,
+      "length": 8,
+      "code": {
+        "startLine": 335,
+        "length": 8,
+        "offset": 47,
+        "surroundingCode": "     */\n    @Nullable\n    public static Object getField(Field field, @Nullable Object target) {\n        makeAccessible(field);\n        return getField(field, target);"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "MethodOverridesStaticMethod"
+  },
+  "hash": "37d0401e6afb7a534b857debb5898474021a503866c38037ab3fcbb6a5a634ec"
+},{
+  "tool": "Code Inspection",
+  "category": "Visibility",
+  "type": "Method tries to override 'static' method of superclass",
+  "severity": "High",
   "comment": "Method 'invokeMethod()' tries to override a static method of a superclass",
   "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
   "sources": [
@@ -390,62 +418,6 @@
     "inspectionName": "MethodOverridesStaticMethod"
   },
   "hash": "417a21de9dfa38d8bde568d99c9098c005b0e109bb731bbffe44a0d732c7725e"
-},{
-  "tool": "Code Inspection",
-  "category": "Visibility",
-  "type": "Method tries to override 'static' method of superclass",
-  "severity": "High",
-  "comment": "Method 'getField()' tries to override a static method of a superclass",
-  "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
-      "language": "JAVA",
-      "line": 337,
-      "offset": 26,
-      "length": 8,
-      "code": {
-        "startLine": 335,
-        "length": 8,
-        "offset": 47,
-        "surroundingCode": "     */\n    @Nullable\n    public static Object getField(Field field, @Nullable Object target) {\n        makeAccessible(field);\n        return getField(field, target);"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-core.main",
-    "inspectionName": "MethodOverridesStaticMethod"
-  },
-  "hash": "37d0401e6afb7a534b857debb5898474021a503866c38037ab3fcbb6a5a634ec"
-},{
-  "tool": "Code Inspection",
-  "category": "Visibility",
-  "type": "Method tries to override 'static' method of superclass",
-  "severity": "High",
-  "comment": "Method 'current()' tries to override a static method of a superclass",
-  "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/DateUtils.java",
-      "language": "JAVA",
-      "line": 15,
-      "offset": 21,
-      "length": 7,
-      "code": {
-        "startLine": 13,
-        "length": 7,
-        "offset": 63,
-        "surroundingCode": "public class DateUtils extends DateUtil {\n\n\tpublic static long current() {\n\t\treturn SystemClock.now();\n\t}"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-core.main",
-    "inspectionName": "MethodOverridesStaticMethod"
-  },
-  "hash": "85a54d72b5fecab55170604b92abf23fa790010b65d03bd0b139b91718be4c31"
 },{
   "tool": "Code Inspection",
   "category": "Visibility",
