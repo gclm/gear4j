@@ -211,7 +211,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 import club.gclmit.gear4j.core.utils.StringUtils;
-import club.gclmit.gear4j.extra.waf.util.XssUtils;
+import club.gclmit.gear4j.safe.util.XssUtils;
 
 /**
  * Xss Jackson 序列化

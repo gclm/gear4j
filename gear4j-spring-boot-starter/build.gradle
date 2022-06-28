@@ -2,7 +2,7 @@ dependencies {
     api project(":gear4j-core")
     api project(":gear4j-web")
     api project(":gear4j-cos")
+    api project(":gear4j-safe")
     api project(":gear4j-logger")
     api project(":gear4j-extra")
-    compileOnly("org.springframework.boot:spring-boot-starter-web")
 }

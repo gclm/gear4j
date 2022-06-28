@@ -218,8 +218,8 @@ import org.springframework.core.Ordered;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import club.gclmit.gear4j.core.utils.UrlUtils;
-import club.gclmit.gear4j.extra.waf.properties.ChaosWafProperties;
-import club.gclmit.gear4j.extra.waf.properties.XssProperties;
+import club.gclmit.gear4j.safe.config.SafeConfig;
+import club.gclmit.gear4j.safe.config.XssConfig;
 import cn.hutool.core.collection.CollUtil;
 
 /**
@@ -230,9 +230,8 @@ import cn.hutool.core.collection.CollUtil;
 @WebFilter(filterName = "xssFilter", urlPatterns = "/*")
 public class XssFilter extends OncePerRequestFilter implements Ordered {
 
-
 	@Autowired
-	private ChaosWafProperties wafProperties;
+    private SafeConfig safeConfig;
 
 	@Override
 	public int getOrder() {
@@ -241,7 +240,7 @@ public class XssFilter extends OncePerRequestFilter implements Ordered {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-		XssProperties xss = wafProperties.getXss();
+        XssConfig xss = safeConfig.getXss();
 		if (handleUrlRule(request, xss)) {
 			filterChain.doFilter(request, response);
 			return;
@@ -251,17 +250,17 @@ public class XssFilter extends OncePerRequestFilter implements Ordered {
 	}
 
 	/**
-	 * 处理url规则
-	 *
-	 * @param request       HttpServletRequest
-	 * @param xssProperties 配置信息
-	 * @return boolean
-	 * @author <a href="https://blog.gclmit.club">gclm</a>
-	 */
-	private boolean handleUrlRule(HttpServletRequest request, XssProperties xssProperties) {
+     * 处理url规则
+     *
+     * @param request HttpServletRequest
+     * @param xssConfig 配置信息
+     * @return boolean
+     * @author <a href="https://blog.gclmit.club">gclm</a>
+     */
+    private boolean handleUrlRule(HttpServletRequest request, XssConfig xssConfig) {
 		String url = request.getServletPath();
-		List<String> pathPatterns = xssProperties.getPathPatterns();
-		List<String> excludePatterns = xssProperties.getExcludePatterns();
+        List<String> pathPatterns = xssConfig.getPathPatterns();
+        List<String> excludePatterns = xssConfig.getExcludePatterns();
 
 		if (CollUtil.isEmpty(pathPatterns)) {
 			return false;

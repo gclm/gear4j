@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-club.gclmit.gear4j.starter.config.ChaosLoggerConfig,\
-club.gclmit.gear4j.starter.config.ChaosXssConfig

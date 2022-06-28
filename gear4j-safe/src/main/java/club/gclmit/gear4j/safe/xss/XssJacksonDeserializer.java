@@ -213,8 +213,8 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 
-import club.gclmit.gear4j.extra.waf.util.XssHolder;
-import club.gclmit.gear4j.extra.waf.util.XssUtils;
+import club.gclmit.gear4j.safe.util.XssHolder;
+import club.gclmit.gear4j.safe.util.XssUtils;
 
 /**
  * XssJacksonDeserializer

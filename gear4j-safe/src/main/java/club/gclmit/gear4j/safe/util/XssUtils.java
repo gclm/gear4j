@@ -208,7 +208,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.safety.Safelist;
 
-import club.gclmit.gear4j.extra.waf.rule.HtmlFilterRule;
+import club.gclmit.gear4j.safe.rule.HtmlFilterRule;
 
 /**
  * Xss Utils
