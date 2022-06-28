@@ -244,7 +244,7 @@ public class StorageClientTest {
     /**
      * 阿里云配置
      */
-    // @Test
+    @Test
     public void aliyun() {
         CosProvider cosProvider =
             CosProvider.builder().provider(CosProviderType.ALIYUN.getCode()).accessKeyId("accessKeyId")
@@ -258,7 +258,7 @@ public class StorageClientTest {
     /**
      * 腾讯云
      */
-    // @Test
+    @Test
     public void qcloud() {
         CosProvider cosProvider =
             CosProvider.builder().provider(CosProviderType.QCLOUD.getCode()).accessKeyId("accessKeyId")
@@ -273,7 +273,7 @@ public class StorageClientTest {
     /**
      * fastdfs
      */
-    // @Test
+    @Test
     public void fastdfs() {
         CosProvider cosProvider =
             CosProvider.builder().provider(CosProviderType.GO_FASTDFS.getCode()).accessKeyId("accessKeyId")
