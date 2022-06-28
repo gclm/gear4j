@@ -1,0 +1,617 @@
+{"version":"3","listProblem":[{
+  "tool": "Code Inspection",
+  "category": "Serialization issues",
+  "type": "Non-serializable field in a 'Serializable' class",
+  "severity": "High",
+  "comment": "Non-serializable field 'data' in a Serializable class",
+  "detailsInfo": "Reports non-serializable fields in classes that implement `java.io.Serializable`. Such fields will result in runtime exceptions if the object is serialized.\n\n\nFields declared\n`transient` or `static`\nare not reported, nor are fields of classes that have a `writeObject` method defined.\n\n\nThis inspection assumes fields of the types\n`java.util.Collection` and\n`java.util.Map` to be\n`Serializable`, unless the types\nthey are declared in are non-`Serializable`.\n\n**Example:**\n\n\n      class NonSerializableClass {}\n\n      public class SerializableClass implements Serializable {\n          NonSerializableClass clazz; // warning: Non-serializable field 'clazz' in a Serializable class\n          static NonSerializableClass staticClazz; // no warnings\n      }\n      \n\nUse the following options to configure the inspection:\n\n* List classes whose inheritors should not be reported by this inspection. This is meant for classes that inherit `Serializable` from a superclass but are not intended for serialization.\n* List annotations that will make the inspection ignore the annotated fields.\n* Whether to ignore fields initialized with an anonymous class.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-web/src/main/java/club/gclmit/gear4j/web/model/result/ApiResult.java",
+      "language": "JAVA",
+      "line": 255,
+      "offset": 17,
+      "length": 4,
+      "code": {
+        "startLine": 253,
+        "length": 4,
+        "offset": 82,
+        "surroundingCode": "\t@ApiModelProperty(value = \"响应数据\")\n\t@Schema(description = \"响应数据\")\n\tprivate Object data;\n\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-web.main",
+    "inspectionName": "NonSerializableFieldInSerializableClass"
+  },
+  "hash": "8a63b533ed2fd9606992e8d74dd2dc71449c5db8989af7582d3a9981c7b355b5"
+},{
+  "tool": "Code Inspection",
+  "category": "Error handling",
+  "type": "Catch block may ignore exception",
+  "severity": "High",
+  "comment": "Empty 'catch' block",
+  "detailsInfo": "Reports `catch` blocks that are empty or may ignore an exception.\n\nWhile occasionally intended, empty `catch` blocks may complicate debugging.\nAlso, ignoring a `catch` parameter might be wrong.\nFinally, the static code analyzer reports if it detects that a `catch` block may silently ignore important VM\nexceptions like `NullPointerException`. Ignoring such an exception\n(without logging or rethrowing it) may hide a bug.\n\n\nThe inspection won't report any `catch` parameters named `ignore` or `ignored`.\nConversely, the inspection will warn you about any `catch` parameters named `ignore` or `ignored` that are actually in use.\nAdditionally, the inspection won't report `catch` parameters inside test sources named `expected` or `ok`.\n\n\nYou can use a quick-fix to change the exception name to `ignored`.\nFor empty **catch** blocks, an additional quick-fix to generate the **catch** body is suggested.\nYou can modify the \"Catch Statement Body\" template on the Code tab in\n[Settings \\| Editor \\| File and Code Templates](settings://fileTemplates).\n\n**Example:**\n\n\n      try {\n        throwingMethod();\n      } catch (IOException ex) {\n\n      }\n\nAfter the quick-fix is applied:\n\n\n      try {\n        System.out.println(System.in.read());\n      } catch (IOException ignored) {\n\n      }\n\nConfigure the inspection:\n\n* Use the **Do not warn when 'catch' block contains a comment** option to ignore `catch` blocks with comments.\n* Use the **Do not warn when 'catch' block is not empty** option to ignore `catch` blocks that contain statements or comments inside, while the variable itself is not used.\n* Use the **Do not warn when exception named 'ignore(d)' is not actually ignored** option to ignore variables named `ignored` if they are in use.\n\nNew in 2018.1",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ClassUtils.java",
+      "language": "JAVA",
+      "line": 357,
+      "offset": 11,
+      "length": 5,
+      "code": {
+        "startLine": 355,
+        "length": 5,
+        "offset": 42,
+        "surroundingCode": "                }\n            }\n        } catch (Exception e) {\n        }\n        return result;"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "CatchMayIgnoreException"
+  },
+  "hash": "e20925d4795092a28cebdeac7c8f30cbc4e814f55067a5471539d08e41f2bf12"
+},{
+  "tool": "Code Inspection",
+  "category": "Performance",
+  "type": "Concatenation with empty string",
+  "severity": "High",
+  "comment": "Empty string used in concatenation",
+  "detailsInfo": "Reports string concatenations where one of the arguments is the empty string. Such a concatenation is unnecessary and inefficient, particularly when used as an idiom for formatting non-`String` objects or primitives into `String`s.\n\n\nA quick-fix is suggested to simplify the concatenation.\n\n**Example:**\n\n\n      void foo(int x, int y) {\n        String s = \"\" + x + \" ; \" + y;\n      }\n\nAfter the quick-fix is applied:\n\n\n      void foo(int x, int y) {\n        String s = x + \" ; \" + y;\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/BeanUtils.java",
+      "language": "JAVA",
+      "line": 37,
+      "offset": 19,
+      "length": 2,
+      "code": {
+        "startLine": 35,
+        "length": 2,
+        "offset": 102,
+        "surroundingCode": "\t\t\tBeanMap beanMap = BeanMap.create(bean);\n\t\t\tfor (Object key : beanMap.keySet()) {\n\t\t\t\tmap.put(key + \"\", beanMap.get(key));\n\t\t\t}\n\t\t}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "TrivialStringConcatenation"
+  },
+  "hash": "c63fb18068415483ec4af0a773d705d1a06bc80c0c23850eaf28b961b1bb2f79"
+},{
+  "tool": "Code Inspection",
+  "category": "Assignment issues",
+  "type": "Assignment to 'for' loop parameter",
+  "severity": "High",
+  "comment": "Assignment to for-loop parameter 'i'",
+  "detailsInfo": "Reports assignment to, or modification of a `for` loop parameter inside the body of the loop.\n\nAlthough occasionally intended, this construct may be confusing and is often the result of a typo or a wrong variable being used.\n\nThe quick-fix adds a declaration of a new variable.\n\n**Example:**\n\n\n      for (String s : list) {\n        // Warning: s is changed inside the loop\n        s = s.trim();\n        System.out.println(\"String: \" + s);\n      }\n\nAfter the quick-fix is applied:\n\n\n      for (String s : list) {\n        String trimmed = s.trim();\n        System.out.println(\"String: \" + trimmed);\n      }\n\nAssignments in basic `for` loops without an update statement are not reported.\nIn such cases the assignment is probably intended and can't be easily moved to the update part of the `for` loop.\n\n**Example:**\n\n\n      for (int i = 0; i < list.size(); ) {\n        if (element.equals(list.get(i))) {\n          list.remove(i);\n        } else {\n          // modification of for loop parameter is not reported\n          // as there's no update statement\n          i++;\n        }\n      }\n\nUse the **Check enhanced 'for' loop parameters** option to specify whether modifications of enhanced `for` loop parameters\nshould be also reported.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/UrlUtils.java",
+      "language": "JAVA",
+      "line": 300,
+      "offset": 28,
+      "length": 1,
+      "code": {
+        "startLine": 298,
+        "length": 1,
+        "offset": 97,
+        "surroundingCode": "\t\t\tif (c == '%' && (i + 2) < str.length()) {\n\t\t\t\t// 判断是否符合urlEncode规范\n\t\t\t\tchar c1 = str.charAt(++i);\n\t\t\t\tchar c2 = str.charAt(++i);\n\t\t\t\tif (isDigit16Char(c1) && isDigit16Char(c2)) {"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "AssignmentToForLoopParameter"
+  },
+  "hash": "7ac6c0a13117f76b2160c4d6ebaed0bd627f216c78ed3f9b79be42a6fa5addd8"
+},{
+  "tool": "Code Inspection",
+  "category": "Assignment issues",
+  "type": "Assignment to 'for' loop parameter",
+  "severity": "High",
+  "comment": "Assignment to for-loop parameter 'i'",
+  "detailsInfo": "Reports assignment to, or modification of a `for` loop parameter inside the body of the loop.\n\nAlthough occasionally intended, this construct may be confusing and is often the result of a typo or a wrong variable being used.\n\nThe quick-fix adds a declaration of a new variable.\n\n**Example:**\n\n\n      for (String s : list) {\n        // Warning: s is changed inside the loop\n        s = s.trim();\n        System.out.println(\"String: \" + s);\n      }\n\nAfter the quick-fix is applied:\n\n\n      for (String s : list) {\n        String trimmed = s.trim();\n        System.out.println(\"String: \" + trimmed);\n      }\n\nAssignments in basic `for` loops without an update statement are not reported.\nIn such cases the assignment is probably intended and can't be easily moved to the update part of the `for` loop.\n\n**Example:**\n\n\n      for (int i = 0; i < list.size(); ) {\n        if (element.equals(list.get(i))) {\n          list.remove(i);\n        } else {\n          // modification of for loop parameter is not reported\n          // as there's no update statement\n          i++;\n        }\n      }\n\nUse the **Check enhanced 'for' loop parameters** option to specify whether modifications of enhanced `for` loop parameters\nshould be also reported.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/UrlUtils.java",
+      "language": "JAVA",
+      "line": 301,
+      "offset": 28,
+      "length": 1,
+      "code": {
+        "startLine": 299,
+        "length": 1,
+        "offset": 83,
+        "surroundingCode": "\t\t\t\t// 判断是否符合urlEncode规范\n\t\t\t\tchar c1 = str.charAt(++i);\n\t\t\t\tchar c2 = str.charAt(++i);\n\t\t\t\tif (isDigit16Char(c1) && isDigit16Char(c2)) {\n\t\t\t\t\tcontinue;"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "AssignmentToForLoopParameter"
+  },
+  "hash": "874ffbacd8d9cc7fa6058a8374689550522b0fb8496662a12b4e1e003080e66c"
+},{
+  "tool": "Code Inspection",
+  "category": "Probable bugs",
+  "type": "Infinite recursion",
+  "severity": "High",
+  "comment": "Method 'setField()' recurses infinitely, and can only end by throwing an exception",
+  "detailsInfo": "Reports methods that call themselves infinitely unless an exception is thrown.\n\n\nMethods reported by this inspection cannot return normally.\nWhile such behavior may be intended, in many cases this is just an oversight.\n\n**Example:**\n\n      int baz() {\n          return baz();\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
+      "language": "JAVA",
+      "line": 324,
+      "offset": 24,
+      "length": 8,
+      "code": {
+        "startLine": 322,
+        "length": 8,
+        "offset": 57,
+        "surroundingCode": "     * @param value value\n     */\n    public static void setField(Field field, @Nullable Object target, @Nullable Object value) {\n        makeAccessible(field);\n        setField(field, target, value);"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "InfiniteRecursion"
+  },
+  "hash": "41117a41252d487bfc8934bdb48406dce5644881c0bdc4ed5b647241b915ed6d"
+},{
+  "tool": "Code Inspection",
+  "category": "Probable bugs",
+  "type": "Infinite recursion",
+  "severity": "High",
+  "comment": "Method 'getField()' recurses infinitely, and can only end by throwing an exception",
+  "detailsInfo": "Reports methods that call themselves infinitely unless an exception is thrown.\n\n\nMethods reported by this inspection cannot return normally.\nWhile such behavior may be intended, in many cases this is just an oversight.\n\n**Example:**\n\n      int baz() {\n          return baz();\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
+      "language": "JAVA",
+      "line": 337,
+      "offset": 26,
+      "length": 8,
+      "code": {
+        "startLine": 335,
+        "length": 8,
+        "offset": 47,
+        "surroundingCode": "     */\n    @Nullable\n    public static Object getField(Field field, @Nullable Object target) {\n        makeAccessible(field);\n        return getField(field, target);"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "InfiniteRecursion"
+  },
+  "hash": "a33c9c05e2d0ec0758c71e0a4bba27b814ac8820a684ee6a506310e32a2687d0"
+},{
+  "tool": "Code Inspection",
+  "category": "Probable bugs",
+  "type": "Infinite recursion",
+  "severity": "High",
+  "comment": "Method 'invokeMethod()' recurses infinitely, and can only end by throwing an exception",
+  "detailsInfo": "Reports methods that call themselves infinitely unless an exception is thrown.\n\n\nMethods reported by this inspection cannot return normally.\nWhile such behavior may be intended, in many cases this is just an oversight.\n\n**Example:**\n\n      int baz() {\n          return baz();\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
+      "language": "JAVA",
+      "line": 383,
+      "offset": 26,
+      "length": 12,
+      "code": {
+        "startLine": 381,
+        "length": 12,
+        "offset": 47,
+        "surroundingCode": "     */\n    @Nullable\n    public static Object invokeMethod(Method method, @Nullable Object target, @Nullable Object... args) {\n        makeAccessible(method);\n        return invokeMethod(method, target, args);"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "InfiniteRecursion"
+  },
+  "hash": "5986ee017fc1df3781fc1b42855147fe7072017998b42cf0bd292c63a106f40a"
+},{
+  "tool": "Code Inspection",
+  "category": "Numeric issues",
+  "type": "Integer division in floating point context",
+  "severity": "High",
+  "comment": "'width / hashWidth': integer division in floating-point context",
+  "detailsInfo": "Reports integer divisions where the result is used as a floating-point number. Such division is often an error and may have unexpected results due to the truncation that happens in integer division.\n\n**Example:**\n\n\n      float x = 3.0F + 3/5;\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/lang/avatar/IdenticonAvatarGenerator.java",
+      "language": "JAVA",
+      "line": 258,
+      "offset": 12,
+      "length": 17,
+      "code": {
+        "startLine": 256,
+        "length": 17,
+        "offset": 94,
+        "surroundingCode": "\t\t//Scale image to the size you want\n\t\tAffineTransform at = new AffineTransform();\n\t\tat.scale(width / hashWidth, height / hashHeight);\n\t\tAffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);\n\t\tfinalImage = op.filter(ideation, finalImage);"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "IntegerDivisionInFloatingPointContext"
+  },
+  "hash": "e4f15dafefaa3738976fd5874b72e1678893e366d1280d481992b397c7483fbd"
+},{
+  "tool": "Code Inspection",
+  "category": "Numeric issues",
+  "type": "Integer division in floating point context",
+  "severity": "High",
+  "comment": "'height / hashHeight': integer division in floating-point context",
+  "detailsInfo": "Reports integer divisions where the result is used as a floating-point number. Such division is often an error and may have unexpected results due to the truncation that happens in integer division.\n\n**Example:**\n\n\n      float x = 3.0F + 3/5;\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/lang/avatar/IdenticonAvatarGenerator.java",
+      "language": "JAVA",
+      "line": 258,
+      "offset": 31,
+      "length": 19,
+      "code": {
+        "startLine": 256,
+        "length": 19,
+        "offset": 113,
+        "surroundingCode": "\t\t//Scale image to the size you want\n\t\tAffineTransform at = new AffineTransform();\n\t\tat.scale(width / hashWidth, height / hashHeight);\n\t\tAffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);\n\t\tfinalImage = op.filter(ideation, finalImage);"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "IntegerDivisionInFloatingPointContext"
+  },
+  "hash": "f6b5891f7b5c3580f47ccd9193d91b10ed949dd8c5e2c8d638df0f9be84ce0ad"
+},{
+  "tool": "Code Inspection",
+  "category": "Probable bugs",
+  "type": "Unused assignment",
+  "severity": "High",
+  "comment": "Variable 'eTag' initializer 'null' is redundant",
+  "detailsInfo": "Reports assignment values that are not used after the assignment. If the assignment value is unused, it's better to remove the assignment to shorten the code and avoid redundant allocations.\n\nThe following cases are reported:\n\n* The variable never gets read after the assignment.\n* The variable is always overwritten with a new value before it is read.\n* The variable initializer is redundant (for one of the two reasons above).\n\nConfigure the inspection:\n\n\nUse the **Report redundant initializers** option to report redundant initializers:\n\n\n      int getI() {\n        int i = 0; // redundant initialization\n        i = 2;\n        return i;\n      }\n\n\nUse the **Report ++i when may be replaced with (i + 1)** option to report the cases when `++i` expression\nmay be replaced with `i + 1`:\n\n\n      int preInc(int i) {\n        int res = i;\n        return ++res;\n      }\n\n\nUse the **Report i++ when changed value is not used afterwards** option to report the cases when the result of `i++` expression\nis not used later:\n\n\n      int postInc(int i) {\n        int res = i;\n        return res++;\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-cos/src/main/java/club/gclmit/gear4j/cos/provider/impl/UcloudCosClient.java",
+      "language": "JAVA",
+      "line": 312,
+      "offset": 17,
+      "length": 4,
+      "code": {
+        "startLine": 310,
+        "length": 4,
+        "offset": 38,
+        "surroundingCode": "\n\t\tString url = null;\n\t\tString eTag = null;\n\n\t\ttry {"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-cos.main",
+    "inspectionName": "UnusedAssignment"
+  },
+  "hash": "a014e3cb38fc4c34e569e0c666553022b5ba91b149d3c462218d2c7e8d6477d2"
+},{
+  "tool": "Code Inspection",
+  "category": "Visibility",
+  "type": "Method tries to override 'static' method of superclass",
+  "severity": "High",
+  "comment": "Method 'setField()' tries to override a static method of a superclass",
+  "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
+      "language": "JAVA",
+      "line": 324,
+      "offset": 24,
+      "length": 8,
+      "code": {
+        "startLine": 322,
+        "length": 8,
+        "offset": 57,
+        "surroundingCode": "     * @param value value\n     */\n    public static void setField(Field field, @Nullable Object target, @Nullable Object value) {\n        makeAccessible(field);\n        setField(field, target, value);"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "MethodOverridesStaticMethod"
+  },
+  "hash": "ff2a05436cd6a18cabe1e4474ee752e9e858ab4820aa7f5137fdb3f580ddcf7a"
+},{
+  "tool": "Code Inspection",
+  "category": "Visibility",
+  "type": "Method tries to override 'static' method of superclass",
+  "severity": "High",
+  "comment": "Method 'getField()' tries to override a static method of a superclass",
+  "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
+      "language": "JAVA",
+      "line": 337,
+      "offset": 26,
+      "length": 8,
+      "code": {
+        "startLine": 335,
+        "length": 8,
+        "offset": 47,
+        "surroundingCode": "     */\n    @Nullable\n    public static Object getField(Field field, @Nullable Object target) {\n        makeAccessible(field);\n        return getField(field, target);"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "MethodOverridesStaticMethod"
+  },
+  "hash": "37d0401e6afb7a534b857debb5898474021a503866c38037ab3fcbb6a5a634ec"
+},{
+  "tool": "Code Inspection",
+  "category": "Visibility",
+  "type": "Method tries to override 'static' method of superclass",
+  "severity": "High",
+  "comment": "Method 'invokeMethod()' tries to override a static method of a superclass",
+  "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
+      "language": "JAVA",
+      "line": 383,
+      "offset": 26,
+      "length": 12,
+      "code": {
+        "startLine": 381,
+        "length": 12,
+        "offset": 47,
+        "surroundingCode": "     */\n    @Nullable\n    public static Object invokeMethod(Method method, @Nullable Object target, @Nullable Object... args) {\n        makeAccessible(method);\n        return invokeMethod(method, target, args);"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "MethodOverridesStaticMethod"
+  },
+  "hash": "44bdfdfda1f5cada35c6456a870049a23e749221563b88d711491d4347366e89"
+},{
+  "tool": "Code Inspection",
+  "category": "Visibility",
+  "type": "Method tries to override 'static' method of superclass",
+  "severity": "High",
+  "comment": "Method 'invokeMethod()' tries to override a static method of a superclass",
+  "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
+      "language": "JAVA",
+      "line": 370,
+      "offset": 26,
+      "length": 12,
+      "code": {
+        "startLine": 368,
+        "length": 12,
+        "offset": 47,
+        "surroundingCode": "     */\n    @Nullable\n    public static Object invokeMethod(Method method, @Nullable Object target) {\n        return invokeMethod(method, target, new Object[0]);\n    }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "MethodOverridesStaticMethod"
+  },
+  "hash": "417a21de9dfa38d8bde568d99c9098c005b0e109bb731bbffe44a0d732c7725e"
+},{
+  "tool": "Code Inspection",
+  "category": "Visibility",
+  "type": "Method tries to override 'static' method of superclass",
+  "severity": "High",
+  "comment": "Method 'current()' tries to override a static method of a superclass",
+  "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/DateUtils.java",
+      "language": "JAVA",
+      "line": 15,
+      "offset": 21,
+      "length": 7,
+      "code": {
+        "startLine": 13,
+        "length": 7,
+        "offset": 63,
+        "surroundingCode": "public class DateUtils extends DateUtil {\n\n\tpublic static long current() {\n\t\treturn SystemClock.now();\n\t}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "MethodOverridesStaticMethod"
+  },
+  "hash": "85a54d72b5fecab55170604b92abf23fa790010b65d03bd0b139b91718be4c31"
+},{
+  "tool": "Code Inspection",
+  "category": "Visibility",
+  "type": "Method tries to override 'static' method of superclass",
+  "severity": "High",
+  "comment": "Method 'toString()' tries to override a static method of a superclass",
+  "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/StringUtils.java",
+      "language": "JAVA",
+      "line": 233,
+      "offset": 23,
+      "length": 8,
+      "code": {
+        "startLine": 231,
+        "length": 8,
+        "offset": 43,
+        "surroundingCode": "\t * @return 字符串\n\t */\n\tpublic static String toString(Object obj) {\n\t\tif (null == obj) {\n\t\t\treturn NULL;"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "MethodOverridesStaticMethod"
+  },
+  "hash": "e6cce495f35167bd4ed38784c8572441edb02bc5c1efe43e0f9208a771e7e652"
+},{
+  "tool": "Code Inspection",
+  "category": "Visibility",
+  "type": "Method tries to override 'static' method of superclass",
+  "severity": "High",
+  "comment": "Method 'touch()' tries to override a static method of a superclass",
+  "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/FileUtils.java",
+      "language": "JAVA",
+      "line": 177,
+      "offset": 24,
+      "length": 5,
+      "code": {
+        "startLine": 175,
+        "length": 5,
+        "offset": 59,
+        "surroundingCode": "     * @return java.io.File\n     */\n    public static File touch(String filePath) {\n        Assert.notNull(filePath, \"文件路径不能为空\");\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "MethodOverridesStaticMethod"
+  },
+  "hash": "0e9c560ab5bd1382cd9dab2caa9219775ff70a963e630e28aef3d55144d7afbd"
+},{
+  "tool": "Code Inspection",
+  "category": "RegExp",
+  "type": "Redundant character escape",
+  "severity": "High",
+  "comment": "Redundant character escape '' in RegExp",
+  "detailsInfo": "Reports redundant character escape sequences that can be replaced with unescaped characters preserving the meaning. Many escape sequences that are redundant inside square brackets `[]` of a character class are necessary outside of a character class.\n\n\nAlthough unescaped opening curly braces `{` outside of character classes are allowed in some dialects (JavaScript, Python, and so on),\nit can cause confusion and make the pattern less portable, because there are dialects that require escaping curly braces as characters.\nFor this reason the inspection does not report escaped opening curly braces.\n\n**Example:**\n\n\n      \\-\\;[\\.]\n\nAfter the quick-fix is applied:\n\n\n      -;[.]\n\n\nThe **Ignore escaped closing brackets '}' and '\\]'** option specifies whether to report `\\}` and `\\]` outside of a character class\nwhen they are allowed to be unescaped by the RegExp dialect.\n\nNew in 2017.3",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/SqlUtils.java",
+      "language": "RegExp",
+      "line": 220,
+      "offset": 49,
+      "length": 3,
+      "code": {
+        "startLine": 218,
+        "length": 3,
+        "offset": 90,
+        "surroundingCode": "\t * 仅支持字母、数字、下划线、空格、逗号、小数点（支持多个字段排序）\n\t */\n\tpublic static String SQL_PATTERN = \"[a-zA-Z0-9_\\\\ \\\\,\\\\.]+\";\n\n\t/**"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "RegExpRedundantEscape"
+  },
+  "hash": "7dae2a737d4b8d199fbb708a8f243087eef8d3568cedb1d963d70291cf695d99"
+},{
+  "tool": "Code Inspection",
+  "category": "RegExp",
+  "type": "Redundant character escape",
+  "severity": "High",
+  "comment": "Redundant character escape ',' in RegExp",
+  "detailsInfo": "Reports redundant character escape sequences that can be replaced with unescaped characters preserving the meaning. Many escape sequences that are redundant inside square brackets `[]` of a character class are necessary outside of a character class.\n\n\nAlthough unescaped opening curly braces `{` outside of character classes are allowed in some dialects (JavaScript, Python, and so on),\nit can cause confusion and make the pattern less portable, because there are dialects that require escaping curly braces as characters.\nFor this reason the inspection does not report escaped opening curly braces.\n\n**Example:**\n\n\n      \\-\\;[\\.]\n\nAfter the quick-fix is applied:\n\n\n      -;[.]\n\n\nThe **Ignore escaped closing brackets '}' and '\\]'** option specifies whether to report `\\}` and `\\]` outside of a character class\nwhen they are allowed to be unescaped by the RegExp dialect.\n\nNew in 2017.3",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/SqlUtils.java",
+      "language": "RegExp",
+      "line": 220,
+      "offset": 52,
+      "length": 3,
+      "code": {
+        "startLine": 218,
+        "length": 3,
+        "offset": 93,
+        "surroundingCode": "\t * 仅支持字母、数字、下划线、空格、逗号、小数点（支持多个字段排序）\n\t */\n\tpublic static String SQL_PATTERN = \"[a-zA-Z0-9_\\\\ \\\\,\\\\.]+\";\n\n\t/**"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "RegExpRedundantEscape"
+  },
+  "hash": "41a24887f8d04ff50721553384cada31474a2488e928b85d02109dc4bd93ecee"
+},{
+  "tool": "Code Inspection",
+  "category": "RegExp",
+  "type": "Redundant character escape",
+  "severity": "High",
+  "comment": "Redundant character escape '.' in RegExp",
+  "detailsInfo": "Reports redundant character escape sequences that can be replaced with unescaped characters preserving the meaning. Many escape sequences that are redundant inside square brackets `[]` of a character class are necessary outside of a character class.\n\n\nAlthough unescaped opening curly braces `{` outside of character classes are allowed in some dialects (JavaScript, Python, and so on),\nit can cause confusion and make the pattern less portable, because there are dialects that require escaping curly braces as characters.\nFor this reason the inspection does not report escaped opening curly braces.\n\n**Example:**\n\n\n      \\-\\;[\\.]\n\nAfter the quick-fix is applied:\n\n\n      -;[.]\n\n\nThe **Ignore escaped closing brackets '}' and '\\]'** option specifies whether to report `\\}` and `\\]` outside of a character class\nwhen they are allowed to be unescaped by the RegExp dialect.\n\nNew in 2017.3",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/SqlUtils.java",
+      "language": "RegExp",
+      "line": 220,
+      "offset": 55,
+      "length": 3,
+      "code": {
+        "startLine": 218,
+        "length": 3,
+        "offset": 96,
+        "surroundingCode": "\t * 仅支持字母、数字、下划线、空格、逗号、小数点（支持多个字段排序）\n\t */\n\tpublic static String SQL_PATTERN = \"[a-zA-Z0-9_\\\\ \\\\,\\\\.]+\";\n\n\t/**"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "RegExpRedundantEscape"
+  },
+  "hash": "8a91fb7c0cfd9ad62761e526220b19d00722b33d83d591a3c3a46132c337091d"
+},{
+  "tool": "Code Inspection",
+  "category": "Probable bugs",
+  "type": "Result of method call ignored",
+  "severity": "High",
+  "comment": "Result of 'File.mkdirs()' is ignored",
+  "detailsInfo": "Reports method calls whose result is ignored.\n\nFor many methods, ignoring the result is perfectly\nlegitimate, but for some it is almost certainly an error. Examples of methods where ignoring\nthe result is likely an error include `java.io.inputStream.read()`,\nwhich returns the number of bytes actually read, and any method on\n`java.lang.String` or `java.math.BigInteger`. These methods do not produce side-effects and thus pointless\nif their result is ignored.\n\nThe calls to the following methods are inspected:\n\n* Simple getters (which do nothing except return a field)\n* Methods specified in the settings of this inspection\n* Methods annotated with `org.jetbrains.annotations.Contract(pure=true)`\n* Methods annotated with .\\*.`CheckReturnValue`\n* Methods in a class or package annotated with `javax.annotation.CheckReturnValue`\n* Optionally, all non-library methods\n\nCalls to methods annotated with Error Prone's or AssertJ's `@CanIgnoreReturnValue` annotation are not reported.\n\n\nUse the inspection settings to specify the classes to check.\nMethods are matched by name or name pattern using Java regular expression syntax.\nFor classes, use fully-qualified names. Each entry applies to both the class and all its inheritors.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/FileUtils.java",
+      "language": "JAVA",
+      "line": 190,
+      "offset": 21,
+      "length": 6,
+      "code": {
+        "startLine": 188,
+        "length": 6,
+        "offset": 91,
+        "surroundingCode": "         */\n        if (!dirFile.exists() && !dirFile.isDirectory()) {\n            dirFile.mkdirs();\n        }\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "IgnoreResultOfCall"
+  },
+  "hash": "06776ada98452341eed47c3a7651924e47d47503c9988deb4d700ff56c5b0ff0"
+}]}

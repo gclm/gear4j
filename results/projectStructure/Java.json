@@ -1,0 +1,104 @@
+{
+  "modules": [
+    {
+      "name": "gear4j",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-bom",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-core",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-cos",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-extra",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-logger",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-safe",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-spring-boot-starter",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-web",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.test",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.main",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-core.test",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-core.main",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-cos.test",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-cos.main",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-extra.test",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-extra.main",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-logger.test",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-logger.main",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-safe.test",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-safe.main",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-spring-boot-starter.test",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-spring-boot-starter.main",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-web.test",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-web.main",
+      "languageLevel": 11
+    }
+  ]
+}

@@ -1,0 +1,4536 @@
+{
+  "modules": [
+    {
+      "name": "gear4j",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-bom",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-bom",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-core",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-core",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-cos",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-cos",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-extra",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-extra",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-logger",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-logger",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-safe",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-safe",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-spring-boot-starter",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-spring-boot-starter",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-web",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-web",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.test",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/src/test",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        },
+        {
+          "name": "gear4j.main",
+          "type": "Module"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.main",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/src/main",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-core.test",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-core/src/test",
+          "sourceFolders": [
+            {
+              "path": "file://$PROJECT_DIR$/gear4j-core/src/test/java",
+              "type": "TestSource",
+              "packagePrefix": ""
+            }
+          ]
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        },
+        {
+          "name": "gear4j.gear4j-core.main",
+          "type": "Module"
+        },
+        {
+          "name": "Gradle: com.alibaba:fastjson:1.2.83",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.zxing:core:3.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.yangtu222:BeanUtils:1.0.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-crypto:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-http:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-core:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps-jackson:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-web:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-test:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-context:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.javassist:javassist:3.21.0-GA",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-jackson:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-beans:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-core:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-test-autoconfigure:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-test:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.jayway.jsonpath:json-path:2.6.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-test:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.assertj:assertj-core:3.21.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mockito:mockito-junit-jupiter:4.0.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mockito:mockito-core:4.0.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.hamcrest:hamcrest:2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.skyscreamer:jsonassert:1.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.xmlunit:xmlunit-core:2.8.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-aop:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-expression:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-core:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okio:okio:1.17.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-jcl:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-autoconfigure:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-logging:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.annotation:jakarta.annotation-api:1.3.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.yaml:snakeyaml:1.29",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.minidev:json-smart:2.4.8",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-params:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-api:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.bytebuddy:byte-buddy:1.11.22",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.bytebuddy:byte-buddy-agent:1.11.22",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.activation:jakarta.activation-api:1.2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.vaadin.external.google:android-json:0.0.20131108.vaadin1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: ch.qos.logback:logback-classic:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:jul-to-slf4j:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.minidev:accessors-smart:2.4.8",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apiguardian:apiguardian-api:1.1.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.platform:junit-platform-commons:1.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.opentest4j:opentest4j:1.2.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: ch.qos.logback:logback-core:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-api:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.ow2.asm:asm:9.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-engine:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.platform:junit-platform-engine:1.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.objenesis:objenesis:3.2",
+          "type": "Library"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-core.main",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-core/src/main",
+          "sourceFolders": [
+            {
+              "path": "file://$PROJECT_DIR$/gear4j-core/src/main/java",
+              "type": "Source",
+              "packagePrefix": ""
+            },
+            {
+              "path": "file://$PROJECT_DIR$/gear4j-core/src/main/resources",
+              "type": "Resource",
+              "packagePrefix": ""
+            }
+          ]
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        },
+        {
+          "name": "Gradle: com.alibaba:fastjson:1.2.83",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.zxing:core:3.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.yangtu222:BeanUtils:1.0.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-crypto:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-http:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-core:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps-jackson:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-web:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-context:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.servlet:jakarta.servlet-api:4.0.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.javassist:javassist:3.21.0-GA",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-jackson:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-beans:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-core:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-aop:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-expression:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-core:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okio:okio:1.17.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-jcl:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
+          "type": "Library"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-cos.test",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-cos/src/test",
+          "sourceFolders": [
+            {
+              "path": "file://$PROJECT_DIR$/gear4j-cos/src/test/java",
+              "type": "TestSource",
+              "packagePrefix": ""
+            }
+          ]
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        },
+        {
+          "name": "gear4j.gear4j-cos.main",
+          "type": "Module"
+        },
+        {
+          "name": "gear4j.gear4j-web.main",
+          "type": "Module"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-configuration-processor:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.aliyun.oss:aliyun-sdk-oss:3.15.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.qiniu:qiniu-java-sdk:7.11.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.qcloud:cos_api:5.6.93",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.ucloud.ufile:ufile-client-java:2.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.huaweicloud:esdk-obs-java:3.22.3.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.upyun:java-sdk:4.2.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-test:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "gear4j.gear4j-core.main",
+          "type": "Module"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger:swagger-annotations:1.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jsoup:jsoup:1.15.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-http:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.aliyun:aliyun-java-sdk-core:4.5.10",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.httpcomponents:httpclient:4.5.13",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.aliyun:aliyun-java-sdk-ram:3.1.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.aliyun:aliyun-java-sdk-kms:2.11.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jdom:jdom2:2.0.6.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.codehaus.jettison:jettison:1.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: commons-codec:commons-codec:1.15",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-kms:3.1.213",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: joda-time:joda-time:2.9.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.bouncycastle:bcprov-jdk15on:1.67",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.ucloud.ufile:ufile-core:2.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.gson:gson:2.8.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-core:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-api:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: junit:junit:4.13.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.jayway.jsonpath:json-path:2.6.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-test-autoconfigure:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-test:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-test:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-core:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.assertj:assertj-core:3.21.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mockito:mockito-junit-jupiter:4.0.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mockito:mockito-core:4.0.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.hamcrest:hamcrest:2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.skyscreamer:jsonassert:1.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.xmlunit:xmlunit-core:2.8.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps-jackson:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.zxing:core:3.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.alibaba:fastjson:1.2.83",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.yangtu222:BeanUtils:1.0.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-context:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-web:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-crypto:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-core:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.httpcomponents:httpcore:4.4.15",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: javax.xml.bind:jaxb-api:2.3.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: commons-logging:commons-logging:1.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jacoco:org.jacoco.agent:runtime:0.8.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.ini4j:ini4j:0.5.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.opentracing:opentracing-util:0.33.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.opentracing:opentracing-api:0.33.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: stax:stax-api:1.0.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-common:3.1.213",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okio:okio:1.17.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.hamcrest:hamcrest-core:2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.minidev:json-smart:2.4.8",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-logging:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-autoconfigure:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.annotation:jakarta.annotation-api:1.3.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.yaml:snakeyaml:1.29",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-params:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-api:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-jcl:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.bytebuddy:byte-buddy:1.11.22",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.bytebuddy:byte-buddy-agent:1.11.22",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.activation:jakarta.activation-api:1.2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.vaadin.external.google:android-json:0.0.20131108.vaadin1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-jackson:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.javassist:javassist:3.21.0-GA",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-aop:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-beans:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-expression:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis:3.5.10",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: javax.activation:javax.activation-api:1.2.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.opentracing:opentracing-noop:0.33.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp:logging-interceptor:2.7.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.minidev:accessors-smart:2.4.8",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: ch.qos.logback:logback-classic:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:jul-to-slf4j:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apiguardian:apiguardian-api:1.1.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.platform:junit-platform-commons:1.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.opentest4j:opentest4j:1.2.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-core:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp:okhttp:2.7.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.ow2.asm:asm:9.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: ch.qos.logback:logback-core:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains:annotations:13.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-engine:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.projectlombok:lombok:1.18.24",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.platform:junit-platform-engine:1.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.objenesis:objenesis:3.2",
+          "type": "Library"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-cos.main",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-cos/src/main",
+          "sourceFolders": [
+            {
+              "path": "file://$PROJECT_DIR$/gear4j-cos/src/main/java",
+              "type": "Source",
+              "packagePrefix": ""
+            },
+            {
+              "path": "file://$PROJECT_DIR$/gear4j-cos/src/main/resources",
+              "type": "Resource",
+              "packagePrefix": ""
+            }
+          ]
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        },
+        {
+          "name": "gear4j.gear4j-web.main",
+          "type": "Module"
+        },
+        {
+          "name": "Gradle: com.qcloud:cos_api:5.6.93",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.aliyun.oss:aliyun-sdk-oss:3.15.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-web:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.servlet:jakarta.servlet-api:4.0.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-configuration-processor:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.qiniu:qiniu-java-sdk:7.11.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.ucloud.ufile:ufile-client-java:2.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.huaweicloud:esdk-obs-java:3.22.3.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.upyun:java-sdk:4.2.3",
+          "type": "Library"
+        },
+        {
+          "name": "gear4j.gear4j-core.main",
+          "type": "Module"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger:swagger-annotations:1.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jsoup:jsoup:1.15.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-http:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.httpcomponents:httpclient:4.5.13",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: commons-codec:commons-codec:1.15",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-kms:3.1.213",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: joda-time:joda-time:2.9.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.bouncycastle:bcprov-jdk15on:1.67",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.aliyun:aliyun-java-sdk-core:4.5.10",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.aliyun:aliyun-java-sdk-ram:3.1.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.aliyun:aliyun-java-sdk-kms:2.11.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jdom:jdom2:2.0.6.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.codehaus.jettison:jettison:1.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-json:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-webmvc:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-web:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-tomcat:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.ucloud.ufile:ufile-core:2.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.gson:gson:2.8.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-core:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-api:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: junit:junit:4.13.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps-jackson:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.zxing:core:3.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.alibaba:fastjson:1.2.83",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.yangtu222:BeanUtils:1.0.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-context:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-crypto:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-core:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.httpcomponents:httpcore:4.4.15",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-common:3.1.213",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: javax.xml.bind:jaxb-api:2.3.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: commons-logging:commons-logging:1.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jacoco:org.jacoco.agent:runtime:0.8.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.ini4j:ini4j:0.5.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.opentracing:opentracing-util:0.33.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.opentracing:opentracing-api:0.33.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: stax:stax-api:1.0.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-logging:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-autoconfigure:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-core:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.annotation:jakarta.annotation-api:1.3.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.yaml:snakeyaml:1.29",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-aop:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-beans:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-expression:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.64",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.tomcat.embed:tomcat-embed-core:9.0.64",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.tomcat.embed:tomcat-embed-el:9.0.64",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okio:okio:1.17.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.hamcrest:hamcrest-core:2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-jackson:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.javassist:javassist:3.21.0-GA",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis:3.5.10",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp:logging-interceptor:2.7.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: javax.activation:javax.activation-api:1.2.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.opentracing:opentracing-noop:0.33.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: ch.qos.logback:logback-classic:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:jul-to-slf4j:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-jcl:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.hamcrest:hamcrest:2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-core:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp:okhttp:2.7.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: ch.qos.logback:logback-core:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains:annotations:13.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.projectlombok:lombok:1.18.24",
+          "type": "Library"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-extra.test",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-extra/src/test",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        },
+        {
+          "name": "gear4j.gear4j-extra.main",
+          "type": "Module"
+        },
+        {
+          "name": "gear4j.gear4j-core.main",
+          "type": "Module"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-test:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps-jackson:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.zxing:core:3.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.alibaba:fastjson:1.2.83",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.yangtu222:BeanUtils:1.0.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-crypto:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-http:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-core:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-web:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-context:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.jayway.jsonpath:json-path:2.6.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-test-autoconfigure:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-test:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-test:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-core:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.assertj:assertj-core:3.21.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mockito:mockito-junit-jupiter:4.0.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mockito:mockito-core:4.0.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.hamcrest:hamcrest:2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.skyscreamer:jsonassert:1.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.xmlunit:xmlunit-core:2.8.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-jackson:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.javassist:javassist:3.21.0-GA",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-beans:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-aop:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-expression:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.minidev:json-smart:2.4.8",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-logging:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-autoconfigure:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.annotation:jakarta.annotation-api:1.3.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.yaml:snakeyaml:1.29",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-params:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-api:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-jcl:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.bytebuddy:byte-buddy:1.11.22",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.bytebuddy:byte-buddy-agent:1.11.22",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.activation:jakarta.activation-api:1.2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.vaadin.external.google:android-json:0.0.20131108.vaadin1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-core:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okio:okio:1.17.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.minidev:accessors-smart:2.4.8",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: ch.qos.logback:logback-classic:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:jul-to-slf4j:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apiguardian:apiguardian-api:1.1.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.platform:junit-platform-commons:1.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.opentest4j:opentest4j:1.2.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.ow2.asm:asm:9.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: ch.qos.logback:logback-core:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-api:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-engine:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.platform:junit-platform-engine:1.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.objenesis:objenesis:3.2",
+          "type": "Library"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-extra.main",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-extra/src/main",
+          "sourceFolders": [
+            {
+              "path": "file://$PROJECT_DIR$/gear4j-extra/src/main/resources",
+              "type": "Resource",
+              "packagePrefix": ""
+            },
+            {
+              "path": "file://$PROJECT_DIR$/gear4j-extra/src/main/java",
+              "type": "Source",
+              "packagePrefix": ""
+            }
+          ]
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        },
+        {
+          "name": "gear4j.gear4j-core.main",
+          "type": "Module"
+        },
+        {
+          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.servlet:jakarta.servlet-api:4.0.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps-jackson:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.zxing:core:3.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.alibaba:fastjson:1.2.83",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.yangtu222:BeanUtils:1.0.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-crypto:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-http:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-core:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-web:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-context:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-jackson:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.javassist:javassist:3.21.0-GA",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-beans:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-core:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-aop:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-expression:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-core:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okio:okio:1.17.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-jcl:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
+          "type": "Library"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-logger.test",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-logger/src/test",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        },
+        {
+          "name": "gear4j.gear4j-logger.main",
+          "type": "Module"
+        },
+        {
+          "name": "gear4j.gear4j-web.main",
+          "type": "Module"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-test:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "gear4j.gear4j-core.main",
+          "type": "Module"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger:swagger-annotations:1.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jsoup:jsoup:1.15.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-http:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.jayway.jsonpath:json-path:2.6.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-test-autoconfigure:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-test:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-test:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-core:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.assertj:assertj-core:3.21.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mockito:mockito-junit-jupiter:4.0.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mockito:mockito-core:4.0.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.hamcrest:hamcrest:2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.skyscreamer:jsonassert:1.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.xmlunit:xmlunit-core:2.8.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps-jackson:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.zxing:core:3.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.alibaba:fastjson:1.2.83",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.yangtu222:BeanUtils:1.0.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-context:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-web:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-crypto:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-core:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.minidev:json-smart:2.4.8",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-logging:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-autoconfigure:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.annotation:jakarta.annotation-api:1.3.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.yaml:snakeyaml:1.29",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-params:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-api:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-jcl:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.bytebuddy:byte-buddy:1.11.22",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.bytebuddy:byte-buddy-agent:1.11.22",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.activation:jakarta.activation-api:1.2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.vaadin.external.google:android-json:0.0.20131108.vaadin1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-jackson:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.javassist:javassist:3.21.0-GA",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-aop:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-beans:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-expression:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis:3.5.10",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.minidev:accessors-smart:2.4.8",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: ch.qos.logback:logback-classic:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:jul-to-slf4j:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apiguardian:apiguardian-api:1.1.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.platform:junit-platform-commons:1.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.opentest4j:opentest4j:1.2.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-core:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okio:okio:1.17.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.ow2.asm:asm:9.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: ch.qos.logback:logback-core:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-api:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains:annotations:13.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-engine:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.platform:junit-platform-engine:1.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.objenesis:objenesis:3.2",
+          "type": "Library"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-logger.main",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-logger/src/main",
+          "sourceFolders": [
+            {
+              "path": "file://$PROJECT_DIR$/gear4j-logger/src/main/java",
+              "type": "Source",
+              "packagePrefix": ""
+            }
+          ]
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        },
+        {
+          "name": "gear4j.gear4j-web.main",
+          "type": "Module"
+        },
+        {
+          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.servlet:jakarta.servlet-api:4.0.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
+          "type": "Library"
+        },
+        {
+          "name": "gear4j.gear4j-core.main",
+          "type": "Module"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger:swagger-annotations:1.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jsoup:jsoup:1.15.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-http:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps-jackson:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.zxing:core:3.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.alibaba:fastjson:1.2.83",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.yangtu222:BeanUtils:1.0.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-context:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-web:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-crypto:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-core:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-jackson:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.javassist:javassist:3.21.0-GA",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-aop:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-beans:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-expression:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-core:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis:3.5.10",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-core:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okio:okio:1.17.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-jcl:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains:annotations:13.0",
+          "type": "Library"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-safe.test",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-safe/src/test",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        },
+        {
+          "name": "gear4j.gear4j-safe.main",
+          "type": "Module"
+        },
+        {
+          "name": "gear4j.gear4j-web.main",
+          "type": "Module"
+        },
+        {
+          "name": "Gradle: org.jsoup:jsoup:1.15.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-http:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-test:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "gear4j.gear4j-core.main",
+          "type": "Module"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger:swagger-annotations:1.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-core:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.jayway.jsonpath:json-path:2.6.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-test-autoconfigure:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-test:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-test:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-core:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.assertj:assertj-core:3.21.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mockito:mockito-junit-jupiter:4.0.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mockito:mockito-core:4.0.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.hamcrest:hamcrest:2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.skyscreamer:jsonassert:1.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.xmlunit:xmlunit-core:2.8.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps-jackson:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.zxing:core:3.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.alibaba:fastjson:1.2.83",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.yangtu222:BeanUtils:1.0.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-context:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-web:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-crypto:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.minidev:json-smart:2.4.8",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-logging:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-autoconfigure:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.annotation:jakarta.annotation-api:1.3.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.yaml:snakeyaml:1.29",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-params:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-api:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-jcl:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.bytebuddy:byte-buddy:1.11.22",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.bytebuddy:byte-buddy-agent:1.11.22",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.activation:jakarta.activation-api:1.2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.vaadin.external.google:android-json:0.0.20131108.vaadin1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-jackson:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.javassist:javassist:3.21.0-GA",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-aop:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-beans:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-expression:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis:3.5.10",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.minidev:accessors-smart:2.4.8",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: ch.qos.logback:logback-classic:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:jul-to-slf4j:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apiguardian:apiguardian-api:1.1.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.platform:junit-platform-commons:1.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.opentest4j:opentest4j:1.2.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-core:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okio:okio:1.17.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.ow2.asm:asm:9.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: ch.qos.logback:logback-core:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-api:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains:annotations:13.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-engine:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.platform:junit-platform-engine:1.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.objenesis:objenesis:3.2",
+          "type": "Library"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-safe.main",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-safe/src/main",
+          "sourceFolders": [
+            {
+              "path": "file://$PROJECT_DIR$/gear4j-safe/src/main/java",
+              "type": "Source",
+              "packagePrefix": ""
+            },
+            {
+              "path": "file://$PROJECT_DIR$/gear4j-safe/src/main/resources",
+              "type": "Resource",
+              "packagePrefix": ""
+            }
+          ]
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        },
+        {
+          "name": "gear4j.gear4j-web.main",
+          "type": "Module"
+        },
+        {
+          "name": "Gradle: org.jsoup:jsoup:1.15.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-http:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.servlet:jakarta.servlet-api:4.0.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
+          "type": "Library"
+        },
+        {
+          "name": "gear4j.gear4j-core.main",
+          "type": "Module"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger:swagger-annotations:1.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-core:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps-jackson:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.zxing:core:3.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.alibaba:fastjson:1.2.83",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.yangtu222:BeanUtils:1.0.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-context:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-web:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-crypto:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-jackson:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.javassist:javassist:3.21.0-GA",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-aop:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-beans:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-expression:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-core:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis:3.5.10",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-core:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okio:okio:1.17.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-jcl:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains:annotations:13.0",
+          "type": "Library"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-spring-boot-starter.test",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-spring-boot-starter/src/test",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        },
+        {
+          "name": "gear4j.gear4j-spring-boot-starter.main",
+          "type": "Module"
+        },
+        {
+          "name": "gear4j.gear4j-cos.main",
+          "type": "Module"
+        },
+        {
+          "name": "gear4j.gear4j-safe.main",
+          "type": "Module"
+        },
+        {
+          "name": "gear4j.gear4j-logger.main",
+          "type": "Module"
+        },
+        {
+          "name": "gear4j.gear4j-web.main",
+          "type": "Module"
+        },
+        {
+          "name": "gear4j.gear4j-extra.main",
+          "type": "Module"
+        },
+        {
+          "name": "gear4j.gear4j-core.main",
+          "type": "Module"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-test:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jsoup:jsoup:1.15.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-http:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger:swagger-annotations:1.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps-jackson:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.zxing:core:3.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.alibaba:fastjson:1.2.83",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.yangtu222:BeanUtils:1.0.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-crypto:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-core:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-web:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-context:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.jayway.jsonpath:json-path:2.6.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-test-autoconfigure:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-test:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-test:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-core:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.assertj:assertj-core:3.21.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mockito:mockito-junit-jupiter:4.0.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mockito:mockito-core:4.0.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.hamcrest:hamcrest:2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.skyscreamer:jsonassert:1.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.xmlunit:xmlunit-core:2.8.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-jackson:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.javassist:javassist:3.21.0-GA",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-beans:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-aop:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-expression:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.minidev:json-smart:2.4.8",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-logging:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-autoconfigure:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.annotation:jakarta.annotation-api:1.3.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.yaml:snakeyaml:1.29",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-params:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-api:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-jcl:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.bytebuddy:byte-buddy:1.11.22",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.bytebuddy:byte-buddy-agent:1.11.22",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.activation:jakarta.activation-api:1.2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.vaadin.external.google:android-json:0.0.20131108.vaadin1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis:3.5.10",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-core:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okio:okio:1.17.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.minidev:accessors-smart:2.4.8",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: ch.qos.logback:logback-classic:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:jul-to-slf4j:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apiguardian:apiguardian-api:1.1.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.platform:junit-platform-commons:1.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.opentest4j:opentest4j:1.2.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.ow2.asm:asm:9.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: ch.qos.logback:logback-core:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-api:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains:annotations:13.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-engine:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.qcloud:cos_api:5.6.93",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.aliyun.oss:aliyun-sdk-oss:3.15.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.qiniu:qiniu-java-sdk:7.11.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.ucloud.ufile:ufile-client-java:2.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.huaweicloud:esdk-obs-java:3.22.3.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.upyun:java-sdk:4.2.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-configuration-processor:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.platform:junit-platform-engine:1.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.httpcomponents:httpclient:4.5.13",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: commons-codec:commons-codec:1.15",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-kms:3.1.213",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: joda-time:joda-time:2.9.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.bouncycastle:bcprov-jdk15on:1.67",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.aliyun:aliyun-java-sdk-core:4.5.10",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.aliyun:aliyun-java-sdk-ram:3.1.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.aliyun:aliyun-java-sdk-kms:2.11.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jdom:jdom2:2.0.6.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.codehaus.jettison:jettison:1.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.gson:gson:2.8.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.projectlombok:lombok:1.18.24",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.ucloud.ufile:ufile-core:2.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-core:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: junit:junit:4.13.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.objenesis:objenesis:3.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.httpcomponents:httpcore:4.4.15",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-common:3.1.213",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: javax.xml.bind:jaxb-api:2.3.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: commons-logging:commons-logging:1.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jacoco:org.jacoco.agent:runtime:0.8.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.ini4j:ini4j:0.5.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.opentracing:opentracing-util:0.33.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.opentracing:opentracing-api:0.33.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: stax:stax-api:1.0.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.hamcrest:hamcrest-core:2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp:logging-interceptor:2.7.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: javax.activation:javax.activation-api:1.2.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.opentracing:opentracing-noop:0.33.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp:okhttp:2.7.5",
+          "type": "Library"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-spring-boot-starter.main",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-spring-boot-starter/src/main",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        },
+        {
+          "name": "gear4j.gear4j-cos.main",
+          "type": "Module"
+        },
+        {
+          "name": "gear4j.gear4j-safe.main",
+          "type": "Module"
+        },
+        {
+          "name": "gear4j.gear4j-logger.main",
+          "type": "Module"
+        },
+        {
+          "name": "gear4j.gear4j-web.main",
+          "type": "Module"
+        },
+        {
+          "name": "gear4j.gear4j-extra.main",
+          "type": "Module"
+        },
+        {
+          "name": "gear4j.gear4j-core.main",
+          "type": "Module"
+        },
+        {
+          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.servlet:jakarta.servlet-api:4.0.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jsoup:jsoup:1.15.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-http:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger:swagger-annotations:1.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps-jackson:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.zxing:core:3.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.alibaba:fastjson:1.2.83",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.yangtu222:BeanUtils:1.0.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-crypto:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-core:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-web:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-context:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-jackson:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.javassist:javassist:3.21.0-GA",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-beans:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-core:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-aop:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-expression:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis:3.5.10",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-core:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okio:okio:1.17.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-jcl:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains:annotations:13.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.aliyun.oss:aliyun-sdk-oss:3.15.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.qiniu:qiniu-java-sdk:7.11.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.qcloud:cos_api:5.6.93",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.ucloud.ufile:ufile-client-java:2.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.huaweicloud:esdk-obs-java:3.22.3.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.upyun:java-sdk:4.2.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-configuration-processor:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.aliyun:aliyun-java-sdk-core:4.5.10",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.httpcomponents:httpclient:4.5.13",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.aliyun:aliyun-java-sdk-ram:3.1.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.aliyun:aliyun-java-sdk-kms:2.11.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jdom:jdom2:2.0.6.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.codehaus.jettison:jettison:1.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.gson:gson:2.8.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.projectlombok:lombok:1.18.24",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: commons-codec:commons-codec:1.15",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-kms:3.1.213",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: joda-time:joda-time:2.9.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.bouncycastle:bcprov-jdk15on:1.67",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.ucloud.ufile:ufile-core:2.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-core:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-api:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: junit:junit:4.13.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.httpcomponents:httpcore:4.4.15",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: javax.xml.bind:jaxb-api:2.3.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: commons-logging:commons-logging:1.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jacoco:org.jacoco.agent:runtime:0.8.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.ini4j:ini4j:0.5.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.opentracing:opentracing-util:0.33.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.opentracing:opentracing-api:0.33.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: stax:stax-api:1.0.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-common:3.1.213",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.hamcrest:hamcrest-core:2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: javax.activation:javax.activation-api:1.2.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.opentracing:opentracing-noop:0.33.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp:logging-interceptor:2.7.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.hamcrest:hamcrest:2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp:okhttp:2.7.5",
+          "type": "Library"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-web.test",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-web/src/test",
+          "sourceFolders": []
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        },
+        {
+          "name": "gear4j.gear4j-web.main",
+          "type": "Module"
+        },
+        {
+          "name": "gear4j.gear4j-core.main",
+          "type": "Module"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger:swagger-annotations:1.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jsoup:jsoup:1.15.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-http:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-test:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps-jackson:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.zxing:core:3.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.alibaba:fastjson:1.2.83",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.yangtu222:BeanUtils:1.0.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-crypto:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-core:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-web:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-context:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.jayway.jsonpath:json-path:2.6.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-test-autoconfigure:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-test:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-test:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-core:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.assertj:assertj-core:3.21.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mockito:mockito-junit-jupiter:4.0.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mockito:mockito-core:4.0.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.hamcrest:hamcrest:2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.skyscreamer:jsonassert:1.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.xmlunit:xmlunit-core:2.8.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-jackson:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.javassist:javassist:3.21.0-GA",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-beans:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-aop:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-expression:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis:3.5.10",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.minidev:json-smart:2.4.8",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-logging:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-autoconfigure:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.annotation:jakarta.annotation-api:1.3.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.yaml:snakeyaml:1.29",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-params:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-api:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-jcl:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.bytebuddy:byte-buddy:1.11.22",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.bytebuddy:byte-buddy-agent:1.11.22",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.activation:jakarta.activation-api:1.2.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.vaadin.external.google:android-json:0.0.20131108.vaadin1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-core:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okio:okio:1.17.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: net.minidev:accessors-smart:2.4.8",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: ch.qos.logback:logback-classic:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:jul-to-slf4j:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apiguardian:apiguardian-api:1.1.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.platform:junit-platform-commons:1.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.opentest4j:opentest4j:1.2.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains:annotations:13.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.ow2.asm:asm:9.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: ch.qos.logback:logback-core:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-api:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.jupiter:junit-jupiter-engine:5.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.junit.platform:junit-platform-engine:1.8.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.objenesis:objenesis:3.2",
+          "type": "Library"
+        }
+      ]
+    },
+    {
+      "name": "gear4j.gear4j-web.main",
+      "contentEntries": [
+        {
+          "path": "file://$PROJECT_DIR$/gear4j-web/src/main",
+          "sourceFolders": [
+            {
+              "path": "file://$PROJECT_DIR$/gear4j-web/src/main/java",
+              "type": "Source",
+              "packagePrefix": ""
+            },
+            {
+              "path": "file://$PROJECT_DIR$/gear4j-web/src/main/resources",
+              "type": "Resource",
+              "packagePrefix": ""
+            }
+          ]
+        }
+      ],
+      "orderEntries": [
+        {
+          "name": "jbr-11",
+          "type": "SDK"
+        },
+        {
+          "name": "<Module source>",
+          "type": "Own sources"
+        },
+        {
+          "name": "gear4j.gear4j-core.main",
+          "type": "Module"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger:swagger-annotations:1.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jsoup:jsoup:1.15.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-http:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-web:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.servlet:jakarta.servlet-api:4.0.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.validation:jakarta.validation-api:2.0.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps-jackson:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.zxing:core:3.5.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.alibaba:fastjson:1.2.83",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.yangtu222:BeanUtils:1.0.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-crypto:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: cn.hutool:hutool-core:5.8.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-web:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-context:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-json:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-webmvc:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-tomcat:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-jackson:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:okhttps:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.javassist:javassist:3.21.0-GA",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-beans:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-core:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-aop:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-expression:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis:3.5.10",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-logging:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-autoconfigure:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: jakarta.annotation:jakarta.annotation-api:1.3.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.yaml:snakeyaml:1.29",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.64",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.tomcat.embed:tomcat-embed-core:9.0.64",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.tomcat.embed:tomcat-embed-el:9.0.64",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.ejlchina:data-core:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okio:okio:1.17.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-jcl:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: ch.qos.logback:logback-classic:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:jul-to-slf4j:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains:annotations:13.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: ch.qos.logback:logback-core:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-api:2.17.2",
+          "type": "Library"
+        }
+      ]
+    }
+  ]
+}
