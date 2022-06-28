@@ -65,8 +65,7 @@ configure(subprojects - project(":gear4j-bom")) {
 
         testCompileOnly "com.google.code.findbugs:jsr305"
         testImplementation "org.slf4j:slf4j-api"
-        testCompileOnly "org.springframework:spring-test"
-        testImplementation 'org.junit.jupiter:junit-jupiter-api'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
         testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     }
 

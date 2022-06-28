@@ -1,7 +1,7 @@
 rootProject.name = 'gear4j'
 include 'gear4j-bom'
 include 'gear4j-core'
-include 'gear4j-storage'
+include 'gear4j-cos'
 include 'gear4j-web'
 include 'gear4j-logger'
 include 'gear4j-extra'

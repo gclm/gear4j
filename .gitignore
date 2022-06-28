@@ -1,5 +1,5 @@
 HELP.md
-gear4j-storage/src/test/java/club/gclmit/chaos/storage/AuthStorageClientTest.java
+gear4j-cos/src/test/java/club/gclmit/gear4j/storage/AuthStorageClientTest.java
 
 ### Java ###
 *.class
