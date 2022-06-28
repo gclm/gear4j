@@ -202,42 +202,25 @@
    limitations under the License.
 */
 
-package club.gclmit.gear4j.extra.waf.util;
+package club.gclmit.gear4j.safe.rule;
+
+import cn.hutool.http.HTMLFilter;
 
 /**
- * 利用 ThreadLocal 缓存线程间的数据
+ * Html过滤 预防xss注入
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
- * @author L.cm
  */
-public class XssHolder {
-
-	private static final ThreadLocal<Boolean> TL = new ThreadLocal<>();
-
-	private XssHolder() {
-	}
+public class HtmlFilterRule {
 
 	/**
-	 * 获取 ThreadLocal 缓存数据状态
+	 * html 过滤
 	 *
-	 * @return Boolean
+	 * @param str 待验证的字符串
+	 * @return 过滤后的内容
 	 */
-	public static boolean isEnabled() {
-		return Boolean.TRUE.equals(TL.get());
+	public static String filter(String str) {
+		return new HTMLFilter().filter(str);
 	}
-
-	/**
-	 * 启用 ThreadLocal 缓存数据
-	 */
-	public static void setEnable() {
-		TL.set(Boolean.TRUE);
-	}
-
-	/**
-	 * 删除 ThreadLocal 缓存的数据
-	 */
-	public static void remove() {
-		TL.remove();
-	}
-
 }
+

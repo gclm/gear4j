@@ -203,8 +203,10 @@
 */
 
 /**
- * TODO
+ * <p>
+ * starter-properties 配置文件
+ * </p>
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-package club.gclmit.gear4j.extra.waf.rule;
+package club.gclmit.gear4j.safe.config;

@@ -202,25 +202,63 @@
    limitations under the License.
 */
 
-package club.gclmit.gear4j.extra.waf.rule;
+package club.gclmit.gear4j.safe.xss;
 
-import cn.hutool.http.HTMLFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+
+import club.gclmit.gear4j.core.utils.StringUtils;
+import club.gclmit.gear4j.extra.waf.util.XssUtils;
 
 /**
- * Html过滤 预防xss注入
+ * Xss Request
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-public class HtmlFilterRule {
+public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
+
+	public XssHttpServletRequestWrapper(HttpServletRequest request) {
+		super(request);
+	}
 
 	/**
-	 * html 过滤
-	 *
-	 * @param str 待验证的字符串
-	 * @return 过滤后的内容
+	 * 覆盖getParameter方法，将参数名和参数值都做xss过滤.
+	 * 如果需要获得原始的值，则通过super.getParameterValues(name)来获取
+	 * getParameterNames,getParameterValues和getParameterMap也可能需要覆盖
 	 */
-	public static String filter(String str) {
-		return new HTMLFilter().filter(str);
+	@Override
+	public String getParameter(String name) {
+		name = XssUtils.clean(name);
+		String value = super.getParameter(name);
+		if (StringUtils.isNotBlank(value)) {
+			value = XssUtils.clean(value);
+		}
+		return value;
+	}
+
+	@Override
+	public String[] getParameterValues(String name) {
+		String[] arr = super.getParameterValues(name);
+		if (arr != null) {
+			for (int i = 0; i < arr.length; i++) {
+				arr[i] = XssUtils.clean(arr[i]);
+			}
+		}
+		return arr;
+	}
+
+	/**
+	 * 覆盖getHeader方法，将参数名和参数值都做xss过滤
+	 * 如果需要获得原始的值，则通过super.getHeaders(name)来获取
+	 * getHeaderNames 也可能需要覆盖
+	 */
+	@Override
+	public String getHeader(String name) {
+		name = XssUtils.clean(name);
+		String value = super.getHeader(name);
+		if (StringUtils.isNotBlank(value)) {
+			value = XssUtils.clean(value);
+		}
+		return value;
 	}
 }
-

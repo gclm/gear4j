@@ -202,54 +202,31 @@
    limitations under the License.
 */
 
-package club.gclmit.gear4j.extra.waf.properties;
+package club.gclmit.gear4j.safe.xss;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+
+import club.gclmit.gear4j.core.utils.StringUtils;
+import club.gclmit.gear4j.extra.waf.util.XssUtils;
 
 /**
- * Xss配置类
+ * Xss Jackson 序列化
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-public class XssProperties {
+public class XssJacksonSerializer extends JsonSerializer<String> {
 
-	/**
-	 * 开启xss
-	 */
-	private boolean enabled = true;
+//    private static final Logger log = LoggerFactory.getLogger(XssJacksonSerializer.class);
 
-	/**
-	 * 拦截的路由，默认为空
-	 */
-	private List<String> pathPatterns = new ArrayList<>();
-
-	/**
-	 * 放行的规则，默认为空
-	 */
-	private List<String> excludePatterns = new ArrayList<>();
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public List<String> getPathPatterns() {
-		return pathPatterns;
-	}
-
-	public void setPathPatterns(List<String> pathPatterns) {
-		this.pathPatterns = pathPatterns;
-	}
-
-	public List<String> getExcludePatterns() {
-		return excludePatterns;
-	}
-
-	public void setExcludePatterns(List<String> excludePatterns) {
-		this.excludePatterns = excludePatterns;
+	@Override
+	public void serialize(String value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+		if (StringUtils.isNotBlank(value)) {
+			value = XssUtils.clean(value);
+		}
+		jsonGenerator.writeString(value);
 	}
 }

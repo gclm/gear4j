@@ -1,5 +1,3 @@
 dependencies {
-    api project(":gear4j-web")
-    api "org.jsoup:jsoup"
-    api "cn.hutool:hutool-http"
+    api project(":gear4j-core")
 }

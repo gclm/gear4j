@@ -202,42 +202,42 @@
    limitations under the License.
 */
 
-package club.gclmit.gear4j.extra.waf.xss;
-
-import java.io.IOException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-
-import club.gclmit.gear4j.extra.waf.util.XssHolder;
-import club.gclmit.gear4j.extra.waf.util.XssUtils;
+package club.gclmit.gear4j.safe.util;
 
 /**
- * XssJacksonDeserializer
+ * 利用 ThreadLocal 缓存线程间的数据
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @author L.cm
  */
-public class XssJacksonDeserializer extends JsonDeserializer<String> {
+public class XssHolder {
 
-	private static final Logger log = LoggerFactory.getLogger(XssJacksonDeserializer.class);
+	private static final ThreadLocal<Boolean> TL = new ThreadLocal<>();
 
-	@Override
-	public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
-		// XSS filter
-		String text = jsonParser.getValueAsString();
-		if (text == null) {
-			return null;
-		} else if (XssHolder.isEnabled()) {
-			String value = XssUtils.clean(text);
-			log.debug("Json property value:{} cleaned up by mica-xss, current value is:{}.", text, value);
-			return value;
-		} else {
-			return text;
-		}
+	private XssHolder() {
+	}
+
+	/**
+	 * 获取 ThreadLocal 缓存数据状态
+	 *
+	 * @return Boolean
+	 */
+	public static boolean isEnabled() {
+		return Boolean.TRUE.equals(TL.get());
+	}
+
+	/**
+	 * 启用 ThreadLocal 缓存数据
+	 */
+	public static void setEnable() {
+		TL.set(Boolean.TRUE);
+	}
+
+	/**
+	 * 删除 ThreadLocal 缓存的数据
+	 */
+	public static void remove() {
+		TL.remove();
 	}
 
 }

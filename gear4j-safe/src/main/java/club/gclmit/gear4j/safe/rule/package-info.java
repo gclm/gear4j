@@ -203,9 +203,8 @@
 */
 
 /**
- * gear4j-waf: waf模块
+ * TODO
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
- * @since jdk11
  */
-package club.gclmit.gear4j.extra.waf;
+package club.gclmit.gear4j.safe.rule;

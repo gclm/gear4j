@@ -6,4 +6,5 @@ include 'gear4j-web'
 include 'gear4j-logger'
 include 'gear4j-extra'
 include 'gear4j-spring-boot-starter'
+include 'gear4j-safe'
 

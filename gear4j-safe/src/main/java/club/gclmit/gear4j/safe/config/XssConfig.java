@@ -202,11 +202,54 @@
    limitations under the License.
 */
 
+package club.gclmit.gear4j.safe.config;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * <p>
- * starter-properties 配置文件
- * </p>
+ * Xss配置类
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-package club.gclmit.gear4j.extra.waf.properties;
+public class XssConfig {
+
+	/**
+	 * 开启xss
+	 */
+	private boolean enabled = true;
+
+	/**
+	 * 拦截的路由，默认为空
+	 */
+	private List<String> pathPatterns = new ArrayList<>();
+
+	/**
+	 * 放行的规则，默认为空
+	 */
+	private List<String> excludePatterns = new ArrayList<>();
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public List<String> getPathPatterns() {
+		return pathPatterns;
+	}
+
+	public void setPathPatterns(List<String> pathPatterns) {
+		this.pathPatterns = pathPatterns;
+	}
+
+	public List<String> getExcludePatterns() {
+		return excludePatterns;
+	}
+
+	public void setExcludePatterns(List<String> excludePatterns) {
+		this.excludePatterns = excludePatterns;
+	}
+}

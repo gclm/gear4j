@@ -202,50 +202,42 @@
    limitations under the License.
 */
 
-package club.gclmit.gear4j.extra.waf.util;
+package club.gclmit.gear4j.safe.xss;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.safety.Safelist;
+import java.io.IOException;
 
-import club.gclmit.gear4j.extra.waf.rule.HtmlFilterRule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+
+import club.gclmit.gear4j.extra.waf.util.XssHolder;
+import club.gclmit.gear4j.extra.waf.util.XssUtils;
 
 /**
- * Xss Utils
+ * XssJacksonDeserializer
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-public class XssUtils {
+public class XssJacksonDeserializer extends JsonDeserializer<String> {
 
-	/**
-	 * 使用自带的basicWithImages 白名单
-	 * 允许的便签有a,b,blockquote,br,cite,code,dd,dl,dt,em,i,li,ol,p,pre,q,small,span,
-	 * strike,strong,sub,sup,u,ul,img
-	 * 以及a标签的href,img标签的src,align,alt,height,width,title属性
-	 */
-	private static final Safelist WHITE_LIST = Safelist.basicWithImages();
+	private static final Logger log = LoggerFactory.getLogger(XssJacksonDeserializer.class);
 
-	/**
-	 * 配置过滤化参数,不对代码进行格式化
-	 */
-	private static final Document.OutputSettings OUTPUT_SETTINGS = new Document.OutputSettings().prettyPrint(false);
-
-	static {
-		// 富文本编辑时一些样式是使用style来进行实现的
-		// 比如红色字体 style="color:red;"
-		// 所以需要给所有标签添加style属性
-		WHITE_LIST.addAttributes(":all", "style");
-		WHITE_LIST.addProtocols("img", "src", "data");
+	@Override
+	public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+		// XSS filter
+		String text = jsonParser.getValueAsString();
+		if (text == null) {
+			return null;
+		} else if (XssHolder.isEnabled()) {
+			String value = XssUtils.clean(text);
+			log.debug("Json property value:{} cleaned up by mica-xss, current value is:{}.", text, value);
+			return value;
+		} else {
+			return text;
+		}
 	}
 
-	private XssUtils() {
-	}
-
-	public static String clean(String content) {
-		return Jsoup.clean(content, "", WHITE_LIST, OUTPUT_SETTINGS);
-	}
-
-	public static String encode(String content) {
-		return HtmlFilterRule.filter(content);
-	}
 }

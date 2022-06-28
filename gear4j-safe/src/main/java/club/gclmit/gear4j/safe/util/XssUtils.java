@@ -202,70 +202,50 @@
    limitations under the License.
 */
 
-package club.gclmit.gear4j.extra.waf.xss;
+package club.gclmit.gear4j.safe.util;
 
-import java.io.IOException;
-import java.util.List;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.safety.Safelist;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.Ordered;
-import org.springframework.web.filter.OncePerRequestFilter;
-
-import club.gclmit.gear4j.core.utils.UrlUtils;
-import club.gclmit.gear4j.extra.waf.properties.ChaosWafProperties;
-import club.gclmit.gear4j.extra.waf.properties.XssProperties;
-import cn.hutool.core.collection.CollUtil;
+import club.gclmit.gear4j.extra.waf.rule.HtmlFilterRule;
 
 /**
- * 拦截防止xss注入 通过Jsoup过滤请求参数内的特定字符
+ * Xss Utils
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-@WebFilter(filterName = "xssFilter", urlPatterns = "/*")
-public class XssFilter extends OncePerRequestFilter implements Ordered {
-
-
-	@Autowired
-	private ChaosWafProperties wafProperties;
-
-	@Override
-	public int getOrder() {
-		return Ordered.LOWEST_PRECEDENCE;
-	}
-
-	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-		XssProperties xss = wafProperties.getXss();
-		if (handleUrlRule(request, xss)) {
-			filterChain.doFilter(request, response);
-			return;
-		}
-		XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper(request);
-		filterChain.doFilter(xssRequest, response);
-	}
+public class XssUtils {
 
 	/**
-	 * 处理url规则
-	 *
-	 * @param request       HttpServletRequest
-	 * @param xssProperties 配置信息
-	 * @return boolean
-	 * @author <a href="https://blog.gclmit.club">gclm</a>
+	 * 使用自带的basicWithImages 白名单
+	 * 允许的便签有a,b,blockquote,br,cite,code,dd,dl,dt,em,i,li,ol,p,pre,q,small,span,
+	 * strike,strong,sub,sup,u,ul,img
+	 * 以及a标签的href,img标签的src,align,alt,height,width,title属性
 	 */
-	private boolean handleUrlRule(HttpServletRequest request, XssProperties xssProperties) {
-		String url = request.getServletPath();
-		List<String> pathPatterns = xssProperties.getPathPatterns();
-		List<String> excludePatterns = xssProperties.getExcludePatterns();
+	private static final Safelist WHITE_LIST = Safelist.basicWithImages();
 
-		if (CollUtil.isEmpty(pathPatterns)) {
-			return false;
-		}
-		return CollUtil.isNotEmpty(excludePatterns) && UrlUtils.isIgnore(excludePatterns, url);
+	/**
+	 * 配置过滤化参数,不对代码进行格式化
+	 */
+	private static final Document.OutputSettings OUTPUT_SETTINGS = new Document.OutputSettings().prettyPrint(false);
+
+	static {
+		// 富文本编辑时一些样式是使用style来进行实现的
+		// 比如红色字体 style="color:red;"
+		// 所以需要给所有标签添加style属性
+		WHITE_LIST.addAttributes(":all", "style");
+		WHITE_LIST.addProtocols("img", "src", "data");
+	}
+
+	private XssUtils() {
+	}
+
+	public static String clean(String content) {
+		return Jsoup.clean(content, "", WHITE_LIST, OUTPUT_SETTINGS);
+	}
+
+	public static String encode(String content) {
+		return HtmlFilterRule.filter(content);
 	}
 }
