@@ -1,3 +1,32 @@
+### 2.6.0
+
+#### 架构调整
+
+- 🎨: 项目名从chaos修改为gear4j
+- 🎨: gear4j-storage调整为cos模块
+- 🎨: 新增safe模块，主要管理waf业务
+- 🎨: boot-starter 模块只做包依赖管理
+- 🎨: 删除冗余的工具类逻辑尽量复用Spring和hutool逻辑
+
+#### 新特性：
+
+- 👷: 新增qodana扫描
+- ✨: 新增公共字段
+- ⚡️: 优化gradlePush配置
+
+#### bug修复
+
+- 💚: 修复Github Action构建错误
+- 🐛: 修复okhttps spi错误
+- 🐛: 调整命名规则和优化springdoc注解
+- 🔥: 移除api版本注解
+
+#### 其他
+
+- 📝: 新增LICENSE文件
+- 📝: 基于新的项目名调整相关文档
+- ⬆️: 升级依赖
+
 ### 2.5.0
 
 - 🐛: 修复测试junit测试错误

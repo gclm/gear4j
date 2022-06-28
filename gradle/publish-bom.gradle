@@ -1,9 +1,3 @@
-tasks.whenTaskAdded { task ->
-    if (task.name.contains('signMavenJavaPublication')) {
-        task.enabled = new File(project.property('signing.secretKeyRingFile') as String).isFile()
-    }
-}
-
 publishing {
     repositories {
         maven {
