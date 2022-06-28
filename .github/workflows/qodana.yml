@@ -1,0 +1,43 @@
+name: Gear4j CI Qodana
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+      - dev
+      - 'releases/*'
+
+jobs:
+  qodana:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Restore gradle.properties
+        run: |
+          echo ${{secrets.SIGNING_SECRET_KEY_RING_FILE}} > ~/.gradle/secring.gpg.base64
+          echo ${{secrets.SIGNING_CONFIG}} > ~/.gradle/config.properties
+          base64 -d ~/.gradle/secring.gpg.base64 > ~/.gradle/secring.gpg
+          base64 -d ~/.gradle/config.properties >> gradle.properties
+          rm -rf ~/.gradle/secring.gpg.base64
+          rm -rf ~/.gradle/config.properties
+
+      - name: 'Qodana Scan'
+        uses: JetBrains/qodana-action@v5.1.0
+        env:
+          NEXUS_SONATYPE_USERNAME: ${{ secrets.NEXUS_SONATYPE_USERNAME }}
+          NEXUS_SONATYPE_PASSWORD: ${{ secrets.NEXUS_SONATYPE_PASSWORD }}
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ runner.temp }}/qodana/results/report
+          destination_dir: ./

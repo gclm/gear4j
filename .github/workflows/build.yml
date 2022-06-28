@@ -42,37 +42,10 @@ jobs:
           rm -rf ~/.gradle/secring.gpg.base64
           rm -rf ~/.gradle/config.properties
 
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v1
-        with:
-          languages: ${{ matrix.language }}
-
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v1
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-
-      - name: Publish To MavenLocal
-        run: |
-          ./gradlew publishToMavenLocal
-
       - name: Execute Gradle build
         run: |
           ./gradlew build
 
-      - name: Sonar Build and Analyze
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew build sonarqube --info
-
-      - name: CodeQL Autobuild
-        uses: github/codeql-action/autobuild@v1
-
-      - name: CodeQL Analysis
-        uses: github/codeql-action/analyze@v1
 
 
 

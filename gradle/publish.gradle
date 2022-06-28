@@ -47,8 +47,8 @@ publishing {
             name = "Sonatype"
             url = version.endsWith('SNAPSHOT') ? NEXUS_SONATYPE_REPOSITORY_SNAPSHOT : NEXUS_SONATYPE_REPOSITORY_RELEASE
             credentials {
-                username System.getenv('NEXUS_SONATYPE_USERNAME') ?: NEXUS_SONATYPE_USERNAME
-                password System.getenv('NEXUS_SONATYPE_PASSWORD') ?: NEXUS_SONATYPE_PASSWORD
+                username System.getenv('NEXUS_SONATYPE_USERNAME')
+                password System.getenv('NEXUS_SONATYPE_PASSWORD')
             }
         }
     }
