@@ -204,8 +204,6 @@
 
 package club.gclmit.gear4j.safe.rule;
 
-import cn.hutool.http.HTMLFilter;
-
 /**
  * Html过滤 预防xss注入
  *
@@ -220,7 +218,9 @@ public class HtmlFilterRule {
 	 * @return 过滤后的内容
 	 */
 	public static String filter(String str) {
-		return new HTMLFilter().filter(str);
+
+        return null;
+        // return new HTMLFilter().filter(str);
 	}
 }
 
