@@ -243,6 +243,7 @@ import cn.ucloud.ufile.util.StorageType;
 public class UcloudCosClient extends AbstractCosClient implements CosClient {
 
     private static final Logger log = LoggerFactory.getLogger(UcloudCosClient.class);
+
 	/**
 	 * 客户端
 	 */
@@ -307,9 +308,7 @@ public class UcloudCosClient extends AbstractCosClient implements CosClient {
 		Assert.notNull(inputStream, "[Ufile]上传文件失败，请检查 inputStream 是否正常");
 
 		String key = fileInfo.getOssKey();
-
 		String url = null;
-		String eTag = null;
 
 		try {
 			PutObjectResultBean response = ossClient.putObject(inputStream, inputStream.available(), fileInfo.getContentType())
@@ -320,7 +319,7 @@ public class UcloudCosClient extends AbstractCosClient implements CosClient {
 				 */
 				.withStorageType(StorageType.STANDARD)
 				.execute();
-			eTag = response.geteTag();
+            fileInfo.setETag(response.geteTag());
 		} catch (UfileClientException e) {
 			throw new ChaosException("上传失败,Ufile客户端发生异常", e);
 		} catch (UfileServerException | IOException e) {
@@ -338,7 +337,6 @@ public class UcloudCosClient extends AbstractCosClient implements CosClient {
 			url = path.toString();
 		}
 
-		fileInfo.setETag(eTag);
 		fileInfo.setUrl(url);
         fileInfo.setUploadTime(DateUtil.current());
 		return fileInfo;

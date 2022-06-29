@@ -142,6 +142,7 @@ package club.gclmit.gear4j.cos.provider.impl;
 
 import java.io.InputStream;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
@@ -178,18 +179,12 @@ public class GoFastdfsCosClient extends AbstractCosClient implements CosClient {
     private final String serverUrl;
 
     /**
-     * OSS 配置参数
-     */
-    private final CosProvider cosProvider;
-
-    /**
      * 初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
      *
      * @param cosProvider Storage
      */
     public GoFastdfsCosClient(CosProvider cosProvider) {
         super(cosProvider);
-        this.cosProvider = cosProvider;
         serverUrl = cosProvider.getEndpoint() + "/" + cosProvider.getBucket() + "/";
     }
 
@@ -230,7 +225,7 @@ public class GoFastdfsCosClient extends AbstractCosClient implements CosClient {
     public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {
         Assert.notNull(inputStream, "[FastDFS]上传文件失败，请检查 inputStream 是否正常");
 
-        LocalDate localDate = LocalDate.now();
+        LocalDate localDate = LocalDate.now(ZoneId.systemDefault());
         String dateFormat = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
         String url = null;
         try {
