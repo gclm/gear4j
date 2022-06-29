@@ -1,8 +1,8 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Gear4j CI
-on: [ push, pull_request ]
+name: Gear4j CI Pull
+on: [ pull_request ]
 
 jobs:
   gradle:
