@@ -218,9 +218,9 @@ import cn.hutool.core.io.IoUtil;
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since jdk11
  */
-public class IOUtils extends IoUtil {
+public class IoUtils extends IoUtil {
 
-	private IOUtils() {
+    private IoUtils() {
 	}
 
 	/**

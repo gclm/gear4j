@@ -164,6 +164,8 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.method.HandlerMethod;
 
+import club.gclmit.gear4j.core.exception.ChaosException;
+
 /**
  * 类工具类
  *
@@ -275,7 +277,7 @@ public class ClassUtils extends org.springframework.util.ClassUtils {
      * 扫描目录下的所有class文件
      *
      * @param scanPackage 搜索的包根路径
-     * @return
+     * @return class集合
      */
     public static Set<Class<?>> getClasses(String scanPackage) {
         return getClasses(scanPackage, EMPTY_FILTER);
@@ -285,8 +287,8 @@ public class ClassUtils extends org.springframework.util.ClassUtils {
      * 返回所有的子类（不包括抽象类）
      *
      * @param scanPackage 搜索的包根路径
-     * @param parent
-     * @return
+     * @param parent 父类
+     * @return class集合
      */
     public static Set<Class<?>> listAllSubclasses(String scanPackage, Class<?> parent) {
         return getClasses(scanPackage, (clazz) -> {
@@ -297,8 +299,8 @@ public class ClassUtils extends org.springframework.util.ClassUtils {
     /**
      * 返回所有的子类（不包括抽象类）
      *
-     * @param parent
-     * @return
+     * @param parent 父类
+     * @return class集合
      */
     public static Set<Class<?>> listAllSubclasses(Class<?> parent) {
         String packageName = getPackageName(parent);
@@ -311,14 +313,12 @@ public class ClassUtils extends org.springframework.util.ClassUtils {
      * 返回所有带制定注解的class列表
      *
      * @param scanPackage 搜索的包根路径
-     * @param annotation
-     * @return
+     * @param annotation 指定注解
+     * @return class集合
      */
     public static <A extends Annotation> Set<Class<?>> listClassesWithAnnotation(String scanPackage,
         Class<A> annotation) {
-        return getClasses(scanPackage, (clazz) -> {
-            return clazz.getAnnotation(annotation) != null;
-        });
+        return getClasses(scanPackage, (clazz) -> clazz.getAnnotation(annotation) != null);
     }
 
     /**
@@ -326,7 +326,7 @@ public class ClassUtils extends org.springframework.util.ClassUtils {
      *
      * @param pack 包路径
      * @param filter 自定义类过滤器
-     * @return
+     * @return class集合
      */
     public static Set<Class<?>> getClasses(String pack, Predicate<Class<?>> filter) {
         ResourcePatternResolver patternResolver = new PathMatchingResourcePatternResolver();
@@ -347,7 +347,6 @@ public class ClassUtils extends org.springframework.util.ClassUtils {
                         // 忽略内部类
                         continue;
                     }
-                    // Class<?> clazz = Class.forName(clazzName);
                     Class<?> clazz = Thread.currentThread().getContextClassLoader().loadClass(clazzName);
                     if (filter.test(clazz)) {
                         result.add(clazz);
@@ -355,6 +354,7 @@ public class ClassUtils extends org.springframework.util.ClassUtils {
                 }
             }
         } catch (Exception e) {
+            throw new ChaosException("getClasses异常", e);
         }
         return result;
     }

@@ -204,18 +204,12 @@
 
 package club.gclmit.gear4j.core.utils;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.util.BitSet;
 import java.util.List;
 
 import org.springframework.util.AntPathMatcher;
 
-import club.gclmit.gear4j.core.exception.ChaosException;
-import cn.hutool.core.lang.Assert;
-import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.core.util.URLUtil;
 
 /**
  * Url工具类
@@ -224,7 +218,7 @@ import cn.hutool.core.util.CharsetUtil;
  * @since 12/21/2020 2:43 PM
  * @since jdk11
  */
-public class UrlUtils {
+public class UrlUtils extends URLUtil {
 
 
 	private UrlUtils() {
@@ -283,12 +277,12 @@ public class UrlUtils {
 	 * @return true url编码过
 	 */
 	public static boolean hasUrlEncoded(String str) {
-		/**
-		 * 支持JAVA的URLEncoder.encode出来的string做判断。 即: 将' '转成'+' <br>
-		 * 0-9a-zA-Z保留 <br>
-		 * '-'，'_'，'.'，'*'保留 <br>
-		 * 其他字符转成%XX的格式，X是16进制的大写字符，范围是[0-9A-F]
-		 */
+        /*
+         * 支持JAVA的URLEncoder.encode出来的string做判断。 即: 将' '转成'+' <br>
+         * 0-9a-zA-Z保留 <br>
+         * '-'，'_'，'.'，'*'保留 <br>
+         * 其他字符转成%XX的格式，X是16进制的大写字符，范围是[0-9A-F]
+         */
 		boolean needEncode = false;
 		for (int i = 0; i < str.length(); i++) {
 			char c = str.charAt(i);
@@ -320,94 +314,4 @@ public class UrlUtils {
 	private static boolean isDigit16Char(char c) {
 		return (c >= '0' && c <= '9') || (c >= 'A' && c <= 'F');
 	}
-
-	// url encode
-	//-----------------------------------------------------------------------
-
-	/**
-	 * encode 默认编码 UTF-8
-	 *
-	 * @param url url
-	 * @return {@link String}
-	 */
-	public static String encode(String url) {
-		Assert.isTrue(StringUtils.isNotBlank(url), "url 不能为空");
-		return encode(url, CharsetUtil.UTF_8);
-	}
-
-	/**
-	 * encode 自定义编码格式
-	 *
-	 * @param url     url
-	 * @param charset 编码格式
-	 * @return {@link String}
-	 */
-	public static String encode(String url, Charset charset) {
-		Assert.isTrue(StringUtils.isNotBlank(url), "url 不能为空");
-		Assert.isNull(charset, "charset 不能为空");
-		return encode(url, charset.name());
-	}
-
-	/**
-	 * encode 自定义编码格式
-	 *
-	 * @param url     url
-	 * @param charset 编码格式
-	 * @return {@link String}
-	 */
-	public static String encode(String url, String charset) {
-		Assert.isTrue(StringUtils.isNotBlank(url), "url 不能为空");
-		Assert.isTrue(StringUtils.isNotBlank(charset), "charset 不能为空");
-		try {
-			return URLEncoder.encode(url, charset);
-		} catch (UnsupportedEncodingException e) {
-			throw new ChaosException(e, "URL编码失败,url:{}\t编码格式：{}", url, charset);
-		}
-	}
-
-	// url decode
-	//-----------------------------------------------------------------------
-
-	/**
-	 * decode 默认为UTF-8
-	 *
-	 * @param url URL
-	 * @return {@link String}
-	 */
-	public static String decode(String url) {
-		Assert.isTrue(StringUtils.isNotBlank(url), "url 不能为空");
-		return decode(url, CharsetUtil.UTF_8);
-	}
-
-	/**
-	 * decode 自定义编码格式
-	 *
-	 * @param url     url
-	 * @param charset 编码格式
-	 * @return {@link String}
-	 */
-	public static String decode(String url, Charset charset) {
-		Assert.isTrue(StringUtils.isNotBlank(url), "url 不能为空");
-		Assert.isNull(charset, "charset 不能为空");
-		return decode(url, charset.name());
-	}
-
-	/**
-	 * decode 自定义编码格式
-	 *
-	 * @param url     url
-	 * @param charset 编码格式
-	 * @return {@link String}
-	 */
-	public static String decode(String url, String charset) {
-		Assert.isTrue(StringUtils.isNotBlank(url), "url 不能为空");
-		Assert.isTrue(StringUtils.isNotBlank(charset), "charset 不能为空");
-		try {
-			return URLDecoder.decode(url, charset);
-		} catch (UnsupportedEncodingException e) {
-			throw new ChaosException(e, "URL解码失败,url:{}\t编码格式：{}", url, charset);
-		}
-	}
-
-
 }

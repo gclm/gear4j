@@ -399,7 +399,8 @@ public class YeinGid {
 		value[8] = DIGITS[(int) (highBits >> 19 & 0x1f)];
 		value[9] = DIGITS[(int) (highBits >> 14 & 0x1f)];
 		value[10] = DIGITS[(int) (highBits >> 9 & 0x1f)];
-		value[11] = DIGITS[(int) (highBits >> 4 & 0x1f)]; // highBits 还剩余 4bits 需要在后续编码
+        // highBits 还剩余 4bits 需要在后续编码
+        value[11] = DIGITS[(int)(highBits >> 4 & 0x1f)];
 		value[12] = DIGITS[(int) ((highBits & 0xf) << 1 | lowBits >> 63 & 0x1)];
 		value[13] = DIGITS[(int) (lowBits >> 58 & 0x1f)];
 		value[14] = DIGITS[(int) (lowBits >> 53 & 0x1f)];

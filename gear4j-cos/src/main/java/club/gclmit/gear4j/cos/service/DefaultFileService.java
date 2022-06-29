@@ -161,7 +161,7 @@ public interface DefaultFileService extends IService<FileInfo> {
      * @param file MultipartFile
      * @return {@link FileInfo}
      */
-    public FileInfo uploadFile(MultipartFile file);
+    FileInfo uploadFile(MultipartFile file);
 
     /**
      * 根据文件 MD5 判断文件是否存在
@@ -169,7 +169,7 @@ public interface DefaultFileService extends IService<FileInfo> {
      * @param md5 md5
      * @return {@link FileInfo}
      */
-    public FileInfo queryMd5(String md5);
+    FileInfo queryMd5(String md5);
 
     /**
      * 根据OSS key 查询
@@ -177,7 +177,7 @@ public interface DefaultFileService extends IService<FileInfo> {
      * @param key OSS key
      * @return {@link FileInfo} List
      */
-    public FileInfo queryKey(String key);
+    FileInfo queryKey(String key);
 
     /**
      * 根据OSS key 模糊查询
@@ -185,7 +185,7 @@ public interface DefaultFileService extends IService<FileInfo> {
      * @param key OSS key
      * @return {@link FileInfo} List
      */
-    public List<FileInfo> linkQueryKey(String key);
+    List<FileInfo> linkQueryKey(String key);
 
     /**
      * 根据文件名字模糊查询
@@ -193,7 +193,7 @@ public interface DefaultFileService extends IService<FileInfo> {
      * @param fileName 文件名字
      * @return {@link FileInfo} List
      */
-    public List<FileInfo> linkQueryFileName(String fileName);
+    List<FileInfo> linkQueryFileName(String fileName);
 
     /**
      * 根据文件大小区间查询
@@ -202,27 +202,27 @@ public interface DefaultFileService extends IService<FileInfo> {
      * @param endSize 最大
      * @return {@link FileInfo} List
      */
-    public List<FileInfo> queryFileSizeBetween(Long startSize, Long endSize);
+    List<FileInfo> queryFileSizeBetween(Long startSize, Long endSize);
 
     /**
      * 根据FileInfo id 删除文件
      *
      * @param id FileInfo id
      */
-    public void deleteFileById(String id);
+    void deleteFileById(String id);
 
     /**
      * 根据OSS key 删除文件
      *
      * @param key OSS key
      */
-    public void deleteFile(String key);
+    void deleteFile(String key);
 
     /**
      * 根据OSS keys 批量删除文件
      *
      * @param keys OSS key
      */
-    public void batchDeleteFile(List<String> keys);
+    void batchDeleteFile(List<String> keys);
 
 }

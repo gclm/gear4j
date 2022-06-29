@@ -319,7 +319,6 @@ public class UcloudCosClient extends AbstractCosClient implements CosClient {
 				 */
 				.withStorageType(StorageType.STANDARD)
 				.execute();
-            fileInfo.setETag(response.geteTag());
 		} catch (UfileClientException e) {
 			throw new ChaosException("上传失败,Ufile客户端发生异常", e);
 		} catch (UfileServerException | IOException e) {

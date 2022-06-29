@@ -215,9 +215,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.http.HttpClient;
 import club.gclmit.gear4j.core.http.servlet.HttpCacheRequestWrapper;
 import club.gclmit.gear4j.core.http.servlet.HttpCacheResponseWrapper;
-import club.gclmit.gear4j.core.lang.$;
 import cn.hutool.core.lang.Assert;
 
 /**
@@ -239,7 +239,7 @@ public class ServletUtils {
 	public static String getClientIp(HttpServletRequest request) {
 		Assert.notNull(request, "request instance is null.");
 		String ip = request.getHeader("X-Forwarded-For");
-		if (StringUtils.isNotEmpty(ip) && !$.UNKNOWN.equalsIgnoreCase(ip)) {
+        if (StringUtils.isNotEmpty(ip) && !HttpClient.UNKNOWN.equalsIgnoreCase(ip)) {
 			int index = ip.indexOf(",");
 			if (index != -1) {
 				return ip.substring(0, index);
@@ -248,26 +248,26 @@ public class ServletUtils {
 			}
 		}
 		ip = request.getHeader("X-Real-IP");
-		if (StringUtils.isNotEmpty(ip) && !$.UNKNOWN.equalsIgnoreCase(ip)) {
+        if (StringUtils.isNotEmpty(ip) && !HttpClient.UNKNOWN.equalsIgnoreCase(ip)) {
 			return ip;
 		}
-		if (StringUtils.isEmpty(ip) || $.UNKNOWN.equalsIgnoreCase(ip)) {
+        if (StringUtils.isEmpty(ip) || HttpClient.UNKNOWN.equalsIgnoreCase(ip)) {
 			ip = request.getHeader("Proxy-Client-IP");
 		}
-		if (StringUtils.isEmpty(ip) || $.UNKNOWN.equalsIgnoreCase(ip)) {
+        if (StringUtils.isEmpty(ip) || HttpClient.UNKNOWN.equalsIgnoreCase(ip)) {
 			ip = request.getHeader("WL-Proxy-Client-IP");
 		}
-		if (StringUtils.isEmpty(ip) || $.UNKNOWN.equalsIgnoreCase(ip)) {
+        if (StringUtils.isEmpty(ip) || HttpClient.UNKNOWN.equalsIgnoreCase(ip)) {
 			ip = request.getHeader("HTTP_CLIENT_IP");
 		}
-		if (StringUtils.isEmpty(ip) || $.UNKNOWN.equalsIgnoreCase(ip)) {
+        if (StringUtils.isEmpty(ip) || HttpClient.UNKNOWN.equalsIgnoreCase(ip)) {
 			ip = request.getHeader("HTTP_X_FORWARDED_FOR");
 		}
-		if (StringUtils.isEmpty(ip) || $.UNKNOWN.equalsIgnoreCase(ip)) {
+        if (StringUtils.isEmpty(ip) || HttpClient.UNKNOWN.equalsIgnoreCase(ip)) {
 			ip = request.getRemoteAddr();
 		}
 
-		return $.LOCALHOST.equals(ip) ? $.DEFAULT_HOST : ip;
+        return HttpClient.LOCALHOST.equals(ip) ? HttpClient.DEFAULT_HOST : ip;
 	}
 
 	/**
@@ -293,7 +293,7 @@ public class ServletUtils {
 	 */
 	public static Map<String, String> getRequestHeaders(HttpServletRequest request) {
 		Assert.notNull(request, "request instance is null.");
-		Map<String, String> headers = new HashMap<>();
+        Map<String, String> headers = new HashMap<>(30);
 		Enumeration<String> enumeration = request.getHeaderNames();
 		while (enumeration.hasMoreElements()) {
 			String headerName = enumeration.nextElement();
@@ -311,7 +311,7 @@ public class ServletUtils {
 	 */
 	public static Map<String, String> getResponseHeaders(HttpServletResponse response) {
 		Assert.notNull(response, "response instance is null.");
-		Map<String, String> headers = new HashMap<>();
+        Map<String, String> headers = new HashMap<>(response.getHeaderNames().size());
 		for (String headerName : response.getHeaderNames()) {
 			String headerValue = response.getHeader(headerName);
 			headers.put(headerName, headerValue);
@@ -340,8 +340,8 @@ public class ServletUtils {
 	 */
 	public static Map<String, String> getPathParams(HttpServletRequest request) {
 		Assert.notNull(request, "request instance is null.");
-		Map<String, String> map = new HashMap<>();
 		Enumeration<String> paramNames = request.getParameterNames();
+        Map<String, String> map = new HashMap<>(30);
 		while (paramNames.hasMoreElements()) {
 			String paramName = paramNames.nextElement();
 			String[] paramValues = request.getParameterValues(paramName);
@@ -410,7 +410,7 @@ public class ServletUtils {
 	 */
 	public static boolean isFileUpload(HttpServletRequest request) {
 		Assert.notNull(request, "request instance is null.");
-		return getContentType(request).startsWith($.UPLOAD_CONTENT_TYPE);
+        return getContentType(request).startsWith(HttpClient.UPLOAD_CONTENT_TYPE);
 	}
 
 	/**
@@ -421,7 +421,8 @@ public class ServletUtils {
 	 */
 	public static String getContentType(HttpServletRequest request) {
 		Assert.notNull(request, "request instance is null.");
-		return StringUtils.isEmpty(request.getContentType()) ? $.DEFAULT_CONTENT_TYPE : request.getContentType();
+        return StringUtils.isEmpty(request.getContentType()) ? HttpClient.DEFAULT_CONTENT_TYPE
+            : request.getContentType();
 	}
 
 

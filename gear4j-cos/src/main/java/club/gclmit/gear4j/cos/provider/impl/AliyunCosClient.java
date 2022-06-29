@@ -230,7 +230,6 @@ public class AliyunCosClient extends AbstractCosClient implements CosClient {
         try {
             // 简单上传
             PutObjectResult putObject = ossClient.putObject(cosProvider.getBucket(), key, inputStream);
-            fileInfo.setETag(putObject.getETag());
         } catch (Exception e) {
             throw new ChaosException("[阿里云OSS]上传文件失败，请检查配置信息", e);
         }

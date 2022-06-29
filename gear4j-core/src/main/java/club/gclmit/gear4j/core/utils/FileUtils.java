@@ -140,7 +140,10 @@
 
 package club.gclmit.gear4j.core.utils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.InputStream;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -169,42 +172,6 @@ public class FileUtils extends FileUtil {
     }
 
     /**
-     * 效验文件器 功能如果判断文件是否存在，如果不存在先创建文件多层目录，然后创建文件
-     *
-     * @param filePath 文件路径
-     * @return java.io.File
-     */
-    public static File touch(String filePath) {
-        Assert.notNull(filePath, "文件路径不能为空");
-
-        /*
-         * 创建当前文件和该目录的父文件
-         */
-        File file = new File(filePath);
-        File dirFile = new File(file.getParent());
-
-        /*
-         * 判断父文件是否存在，如果不存在则创建多层目录
-         */
-        if (!dirFile.exists() && !dirFile.isDirectory()) {
-            dirFile.mkdirs();
-        }
-
-        /*
-         * 如果文件不存在则开始创建文件
-         */
-        try {
-            if (!file.exists()) {
-                return file.createNewFile() ? file : null;
-            }
-        } catch (IOException e) {
-            throw new ChaosException("创建文件失败,文件不存在", e);
-        }
-
-        return null;
-    }
-
-    /**
      * 判断文件是否相同
      *
      * @param file1 文件1
@@ -225,7 +192,7 @@ public class FileUtils extends FileUtil {
     public static String getContent(File file) {
         Assert.isTrue(file.exists(), "文件不能为空");
         StringBuilder str = new StringBuilder();
-        try (FileReader fileReader = new FileReader(file); BufferedReader reader = new BufferedReader(fileReader);) {
+        try (FileReader fileReader = new FileReader(file); BufferedReader reader = new BufferedReader(fileReader)) {
             String line;
             while ((line = reader.readLine()) != null) {
                 str.append(line);

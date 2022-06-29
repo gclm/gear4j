@@ -1,4 +1,4 @@
-package club.gclmit.gear4j.extra.notify.Dingtalk;
+package club.gclmit.gear4j.extra.notify.dingtalk;
 
 import java.net.URLEncoder;
 
@@ -10,10 +10,10 @@ import com.ejlchina.okhttps.OkHttps;
 
 import club.gclmit.gear4j.core.utils.SecureUtils;
 import club.gclmit.gear4j.core.utils.StringUtils;
-import club.gclmit.gear4j.extra.notify.Dingtalk.channel.ActionCard;
-import club.gclmit.gear4j.extra.notify.Dingtalk.channel.Link;
-import club.gclmit.gear4j.extra.notify.Dingtalk.channel.Markdown;
-import club.gclmit.gear4j.extra.notify.Dingtalk.channel.Text;
+import club.gclmit.gear4j.extra.notify.dingtalk.channel.ActionCard;
+import club.gclmit.gear4j.extra.notify.dingtalk.channel.Link;
+import club.gclmit.gear4j.extra.notify.dingtalk.channel.Markdown;
+import club.gclmit.gear4j.extra.notify.dingtalk.channel.Text;
 import cn.hutool.core.util.CharsetUtil;
 
 /**

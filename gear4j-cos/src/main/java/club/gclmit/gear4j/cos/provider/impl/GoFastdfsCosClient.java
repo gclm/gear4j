@@ -158,7 +158,7 @@ import com.ejlchina.okhttps.OkHttps;
 
 import club.gclmit.gear4j.core.exception.ChaosException;
 import club.gclmit.gear4j.core.http.HttpClient;
-import club.gclmit.gear4j.core.utils.IOUtils;
+import club.gclmit.gear4j.core.utils.IoUtils;
 import club.gclmit.gear4j.core.utils.StringUtils;
 import club.gclmit.gear4j.cos.model.CosProvider;
 import club.gclmit.gear4j.cos.model.FileInfo;
@@ -240,7 +240,7 @@ public class GoFastdfsCosClient extends AbstractCosClient implements CosClient {
             String fileName = fileInfo.getOssKey().replace(dateFormat + "/", "");
 
             HttpResult result = OkHttps.async(uploadUrl).addHeader(HttpClient.header()).addBodyPara(params)
-                .addFilePara("file", fileInfo.getContentType(), fileName, IOUtils.readBytes(inputStream)).post()
+                .addFilePara("file", fileInfo.getContentType(), fileName, IoUtils.readBytes(inputStream)).post()
                 .getResult();
             if (result.isSuccessful()) {
                 String body = StringUtils.trimAll(result.getBody().cache().toString());

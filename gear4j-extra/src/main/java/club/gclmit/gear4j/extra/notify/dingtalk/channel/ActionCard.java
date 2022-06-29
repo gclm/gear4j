@@ -1,10 +1,10 @@
-package club.gclmit.gear4j.extra.notify.Dingtalk.channel;
+package club.gclmit.gear4j.extra.notify.dingtalk.channel;
 
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
 
-import club.gclmit.gear4j.extra.notify.Dingtalk.DingtalkBot;
+import club.gclmit.gear4j.extra.notify.dingtalk.DingtalkBot;
 
 /**
  * ActionCard 消息
@@ -41,9 +41,9 @@ public class ActionCard {
      *
      * @link <a href="https://open.dingtalk.com/document/orgapp-server/message-link-description">消息链接说明</a>
      */
-    private String singleURL;
+    private String singleUrl;
 
-    private List<Button> btns;
+    private List<Button> buttons;
 
     private DingtalkBot dingtalkBot;
 
@@ -63,8 +63,8 @@ public class ActionCard {
         return this;
     }
 
-    public ActionCard btns(List<Button> btns) {
-        this.btns = btns;
+    public ActionCard buttons(List<Button> buttons) {
+        this.buttons = buttons;
         return this;
     }
 
@@ -78,8 +78,8 @@ public class ActionCard {
         return this;
     }
 
-    public ActionCard singleURL(String singleURL) {
-        this.singleURL = singleURL;
+    public ActionCard singleUrl(String singleUrl) {
+        this.singleUrl = singleUrl;
         return this;
     }
 
@@ -89,8 +89,8 @@ public class ActionCard {
         actionCard.put("text", text);
         actionCard.put("btnOrientation", btnOrientation);
         actionCard.put("singleTitle", singleTitle);
-        actionCard.put("singleURL", singleURL);
-        actionCard.put("btns", btns);
+        actionCard.put("singleURL", singleUrl);
+        actionCard.put("btns", buttons);
 
         JSONObject object = new JSONObject();
         object.put("msgtype", "actionCard");

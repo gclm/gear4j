@@ -68,7 +68,6 @@ public class StorageClientTest {
         CloudStorageClient client = CloudStorageFactory.build(cosProvider);
         System.out.println("===============文件单个删除===============");
         client.delete(key);
-        ;
         System.out.println("=================================");
     }
 

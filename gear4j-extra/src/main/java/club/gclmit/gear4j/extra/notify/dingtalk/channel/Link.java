@@ -1,8 +1,8 @@
-package club.gclmit.gear4j.extra.notify.Dingtalk.channel;
+package club.gclmit.gear4j.extra.notify.dingtalk.channel;
 
 import com.alibaba.fastjson.JSONObject;
 
-import club.gclmit.gear4j.extra.notify.Dingtalk.DingtalkBot;
+import club.gclmit.gear4j.extra.notify.dingtalk.DingtalkBot;
 
 /**
  * Link 消息

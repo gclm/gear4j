@@ -208,7 +208,7 @@ import org.springframework.boot.web.context.WebServerInitializedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
-import club.gclmit.gear4j.core.lang.log.Logger;
+import club.gclmit.gear4j.core.lang.log.Log;
 
 /**
  * <p>
@@ -237,6 +237,6 @@ public class SpringServiceHandler implements ApplicationListener<WebServerInitia
     @Override
     public void onApplicationEvent(WebServerInitializedEvent event) {
         serverPort = event.getWebServer().getPort();
-        Logger.info("Get WebServer port {} WebServer Doc http://localhost:{}/doc.html", serverPort, serverPort);
+        Log.info("Get WebServer port {} WebServer Doc http://localhost:{}/doc.html", serverPort, serverPort);
 	}
 }

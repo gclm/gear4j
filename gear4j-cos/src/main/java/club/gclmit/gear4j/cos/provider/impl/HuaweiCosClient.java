@@ -159,7 +159,7 @@ import club.gclmit.gear4j.cos.provider.CosClient;
 import cn.hutool.core.date.DateUtil;
 
 /**
- * 华为云 服务实现 endpoint: https://developer.huaweicloud.com/endpoint?OBS
+ * 华为云 服务实现 endpoint: <a href="https://developer.huaweicloud.com/endpoint?OBS">...</a>
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since jdk11
@@ -229,7 +229,8 @@ public class HuaweiCosClient extends AbstractCosClient implements CosClient {
         String url = null;
         try {
             PutObjectResult putObject = obsClient.putObject(cosProvider.getBucket(), key, inputStream);
-            fileInfo.setETag(putObject.getEtag());
+            String bucketName = putObject.getBucketName();
+            log.debug("{} ->{}:上传成功", bucketName, fileInfo.getOssKey());
         } catch (Exception e) {
             throw new ChaosException("[华为云OBS]上传文件失败，请检查配置信息", e);
         }

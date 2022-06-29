@@ -138,53 +138,182 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package club.gclmit.gear4j.web.config;
+package club.gclmit.gear4j.cos.provider.impl;
 
-import org.springframework.boot.jackson.JsonComponent;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
-import club.gclmit.gear4j.core.lang.log.Log;
-import club.gclmit.gear4j.core.lang.log.Logs;
+import com.qcloud.cos.COSClient;
+import com.qcloud.cos.ClientConfig;
+import com.qcloud.cos.auth.BasicCOSCredentials;
+import com.qcloud.cos.auth.COSCredentials;
+import com.qcloud.cos.exception.CosClientException;
+import com.qcloud.cos.exception.CosServiceException;
+import com.qcloud.cos.exception.MultiObjectDeleteException;
+import com.qcloud.cos.model.DeleteObjectsRequest;
+import com.qcloud.cos.model.ObjectMetadata;
+import com.qcloud.cos.model.PutObjectRequest;
+import com.qcloud.cos.region.Region;
+import com.qcloud.cos.transfer.TransferManager;
+import com.qcloud.cos.transfer.Upload;
+
+import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.utils.StringUtils;
+import club.gclmit.gear4j.cos.model.CosProvider;
+import club.gclmit.gear4j.cos.model.FileInfo;
+import club.gclmit.gear4j.cos.provider.AbstractCosClient;
+import club.gclmit.gear4j.cos.provider.CosClient;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.thread.ExecutorBuilder;
 
 /**
- * <p>
- * 配置自定义转换器，解决前端 js long类型数据精度丢失
- * </p>
+ * 腾讯云存储配置
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
+ * @since jdk11
  */
-@JsonComponent
-public class JsonSerializerManage {
+public class QcloudCosClient extends AbstractCosClient implements CosClient {
+
+    private static final Logger log = LoggerFactory.getLogger(QcloudCosClient.class);
+    /**
+     * 腾讯云 OSS客户端
+     */
+    private final COSClient cosClient;
 
     /**
-     * long变成string
-     *
-     * @param builder Jackson2ObjectMapperBuilder
-     * @return {@link ObjectMapper}
+     * OSS 配置参数
      */
-    @Bean
-    public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
+    private final CosProvider cosProvider;
 
-        Log.info(Logs.GEAR4J.getCode(), "jackson 配置，解决前端 Long 类型精度丢失");
-        ObjectMapper objectMapper = builder.createXmlMapper(false).build();
-        // 忽略value为null 时 key的输出
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    /**
+     * 初始化配置，获取当前项目配置文件，创建初始化 ossClient 客户端
+     *
+     * @param cosProvider Storage
+     */
+    public QcloudCosClient(CosProvider cosProvider) {
+        super(cosProvider);
+        this.cosProvider = cosProvider;
+        cosClient = build(cosProvider.getAccessKeyId(), cosProvider.getAccessKeySecret(), cosProvider.getRegion());
+    }
+
+    /**
+     * 批量删除文件
+     *
+     * @param keys 文件keys
+     */
+    @Override
+    public void batchDelete(List<String> keys) {
+
+        Assert.notEmpty(keys, "[腾讯云OSS]批量删除文件的 keys 不能为空");
+        DeleteObjectsRequest deleteObjectsRequest = new DeleteObjectsRequest(cosProvider.getBucket());
+        ArrayList<DeleteObjectsRequest.KeyVersion> keyList = new ArrayList<>();
+        for (String key : keys) {
+            keyList.add(new DeleteObjectsRequest.KeyVersion(key));
+        }
+        deleteObjectsRequest.setKeys(keyList);
+        try {
+            cosClient.deleteObjects(deleteObjectsRequest);
+        } catch (MultiObjectDeleteException e) {
+            List<MultiObjectDeleteException.DeleteError> errors = e.getErrors();
+            throw new ChaosException("[腾讯云OSS]删除文件失败（部分成功部分失败）" + errors.toString());
+        } catch (CosServiceException e) { // 如果是其他错误，例如参数错误， 身份验证不过等会抛出 CosServiceException
+            throw new ChaosException("[腾讯云OSS]其他错误，例如参数错误， 身份验证不过");
+        } catch (CosClientException e) { // 如果是客户端错误，例如连接不上COS
+            throw new ChaosException("[腾讯云OSS]客户端错误，例如连接不上COS");
+        }
+    }
+
+    /**
+     * 删除文件
+     *
+     * @param key 文件key
+     */
+    @Override
+    public void delete(String key) {
+        Assert.hasLength(key, "[腾讯云OSS]删除文件的key不能为空");
+        cosClient.deleteObject(cosProvider.getBucket(), key);
+    }
+
+    /**
+     * 上传文件基础方法
+     *
+     * @param inputStream 上传文件流
+     * @param fileInfo 文件信息
+     * @return {@link FileInfo} 文件信息
+     */
+    @Override
+    public FileInfo upload(InputStream inputStream, FileInfo fileInfo) {
+        Assert.notNull(inputStream, "[腾讯云OSS]上传文件失败，请检查 inputStream 是否正常");
+
+        String key = fileInfo.getOssKey();
+        String url = null;
 
         /*
-         * 序列换成json时,将所有的long变成string
-         * 因为js中得数字类型不能包含所有的java long值
+         *  创建大小为5的线程池
          */
-        SimpleModule module = new SimpleModule();
-        module.addSerializer(Long.class, ToStringSerializer.instance);
-        module.addSerializer(Long.TYPE, ToStringSerializer.instance);
-        objectMapper.registerModule(module);
-        return objectMapper;
+        ExecutorService executorService = ExecutorBuilder.create().setCorePoolSize(5).setMaxPoolSize(50)
+            .setWorkQueue(new LinkedBlockingQueue<>(100)).build();
+        TransferManager transferManager = new TransferManager(cosClient, executorService);
+
+        try {
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            objectMetadata.setContentLength(inputStream.available());
+
+            PutObjectRequest putObjectRequest =
+                new PutObjectRequest(cosProvider.getBucket(), key, inputStream, objectMetadata);
+            Upload upload = transferManager.upload(putObjectRequest);
+            upload.waitForUploadResult();
+        } catch (Exception e) {
+            throw new ChaosException("[腾讯云OSS]上传文件失败，请检查配置信息", e);
+        } finally {
+            transferManager.shutdownNow();
+            cosClient.shutdown();
+        }
+        if (key != null) {
+            // 拼接文件访问路径。由于拼接的字符串大多为String对象，而不是""的形式，所以直接用+拼接的方式没有优势
+            StringBuilder path = new StringBuilder();
+            path.append(cosProvider.getProtocol()).append("://").append(cosProvider.getBucket()).append(".cos.")
+                .append(cosProvider.getRegion()).append(".myqcloud.com").append("/").append(key);
+            if (StringUtils.isNotBlank(cosProvider.getStyleName())) {
+                path.append(cosProvider.getStyleName());
+            }
+            url = path.toString();
+        }
+
+        fileInfo.setUrl(url);
+        fileInfo.setUploadTime(DateUtil.current());
+        return fileInfo;
+    }
+
+    /**
+     * 构建 COSClient 客户端
+     *
+     * @param secretId secretId
+     * @param secretKey secretKey
+     * @param region region
+     * @return {@link COSClient}
+     */
+    public COSClient build(String secretId, String secretKey, String region) {
+
+        COSCredentials cred = new BasicCOSCredentials(secretId, secretKey);
+        /*
+         * 设置 bucket 的区域, COS 地域的简称请参照 https://cloud.tencent.com/document/product/436/6224
+         *  clientConfig 中包含了设置 region, https(默认 http), 超时, 代理等 set 方法, 使用可参见源码或者常见问题 Java SDK 部分。
+         */
+        Region cosRegion = new Region(region);
+        ClientConfig clientConfig = new ClientConfig(cosRegion);
+
+        /*
+         * 生成 cos 客户端。
+         */
+        return new COSClient(cred, clientConfig);
     }
 
 }

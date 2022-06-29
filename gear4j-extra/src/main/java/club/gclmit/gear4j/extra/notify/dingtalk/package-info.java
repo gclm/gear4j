@@ -5,4 +5,4 @@
  * @since 2022/6/5 17:13
  * @since jdk11
  */
-package club.gclmit.gear4j.extra.notify.Dingtalk;
+package club.gclmit.gear4j.extra.notify.dingtalk;

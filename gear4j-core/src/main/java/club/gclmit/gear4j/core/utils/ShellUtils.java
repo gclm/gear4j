@@ -236,8 +236,8 @@ public class ShellUtils {
 	 */
 	public static String execForString(String cmd) {
 		InputStream stream = exec(cmd);
-		if (IOUtils.isNotEmpty(stream)) {
-			return IOUtils.readUtf8(stream);
+        if (IoUtils.isNotEmpty(stream)) {
+            return IoUtils.readUtf8(stream);
 		}
 		return "";
 	}
@@ -251,8 +251,8 @@ public class ShellUtils {
 	 */
 	public static List<String> execForLines(String cmd) {
 		InputStream stream = exec(cmd);
-		if (IOUtils.isNotEmpty(stream)) {
-			return IOUtils.readLines(stream, CharsetUtil.CHARSET_UTF_8, new ArrayList<>());
+        if (IoUtils.isNotEmpty(stream)) {
+            return IoUtils.readLines(stream, CharsetUtil.CHARSET_UTF_8, new ArrayList<>());
 		}
 		return ListUtil.empty();
 	}
@@ -292,7 +292,7 @@ public class ShellUtils {
 			} else {
 				InputStream is = process.getErrorStream();
 				if (is != null) {
-					String error = IOUtils.readUtf8(is);
+                    String error = IoUtils.readUtf8(is);
 					logger.debug("状态:[{}]\t命令:[{}]\n错误:[{}]", false, shell, error);
 				}
 				return null;

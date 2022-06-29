@@ -25,7 +25,7 @@ public class CosClientBuilder {
         } else if (CosProviderType.HUAWEI.getCode().equals(provider.getProvider())) {
             return new HuaweiCosClient(provider);
         } else if (CosProviderType.QCLOUD.getCode().equals(provider.getProvider())) {
-            return new QCloudCosClient(provider);
+            return new QcloudCosClient(provider);
         } else if (CosProviderType.QINIU.getCode().equals(provider.getProvider())) {
             return new QiniuCosClient(provider);
         } else if (CosProviderType.UCLOUD.getCode().equals(provider.getProvider())) {

@@ -231,7 +231,7 @@ public class StorageClientTest {
 
     private static void delete2(CosClient client, String key) {
         System.out.println("===============文件单个删除===============");
-        client.delete(key);;
+        client.delete(key);
         System.out.println("=================================");
     }
 
