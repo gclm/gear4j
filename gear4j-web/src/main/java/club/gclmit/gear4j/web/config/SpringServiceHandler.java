@@ -208,7 +208,7 @@ import org.springframework.boot.web.context.WebServerInitializedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
-import club.gclmit.gear4j.core.lang.log.Log;
+import club.gclmit.gear4j.core.lang.Log;
 
 /**
  * <p>

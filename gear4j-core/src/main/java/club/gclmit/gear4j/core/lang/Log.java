@@ -138,7 +138,7 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package club.gclmit.gear4j.core.lang.log;
+package club.gclmit.gear4j.core.lang;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.FormattingTuple;

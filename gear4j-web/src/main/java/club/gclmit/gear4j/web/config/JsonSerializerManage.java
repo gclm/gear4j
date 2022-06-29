@@ -149,8 +149,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
-import club.gclmit.gear4j.core.lang.log.Log;
-import club.gclmit.gear4j.core.lang.log.Logs;
+import club.gclmit.gear4j.core.lang.Log;
+import club.gclmit.gear4j.core.lang.Logs;
 
 /**
  * <p>
