@@ -1,5 +1,0 @@
-dependencies {
-    api project(":chaos-web")
-    api "org.jsoup:jsoup"
-    api "cn.hutool:hutool-http"
-}

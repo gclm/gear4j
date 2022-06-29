@@ -48,7 +48,7 @@ allprojects {
 }
 
 
-configure(subprojects - project(":chaos-bom")) {
+configure(subprojects - project(":gear4j-bom")) {
     apply plugin: "idea"
     apply plugin: "java"
     apply plugin: "java-library"
@@ -57,7 +57,7 @@ configure(subprojects - project(":chaos-bom")) {
     // 子项目依赖，类似于在父maven的dependencies
     dependencies {
         // import BOM.
-        api platform(project(':chaos-bom'))
+        api platform(project(':gear4j-bom'))
 
         compileOnly "org.slf4j:slf4j-api"
         compileOnly "jakarta.servlet:jakarta.servlet-api"
@@ -65,9 +65,19 @@ configure(subprojects - project(":chaos-bom")) {
 
         testCompileOnly "com.google.code.findbugs:jsr305"
         testImplementation "org.slf4j:slf4j-api"
-        testCompileOnly "org.springframework:spring-test"
-        testImplementation 'org.junit.jupiter:junit-jupiter-api'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
         testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    }
+
+    configurations.all {
+        //移除org.json:json
+        exclude module: 'json'
+        //升级spring-beans 版本
+//        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+//            if (details.requested.group == 'org.springframework:spring-beans') {
+//                details.useVersion '5.3.21'
+//            }
+//        }
     }
 
     test {

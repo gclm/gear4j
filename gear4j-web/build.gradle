@@ -1,0 +1,11 @@
+dependencies {
+    api project(':gear4j-core')
+    api "com.baomidou:mybatis-plus-extension"
+    api "io.swagger:swagger-annotations"
+    api "io.swagger.core.v3:swagger-annotations"
+    api "org.jsoup:jsoup"
+    api "cn.hutool:hutool-http"
+
+    compileOnly "jakarta.validation:jakarta.validation-api"
+    compileOnly "org.springframework.boot:spring-boot-starter-web"
+}

@@ -1,7 +1,0 @@
-dependencies {
-    api project(":chaos-core")
-    api project(":chaos-web")
-    api project(":chaos-storage")
-    api project(":chaos-logger")
-    compileOnly("org.springframework.boot:spring-boot-starter-web")
-}
