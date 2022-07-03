@@ -1,5 +1,6 @@
 package club.gclmit.gear4j.cos.provider;
 
+import club.gclmit.gear4j.core.exception.Gear4jException;
 import club.gclmit.gear4j.cos.model.CosProvider;
 import club.gclmit.gear4j.cos.model.CosProviderType;
 import club.gclmit.gear4j.cos.provider.impl.*;
@@ -32,7 +33,8 @@ public class CosClientBuilder {
             return new UcloudCosClient(provider);
         } else if (CosProviderType.UPYUN.getCode().equals(provider.getProvider())) {
             return new UpyunCosClient(provider);
+        } else {
+            throw new Gear4jException("gear4j-cos: Provider参数异常,请仔细检查配置参数");
         }
-        return null;
     }
 }

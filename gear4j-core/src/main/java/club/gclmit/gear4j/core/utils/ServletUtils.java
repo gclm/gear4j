@@ -214,7 +214,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.exception.Gear4jException;
 import club.gclmit.gear4j.core.http.HttpClient;
 import club.gclmit.gear4j.core.http.servlet.HttpCacheRequestWrapper;
 import club.gclmit.gear4j.core.http.servlet.HttpCacheResponseWrapper;
@@ -271,16 +271,16 @@ public class ServletUtils {
 	}
 
 	/**
-	 * 获取主机名失败
-	 *
-	 * @return {@link String}
-	 * @throws ChaosException 封装自定义异常
-	 */
+     * 获取主机名失败
+     *
+     * @return {@link String}
+     * @throws Gear4jException 封装自定义异常
+     */
 	public static String getHostName() {
 		try {
 			return InetAddress.getLocalHost().getHostName();
 		} catch (UnknownHostException e) {
-			throw new ChaosException("获取主机名失败", e);
+            throw new Gear4jException("获取主机名失败", e);
 		}
 	}
 

@@ -209,7 +209,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.exception.Gear4jException;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 
@@ -257,7 +257,7 @@ public class StringUtils extends StrUtil {
 				Object value = ObjectUtil.isEmpty(field.get(obj)) ? null : field.get(obj);
 				fieldBuilder.append(field.getName()).append("=").append(value).append(", ");
 			} catch (IllegalAccessException e) {
-				throw new ChaosException("通过反射拼接ToString异常", e);
+                throw new Gear4jException("通过反射拼接ToString异常", e);
 			}
 			field.setAccessible(false);
 		}

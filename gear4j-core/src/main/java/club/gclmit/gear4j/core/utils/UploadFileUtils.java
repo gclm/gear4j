@@ -211,7 +211,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.exception.Gear4jException;
 import cn.hutool.core.util.IdUtil;
 
 /**
@@ -319,7 +319,7 @@ public class UploadFileUtils {
 			try {
 				multipartFile.transferTo(localFile);
 			} catch (IOException e) {
-				throw new ChaosException("MultipartFile To File 失败", e);
+                throw new Gear4jException("MultipartFile To File 失败", e);
 			}
 			return localFile;
 		}

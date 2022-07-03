@@ -138,166 +138,39 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package club.gclmit.gear4j.cos.provider;
+package club.gclmit.gear4j.core.exception;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-
-import org.springframework.util.Assert;
-import org.springframework.web.multipart.MultipartFile;
-
-import club.gclmit.gear4j.core.exception.Gear4jException;
-import club.gclmit.gear4j.core.utils.*;
-import club.gclmit.gear4j.cos.model.CosProvider;
-import club.gclmit.gear4j.cos.model.FileInfo;
+import cn.hutool.core.text.CharSequenceUtil;
 
 /**
- * 抽象存储类
+ * 自定义运行异常。
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since jdk11
  */
-public abstract class AbstractCosClient implements CosClient {
+public class Gear4jException extends RuntimeException {
 
-    /**
-     * cos 配置参数
-     */
-    protected final CosProvider cosProvider;
+    private static final long serialVersionUID = 1L;
 
-    public AbstractCosClient(CosProvider cosProvider) {
-        this.cosProvider = cosProvider;
+    public Gear4jException() {}
+
+    public Gear4jException(Throwable cause) {
+        super(cause);
     }
 
-    /**
-     * 上传文件
-     *
-     * @param file 文件
-     * @return {@link FileInfo} 文件信息
-     */
-    @Override
-    public FileInfo upload(File file) {
-        Assert.isTrue(file.exists(), "上传文件不能为空");
-        try {
-            FileInputStream fileInputStream = new FileInputStream(file);
-            return upload(fileInputStream, buildFileInfo(file));
-        } catch (Exception e) {
-            throw new Gear4jException("文件上传失败", e);
-        }
+    public Gear4jException(String message) {
+        super(message);
     }
 
-    /**
-     * 上传文件
-     *
-     * @param file 文件
-     * @return {@link FileInfo} 文件信息
-     */
-    @Override
-    public FileInfo upload(MultipartFile file) {
-        try {
-            InputStream stream = file.getInputStream();
-            return upload(stream, buildFileInfo(file));
-        } catch (Exception e) {
-            throw new Gear4jException("文件上传失败", e);
-        }
+    public Gear4jException(String messageTemplate, Object... params) {
+        super(CharSequenceUtil.format(messageTemplate, params));
     }
 
-    /**
-     * 上传字节数组
-     *
-     * @param data 字节数组
-     * @return {@link FileInfo} 文件信息
-     */
-    @Override
-    public FileInfo upload(byte[] data) {
-        Assert.notEmpty(Collections.singleton(data), "上传文件失败，请检查 byte[] 是否正常");
-
-        /*
-         * 根据工具类获取 fileInfo 参数
-         */
-        String contentType = MimeTypeUtils.TEXT_PLAIN_VALUE;
-        Long size = Long.valueOf(String.valueOf(data.length));
-        String fileName = IdUtils.getYeinGid() + ".txt";
-
-        return upload(new ByteArrayInputStream(data), new FileInfo(fileName, contentType, fileName,
-            cosProvider.getProvider(), size, SecureUtils.md5(data), SecureUtils.sha1(data)));
+    public Gear4jException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    /**
-     * 上传字符串
-     *
-     * @param content 字符串内容
-     * @return {@link FileInfo} 文件信息
-     */
-    @Override
-    public FileInfo upload(String content) {
-        return upload(content.getBytes(StandardCharsets.UTF_8));
+    public Gear4jException(Throwable cause, String messageTemplate, Object... params) {
+        super(CharSequenceUtil.format(messageTemplate, params), cause);
     }
-
-    /**
-     * 构造FileInfo
-     *
-     * @param file 文件
-     * @return {@link FileInfo} 文件信息
-     */
-    public FileInfo buildFileInfo(File file) {
-        String contentType = FileUtils.getMimeType(file.getAbsolutePath());
-        String key = buildKey(cosProvider.getPrefix(), FileUtils.getSuffix(file));
-        return new FileInfo(file.getName(), contentType, key, cosProvider.getProvider(), file.length(),
-            SecureUtils.md5(file), SecureUtils.sha1(file));
-    }
-
-    /**
-     * 构造FileInfo
-     *
-     * @param file 文件
-     * @return {@link FileInfo} 文件信息
-     */
-    public FileInfo buildFileInfo(MultipartFile file) {
-        String key = buildKey(cosProvider.getPrefix(), FileUtils.getSuffix(file));
-        return new FileInfo(file.getOriginalFilename(), file.getContentType(), key, cosProvider.getProvider(),
-            file.getSize(), SecureUtils.md5(file), SecureUtils.sha1(file));
-    }
-
-    /**
-     * 文件路径 <br>
-     * 这里采用的文件命名格式：时间段 + 全局id
-     *
-     * @param prefix 前缀
-     * @param suffix 后缀
-     * @return {@link String} oss key
-     */
-    public String buildKey(String prefix, String suffix) {
-
-        LocalDate localDate = LocalDate.now();
-        String dateFormat = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
-
-        // 文件路径
-        StringBuilder path = new StringBuilder();
-
-        /*
-         * 前后缀拼接逻辑:
-         *  先判断是否存在前缀，存在在拼接，否则根据实际情况进行修改
-         */
-        if (StringUtils.isNotBlank(prefix)) {
-            path.append(prefix).append("/");
-        }
-
-        path.append(dateFormat).append("/").append(IdUtils.getYeinGid());
-
-        if (suffix != null) {
-            if (suffix.contains(StringUtils.DOT)) {
-                path.append(suffix);
-            } else {
-                path.append(StringUtils.DOT).append(suffix);
-            }
-        }
-        return path.toString();
-    }
-
 }

@@ -204,7 +204,7 @@
 
 package club.gclmit.gear4j.safe.rule;
 
-import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.exception.Gear4jException;
 import club.gclmit.gear4j.core.utils.StringUtils;
 
 /**
@@ -239,7 +239,7 @@ public class SqlFilterRule {
 		//判断是否包含非法字符
 		for (String keyword : keywords) {
 			if (str.contains(keyword)) {
-				throw new ChaosException("包含非法字符");
+                throw new Gear4jException("包含非法字符");
 			}
 		}
 		return str;

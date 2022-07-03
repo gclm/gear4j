@@ -204,12 +204,9 @@
 
 package club.gclmit.gear4j.core.lang;
 
-import java.sql.Timestamp;
-import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
-
-import cn.hutool.core.thread.ThreadUtil;
 
 /**
  * 高并发场景下System.currentTimeMillis()的性能问题的优化
@@ -228,10 +225,17 @@ import cn.hutool.core.thread.ThreadUtil;
  */
 public class SystemClock {
 
-	private final long period;
+    private final int period;
+
 	private final AtomicLong now;
 
-	private SystemClock(long period) {
+    private static final String THREAD_NAME = "system.clock";
+
+    private static class InstanceHolder {
+        private static final SystemClock INSTANCE = new SystemClock(1);
+    }
+
+    private SystemClock(int period) {
 		this.period = period;
 		this.now = new AtomicLong(System.currentTimeMillis());
 		scheduleClockUpdating();
@@ -241,16 +245,12 @@ public class SystemClock {
 		return InstanceHolder.INSTANCE;
 	}
 
-	public static long now() {
-		return instance().currentTimeMillis();
-	}
-
-	public static String nowDate() {
-		return new Timestamp(instance().currentTimeMillis()).toString();
-	}
-
 	private void scheduleClockUpdating() {
-		ScheduledExecutorService scheduler = (ScheduledExecutorService) ThreadUtil.newExecutor();
+        ScheduledThreadPoolExecutor scheduler = new ScheduledThreadPoolExecutor(1, r -> {
+            Thread thread = new Thread(r, THREAD_NAME);
+            thread.setDaemon(true);
+            return thread;
+        });
 		scheduler.scheduleAtFixedRate(() -> now.set(System.currentTimeMillis()), period, period, TimeUnit.MILLISECONDS);
 	}
 
@@ -258,8 +258,11 @@ public class SystemClock {
 		return now.get();
 	}
 
-	private static class InstanceHolder {
-		public static final SystemClock INSTANCE = new SystemClock(1);
+    /**
+     * 用来替换原来的System.currentTimeMillis()
+     */
+    public static long now() {
+        return instance().currentTimeMillis();
 	}
 }
 

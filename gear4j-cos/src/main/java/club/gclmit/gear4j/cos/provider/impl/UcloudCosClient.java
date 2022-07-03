@@ -214,7 +214,7 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.exception.Gear4jException;
 import club.gclmit.gear4j.core.utils.StringUtils;
 import club.gclmit.gear4j.cos.model.CosProvider;
 import club.gclmit.gear4j.cos.model.FileInfo;
@@ -290,9 +290,9 @@ public class UcloudCosClient extends AbstractCosClient implements CosClient {
 		try {
             ossClient.deleteObject(key, cosProvider.getBucket()).execute();
 		} catch (UfileClientException e) {
-			throw new ChaosException("删除失败,Ufile客户端发生异常", e);
+            throw new Gear4jException("删除失败,Ufile客户端发生异常", e);
 		} catch (UfileServerException e) {
-			throw new ChaosException("删除失败,Ufile服务器发生异常", e);
+            throw new Gear4jException("删除失败,Ufile服务器发生异常", e);
 		}
 	}
 
@@ -320,9 +320,9 @@ public class UcloudCosClient extends AbstractCosClient implements CosClient {
 				.withStorageType(StorageType.STANDARD)
 				.execute();
 		} catch (UfileClientException e) {
-			throw new ChaosException("上传失败,Ufile客户端发生异常", e);
+            throw new Gear4jException("上传失败,Ufile客户端发生异常", e);
 		} catch (UfileServerException | IOException e) {
-			throw new ChaosException("上传失败,Ufile服务器发生异常", e);
+            throw new Gear4jException("上传失败,Ufile服务器发生异常", e);
 		}
 
 		if (key != null) {

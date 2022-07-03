@@ -202,40 +202,98 @@
    limitations under the License.
 */
 
-package club.gclmit.gear4j.core.exception;
+package club.gclmit.gear4j.web.model.result;
 
-import cn.hutool.core.text.CharSequenceUtil;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
- * 自定义运行异常。
+ * 对页面返回请求进行包装
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
- * @since jdk11
  */
-public class ChaosException extends RuntimeException {
+@Schema(description = "分页数据封装")
+@ApiModel(value = "分页数据封装", description = "分页数据封装")
+public class PageResult {
 
-	private static final long serialVersionUID = 1L;
+	/**
+	 * 总数量
+	 */
+	@ApiModelProperty(value = "总数量")
+	@Schema(description = "总数量")
+	private Long total;
 
-	public ChaosException() {
+	/**
+	 * 分页数据
+	 */
+	@ApiModelProperty(value = "分页数据")
+	@Schema(description = "分页数据")
+	private Object list;
+
+	/**
+	 * 当前页数
+	 */
+	@ApiModelProperty(value = "当前页数")
+	@Schema(description = "当前页数")
+	private Long page;
+
+	/**
+	 * 每页数量
+	 */
+	@ApiModelProperty(value = "每页数量")
+	@Schema(description = "每页数量")
+	private Long pageSize;
+
+    public PageResult() {
 	}
 
-	public ChaosException(Throwable cause) {
-		super(cause);
+    public PageResult(Long total, Object list, Long page, Long pageSize) {
+		this.total = total;
+		this.list = list;
+		this.page = page;
+		this.pageSize = pageSize;
 	}
 
-	public ChaosException(String message) {
-		super(message);
+	public Long getTotal() {
+		return total;
 	}
 
-	public ChaosException(String messageTemplate, Object... params) {
-		super(CharSequenceUtil.format(messageTemplate, params));
+	public void setTotal(Long total) {
+		this.total = total;
 	}
 
-	public ChaosException(String message, Throwable cause) {
-		super(message, cause);
+	public Object getList() {
+		return list;
 	}
 
-	public ChaosException(Throwable cause, String messageTemplate, Object... params) {
-		super(CharSequenceUtil.format(messageTemplate, params), cause);
+	public void setList(Object list) {
+		this.list = list;
+	}
+
+	public Long getPage() {
+		return page;
+	}
+
+	public void setPage(Long page) {
+		this.page = page;
+	}
+
+	public Long getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Long pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	@Override
+	public String toString() {
+		return "PageResult{" +
+			"total=" + total +
+			", list=" + list +
+			", page=" + page +
+			", pageSize=" + pageSize +
+			'}';
 	}
 }

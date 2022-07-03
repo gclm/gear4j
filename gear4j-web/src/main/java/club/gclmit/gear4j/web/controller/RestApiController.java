@@ -221,8 +221,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import club.gclmit.gear4j.core.utils.StringUtils;
 import club.gclmit.gear4j.core.utils.UrlUtils;
 import club.gclmit.gear4j.web.model.query.BaseQuery;
-import club.gclmit.gear4j.web.model.result.ApiPageResult;
 import club.gclmit.gear4j.web.model.result.ApiResult;
+import club.gclmit.gear4j.web.model.result.PageResult;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.v3.oas.annotations.Operation;
@@ -255,19 +255,20 @@ public class RestApiController<Service extends IService<T>, T> {
 	}
 
 	/**
-	 * 分页查询数据
-	 *
-	 * @param baseQuery 分页查询对象
-	 * @return {@link ApiPageResult}
-	 */
+     * 分页查询数据
+     *
+     * @param baseQuery 分页查询对象
+     * @return {@link PageResult}
+     */
 	@GetMapping
 	@ApiOperation(value = "分页查询")
 	@Operation(summary = "分页查询")
 	public ApiResult list(BaseQuery baseQuery) {
 		log.info("分页查询\t:[{}]", StringUtils.toString(baseQuery));
 		Page<T> pages = service.page(new Page<>(baseQuery.getPage(), baseQuery.getPageSize()));
-		ApiPageResult apiPageResult = new ApiPageResult(pages.getTotal(), pages.getRecords(), baseQuery.getPage(), baseQuery.getPageSize());
-		return ApiResult.ok(apiPageResult);
+        PageResult pageResult =
+            new PageResult(pages.getTotal(), pages.getRecords(), baseQuery.getPage(), baseQuery.getPageSize());
+        return ApiResult.ok(pageResult);
 	}
 
 	/**

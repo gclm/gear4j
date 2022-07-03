@@ -62,6 +62,7 @@ configure(subprojects - project(":gear4j-bom")) {
         compileOnly "org.slf4j:slf4j-api"
         compileOnly "jakarta.servlet:jakarta.servlet-api"
         compileOnly "com.google.code.findbugs:jsr305"
+        implementation 'org.springframework.boot:spring-boot-configuration-processor'
 
         testCompileOnly "com.google.code.findbugs:jsr305"
         testImplementation "org.slf4j:slf4j-api"

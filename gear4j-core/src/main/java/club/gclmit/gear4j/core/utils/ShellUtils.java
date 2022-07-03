@@ -212,7 +212,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.exception.Gear4jException;
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.util.CharsetUtil;
 
@@ -228,12 +228,12 @@ public class ShellUtils {
 	private static final Logger logger = LoggerFactory.getLogger(ShellUtils.class);
 
 	/**
-	 * 执行系统命令，使用系统默认编码
-	 *
-	 * @param cmd 命令列表
-	 * @return 执行结果
-	 * @throws ChaosException 自定义异常
-	 */
+     * 执行系统命令，使用系统默认编码
+     *
+     * @param cmd 命令列表
+     * @return 执行结果
+     * @throws Gear4jException 自定义异常
+     */
 	public static String execForString(String cmd) {
 		InputStream stream = exec(cmd);
         if (IoUtils.isNotEmpty(stream)) {
@@ -243,12 +243,12 @@ public class ShellUtils {
 	}
 
 	/**
-	 * 执行系统命令，使用系统默认编码
-	 *
-	 * @param cmd 命令列表
-	 * @return 执行结果
-	 * @throws ChaosException 自定义异常
-	 */
+     * 执行系统命令，使用系统默认编码
+     *
+     * @param cmd 命令列表
+     * @return 执行结果
+     * @throws Gear4jException 自定义异常
+     */
 	public static List<String> execForLines(String cmd) {
 		InputStream stream = exec(cmd);
         if (IoUtils.isNotEmpty(stream)) {
@@ -258,12 +258,12 @@ public class ShellUtils {
 	}
 
 	/**
-	 * 执行系统命令，使用系统默认编码
-	 *
-	 * @param cmd 命令列表，每个元素代表一条命令
-	 * @return 执行结果，按行区分
-	 * @throws ChaosException 自定义异常
-	 */
+     * 执行系统命令，使用系统默认编码
+     *
+     * @param cmd 命令列表，每个元素代表一条命令
+     * @return 执行结果，按行区分
+     * @throws Gear4jException 自定义异常
+     */
 	public static InputStream exec(String cmd) {
         Long startTime = DateUtils.getTime();
 
@@ -298,7 +298,7 @@ public class ShellUtils {
 				return null;
 			}
 		} catch (Exception e) {
-			throw new ChaosException("执行 Shell 命令发生异常", e);
+            throw new Gear4jException("执行 Shell 命令发生异常", e);
 		}
 	}
 }

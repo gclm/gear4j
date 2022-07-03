@@ -147,7 +147,7 @@ import java.io.InputStream;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.exception.Gear4jException;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.crypto.SecureUtil;
@@ -223,7 +223,7 @@ public class FileUtils extends FileUtil {
         try (InputStream inputStream = file.getInputStream()) {
             return FileTypeUtils.getType(inputStream);
         } catch (Exception e) {
-            throw new ChaosException("读取文件失败", e);
+            throw new Gear4jException("读取文件失败", e);
         }
     }
 }

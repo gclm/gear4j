@@ -164,7 +164,7 @@ import com.qcloud.cos.region.Region;
 import com.qcloud.cos.transfer.TransferManager;
 import com.qcloud.cos.transfer.Upload;
 
-import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.exception.Gear4jException;
 import club.gclmit.gear4j.core.utils.StringUtils;
 import club.gclmit.gear4j.cos.model.CosProvider;
 import club.gclmit.gear4j.cos.model.FileInfo;
@@ -222,11 +222,11 @@ public class QcloudCosClient extends AbstractCosClient implements CosClient {
             cosClient.deleteObjects(deleteObjectsRequest);
         } catch (MultiObjectDeleteException e) {
             List<MultiObjectDeleteException.DeleteError> errors = e.getErrors();
-            throw new ChaosException("[腾讯云OSS]删除文件失败（部分成功部分失败）" + errors.toString());
+            throw new Gear4jException("[腾讯云OSS]删除文件失败（部分成功部分失败）" + errors.toString());
         } catch (CosServiceException e) { // 如果是其他错误，例如参数错误， 身份验证不过等会抛出 CosServiceException
-            throw new ChaosException("[腾讯云OSS]其他错误，例如参数错误， 身份验证不过");
+            throw new Gear4jException("[腾讯云OSS]其他错误，例如参数错误， 身份验证不过");
         } catch (CosClientException e) { // 如果是客户端错误，例如连接不上COS
-            throw new ChaosException("[腾讯云OSS]客户端错误，例如连接不上COS");
+            throw new Gear4jException("[腾讯云OSS]客户端错误，例如连接不上COS");
         }
     }
 
@@ -271,7 +271,7 @@ public class QcloudCosClient extends AbstractCosClient implements CosClient {
             Upload upload = transferManager.upload(putObjectRequest);
             upload.waitForUploadResult();
         } catch (Exception e) {
-            throw new ChaosException("[腾讯云OSS]上传文件失败，请检查配置信息", e);
+            throw new Gear4jException("[腾讯云OSS]上传文件失败，请检查配置信息", e);
         } finally {
             transferManager.shutdownNow();
             cosClient.shutdown();

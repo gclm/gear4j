@@ -150,7 +150,7 @@ import org.springframework.util.Assert;
 import com.obs.services.ObsClient;
 import com.obs.services.model.PutObjectResult;
 
-import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.exception.Gear4jException;
 import club.gclmit.gear4j.core.utils.StringUtils;
 import club.gclmit.gear4j.cos.model.CosProvider;
 import club.gclmit.gear4j.cos.model.FileInfo;
@@ -232,7 +232,7 @@ public class HuaweiCosClient extends AbstractCosClient implements CosClient {
             String bucketName = putObject.getBucketName();
             log.debug("{} ->{}:上传成功", bucketName, fileInfo.getOssKey());
         } catch (Exception e) {
-            throw new ChaosException("[华为云OBS]上传文件失败，请检查配置信息", e);
+            throw new Gear4jException("[华为云OBS]上传文件失败，请检查配置信息", e);
         }
 
         if (key != null) {

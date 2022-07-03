@@ -217,7 +217,7 @@ import javax.imageio.ImageIO;
 
 import org.springframework.util.Base64Utils;
 
-import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.exception.Gear4jException;
 import club.gclmit.gear4j.core.utils.FileUtils;
 import cn.hutool.core.util.RandomUtil;
 
@@ -272,7 +272,7 @@ public class AvatarGenerator {
 		try {
 			ImageIO.write(bufferedImage, suffix, file);
 		} catch (IOException e) {
-			throw new ChaosException("头像生成失败", e);
+            throw new Gear4jException("头像生成失败", e);
 		}
 	}
 
@@ -287,7 +287,7 @@ public class AvatarGenerator {
 			ImageIO.write(bufferedImage, PNG, byteArrayOutputStream);
 			return byteArrayOutputStream;
 		} catch (IOException e) {
-			throw new ChaosException("头像生成失败", e);
+            throw new Gear4jException("头像生成失败", e);
 		}
 	}
 

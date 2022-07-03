@@ -164,7 +164,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.method.HandlerMethod;
 
-import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.exception.Gear4jException;
 
 /**
  * 类工具类
@@ -354,7 +354,7 @@ public class ClassUtils extends org.springframework.util.ClassUtils {
                 }
             }
         } catch (Exception e) {
-            throw new ChaosException("getClasses异常", e);
+            throw new Gear4jException("getClasses异常", e);
         }
         return result;
     }

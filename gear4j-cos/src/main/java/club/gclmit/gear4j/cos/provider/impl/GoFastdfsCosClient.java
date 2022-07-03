@@ -156,7 +156,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.ejlchina.okhttps.HttpResult;
 import com.ejlchina.okhttps.OkHttps;
 
-import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.exception.Gear4jException;
 import club.gclmit.gear4j.core.http.HttpClient;
 import club.gclmit.gear4j.core.utils.IoUtils;
 import club.gclmit.gear4j.core.utils.StringUtils;
@@ -253,7 +253,7 @@ public class GoFastdfsCosClient extends AbstractCosClient implements CosClient {
             }
 
         } catch (Exception e) {
-            throw new ChaosException("[FastDFS]上传文件失败，请检查配置信息", e);
+            throw new Gear4jException("[FastDFS]上传文件失败，请检查配置信息", e);
         }
         fileInfo.setUrl(url);
         fileInfo.setUploadTime(DateUtil.current());
