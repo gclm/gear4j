@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-club.gclmit.gear4j.cos.config.CosConfig
+club.gclmit.gear4j.cos.config.CosConfiguration

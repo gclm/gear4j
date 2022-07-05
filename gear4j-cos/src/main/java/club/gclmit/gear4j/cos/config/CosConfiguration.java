@@ -20,7 +20,7 @@ import club.gclmit.gear4j.cos.provider.CosClientBuilder;
 @Configuration
 @EnableConfigurationProperties(value = {CosProvider.class})
 @ConditionalOnProperty(prefix = "gear4j.cos", name = "enabled", havingValue = "true")
-public class CosConfig {
+public class CosConfiguration {
 
     @Autowired
     private CosProvider cosProvider;

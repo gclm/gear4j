@@ -14,7 +14,7 @@ import com.alibaba.fastjson.JSONObject;
 import club.gclmit.gear4j.safe.xss.XssFilter;
 
 /**
- * TODO
+ * Xss 自定注入配置
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since 2022/7/4 15:38
