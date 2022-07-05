@@ -153,7 +153,7 @@ import club.gclmit.gear4j.cos.model.FileInfo;
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-public interface DefaultFileService extends IService<FileInfo> {
+public interface DefaultCosFileService extends IService<FileInfo> {
 
     /**
      * 上传文件到 OSS中

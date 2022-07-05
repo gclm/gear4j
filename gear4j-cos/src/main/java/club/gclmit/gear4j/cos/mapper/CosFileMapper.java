@@ -218,5 +218,5 @@ import club.gclmit.gear4j.cos.model.FileInfo;
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 @Mapper
-public interface FileMapper extends BaseMapper<FileInfo> {
+public interface CosFileMapper extends BaseMapper<FileInfo> {
 }

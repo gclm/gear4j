@@ -140,7 +140,7 @@
 
 /**
  * <p>
- * gear4j-web: 通用Controller
+ * 通用Controller和基础异常处理
  * </p>
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>

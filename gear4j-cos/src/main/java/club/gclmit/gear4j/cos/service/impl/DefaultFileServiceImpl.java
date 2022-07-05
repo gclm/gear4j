@@ -215,10 +215,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import club.gclmit.gear4j.core.utils.SecureUtils;
 import club.gclmit.gear4j.core.utils.StringUtils;
-import club.gclmit.gear4j.cos.mapper.FileMapper;
+import club.gclmit.gear4j.cos.mapper.CosFileMapper;
 import club.gclmit.gear4j.cos.model.FileInfo;
 import club.gclmit.gear4j.cos.provider.CosClient;
-import club.gclmit.gear4j.cos.service.DefaultFileService;
+import club.gclmit.gear4j.cos.service.DefaultCosFileService;
 
 /**
  * 文件服务接口
@@ -226,10 +226,10 @@ import club.gclmit.gear4j.cos.service.DefaultFileService;
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
 @Service("defaultFileService")
-public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implements DefaultFileService {
+public class DefaultFileServiceImpl extends ServiceImpl<CosFileMapper, FileInfo> implements DefaultCosFileService {
 
 	@Autowired
-	private FileMapper fileMapper;
+    private CosFileMapper cosFileMapper;
 
     @Autowired
     private CosClient cosClient;
@@ -264,7 +264,7 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
 		QueryWrapper<FileInfo> queryWrapper = new QueryWrapper<>();
 		queryWrapper.lambda()
 			.eq(FileInfo::getMd5, md5);
-		return fileMapper.selectOne(queryWrapper);
+        return cosFileMapper.selectOne(queryWrapper);
 	}
 
 	/**
@@ -278,7 +278,7 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
 		QueryWrapper<FileInfo> queryWrapper = new QueryWrapper<>();
 		queryWrapper.lambda()
 			.eq(FileInfo::getOssKey, key);
-		return fileMapper.selectOne(queryWrapper);
+        return cosFileMapper.selectOne(queryWrapper);
 	}
 
 	/**
@@ -292,7 +292,7 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
 		QueryWrapper<FileInfo> queryWrapper = new QueryWrapper<>();
 		queryWrapper.lambda()
 			.like(FileInfo::getOssKey, key);
-		return fileMapper.selectList(queryWrapper);
+        return cosFileMapper.selectList(queryWrapper);
 	}
 
 	/**
@@ -306,7 +306,7 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
 		QueryWrapper<FileInfo> queryWrapper = new QueryWrapper<>();
 		queryWrapper.lambda()
 			.like(FileInfo::getName, fileName);
-		return fileMapper.selectList(queryWrapper);
+        return cosFileMapper.selectList(queryWrapper);
 	}
 
 	/**
@@ -321,7 +321,7 @@ public class DefaultFileServiceImpl extends ServiceImpl<FileMapper, FileInfo> im
 		QueryWrapper<FileInfo> queryWrapper = new QueryWrapper<>();
 		queryWrapper.lambda()
 			.between(FileInfo::getSize, startSize, endSize);
-		return fileMapper.selectList(queryWrapper);
+        return cosFileMapper.selectList(queryWrapper);
 	}
 
 

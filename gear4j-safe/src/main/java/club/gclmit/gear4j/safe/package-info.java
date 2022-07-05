@@ -1,5 +1,5 @@
 /**
- * 安全处理包
+ * gear4j-safe：安全模块
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since 2022/7/5 15:47

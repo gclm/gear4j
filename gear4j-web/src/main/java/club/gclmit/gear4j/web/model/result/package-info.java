@@ -204,7 +204,7 @@
 
 /**
  * <p>
- * web-自定义请求响应结果
+ * 封装统一的输出模块
  * </p>
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
