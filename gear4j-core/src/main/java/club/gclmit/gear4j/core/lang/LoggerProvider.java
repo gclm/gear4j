@@ -148,7 +148,7 @@ import java.util.Locale;
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since jdk11
  */
-public enum Logs {
+public enum LoggerProvider {
     CHAOS, GEAR4J;
 
     public String getCode() {

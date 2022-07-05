@@ -263,62 +263,62 @@ public class Log {
     /**
      * trace
      *
-     * @param prefix 消息前缀
+     * @param loggerProvider 消息提供者
      * @param format 消息模板
      * @param args 消息参数
      */
-    public static void trace(String prefix, String format, Object... args) {
-        log().trace(build(prefix, format, args));
+    public static void trace(LoggerProvider loggerProvider, String format, Object... args) {
+        log().trace(build(loggerProvider.getCode(), format, args));
     }
 
     /**
      * info
      *
-     * @param prefix 消息前缀
+     * @param loggerProvider 消息提供者
      * @param format 消息模板
      * @param args 消息参数
      */
-    public static void info(String prefix, String format, Object... args) {
-        log().info(build(prefix, format, args));
+    public static void info(LoggerProvider loggerProvider, String format, Object... args) {
+        log().info(build(loggerProvider.getCode(), format, args));
     }
 
     /**
      * debug
      *
-     * @param prefix 消息前缀
+     * @param loggerProvider 消息提供者
      * @param format 消息模板
      * @param args 消息参数
      */
-    public static void debug(String prefix, String format, Object... args) {
-        log().debug(build(prefix, format, args));
+    public static void debug(LoggerProvider loggerProvider, String format, Object... args) {
+        log().debug(build(loggerProvider.getCode(), format, args));
     }
 
     /**
      * warn
      *
-     * @param prefix 消息前缀
+     * @param loggerProvider 消息提供者
      * @param format 消息模板
      * @param args 消息参数
      */
-    public static void warn(String prefix, String format, Object... args) {
-        log().warn(build(prefix, format, args));
+    public static void warn(LoggerProvider loggerProvider, String format, Object... args) {
+        log().warn(build(loggerProvider.getCode(), format, args));
     }
 
     /**
      * error
      *
-     * @param prefix 消息前缀
+     * @param loggerProvider 消息提供者
      * @param format 消息模板
      * @param args 消息参数
      */
-    public static void error(String prefix, String format, Object... args) {
-        log().error(build(prefix, format, args));
+    public static void error(LoggerProvider loggerProvider, String format, Object... args) {
+        log().error(build(loggerProvider.getCode(), format, args));
     }
 
     /**
      * 消息组建
      *
-     * @param prefix 消息前缀
+     * @param prefix 消息提供者
      * @param template 消息模板
      * @param args 消息参数
      * @return {@link String}
@@ -326,7 +326,7 @@ public class Log {
     private static String build(String prefix, String template, Object... args) {
         FormattingTuple ft = MessageFormatter.arrayFormat(template, args);
         if (StringUtils.isNotBlank(prefix)) {
-            return String.format("[%s]:%s", prefix, ft.getMessage());
+            return String.format("%s ---> %s", prefix, ft.getMessage());
         }
         return ft.getMessage();
     }

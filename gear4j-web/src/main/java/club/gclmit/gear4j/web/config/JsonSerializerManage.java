@@ -150,7 +150,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import club.gclmit.gear4j.core.lang.Log;
-import club.gclmit.gear4j.core.lang.Logs;
+import club.gclmit.gear4j.core.lang.LoggerProvider;
 
 /**
  * <p>
@@ -171,7 +171,7 @@ public class JsonSerializerManage {
     @Bean
     public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
 
-        Log.info(Logs.GEAR4J.getCode(), "jackson 配置，解决前端 Long 类型精度丢失");
+        Log.info(LoggerProvider.GEAR4J.getCode(), "自定义Jackson配置，解决前端Long类型精度丢失");
         ObjectMapper objectMapper = builder.createXmlMapper(false).build();
         // 忽略value为null 时 key的输出
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
