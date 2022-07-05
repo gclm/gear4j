@@ -138,122 +138,119 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package club.gclmit.gear4j.safe.config;
+package club.gclmit.gear4j.safe.core;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+
+import org.springframework.web.servlet.HandlerMapping;
+
+import com.alibaba.fastjson.JSONObject;
+
+import club.gclmit.gear4j.core.exception.Gear4jException;
+import club.gclmit.gear4j.core.utils.ArrayUtils;
+import club.gclmit.gear4j.core.utils.IoUtils;
+import club.gclmit.gear4j.safe.config.Gear4jSafeProperties;
+import cn.hutool.core.util.CharsetUtil;
 
 /**
- * Xss配置类
+ * safe Request
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-@ConfigurationProperties(prefix = Gear4jXssProperties.PREFIX)
-public class Gear4jXssProperties {
-
-    public static final String PREFIX = "gear4j.safe.xss";
+public class SafeHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     /**
-     * 开启xss
+     * xss 配置类
      */
-    private boolean enabled = false;
+    private final Gear4jSafeProperties properties;
 
     /**
-     * 拦截的路由，默认为/*
+     * Constructs a request object wrapping the given request.
+     *
+     * @param request The request to wrap
+     * @throws IllegalArgumentException if the request is null
      */
-    private List<String> urlPatterns = List.of("/*");
+    public SafeHttpServletRequestWrapper(HttpServletRequest request, Gear4jSafeProperties safeProperties) {
+        super(request);
+        this.properties = safeProperties;
+    }
 
     /**
-     * 放行的路由，默认为空
+     * 对header处理
+     *
+     * @param name 参数
+     * @return {@link String}
      */
-    private List<String> excludes = new ArrayList<>();
+    @Override
+    public String getHeader(String name) {
+        return validaHandler(super.getHeader(name));
+    }
 
     /**
-     * 模式：clear 清理（默认），escape 转义
+     * 对参数处理
+     *
+     * @param name 参数
+     * @return {@link String}
      */
-    private Mode mode = Mode.clear;
+    @Override
+    public String getParameter(String name) {
+        return validaHandler(super.getParameter(name));
+    }
 
     /**
-     * 处理日志
+     * 对数值进行处理
+     *
+     * @param name 参数
+     * @return {@link String[]}
      */
-    private boolean log = true;
+    @Override
+    public String[] getParameterValues(String name) {
+        String[] values = super.getParameterValues(name);
+        if (ArrayUtils.isNotEmpty(values)) {
+            if (SafeRules.isInjection(List.of(values))) {
+                throw new Gear4jException("您所访问的页面请求中有违反安全规则元素存在，拒绝访问!");
+            }
+        }
+        return super.getParameterValues(name);
+    }
 
     /**
-     * [clear 专用] prettyPrint，默认关闭： 保留换行
+     * 主要是针对HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE 获取pathvalue的时候把原来的pathvalue经过xss过滤掉
      */
-    private boolean prettyPrint = false;
-
-    /**
-     * [clear 专用] 使用转义，默认关闭
-     */
-    private boolean enableEscape = false;
-
-    public enum Mode {
-        /**
-         * 清理
-         */
-        clear,
-        /**
-         * 转义
-         */
-        escape;
+    @Override
+    public Object getAttribute(String name) {
+        if (HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE.equals(name)) {
+            Object attribute = super.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+            if (Objects.isNull(attribute)) {
+                return attribute;
+            }
+            String result = JSONObject.toJSONString(attribute);
+            if (SafeRules.isInjection(result)) {
+                throw new Gear4jException("您所访问的页面请求中有违反安全规则元素存在，拒绝访问!");
+            }
+        }
+        return super.getAttribute(name);
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    @Override
+    public ServletInputStream getInputStream() throws IOException {
+        String result = IoUtils.read(super.getInputStream(), CharsetUtil.CHARSET_UTF_8);
+        if (SafeRules.isInjection(result)) {
+            throw new Gear4jException("您所访问的页面请求中有违反安全规则元素存在，拒绝访问!");
+        }
+        return super.getInputStream();
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public List<String> getUrlPatterns() {
-        return urlPatterns;
-    }
-
-    public void setUrlPatterns(List<String> urlPatterns) {
-        this.urlPatterns = urlPatterns;
-    }
-
-    public List<String> getExcludes() {
-        return excludes;
-    }
-
-    public void setExcludes(List<String> excludes) {
-        this.excludes = excludes;
-    }
-
-    public Mode getMode() {
-        return mode;
-    }
-
-    public void setMode(Mode mode) {
-        this.mode = mode;
-    }
-
-    public boolean isPrettyPrint() {
-        return prettyPrint;
-    }
-
-    public void setPrettyPrint(boolean prettyPrint) {
-        this.prettyPrint = prettyPrint;
-    }
-
-    public boolean isEnableEscape() {
-        return enableEscape;
-    }
-
-    public void setEnableEscape(boolean enableEscape) {
-        this.enableEscape = enableEscape;
-    }
-
-    public boolean isLog() {
-        return log;
-    }
-
-    public void setLog(boolean log) {
-        this.log = log;
+    private String validaHandler(String text) {
+        if (SafeRules.isInjection(text)) {
+            throw new Gear4jException("您所访问的页面请求中有违反安全规则元素存在，拒绝访问!");
+        }
+        return text;
     }
 }

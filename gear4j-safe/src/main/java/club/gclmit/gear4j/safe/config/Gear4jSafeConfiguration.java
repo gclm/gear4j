@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.alibaba.fastjson.JSONObject;
 
-import club.gclmit.gear4j.safe.xss.XssFilter;
+import club.gclmit.gear4j.safe.core.SafeFilter;
 
 /**
  * Xss 自定注入配置
@@ -21,22 +21,22 @@ import club.gclmit.gear4j.safe.xss.XssFilter;
  * @since jdk11
  */
 @Configuration
-@EnableConfigurationProperties(value = {Gear4jXssProperties.class})
-@ConditionalOnProperty(prefix = Gear4jXssProperties.PREFIX, name = "enabled", havingValue = "true")
-public class Gear4jXssConfiguration {
+@EnableConfigurationProperties(value = {Gear4jSafeProperties.class})
+@ConditionalOnProperty(prefix = Gear4jSafeProperties.PREFIX, name = "enabled", havingValue = "true")
+public class Gear4jSafeConfiguration {
 
     @Autowired
-    private Gear4jXssProperties properties;
+    private Gear4jSafeProperties properties;
 
     @Bean
-    public FilterRegistrationBean<XssFilter> xssFilterRegistration() {
-        FilterRegistrationBean<XssFilter> registration = new FilterRegistrationBean<>();
+    public FilterRegistrationBean<SafeFilter> safeFilterRegistration() {
+        FilterRegistrationBean<SafeFilter> registration = new FilterRegistrationBean<>();
         registration.setDispatcherTypes(DispatcherType.REQUEST);
-        registration.setFilter(new XssFilter());
+        registration.setFilter(new SafeFilter());
         registration.setUrlPatterns(properties.getUrlPatterns());
-        registration.setName("xssFilter");
+        registration.setName("safeFilter");
         registration.setOrder(9999);
-        registration.addInitParameter("xssProperties", JSONObject.toJSONString(properties));
+        registration.addInitParameter(Gear4jSafeProperties.CONFIG_NAME, JSONObject.toJSONString(properties));
         return registration;
     }
 }

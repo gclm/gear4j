@@ -138,62 +138,121 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package club.gclmit.gear4j.safe.xss;
+package club.gclmit.gear4j.safe.handler;
 
-import java.io.IOException;
-import java.util.List;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Attribute;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Entities;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-
-import com.alibaba.fastjson.JSONObject;
-
-import club.gclmit.gear4j.core.utils.UrlUtils;
-import club.gclmit.gear4j.safe.config.Gear4jXssProperties;
-import cn.hutool.core.collection.CollUtil;
+import club.gclmit.gear4j.core.lang.Log;
+import club.gclmit.gear4j.core.lang.LoggerProvider;
+import club.gclmit.gear4j.core.utils.StringUtils;
 
 /**
- * 拦截防止xss注入 通过Jsoup过滤请求参数内的特定字符
+ * Xss 注入处理器
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-public class XssFilter implements Filter {
+public class XssHandler {
 
-    private Gear4jXssProperties properties;
+    private XssHandler() {}
 
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        String config = filterConfig.getInitParameter("xssProperties");
-        properties = JSONObject.parseObject(config, Gear4jXssProperties.class);
-    }
+    public static final HtmlSafeList WHITE_LIST = HtmlSafeList.INSTANCE;
 
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
-        throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest)servletRequest;
+    public static final Document.OutputSettings DEFAULT_OUTPUT_SETTINGS =
+        new Document.OutputSettings().escapeMode(Entities.EscapeMode.xhtml).prettyPrint(false);
 
-        if (isExcludeUrl(request.getServletPath())) {
-            chain.doFilter(servletRequest, servletResponse);
-        } else {
-            XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper(request, properties);
-            chain.doFilter(xssRequest, servletResponse);
+    /**
+     * 基于默认配置清理参数
+     *
+     * @param text text
+     * @return {@link String}
+     */
+    public static String clean(String text) {
+        if (StringUtils.isBlank(text)) {
+            return text;
         }
-    }
-
-    @Override
-    public void destroy() {
-        Filter.super.destroy();
+        String result = Jsoup.clean(text, "", WHITE_LIST, DEFAULT_OUTPUT_SETTINGS);
+        return Entities.unescape(result);
     }
 
     /**
-     * 判断url是否拦截
+     * 基于默认配置清理参数
      *
-     * @param url 判断url
-     * @return boolean
-     * @author <a href="https://blog.gclmit.club">gclm</a>
+     * @param text text
+     * @return {@link String}
      */
-    private boolean isExcludeUrl(String url) {
-        List<String> excludePatterns = properties.getExcludes();
-        return CollUtil.isNotEmpty(excludePatterns) && UrlUtils.isIgnore(excludePatterns, url);
+    public static boolean isXssInjection(String text) {
+        if (StringUtils.isBlank(text)) {
+            return false;
+        }
+        String result = clean(text);
+        if (!result.equals(text)) {
+            Log.info(LoggerProvider.GEAR4J, "XssInjection提醒你参数存在非法字符，请确认：[{}]", StringUtils.trimAll(text));
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 自定义白名单
+     */
+    public static class HtmlSafeList extends org.jsoup.safety.Safelist {
+
+        public static final HtmlSafeList INSTANCE = new HtmlSafeList();
+
+        public HtmlSafeList() {
+            addTags("a", "b", "blockquote", "br", "caption", "cite", "code", "col", "colgroup", "dd", "div", "span",
+                "embed", "object", "dl", "dt", "em", "h1", "h2", "h3", "h4", "h5", "h6", "i", "img", "li", "ol", "p",
+                "pre", "q", "small", "strike", "strong", "sub", "sup", "table", "tbody", "td", "tfoot", "th", "thead",
+                "tr", "u", "ul");
+
+            addAttributes("a", "href", "title", "target");
+            addAttributes("blockquote", "cite");
+            addAttributes("col", "span");
+            addAttributes("colgroup", "span");
+            addAttributes("img", "align", "alt", "src", "title");
+            addAttributes("ol", "start");
+            addAttributes("q", "cite");
+            addAttributes("table", "summary");
+            addAttributes("td", "abbr", "axis", "colspan", "rowspan", "width");
+            addAttributes("th", "abbr", "axis", "colspan", "rowspan", "scope", "width");
+            addAttributes("video", "src", "autoplay", "controls", "loop", "muted", "poster", "preload");
+            addAttributes("object", "width", "height", "classid", "codebase");
+            addAttributes("param", "name", "value");
+            addAttributes("embed", "src", "quality", "width", "height", "allowFullScreen", "allowScriptAccess",
+                "flashvars", "name", "type", "pluginspage");
+
+            addAttributes(":all", "class", "style", "height", "width", "type", "id", "name");
+
+            addProtocols("blockquote", "cite", "http", "https");
+            addProtocols("cite", "cite", "http", "https");
+            addProtocols("q", "cite", "http", "https");
+
+            // 如果添加以下的协议，那么href 必须是http、 https 等开头，相对路径则被过滤掉了
+            // addProtocols("a", "href", "ftp", "http", "https", "mailto", "tel");
+
+            // 如果添加以下的协议，那么src必须是http 或者 https 开头，相对路径则被过滤掉了，
+            // 所以必须注释掉，允许相对路径的图片资源
+            // addProtocols("img", "src", "http", "https");
+        }
+
+        @Override
+        protected boolean isSafeAttribute(String tagName, Element el, Attribute attr) {
+            // 不允许 javascript 开头的 src 和 href
+            if ("src".equalsIgnoreCase(attr.getKey()) || "href".equalsIgnoreCase(attr.getKey())) {
+                String value = attr.getValue();
+                if (StringUtils.isNotBlank(value) && value.toLowerCase().startsWith("javascript")) {
+                    return false;
+                }
+            }
+            // 允许 base64 的图片内容
+            if ("img".equals(tagName) && "src".equals(attr.getKey()) && attr.getValue().startsWith("data:;base64")) {
+                return true;
+            }
+            return super.isSafeAttribute(tagName, el, attr);
+        }
     }
 }

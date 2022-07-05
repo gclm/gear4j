@@ -138,152 +138,62 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package club.gclmit.gear4j.safe.xss;
+package club.gclmit.gear4j.safe.core;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.List;
 
-import javax.servlet.ReadListener;
-import javax.servlet.ServletInputStream;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
-
-import org.springframework.web.servlet.HandlerMapping;
 
 import com.alibaba.fastjson.JSONObject;
 
-import club.gclmit.gear4j.core.utils.ArrayUtils;
-import club.gclmit.gear4j.core.utils.IoUtils;
-import club.gclmit.gear4j.safe.config.Gear4jXssProperties;
-import cn.hutool.core.util.CharsetUtil;
+import club.gclmit.gear4j.core.utils.UrlUtils;
+import club.gclmit.gear4j.safe.config.Gear4jSafeProperties;
+import cn.hutool.core.collection.CollUtil;
 
 /**
- * Xss Request
+ * 拦截防止xss注入 通过Jsoup过滤请求参数内的特定字符
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
+public class SafeFilter implements Filter {
 
-    private final Gear4jXssProperties properties;
+    private Gear4jSafeProperties properties;
 
-    /**
-     * Constructs a request object wrapping the given request.
-     *
-     * @param request The request to wrap
-     * @throws IllegalArgumentException if the request is null
-     */
-    public XssHttpServletRequestWrapper(HttpServletRequest request, Gear4jXssProperties xssProperties) {
-        super(request);
-        this.properties = xssProperties;
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        String config = filterConfig.getInitParameter(Gear4jSafeProperties.CONFIG_NAME);
+        properties = JSONObject.parseObject(config, Gear4jSafeProperties.class);
     }
 
-    /**
-     * 对header处理
-     *
-     * @param name 参数
-     * @return {@link String}
-     */
     @Override
-    public String getHeader(String name) {
-        return XssHandler.clean(properties, super.getHeader(name));
-    }
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
+        throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest)servletRequest;
 
-    /**
-     * 对参数处理
-     *
-     * @param name 参数
-     * @return {@link String}
-     */
-    @Override
-    public String getParameter(String name) {
-        return XssHandler.clean(properties, super.getParameter(name));
-    }
-
-    /**
-     * 对数值进行处理
-     *
-     * @param name 参数
-     * @return {@link String[]}
-     */
-    @Override
-    public String[] getParameterValues(String name) {
-        String[] values = super.getParameterValues(name);
-        if (ArrayUtils.isNotEmpty(values)) {
-            for (int i = 0; i < values.length; i++) {
-                values[i] = XssHandler.clean(properties, values[i]);
-            }
-            return values;
-        }
-        return super.getParameterValues(name);
-    }
-
-    /**
-     * 主要是针对HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE 获取pathValue的时候把原来的pathValue经过xss过滤掉
-     */
-    /**
-     * 主要是针对HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE 获取pathvalue的时候把原来的pathvalue经过xss过滤掉
-     */
-    @Override
-    public Object getAttribute(String name) {
-        // 获取pathvalue的值
-        if (HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE.equals(name)) {
-            Object attribute = super.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
-            if (Objects.isNull(attribute)) {
-                return attribute;
-            }
-            Map<String, Object> uriTemplateVars = JSONObject.parseObject(JSONObject.toJSONString(attribute));
-            Map<String, Object> newMap = new LinkedHashMap<>();
-            uriTemplateVars.forEach((key, value) -> {
-                if (value instanceof String) {
-                    newMap.put(key, XssHandler.clean(properties, (String)value));
-                } else {
-                    newMap.put(key, value);
-
-                }
-            });
-            return newMap;
+        if (isExcludeUrl(request.getServletPath())) {
+            chain.doFilter(servletRequest, servletResponse);
         } else {
-            return super.getAttribute(name);
+            SafeHttpServletRequestWrapper xssRequest = new SafeHttpServletRequestWrapper(request, properties);
+            chain.doFilter(xssRequest, servletResponse);
         }
     }
 
     @Override
-    public ServletInputStream getInputStream() throws IOException {
-        String result = IoUtils.read(super.getInputStream(), CharsetUtil.CHARSET_UTF_8);
-        Map<String, Object> map = JSONObject.parseObject(result);
-        Map<String, Object> resultMap = new HashMap<>(map.size());
-        for (String key : map.keySet()) {
-            Object val = map.get(key);
-            if (map.get(key) instanceof String) {
-                resultMap.put(key, XssHandler.clean(properties, val.toString()));
-            } else {
-                resultMap.put(key, val);
-            }
-        }
-        String str = JSONObject.toJSONString(resultMap);
-        final ByteArrayInputStream bain = new ByteArrayInputStream(str.getBytes());
-        return new ServletInputStream() {
-            @Override
-            public int read() throws IOException {
-                return bain.read();
-            }
+    public void destroy() {
+        Filter.super.destroy();
+    }
 
-            @Override
-            public boolean isFinished() {
-                return false;
-            }
-
-            @Override
-            public boolean isReady() {
-                return false;
-            }
-
-            @Override
-            public void setReadListener(ReadListener listener) {}
-        };
+    /**
+     * 判断url是否拦截
+     *
+     * @param url 判断url
+     * @return boolean
+     * @author <a href="https://blog.gclmit.club">gclm</a>
+     */
+    private boolean isExcludeUrl(String url) {
+        List<String> excludePatterns = properties.getExcludes();
+        return CollUtil.isNotEmpty(excludePatterns) && UrlUtils.isIgnore(excludePatterns, url);
     }
 }
