@@ -207,9 +207,7 @@ package club.gclmit.gear4j.core.utils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Arrays;
 
-import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.IoUtil;
 
 /**
@@ -266,18 +264,5 @@ public class IoUtils extends IoUtil {
 	public static boolean isNotEmpty(OutputStream stream) {
 		return !isEmpty(stream);
 	}
-
-
-	/**
-	 * 从流中读取String，读取完毕后关闭流
-	 *
-	 * @param in {@link InputStream}
-	 * @return {@link String}
-	 * @throws IORuntimeException IO异常
-	 */
-	public static String readString(InputStream in) throws IORuntimeException {
-		return Arrays.toString(readBytes(in, true));
-	}
-
 }
 
