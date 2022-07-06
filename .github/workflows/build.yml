@@ -14,13 +14,13 @@ jobs:
           distribution: temurin
           java-version: 11
 
-      - name: Setup Gradle
+      - name: setupGradle
         uses: gradle/gradle-build-action@v2
 
-      - name: Execute Gradle build
+      - name: buildGradle
         run: ./gradlew build
 
-      - name: Sync to Gitee
+      - name: syncToGitee
         uses: wearerequired/git-mirror-action@master
         env:
           # 注意在 Settings->Secrets 配置 GITEE_RSA_PRIVATE_KEY
@@ -30,3 +30,11 @@ jobs:
           source-repo: git@github.com:gclm/gear4j.git
           # 注意替换为你的 Gitee 目标仓库地址
           destination-repo: git@gitee.com:gclm/gear4j.git
+
+      - name: publishSnapshot
+        run: |
+          version="$(./gradlew properties | grep '^version:' | awk '{printf $2}')"
+          echo "当前版本：$version"
+          if [[ $version =~ '-SNAPSHOT' ]]; then
+             ./gradlew publish
+          fi
