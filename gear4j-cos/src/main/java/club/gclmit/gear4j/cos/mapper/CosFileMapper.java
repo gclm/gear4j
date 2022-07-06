@@ -204,7 +204,7 @@
 
 package club.gclmit.gear4j.cos.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -217,6 +217,6 @@ import club.gclmit.gear4j.cos.model.FileInfo;
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-@Mapper
+@Repository
 public interface CosFileMapper extends BaseMapper<FileInfo> {
 }
