@@ -144,12 +144,9 @@ import java.util.stream.Stream;
 
 import org.springframework.boot.web.context.WebServerApplicationContext;
 import org.springframework.boot.web.context.WebServerInitializedEvent;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.event.EventListener;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
+import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.Environment;
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ClassUtils;
 
 import cn.hutool.core.lang.Console;
@@ -161,13 +158,16 @@ import cn.hutool.core.lang.Console;
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-@Configuration(proxyBeanMethods = false)
-public class StartedEventListener {
+@Component
+public class StartedEventListener implements ApplicationListener<WebServerInitializedEvent> {
 
-    @Async
-    @Order(Ordered.LOWEST_PRECEDENCE - 1)
-    @EventListener(WebServerInitializedEvent.class)
-    public void afterStart(WebServerInitializedEvent event) {
+    /**
+     * 获取项目服务端口
+     *
+     * @param event WebServerInitializedEvent
+     */
+    @Override
+    public void onApplicationEvent(WebServerInitializedEvent event) {
         WebServerApplicationContext context = event.getApplicationContext();
         Environment environment = context.getEnvironment();
         int localPort = event.getWebServer().getPort();
@@ -175,7 +175,7 @@ public class StartedEventListener {
         Console.log("服务访问链接：http://localhost:{}", localPort);
         // 如果有 swagger，打印开发阶段的 swagger ui 地址
         if (hasOpenApi()) {
-            Console.log("Swagger文档：http://localhost:{}/doc.html\nhttp://localhost:{}/swagger-ui/index.html", localPort,
+            Console.log("Swagger文档：http://localhost:{}/doc.html | http://localhost:{}/swagger-ui/index.html", localPort,
                 localPort);
         }
     }
