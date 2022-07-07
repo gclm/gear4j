@@ -1,1 +1,29 @@
-{"version":"3","listProblem":[]}
+{"version":"3","listProblem":[{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Use of 'System.out' or 'System.err'",
+  "severity": "High",
+  "comment": "Uses of 'System.out' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports usages of `System.out` or `System.err`.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code, or replaced by a more robust\nlogging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-extra/src/main/java/club/gclmit/gear4j/extra/notify/dingtalk/DingtalkBot.java",
+      "language": "JAVA",
+      "line": 85,
+      "offset": 9,
+      "length": 10,
+      "code": {
+        "startLine": 83,
+        "length": 10,
+        "offset": 170,
+        "surroundingCode": "        HttpResult result = OkHttps.async(url).setBodyPara(content).bodyType(OkHttps.JSON).post().getResult();\n        String body = result.getBody().toString();\n        System.out.println(StringUtils.format(\"钉钉消息发送({}): -->{}\", result.getStatus(), body));\n        if (HttpStatus.OK.value() == result.getStatus()) {\n            return 0 == JSONObject.parseObject(body).getInteger(\"errcode\");"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-extra.main",
+    "inspectionName": "SystemOutErr"
+  },
+  "hash": "7d13aaaf5eb606aa79cd72383ada7ebc60a5ff16e498e08e40347a8d5051c7e2"
+}]}
