@@ -1,0 +1,43 @@
+name: Gear4j CI Publish Snapshot
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - dev
+
+jobs:
+  gradle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Configuration Gradle
+        run: |
+          echo ${{secrets.SIGNING_SECRET_KEY_RING_FILE}} > ~/.gradle/secring.gpg.base64
+          echo ${{secrets.SIGNING_CONFIG}} > ~/.gradle/config.properties
+          base64 -d ~/.gradle/secring.gpg.base64 > ~/.gradle/secring.gpg
+          base64 -d ~/.gradle/config.properties >> gradle.properties
+          rm -rf ~/.gradle/secring.gpg.base64
+          rm -rf ~/.gradle/config.properties
+
+      - name: Publish Snapshot To Sonatype
+        env:
+          NEXUS_SONATYPE_USERNAME: ${{ secrets.NEXUS_SONATYPE_USERNAME }}
+          NEXUS_SONATYPE_PASSWORD: ${{ secrets.NEXUS_SONATYPE_PASSWORD }}
+        run: |
+          version="$(./gradlew properties | grep '^version:' | awk '{printf $2}')"
+          echo "当前版本：$version"
+          if [[ $version =~ '-SNAPSHOT' ]]; then
+             ./gradlew publish
+          fi
+

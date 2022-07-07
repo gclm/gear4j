@@ -9,7 +9,7 @@ import org.springframework.cglib.beans.BeanMap;
 
 import com.tuyang.beanutils.BeanCopyUtils;
 
-import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.exception.Gear4jException;
 import cn.hutool.core.util.ReflectUtil;
 
 /**
@@ -62,7 +62,7 @@ public class BeanUtils extends BeanCopyUtils {
 				Object value = map.get(name);
 				if (ArrayUtils.isArray(value)) {
 					if (Array.getLength(value) > 1) {
-						throw new ChaosException("不支持数组参数");
+                        throw new Gear4jException("不支持数组参数");
 					}
 					value = Array.get(value, 0);
 				}

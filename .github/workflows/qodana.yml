@@ -18,7 +18,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      - name: Restore gradle.properties
+      - name: Configuration Gradle
         run: |
           echo ${{secrets.SIGNING_SECRET_KEY_RING_FILE}} > ~/.gradle/secring.gpg.base64
           echo ${{secrets.SIGNING_CONFIG}} > ~/.gradle/config.properties

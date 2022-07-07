@@ -204,7 +204,7 @@
 
 package club.gclmit.gear4j.core.utils;
 
-import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.exception.Gear4jException;
 
 /**
  * SQL 常用工具类
@@ -237,7 +237,7 @@ public class SqlUtils {
 	 */
 	public static String escapeOrderBySql(String sql) {
 		if (StringUtils.isBlank(sql) || !isValidOrderBySql(sql)) {
-			throw new ChaosException("参数不符合规范，不能进行查询");
+            throw new Gear4jException("参数不符合规范，不能进行查询");
 		}
 		return sql;
 	}

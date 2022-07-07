@@ -1,16 +1,16 @@
-# This workflow will build a Java project with Maven
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
-
-name: Gear4j CI Sync Gitee
-on: [ push, pull_request ]
+name: Gear4j CI Sync
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
 
 jobs:
   gradle:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: Sync to Gitee
+      - name: Sync To Gitee
         uses: wearerequired/git-mirror-action@master
         env:
           # 注意在 Settings->Secrets 配置 GITEE_RSA_PRIVATE_KEY
@@ -20,5 +20,4 @@ jobs:
           source-repo: git@github.com:gclm/gear4j.git
           # 注意替换为你的 Gitee 目标仓库地址
           destination-repo: git@gitee.com:gclm/gear4j.git
-
 

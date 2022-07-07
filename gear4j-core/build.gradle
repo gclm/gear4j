@@ -5,7 +5,6 @@ dependencies {
 
     api "cn.hutool:hutool-core"
     api "cn.hutool:hutool-crypto"
-    api "cn.hutool:hutool-http"
     api "com.ejlchina:okhttps-jackson"
     api "org.springframework:spring-web"
     api "org.springframework:spring-context"

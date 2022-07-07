@@ -9,9 +9,10 @@
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=antCodelab_chaos&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=antCodelab_chaos)
 [![License](https://img.shields.io/:license-Apache2-blue.svg)](https://github.com/antCodelab/chaos/blob/master/LICENSE)
 <br>
-[![Gear4j CI](https://github.com/antCodelab/chaos/actions/workflows/build.yml/badge.svg)](https://github.com/antCodelab/chaos/actions/workflows/build.yml)
-[![Gear4j CI](https://github.com/antCodelab/chaos/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/antCodelab/chaos/actions/workflows/gradle-publish.yml)
-[![Gear4j CI](https://github.com/antCodelab/chaos/actions/workflows/sync.yml/badge.svg)](https://github.com/antCodelab/chaos/actions/workflows/sync.yml)
+[![Gear4j CI](https://github.com/gclm/gear4j/actions/workflows/build.yml/badge.svg)](https://github.com/gclm/gear4j/actions/workflows/build.yml)
+[![Gear4j CI](https://github.com/gclm/gear4j/actions/workflows/sync.yml/badge.svg)](https://github.com/gclm/gear4j/actions/workflows/sync.yml)
+[![Gear4j CI](https://github.com/gclm/gear4j/actions/workflows/publish.yml/badge.svg)](https://github.com/gclm/gear4j/actions/workflows/publish.yml)
+[![Gear4j CI](https://github.com/gclm/gear4j/actions/workflows/qodana.yml/badge.svg)](https://github.com/gclm/gear4j/actions/workflows/qodana.yml)
 
 简体中文 | [English](README_EN.md)
 

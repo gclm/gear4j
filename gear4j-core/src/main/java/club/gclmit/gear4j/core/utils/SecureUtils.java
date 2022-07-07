@@ -144,7 +144,7 @@ import java.io.IOException;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.exception.Gear4jException;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.digest.DigestAlgorithm;
 import cn.hutool.crypto.digest.Digester;
@@ -179,7 +179,7 @@ public class SecureUtils extends SecureUtil {
         try {
             return md5(file.getBytes());
         } catch (IOException e) {
-            throw new ChaosException("md5 加密失败", e);
+            throw new Gear4jException("md5 加密失败", e);
         }
     }
 
@@ -203,7 +203,7 @@ public class SecureUtils extends SecureUtil {
         try {
             return sha1(file.getBytes());
         } catch (IOException e) {
-            throw new ChaosException("md5 加密失败", e);
+            throw new Gear4jException("md5 加密失败", e);
         }
     }
 }

@@ -152,7 +152,7 @@ import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.DeleteObjectsRequest;
 import com.aliyun.oss.model.PutObjectResult;
 
-import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.exception.Gear4jException;
 import club.gclmit.gear4j.core.utils.StringUtils;
 import club.gclmit.gear4j.cos.model.CosProvider;
 import club.gclmit.gear4j.cos.model.FileInfo;
@@ -230,9 +230,8 @@ public class AliyunCosClient extends AbstractCosClient implements CosClient {
         try {
             // 简单上传
             PutObjectResult putObject = ossClient.putObject(cosProvider.getBucket(), key, inputStream);
-            fileInfo.setETag(putObject.getETag());
         } catch (Exception e) {
-            throw new ChaosException("[阿里云OSS]上传文件失败，请检查配置信息", e);
+            throw new Gear4jException("[阿里云OSS]上传文件失败，请检查配置信息", e);
         }
 
         if (key != null) {

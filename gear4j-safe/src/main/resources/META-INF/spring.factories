@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-club.gclmit.gear4j.safe.config.SafeConfig
+club.gclmit.gear4j.safe.config.Gear4jSafeConfiguration

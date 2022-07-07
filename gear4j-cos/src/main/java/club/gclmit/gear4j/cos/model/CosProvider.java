@@ -149,13 +149,18 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-@ConfigurationProperties(prefix = "gear4j.storage")
+@ConfigurationProperties(prefix = "gear4j.cos")
 public class CosProvider implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 供应商
+     * 是否加载Bean，SpringBoot专属配置。默认不启用
+     */
+    private Boolean enabled = false;
+
+    /**
+     * 供应商: aliyun、qcloud、ucloud、huawei、goFastdfs、upyun、qiniu
      */
     private String provider;
 
@@ -277,6 +282,14 @@ public class CosProvider implements Serializable {
         public CosProvider build() {
             return new CosProvider(this);
         }
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public String getProvider() {

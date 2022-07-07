@@ -152,7 +152,7 @@ import java.util.Collections;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
-import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.exception.Gear4jException;
 import club.gclmit.gear4j.core.utils.*;
 import club.gclmit.gear4j.cos.model.CosProvider;
 import club.gclmit.gear4j.cos.model.FileInfo;
@@ -187,7 +187,7 @@ public abstract class AbstractCosClient implements CosClient {
             FileInputStream fileInputStream = new FileInputStream(file);
             return upload(fileInputStream, buildFileInfo(file));
         } catch (Exception e) {
-            throw new ChaosException("文件上传失败", e);
+            throw new Gear4jException("文件上传失败", e);
         }
     }
 
@@ -203,7 +203,7 @@ public abstract class AbstractCosClient implements CosClient {
             InputStream stream = file.getInputStream();
             return upload(stream, buildFileInfo(file));
         } catch (Exception e) {
-            throw new ChaosException("文件上传失败", e);
+            throw new Gear4jException("文件上传失败", e);
         }
     }
 

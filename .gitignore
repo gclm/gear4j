@@ -1,4 +1,5 @@
 HELP.md
+test.sh
 gear4j-cos/src/test/java/club/gclmit/gear4j/storage/AuthStorageClientTest.java
 
 ### Java ###

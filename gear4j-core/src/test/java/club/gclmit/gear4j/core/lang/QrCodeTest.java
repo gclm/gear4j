@@ -212,7 +212,7 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 import club.gclmit.gear4j.core.utils.FileUtils;
-import club.gclmit.gear4j.core.utils.IOUtils;
+import club.gclmit.gear4j.core.utils.IoUtils;
 
 /**
  * 二维码工具
@@ -230,7 +230,7 @@ public class QrCodeTest {
 		InputStream inputStream = new FileInputStream(file);
 		Path path = Paths.get(file.getAbsolutePath());
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		IOUtils.copy(new FileInputStream(file), outputStream);
+        IoUtils.copy(new FileInputStream(file), outputStream);
 
 //        System.out.println(QrCode.decode().from(url).decode());
 //        System.out.println(QrCode.decode().from(file).decode());

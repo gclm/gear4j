@@ -1,14 +1,13 @@
 dependencies {
     api project(':gear4j-web')
-    compileOnly "org.springframework.boot:spring-boot-starter-web"
-    implementation 'org.springframework.boot:spring-boot-configuration-processor'
+    api 'com.aliyun.oss:aliyun-sdk-oss'
+    api 'com.qiniu:qiniu-java-sdk'
+    api 'com.qcloud:cos_api'
+    api 'cn.ucloud.ufile:ufile-client-java'
+    api 'com.huaweicloud:esdk-obs-java'
+    api 'com.upyun:java-sdk'
 
-    implementation 'com.aliyun.oss:aliyun-sdk-oss'
-    implementation 'com.qiniu:qiniu-java-sdk'
-    implementation 'com.qcloud:cos_api'
-    implementation 'cn.ucloud.ufile:ufile-client-java'
-    implementation 'com.huaweicloud:esdk-obs-java'
-    implementation 'com.upyun:java-sdk'
+    compileOnly "org.springframework.boot:spring-boot-starter-web"
 }
 
 gradle.taskGraph.whenReady {

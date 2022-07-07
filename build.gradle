@@ -1,11 +1,9 @@
 plugins {
-    id "org.sonarqube" version "3.3"
     id 'idea'
     id 'java'
     id 'java-library'
 }
 
-apply from: "${rootProject.projectDir}/gradle/sonar.gradle"
 
 // 所有模块/项目的通用配置
 allprojects {
@@ -62,6 +60,7 @@ configure(subprojects - project(":gear4j-bom")) {
         compileOnly "org.slf4j:slf4j-api"
         compileOnly "jakarta.servlet:jakarta.servlet-api"
         compileOnly "com.google.code.findbugs:jsr305"
+        implementation 'org.springframework.boot:spring-boot-configuration-processor'
 
         testCompileOnly "com.google.code.findbugs:jsr305"
         testImplementation "org.slf4j:slf4j-api"
@@ -72,6 +71,7 @@ configure(subprojects - project(":gear4j-bom")) {
     configurations.all {
         //移除org.json:json
         exclude module: 'json'
+        exclude module: 'hutool-http'
         //升级spring-beans 版本
 //        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
 //            if (details.requested.group == 'org.springframework:spring-beans') {

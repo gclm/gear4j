@@ -209,7 +209,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import club.gclmit.gear4j.core.exception.ChaosException;
+import club.gclmit.gear4j.core.exception.Gear4jException;
 import club.gclmit.gear4j.web.model.result.ApiResult;
 
 /**
@@ -257,7 +257,7 @@ public class Gear4jGlobalExceptionHandler {
 	 * @param exception 异常
 	 * @return {@link ApiResult}
 	 */
-	@ExceptionHandler(value = {ChaosException.class})
+    @ExceptionHandler(value = {Gear4jException.class})
 	public ApiResult chaosException(Exception exception) {
 		return ApiResult.fail(exception.getMessage());
 	}

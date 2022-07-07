@@ -1,3 +1,40 @@
+### 2.6.1
+
+#### 新特性：
+
+- feat: 新增redis模块
+- feat: 优化上传图片格式和新增date过期方法
+- feat: 删除多余依赖和新增自动发布快照功能
+- feat: 新增多种图片类型
+- feat: 新增SQL效验
+
+#### bug修复
+
+- fix: 修复GithubAction Build报错
+- fix: 修复启动事件监听代码
+- fix: 移除hutool-http依赖和修复IoUtils获取输入流的bug
+- 🐛: 修复hutool-http漏洞问题
+- 🐛: 基于alibaba开发规范修复代码警告问题
+- 🐛: 基于审计插件修复cos模块的bug
+
+### 性能优化
+
+- perf: 优化filter传参问题
+- ci: 优化github action配置
+- refactor: safe-xss重构完成
+- ⚡️: 优化CI性能
+- ⚡️: 优化在System.currentTimeMillis()高并发场景下的性能问题
+
+#### 代码调整
+
+- 🎨: 调整log工具类位置
+- style: cos模块重命名
+- style: 优化服务显示效果
+- style: 修复命名风格问题和补充自动注入配置
+- style: Logs -> LoggerProvider
+- docs: 补充类注释和包注释
+- 📝: 修订文档错误和调整cos模块的描述
+
 ### 2.6.0
 
 #### 架构调整

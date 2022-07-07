@@ -206,12 +206,6 @@ public class FileInfo implements Serializable {
     private String sha1;
 
     /**
-     * ETag
-     */
-    @ApiModelProperty(value = "ETag")
-    private String eTag;
-
-    /**
      * OSS key
      */
     @ApiModelProperty(value = "OSS key")
@@ -254,14 +248,6 @@ public class FileInfo implements Serializable {
 
     public void setSha1(String sha1) {
         this.sha1 = sha1;
-    }
-
-    public String geteTag() {
-        return eTag;
-    }
-
-    public void seteTag(String eTag) {
-        this.eTag = eTag;
     }
 
     public Long getId() {
@@ -312,14 +298,6 @@ public class FileInfo implements Serializable {
         this.md5 = md5;
     }
 
-    public String getETag() {
-        return eTag;
-    }
-
-    public void setETag(String eTag) {
-        this.eTag = eTag;
-    }
-
     public String getOssKey() {
         return ossKey;
     }
@@ -355,7 +333,7 @@ public class FileInfo implements Serializable {
     @Override
     public String toString() {
         return "FileInfo{" + "id=" + id + ", name='" + name + '\'' + ", contentType='" + contentType + '\'' + ", url='"
-            + url + '\'' + ", size=" + size + ", md5='" + md5 + '\'' + ", eTag='" + eTag + '\'' + ", ossKey='" + ossKey
+            + url + '\'' + ", size=" + size + ", md5='" + md5 + '\'' + ", sha1='" + sha1 + '\'' + ", ossKey='" + ossKey
             + '\'' + ", ossType='" + ossType + '\'' + ", uploadTime=" + uploadTime + ", status=" + status + '}';
     }
 }
