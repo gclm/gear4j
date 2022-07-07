@@ -1,0 +1,4 @@
+dependencies {
+    api project(':gear4j-web')
+    compileOnly "org.springframework.boot:spring-boot-starter-data-redis"
+}
