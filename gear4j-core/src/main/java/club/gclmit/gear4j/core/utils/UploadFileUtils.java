@@ -163,7 +163,8 @@ public class UploadFileUtils {
     /**
      * 图片
      */
-    public static final String[] IMAGE_EXTENSION = {"jpg", "jpeg", "ico", "gif", "svg", "webp", "png", "bmp"};
+    public static final String[] IMAGE_EXTENSION = {"jpg", "jpeg", "webp", "png", "bmp"};
+
     public static final String[] WINDOWS_IMAGE_EXTENSION = {"xbm", "tif", "pjp", "svgz", "jpg", "jpeg", "ico", "tiff",
         "gif", "svg", "jfif", "webp", "png", "bmp", "pjpeg", "avif"};
 

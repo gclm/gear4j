@@ -1,6 +1,9 @@
 package club.gclmit.gear4j.core.utils;
 
+import java.util.Date;
+
 import club.gclmit.gear4j.core.lang.SystemClock;
+import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 
 /**
@@ -28,5 +31,20 @@ public class DateUtils extends DateUtil {
      */
     public static long getTimeSeconds() {
         return SystemClock.now() / 1000;
+    }
+
+    /**
+     * 判断时间大小
+     *
+     * @return true没过期，false过期
+     */
+    public static boolean isExpired(Date startDate, Date endDate) {
+        return endDate.after(startDate);
+    }
+
+    public static void main(String[] args) {
+        DateTime dateTime = offsetMinute(new Date(), 10);
+        System.out.println(isExpired(new Date(), dateTime));
+        System.out.println(isExpired(dateTime, new Date()));
     }
 }
