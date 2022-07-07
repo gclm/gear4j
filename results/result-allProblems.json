@@ -1,59 +1,1095 @@
 {"version":"3","listProblem":[{
   "tool": "Code Inspection",
-  "category": "Serialization issues",
-  "type": "Non-serializable field in a 'Serializable' class",
+  "category": "Probable bugs",
+  "type": "Constant conditions & exceptions",
   "severity": "High",
-  "comment": "Non-serializable field 'data' in a Serializable class",
-  "detailsInfo": "Reports non-serializable fields in classes that implement `java.io.Serializable`. Such fields will result in runtime exceptions if the object is serialized.\n\n\nFields declared\n`transient` or `static`\nare not reported, nor are fields of classes that have a `writeObject` method defined.\n\n\nThis inspection assumes fields of the types\n`java.util.Collection` and\n`java.util.Map` to be\n`Serializable`, unless the types\nthey are declared in are non-`Serializable`.\n\n**Example:**\n\n\n      class NonSerializableClass {}\n\n      public class SerializableClass implements Serializable {\n          NonSerializableClass clazz; // warning: Non-serializable field 'clazz' in a Serializable class\n          static NonSerializableClass staticClazz; // no warnings\n      }\n      \n\nUse the following options to configure the inspection:\n\n* List classes whose inheritors should not be reported by this inspection. This is meant for classes that inherit `Serializable` from a superclass but are not intended for serialization.\n* List annotations that will make the inspection ignore the annotated fields.\n* Whether to ignore fields initialized with an anonymous class.",
+  "comment": "Unboxing of 'redisTemplate.opsForList().remove(key, count, value)' may produce 'NullPointerException'",
+  "detailsInfo": "Reports code constructs that always produce the same result, may throw exceptions, or violates nullability contracts.\n\nExamples:\n\n    if (array.length < index) {\n      System.out.println(array[index]);\n    } // Array index is always out of bounds\n\n    if (str == null) System.out.println(\"str is null\");\n    System.out.println(str.trim());\n    // the last statement may throw an NPE\n\n    @NotNull\n    Integer square(@Nullable Integer input) {\n        // the method contract is violated\n        return input == null ? null : input * input;\n    }\n\n\nThe inspection behavior may be controlled by a number of annotations, such as\n[nullability](https://www.jetbrains.com/help/idea/nullable-and-notnull-annotations.html) annotations,\n[@Contract](https://www.jetbrains.com/help/idea/contract-annotations.html) annotation,\n`@Range` annotation and so on.\n\nConfigure the inspection:\n\n* Use the **Suggest @Nullable annotation for methods/fields/parameters where nullable values are used** option to warn when a nullable value is passed as an argument to a method with a non-annotated parameter, stored into non-annotated field, or returned from a non-annotated method. In this case, the inspection will suggest propagating the `@Nullable` annotation. You can also configure nullability annotations using the **Configure Annotations** button.\n* Use the **Treat non-annotated members and parameters as @Nullable** option to assume that non-annotated members can be null, so they must not be used in non-null context.\n* Use the **Report not-null required parameter with null-literal argument usages** option to report method parameters that cannot be null (e.g. immediately dereferenced in the method body), but there are call sites where a `null` literal is passed.\n* Use the **Report nullable methods that always return a non-null value** option to report methods that are annotated as `@Nullable`, but always return non-null value. In this case, it's suggested that you change the annotation to `@NotNull`.\n* Use the **Don't report assertions with condition statically proven to be always true** option to avoid reporting assertions that were statically proven to be always true. This also includes conditions like `if (alwaysFalseCondition) throw new IllegalArgumentException();`.\n* Use the **Ignore assert statements** option to control how the inspection treats `assert` statements. By default, the option is disabled, which means that the assertions are assumed to be executed (-ea mode). If the option is enabled, the assertions will be completely ignored (-da mode).\n* Use the **Warn when reading a value guaranteed to be constant** option to add warnings on reading variables that contain some constant values, for example: `true`, `false`, or `null`.\n* Use the **Report problems that happen only on some code paths** option to control whether to report problems that may happen only on some code path. If this option is disabled, warnings like *exception is possible* will not be reported. The inspection will report only warnings like *exception will definitely occur*. This mode may greatly reduce the number of false-positives, especially if the code is not consistently annotated with nullability and contract annotations. That is why it can be useful for finding the most important problems in legacy code bases.",
   "sources": [
     {
       "type": "file",
-      "path": "gear4j-web/src/main/java/club/gclmit/gear4j/web/model/result/ApiResult.java",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
       "language": "JAVA",
-      "line": 255,
-      "offset": 17,
-      "length": 4,
+      "line": 352,
+      "offset": 20,
+      "length": 52,
       "code": {
-        "startLine": 253,
-        "length": 4,
-        "offset": 82,
-        "surroundingCode": "\t@ApiModelProperty(value = \"响应数据\")\n\t@Schema(description = \"响应数据\")\n\tprivate Object data;\n\n"
+        "startLine": 350,
+        "length": 52,
+        "offset": 100,
+        "surroundingCode": "    public long removeList(String key, long count, Object value) {\n        try {\n            return redisTemplate.opsForList().remove(key, count, value);\n        } catch (Exception e) {\n            e.printStackTrace();"
       }
     }
   ],
   "attributes": {
-    "module": "gear4j.gear4j-web.main",
-    "inspectionName": "NonSerializableFieldInSerializableClass"
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ConstantConditions"
   },
-  "hash": "62ce9d5367aecc7bdff92c9178f08c422b993c65e83aac381325b010399df176"
+  "hash": "fc88c8f16454d8084db8c354f75312d96c4fed65fba6bc10997f7b1e6e6b27f1"
 },{
   "tool": "Code Inspection",
-  "category": "Error handling",
-  "type": "Catch block may ignore exception",
+  "category": "Probable bugs",
+  "type": "Constant conditions & exceptions",
   "severity": "High",
-  "comment": "Empty 'catch' block",
-  "detailsInfo": "Reports `catch` blocks that are empty or may ignore an exception.\n\nWhile occasionally intended, empty `catch` blocks may complicate debugging.\nAlso, ignoring a `catch` parameter might be wrong.\nFinally, the static code analyzer reports if it detects that a `catch` block may silently ignore important VM\nexceptions like `NullPointerException`. Ignoring such an exception\n(without logging or rethrowing it) may hide a bug.\n\n\nThe inspection won't report any `catch` parameters named `ignore` or `ignored`.\nConversely, the inspection will warn you about any `catch` parameters named `ignore` or `ignored` that are actually in use.\nAdditionally, the inspection won't report `catch` parameters inside test sources named `expected` or `ok`.\n\n\nYou can use a quick-fix to change the exception name to `ignored`.\nFor empty **catch** blocks, an additional quick-fix to generate the **catch** body is suggested.\nYou can modify the \"Catch Statement Body\" template on the Code tab in\n[Settings \\| Editor \\| File and Code Templates](settings://fileTemplates).\n\n**Example:**\n\n\n      try {\n        throwingMethod();\n      } catch (IOException ex) {\n\n      }\n\nAfter the quick-fix is applied:\n\n\n      try {\n        System.out.println(System.in.read());\n      } catch (IOException ignored) {\n\n      }\n\nConfigure the inspection:\n\n* Use the **Do not warn when 'catch' block contains a comment** option to ignore `catch` blocks with comments.\n* Use the **Do not warn when 'catch' block is not empty** option to ignore `catch` blocks that contain statements or comments inside, while the variable itself is not used.\n* Use the **Do not warn when exception named 'ignore(d)' is not actually ignored** option to ignore variables named `ignored` if they are in use.\n\nNew in 2018.1",
+  "comment": "Unboxing of 'redisTemplate.opsForSet().size(key)' may produce 'NullPointerException'",
+  "detailsInfo": "Reports code constructs that always produce the same result, may throw exceptions, or violates nullability contracts.\n\nExamples:\n\n    if (array.length < index) {\n      System.out.println(array[index]);\n    } // Array index is always out of bounds\n\n    if (str == null) System.out.println(\"str is null\");\n    System.out.println(str.trim());\n    // the last statement may throw an NPE\n\n    @NotNull\n    Integer square(@Nullable Integer input) {\n        // the method contract is violated\n        return input == null ? null : input * input;\n    }\n\n\nThe inspection behavior may be controlled by a number of annotations, such as\n[nullability](https://www.jetbrains.com/help/idea/nullable-and-notnull-annotations.html) annotations,\n[@Contract](https://www.jetbrains.com/help/idea/contract-annotations.html) annotation,\n`@Range` annotation and so on.\n\nConfigure the inspection:\n\n* Use the **Suggest @Nullable annotation for methods/fields/parameters where nullable values are used** option to warn when a nullable value is passed as an argument to a method with a non-annotated parameter, stored into non-annotated field, or returned from a non-annotated method. In this case, the inspection will suggest propagating the `@Nullable` annotation. You can also configure nullability annotations using the **Configure Annotations** button.\n* Use the **Treat non-annotated members and parameters as @Nullable** option to assume that non-annotated members can be null, so they must not be used in non-null context.\n* Use the **Report not-null required parameter with null-literal argument usages** option to report method parameters that cannot be null (e.g. immediately dereferenced in the method body), but there are call sites where a `null` literal is passed.\n* Use the **Report nullable methods that always return a non-null value** option to report methods that are annotated as `@Nullable`, but always return non-null value. In this case, it's suggested that you change the annotation to `@NotNull`.\n* Use the **Don't report assertions with condition statically proven to be always true** option to avoid reporting assertions that were statically proven to be always true. This also includes conditions like `if (alwaysFalseCondition) throw new IllegalArgumentException();`.\n* Use the **Ignore assert statements** option to control how the inspection treats `assert` statements. By default, the option is disabled, which means that the assertions are assumed to be executed (-ea mode). If the option is enabled, the assertions will be completely ignored (-da mode).\n* Use the **Warn when reading a value guaranteed to be constant** option to add warnings on reading variables that contain some constant values, for example: `true`, `false`, or `null`.\n* Use the **Report problems that happen only on some code paths** option to control whether to report problems that may happen only on some code path. If this option is disabled, warnings like *exception is possible* will not be reported. The inspection will report only warnings like *exception will definitely occur*. This mode may greatly reduce the number of false-positives, especially if the code is not consistently annotated with nullability and contract annotations. That is why it can be useful for finding the most important problems in legacy code bases.",
   "sources": [
     {
       "type": "file",
-      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ClassUtils.java",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
       "language": "JAVA",
-      "line": 357,
-      "offset": 11,
+      "line": 239,
+      "offset": 20,
+      "length": 35,
+      "code": {
+        "startLine": 237,
+        "length": 35,
+        "offset": 74,
+        "surroundingCode": "    public long getSetSize(String key) {\n        try {\n            return redisTemplate.opsForSet().size(key);\n        } catch (Exception e) {\n            e.printStackTrace();"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ConstantConditions"
+  },
+  "hash": "fd9a2c92127ccc072498d295e49920d1d7da6ce24e5d9ce23624c4eb4bf16ef9"
+},{
+  "tool": "Code Inspection",
+  "category": "Probable bugs",
+  "type": "Constant conditions & exceptions",
+  "severity": "High",
+  "comment": "Unboxing of 'redisTemplate.opsForSet().add(key, values)' may produce 'NullPointerException'",
+  "detailsInfo": "Reports code constructs that always produce the same result, may throw exceptions, or violates nullability contracts.\n\nExamples:\n\n    if (array.length < index) {\n      System.out.println(array[index]);\n    } // Array index is always out of bounds\n\n    if (str == null) System.out.println(\"str is null\");\n    System.out.println(str.trim());\n    // the last statement may throw an NPE\n\n    @NotNull\n    Integer square(@Nullable Integer input) {\n        // the method contract is violated\n        return input == null ? null : input * input;\n    }\n\n\nThe inspection behavior may be controlled by a number of annotations, such as\n[nullability](https://www.jetbrains.com/help/idea/nullable-and-notnull-annotations.html) annotations,\n[@Contract](https://www.jetbrains.com/help/idea/contract-annotations.html) annotation,\n`@Range` annotation and so on.\n\nConfigure the inspection:\n\n* Use the **Suggest @Nullable annotation for methods/fields/parameters where nullable values are used** option to warn when a nullable value is passed as an argument to a method with a non-annotated parameter, stored into non-annotated field, or returned from a non-annotated method. In this case, the inspection will suggest propagating the `@Nullable` annotation. You can also configure nullability annotations using the **Configure Annotations** button.\n* Use the **Treat non-annotated members and parameters as @Nullable** option to assume that non-annotated members can be null, so they must not be used in non-null context.\n* Use the **Report not-null required parameter with null-literal argument usages** option to report method parameters that cannot be null (e.g. immediately dereferenced in the method body), but there are call sites where a `null` literal is passed.\n* Use the **Report nullable methods that always return a non-null value** option to report methods that are annotated as `@Nullable`, but always return non-null value. In this case, it's suggested that you change the annotation to `@NotNull`.\n* Use the **Don't report assertions with condition statically proven to be always true** option to avoid reporting assertions that were statically proven to be always true. This also includes conditions like `if (alwaysFalseCondition) throw new IllegalArgumentException();`.\n* Use the **Ignore assert statements** option to control how the inspection treats `assert` statements. By default, the option is disabled, which means that the assertions are assumed to be executed (-ea mode). If the option is enabled, the assertions will be completely ignored (-da mode).\n* Use the **Warn when reading a value guaranteed to be constant** option to add warnings on reading variables that contain some constant values, for example: `true`, `false`, or `null`.\n* Use the **Report problems that happen only on some code paths** option to control whether to report problems that may happen only on some code path. If this option is disabled, warnings like *exception is possible* will not be reported. The inspection will report only warnings like *exception will definitely occur*. This mode may greatly reduce the number of false-positives, especially if the code is not consistently annotated with nullability and contract annotations. That is why it can be useful for finding the most important problems in legacy code bases.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 215,
+      "offset": 20,
+      "length": 42,
+      "code": {
+        "startLine": 213,
+        "length": 42,
+        "offset": 90,
+        "surroundingCode": "    public long cacheSet(String key, Object... values) {\n        try {\n            return redisTemplate.opsForSet().add(key, values);\n        } catch (Exception e) {\n            e.printStackTrace();"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ConstantConditions"
+  },
+  "hash": "cbb5ac65755e717123dc81c3301033c22a95de47d68a60b946bd7d1f2284c432"
+},{
+  "tool": "Code Inspection",
+  "category": "Probable bugs",
+  "type": "Constant conditions & exceptions",
+  "severity": "High",
+  "comment": "Unboxing of 'redisTemplate.opsForValue().increment(key, delta)' may produce 'NullPointerException'",
+  "detailsInfo": "Reports code constructs that always produce the same result, may throw exceptions, or violates nullability contracts.\n\nExamples:\n\n    if (array.length < index) {\n      System.out.println(array[index]);\n    } // Array index is always out of bounds\n\n    if (str == null) System.out.println(\"str is null\");\n    System.out.println(str.trim());\n    // the last statement may throw an NPE\n\n    @NotNull\n    Integer square(@Nullable Integer input) {\n        // the method contract is violated\n        return input == null ? null : input * input;\n    }\n\n\nThe inspection behavior may be controlled by a number of annotations, such as\n[nullability](https://www.jetbrains.com/help/idea/nullable-and-notnull-annotations.html) annotations,\n[@Contract](https://www.jetbrains.com/help/idea/contract-annotations.html) annotation,\n`@Range` annotation and so on.\n\nConfigure the inspection:\n\n* Use the **Suggest @Nullable annotation for methods/fields/parameters where nullable values are used** option to warn when a nullable value is passed as an argument to a method with a non-annotated parameter, stored into non-annotated field, or returned from a non-annotated method. In this case, the inspection will suggest propagating the `@Nullable` annotation. You can also configure nullability annotations using the **Configure Annotations** button.\n* Use the **Treat non-annotated members and parameters as @Nullable** option to assume that non-annotated members can be null, so they must not be used in non-null context.\n* Use the **Report not-null required parameter with null-literal argument usages** option to report method parameters that cannot be null (e.g. immediately dereferenced in the method body), but there are call sites where a `null` literal is passed.\n* Use the **Report nullable methods that always return a non-null value** option to report methods that are annotated as `@Nullable`, but always return non-null value. In this case, it's suggested that you change the annotation to `@NotNull`.\n* Use the **Don't report assertions with condition statically proven to be always true** option to avoid reporting assertions that were statically proven to be always true. This also includes conditions like `if (alwaysFalseCondition) throw new IllegalArgumentException();`.\n* Use the **Ignore assert statements** option to control how the inspection treats `assert` statements. By default, the option is disabled, which means that the assertions are assumed to be executed (-ea mode). If the option is enabled, the assertions will be completely ignored (-da mode).\n* Use the **Warn when reading a value guaranteed to be constant** option to add warnings on reading variables that contain some constant values, for example: `true`, `false`, or `null`.\n* Use the **Report problems that happen only on some code paths** option to control whether to report problems that may happen only on some code path. If this option is disabled, warnings like *exception is possible* will not be reported. The inspection will report only warnings like *exception will definitely occur*. This mode may greatly reduce the number of false-positives, especially if the code is not consistently annotated with nullability and contract annotations. That is why it can be useful for finding the most important problems in legacy code bases.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 101,
+      "offset": 16,
+      "length": 49,
+      "code": {
+        "startLine": 99,
+        "length": 49,
+        "offset": 78,
+        "surroundingCode": "            throw new RuntimeException(\"递增因子必须大于0\");\n        }\n        return redisTemplate.opsForValue().increment(key, delta);\n    }\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ConstantConditions"
+  },
+  "hash": "b6bc9533d2002996fd16f0269662a5822e036b3209f60a3c9d322854e15b9205"
+},{
+  "tool": "Code Inspection",
+  "category": "Probable bugs",
+  "type": "Constant conditions & exceptions",
+  "severity": "High",
+  "comment": "Unboxing of 'redisTemplate.opsForSet().remove(key, values)' may produce 'NullPointerException'",
+  "detailsInfo": "Reports code constructs that always produce the same result, may throw exceptions, or violates nullability contracts.\n\nExamples:\n\n    if (array.length < index) {\n      System.out.println(array[index]);\n    } // Array index is always out of bounds\n\n    if (str == null) System.out.println(\"str is null\");\n    System.out.println(str.trim());\n    // the last statement may throw an NPE\n\n    @NotNull\n    Integer square(@Nullable Integer input) {\n        // the method contract is violated\n        return input == null ? null : input * input;\n    }\n\n\nThe inspection behavior may be controlled by a number of annotations, such as\n[nullability](https://www.jetbrains.com/help/idea/nullable-and-notnull-annotations.html) annotations,\n[@Contract](https://www.jetbrains.com/help/idea/contract-annotations.html) annotation,\n`@Range` annotation and so on.\n\nConfigure the inspection:\n\n* Use the **Suggest @Nullable annotation for methods/fields/parameters where nullable values are used** option to warn when a nullable value is passed as an argument to a method with a non-annotated parameter, stored into non-annotated field, or returned from a non-annotated method. In this case, the inspection will suggest propagating the `@Nullable` annotation. You can also configure nullability annotations using the **Configure Annotations** button.\n* Use the **Treat non-annotated members and parameters as @Nullable** option to assume that non-annotated members can be null, so they must not be used in non-null context.\n* Use the **Report not-null required parameter with null-literal argument usages** option to report method parameters that cannot be null (e.g. immediately dereferenced in the method body), but there are call sites where a `null` literal is passed.\n* Use the **Report nullable methods that always return a non-null value** option to report methods that are annotated as `@Nullable`, but always return non-null value. In this case, it's suggested that you change the annotation to `@NotNull`.\n* Use the **Don't report assertions with condition statically proven to be always true** option to avoid reporting assertions that were statically proven to be always true. This also includes conditions like `if (alwaysFalseCondition) throw new IllegalArgumentException();`.\n* Use the **Ignore assert statements** option to control how the inspection treats `assert` statements. By default, the option is disabled, which means that the assertions are assumed to be executed (-ea mode). If the option is enabled, the assertions will be completely ignored (-da mode).\n* Use the **Warn when reading a value guaranteed to be constant** option to add warnings on reading variables that contain some constant values, for example: `true`, `false`, or `null`.\n* Use the **Report problems that happen only on some code paths** option to control whether to report problems that may happen only on some code path. If this option is disabled, warnings like *exception is possible* will not be reported. The inspection will report only warnings like *exception will definitely occur*. This mode may greatly reduce the number of false-positives, especially if the code is not consistently annotated with nullability and contract annotations. That is why it can be useful for finding the most important problems in legacy code bases.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 249,
+      "offset": 20,
+      "length": 45,
+      "code": {
+        "startLine": 247,
+        "length": 45,
+        "offset": 91,
+        "surroundingCode": "    public long removeSet(String key, Object... values) {\n        try {\n            return redisTemplate.opsForSet().remove(key, values);\n        } catch (Exception e) {\n            e.printStackTrace();"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ConstantConditions"
+  },
+  "hash": "e438e1e12acffeba16f97ec5eef8a01ca7ea66fe916f8144939881b5671f65ac"
+},{
+  "tool": "Code Inspection",
+  "category": "Probable bugs",
+  "type": "Constant conditions & exceptions",
+  "severity": "High",
+  "comment": "Unboxing of 'redisTemplate.opsForValue().increment(key, -delta)' may produce 'NullPointerException'",
+  "detailsInfo": "Reports code constructs that always produce the same result, may throw exceptions, or violates nullability contracts.\n\nExamples:\n\n    if (array.length < index) {\n      System.out.println(array[index]);\n    } // Array index is always out of bounds\n\n    if (str == null) System.out.println(\"str is null\");\n    System.out.println(str.trim());\n    // the last statement may throw an NPE\n\n    @NotNull\n    Integer square(@Nullable Integer input) {\n        // the method contract is violated\n        return input == null ? null : input * input;\n    }\n\n\nThe inspection behavior may be controlled by a number of annotations, such as\n[nullability](https://www.jetbrains.com/help/idea/nullable-and-notnull-annotations.html) annotations,\n[@Contract](https://www.jetbrains.com/help/idea/contract-annotations.html) annotation,\n`@Range` annotation and so on.\n\nConfigure the inspection:\n\n* Use the **Suggest @Nullable annotation for methods/fields/parameters where nullable values are used** option to warn when a nullable value is passed as an argument to a method with a non-annotated parameter, stored into non-annotated field, or returned from a non-annotated method. In this case, the inspection will suggest propagating the `@Nullable` annotation. You can also configure nullability annotations using the **Configure Annotations** button.\n* Use the **Treat non-annotated members and parameters as @Nullable** option to assume that non-annotated members can be null, so they must not be used in non-null context.\n* Use the **Report not-null required parameter with null-literal argument usages** option to report method parameters that cannot be null (e.g. immediately dereferenced in the method body), but there are call sites where a `null` literal is passed.\n* Use the **Report nullable methods that always return a non-null value** option to report methods that are annotated as `@Nullable`, but always return non-null value. In this case, it's suggested that you change the annotation to `@NotNull`.\n* Use the **Don't report assertions with condition statically proven to be always true** option to avoid reporting assertions that were statically proven to be always true. This also includes conditions like `if (alwaysFalseCondition) throw new IllegalArgumentException();`.\n* Use the **Ignore assert statements** option to control how the inspection treats `assert` statements. By default, the option is disabled, which means that the assertions are assumed to be executed (-ea mode). If the option is enabled, the assertions will be completely ignored (-da mode).\n* Use the **Warn when reading a value guaranteed to be constant** option to add warnings on reading variables that contain some constant values, for example: `true`, `false`, or `null`.\n* Use the **Report problems that happen only on some code paths** option to control whether to report problems that may happen only on some code path. If this option is disabled, warnings like *exception is possible* will not be reported. The inspection will report only warnings like *exception will definitely occur*. This mode may greatly reduce the number of false-positives, especially if the code is not consistently annotated with nullability and contract annotations. That is why it can be useful for finding the most important problems in legacy code bases.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 109,
+      "offset": 16,
+      "length": 50,
+      "code": {
+        "startLine": 107,
+        "length": 50,
+        "offset": 78,
+        "surroundingCode": "            throw new RuntimeException(\"递减因子必须大于0\");\n        }\n        return redisTemplate.opsForValue().increment(key, -delta);\n    }\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ConstantConditions"
+  },
+  "hash": "69601df64fb663a62a017043b454712f4f589d9be468fd29d63a3c04e6bbcbc6"
+},{
+  "tool": "Code Inspection",
+  "category": "Probable bugs",
+  "type": "Constant conditions & exceptions",
+  "severity": "High",
+  "comment": "Unboxing of 'redisTemplate.opsForSet().isMember(key, value)' may produce 'NullPointerException'",
+  "detailsInfo": "Reports code constructs that always produce the same result, may throw exceptions, or violates nullability contracts.\n\nExamples:\n\n    if (array.length < index) {\n      System.out.println(array[index]);\n    } // Array index is always out of bounds\n\n    if (str == null) System.out.println(\"str is null\");\n    System.out.println(str.trim());\n    // the last statement may throw an NPE\n\n    @NotNull\n    Integer square(@Nullable Integer input) {\n        // the method contract is violated\n        return input == null ? null : input * input;\n    }\n\n\nThe inspection behavior may be controlled by a number of annotations, such as\n[nullability](https://www.jetbrains.com/help/idea/nullable-and-notnull-annotations.html) annotations,\n[@Contract](https://www.jetbrains.com/help/idea/contract-annotations.html) annotation,\n`@Range` annotation and so on.\n\nConfigure the inspection:\n\n* Use the **Suggest @Nullable annotation for methods/fields/parameters where nullable values are used** option to warn when a nullable value is passed as an argument to a method with a non-annotated parameter, stored into non-annotated field, or returned from a non-annotated method. In this case, the inspection will suggest propagating the `@Nullable` annotation. You can also configure nullability annotations using the **Configure Annotations** button.\n* Use the **Treat non-annotated members and parameters as @Nullable** option to assume that non-annotated members can be null, so they must not be used in non-null context.\n* Use the **Report not-null required parameter with null-literal argument usages** option to report method parameters that cannot be null (e.g. immediately dereferenced in the method body), but there are call sites where a `null` literal is passed.\n* Use the **Report nullable methods that always return a non-null value** option to report methods that are annotated as `@Nullable`, but always return non-null value. In this case, it's suggested that you change the annotation to `@NotNull`.\n* Use the **Don't report assertions with condition statically proven to be always true** option to avoid reporting assertions that were statically proven to be always true. This also includes conditions like `if (alwaysFalseCondition) throw new IllegalArgumentException();`.\n* Use the **Ignore assert statements** option to control how the inspection treats `assert` statements. By default, the option is disabled, which means that the assertions are assumed to be executed (-ea mode). If the option is enabled, the assertions will be completely ignored (-da mode).\n* Use the **Warn when reading a value guaranteed to be constant** option to add warnings on reading variables that contain some constant values, for example: `true`, `false`, or `null`.\n* Use the **Report problems that happen only on some code paths** option to control whether to report problems that may happen only on some code path. If this option is disabled, warnings like *exception is possible* will not be reported. The inspection will report only warnings like *exception will definitely occur*. This mode may greatly reduce the number of false-positives, especially if the code is not consistently annotated with nullability and contract annotations. That is why it can be useful for finding the most important problems in legacy code bases.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 205,
+      "offset": 20,
+      "length": 46,
+      "code": {
+        "startLine": 203,
+        "length": 46,
+        "offset": 90,
+        "surroundingCode": "    public boolean hasSetKey(String key, Object value) {\n        try {\n            return redisTemplate.opsForSet().isMember(key, value);\n        } catch (Exception e) {\n            e.printStackTrace();"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ConstantConditions"
+  },
+  "hash": "e28fc52958bd816b041516a59da7b1fb8385bcf112c40c018a78f8a226aa90bc"
+},{
+  "tool": "Code Inspection",
+  "category": "Probable bugs",
+  "type": "Constant conditions & exceptions",
+  "severity": "High",
+  "comment": "Unboxing of 'count' may produce 'NullPointerException'",
+  "detailsInfo": "Reports code constructs that always produce the same result, may throw exceptions, or violates nullability contracts.\n\nExamples:\n\n    if (array.length < index) {\n      System.out.println(array[index]);\n    } // Array index is always out of bounds\n\n    if (str == null) System.out.println(\"str is null\");\n    System.out.println(str.trim());\n    // the last statement may throw an NPE\n\n    @NotNull\n    Integer square(@Nullable Integer input) {\n        // the method contract is violated\n        return input == null ? null : input * input;\n    }\n\n\nThe inspection behavior may be controlled by a number of annotations, such as\n[nullability](https://www.jetbrains.com/help/idea/nullable-and-notnull-annotations.html) annotations,\n[@Contract](https://www.jetbrains.com/help/idea/contract-annotations.html) annotation,\n`@Range` annotation and so on.\n\nConfigure the inspection:\n\n* Use the **Suggest @Nullable annotation for methods/fields/parameters where nullable values are used** option to warn when a nullable value is passed as an argument to a method with a non-annotated parameter, stored into non-annotated field, or returned from a non-annotated method. In this case, the inspection will suggest propagating the `@Nullable` annotation. You can also configure nullability annotations using the **Configure Annotations** button.\n* Use the **Treat non-annotated members and parameters as @Nullable** option to assume that non-annotated members can be null, so they must not be used in non-null context.\n* Use the **Report not-null required parameter with null-literal argument usages** option to report method parameters that cannot be null (e.g. immediately dereferenced in the method body), but there are call sites where a `null` literal is passed.\n* Use the **Report nullable methods that always return a non-null value** option to report methods that are annotated as `@Nullable`, but always return non-null value. In this case, it's suggested that you change the annotation to `@NotNull`.\n* Use the **Don't report assertions with condition statically proven to be always true** option to avoid reporting assertions that were statically proven to be always true. This also includes conditions like `if (alwaysFalseCondition) throw new IllegalArgumentException();`.\n* Use the **Ignore assert statements** option to control how the inspection treats `assert` statements. By default, the option is disabled, which means that the assertions are assumed to be executed (-ea mode). If the option is enabled, the assertions will be completely ignored (-da mode).\n* Use the **Warn when reading a value guaranteed to be constant** option to add warnings on reading variables that contain some constant values, for example: `true`, `false`, or `null`.\n* Use the **Report problems that happen only on some code paths** option to control whether to report problems that may happen only on some code path. If this option is disabled, warnings like *exception is possible* will not be reported. The inspection will report only warnings like *exception will definitely occur*. This mode may greatly reduce the number of false-positives, especially if the code is not consistently annotated with nullability and contract annotations. That is why it can be useful for finding the most important problems in legacy code bases.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 229,
+      "offset": 20,
       "length": 5,
       "code": {
-        "startLine": 355,
+        "startLine": 227,
         "length": 5,
-        "offset": 42,
-        "surroundingCode": "                }\n            }\n        } catch (Exception e) {\n        }\n        return result;"
+        "offset": 77,
+        "surroundingCode": "                setExpire(key, time, unit);\n            }\n            return count;\n        } catch (Exception e) {\n            e.printStackTrace();"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ConstantConditions"
+  },
+  "hash": "74637225bd854b04bbad93c58fc3919ee3f926edbc6ddffa613ab749f1eb92a6"
+},{
+  "tool": "Code Inspection",
+  "category": "Probable bugs",
+  "type": "Constant conditions & exceptions",
+  "severity": "High",
+  "comment": "Unboxing of 'redisTemplate.getExpire(key, TimeUnit.SECONDS)' may produce 'NullPointerException'",
+  "detailsInfo": "Reports code constructs that always produce the same result, may throw exceptions, or violates nullability contracts.\n\nExamples:\n\n    if (array.length < index) {\n      System.out.println(array[index]);\n    } // Array index is always out of bounds\n\n    if (str == null) System.out.println(\"str is null\");\n    System.out.println(str.trim());\n    // the last statement may throw an NPE\n\n    @NotNull\n    Integer square(@Nullable Integer input) {\n        // the method contract is violated\n        return input == null ? null : input * input;\n    }\n\n\nThe inspection behavior may be controlled by a number of annotations, such as\n[nullability](https://www.jetbrains.com/help/idea/nullable-and-notnull-annotations.html) annotations,\n[@Contract](https://www.jetbrains.com/help/idea/contract-annotations.html) annotation,\n`@Range` annotation and so on.\n\nConfigure the inspection:\n\n* Use the **Suggest @Nullable annotation for methods/fields/parameters where nullable values are used** option to warn when a nullable value is passed as an argument to a method with a non-annotated parameter, stored into non-annotated field, or returned from a non-annotated method. In this case, the inspection will suggest propagating the `@Nullable` annotation. You can also configure nullability annotations using the **Configure Annotations** button.\n* Use the **Treat non-annotated members and parameters as @Nullable** option to assume that non-annotated members can be null, so they must not be used in non-null context.\n* Use the **Report not-null required parameter with null-literal argument usages** option to report method parameters that cannot be null (e.g. immediately dereferenced in the method body), but there are call sites where a `null` literal is passed.\n* Use the **Report nullable methods that always return a non-null value** option to report methods that are annotated as `@Nullable`, but always return non-null value. In this case, it's suggested that you change the annotation to `@NotNull`.\n* Use the **Don't report assertions with condition statically proven to be always true** option to avoid reporting assertions that were statically proven to be always true. This also includes conditions like `if (alwaysFalseCondition) throw new IllegalArgumentException();`.\n* Use the **Ignore assert statements** option to control how the inspection treats `assert` statements. By default, the option is disabled, which means that the assertions are assumed to be executed (-ea mode). If the option is enabled, the assertions will be completely ignored (-da mode).\n* Use the **Warn when reading a value guaranteed to be constant** option to add warnings on reading variables that contain some constant values, for example: `true`, `false`, or `null`.\n* Use the **Report problems that happen only on some code paths** option to control whether to report problems that may happen only on some code path. If this option is disabled, warnings like *exception is possible* will not be reported. The inspection will report only warnings like *exception will definitely occur*. This mode may greatly reduce the number of false-positives, especially if the code is not consistently annotated with nullability and contract annotations. That is why it can be useful for finding the most important problems in legacy code bases.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 44,
+      "offset": 16,
+      "length": 46,
+      "code": {
+        "startLine": 42,
+        "length": 46,
+        "offset": 69,
+        "surroundingCode": "    @Override\n    public long getExpire(String key) {\n        return redisTemplate.getExpire(key, TimeUnit.SECONDS);\n    }\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ConstantConditions"
+  },
+  "hash": "6c4996a8bee16bf81e68e945ce3da57338f6842fe45a28871a41a90cd41beb52"
+},{
+  "tool": "Code Inspection",
+  "category": "Probable bugs",
+  "type": "Constant conditions & exceptions",
+  "severity": "High",
+  "comment": "Unboxing of 'redisTemplate.opsForList().size(key)' may produce 'NullPointerException'",
+  "detailsInfo": "Reports code constructs that always produce the same result, may throw exceptions, or violates nullability contracts.\n\nExamples:\n\n    if (array.length < index) {\n      System.out.println(array[index]);\n    } // Array index is always out of bounds\n\n    if (str == null) System.out.println(\"str is null\");\n    System.out.println(str.trim());\n    // the last statement may throw an NPE\n\n    @NotNull\n    Integer square(@Nullable Integer input) {\n        // the method contract is violated\n        return input == null ? null : input * input;\n    }\n\n\nThe inspection behavior may be controlled by a number of annotations, such as\n[nullability](https://www.jetbrains.com/help/idea/nullable-and-notnull-annotations.html) annotations,\n[@Contract](https://www.jetbrains.com/help/idea/contract-annotations.html) annotation,\n`@Range` annotation and so on.\n\nConfigure the inspection:\n\n* Use the **Suggest @Nullable annotation for methods/fields/parameters where nullable values are used** option to warn when a nullable value is passed as an argument to a method with a non-annotated parameter, stored into non-annotated field, or returned from a non-annotated method. In this case, the inspection will suggest propagating the `@Nullable` annotation. You can also configure nullability annotations using the **Configure Annotations** button.\n* Use the **Treat non-annotated members and parameters as @Nullable** option to assume that non-annotated members can be null, so they must not be used in non-null context.\n* Use the **Report not-null required parameter with null-literal argument usages** option to report method parameters that cannot be null (e.g. immediately dereferenced in the method body), but there are call sites where a `null` literal is passed.\n* Use the **Report nullable methods that always return a non-null value** option to report methods that are annotated as `@Nullable`, but always return non-null value. In this case, it's suggested that you change the annotation to `@NotNull`.\n* Use the **Don't report assertions with condition statically proven to be always true** option to avoid reporting assertions that were statically proven to be always true. This also includes conditions like `if (alwaysFalseCondition) throw new IllegalArgumentException();`.\n* Use the **Ignore assert statements** option to control how the inspection treats `assert` statements. By default, the option is disabled, which means that the assertions are assumed to be executed (-ea mode). If the option is enabled, the assertions will be completely ignored (-da mode).\n* Use the **Warn when reading a value guaranteed to be constant** option to add warnings on reading variables that contain some constant values, for example: `true`, `false`, or `null`.\n* Use the **Report problems that happen only on some code paths** option to control whether to report problems that may happen only on some code path. If this option is disabled, warnings like *exception is possible* will not be reported. The inspection will report only warnings like *exception will definitely occur*. This mode may greatly reduce the number of false-positives, especially if the code is not consistently annotated with nullability and contract annotations. That is why it can be useful for finding the most important problems in legacy code bases.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 259,
+      "offset": 20,
+      "length": 36,
+      "code": {
+        "startLine": 257,
+        "length": 36,
+        "offset": 75,
+        "surroundingCode": "    public long getListSize(String key) {\n        try {\n            return redisTemplate.opsForList().size(key);\n        } catch (Exception e) {\n            e.printStackTrace();"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ConstantConditions"
+  },
+  "hash": "4ca8862d4fc1b86b10a22790065df71d6b1e4dba7ff72e0ee109b8d05033d155"
+},{
+  "tool": "Code Inspection",
+  "category": "Probable bugs",
+  "type": "Constant conditions & exceptions",
+  "severity": "Moderate",
+  "comment": "Value 'attribute' is always 'null'",
+  "detailsInfo": "Reports code constructs that always produce the same result, may throw exceptions, or violates nullability contracts.\n\nExamples:\n\n    if (array.length < index) {\n      System.out.println(array[index]);\n    } // Array index is always out of bounds\n\n    if (str == null) System.out.println(\"str is null\");\n    System.out.println(str.trim());\n    // the last statement may throw an NPE\n\n    @NotNull\n    Integer square(@Nullable Integer input) {\n        // the method contract is violated\n        return input == null ? null : input * input;\n    }\n\n\nThe inspection behavior may be controlled by a number of annotations, such as\n[nullability](https://www.jetbrains.com/help/idea/nullable-and-notnull-annotations.html) annotations,\n[@Contract](https://www.jetbrains.com/help/idea/contract-annotations.html) annotation,\n`@Range` annotation and so on.\n\nConfigure the inspection:\n\n* Use the **Suggest @Nullable annotation for methods/fields/parameters where nullable values are used** option to warn when a nullable value is passed as an argument to a method with a non-annotated parameter, stored into non-annotated field, or returned from a non-annotated method. In this case, the inspection will suggest propagating the `@Nullable` annotation. You can also configure nullability annotations using the **Configure Annotations** button.\n* Use the **Treat non-annotated members and parameters as @Nullable** option to assume that non-annotated members can be null, so they must not be used in non-null context.\n* Use the **Report not-null required parameter with null-literal argument usages** option to report method parameters that cannot be null (e.g. immediately dereferenced in the method body), but there are call sites where a `null` literal is passed.\n* Use the **Report nullable methods that always return a non-null value** option to report methods that are annotated as `@Nullable`, but always return non-null value. In this case, it's suggested that you change the annotation to `@NotNull`.\n* Use the **Don't report assertions with condition statically proven to be always true** option to avoid reporting assertions that were statically proven to be always true. This also includes conditions like `if (alwaysFalseCondition) throw new IllegalArgumentException();`.\n* Use the **Ignore assert statements** option to control how the inspection treats `assert` statements. By default, the option is disabled, which means that the assertions are assumed to be executed (-ea mode). If the option is enabled, the assertions will be completely ignored (-da mode).\n* Use the **Warn when reading a value guaranteed to be constant** option to add warnings on reading variables that contain some constant values, for example: `true`, `false`, or `null`.\n* Use the **Report problems that happen only on some code paths** option to control whether to report problems that may happen only on some code path. If this option is disabled, warnings like *exception is possible* will not be reported. The inspection will report only warnings like *exception will definitely occur*. This mode may greatly reduce the number of false-positives, especially if the code is not consistently annotated with nullability and contract annotations. That is why it can be useful for finding the most important problems in legacy code bases.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-safe/src/main/java/club/gclmit/gear4j/safe/core/SafeHttpServletRequestWrapper.java",
+      "language": "JAVA",
+      "line": 224,
+      "offset": 24,
+      "length": 9,
+      "code": {
+        "startLine": 222,
+        "length": 9,
+        "offset": 168,
+        "surroundingCode": "            Object attribute = super.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);\n            if (Objects.isNull(attribute)) {\n                return attribute;\n            }\n            String result = JSONObject.toJSONString(attribute);"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-safe.main",
+    "inspectionName": "ConstantConditions"
+  },
+  "hash": "34a0e8ce36f28a01f4d59eed2eae9d4e10a4abc9009c509f5f56cc6b4bbb4552"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 153,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 151,
+        "length": 15,
+        "offset": 71,
+        "surroundingCode": "            return true;\n        } catch (Exception e) {\n            e.printStackTrace();\n            return false;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "5c584de3313a4843b293502af1e2e6f90ab0e6fad0c4ea0dd20ba8cbe3aa0d71"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 292,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 290,
+        "length": 15,
+        "offset": 71,
+        "surroundingCode": "            return true;\n        } catch (Exception e) {\n            e.printStackTrace();\n            return false;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "e8fe0861528fcb374dbff806e2052a88aa1cab45337463e500722289810e8779"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 217,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 215,
+        "length": 15,
+        "offset": 109,
+        "surroundingCode": "            return redisTemplate.opsForSet().add(key, values);\n        } catch (Exception e) {\n            e.printStackTrace();\n            return 0;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "34b249d583eed24042f138c2778a3d38a85e78f52b4761727d7da19a9e7bbfed"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 52,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 50,
+        "length": 15,
+        "offset": 113,
+        "surroundingCode": "            return Boolean.TRUE.equals(redisTemplate.hasKey(key));\n        } catch (Exception e) {\n            e.printStackTrace();\n            return false;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "3cd12f6b084235cc3656dd2d4951f6848403edc65c1f48180efa48c3aa0d2061"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 306,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 304,
+        "length": 15,
+        "offset": 71,
+        "surroundingCode": "            return true;\n        } catch (Exception e) {\n            e.printStackTrace();\n            return false;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "c817f6eec04d4f44e49fcb4146990008c4a25a0533c713914e7e8b0416fa0eed"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 167,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 165,
+        "length": 15,
+        "offset": 71,
+        "surroundingCode": "            return true;\n        } catch (Exception e) {\n            e.printStackTrace();\n            return false;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "4c20d29fcfa130a013ede5a11c24ab922acd0f92d4308034dc2f1278a119da39"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 207,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 205,
+        "length": 15,
+        "offset": 113,
+        "surroundingCode": "            return redisTemplate.opsForSet().isMember(key, value);\n        } catch (Exception e) {\n            e.printStackTrace();\n            return false;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "50bd9fafb7e7af9d0440e62983ffb7ec7f668b31f6250b0647cb9882261237c6"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 128,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 126,
+        "length": 15,
+        "offset": 71,
+        "surroundingCode": "            return true;\n        } catch (Exception e) {\n            e.printStackTrace();\n            return false;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "41296ec644b83ffc370d59d976ab0b528d6858717496256e4071ad9edbb74361"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 318,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 316,
+        "length": 15,
+        "offset": 71,
+        "surroundingCode": "            return true;\n        } catch (Exception e) {\n            e.printStackTrace();\n            return false;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "297b0a284688d2d4b295adcde3b21bb67d36be04b87cbaf1169cf69a9949100b"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 197,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 195,
+        "length": 15,
+        "offset": 105,
+        "surroundingCode": "            return redisTemplate.opsForSet().members(key);\n        } catch (Exception e) {\n            e.printStackTrace();\n            return null;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "e96064f641beb2432509328f3165a184fbd03cc3144f9df72d2bafbc4f424a15"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 354,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 352,
+        "length": 15,
+        "offset": 119,
+        "surroundingCode": "            return redisTemplate.opsForList().remove(key, count, value);\n        } catch (Exception e) {\n            e.printStackTrace();\n            return 0;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "386aebe0d1a6b5b22b7876c2528eaeb3541174c7b5c4db6e137a452ea5fd18ae"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 344,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 342,
+        "length": 15,
+        "offset": 71,
+        "surroundingCode": "            return true;\n        } catch (Exception e) {\n            e.printStackTrace();\n            return false;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "14a9be4b29079685a7e095dc1cd7a1d104c970d6d65804833ab3b2c57b8a3fdc"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 241,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 239,
+        "length": 15,
+        "offset": 102,
+        "surroundingCode": "            return redisTemplate.opsForSet().size(key);\n        } catch (Exception e) {\n            e.printStackTrace();\n            return 0;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "67e32f8dbbeac0d37ff7f602412f00ebe0389c1726921099562b9404e4f044ae"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 251,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 249,
+        "length": 15,
+        "offset": 112,
+        "surroundingCode": "            return redisTemplate.opsForSet().remove(key, values);\n        } catch (Exception e) {\n            e.printStackTrace();\n            return 0;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "458b6af6cf90f59930bd26e9fa23cd23f7ad5c3ae69cdbeeec7a47e4ed55e54a"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 364,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 362,
+        "length": 15,
+        "offset": 108,
+        "surroundingCode": "            redisTemplate.opsForList().trim(key, start, end);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "30f45721dfd899f6e589e4e568ba6e4c2e6601ef36930f4c53a7cac0b611fdf8"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 142,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 140,
+        "length": 15,
+        "offset": 71,
+        "surroundingCode": "            return true;\n        } catch (Exception e) {\n            e.printStackTrace();\n            return false;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "47d31a0b55efefe007ba3de8f959c63f2a902bc7440e2a62d522543666793c62"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 91,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 89,
+        "length": 15,
+        "offset": 71,
+        "surroundingCode": "            return true;\n        } catch (Exception e) {\n            e.printStackTrace();\n            return false;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "85edb1de474ee304b770fda4b1f6486f93d567c33c2c228c04537e8541a5d98f"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 231,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 229,
+        "length": 15,
+        "offset": 72,
+        "surroundingCode": "            return count;\n        } catch (Exception e) {\n            e.printStackTrace();\n            return 0;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "8b815460b0136343883a69582ce496ac43a6c078a433c88d969efd941815ddfe"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 271,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 269,
+        "length": 15,
+        "offset": 116,
+        "surroundingCode": "            return redisTemplate.opsForList().range(key, start, end);\n        } catch (Exception e) {\n            e.printStackTrace();\n            return null;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "0566a8313c78b96ca5d835d4569977ed83ba4326577b260c51e9a57e5cd5c92b"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 76,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 74,
+        "length": 15,
+        "offset": 71,
+        "surroundingCode": "            return true;\n        } catch (Exception e) {\n            e.printStackTrace();\n            return false;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "4fdd5450756d6bebcfadd4c7a4a5d1ad15cb7750088995325537940b618715c8"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 281,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 279,
+        "length": 15,
+        "offset": 111,
+        "surroundingCode": "            return redisTemplate.opsForList().index(key, index);\n        } catch (Exception e) {\n            e.printStackTrace();\n            return null;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "2548ccc6e7bac8099301cd00f55993ccb836bef243bbb787b46fb0f923aa31ed"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 38,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 36,
+        "length": 15,
+        "offset": 60,
+        "surroundingCode": "            }\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "e1574b5678c36ff9e6c4a737426faa4904f77083a827c5409fc44d0d7d4a970d"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 333,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 331,
+        "length": 15,
+        "offset": 71,
+        "surroundingCode": "            return true;\n        } catch (Exception e) {\n            e.printStackTrace();\n            return false;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "bd06ed67263a89a17b73777b1ca7cc53eba296bd78bb09eb0aa9e5055e218bc4"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 261,
+      "offset": 15,
+      "length": 15,
+      "code": {
+        "startLine": 259,
+        "length": 15,
+        "offset": 103,
+        "surroundingCode": "            return redisTemplate.opsForList().size(key);\n        } catch (Exception e) {\n            e.printStackTrace();\n            return 0;\n        }"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "16494bebc789debe582c2f8bc168701099caa1f83935acc7ad821d34287a9b03"
+},{
+  "tool": "Code Inspection",
+  "category": "Assignment issues",
+  "type": "Assignment to 'for' loop parameter",
+  "severity": "High",
+  "comment": "Assignment to for-loop parameter 'i'",
+  "detailsInfo": "Reports assignment to, or modification of a `for` loop parameter inside the body of the loop.\n\nAlthough occasionally intended, this construct may be confusing and is often the result of a typo or a wrong variable being used.\n\nThe quick-fix adds a declaration of a new variable.\n\n**Example:**\n\n\n      for (String s : list) {\n        // Warning: s is changed inside the loop\n        s = s.trim();\n        System.out.println(\"String: \" + s);\n      }\n\nAfter the quick-fix is applied:\n\n\n      for (String s : list) {\n        String trimmed = s.trim();\n        System.out.println(\"String: \" + trimmed);\n      }\n\nAssignments in basic `for` loops without an update statement are not reported.\nIn such cases the assignment is probably intended and can't be easily moved to the update part of the `for` loop.\n\n**Example:**\n\n\n      for (int i = 0; i < list.size(); ) {\n        if (element.equals(list.get(i))) {\n          list.remove(i);\n        } else {\n          // modification of for loop parameter is not reported\n          // as there's no update statement\n          i++;\n        }\n      }\n\nUse the **Check enhanced 'for' loop parameters** option to specify whether modifications of enhanced `for` loop parameters\nshould be also reported.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/UrlUtils.java",
+      "language": "JAVA",
+      "line": 294,
+      "offset": 28,
+      "length": 1,
+      "code": {
+        "startLine": 292,
+        "length": 1,
+        "offset": 97,
+        "surroundingCode": "\t\t\tif (c == '%' && (i + 2) < str.length()) {\n\t\t\t\t// 判断是否符合urlEncode规范\n\t\t\t\tchar c1 = str.charAt(++i);\n\t\t\t\tchar c2 = str.charAt(++i);\n\t\t\t\tif (isDigit16Char(c1) && isDigit16Char(c2)) {"
       }
     }
   ],
   "attributes": {
     "module": "gear4j.gear4j-core.main",
-    "inspectionName": "CatchMayIgnoreException"
+    "inspectionName": "AssignmentToForLoopParameter"
   },
-  "hash": "e20925d4795092a28cebdeac7c8f30cbc4e814f55067a5471539d08e41f2bf12"
+  "hash": "b78fe217a3b4f2433f65c837f6e14ae74fdbaa66fdd67043312e33f0d687c83f"
+},{
+  "tool": "Code Inspection",
+  "category": "Assignment issues",
+  "type": "Assignment to 'for' loop parameter",
+  "severity": "High",
+  "comment": "Assignment to for-loop parameter 'i'",
+  "detailsInfo": "Reports assignment to, or modification of a `for` loop parameter inside the body of the loop.\n\nAlthough occasionally intended, this construct may be confusing and is often the result of a typo or a wrong variable being used.\n\nThe quick-fix adds a declaration of a new variable.\n\n**Example:**\n\n\n      for (String s : list) {\n        // Warning: s is changed inside the loop\n        s = s.trim();\n        System.out.println(\"String: \" + s);\n      }\n\nAfter the quick-fix is applied:\n\n\n      for (String s : list) {\n        String trimmed = s.trim();\n        System.out.println(\"String: \" + trimmed);\n      }\n\nAssignments in basic `for` loops without an update statement are not reported.\nIn such cases the assignment is probably intended and can't be easily moved to the update part of the `for` loop.\n\n**Example:**\n\n\n      for (int i = 0; i < list.size(); ) {\n        if (element.equals(list.get(i))) {\n          list.remove(i);\n        } else {\n          // modification of for loop parameter is not reported\n          // as there's no update statement\n          i++;\n        }\n      }\n\nUse the **Check enhanced 'for' loop parameters** option to specify whether modifications of enhanced `for` loop parameters\nshould be also reported.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/UrlUtils.java",
+      "language": "JAVA",
+      "line": 295,
+      "offset": 28,
+      "length": 1,
+      "code": {
+        "startLine": 293,
+        "length": 1,
+        "offset": 83,
+        "surroundingCode": "\t\t\t\t// 判断是否符合urlEncode规范\n\t\t\t\tchar c1 = str.charAt(++i);\n\t\t\t\tchar c2 = str.charAt(++i);\n\t\t\t\tif (isDigit16Char(c1) && isDigit16Char(c2)) {\n\t\t\t\t\tcontinue;"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "AssignmentToForLoopParameter"
+  },
+  "hash": "84ea1761294b2ada3f062e6530f51bd24b10d430d0135c24b7b25c381d7e2210"
+},{
+  "tool": "Code Inspection",
+  "category": "RegExp",
+  "type": "Unnecessary non-capturing group",
+  "severity": "High",
+  "comment": "Unnecessary non-capturing group '(?:')'",
+  "detailsInfo": "Reports unnecessary non-capturing groups, which have no influence on the match result.\n\n**Example:**\n\n\n      Everybody be cool, (?:this) is a robbery!\n\nAfter the quick-fix is applied:\n\n\n      Everybody be cool, this is a robbery!\n\nNew in 2021.1",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-safe/src/main/java/club/gclmit/gear4j/safe/handler/SqlHandler.java",
+      "language": "RegExp",
+      "line": 19,
+      "offset": 39,
+      "length": 3,
+      "code": {
+        "startLine": 17,
+        "length": 3,
+        "offset": 65,
+        "surroundingCode": "public class SqlHandler {\n\n    public static final String REG = \"(?:')|(?:--)|(/\\\\*(?:.|[\\\\n\\\\r])*?\\\\*/)|\"\n        + \"(\\\\b(select|update|and|or|delete|insert|trancate|char|into|substr|ascii|declare|exec|count|master|into|drop|execute)\\\\b)\";\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-safe.main",
+    "inspectionName": "RegExpUnnecessaryNonCapturingGroup"
+  },
+  "hash": "b66858c686d592cd112d1be431b141c5f2bf12fddd36288414e80f48a364c032"
+},{
+  "tool": "Code Inspection",
+  "category": "RegExp",
+  "type": "Unnecessary non-capturing group",
+  "severity": "High",
+  "comment": "Unnecessary non-capturing group '(?:--)'",
+  "detailsInfo": "Reports unnecessary non-capturing groups, which have no influence on the match result.\n\n**Example:**\n\n\n      Everybody be cool, (?:this) is a robbery!\n\nAfter the quick-fix is applied:\n\n\n      Everybody be cool, this is a robbery!\n\nNew in 2021.1",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-safe/src/main/java/club/gclmit/gear4j/safe/handler/SqlHandler.java",
+      "language": "RegExp",
+      "line": 19,
+      "offset": 45,
+      "length": 3,
+      "code": {
+        "startLine": 17,
+        "length": 3,
+        "offset": 71,
+        "surroundingCode": "public class SqlHandler {\n\n    public static final String REG = \"(?:')|(?:--)|(/\\\\*(?:.|[\\\\n\\\\r])*?\\\\*/)|\"\n        + \"(\\\\b(select|update|and|or|delete|insert|trancate|char|into|substr|ascii|declare|exec|count|master|into|drop|execute)\\\\b)\";\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-safe.main",
+    "inspectionName": "RegExpUnnecessaryNonCapturingGroup"
+  },
+  "hash": "72b643352db670af462aebd4e0d91cb6aa38fac1963bbc1f04dcdd41cbb3e387"
 },{
   "tool": "Code Inspection",
   "category": "Performance",
@@ -81,63 +1117,7 @@
     "module": "gear4j.gear4j-core.main",
     "inspectionName": "TrivialStringConcatenation"
   },
-  "hash": "c63fb18068415483ec4af0a773d705d1a06bc80c0c23850eaf28b961b1bb2f79"
-},{
-  "tool": "Code Inspection",
-  "category": "Assignment issues",
-  "type": "Assignment to 'for' loop parameter",
-  "severity": "High",
-  "comment": "Assignment to for-loop parameter 'i'",
-  "detailsInfo": "Reports assignment to, or modification of a `for` loop parameter inside the body of the loop.\n\nAlthough occasionally intended, this construct may be confusing and is often the result of a typo or a wrong variable being used.\n\nThe quick-fix adds a declaration of a new variable.\n\n**Example:**\n\n\n      for (String s : list) {\n        // Warning: s is changed inside the loop\n        s = s.trim();\n        System.out.println(\"String: \" + s);\n      }\n\nAfter the quick-fix is applied:\n\n\n      for (String s : list) {\n        String trimmed = s.trim();\n        System.out.println(\"String: \" + trimmed);\n      }\n\nAssignments in basic `for` loops without an update statement are not reported.\nIn such cases the assignment is probably intended and can't be easily moved to the update part of the `for` loop.\n\n**Example:**\n\n\n      for (int i = 0; i < list.size(); ) {\n        if (element.equals(list.get(i))) {\n          list.remove(i);\n        } else {\n          // modification of for loop parameter is not reported\n          // as there's no update statement\n          i++;\n        }\n      }\n\nUse the **Check enhanced 'for' loop parameters** option to specify whether modifications of enhanced `for` loop parameters\nshould be also reported.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/UrlUtils.java",
-      "language": "JAVA",
-      "line": 300,
-      "offset": 28,
-      "length": 1,
-      "code": {
-        "startLine": 298,
-        "length": 1,
-        "offset": 97,
-        "surroundingCode": "\t\t\tif (c == '%' && (i + 2) < str.length()) {\n\t\t\t\t// 判断是否符合urlEncode规范\n\t\t\t\tchar c1 = str.charAt(++i);\n\t\t\t\tchar c2 = str.charAt(++i);\n\t\t\t\tif (isDigit16Char(c1) && isDigit16Char(c2)) {"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-core.main",
-    "inspectionName": "AssignmentToForLoopParameter"
-  },
-  "hash": "7ac6c0a13117f76b2160c4d6ebaed0bd627f216c78ed3f9b79be42a6fa5addd8"
-},{
-  "tool": "Code Inspection",
-  "category": "Assignment issues",
-  "type": "Assignment to 'for' loop parameter",
-  "severity": "High",
-  "comment": "Assignment to for-loop parameter 'i'",
-  "detailsInfo": "Reports assignment to, or modification of a `for` loop parameter inside the body of the loop.\n\nAlthough occasionally intended, this construct may be confusing and is often the result of a typo or a wrong variable being used.\n\nThe quick-fix adds a declaration of a new variable.\n\n**Example:**\n\n\n      for (String s : list) {\n        // Warning: s is changed inside the loop\n        s = s.trim();\n        System.out.println(\"String: \" + s);\n      }\n\nAfter the quick-fix is applied:\n\n\n      for (String s : list) {\n        String trimmed = s.trim();\n        System.out.println(\"String: \" + trimmed);\n      }\n\nAssignments in basic `for` loops without an update statement are not reported.\nIn such cases the assignment is probably intended and can't be easily moved to the update part of the `for` loop.\n\n**Example:**\n\n\n      for (int i = 0; i < list.size(); ) {\n        if (element.equals(list.get(i))) {\n          list.remove(i);\n        } else {\n          // modification of for loop parameter is not reported\n          // as there's no update statement\n          i++;\n        }\n      }\n\nUse the **Check enhanced 'for' loop parameters** option to specify whether modifications of enhanced `for` loop parameters\nshould be also reported.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/UrlUtils.java",
-      "language": "JAVA",
-      "line": 301,
-      "offset": 28,
-      "length": 1,
-      "code": {
-        "startLine": 299,
-        "length": 1,
-        "offset": 83,
-        "surroundingCode": "\t\t\t\t// 判断是否符合urlEncode规范\n\t\t\t\tchar c1 = str.charAt(++i);\n\t\t\t\tchar c2 = str.charAt(++i);\n\t\t\t\tif (isDigit16Char(c1) && isDigit16Char(c2)) {\n\t\t\t\t\tcontinue;"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-core.main",
-    "inspectionName": "AssignmentToForLoopParameter"
-  },
-  "hash": "874ffbacd8d9cc7fa6058a8374689550522b0fb8496662a12b4e1e003080e66c"
+  "hash": "3a6d1ac5f224f034b29d8e0548559cadd1c7e08c6bd8bb1e8f5b6697436a9cc6"
 },{
   "tool": "Code Inspection",
   "category": "Probable bugs",
@@ -171,6 +1151,34 @@
   "category": "Probable bugs",
   "type": "Infinite recursion",
   "severity": "High",
+  "comment": "Method 'invokeMethod()' recurses infinitely, and can only end by throwing an exception",
+  "detailsInfo": "Reports methods that call themselves infinitely unless an exception is thrown.\n\n\nMethods reported by this inspection cannot return normally.\nWhile such behavior may be intended, in many cases this is just an oversight.\n\n**Example:**\n\n      int baz() {\n          return baz();\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
+      "language": "JAVA",
+      "line": 383,
+      "offset": 26,
+      "length": 12,
+      "code": {
+        "startLine": 381,
+        "length": 12,
+        "offset": 47,
+        "surroundingCode": "     */\n    @Nullable\n    public static Object invokeMethod(Method method, @Nullable Object target, @Nullable Object... args) {\n        makeAccessible(method);\n        return invokeMethod(method, target, args);"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "InfiniteRecursion"
+  },
+  "hash": "5986ee017fc1df3781fc1b42855147fe7072017998b42cf0bd292c63a106f40a"
+},{
+  "tool": "Code Inspection",
+  "category": "Probable bugs",
+  "type": "Infinite recursion",
+  "severity": "High",
   "comment": "Method 'getField()' recurses infinitely, and can only end by throwing an exception",
   "detailsInfo": "Reports methods that call themselves infinitely unless an exception is thrown.\n\n\nMethods reported by this inspection cannot return normally.\nWhile such behavior may be intended, in many cases this is just an oversight.\n\n**Example:**\n\n      int baz() {\n          return baz();\n      }\n",
   "sources": [
@@ -196,32 +1204,32 @@
   "hash": "a33c9c05e2d0ec0758c71e0a4bba27b814ac8820a684ee6a506310e32a2687d0"
 },{
   "tool": "Code Inspection",
-  "category": "Probable bugs",
-  "type": "Infinite recursion",
+  "category": "RegExp",
+  "type": "Duplicate branch in alternation",
   "severity": "High",
-  "comment": "Method 'invokeMethod()' recurses infinitely, and can only end by throwing an exception",
-  "detailsInfo": "Reports methods that call themselves infinitely unless an exception is thrown.\n\n\nMethods reported by this inspection cannot return normally.\nWhile such behavior may be intended, in many cases this is just an oversight.\n\n**Example:**\n\n      int baz() {\n          return baz();\n      }\n",
+  "comment": "Duplicate branch in alternation",
+  "detailsInfo": "Reports duplicate branches in a RegExp alternation. Duplicate branches slow down matching and obscure the intent of the expression.\n\n**Example:**\n\n\n      (alpha|bravo|charlie|alpha)\n\nAfter the quick-fix is applied:\n\n\n      (alpha|bravo|charlie)\n\nNew in 2017.1",
   "sources": [
     {
       "type": "file",
-      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
-      "language": "JAVA",
-      "line": 383,
-      "offset": 26,
-      "length": 12,
+      "path": "gear4j-safe/src/main/java/club/gclmit/gear4j/safe/handler/SqlHandler.java",
+      "language": "RegExp",
+      "line": 20,
+      "offset": 110,
+      "length": 4,
       "code": {
-        "startLine": 381,
-        "length": 12,
-        "offset": 47,
-        "surroundingCode": "     */\n    @Nullable\n    public static Object invokeMethod(Method method, @Nullable Object target, @Nullable Object... args) {\n        makeAccessible(method);\n        return invokeMethod(method, target, args);"
+        "startLine": 18,
+        "length": 4,
+        "offset": 190,
+        "surroundingCode": "\n    public static final String REG = \"(?:')|(?:--)|(/\\\\*(?:.|[\\\\n\\\\r])*?\\\\*/)|\"\n        + \"(\\\\b(select|update|and|or|delete|insert|trancate|char|into|substr|ascii|declare|exec|count|master|into|drop|execute)\\\\b)\";\n\n    /**"
       }
     }
   ],
   "attributes": {
-    "module": "gear4j.gear4j-core.main",
-    "inspectionName": "InfiniteRecursion"
+    "module": "gear4j.gear4j-safe.main",
+    "inspectionName": "RegExpDuplicateAlternationBranch"
   },
-  "hash": "5986ee017fc1df3781fc1b42855147fe7072017998b42cf0bd292c63a106f40a"
+  "hash": "f87dc304ef7590ccc3d3b33e53259e4a4bce8caccf5168321436f7d8a9cd6866"
 },{
   "tool": "Code Inspection",
   "category": "Numeric issues",
@@ -280,34 +1288,6 @@
   "hash": "f6b5891f7b5c3580f47ccd9193d91b10ed949dd8c5e2c8d638df0f9be84ce0ad"
 },{
   "tool": "Code Inspection",
-  "category": "Probable bugs",
-  "type": "Unused assignment",
-  "severity": "High",
-  "comment": "Variable 'eTag' initializer 'null' is redundant",
-  "detailsInfo": "Reports assignment values that are not used after the assignment. If the assignment value is unused, it's better to remove the assignment to shorten the code and avoid redundant allocations.\n\nThe following cases are reported:\n\n* The variable never gets read after the assignment.\n* The variable is always overwritten with a new value before it is read.\n* The variable initializer is redundant (for one of the two reasons above).\n\nConfigure the inspection:\n\n\nUse the **Report redundant initializers** option to report redundant initializers:\n\n\n      int getI() {\n        int i = 0; // redundant initialization\n        i = 2;\n        return i;\n      }\n\n\nUse the **Report ++i when may be replaced with (i + 1)** option to report the cases when `++i` expression\nmay be replaced with `i + 1`:\n\n\n      int preInc(int i) {\n        int res = i;\n        return ++res;\n      }\n\n\nUse the **Report i++ when changed value is not used afterwards** option to report the cases when the result of `i++` expression\nis not used later:\n\n\n      int postInc(int i) {\n        int res = i;\n        return res++;\n      }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-cos/src/main/java/club/gclmit/gear4j/cos/provider/impl/UcloudCosClient.java",
-      "language": "JAVA",
-      "line": 312,
-      "offset": 17,
-      "length": 4,
-      "code": {
-        "startLine": 310,
-        "length": 4,
-        "offset": 38,
-        "surroundingCode": "\n\t\tString url = null;\n\t\tString eTag = null;\n\n\t\ttry {"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-cos.main",
-    "inspectionName": "UnusedAssignment"
-  },
-  "hash": "a014e3cb38fc4c34e569e0c666553022b5ba91b149d3c462218d2c7e8d6477d2"
-},{
-  "tool": "Code Inspection",
   "category": "Visibility",
   "type": "Method tries to override 'static' method of superclass",
   "severity": "High",
@@ -334,62 +1314,6 @@
     "inspectionName": "MethodOverridesStaticMethod"
   },
   "hash": "ff2a05436cd6a18cabe1e4474ee752e9e858ab4820aa7f5137fdb3f580ddcf7a"
-},{
-  "tool": "Code Inspection",
-  "category": "Visibility",
-  "type": "Method tries to override 'static' method of superclass",
-  "severity": "High",
-  "comment": "Method 'getField()' tries to override a static method of a superclass",
-  "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
-      "language": "JAVA",
-      "line": 337,
-      "offset": 26,
-      "length": 8,
-      "code": {
-        "startLine": 335,
-        "length": 8,
-        "offset": 47,
-        "surroundingCode": "     */\n    @Nullable\n    public static Object getField(Field field, @Nullable Object target) {\n        makeAccessible(field);\n        return getField(field, target);"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-core.main",
-    "inspectionName": "MethodOverridesStaticMethod"
-  },
-  "hash": "37d0401e6afb7a534b857debb5898474021a503866c38037ab3fcbb6a5a634ec"
-},{
-  "tool": "Code Inspection",
-  "category": "Visibility",
-  "type": "Method tries to override 'static' method of superclass",
-  "severity": "High",
-  "comment": "Method 'invokeMethod()' tries to override a static method of a superclass",
-  "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
-      "language": "JAVA",
-      "line": 383,
-      "offset": 26,
-      "length": 12,
-      "code": {
-        "startLine": 381,
-        "length": 12,
-        "offset": 47,
-        "surroundingCode": "     */\n    @Nullable\n    public static Object invokeMethod(Method method, @Nullable Object target, @Nullable Object... args) {\n        makeAccessible(method);\n        return invokeMethod(method, target, args);"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-core.main",
-    "inspectionName": "MethodOverridesStaticMethod"
-  },
-  "hash": "44bdfdfda1f5cada35c6456a870049a23e749221563b88d711491d4347366e89"
 },{
   "tool": "Code Inspection",
   "category": "Visibility",
@@ -423,6 +1347,62 @@
   "category": "Visibility",
   "type": "Method tries to override 'static' method of superclass",
   "severity": "High",
+  "comment": "Method 'invokeMethod()' tries to override a static method of a superclass",
+  "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
+      "language": "JAVA",
+      "line": 383,
+      "offset": 26,
+      "length": 12,
+      "code": {
+        "startLine": 381,
+        "length": 12,
+        "offset": 47,
+        "surroundingCode": "     */\n    @Nullable\n    public static Object invokeMethod(Method method, @Nullable Object target, @Nullable Object... args) {\n        makeAccessible(method);\n        return invokeMethod(method, target, args);"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "MethodOverridesStaticMethod"
+  },
+  "hash": "44bdfdfda1f5cada35c6456a870049a23e749221563b88d711491d4347366e89"
+},{
+  "tool": "Code Inspection",
+  "category": "Visibility",
+  "type": "Method tries to override 'static' method of superclass",
+  "severity": "High",
+  "comment": "Method 'getField()' tries to override a static method of a superclass",
+  "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
+      "language": "JAVA",
+      "line": 337,
+      "offset": 26,
+      "length": 8,
+      "code": {
+        "startLine": 335,
+        "length": 8,
+        "offset": 47,
+        "surroundingCode": "     */\n    @Nullable\n    public static Object getField(Field field, @Nullable Object target) {\n        makeAccessible(field);\n        return getField(field, target);"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "MethodOverridesStaticMethod"
+  },
+  "hash": "37d0401e6afb7a534b857debb5898474021a503866c38037ab3fcbb6a5a634ec"
+},{
+  "tool": "Code Inspection",
+  "category": "Visibility",
+  "type": "Method tries to override 'static' method of superclass",
+  "severity": "High",
   "comment": "Method 'toString()' tries to override a static method of a superclass",
   "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
   "sources": [
@@ -445,35 +1425,7 @@
     "module": "gear4j.gear4j-core.main",
     "inspectionName": "MethodOverridesStaticMethod"
   },
-  "hash": "e6cce495f35167bd4ed38784c8572441edb02bc5c1efe43e0f9208a771e7e652"
-},{
-  "tool": "Code Inspection",
-  "category": "Visibility",
-  "type": "Method tries to override 'static' method of superclass",
-  "severity": "High",
-  "comment": "Method 'touch()' tries to override a static method of a superclass",
-  "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/FileUtils.java",
-      "language": "JAVA",
-      "line": 177,
-      "offset": 24,
-      "length": 5,
-      "code": {
-        "startLine": 175,
-        "length": 5,
-        "offset": 59,
-        "surroundingCode": "     * @return java.io.File\n     */\n    public static File touch(String filePath) {\n        Assert.notNull(filePath, \"文件路径不能为空\");\n"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-core.main",
-    "inspectionName": "MethodOverridesStaticMethod"
-  },
-  "hash": "0e9c560ab5bd1382cd9dab2caa9219775ff70a963e630e28aef3d55144d7afbd"
+  "hash": "b6c6ae07ab0c251e572ad0dd53e1c409e7b8379381b0c7ecf6eb2d9c6a5c82cb"
 },{
   "tool": "Code Inspection",
   "category": "RegExp",
@@ -501,7 +1453,7 @@
     "module": "gear4j.gear4j-core.main",
     "inspectionName": "RegExpRedundantEscape"
   },
-  "hash": "7dae2a737d4b8d199fbb708a8f243087eef8d3568cedb1d963d70291cf695d99"
+  "hash": "a8e3327aa594c123dc08508975ec15fecbc00f05156424fae24f0bd8583ade22"
 },{
   "tool": "Code Inspection",
   "category": "RegExp",
@@ -529,7 +1481,7 @@
     "module": "gear4j.gear4j-core.main",
     "inspectionName": "RegExpRedundantEscape"
   },
-  "hash": "41a24887f8d04ff50721553384cada31474a2488e928b85d02109dc4bd93ecee"
+  "hash": "c0b5fce01f84aee31652f143932648775ea830e6dde796d080149453a6f12092"
 },{
   "tool": "Code Inspection",
   "category": "RegExp",
@@ -557,33 +1509,5 @@
     "module": "gear4j.gear4j-core.main",
     "inspectionName": "RegExpRedundantEscape"
   },
-  "hash": "8a91fb7c0cfd9ad62761e526220b19d00722b33d83d591a3c3a46132c337091d"
-},{
-  "tool": "Code Inspection",
-  "category": "Probable bugs",
-  "type": "Result of method call ignored",
-  "severity": "High",
-  "comment": "Result of 'File.mkdirs()' is ignored",
-  "detailsInfo": "Reports method calls whose result is ignored.\n\nFor many methods, ignoring the result is perfectly\nlegitimate, but for some it is almost certainly an error. Examples of methods where ignoring\nthe result is likely an error include `java.io.inputStream.read()`,\nwhich returns the number of bytes actually read, and any method on\n`java.lang.String` or `java.math.BigInteger`. These methods do not produce side-effects and thus pointless\nif their result is ignored.\n\nThe calls to the following methods are inspected:\n\n* Simple getters (which do nothing except return a field)\n* Methods specified in the settings of this inspection\n* Methods annotated with `org.jetbrains.annotations.Contract(pure=true)`\n* Methods annotated with .\\*.`CheckReturnValue`\n* Methods in a class or package annotated with `javax.annotation.CheckReturnValue`\n* Optionally, all non-library methods\n\nCalls to methods annotated with Error Prone's or AssertJ's `@CanIgnoreReturnValue` annotation are not reported.\n\n\nUse the inspection settings to specify the classes to check.\nMethods are matched by name or name pattern using Java regular expression syntax.\nFor classes, use fully-qualified names. Each entry applies to both the class and all its inheritors.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/FileUtils.java",
-      "language": "JAVA",
-      "line": 190,
-      "offset": 21,
-      "length": 6,
-      "code": {
-        "startLine": 188,
-        "length": 6,
-        "offset": 91,
-        "surroundingCode": "         */\n        if (!dirFile.exists() && !dirFile.isDirectory()) {\n            dirFile.mkdirs();\n        }\n"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-core.main",
-    "inspectionName": "IgnoreResultOfCall"
-  },
-  "hash": "06776ada98452341eed47c3a7651924e47d47503c9988deb4d700ff56c5b0ff0"
+  "hash": "de8637545a7472794a91447ed16c317762ebf1fec84fe23ba42fcc9da2fdc1ee"
 }]}

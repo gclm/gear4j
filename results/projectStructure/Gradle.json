@@ -34,14 +34,6 @@
       "version": "5.8.3"
     },
     {
-      "ideaName": "Gradle: cn.hutool:hutool-http:5.8.3",
-      "gradleName": "cn.hutool:hutool-http:5.8.3",
-      "unresolved": false,
-      "groupId": "cn.hutool",
-      "artifactId": "hutool-http",
-      "version": "5.8.3"
-    },
-    {
       "ideaName": "Gradle: cn.hutool:hutool-core:5.8.3",
       "gradleName": "cn.hutool:hutool-core:5.8.3",
       "unresolved": false,
@@ -80,6 +72,14 @@
       "groupId": "org.springframework",
       "artifactId": "spring-context",
       "version": "5.3.21"
+    },
+    {
+      "ideaName": "Gradle: org.springframework.boot:spring-boot-configuration-processor:2.6.9",
+      "gradleName": "org.springframework.boot:spring-boot-configuration-processor:2.6.9",
+      "unresolved": false,
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-configuration-processor",
+      "version": "2.6.9"
     },
     {
       "ideaName": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
@@ -546,14 +546,6 @@
       "version": "2.2.1"
     },
     {
-      "ideaName": "Gradle: org.jsoup:jsoup:1.15.1",
-      "gradleName": "org.jsoup:jsoup:1.15.1",
-      "unresolved": false,
-      "groupId": "org.jsoup",
-      "artifactId": "jsoup",
-      "version": "1.15.1"
-    },
-    {
       "ideaName": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
       "gradleName": "com.baomidou:mybatis-plus-core:3.5.2",
       "unresolved": false,
@@ -632,14 +624,6 @@
       "groupId": "org.jetbrains",
       "artifactId": "annotations",
       "version": "13.0"
-    },
-    {
-      "ideaName": "Gradle: org.springframework.boot:spring-boot-configuration-processor:2.6.9",
-      "gradleName": "org.springframework.boot:spring-boot-configuration-processor:2.6.9",
-      "unresolved": false,
-      "groupId": "org.springframework.boot",
-      "artifactId": "spring-boot-configuration-processor",
-      "version": "2.6.9"
     },
     {
       "ideaName": "Gradle: com.aliyun.oss:aliyun-sdk-oss:3.15.1",
@@ -1002,12 +986,156 @@
       "version": "9.0.64"
     },
     {
+      "ideaName": "Gradle: org.jsoup:jsoup:1.15.1",
+      "gradleName": "org.jsoup:jsoup:1.15.1",
+      "unresolved": false,
+      "groupId": "org.jsoup",
+      "artifactId": "jsoup",
+      "version": "1.15.1"
+    },
+    {
       "ideaName": "Gradle: jakarta.validation:jakarta.validation-api:2.0.2",
       "gradleName": "jakarta.validation:jakarta.validation-api:2.0.2",
       "unresolved": false,
       "groupId": "jakarta.validation",
       "artifactId": "jakarta.validation-api",
       "version": "2.0.2"
+    },
+    {
+      "ideaName": "Gradle: org.springframework.boot:spring-boot-starter-data-redis:2.6.9",
+      "gradleName": "org.springframework.boot:spring-boot-starter-data-redis:2.6.9",
+      "unresolved": false,
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-data-redis",
+      "version": "2.6.9"
+    },
+    {
+      "ideaName": "Gradle: org.springframework.data:spring-data-redis:2.6.5",
+      "gradleName": "org.springframework.data:spring-data-redis:2.6.5",
+      "unresolved": false,
+      "groupId": "org.springframework.data",
+      "artifactId": "spring-data-redis",
+      "version": "2.6.5"
+    },
+    {
+      "ideaName": "Gradle: io.lettuce:lettuce-core:6.1.8.RELEASE",
+      "gradleName": "io.lettuce:lettuce-core:6.1.8.RELEASE",
+      "unresolved": false,
+      "groupId": "io.lettuce",
+      "artifactId": "lettuce-core",
+      "version": "6.1.8.RELEASE"
+    },
+    {
+      "ideaName": "Gradle: org.springframework.data:spring-data-keyvalue:2.6.5",
+      "gradleName": "org.springframework.data:spring-data-keyvalue:2.6.5",
+      "unresolved": false,
+      "groupId": "org.springframework.data",
+      "artifactId": "spring-data-keyvalue",
+      "version": "2.6.5"
+    },
+    {
+      "ideaName": "Gradle: org.springframework:spring-context-support:5.3.21",
+      "gradleName": "org.springframework:spring-context-support:5.3.21",
+      "unresolved": false,
+      "groupId": "org.springframework",
+      "artifactId": "spring-context-support",
+      "version": "5.3.21"
+    },
+    {
+      "ideaName": "Gradle: org.springframework:spring-tx:5.3.21",
+      "gradleName": "org.springframework:spring-tx:5.3.21",
+      "unresolved": false,
+      "groupId": "org.springframework",
+      "artifactId": "spring-tx",
+      "version": "5.3.21"
+    },
+    {
+      "ideaName": "Gradle: org.springframework:spring-oxm:5.3.21",
+      "gradleName": "org.springframework:spring-oxm:5.3.21",
+      "unresolved": false,
+      "groupId": "org.springframework",
+      "artifactId": "spring-oxm",
+      "version": "5.3.21"
+    },
+    {
+      "ideaName": "Gradle: io.netty:netty-handler:4.1.78.Final",
+      "gradleName": "io.netty:netty-handler:4.1.78.Final",
+      "unresolved": false,
+      "groupId": "io.netty",
+      "artifactId": "netty-handler",
+      "version": "4.1.78.Final"
+    },
+    {
+      "ideaName": "Gradle: io.netty:netty-transport:4.1.78.Final",
+      "gradleName": "io.netty:netty-transport:4.1.78.Final",
+      "unresolved": false,
+      "groupId": "io.netty",
+      "artifactId": "netty-transport",
+      "version": "4.1.78.Final"
+    },
+    {
+      "ideaName": "Gradle: io.netty:netty-common:4.1.78.Final",
+      "gradleName": "io.netty:netty-common:4.1.78.Final",
+      "unresolved": false,
+      "groupId": "io.netty",
+      "artifactId": "netty-common",
+      "version": "4.1.78.Final"
+    },
+    {
+      "ideaName": "Gradle: io.projectreactor:reactor-core:3.4.19",
+      "gradleName": "io.projectreactor:reactor-core:3.4.19",
+      "unresolved": false,
+      "groupId": "io.projectreactor",
+      "artifactId": "reactor-core",
+      "version": "3.4.19"
+    },
+    {
+      "ideaName": "Gradle: org.springframework.data:spring-data-commons:2.6.5",
+      "gradleName": "org.springframework.data:spring-data-commons:2.6.5",
+      "unresolved": false,
+      "groupId": "org.springframework.data",
+      "artifactId": "spring-data-commons",
+      "version": "2.6.5"
+    },
+    {
+      "ideaName": "Gradle: io.netty:netty-transport-native-unix-common:4.1.78.Final",
+      "gradleName": "io.netty:netty-transport-native-unix-common:4.1.78.Final",
+      "unresolved": false,
+      "groupId": "io.netty",
+      "artifactId": "netty-transport-native-unix-common",
+      "version": "4.1.78.Final"
+    },
+    {
+      "ideaName": "Gradle: io.netty:netty-codec:4.1.78.Final",
+      "gradleName": "io.netty:netty-codec:4.1.78.Final",
+      "unresolved": false,
+      "groupId": "io.netty",
+      "artifactId": "netty-codec",
+      "version": "4.1.78.Final"
+    },
+    {
+      "ideaName": "Gradle: io.netty:netty-buffer:4.1.78.Final",
+      "gradleName": "io.netty:netty-buffer:4.1.78.Final",
+      "unresolved": false,
+      "groupId": "io.netty",
+      "artifactId": "netty-buffer",
+      "version": "4.1.78.Final"
+    },
+    {
+      "ideaName": "Gradle: io.netty:netty-resolver:4.1.78.Final",
+      "gradleName": "io.netty:netty-resolver:4.1.78.Final",
+      "unresolved": false,
+      "groupId": "io.netty",
+      "artifactId": "netty-resolver",
+      "version": "4.1.78.Final"
+    },
+    {
+      "ideaName": "Gradle: org.reactivestreams:reactive-streams:1.0.4",
+      "gradleName": "org.reactivestreams:reactive-streams:1.0.4",
+      "unresolved": false,
+      "groupId": "org.reactivestreams",
+      "artifactId": "reactive-streams",
+      "version": "1.0.4"
     }
   ]
 }

@@ -25,12 +25,6 @@
       ]
     },
     {
-      "name": "Gradle: cn.hutool:hutool-http:5.8.3",
-      "roots": [
-        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/cn.hutool/hutool-http/5.8.3/d62fe7735b27cd93392d366c0915abc1bccaea66/hutool-http-5.8.3.jar!/"
-      ]
-    },
-    {
       "name": "Gradle: cn.hutool:hutool-core:5.8.3",
       "roots": [
         "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/cn.hutool/hutool-core/5.8.3/7f6dbba38c1c17c8b1116589e26e6204f73d8ee0/hutool-core-5.8.3.jar!/"
@@ -70,6 +64,12 @@
       "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
       "roots": [
         "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: org.springframework.boot:spring-boot-configuration-processor:2.6.9",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/2.6.9/df04a6aa8854cfa8fa8557df61e4495bbae61b38/spring-boot-configuration-processor-2.6.9.jar!/"
       ]
     },
     {
@@ -172,12 +172,6 @@
       "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
       "roots": [
         "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/io.swagger.core.v3/swagger-annotations/2.2.1/b8bc7ec9b22287bd8d00ba69d457673ae2df2895/swagger-annotations-2.2.1.jar!/"
-      ]
-    },
-    {
-      "name": "Gradle: org.jsoup:jsoup:1.15.1",
-      "roots": [
-        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.jsoup/jsoup/1.15.1/c4e25ce7c04dc4ae8f6db08f2391f38e9111231f/jsoup-1.15.1.jar!/"
       ]
     },
     {
@@ -542,9 +536,111 @@
       ]
     },
     {
-      "name": "Gradle: com.qcloud:cos_api:5.6.93",
+      "name": "Gradle: org.jsoup:jsoup:1.15.1",
       "roots": [
-        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/com.qcloud/cos_api/5.6.93/b9a70595ccb1b8c8a7e1e159741f85dac7ee47fc/cos_api-5.6.93.jar!/"
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.jsoup/jsoup/1.15.1/c4e25ce7c04dc4ae8f6db08f2391f38e9111231f/jsoup-1.15.1.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: org.springframework.boot:spring-boot-starter-data-redis:2.6.9",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-data-redis/2.6.9/b3df433bb4e1b704678958494041d0ce07d9db90/spring-boot-starter-data-redis-2.6.9.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: org.springframework.data:spring-data-redis:2.6.5",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-redis/2.6.5/6aec2a93469b82af64d0dff6fe966c3e03fe1ad8/spring-data-redis-2.6.5.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: io.lettuce:lettuce-core:6.1.8.RELEASE",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/io.lettuce/lettuce-core/6.1.8.RELEASE/a68e451255221a2e3b4dd774b521ba8ddb994255/lettuce-core-6.1.8.RELEASE.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: org.springframework.data:spring-data-keyvalue:2.6.5",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-keyvalue/2.6.5/bd10b420aff553a791e5ddf21693935b7f11b69b/spring-data-keyvalue-2.6.5.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: org.springframework:spring-context-support:5.3.21",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.springframework/spring-context-support/5.3.21/543dcbbdad928684ea7666c3fb7a84cb196ae652/spring-context-support-5.3.21.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: org.springframework:spring-tx:5.3.21",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/5.3.21/13f4f564024d2f85502c151942307c3ca851a4f7/spring-tx-5.3.21.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: org.springframework:spring-oxm:5.3.21",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.springframework/spring-oxm/5.3.21/a8dc2dd0235bebcc003bed55fad962cbb1d91717/spring-oxm-5.3.21.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: io.netty:netty-handler:4.1.78.Final",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/io.netty/netty-handler/4.1.78.Final/7e902b6018378bb700ec9364b1d0fba6eefd99fd/netty-handler-4.1.78.Final.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: io.netty:netty-transport:4.1.78.Final",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/io.netty/netty-transport/4.1.78.Final/b1639d431e43622d6cbfdd45c30d3fb810fa9101/netty-transport-4.1.78.Final.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: io.netty:netty-common:4.1.78.Final",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/io.netty/netty-common/4.1.78.Final/d6f560098050f88ba11750aa856edd955e4a7707/netty-common-4.1.78.Final.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: io.projectreactor:reactor-core:3.4.19",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/io.projectreactor/reactor-core/3.4.19/67f78a82e832792ff054a5c414e36ec95bd4e86f/reactor-core-3.4.19.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: org.springframework.data:spring-data-commons:2.6.5",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/2.6.5/f3e842586bd73bef818d55692ddf0f0c2158b2d/spring-data-commons-2.6.5.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: io.netty:netty-transport-native-unix-common:4.1.78.Final",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/io.netty/netty-transport-native-unix-common/4.1.78.Final/62c64e182a11e31ad80e68a94f0b02b45344df23/netty-transport-native-unix-common-4.1.78.Final.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: io.netty:netty-codec:4.1.78.Final",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/io.netty/netty-codec/4.1.78.Final/e8486c8923fc0914df4562a8e0923462e885f88a/netty-codec-4.1.78.Final.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: io.netty:netty-buffer:4.1.78.Final",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/io.netty/netty-buffer/4.1.78.Final/6c0c2d805a2c8ea30223677d8219235f9ec14c38/netty-buffer-4.1.78.Final.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: io.netty:netty-resolver:4.1.78.Final",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/io.netty/netty-resolver/4.1.78.Final/691170d70a979757d50f60e16121ced5f411a9b8/netty-resolver-4.1.78.Final.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: org.reactivestreams:reactive-streams:1.0.4",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.reactivestreams/reactive-streams/1.0.4/3864a1320d97d7b045f729a326e1e077661f31b7/reactive-streams-1.0.4.jar!/"
       ]
     },
     {
@@ -554,15 +650,15 @@
       ]
     },
     {
-      "name": "Gradle: org.springframework.boot:spring-boot-configuration-processor:2.6.9",
-      "roots": [
-        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/2.6.9/df04a6aa8854cfa8fa8557df61e4495bbae61b38/spring-boot-configuration-processor-2.6.9.jar!/"
-      ]
-    },
-    {
       "name": "Gradle: com.qiniu:qiniu-java-sdk:7.11.0",
       "roots": [
         "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/com.qiniu/qiniu-java-sdk/7.11.0/6c3c1a19fa7bc75cf3461380cad67ed1ffdc3ac2/qiniu-java-sdk-7.11.0.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: com.qcloud:cos_api:5.6.93",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/com.qcloud/cos_api/5.6.93/b9a70595ccb1b8c8a7e1e159741f85dac7ee47fc/cos_api-5.6.93.jar!/"
       ]
     },
     {
@@ -584,39 +680,15 @@
       ]
     },
     {
-      "name": "Gradle: org.apache.httpcomponents:httpclient:4.5.13",
-      "roots": [
-        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.5.13/e5f6cae5ca7ecaac1ec2827a9e2d65ae2869cada/httpclient-4.5.13.jar!/"
-      ]
-    },
-    {
-      "name": "Gradle: commons-codec:commons-codec:1.15",
-      "roots": [
-        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.15/49d94806b6e3dc933dacbd8acb0fdbab8ebd1e5d/commons-codec-1.15.jar!/"
-      ]
-    },
-    {
-      "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-kms:3.1.213",
-      "roots": [
-        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/com.tencentcloudapi/tencentcloud-sdk-java-kms/3.1.213/b11eb6852a0cd1b2fb753ee89624d0ef7cd0a261/tencentcloud-sdk-java-kms-3.1.213.jar!/"
-      ]
-    },
-    {
-      "name": "Gradle: joda-time:joda-time:2.9.9",
-      "roots": [
-        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.9/f7b520c458572890807d143670c9b24f4de90897/joda-time-2.9.9.jar!/"
-      ]
-    },
-    {
-      "name": "Gradle: org.bouncycastle:bcprov-jdk15on:1.67",
-      "roots": [
-        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.bouncycastle/bcprov-jdk15on/1.67/8c0998045da87dbc2f1d4b6480458ed811ca7b82/bcprov-jdk15on-1.67.jar!/"
-      ]
-    },
-    {
       "name": "Gradle: com.aliyun:aliyun-java-sdk-core:4.5.10",
       "roots": [
         "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/com.aliyun/aliyun-java-sdk-core/4.5.10/92b2a5b7fb0c6a8dcd839d98af2e186f1e98b8ca/aliyun-java-sdk-core-4.5.10.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: org.apache.httpcomponents:httpclient:4.5.13",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.5.13/e5f6cae5ca7ecaac1ec2827a9e2d65ae2869cada/httpclient-4.5.13.jar!/"
       ]
     },
     {
@@ -641,6 +713,30 @@
       "name": "Gradle: org.codehaus.jettison:jettison:1.1",
       "roots": [
         "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.codehaus.jettison/jettison/1.1/1a01a2a1218fcf9faa2cc2a6ced025bdea687262/jettison-1.1.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: commons-codec:commons-codec:1.15",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.15/49d94806b6e3dc933dacbd8acb0fdbab8ebd1e5d/commons-codec-1.15.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-kms:3.1.213",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/com.tencentcloudapi/tencentcloud-sdk-java-kms/3.1.213/b11eb6852a0cd1b2fb753ee89624d0ef7cd0a261/tencentcloud-sdk-java-kms-3.1.213.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: joda-time:joda-time:2.9.9",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.9/f7b520c458572890807d143670c9b24f4de90897/joda-time-2.9.9.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: org.bouncycastle:bcprov-jdk15on:1.67",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.bouncycastle/bcprov-jdk15on/1.67/8c0998045da87dbc2f1d4b6480458ed811ca7b82/bcprov-jdk15on-1.67.jar!/"
       ]
     },
     {
@@ -671,12 +767,6 @@
       "name": "Gradle: org.apache.httpcomponents:httpcore:4.4.15",
       "roots": [
         "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.4.15/7f2e0c573eaa7a74bac2e89b359e1f73d92a0a1d/httpcore-4.4.15.jar!/"
-      ]
-    },
-    {
-      "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-common:3.1.213",
-      "roots": [
-        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/com.tencentcloudapi/tencentcloud-sdk-java-common/3.1.213/6580bccc72ab8879b5befd781f99c1e891b53d8a/tencentcloud-sdk-java-common-3.1.213.jar!/"
       ]
     },
     {
@@ -722,15 +812,15 @@
       ]
     },
     {
-      "name": "Gradle: org.hamcrest:hamcrest-core:2.2",
+      "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-common:3.1.213",
       "roots": [
-        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/2.2/3f2bd07716a31c395e2837254f37f21f0f0ab24b/hamcrest-core-2.2.jar!/"
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/com.tencentcloudapi/tencentcloud-sdk-java-common/3.1.213/6580bccc72ab8879b5befd781f99c1e891b53d8a/tencentcloud-sdk-java-common-3.1.213.jar!/"
       ]
     },
     {
-      "name": "Gradle: com.squareup.okhttp:logging-interceptor:2.7.5",
+      "name": "Gradle: org.hamcrest:hamcrest-core:2.2",
       "roots": [
-        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/com.squareup.okhttp/logging-interceptor/2.7.5/229decd4f18b3133eeabb0005e1d3f6e66074528/logging-interceptor-2.7.5.jar!/"
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/2.2/3f2bd07716a31c395e2837254f37f21f0f0ab24b/hamcrest-core-2.2.jar!/"
       ]
     },
     {
@@ -743,6 +833,12 @@
       "name": "Gradle: io.opentracing:opentracing-noop:0.33.0",
       "roots": [
         "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/io.opentracing/opentracing-noop/0.33.0/74b9950a587f53fbdb48c3f1f84f1ece8c10592/opentracing-noop-0.33.0.jar!/"
+      ]
+    },
+    {
+      "name": "Gradle: com.squareup.okhttp:logging-interceptor:2.7.5",
+      "roots": [
+        "jar://$PROJECT_DIR$/../cache/gradle/caches/modules-2/files-2.1/com.squareup.okhttp/logging-interceptor/2.7.5/229decd4f18b3133eeabb0005e1d3f6e66074528/logging-interceptor-2.7.5.jar!/"
       ]
     },
     {

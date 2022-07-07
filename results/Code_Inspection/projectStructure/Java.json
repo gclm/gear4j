@@ -25,6 +25,10 @@
       "languageLevel": 11
     },
     {
+      "name": "gear4j.gear4j-redis",
+      "languageLevel": 11
+    },
+    {
       "name": "gear4j.gear4j-safe",
       "languageLevel": 11
     },
@@ -74,6 +78,14 @@
     },
     {
       "name": "gear4j.gear4j-logger.main",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-redis.test",
+      "languageLevel": 11
+    },
+    {
+      "name": "gear4j.gear4j-redis.main",
       "languageLevel": 11
     },
     {
