@@ -162,7 +162,7 @@ public class SafeFilter implements Filter {
     private Gear4jSafeProperties properties;
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         String config = filterConfig.getInitParameter(Gear4jSafeProperties.CONFIG_NAME);
         properties = JSONObject.parseObject(config, Gear4jSafeProperties.class);
     }
@@ -175,7 +175,7 @@ public class SafeFilter implements Filter {
         if (isExcludeUrl(request.getServletPath())) {
             chain.doFilter(servletRequest, servletResponse);
         } else {
-            SafeHttpServletRequestWrapper xssRequest = new SafeHttpServletRequestWrapper(request, properties);
+            SafeHttpServletRequestWrapper xssRequest = new SafeHttpServletRequestWrapper(request);
             chain.doFilter(xssRequest, servletResponse);
         }
     }

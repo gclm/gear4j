@@ -155,7 +155,6 @@ import com.alibaba.fastjson.JSONObject;
 import club.gclmit.gear4j.core.exception.Gear4jException;
 import club.gclmit.gear4j.core.utils.ArrayUtils;
 import club.gclmit.gear4j.core.utils.IoUtils;
-import club.gclmit.gear4j.safe.config.Gear4jSafeProperties;
 import cn.hutool.core.util.CharsetUtil;
 
 /**
@@ -166,19 +165,13 @@ import cn.hutool.core.util.CharsetUtil;
 public class SafeHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     /**
-     * xss 配置类
-     */
-    private final Gear4jSafeProperties properties;
-
-    /**
      * Constructs a request object wrapping the given request.
      *
      * @param request The request to wrap
      * @throws IllegalArgumentException if the request is null
      */
-    public SafeHttpServletRequestWrapper(HttpServletRequest request, Gear4jSafeProperties safeProperties) {
+    public SafeHttpServletRequestWrapper(HttpServletRequest request) {
         super(request);
-        this.properties = safeProperties;
     }
 
     /**
