@@ -1,12 +1,10 @@
-# This workflow will build a Java project with Maven
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
-
-name: Gear4j CI Publish Package
-
+name: Gear4j CI Publish Snapshot
 on:
+  workflow_dispatch:
+  pull_request:
   push:
-    tags:
-      - v*
+    branches:
+      - dev
 
 jobs:
   gradle:
@@ -23,7 +21,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      - name: Restore gradle.properties
+      - name: Configuration Gradle
         run: |
           echo ${{secrets.SIGNING_SECRET_KEY_RING_FILE}} > ~/.gradle/secring.gpg.base64
           echo ${{secrets.SIGNING_CONFIG}} > ~/.gradle/config.properties
@@ -32,11 +30,14 @@ jobs:
           rm -rf ~/.gradle/secring.gpg.base64
           rm -rf ~/.gradle/config.properties
 
-      - name: Publish To MavenLocal
+      - name: Publish Snapshot To Sonatype
+        env:
+          NEXUS_SONATYPE_USERNAME: ${{ secrets.NEXUS_SONATYPE_USERNAME }}
+          NEXUS_SONATYPE_PASSWORD: ${{ secrets.NEXUS_SONATYPE_PASSWORD }}
         run: |
-          ./gradlew publishToMavenLocal
-
-      - name: Publish To Sonatype
-        run: |
-          ./gradlew publish
+          version="$(./gradlew properties | grep '^version:' | awk '{printf $2}')"
+          echo "当前版本：$version"
+          if [[ $version =~ '-SNAPSHOT' ]]; then
+             ./gradlew publish
+          fi
 

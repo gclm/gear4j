@@ -11,7 +11,7 @@
 <br>
 [![Gear4j CI](https://github.com/gclm/gear4j/actions/workflows/build.yml/badge.svg)](https://github.com/gclm/gear4j/actions/workflows/build.yml)
 [![Gear4j CI](https://github.com/gclm/gear4j/actions/workflows/sync.yml/badge.svg)](https://github.com/gclm/gear4j/actions/workflows/sync.yml)
-[![Gear4j CI](https://github.com/gclm/gear4j/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/gclm/gear4j/actions/workflows/gradle-publish.yml)
+[![Gear4j CI](https://github.com/gclm/gear4j/actions/workflows/publish.yml/badge.svg)](https://github.com/gclm/gear4j/actions/workflows/publish.yml)
 [![Gear4j CI](https://github.com/gclm/gear4j/actions/workflows/qodana.yml/badge.svg)](https://github.com/gclm/gear4j/actions/workflows/qodana.yml)
 
 简体中文 | [English](README_EN.md)
