@@ -52,6 +52,10 @@ configure(subprojects - project(":gear4j-bom")) {
     apply plugin: "java-library"
     apply from: "${rootProject.projectDir}/gradle/publish.gradle"
 
+    ext {
+        springBootVersion = "2.6.9"
+    }
+
     // 子项目依赖，类似于在父maven的dependencies
     dependencies {
         // import BOM.
@@ -60,13 +64,14 @@ configure(subprojects - project(":gear4j-bom")) {
         compileOnly "org.slf4j:slf4j-api"
         compileOnly "jakarta.servlet:jakarta.servlet-api"
         compileOnly "com.google.code.findbugs:jsr305"
-        implementation 'org.springframework.boot:spring-boot-configuration-processor'
 
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
         testCompileOnly "com.google.code.findbugs:jsr305"
         testImplementation "org.slf4j:slf4j-api"
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     }
+
 
     configurations.all {
         //移除org.json:json
