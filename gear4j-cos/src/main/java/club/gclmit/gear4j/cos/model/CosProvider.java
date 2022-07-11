@@ -180,12 +180,12 @@ public class CosProvider implements Serializable {
     private String bucket;
 
     /**
-     * 对象存储服务的URL
+     * 地域节点
      */
     private String endpoint;
 
     /**
-     * 地域节点 （阿里云: endpoint）
+     * 地域(腾讯云专用)
      */
     private String region;
 

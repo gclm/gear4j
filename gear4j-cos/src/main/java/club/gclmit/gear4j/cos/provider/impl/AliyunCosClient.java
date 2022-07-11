@@ -188,7 +188,7 @@ public class AliyunCosClient extends AbstractCosClient implements CosClient {
     public AliyunCosClient(CosProvider cosProvider) {
         super(cosProvider);
         this.cosProvider = cosProvider;
-        ossClient = new OSSClientBuilder().build(cosProvider.getRegion(), cosProvider.getAccessKeyId(),
+        ossClient = new OSSClientBuilder().build(cosProvider.getEndpoint(), cosProvider.getAccessKeyId(),
             cosProvider.getAccessKeySecret());
     }
 
@@ -240,12 +240,8 @@ public class AliyunCosClient extends AbstractCosClient implements CosClient {
              *  2020.04.09 补充，jdk8之后 + 底层采用 StringBuilder 和 + 没有什么区别，但是建议使用StringBuilder
              */
             StringBuilder path = new StringBuilder();
-            if (StringUtils.isNotBlank(cosProvider.getEndpoint())) {
-                path.append(cosProvider.getEndpoint());
-            } else {
-                path.append(cosProvider.getProtocol()).append("://").append(cosProvider.getBucket()).append(".")
-                    .append(cosProvider.getRegion());
-            }
+            path.append(cosProvider.getProtocol()).append("://").append(cosProvider.getBucket()).append(".")
+                .append(cosProvider.getEndpoint());
             path.append("/").append(key);
             if (StringUtils.isNotBlank(cosProvider.getStyleName())) {
                 path.append(cosProvider.getStyleName());
