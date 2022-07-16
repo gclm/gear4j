@@ -154,8 +154,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import club.gclmit.gear4j.core.exception.Gear4jException;
 import club.gclmit.gear4j.core.utils.*;
-import club.gclmit.gear4j.cos.model.CosProvider;
-import club.gclmit.gear4j.cos.model.FileInfo;
+import club.gclmit.gear4j.cos.domain.CosProvider;
+import club.gclmit.gear4j.cos.domain.FileInfo;
 
 /**
  * 抽象存储类

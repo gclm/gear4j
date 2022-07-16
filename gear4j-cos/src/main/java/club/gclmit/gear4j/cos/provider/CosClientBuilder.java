@@ -1,8 +1,8 @@
 package club.gclmit.gear4j.cos.provider;
 
 import club.gclmit.gear4j.core.exception.Gear4jException;
-import club.gclmit.gear4j.cos.model.CosProvider;
-import club.gclmit.gear4j.cos.model.CosProviderType;
+import club.gclmit.gear4j.cos.domain.CosProvider;
+import club.gclmit.gear4j.cos.domain.CosProviderType;
 import club.gclmit.gear4j.cos.provider.impl.*;
 
 /**

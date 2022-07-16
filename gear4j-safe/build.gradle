@@ -1,5 +1,5 @@
 dependencies {
-    api project(":gear4j-web")
+    api project(":gear4j-core")
     api "org.jsoup:jsoup"
     compileOnly "org.springframework.boot:spring-boot-starter-web"
 }
