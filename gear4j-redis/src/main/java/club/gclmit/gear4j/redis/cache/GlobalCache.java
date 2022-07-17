@@ -20,7 +20,7 @@ public interface GlobalCache {
      * @param key 键
      * @param timeout 时间(秒)
      */
-    void setExpire(String key, long timeout, TimeUnit unit);
+    void setExpire(String key, Long timeout, TimeUnit unit);
 
     /**
      * 获取过期时间
@@ -28,7 +28,7 @@ public interface GlobalCache {
      * @param key 键 不能为null
      * @return 时间(秒) 返回0代表为永久有效
      */
-    long getExpire(String key);
+    Long getExpire(String key);
 
     /**
      * 判断key是否存在
@@ -36,7 +36,7 @@ public interface GlobalCache {
      * @param key 键
      * @return true 存在 false不存在
      */
-    boolean hasKey(String key);
+    Boolean hasKey(String key);
 
     /**
      * 删除缓存
@@ -62,7 +62,7 @@ public interface GlobalCache {
      * @param value 值
      * @return true成功 false失败
      */
-    boolean cacheValue(String key, Object value);
+    Boolean cacheValue(String key, Object value);
 
     /**
      * 普通缓存放入并设置时间
@@ -73,7 +73,7 @@ public interface GlobalCache {
      * @param unit 时间单位
      * @return true成功 false 失败
      */
-    boolean cacheValue(String key, Object value, long time, TimeUnit unit);
+    Boolean cacheValue(String key, Object value, Long time, TimeUnit unit);
 
     /**
      * 递增
@@ -82,7 +82,7 @@ public interface GlobalCache {
      * @param delta 要增加几(大于0)
      * @return {@literal null}
      */
-    long incrValue(String key, long delta);
+    Long incrValue(String key, Long delta);
 
     /**
      * 递减
@@ -91,7 +91,7 @@ public interface GlobalCache {
      * @param delta 要减少几(小于0)
      * @return {@literal null}
      */
-    long decrValue(String key, long delta);
+    Long decrValue(String key, Long delta);
 
     // ============================hash=============================
     /**
@@ -118,7 +118,7 @@ public interface GlobalCache {
      * @param map 对应多个键值
      * @return true 成功 false 失败
      */
-    boolean cacheHash(String key, Map<String, Object> map);
+    Boolean cacheHash(String key, Map<String, Object> map);
 
     /**
      * HashSet 并设置时间
@@ -128,7 +128,7 @@ public interface GlobalCache {
      * @param time 时间(秒)
      * @return true成功 false失败
      */
-    boolean cacheHash(String key, Map<String, Object> map, long time, TimeUnit unit);
+    Boolean cacheHash(String key, Map<String, Object> map, Long time, TimeUnit unit);
 
     /**
      * 向一张hash表中放入数据,如果不存在将创建
@@ -138,7 +138,7 @@ public interface GlobalCache {
      * @param value 值
      * @return true 成功 false失败
      */
-    boolean cacheHash(String key, String item, Object value);
+    Boolean cacheHash(String key, String item, Object value);
 
     /**
      * 向一张hash表中放入数据,如果不存在将创建
@@ -149,7 +149,7 @@ public interface GlobalCache {
      * @param time 时间(秒) 注意:如果已存在的hash表有时间,这里将会替换原有的时间
      * @return true 成功 false失败
      */
-    boolean cacheHash(String key, String item, Object value, long time, TimeUnit unit);
+    Boolean cacheHash(String key, String item, Object value, Long time, TimeUnit unit);
 
     /**
      * 删除hash表中的值
@@ -166,7 +166,7 @@ public interface GlobalCache {
      * @param item 项 不能为null
      * @return true 存在 false不存在
      */
-    boolean hasHashKey(String key, String item);
+    Boolean hasHashKey(String key, String item);
 
     /**
      * hash递增 如果不存在,就会创建一个 并把新增后的值返回
@@ -196,7 +196,7 @@ public interface GlobalCache {
      * @param key 键
      * @return set缓存的长度
      */
-    long getSetSize(String key);
+    Long getSetSize(String key);
 
     /**
      * 根据key获取Set中的所有值
@@ -213,7 +213,7 @@ public interface GlobalCache {
      * @param value 值
      * @return true 存在 false不存在
      */
-    boolean hasSetKey(String key, Object value);
+    Boolean hasSetKey(String key, Object value);
 
     /**
      * 将数据放入set缓存
@@ -222,7 +222,7 @@ public interface GlobalCache {
      * @param values 值 可以是多个
      * @return 成功个数
      */
-    long cacheSet(String key, Object... values);
+    Long cacheSet(String key, Object... values);
 
     /**
      * 将set数据放入缓存
@@ -232,7 +232,7 @@ public interface GlobalCache {
      * @param values 值 可以是多个
      * @return 成功个数
      */
-    long cacheSet(String key, long time, TimeUnit unit, Object... values);
+    Long cacheSet(String key, Long time, TimeUnit unit, Object... values);
 
     /**
      * 移除值为value的
@@ -241,7 +241,7 @@ public interface GlobalCache {
      * @param values 值 可以是多个
      * @return 移除的个数
      */
-    long removeSet(String key, Object... values);
+    Long removeSet(String key, Object... values);
 
     // ============================list=============================
 
@@ -251,7 +251,7 @@ public interface GlobalCache {
      * @param key 键
      * @return 缓存长度
      */
-    long getListSize(String key);
+    Long getListSize(String key);
 
     /**
      * 获取list缓存的内容
@@ -261,7 +261,7 @@ public interface GlobalCache {
      * @param end 结束 0 到 -1代表所有值
      * @return 缓存list
      */
-    List<Object> getList(String key, long start, long end);
+    List<Object> getList(String key, Long start, Long end);
 
     /**
      * 通过索引 获取list中的值
@@ -270,7 +270,7 @@ public interface GlobalCache {
      * @param index 索引 index>=0时， 0 表头，1 第二个元素，依次类推；index<0时，-1，表尾，-2倒数第二个元素，依次类推
      * @return 索引值
      */
-    Object getList(String key, long index);
+    Object getList(String key, Long index);
 
     /**
      * 将list放入缓存
@@ -279,7 +279,7 @@ public interface GlobalCache {
      * @param value 值
      * @return 插入状态
      */
-    boolean cacheList(String key, Object value);
+    Boolean cacheList(String key, Object value);
 
     /**
      * 将list放入缓存
@@ -290,7 +290,7 @@ public interface GlobalCache {
      * @param unit 时间单位
      * @return 插入状态
      */
-    boolean cacheList(String key, Object value, long time, TimeUnit unit);
+    Boolean cacheList(String key, Object value, Long time, TimeUnit unit);
 
     /**
      * 将list放入缓存
@@ -299,7 +299,7 @@ public interface GlobalCache {
      * @param value 值
      * @return 插入状态
      */
-    boolean cacheList(String key, List<Object> value);
+    Boolean cacheList(String key, List<Object> value);
 
     /**
      * 将list放入缓存
@@ -310,7 +310,7 @@ public interface GlobalCache {
      * @param unit 时间单位
      * @return 修改状态
      */
-    boolean cacheList(String key, List<Object> value, long time, TimeUnit unit);
+    Boolean cacheList(String key, List<Object> value, Long time, TimeUnit unit);
 
     /**
      * 根据索引修改list中的某条数据
@@ -320,7 +320,7 @@ public interface GlobalCache {
      * @param value 值
      * @return 修改状态
      */
-    boolean updateList(String key, long index, Object value);
+    Boolean updateList(String key, Long index, Object value);
 
     /**
      * 移除N个值为value
@@ -330,7 +330,7 @@ public interface GlobalCache {
      * @param value 值
      * @return 移除的个数
      */
-    long removeList(String key, long count, Object value);
+    Long removeList(String key, Long count, Object value);
 
     /**
      * 从redis集合中移除[start,end]之间的元素
