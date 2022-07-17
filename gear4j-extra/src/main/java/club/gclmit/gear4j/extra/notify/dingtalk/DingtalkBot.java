@@ -10,10 +10,6 @@ import com.ejlchina.okhttps.OkHttps;
 
 import club.gclmit.gear4j.core.utils.SecureUtils;
 import club.gclmit.gear4j.core.utils.StringUtils;
-import club.gclmit.gear4j.extra.notify.dingtalk.channel.ActionCard;
-import club.gclmit.gear4j.extra.notify.dingtalk.channel.Link;
-import club.gclmit.gear4j.extra.notify.dingtalk.channel.Markdown;
-import club.gclmit.gear4j.extra.notify.dingtalk.channel.Text;
 import cn.hutool.core.util.CharsetUtil;
 
 /**
@@ -60,20 +56,20 @@ public class DingtalkBot {
         return this;
     }
 
-    public Link link() {
-        return new Link(dingtalkBot);
+    public DingtalkChannel.Link link() {
+        return new DingtalkChannel.Link(dingtalkBot);
     }
 
-    public Markdown markdown() {
-        return new Markdown(dingtalkBot);
+    public DingtalkChannel.Markdown markdown() {
+        return new DingtalkChannel.Markdown(dingtalkBot);
     }
 
-    public Text text() {
-        return new Text(dingtalkBot);
+    public DingtalkChannel.Text text() {
+        return new DingtalkChannel.Text(dingtalkBot);
     }
 
-    public ActionCard actionCard() {
-        return new ActionCard(dingtalkBot);
+    public DingtalkChannel.ActionCard actionCard() {
+        return new DingtalkChannel.ActionCard(dingtalkBot);
     }
 
     public boolean send(String content) {
