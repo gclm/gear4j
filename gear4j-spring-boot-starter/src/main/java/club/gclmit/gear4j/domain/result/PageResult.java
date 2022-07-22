@@ -204,6 +204,8 @@
 
 package club.gclmit.gear4j.domain.result;
 
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -215,7 +217,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  */
 @Schema(description = "分页数据封装")
 @ApiModel(value = "分页数据封装", description = "分页数据封装")
-public class PageResult {
+public class PageResult<T> {
 
 	/**
 	 * 总数量
@@ -243,12 +245,12 @@ public class PageResult {
      */
     @ApiModelProperty(value = "分页数据")
     @Schema(description = "分页数据")
-    private Object list;
+    private List<T> list;
 
     public PageResult() {
 	}
 
-    public PageResult(Long total, Object list, Long page, Long pageSize) {
+    public PageResult(Long total, List<T> list, Long page, Long pageSize) {
 		this.total = total;
 		this.list = list;
 		this.page = page;
@@ -263,11 +265,11 @@ public class PageResult {
 		this.total = total;
 	}
 
-	public Object getList() {
+    public List<T> getList() {
 		return list;
 	}
 
-	public void setList(Object list) {
+    public void setList(List<T> list) {
 		this.list = list;
 	}
 

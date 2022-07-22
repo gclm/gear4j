@@ -153,7 +153,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  */
 @ApiModel(value = "通用消息响应")
 @Schema(description = "通用消息响应")
-public class ApiResult {
+public class ApiResult<T> {
 
     /**
      * 响应状态码
@@ -181,78 +181,78 @@ public class ApiResult {
      */
     @ApiModelProperty(value = "响应数据")
     @Schema(description = "响应数据")
-    private Object data;
+    private T data;
 
-    public ApiResult(Integer code, String message, Object data) {
+    public ApiResult(Integer code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;
     }
 
-    public static ApiResult result(boolean flag) {
+    public static <T> ApiResult<T> result(boolean flag) {
         if (flag) {
             return ok();
         }
         return fail("");
     }
 
-    public static ApiResult result(ApiCode apiCode, Object data) {
+    public static <T> ApiResult<T> result(ApiCode apiCode, T data) {
         return result(apiCode, null, data);
     }
 
-    public static ApiResult result(ApiCode apiCode, String msg, Object data) {
+    public static <T> ApiResult<T> result(ApiCode apiCode, String msg, T data) {
         String message = apiCode.getMessage();
         if (StringUtils.isNotBlank(msg)) {
             message = msg;
         }
-        return new ApiResult(apiCode.getCode(), message, data);
+        return new ApiResult<T>(apiCode.getCode(), message, data);
     }
 
-    public static ApiResult ok() {
+    public static <T> ApiResult<T> ok() {
         return ok(null);
     }
 
-    public static ApiResult ok(Object data) {
+    public static <T> ApiResult<T> ok(T data) {
         return result(ApiCode.OK, data);
     }
 
-    public static ApiResult ok(String message, Object data) {
+    public static <T> ApiResult<T> ok(String message, T data) {
         return result(ApiCode.OK, message, data);
     }
 
-    public static ApiResult ok(Integer code, String message, Object data) {
-        return new ApiResult(code, message, data);
+    public static <T> ApiResult<T> ok(Integer code, String message, T data) {
+        return new ApiResult<T>(code, message, data);
     }
 
-    public static ApiResult fail() {
+    public static <T> ApiResult<T> fail() {
         return fail(ApiCode.FAIL);
     }
 
-    public static ApiResult fail(String message) {
+    public static <T> ApiResult<T> fail(String message) {
         return result(ApiCode.FAIL, message, null);
     }
 
-    public static ApiResult fail(ApiCode apiCode) {
+    public static <T> ApiResult<T> fail(ApiCode apiCode) {
         return result(apiCode, null);
     }
 
-    public static ApiResult fail(ApiCode apiCode, Object data) {
+    public static <T> ApiResult<T> fail(ApiCode apiCode, T data) {
         if (ApiCode.OK == apiCode) {
             throw new RuntimeException("失败结果状态码不能为：" + apiCode.getCode());
         }
         return result(apiCode, data);
     }
 
-    public static ApiResult fail(Integer code, String message) {
-        return new ApiResult(code, message, null);
+    public static <T> ApiResult<T> fail(Integer code, String message) {
+        return new ApiResult<T>(code, message, null);
     }
 
-    public static ApiResult fail(String message, Object data) {
-        return new ApiResult(ApiCode.FAIL.getCode(), message, data);
+    public static <T> ApiResult<T> fail(String message, T data) {
+        return new ApiResult<T>(ApiCode.FAIL.getCode(), message, data);
     }
 
-    public static ApiResult fail(Integer code, String message, Object data) {
-        return new ApiResult(code, message, data);
+    public static <T> ApiResult<T> fail(Integer code, String message, T data) {
+        return new ApiResult<T>(code, message, data);
     }
 
     public Integer getCode() {
@@ -277,14 +277,6 @@ public class ApiResult {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
     }
 
     @Override
