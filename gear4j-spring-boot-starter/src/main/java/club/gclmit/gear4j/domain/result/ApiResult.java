@@ -183,6 +183,44 @@ public class ApiResult<T> {
     @Schema(description = "响应数据")
     private T data;
 
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" + "code=" + code + ", message='" + message + '\'' + ", timestamp='" + timestamp + '\''
+            + ", data=" + data + '}';
+    }
+
     public ApiResult(Integer code, String message, T data) {
         this.code = code;
         this.message = message;
@@ -253,35 +291,5 @@ public class ApiResult<T> {
 
     public static <T> ApiResult<T> fail(Integer code, String message, T data) {
         return new ApiResult<T>(code, message, data);
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    @Override
-    public String toString() {
-        return "Result{" + "code=" + code + ", message='" + message + '\'' + ", timestamp='" + timestamp + '\''
-            + ", data=" + data + '}';
     }
 }
