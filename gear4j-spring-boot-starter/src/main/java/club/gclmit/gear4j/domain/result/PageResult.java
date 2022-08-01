@@ -204,11 +204,11 @@
 
 package club.gclmit.gear4j.domain.result;
 
-import java.util.List;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.util.List;
 
 /**
  * 对页面返回请求进行包装
@@ -240,21 +240,29 @@ public class PageResult<T> {
 	@Schema(description = "每页数量")
 	private Long pageSize;
 
-    /**
-     * 分页数据
-     */
-    @ApiModelProperty(value = "分页数据")
-    @Schema(description = "分页数据")
-    private List<T> list;
+	/**
+	 * 分页数据
+	 */
+	@ApiModelProperty(value = "分页数据")
+	@Schema(description = "分页数据")
+	private List<T> list;
 
-    public PageResult() {
+	public PageResult() {
 	}
 
-    public PageResult(Long total, List<T> list, Long page, Long pageSize) {
+	public PageResult(Long total, Long page, Long pageSize, List<T> list) {
 		this.total = total;
 		this.list = list;
 		this.page = page;
 		this.pageSize = pageSize;
+	}
+
+	public static <T> PageResult<T> builder(Long total, Long page, Long pageSize, List<T> list) {
+		return new PageResult<T>(total, page, pageSize, list);
+	}
+
+	public static <T> PageResult<T> builder(Long page, Long pageSize, List<T> list) {
+		return new PageResult<T>((long) list.size(), page, pageSize, list);
 	}
 
 	public Long getTotal() {
@@ -265,11 +273,11 @@ public class PageResult<T> {
 		this.total = total;
 	}
 
-    public List<T> getList() {
+	public List<T> getList() {
 		return list;
 	}
 
-    public void setList(List<T> list) {
+	public void setList(List<T> list) {
 		this.list = list;
 	}
 

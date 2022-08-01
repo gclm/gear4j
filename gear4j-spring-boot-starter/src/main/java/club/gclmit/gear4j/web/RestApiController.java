@@ -140,28 +140,25 @@
 
 package club.gclmit.gear4j.web;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.validation.Valid;
-
+import club.gclmit.gear4j.core.utils.StringUtils;
+import club.gclmit.gear4j.core.utils.UrlUtils;
+import club.gclmit.gear4j.domain.query.BaseQuery;
+import club.gclmit.gear4j.domain.result.ApiResult;
+import club.gclmit.gear4j.domain.result.PageResult;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.IService;
-
-import club.gclmit.gear4j.core.utils.StringUtils;
-import club.gclmit.gear4j.core.utils.UrlUtils;
-import club.gclmit.gear4j.domain.query.BaseQuery;
-import club.gclmit.gear4j.domain.result.ApiResult;
-import club.gclmit.gear4j.domain.result.PageResult;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.v3.oas.annotations.Operation;
+import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 通用 Restful 风格的 CRUD Controller
@@ -170,108 +167,107 @@ import io.swagger.v3.oas.annotations.Operation;
  */
 public class RestApiController<Service extends IService<T>, T> {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    protected Service service;
+	@Autowired
+	protected Service service;
 
-    /**
-     * 执行添加操作
-     *
-     * @param t 泛型 T
-     * @return {@link ApiResult}
-     */
-    @ApiOperation(value = "添加数据", notes = "添加数据")
-    @Operation(summary = "添加数据")
-    @PostMapping
-    public ApiResult<T> create(@Valid @RequestBody T t) {
-        Assert.notNull(t, "添加的操作数据为空");
-        log.info("添加操作数据:[{}]", StringUtils.toString(t));
-        return this.service.save(t) ? ApiResult.ok() : ApiResult.fail("执行添加操作失败");
-    }
+	/**
+	 * 执行添加操作
+	 *
+	 * @param t 泛型 T
+	 * @return {@link ApiResult}
+	 */
+	@ApiOperation(value = "添加数据", notes = "添加数据")
+	@Operation(summary = "添加数据")
+	@PostMapping
+	public ApiResult<T> create(@Valid @RequestBody T t) {
+		Assert.notNull(t, "添加的操作数据为空");
+		log.info("添加操作数据:[{}]", StringUtils.toString(t));
+		return this.service.save(t) ? ApiResult.ok() : ApiResult.fail("执行添加操作失败");
+	}
 
-    /**
-     * 分页查询数据
-     *
-     * @param baseQuery 分页查询对象
-     * @return {@link PageResult}
-     */
-    @GetMapping
-    @ApiOperation(value = "分页查询")
-    @Operation(summary = "分页查询")
-    public ApiResult<PageResult<T>> list(BaseQuery baseQuery) {
-        log.info("分页查询\t:[{}]", StringUtils.toString(baseQuery));
-        Page<T> pages = service.page(new Page<>(baseQuery.getPage(), baseQuery.getPageSize()));
-        PageResult<T> pageResult =
-            new PageResult<>(pages.getTotal(), pages.getRecords(), baseQuery.getPage(), baseQuery.getPageSize());
-        return ApiResult.ok(pageResult);
-    }
+	/**
+	 * 分页查询数据
+	 *
+	 * @param baseQuery 分页查询对象
+	 * @return {@link PageResult}
+	 */
+	@GetMapping
+	@ApiOperation(value = "分页查询")
+	@Operation(summary = "分页查询")
+	public ApiResult<PageResult<T>> list(BaseQuery baseQuery) {
+		log.info("分页查询\t:[{}]", StringUtils.toString(baseQuery));
+		Page<T> pages = service.page(new Page<>(baseQuery.getPage(), baseQuery.getPageSize()));
+		PageResult<T> pageResult = PageResult.builder(baseQuery.getPage(), baseQuery.getPageSize(), pages.getRecords());
+		return ApiResult.ok(pageResult);
+	}
 
-    /**
-     * 执行查询详情
-     *
-     * @param id id
-     * @return {@link ApiResult}
-     */
-    @ApiOperation(value = "根据id查询数据详情")
-    @Operation(summary = "根据id查询数据详情")
-    @ApiParam(name = "id", required = true, example = "1111")
-    @GetMapping("/{id}")
-    public ApiResult<T> getInfo(@PathVariable String id) {
-        Assert.notNull(id, "id不能为空");
-        log.info("根据Id:[{}]查询数据详情", id);
-        T t = this.service.getById(id);
-        return t != null ? ApiResult.ok(t) : ApiResult.fail("执行查询详情操作失败");
-    }
+	/**
+	 * 执行查询详情
+	 *
+	 * @param id id
+	 * @return {@link ApiResult}
+	 */
+	@ApiOperation(value = "根据id查询数据详情")
+	@Operation(summary = "根据id查询数据详情")
+	@ApiParam(name = "id", required = true, example = "1111")
+	@GetMapping("/{id}")
+	public ApiResult<T> getInfo(@PathVariable String id) {
+		Assert.notNull(id, "id不能为空");
+		log.info("根据Id:[{}]查询数据详情", id);
+		T t = this.service.getById(id);
+		return t != null ? ApiResult.ok(t) : ApiResult.fail("执行查询详情操作失败");
+	}
 
-    /**
-     * 执行更新操作
-     *
-     * @param t 泛型 T
-     * @return {@link ApiResult}
-     */
-    @ApiOperation(value = "更新数据")
-    @Operation(summary = "更新数据")
-    @PutMapping
-    public ApiResult<T> update(@Valid @RequestBody T t) {
-        Assert.notNull(t, "添加的操作数据为空");
-        log.info("更新操作数据:[{}]", StringUtils.toString(t));
-        return this.service.updateById(t) ? ApiResult.ok() : ApiResult.fail("执行更新操作失败");
-    }
+	/**
+	 * 执行更新操作
+	 *
+	 * @param t 泛型 T
+	 * @return {@link ApiResult}
+	 */
+	@ApiOperation(value = "更新数据")
+	@Operation(summary = "更新数据")
+	@PutMapping
+	public ApiResult<T> update(@Valid @RequestBody T t) {
+		Assert.notNull(t, "添加的操作数据为空");
+		log.info("更新操作数据:[{}]", StringUtils.toString(t));
+		return this.service.updateById(t) ? ApiResult.ok() : ApiResult.fail("执行更新操作失败");
+	}
 
-    /**
-     * 执行删除操作
-     *
-     * @param id id
-     * @return {@link ApiResult}
-     */
-    @ApiOperation(value = "根据id删除数据")
-    @Operation(summary = "根据id删除数据")
-    @ApiParam(name = "id", required = true, example = "1111")
-    @DeleteMapping("/{id}")
-    public ApiResult<T> delete(@PathVariable String id) {
-        Assert.notNull(id, "id不能为空");
-        log.info("删除操作数据ID:[{}]", id);
-        return this.service.removeById(id) ? ApiResult.ok() : ApiResult.fail("执行删除操作失败");
-    }
+	/**
+	 * 执行删除操作
+	 *
+	 * @param id id
+	 * @return {@link ApiResult}
+	 */
+	@ApiOperation(value = "根据id删除数据")
+	@Operation(summary = "根据id删除数据")
+	@ApiParam(name = "id", required = true, example = "1111")
+	@DeleteMapping("/{id}")
+	public ApiResult<T> delete(@PathVariable String id) {
+		Assert.notNull(id, "id不能为空");
+		log.info("删除操作数据ID:[{}]", id);
+		return this.service.removeById(id) ? ApiResult.ok() : ApiResult.fail("执行删除操作失败");
+	}
 
-    /**
-     * 批量删除
-     *
-     * @param ids 采用,拼接的id
-     * @return {@link ApiResult}
-     */
-    @ApiOperation(value = "批量删除")
-    @Operation(summary = "批量删除")
-    @DeleteMapping("/batch")
-    public ApiResult<T> batchDelete(String ids) {
-        Assert.notNull(ids, "ids不能为空");
-        log.info("批量删除，ids:{}", ids);
-        if (UrlUtils.hasUrlEncoded(ids)) {
-            ids = UrlUtils.decode(ids);
-        }
-        List<String> idList = Arrays.asList(ids.split(","));
-        return this.service.removeByIds(idList) ? ApiResult.ok() : ApiResult.fail("批量删除失败");
-    }
+	/**
+	 * 批量删除
+	 *
+	 * @param ids 采用,拼接的id
+	 * @return {@link ApiResult}
+	 */
+	@ApiOperation(value = "批量删除")
+	@Operation(summary = "批量删除")
+	@DeleteMapping("/batch")
+	public ApiResult<T> batchDelete(String ids) {
+		Assert.notNull(ids, "ids不能为空");
+		log.info("批量删除，ids:{}", ids);
+		if (UrlUtils.hasUrlEncoded(ids)) {
+			ids = UrlUtils.decode(ids);
+		}
+		List<String> idList = Arrays.asList(ids.split(","));
+		return this.service.removeByIds(idList) ? ApiResult.ok() : ApiResult.fail("批量删除失败");
+	}
 
 }
