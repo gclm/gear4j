@@ -257,12 +257,13 @@ public class PageResult<T> {
 		this.pageSize = pageSize;
 	}
 
-	public static <T> PageResult<T> builder(Long total, Long page, Long pageSize, List<T> list) {
+	public static <T> PageResult<T> page(Long total, Long page, Long pageSize, List<T> list) {
 		return new PageResult<T>(total, page, pageSize, list);
 	}
 
-	public static <T> PageResult<T> builder(Long page, Long pageSize, List<T> list) {
-		return new PageResult<T>((long) list.size(), page, pageSize, list);
+	public static <T> PageResult<T> list(List<T> list) {
+		long size = list.size();
+		return new PageResult<T>(size, 1L, size, list);
 	}
 
 	public Long getTotal() {

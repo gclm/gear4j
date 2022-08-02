@@ -199,7 +199,7 @@ public class RestApiController<Service extends IService<T>, T> {
 	public ApiResult<PageResult<T>> list(BaseQuery baseQuery) {
 		log.info("分页查询\t:[{}]", StringUtils.toString(baseQuery));
 		Page<T> pages = service.page(new Page<>(baseQuery.getPage(), baseQuery.getPageSize()));
-		PageResult<T> pageResult = PageResult.builder(baseQuery.getPage(), baseQuery.getPageSize(), pages.getRecords());
+		PageResult<T> pageResult = PageResult.page(pages.getTotal(), baseQuery.getPage(), baseQuery.getPageSize(), pages.getRecords());
 		return ApiResult.ok(pageResult);
 	}
 
