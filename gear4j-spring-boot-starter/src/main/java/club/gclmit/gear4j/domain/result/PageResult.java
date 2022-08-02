@@ -245,25 +245,25 @@ public class PageResult<T> {
 	 */
 	@ApiModelProperty(value = "分页数据")
 	@Schema(description = "分页数据")
-	private List<T> list;
+	private List<T> records;
 
 	public PageResult() {
 	}
 
-	public PageResult(Long total, Long page, Long pageSize, List<T> list) {
+	public PageResult(Long total, Long page, Long pageSize, List<T> records) {
 		this.total = total;
-		this.list = list;
+		this.records = records;
 		this.page = page;
 		this.pageSize = pageSize;
 	}
 
-	public static <T> PageResult<T> page(Long total, Long page, Long pageSize, List<T> list) {
-		return new PageResult<T>(total, page, pageSize, list);
+	public static <T> PageResult<T> page(Long total, Long page, Long pageSize, List<T> records) {
+		return new PageResult<T>(total, page, pageSize, records);
 	}
 
-	public static <T> PageResult<T> list(List<T> list) {
-		long size = list.size();
-		return new PageResult<T>(size, 1L, size, list);
+	public static <T> PageResult<T> list(List<T> records) {
+		long size = records.size();
+		return new PageResult<T>(size, 1L, size, records);
 	}
 
 	public Long getTotal() {
@@ -274,12 +274,12 @@ public class PageResult<T> {
 		this.total = total;
 	}
 
-	public List<T> getList() {
-		return list;
+	public List<T> getRecords() {
+		return records;
 	}
 
-	public void setList(List<T> list) {
-		this.list = list;
+	public void setRecords(List<T> records) {
+		this.records = records;
 	}
 
 	public Long getPage() {
@@ -302,9 +302,9 @@ public class PageResult<T> {
 	public String toString() {
 		return "PageResult{" +
 			"total=" + total +
-			", list=" + list +
 			", page=" + page +
 			", pageSize=" + pageSize +
+			", records=" + records +
 			'}';
 	}
 }
