@@ -140,21 +140,19 @@
 
 package club.gclmit.gear4j.web;
 
-import java.sql.SQLSyntaxErrorException;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-
+import club.gclmit.gear4j.domain.result.ApiResult;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import club.gclmit.gear4j.domain.result.ApiResult;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.sql.SQLSyntaxErrorException;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 统一异常处理控制器
@@ -166,51 +164,51 @@ import club.gclmit.gear4j.domain.result.ApiResult;
  */
 public class Gear4jGlobalExceptionHandler {
 
-    /**
-     * 不 支 持 的 请 求 类 型
-     */
-    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public ApiResult handleException(HttpRequestMethodNotSupportedException e) {
-        return ApiResult.fail("不支持" + e.getMethod() + "请求");
-    }
+	/**
+	 * 不 支 持 的 请 求 类 型
+	 */
+	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+	public ApiResult<Object> handleException(HttpRequestMethodNotSupportedException e) {
+		return ApiResult.fail("不支持" + e.getMethod() + "请求");
+	}
 
-    /**
-     * 未 知 的 运 行 时 异 常
-     */
-    @ExceptionHandler(SQLSyntaxErrorException.class)
-    public ApiResult notColumn(RuntimeException e) {
-        e.printStackTrace();
-        return ApiResult.fail("列不存在：" + e.getMessage());
-    }
+	/**
+	 * 未 知 的 运 行 时 异 常
+	 */
+	@ExceptionHandler(SQLSyntaxErrorException.class)
+	public ApiResult<Object> notColumn(RuntimeException e) {
+		e.printStackTrace();
+		return ApiResult.fail("列不存在：" + e.getMessage());
+	}
 
-    /**
-     * 处 理 单 个 参 数 校 验 失 败 抛 出 的 异 常
-     */
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ApiResult constraintViolationExceptionHandler(ConstraintViolationException e) {
-        Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
-        List<String> collect = constraintViolations.stream().map(o -> o.getMessage()).collect(Collectors.toList());
-        return ApiResult.fail("Bad Request", collect);
-    }
+	/**
+	 * 处 理 单 个 参 数 校 验 失 败 抛 出 的 异 常
+	 */
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ApiResult<Object> constraintViolationExceptionHandler(ConstraintViolationException e) {
+		Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
+		List<String> collect = constraintViolations.stream().map(o -> o.getMessage()).collect(Collectors.toList());
+		return ApiResult.fail("Bad Request", collect);
+	}
 
-    /**
-     * 处理 validate 异常
-     *
-     * @param exception 异常
-     * @return {@link ApiResult}
-     */
-    @ExceptionHandler(value = {BindException.class, MethodArgumentNotValidException.class})
-    public ApiResult validationExceptionHandler(Exception exception) {
+	/**
+	 * 处理 validate 异常
+	 *
+	 * @param exception 异常
+	 * @return {@link ApiResult}
+	 */
+	@ExceptionHandler(value = {BindException.class, MethodArgumentNotValidException.class})
+	public ApiResult<Object> validationExceptionHandler(Exception exception) {
 
-        BindingResult bindResult = null;
-        if (exception instanceof BindException) {
-            bindResult = ((BindException)exception).getBindingResult();
-        }
-        StringBuilder message = new StringBuilder();
+		BindingResult bindResult = null;
+		if (exception instanceof BindException) {
+			bindResult = ((BindException) exception).getBindingResult();
+		}
+		StringBuilder message = new StringBuilder();
 
-        if (bindResult != null && bindResult.hasErrors()) {
-            bindResult.getAllErrors().forEach(objectError -> {
-                message.append(objectError.getDefaultMessage()).append(",");
+		if (bindResult != null && bindResult.hasErrors()) {
+			bindResult.getAllErrors().forEach(objectError -> {
+				message.append(objectError.getDefaultMessage()).append(",");
             });
         } else {
             message.append("系统繁忙，请稍后重试...");
@@ -218,21 +216,21 @@ public class Gear4jGlobalExceptionHandler {
         return ApiResult.fail(message.substring(0, message.length() - 1));
     }
 
-    /**
-     * 未 知 的 运 行 时 异 常
-     */
-    @ExceptionHandler(RuntimeException.class)
-    public ApiResult notFount(RuntimeException e) {
-        e.printStackTrace();
-        return ApiResult.fail("运行时异常：" + e.getMessage());
-    }
+	/**
+	 * 未 知 的 运 行 时 异 常
+	 */
+	@ExceptionHandler(RuntimeException.class)
+	public ApiResult<Object> notFount(RuntimeException e) {
+		e.printStackTrace();
+		return ApiResult.fail("运行时异常：" + e.getMessage());
+	}
 
-    /**
-     * 系 统 异 常
-     */
-    @ExceptionHandler(Exception.class)
-    public ApiResult handleException(Exception e) {
-        e.printStackTrace();
-        return ApiResult.fail("服务器错误，请联系管理员");
-    }
+	/**
+	 * 系 统 异 常
+	 */
+	@ExceptionHandler(Exception.class)
+	public ApiResult<Object> handleException(Exception e) {
+		e.printStackTrace();
+		return ApiResult.fail("服务器错误，请联系管理员");
+	}
 }
