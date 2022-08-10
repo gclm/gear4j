@@ -140,14 +140,14 @@
 
 package club.gclmit.gear4j.cos.domain;
 
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -156,8 +156,13 @@ import io.swagger.annotations.ApiModelProperty;
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
+@Data
+@Builder
 @TableName("gear4j_file_info")
 @ApiModel(value = "文件服务对象")
+@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class FileInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -228,112 +233,4 @@ public class FileInfo implements Serializable {
      */
     @ApiModelProperty(value = "文件状态")
     private Integer status;
-
-    public FileInfo() {}
-
-    public FileInfo(String name, String contentType, String ossKey, String ossType, Long size, String md5,
-        String sha1) {
-        this.name = name;
-        this.contentType = contentType;
-        this.ossKey = ossKey;
-        this.ossType = ossType;
-        this.size = size;
-        this.md5 = md5;
-        this.sha1 = sha1;
-    }
-
-    public String getSha1() {
-        return sha1;
-    }
-
-    public void setSha1(String sha1) {
-        this.sha1 = sha1;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getContentType() {
-        return contentType;
-    }
-
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public Long getSize() {
-        return size;
-    }
-
-    public void setSize(Long size) {
-        this.size = size;
-    }
-
-    public String getMd5() {
-        return md5;
-    }
-
-    public void setMd5(String md5) {
-        this.md5 = md5;
-    }
-
-    public String getOssKey() {
-        return ossKey;
-    }
-
-    public void setOssKey(String ossKey) {
-        this.ossKey = ossKey;
-    }
-
-    public String getOssType() {
-        return ossType;
-    }
-
-    public void setOssType(String ossType) {
-        this.ossType = ossType;
-    }
-
-    public long getUploadTime() {
-        return uploadTime;
-    }
-
-    public void setUploadTime(long uploadTime) {
-        this.uploadTime = uploadTime;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "FileInfo{" + "id=" + id + ", name='" + name + '\'' + ", contentType='" + contentType + '\'' + ", url='"
-            + url + '\'' + ", size=" + size + ", md5='" + md5 + '\'' + ", sha1='" + sha1 + '\'' + ", ossKey='" + ossKey
-            + '\'' + ", ossType='" + ossType + '\'' + ", uploadTime=" + uploadTime + ", status=" + status + '}';
-    }
 }

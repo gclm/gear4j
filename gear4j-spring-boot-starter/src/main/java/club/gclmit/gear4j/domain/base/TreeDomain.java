@@ -1,9 +1,11 @@
 package club.gclmit.gear4j.domain.base;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.baomidou.mybatisplus.annotation.TableField;
 
 /**
  * Base Tree 实体
@@ -12,6 +14,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
  * @since 2022/7/17 02:21
  * @since jdk11
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class TreeDomain<T> extends BaseDomain {
 
     /**
@@ -25,20 +29,4 @@ public class TreeDomain<T> extends BaseDomain {
      */
     @TableField(exist = false)
     private List<T> children = new ArrayList<>();
-
-    public String getParent() {
-        return parent;
-    }
-
-    public void setParent(String parent) {
-        this.parent = parent;
-    }
-
-    public List<T> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<T> children) {
-        this.children = children;
-    }
 }

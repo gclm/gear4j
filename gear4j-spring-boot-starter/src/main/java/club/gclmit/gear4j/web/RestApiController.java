@@ -212,7 +212,7 @@ public class RestApiController<Service extends IService<T>, T> {
 	@ApiOperation(value = "根据id查询数据详情")
 	@Operation(summary = "根据id查询数据详情")
 	@ApiParam(name = "id", required = true, example = "1111")
-	@GetMapping("/{id}")
+	@GetMapping("/{id:\\d+}")
 	public ApiResult<T> getInfo(@PathVariable String id) {
 		Assert.notNull(id, "id不能为空");
 		log.info("根据Id:[{}]查询数据详情", id);
@@ -244,7 +244,7 @@ public class RestApiController<Service extends IService<T>, T> {
 	@ApiOperation(value = "根据id删除数据")
 	@Operation(summary = "根据id删除数据")
 	@ApiParam(name = "id", required = true, example = "1111")
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/{id:\\d+}")
 	public ApiResult<T> delete(@PathVariable String id) {
 		Assert.notNull(id, "id不能为空");
 		log.info("删除操作数据ID:[{}]", id);

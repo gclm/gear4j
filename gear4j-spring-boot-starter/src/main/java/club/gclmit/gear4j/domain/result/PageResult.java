@@ -207,6 +207,7 @@ package club.gclmit.gear4j.domain.result;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
 
 import java.util.List;
 
@@ -215,6 +216,11 @@ import java.util.List;
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
+@Data
+@Builder
+@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Schema(description = "分页数据封装")
 @ApiModel(value = "分页数据封装", description = "分页数据封装")
 public class PageResult<T> {
@@ -247,16 +253,6 @@ public class PageResult<T> {
 	@Schema(description = "分页数据")
 	private List<T> records;
 
-	public PageResult() {
-	}
-
-	public PageResult(Long total, Long page, Long pageSize, List<T> records) {
-		this.total = total;
-		this.records = records;
-		this.page = page;
-		this.pageSize = pageSize;
-	}
-
 	public static <T> PageResult<T> page(Long total, Long page, Long pageSize, List<T> records) {
 		return new PageResult<T>(total, page, pageSize, records);
 	}
@@ -266,45 +262,4 @@ public class PageResult<T> {
 		return new PageResult<T>(size, 1L, size, records);
 	}
 
-	public Long getTotal() {
-		return total;
-	}
-
-	public void setTotal(Long total) {
-		this.total = total;
-	}
-
-	public List<T> getRecords() {
-		return records;
-	}
-
-	public void setRecords(List<T> records) {
-		this.records = records;
-	}
-
-	public Long getPage() {
-		return page;
-	}
-
-	public void setPage(Long page) {
-		this.page = page;
-	}
-
-	public Long getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(Long pageSize) {
-		this.pageSize = pageSize;
-	}
-
-	@Override
-	public String toString() {
-		return "PageResult{" +
-			"total=" + total +
-			", page=" + page +
-			", pageSize=" + pageSize +
-			", records=" + records +
-			'}';
-	}
 }

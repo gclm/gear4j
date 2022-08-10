@@ -140,11 +140,17 @@
 
 package club.gclmit.gear4j.domain.result;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * REST API 响应状态码
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
+@Getter
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum ApiCode {
 
     /**
@@ -168,17 +174,6 @@ public enum ApiCode {
     private final String message;
 
     /**
-     * 私有化构造器
-     *
-     * @param code 状态码
-     * @param message 请求消息
-     */
-    ApiCode(Integer code, String message) {
-        this.code = code;
-        this.message = message;
-    }
-
-    /**
      * 根据响应状态码找到枚举对象
      *
      * @param apiCode 状态码
@@ -194,11 +189,4 @@ public enum ApiCode {
         return OK;
     }
 
-    public Integer getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
 }

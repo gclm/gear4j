@@ -204,11 +204,14 @@
 
 package club.gclmit.gear4j.domain.query;
 
-import java.io.Serializable;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
+
 
 /**
  * <p>
@@ -217,6 +220,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
 @Schema(description = "查询条件")
 @ApiModel(value = "查询条件", description = "查询条件")
 public class BaseQuery implements Serializable {
@@ -244,37 +249,4 @@ public class BaseQuery implements Serializable {
 	@ApiModelProperty(value = "排序(0: 正序 1: 倒序 3: 乱序)", example = "0")
 	@Schema(description = "排序(0: 正序 1: 倒序 3: 乱序)", example = "0")
 	private int sort = 0;
-
-	public Long getPage() {
-		return page;
-	}
-
-	public void setPage(Long page) {
-		this.page = page;
-	}
-
-	public Long getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(Long pageSize) {
-		this.pageSize = pageSize;
-	}
-
-	public int getSort() {
-		return sort;
-	}
-
-	public void setSort(int sort) {
-		this.sort = sort;
-	}
-
-	@Override
-	public String toString() {
-		return "QueryCondition{" +
-			"page=" + page +
-			", pageSize=" + pageSize +
-			", sort=" + sort +
-			'}';
-	}
 }

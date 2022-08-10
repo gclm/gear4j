@@ -145,151 +145,120 @@ import club.gclmit.gear4j.core.utils.StringUtils;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * 返回数据封装
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @ApiModel(value = "通用消息响应")
 @Schema(description = "通用消息响应")
 public class ApiResult<T> {
 
-    /**
-     * 响应状态码
-     */
-    @ApiModelProperty(value = "响应状态码", required = true)
-    @Schema(description = "响应状态码", required = true)
-    private Integer code;
+	/**
+	 * 响应状态码
+	 */
+	@ApiModelProperty(value = "响应状态码", required = true)
+	@Schema(description = "响应状态码", required = true)
+	private Integer code;
 
-    /**
-     * 响应提示
-     */
-    @ApiModelProperty(value = "响应提示消息", required = true)
-    @Schema(description = "响应提示消息", required = true)
-    private String message;
+	/**
+	 * 响应提示
+	 */
+	@ApiModelProperty(value = "响应提示消息", required = true)
+	@Schema(description = "响应提示消息", required = true)
+	private String message;
 
-    /**
-     * 响应时间戳
-     */
-    @ApiModelProperty(value = "响应时间戳", required = true)
-    @Schema(description = "响应时间戳", required = true)
-    private String timestamp = String.valueOf(DateUtils.getTime());
+	/**
+	 * 响应时间戳
+	 */
+	@ApiModelProperty(value = "响应时间戳", required = true)
+	@Schema(description = "响应时间戳", required = true)
+	private String timestamp = String.valueOf(DateUtils.getTime());
 
-    /**
-     * 响应数据
-     */
-    @ApiModelProperty(value = "响应数据")
-    @Schema(description = "响应数据")
-    private T data;
+	/**
+	 * 响应数据
+	 */
+	@ApiModelProperty(value = "响应数据")
+	@Schema(description = "响应数据")
+	private T data;
 
-    public Integer getCode() {
-        return code;
-    }
+	public ApiResult(Integer code, String message, T data) {
+		this.code = code;
+		this.message = message;
+		this.data = data;
+	}
 
-    public void setCode(Integer code) {
-        this.code = code;
-    }
+	public static <T> ApiResult<T> result(boolean flag) {
+		if (flag) {
+			return ok();
+		}
+		return fail("");
+	}
 
-    public String getMessage() {
-        return message;
-    }
+	public static <T> ApiResult<T> result(ApiCode apiCode, T data) {
+		return result(apiCode, null, data);
+	}
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	public static <T> ApiResult<T> result(ApiCode apiCode, String msg, T data) {
+		String message = apiCode.getMessage();
+		if (StringUtils.isNotBlank(msg)) {
+			message = msg;
+		}
+		return new ApiResult<T>(apiCode.getCode(), message, data);
+	}
 
-    public T getData() {
-        return data;
-    }
+	public static <T> ApiResult<T> ok() {
+		return ok(null);
+	}
 
-    public void setData(T data) {
-        this.data = data;
-    }
+	public static <T> ApiResult<T> ok(T data) {
+		return result(ApiCode.OK, data);
+	}
 
-    public String getTimestamp() {
-        return timestamp;
-    }
+	public static <T> ApiResult<T> ok(String message, T data) {
+		return result(ApiCode.OK, message, data);
+	}
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
+	public static <T> ApiResult<T> ok(Integer code, String message, T data) {
+		return new ApiResult<T>(code, message, data);
+	}
 
-    @Override
-    public String toString() {
-        return "Result{" + "code=" + code + ", message='" + message + '\'' + ", timestamp='" + timestamp + '\''
-            + ", data=" + data + '}';
-    }
+	public static <T> ApiResult<T> fail() {
+		return fail(ApiCode.FAIL);
+	}
 
-    public ApiResult(Integer code, String message, T data) {
-        this.code = code;
-        this.message = message;
-        this.data = data;
-    }
+	public static <T> ApiResult<T> fail(String message) {
+		return result(ApiCode.FAIL, message, null);
+	}
 
-    public static <T> ApiResult<T> result(boolean flag) {
-        if (flag) {
-            return ok();
-        }
-        return fail("");
-    }
+	public static <T> ApiResult<T> fail(ApiCode apiCode) {
+		return result(apiCode, null);
+	}
 
-    public static <T> ApiResult<T> result(ApiCode apiCode, T data) {
-        return result(apiCode, null, data);
-    }
+	public static <T> ApiResult<T> fail(ApiCode apiCode, T data) {
+		if (ApiCode.OK == apiCode) {
+			throw new RuntimeException("失败结果状态码不能为：" + apiCode.getCode());
+		}
+		return result(apiCode, data);
+	}
 
-    public static <T> ApiResult<T> result(ApiCode apiCode, String msg, T data) {
-        String message = apiCode.getMessage();
-        if (StringUtils.isNotBlank(msg)) {
-            message = msg;
-        }
-        return new ApiResult<T>(apiCode.getCode(), message, data);
-    }
+	public static <T> ApiResult<T> fail(Integer code, String message) {
+		return new ApiResult<T>(code, message, null);
+	}
 
-    public static <T> ApiResult<T> ok() {
-        return ok(null);
-    }
+	public static <T> ApiResult<T> fail(String message, T data) {
+		return new ApiResult<T>(ApiCode.FAIL.getCode(), message, data);
+	}
 
-    public static <T> ApiResult<T> ok(T data) {
-        return result(ApiCode.OK, data);
-    }
-
-    public static <T> ApiResult<T> ok(String message, T data) {
-        return result(ApiCode.OK, message, data);
-    }
-
-    public static <T> ApiResult<T> ok(Integer code, String message, T data) {
-        return new ApiResult<T>(code, message, data);
-    }
-
-    public static <T> ApiResult<T> fail() {
-        return fail(ApiCode.FAIL);
-    }
-
-    public static <T> ApiResult<T> fail(String message) {
-        return result(ApiCode.FAIL, message, null);
-    }
-
-    public static <T> ApiResult<T> fail(ApiCode apiCode) {
-        return result(apiCode, null);
-    }
-
-    public static <T> ApiResult<T> fail(ApiCode apiCode, T data) {
-        if (ApiCode.OK == apiCode) {
-            throw new RuntimeException("失败结果状态码不能为：" + apiCode.getCode());
-        }
-        return result(apiCode, data);
-    }
-
-    public static <T> ApiResult<T> fail(Integer code, String message) {
-        return new ApiResult<T>(code, message, null);
-    }
-
-    public static <T> ApiResult<T> fail(String message, T data) {
-        return new ApiResult<T>(ApiCode.FAIL.getCode(), message, data);
-    }
-
-    public static <T> ApiResult<T> fail(Integer code, String message, T data) {
-        return new ApiResult<T>(code, message, data);
-    }
+	public static <T> ApiResult<T> fail(Integer code, String message, T data) {
+		return new ApiResult<T>(code, message, data);
+	}
 }

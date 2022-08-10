@@ -140,235 +140,76 @@
 
 package club.gclmit.gear4j.cos.domain;
 
-import java.io.Serializable;
-
+import lombok.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import java.io.Serializable;
 
 /**
  * 云存储客户端封装 (支持七牛、阿里云、腾讯云、又拍云)
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
+@Data
+@Builder
+@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @ConfigurationProperties(prefix = "gear4j.cos")
 public class CosProvider implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * 是否加载Bean，SpringBoot专属配置。默认不启用
-     */
-    private Boolean enabled = false;
+	/**
+	 * 是否加载Bean，SpringBoot专属配置。默认不启用
+	 */
+	@Builder.Default
+	private Boolean enabled = false;
 
-    /**
-     * 供应商: aliyun、qcloud、ucloud、huawei、goFastdfs、upyun、qiniu
-     */
-    private String provider;
+	/**
+	 * 供应商: aliyun、qcloud、ucloud、huawei、goFastdfs、upyun、qiniu
+	 */
+	private String provider;
 
-    /**
-     * AccessKey ID
-     */
-    private String accessKeyId;
+	/**
+	 * AccessKey ID
+	 */
+	private String accessKeyId;
 
-    /**
-     * Access Key Secret
-     */
-    private String accessKeySecret;
+	/**
+	 * Access Key Secret
+	 */
+	private String accessKeySecret;
 
-    /**
-     * 仓库/存储桶名称
-     */
-    private String bucket;
+	/**
+	 * 仓库/存储桶名称
+	 */
+	private String bucket;
 
-    /**
-     * 地域节点
-     */
-    private String endpoint;
+	/**
+	 * 地域节点
+	 */
+	private String endpoint;
 
-    /**
-     * 地域(腾讯云专用)
-     */
-    private String region;
+	/**
+	 * 地域(腾讯云专用)
+	 */
+	private String region;
 
-    /**
-     * 前缀
-     */
-    private String prefix;
+	/**
+	 * 前缀
+	 */
+	private String prefix;
 
-    /**
-     * 样式名 - 需要带分隔符
-     */
-    private String styleName;
+	/**
+	 * 样式名 - 需要带分隔符
+	 */
+	private String styleName;
 
-    /**
-     * 当前网络协议
-     */
-    private String protocol = "https";
+	/**
+	 * 当前网络协议
+	 */
+	@Builder.Default
+	private String protocol = "https";
 
-    public CosProvider() {}
-
-    public CosProvider(CosProviderBuilder builder) {
-        this.provider = builder.provider;
-        this.accessKeyId = builder.accessKeyId;
-        this.accessKeySecret = builder.accessKeySecret;
-        this.bucket = builder.bucket;
-        this.endpoint = builder.endpoint;
-        this.region = builder.region;
-        this.prefix = builder.prefix;
-        this.styleName = builder.styleName;
-        this.protocol = builder.protocol;
-    }
-
-    public static CosProviderBuilder builder() {
-        return new CosProviderBuilder();
-    }
-
-    public static class CosProviderBuilder {
-
-        private String provider;
-        private String accessKeyId;
-        private String accessKeySecret;
-        private String bucket;
-        private String endpoint;
-        private String region;
-        private String prefix;
-        private String styleName;
-        private String protocol = "https";
-
-        public CosProviderBuilder provider(String provider) {
-            this.provider = provider;
-            return this;
-        }
-
-        public CosProviderBuilder accessKeyId(String accessKeyId) {
-            this.accessKeyId = accessKeyId;
-            return this;
-        }
-
-        public CosProviderBuilder accessKeySecret(String accessKeySecret) {
-            this.accessKeySecret = accessKeySecret;
-            return this;
-        }
-
-        public CosProviderBuilder bucket(String bucket) {
-            this.bucket = bucket;
-            return this;
-        }
-
-        public CosProviderBuilder endpoint(String endpoint) {
-            this.endpoint = endpoint;
-            return this;
-        }
-
-        public CosProviderBuilder region(String region) {
-            this.region = region;
-            return this;
-        }
-
-        public CosProviderBuilder prefix(String prefix) {
-            this.prefix = prefix;
-            return this;
-        }
-
-        public CosProviderBuilder styleName(String styleName) {
-            this.styleName = styleName;
-            return this;
-        }
-
-        public CosProviderBuilder protocol(String protocol) {
-            this.protocol = protocol;
-            return this;
-        }
-
-        public CosProvider build() {
-            return new CosProvider(this);
-        }
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public String getProvider() {
-        return provider;
-    }
-
-    public void setProvider(String provider) {
-        this.provider = provider;
-    }
-
-    public String getAccessKeyId() {
-        return accessKeyId;
-    }
-
-    public void setAccessKeyId(String accessKeyId) {
-        this.accessKeyId = accessKeyId;
-    }
-
-    public String getAccessKeySecret() {
-        return accessKeySecret;
-    }
-
-    public void setAccessKeySecret(String accessKeySecret) {
-        this.accessKeySecret = accessKeySecret;
-    }
-
-    public String getBucket() {
-        return bucket;
-    }
-
-    public void setBucket(String bucket) {
-        this.bucket = bucket;
-    }
-
-    public String getEndpoint() {
-        return endpoint;
-    }
-
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public String getPrefix() {
-        return prefix;
-    }
-
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
-    }
-
-    public String getStyleName() {
-        return styleName;
-    }
-
-    public void setStyleName(String styleName) {
-        this.styleName = styleName;
-    }
-
-    public String getProtocol() {
-        return protocol;
-    }
-
-    public void setProtocol(String protocol) {
-        this.protocol = protocol;
-    }
-
-    @Override
-    public String toString() {
-        return "CosProvider{ provider='" + provider + '\'' + ", accessKeyId='" + accessKeyId + '\''
-            + ", accessKeySecret='" + accessKeySecret + '\'' + ", bucket='" + bucket + '\'' + ", endpoint='" + endpoint
-            + '\'' + ", region='" + region + '\'' + ", prefix='" + prefix + '\'' + ", styleName='" + styleName + '\''
-            + ", protocol='" + protocol + '\'' + '}';
-    }
 }

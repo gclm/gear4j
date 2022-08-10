@@ -140,16 +140,20 @@
 
 package club.gclmit.gear4j.safe.config;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * Xss配置类
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
+@Data
+@EqualsAndHashCode(callSuper = false)
 @ConfigurationProperties(prefix = Gear4jSafeProperties.PREFIX)
 public class Gear4jSafeProperties {
 
@@ -172,27 +176,4 @@ public class Gear4jSafeProperties {
      */
     private List<String> excludes = new ArrayList<>();
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public List<String> getUrlPatterns() {
-        return urlPatterns;
-    }
-
-    public void setUrlPatterns(List<String> urlPatterns) {
-        this.urlPatterns = urlPatterns;
-    }
-
-    public List<String> getExcludes() {
-        return excludes;
-    }
-
-    public void setExcludes(List<String> excludes) {
-        this.excludes = excludes;
-    }
 }

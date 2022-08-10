@@ -54,6 +54,7 @@ configure(subprojects - project(":gear4j-bom")) {
 
     ext {
         springBootVersion = "2.6.9"
+        lombokVersion = "1.18.24"
     }
 
     // 子项目依赖，类似于在父maven的dependencies
@@ -65,9 +66,14 @@ configure(subprojects - project(":gear4j-bom")) {
         compileOnly "jakarta.servlet:jakarta.servlet-api"
         compileOnly "org.springframework.boot:spring-boot-starter-web"
         annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
-
         testCompileOnly "com.google.code.findbugs:jsr305"
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+        // lombok
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+        testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
     }
 
 

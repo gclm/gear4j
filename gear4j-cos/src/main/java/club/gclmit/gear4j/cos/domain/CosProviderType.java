@@ -140,6 +140,10 @@
 
 package club.gclmit.gear4j.cos.domain;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -149,87 +153,67 @@ import java.util.stream.Collectors;
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
+@Getter
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public enum CosProviderType {
 
-    /**
-     * 阿里云
-     */
-    ALIYUN(0, "aliyun", "阿里云"),
+	/**
+	 * 阿里云
+	 */
+	ALIYUN(0, "aliyun", "阿里云"),
 
-    /**
-     * 七牛云
-     */
-    QINIU(1, "qiniu", "七牛云"),
+	/**
+	 * 七牛云
+	 */
+	QINIU(1, "qiniu", "七牛云"),
 
-    /**
-     * 腾讯云
-     */
-    QCLOUD(2, "qcloud", "腾讯云"),
+	/**
+	 * 腾讯云
+	 */
+	QCLOUD(2, "qcloud", "腾讯云"),
 
-    /**
-     * 又拍云
-     */
-    UPYUN(3, "upyun", "又拍云"),
+	/**
+	 * 又拍云
+	 */
+	UPYUN(3, "upyun", "又拍云"),
 
-    /**
-     * UCLOUD
-     */
-    UCLOUD(4, "ucloud", "UCLOUD"),
+	/**
+	 * UCLOUD
+	 */
+	UCLOUD(4, "ucloud", "UCLOUD"),
 
-    /**
-     * 华为云
-     */
-    HUAWEI(5, "huawei", "华为云"),
+	/**
+	 * 华为云
+	 */
+	HUAWEI(5, "huawei", "华为云"),
 
-    /**
-     * go-fastDfs
-     */
-    GO_FASTDFS(6, "goFastdfs", "自建go-fastdfs");
+	/**
+	 * go-fastDfs
+	 */
+	GO_FASTDFS(6, "goFastdfs", "自建go-fastdfs");
 
-    /**
-     * id
-     */
-    private final Integer id;
+	/**
+	 * id
+	 */
+	private final Integer id;
 
-    /**
-     * code
-     */
-    private final String code;
+	/**
+	 * code
+	 */
+	private final String code;
 
-    /**
-     * 服务
-     */
-    private final String name;
+	/**
+	 * 服务
+	 */
+	private final String name;
 
-    CosProviderType(Integer id, String code, String name) {
-        this.id = id;
-        this.code = code;
-        this.name = name;
-    }
 
-    /**
-     * 返回所有服务code
-     *
-     * @return {@link String}
-     */
-    public static List<String> getServerCodeList() {
-        return Arrays.stream(CosProviderType.values()).map(CosProviderType::getCode).collect(Collectors.toList());
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String toString() {
-        return "CosProviderType{" + "id=" + id + ", code='" + code + '\'' + ", name='" + name + '\'' + '}';
-    }
+	/**
+	 * 返回所有服务code
+	 *
+	 * @return {@link String}
+	 */
+	public static List<String> getServerCodeList() {
+		return Arrays.stream(CosProviderType.values()).map(CosProviderType::getCode).collect(Collectors.toList());
+	}
 }
