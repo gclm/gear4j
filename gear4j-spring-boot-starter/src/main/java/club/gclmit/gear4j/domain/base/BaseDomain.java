@@ -7,7 +7,6 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 
@@ -19,7 +18,6 @@ import java.io.Serializable;
  * @since jdk11
  */
 @Data
-@SuperBuilder
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class BaseDomain implements Serializable {
@@ -46,11 +44,4 @@ public class BaseDomain implements Serializable {
 	@TableField(value = "deleted", fill = FieldFill.INSERT)
 	@ApiModelProperty("逻辑删除")
 	private Boolean deleted;
-
-    /**
-     * 备注
-     */
-    @TableField("remark")
-    @ApiModelProperty("备注")
-    private String remark;
 }
