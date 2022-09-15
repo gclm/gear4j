@@ -1,19 +1,17 @@
 package club.gclmit.gear4j.redis.limit;
 
-import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import club.gclmit.gear4j.core.exception.Gear4jException;
+import club.gclmit.gear4j.core.utils.ServletUtils;
+import club.gclmit.gear4j.redis.cache.RedisCache;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import club.gclmit.gear4j.core.exception.Gear4jException;
-import club.gclmit.gear4j.core.utils.ServletUtils;
-import club.gclmit.gear4j.redis.cache.GlobalCache;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 基于 Redis 的限流拦截器
@@ -25,9 +23,9 @@ import club.gclmit.gear4j.redis.cache.GlobalCache;
 @Component
 public class RateLimitInterceptor implements HandlerInterceptor {
 
-    @Lazy
-    @Resource
-    private GlobalCache redisCache;
+	@Lazy
+	@Resource
+	private RedisCache redisCache;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
