@@ -1,15 +1,16 @@
 package club.gclmit.gear4j.web;
 
+import club.gclmit.gear4j.core.exception.Gear4jException;
 import cn.hutool.core.text.CharSequenceUtil;
 
 /**
- * Safe模块Exception
+ * 自定义效验异常
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since 2022/7/17 02:38
  * @since jdk11
  */
-public class Gear4jValidateException extends RuntimeException {
+public class Gear4jValidateException extends Gear4jException {
 
 	private static final long serialVersionUID = 1L;
 

@@ -1,5 +1,6 @@
 package club.gclmit.gear4j.safe;
 
+import club.gclmit.gear4j.core.exception.Gear4jException;
 import cn.hutool.core.text.CharSequenceUtil;
 
 /**
@@ -9,17 +10,18 @@ import cn.hutool.core.text.CharSequenceUtil;
  * @since 2022/7/17 02:38
  * @since jdk11
  */
-public class Gear4jSafeException extends RuntimeException {
+public class Gear4jSafeException extends Gear4jException {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    public Gear4jSafeException() {}
+	public Gear4jSafeException() {
+	}
 
-    public Gear4jSafeException(Throwable cause) {
-        super(cause);
-    }
+	public Gear4jSafeException(Throwable cause) {
+		super(cause);
+	}
 
-    public Gear4jSafeException(String message) {
+	public Gear4jSafeException(String message) {
         super(message);
     }
 
