@@ -1,29 +1,57 @@
 {"version":"3","listProblem":[{
   "tool": "Code Inspection",
-  "category": "Code maturity",
-  "type": "Use of 'System.out' or 'System.err'",
-  "severity": "High",
-  "comment": "Uses of 'System.out' should probably be replaced with more robust logging",
-  "detailsInfo": "Reports usages of `System.out` or `System.err`.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code, or replaced by a more robust\nlogging facility.",
+  "category": "Nullability problems",
+  "type": "@NotNull/@Nullable problems",
+  "severity": "Moderate",
+  "comment": "The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.springframework.lang.Nullable'.",
+  "detailsInfo": "Reports problems related to nullability annotations.\n\n**Examples:**\n\n* Overriding methods are not annotated:\n\n\n      abstract class A {\n        @NotNull abstract String m();\n      }\n      class B extends A {\n          String m() { return \"empty string\"; }\n      }\n          \n* Annotated primitive types: `@NotNull int myFoo;`\n* Both `@Nullable` and `@NotNull` are present on the same member: `@Nullable @NotNull String myFooString;`\n* Collection of nullable elements is assigned into a collection of non-null elements:\n\n\n      void testList(List<@Nullable String> nullableList) {\n         List<@NotNull String> list2 = nullableList;\n      }\n          \nUse the **Configure Annotations** button to specify nullability annotations and the checkboxes to fine-tune where the inspection should provide warnings.\n\nThis inspection only reports if the language level of the project or module is 5 or higher,\nand nullability annotations are available on the classpath.",
   "sources": [
     {
       "type": "file",
-      "path": "gear4j-extra/src/main/java/club/gclmit/gear4j/extra/notify/dingtalk/DingtalkBot.java",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/http/servlet/HttpCacheResponseWrapper.java",
       "language": "JAVA",
-      "line": 85,
-      "offset": 9,
-      "length": 10,
+      "line": 230,
+      "offset": 3,
+      "length": 8,
       "code": {
-        "startLine": 83,
-        "length": 10,
-        "offset": 170,
-        "surroundingCode": "        HttpResult result = OkHttps.async(url).setBodyPara(content).bodyType(OkHttps.JSON).post().getResult();\n        String body = result.getBody().toString();\n        System.out.println(StringUtils.format(\"钉钉消息发送({}): -->{}\", result.getStatus(), body));\n        if (HttpStatus.OK.value() == result.getStatus()) {\n            return 0 == JSONObject.parseObject(body).getInteger(\"errcode\");"
+        "startLine": 228,
+        "length": 8,
+        "offset": 46,
+        "surroundingCode": "\tprivate ServletOutputStream outputStream;\n\n\t@Nullable\n\tprivate PrintWriter writer;\n"
       }
     }
   ],
   "attributes": {
-    "module": "gear4j.gear4j-extra.main",
-    "inspectionName": "SystemOutErr"
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "NullableProblems"
   },
-  "hash": "7d13aaaf5eb606aa79cd72383ada7ebc60a5ff16e498e08e40347a8d5051c7e2"
+  "hash": "75fd0be0db26c10694cf07cdefa7f71d8244b6624a0ca7dc9a31a7c5a6c442f7"
+},{
+  "tool": "Code Inspection",
+  "category": "Nullability problems",
+  "type": "@NotNull/@Nullable problems",
+  "severity": "Moderate",
+  "comment": "The generated code will use 'org.jetbrains.annotations.Nullable' instead of 'org.springframework.lang.Nullable'.",
+  "detailsInfo": "Reports problems related to nullability annotations.\n\n**Examples:**\n\n* Overriding methods are not annotated:\n\n\n      abstract class A {\n        @NotNull abstract String m();\n      }\n      class B extends A {\n          String m() { return \"empty string\"; }\n      }\n          \n* Annotated primitive types: `@NotNull int myFoo;`\n* Both `@Nullable` and `@NotNull` are present on the same member: `@Nullable @NotNull String myFooString;`\n* Collection of nullable elements is assigned into a collection of non-null elements:\n\n\n      void testList(List<@Nullable String> nullableList) {\n         List<@NotNull String> list2 = nullableList;\n      }\n          \nUse the **Configure Annotations** button to specify nullability annotations and the checkboxes to fine-tune where the inspection should provide warnings.\n\nThis inspection only reports if the language level of the project or module is 5 or higher,\nand nullability annotations are available on the classpath.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/http/servlet/HttpCacheResponseWrapper.java",
+      "language": "JAVA",
+      "line": 227,
+      "offset": 3,
+      "length": 8,
+      "code": {
+        "startLine": 225,
+        "length": 8,
+        "offset": 78,
+        "surroundingCode": "public class HttpCacheResponseWrapper extends HttpServletResponseWrapper {\n\n\t@Nullable\n\tprivate ServletOutputStream outputStream;\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "NullableProblems"
+  },
+  "hash": "4269fd31efb88a64353b0ac829cd95a9cef40f4042453602e870d0b6cff81e13"
 }]}

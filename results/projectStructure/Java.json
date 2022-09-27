@@ -37,10 +37,6 @@
       "languageLevel": 11
     },
     {
-      "name": "gear4j.gear4j-web",
-      "languageLevel": 11
-    },
-    {
       "name": "gear4j.test",
       "languageLevel": 11
     },
@@ -102,14 +98,6 @@
     },
     {
       "name": "gear4j.gear4j-spring-boot-starter.main",
-      "languageLevel": 11
-    },
-    {
-      "name": "gear4j.gear4j-web.test",
-      "languageLevel": 11
-    },
-    {
-      "name": "gear4j.gear4j-web.main",
       "languageLevel": 11
     }
   ]
