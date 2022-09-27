@@ -91,8 +91,17 @@ public class RedisCache {
 		}
 	}
 
+	public boolean updateValueCache(String key, Object value) {
+		try {
+			cacheValue(key, value, getExpire(key), TimeUnit.SECONDS);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
-	public Long incrValue(String key, Long delta) {
+	public Long incrementValue(String key, Long delta) {
 		if (delta < 0) {
 			throw new RuntimeException("递增因子必须大于0");
 		}
