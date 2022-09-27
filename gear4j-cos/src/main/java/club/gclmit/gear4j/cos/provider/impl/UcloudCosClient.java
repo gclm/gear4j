@@ -216,8 +216,8 @@ import org.slf4j.LoggerFactory;
 
 import club.gclmit.gear4j.core.exception.Gear4jException;
 import club.gclmit.gear4j.core.utils.StringUtils;
-import club.gclmit.gear4j.cos.model.CosProvider;
-import club.gclmit.gear4j.cos.model.FileInfo;
+import club.gclmit.gear4j.cos.domain.CosProvider;
+import club.gclmit.gear4j.cos.domain.FileInfo;
 import club.gclmit.gear4j.cos.provider.AbstractCosClient;
 import club.gclmit.gear4j.cos.provider.CosClient;
 import cn.hutool.core.date.DateUtil;

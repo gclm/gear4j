@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import club.gclmit.gear4j.cos.model.FileInfo;
+import club.gclmit.gear4j.cos.domain.FileInfo;
 
 /**
  * 使用抽象工厂模式

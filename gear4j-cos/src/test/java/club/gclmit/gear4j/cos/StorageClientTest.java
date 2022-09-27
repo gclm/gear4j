@@ -150,8 +150,8 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import club.gclmit.gear4j.cos.model.CosProvider;
-import club.gclmit.gear4j.cos.model.CosProviderType;
+import club.gclmit.gear4j.cos.domain.CosProvider;
+import club.gclmit.gear4j.cos.domain.CosProviderType;
 import club.gclmit.gear4j.cos.provider.CosClient;
 import club.gclmit.gear4j.cos.provider.CosClientBuilder;
 import cn.hutool.core.util.IdUtil;

@@ -141,15 +141,14 @@
 
 package club.gclmit.gear4j.core.utils;
 
+import club.gclmit.gear4j.core.exception.Gear4jException;
+import cn.hutool.core.util.IdUtil;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
-
-import club.gclmit.gear4j.core.exception.Gear4jException;
-import cn.hutool.core.util.IdUtil;
 
 /**
  * Spring MVC 文件上传
@@ -160,98 +159,109 @@ import cn.hutool.core.util.IdUtil;
  */
 public class UploadFileUtils {
 
-    /**
-     * 图片
-     */
-    public static final String[] IMAGE_EXTENSION = {"jpg", "jpeg", "webp", "png", "bmp"};
+	/**
+	 * 图片
+	 */
+	public static final String[] IMAGE_EXTENSION = {"jpg", "jpeg", "webp", "png", "bmp"};
 
-    public static final String[] WINDOWS_IMAGE_EXTENSION = {"xbm", "tif", "pjp", "svgz", "jpg", "jpeg", "ico", "tiff",
-        "gif", "svg", "jfif", "webp", "png", "bmp", "pjpeg", "avif"};
+	public static final String[] WINDOWS_IMAGE_EXTENSION = {"xbm", "tif", "pjp", "svgz", "jpg", "jpeg", "ico", "tiff",
+		"gif", "svg", "jfif", "webp", "png", "bmp", "pjpeg", "avif"};
 
-    /**
-     * flash
-     */
-    public static final String[] FLASH_EXTENSION = {"swf", "flv"};
+	/**
+	 * flash
+	 */
+	public static final String[] FLASH_EXTENSION = {"swf", "flv"};
 
-    /**
-     * media 后缀
-     */
-    public static final String[] MEDIA_EXTENSION =
-        {"swf", "flv", "mp3", "wav", "wma", "wmv", "mid", "avi", "mpg", "asf", "rm", "rmvb"};
+	/**
+	 * media 后缀
+	 */
+	public static final String[] MEDIA_EXTENSION =
+		{"swf", "flv", "mp3", "wav", "wma", "wmv", "mid", "avi", "mpg", "asf", "rm", "rmvb"};
 
-    /**
-     * video 后缀
-     */
-    public static final String[] VIDEO_EXTENSION = {"mp4", "avi", "rmvb"};
+	/**
+	 * video 后缀
+	 */
+	public static final String[] VIDEO_EXTENSION = {"mp4", "avi", "rmvb"};
 
-    /**
-     * 默认允许的后缀名
-     */
-    public static final String[] DEFAULT_ALLOWED_EXTENSION =
-        ArrayUtils.addAll(WINDOWS_IMAGE_EXTENSION, FLASH_EXTENSION, MEDIA_EXTENSION, VIDEO_EXTENSION);
+	/**
+	 * 默认允许的后缀名
+	 */
+	public static final String[] DEFAULT_ALLOWED_EXTENSION =
+		ArrayUtils.addAll(WINDOWS_IMAGE_EXTENSION, FLASH_EXTENSION, MEDIA_EXTENSION, VIDEO_EXTENSION);
 
-    private UploadFileUtils() {}
+	private UploadFileUtils() {
+	}
 
-    /**
-     * 判断文件是否为空 {@code null}.
-     *
-     * @param file 判断文件
-     * @return {@code true} if the file is empty or {@code null}
-     */
-    public static boolean isEmpty(MultipartFile file) {
-        return file == null || file.isEmpty();
-    }
+	/**
+	 * 判断文件是否为空 {@code null}.
+	 *
+	 * @param file 判断文件
+	 * @return {@code true} if the file is empty or {@code null}
+	 */
+	public static boolean isEmpty(MultipartFile file) {
+		return file == null || file.isEmpty();
+	}
 
-    /**
-     * 判断文件是否不为空
-     *
-     * @param file 判断文件
-     * @return {@code true} 当前 file 不为空返回 true
-     */
-    public static boolean isNotEmpty(MultipartFile file) {
-        return !isEmpty(file);
-    }
+	/**
+	 * 判断文件是否不为空
+	 *
+	 * @param file 判断文件
+	 * @return {@code true} 当前 file 不为空返回 true
+	 */
+	public static boolean isNotEmpty(MultipartFile file) {
+		return !isEmpty(file);
+	}
 
-    /**
-     * MultipartFile 转 File
-     *
-     * @param multipartFile springmvc封装的上传文件
-     * @return java.io.File
-     */
-    public static File toFile(MultipartFile multipartFile) {
-        return toFile(multipartFile, FileUtils.getRootPath(), Arrays.asList(DEFAULT_ALLOWED_EXTENSION));
-    }
+	/**
+	 * MultipartFile 转 File
+	 *
+	 * @param multipartFile springmvc封装的上传文件
+	 * @return java.io.File
+	 */
+	public static File toFile(MultipartFile multipartFile) {
+		return toFile(multipartFile, FileUtils.getRootPath(), Arrays.asList(DEFAULT_ALLOWED_EXTENSION));
+	}
 
-    /**
-     * MultipartFile 转 File
-     *
-     * @param multipartFile springmvc封装的上传文件
-     * @param dirPath 文件夹路径
-     * @return java.io.File
-     */
-    public static File toFile(MultipartFile multipartFile, String dirPath) {
-        return toFile(multipartFile, dirPath, Arrays.asList(DEFAULT_ALLOWED_EXTENSION));
-    }
+	/**
+	 * MultipartFile 转 File
+	 *
+	 * @param multipartFile springmvc封装的上传文件
+	 * @return java.io.File
+	 */
+	public static File toFile(MultipartFile multipartFile, List<String> whiteList) {
+		return toFile(multipartFile, FileUtils.getRootPath(), whiteList);
+	}
 
-    /**
-     * MultipartFile 转 File
-     *
-     * @param multipartFile springmvc封装的上传文件
-     * @param dirPath 文件夹路径
-     * @return java.io.File
-     */
-    public static File toFile(MultipartFile multipartFile, String dirPath, List<String> whiteList) {
-        String suffix = FileUtils.getSuffix(multipartFile);
-        if (whiteList.contains(suffix)) {
-            dirPath = StringUtils.isEmpty(dirPath) ? FileUtils.getRootPath() : dirPath;
-            File localFile = new File(dirPath, IdUtil.fastSimpleUUID() + "." + suffix);
-            try {
-                multipartFile.transferTo(localFile);
-            } catch (IOException e) {
-                throw new Gear4jException("MultipartFile To File 失败", e);
-            }
-            return localFile;
-        }
-        return null;
-    }
+	/**
+	 * MultipartFile 转 File
+	 *
+	 * @param multipartFile springmvc封装的上传文件
+	 * @param dirPath       文件夹路径
+	 * @return java.io.File
+	 */
+	public static File toFile(MultipartFile multipartFile, String dirPath) {
+		return toFile(multipartFile, dirPath, Arrays.asList(DEFAULT_ALLOWED_EXTENSION));
+	}
+
+	/**
+	 * MultipartFile 转 File
+	 *
+	 * @param multipartFile springmvc封装的上传文件
+	 * @param dirPath       文件夹路径
+	 * @return java.io.File
+	 */
+	public static File toFile(MultipartFile multipartFile, String dirPath, List<String> whiteList) {
+		String suffix = FileUtils.getSuffix(multipartFile);
+		if (whiteList.contains(suffix)) {
+			dirPath = StringUtils.isEmpty(dirPath) ? FileUtils.getRootPath() : dirPath;
+			File localFile = new File(dirPath, IdUtil.fastSimpleUUID() + "." + suffix);
+			try {
+				multipartFile.transferTo(localFile);
+			} catch (IOException e) {
+				throw new Gear4jException("MultipartFile To File 失败", e);
+			}
+			return localFile;
+		}
+		throw new Gear4jException("MultipartFile To File失败，当前格式【{}】不支持", suffix);
+	}
 }

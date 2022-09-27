@@ -140,17 +140,16 @@
 
 package club.gclmit.gear4j.core.utils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.InputStream;
-
-import org.springframework.web.multipart.MultipartFile;
-
 import club.gclmit.gear4j.core.exception.Gear4jException;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.crypto.SecureUtil;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.InputStream;
 
 /**
  * 文件辅助工具类
@@ -160,70 +159,71 @@ import cn.hutool.crypto.SecureUtil;
  */
 public class FileUtils extends FileUtil {
 
-    private FileUtils() {}
+	private FileUtils() {
+	}
 
-    /**
-     * 获取项目根目录
-     *
-     * @return {@link String}
-     */
-    public static String getRootPath() {
-        return System.getProperty("user.dir");
-    }
+	/**
+	 * 获取项目根目录
+	 *
+	 * @return {@link String}
+	 */
+	public static String getRootPath() {
+		return System.getProperty("user.dir");
+	}
 
-    /**
-     * 判断文件是否相同
-     *
-     * @param file1 文件1
-     * @param file2 文件2
-     * @return 如果文件相同返回 true,否则返回 false
-     */
-    public static boolean checkFile(File file1, File file2) {
-        return SecureUtil.md5(file1).equals(SecureUtil.md5(file2))
-            && SecureUtil.sha1(file1).equals(SecureUtil.sha1(file2));
-    }
+	/**
+	 * 判断文件是否相同
+	 *
+	 * @param file1 文件1
+	 * @param file2 文件2
+	 * @return 如果文件相同返回 true,否则返回 false
+	 */
+	public static boolean checkFile(File file1, File file2) {
+		return SecureUtil.md5(file1).equals(SecureUtil.md5(file2))
+			&& SecureUtil.sha1(file1).equals(SecureUtil.sha1(file2));
+	}
 
-    /**
-     * 获取文件内容
-     *
-     * @param file File
-     * @return {@link String}
-     */
-    public static String getContent(File file) {
-        Assert.isTrue(file.exists(), "文件不能为空");
-        StringBuilder str = new StringBuilder();
-        try (FileReader fileReader = new FileReader(file); BufferedReader reader = new BufferedReader(fileReader)) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                str.append(line);
-            }
-        } catch (Exception ignored) {
-        }
-        return str.toString();
-    }
+	/**
+	 * 获取文件内容
+	 *
+	 * @param file File
+	 * @return {@link String}
+	 */
+	public static String getContent(File file) {
+		Assert.isTrue(file.exists(), "文件不能为空");
+		StringBuilder str = new StringBuilder();
+		try (FileReader fileReader = new FileReader(file); BufferedReader reader = new BufferedReader(fileReader)) {
+			String line;
+			while ((line = reader.readLine()) != null) {
+				str.append(line);
+			}
+		} catch (Exception ignored) {
+		}
+		return str.toString();
+	}
 
-    /**
-     * 获取文件内容并去除全部空格
-     *
-     * @param file File
-     * @return {@link String}
-     */
-    public static String getContentTrim(File file) {
-        return getContent(file).replaceAll("\\s*", "");
-    }
+	/**
+	 * 获取文件内容并去除全部空格
+	 *
+	 * @param file File
+	 * @return {@link String}
+	 */
+	public static String getContentTrim(File file) {
+		return getContent(file).replaceAll("\\s*", "");
+	}
 
-    /**
-     * 获取文件后缀
-     *
-     * @param file MultipartFile
-     * @return {@link String}
-     */
-    public static String getSuffix(MultipartFile file) {
-        Assert.notNull(file, "文件不能为空");
-        try (InputStream inputStream = file.getInputStream()) {
-            return FileTypeUtils.getType(inputStream);
-        } catch (Exception e) {
-            throw new Gear4jException("读取文件失败", e);
-        }
-    }
+	/**
+	 * 获取文件后缀
+	 *
+	 * @param file MultipartFile
+	 * @return {@link String}
+	 */
+	public static String getSuffix(MultipartFile file) {
+		Assert.notNull(file, "文件不能为空");
+		try (InputStream inputStream = file.getInputStream()) {
+			return FileTypeUtils.getType(inputStream, file.getOriginalFilename());
+		} catch (Exception e) {
+			throw new Gear4jException("读取文件失败", e);
+		}
+	}
 }

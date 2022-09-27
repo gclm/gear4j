@@ -152,9 +152,9 @@ import org.springframework.web.servlet.HandlerMapping;
 
 import com.alibaba.fastjson.JSONObject;
 
-import club.gclmit.gear4j.core.exception.Gear4jException;
 import club.gclmit.gear4j.core.utils.ArrayUtils;
 import club.gclmit.gear4j.core.utils.IoUtils;
+import club.gclmit.gear4j.safe.Gear4jSafeException;
 import cn.hutool.core.util.CharsetUtil;
 
 /**
@@ -207,7 +207,7 @@ public class SafeHttpServletRequestWrapper extends HttpServletRequestWrapper {
         String[] values = super.getParameterValues(name);
         if (ArrayUtils.isNotEmpty(values)) {
             if (SafeRules.isInjection(List.of(values))) {
-                throw new Gear4jException("您所访问的页面请求中有违反安全规则元素存在，拒绝访问!");
+                throw new Gear4jSafeException("您所访问的页面请求中有违反安全规则元素存在，拒绝访问!");
             }
         }
         return super.getParameterValues(name);
@@ -225,7 +225,7 @@ public class SafeHttpServletRequestWrapper extends HttpServletRequestWrapper {
             }
             String result = JSONObject.toJSONString(attribute);
             if (SafeRules.isInjection(result)) {
-                throw new Gear4jException("您所访问的页面请求中有违反安全规则元素存在，拒绝访问!");
+                throw new Gear4jSafeException("您所访问的页面请求中有违反安全规则元素存在，拒绝访问!");
             }
         }
         return super.getAttribute(name);
@@ -235,14 +235,14 @@ public class SafeHttpServletRequestWrapper extends HttpServletRequestWrapper {
     public ServletInputStream getInputStream() throws IOException {
         String result = IoUtils.read(super.getInputStream(), CharsetUtil.CHARSET_UTF_8);
         if (SafeRules.isInjection(result)) {
-            throw new Gear4jException("您所访问的页面请求中有违反安全规则元素存在，拒绝访问!");
+            throw new Gear4jSafeException("您所访问的页面请求中有违反安全规则元素存在，拒绝访问!");
         }
         return super.getInputStream();
     }
 
     private String validaHandler(String text) {
         if (SafeRules.isInjection(text)) {
-            throw new Gear4jException("您所访问的页面请求中有违反安全规则元素存在，拒绝访问!");
+            throw new Gear4jSafeException("您所访问的页面请求中有违反安全规则元素存在，拒绝访问!");
         }
         return text;
     }

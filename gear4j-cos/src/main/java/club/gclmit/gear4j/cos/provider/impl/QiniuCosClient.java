@@ -143,8 +143,8 @@ package club.gclmit.gear4j.cos.provider.impl;
 import java.io.InputStream;
 import java.util.List;
 
-import club.gclmit.gear4j.cos.model.CosProvider;
-import club.gclmit.gear4j.cos.model.FileInfo;
+import club.gclmit.gear4j.cos.domain.CosProvider;
+import club.gclmit.gear4j.cos.domain.FileInfo;
 import club.gclmit.gear4j.cos.provider.AbstractCosClient;
 import club.gclmit.gear4j.cos.provider.CosClient;
 

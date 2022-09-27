@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import club.gclmit.gear4j.cos.model.CosProvider;
+import club.gclmit.gear4j.cos.domain.CosProvider;
 import club.gclmit.gear4j.cos.provider.CosClient;
 import club.gclmit.gear4j.cos.provider.CosClientBuilder;
 

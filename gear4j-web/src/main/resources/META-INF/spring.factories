@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-club.gclmit.gear4j.web.config.Gear4jWebConfig

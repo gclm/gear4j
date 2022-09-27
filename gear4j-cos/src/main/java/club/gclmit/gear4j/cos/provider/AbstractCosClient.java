@@ -140,6 +140,13 @@
 
 package club.gclmit.gear4j.cos.provider;
 
+import club.gclmit.gear4j.core.exception.Gear4jException;
+import club.gclmit.gear4j.core.utils.*;
+import club.gclmit.gear4j.cos.domain.CosProvider;
+import club.gclmit.gear4j.cos.domain.FileInfo;
+import org.springframework.util.Assert;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -149,14 +156,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 
-import org.springframework.util.Assert;
-import org.springframework.web.multipart.MultipartFile;
-
-import club.gclmit.gear4j.core.exception.Gear4jException;
-import club.gclmit.gear4j.core.utils.*;
-import club.gclmit.gear4j.cos.model.CosProvider;
-import club.gclmit.gear4j.cos.model.FileInfo;
-
 /**
  * 抽象存储类
  *
@@ -165,139 +164,141 @@ import club.gclmit.gear4j.cos.model.FileInfo;
  */
 public abstract class AbstractCosClient implements CosClient {
 
-    /**
-     * cos 配置参数
-     */
-    protected final CosProvider cosProvider;
+	/**
+	 * cos 配置参数
+	 */
+	protected final CosProvider cosProvider;
 
-    public AbstractCosClient(CosProvider cosProvider) {
-        this.cosProvider = cosProvider;
-    }
+	public AbstractCosClient(CosProvider cosProvider) {
+		this.cosProvider = cosProvider;
+	}
 
-    /**
-     * 上传文件
-     *
-     * @param file 文件
-     * @return {@link FileInfo} 文件信息
-     */
-    @Override
-    public FileInfo upload(File file) {
-        Assert.isTrue(file.exists(), "上传文件不能为空");
-        try {
-            FileInputStream fileInputStream = new FileInputStream(file);
-            return upload(fileInputStream, buildFileInfo(file));
-        } catch (Exception e) {
-            throw new Gear4jException("文件上传失败", e);
-        }
-    }
+	/**
+	 * 上传文件
+	 *
+	 * @param file 文件
+	 * @return {@link FileInfo} 文件信息
+	 */
+	@Override
+	public FileInfo upload(File file) {
+		Assert.isTrue(file.exists(), "上传文件不能为空");
+		try {
+			FileInputStream fileInputStream = new FileInputStream(file);
+			return upload(fileInputStream, buildFileInfo(file));
+		} catch (Exception e) {
+			throw new Gear4jException("文件上传失败", e);
+		}
+	}
 
-    /**
-     * 上传文件
-     *
-     * @param file 文件
-     * @return {@link FileInfo} 文件信息
-     */
-    @Override
-    public FileInfo upload(MultipartFile file) {
-        try {
-            InputStream stream = file.getInputStream();
-            return upload(stream, buildFileInfo(file));
-        } catch (Exception e) {
-            throw new Gear4jException("文件上传失败", e);
-        }
-    }
+	/**
+	 * 上传文件
+	 *
+	 * @param file 文件
+	 * @return {@link FileInfo} 文件信息
+	 */
+	@Override
+	public FileInfo upload(MultipartFile file) {
+		try {
+			InputStream stream = file.getInputStream();
+			return upload(stream, buildFileInfo(file));
+		} catch (Exception e) {
+			throw new Gear4jException("文件上传失败", e);
+		}
+	}
 
-    /**
-     * 上传字节数组
-     *
-     * @param data 字节数组
-     * @return {@link FileInfo} 文件信息
-     */
-    @Override
-    public FileInfo upload(byte[] data) {
-        Assert.notEmpty(Collections.singleton(data), "上传文件失败，请检查 byte[] 是否正常");
+	/**
+	 * 上传字节数组
+	 *
+	 * @param data 字节数组
+	 * @return {@link FileInfo} 文件信息
+	 */
+	@Override
+	public FileInfo upload(byte[] data) {
+		Assert.notEmpty(Collections.singleton(data), "上传文件失败，请检查 byte[] 是否正常");
 
-        /*
-         * 根据工具类获取 fileInfo 参数
-         */
-        String contentType = MimeTypeUtils.TEXT_PLAIN_VALUE;
-        Long size = Long.valueOf(String.valueOf(data.length));
-        String fileName = IdUtils.getYeinGid() + ".txt";
+		/*
+		 * 根据工具类获取 fileInfo 参数
+		 */
+		String fileName = IdUtils.getYeinGid() + ".txt";
 
-        return upload(new ByteArrayInputStream(data), new FileInfo(fileName, contentType, fileName,
-            cosProvider.getProvider(), size, SecureUtils.md5(data), SecureUtils.sha1(data)));
-    }
+		FileInfo fileInfo = FileInfo.builder().ossKey(fileName).ossType(cosProvider.getProvider())
+			.name(fileName).contentType(MimeTypeUtils.TEXT_PLAIN_VALUE).size((long) data.length)
+			.md5(SecureUtils.md5(data)).sha1(SecureUtils.sha1(data)).build();
 
-    /**
-     * 上传字符串
-     *
-     * @param content 字符串内容
-     * @return {@link FileInfo} 文件信息
-     */
-    @Override
-    public FileInfo upload(String content) {
-        return upload(content.getBytes(StandardCharsets.UTF_8));
-    }
+		return upload(new ByteArrayInputStream(data), fileInfo);
+	}
 
-    /**
-     * 构造FileInfo
-     *
-     * @param file 文件
-     * @return {@link FileInfo} 文件信息
-     */
-    public FileInfo buildFileInfo(File file) {
-        String contentType = FileUtils.getMimeType(file.getAbsolutePath());
-        String key = buildKey(cosProvider.getPrefix(), FileUtils.getSuffix(file));
-        return new FileInfo(file.getName(), contentType, key, cosProvider.getProvider(), file.length(),
-            SecureUtils.md5(file), SecureUtils.sha1(file));
-    }
+	/**
+	 * 上传字符串
+	 *
+	 * @param content 字符串内容
+	 * @return {@link FileInfo} 文件信息
+	 */
+	@Override
+	public FileInfo upload(String content) {
+		return upload(content.getBytes(StandardCharsets.UTF_8));
+	}
 
-    /**
-     * 构造FileInfo
-     *
-     * @param file 文件
-     * @return {@link FileInfo} 文件信息
-     */
-    public FileInfo buildFileInfo(MultipartFile file) {
-        String key = buildKey(cosProvider.getPrefix(), FileUtils.getSuffix(file));
-        return new FileInfo(file.getOriginalFilename(), file.getContentType(), key, cosProvider.getProvider(),
-            file.getSize(), SecureUtils.md5(file), SecureUtils.sha1(file));
-    }
+	/**
+	 * 构造FileInfo
+	 *
+	 * @param file 文件
+	 * @return {@link FileInfo} 文件信息
+	 */
+	public FileInfo buildFileInfo(File file) {
+		String contentType = FileUtils.getMimeType(file.getAbsolutePath());
+		String key = buildKey(cosProvider.getPrefix(), FileUtils.getSuffix(file));
+		return FileInfo.builder().ossKey(key).ossType(cosProvider.getProvider()).name(file.getName()).contentType(contentType)
+			.size(file.length()).md5(SecureUtils.md5(file)).sha1(SecureUtils.sha1(file)).build();
+	}
 
-    /**
-     * 文件路径 <br>
-     * 这里采用的文件命名格式：时间段 + 全局id
-     *
-     * @param prefix 前缀
-     * @param suffix 后缀
-     * @return {@link String} oss key
-     */
-    public String buildKey(String prefix, String suffix) {
+	/**
+	 * 构造FileInfo
+	 *
+	 * @param file 文件
+	 * @return {@link FileInfo} 文件信息
+	 */
+	public FileInfo buildFileInfo(MultipartFile file) {
+		String key = buildKey(cosProvider.getPrefix(), FileUtils.getSuffix(file));
+		return FileInfo.builder().ossKey(key).ossType(cosProvider.getProvider())
+			.name(file.getOriginalFilename()).contentType(file.getContentType()).size(file.getSize())
+			.md5(SecureUtils.md5(file)).sha1(SecureUtils.sha1(file)).build();
+	}
 
-        LocalDate localDate = LocalDate.now();
-        String dateFormat = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
+	/**
+	 * 文件路径 <br>
+	 * 这里采用的文件命名格式：时间段 + 全局id
+	 *
+	 * @param prefix 前缀
+	 * @param suffix 后缀
+	 * @return {@link String} oss key
+	 */
+	public String buildKey(String prefix, String suffix) {
 
-        // 文件路径
-        StringBuilder path = new StringBuilder();
+		LocalDate localDate = LocalDate.now();
+		String dateFormat = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
 
-        /*
-         * 前后缀拼接逻辑:
-         *  先判断是否存在前缀，存在在拼接，否则根据实际情况进行修改
-         */
-        if (StringUtils.isNotBlank(prefix)) {
-            path.append(prefix).append("/");
-        }
+		// 文件路径
+		StringBuilder path = new StringBuilder();
 
-        path.append(dateFormat).append("/").append(IdUtils.getYeinGid());
+		/*
+		 * 前后缀拼接逻辑:
+		 *  先判断是否存在前缀，存在在拼接，否则根据实际情况进行修改
+		 */
+		if (StringUtils.isNotBlank(prefix)) {
+			path.append(prefix).append("/");
+		}
 
-        if (suffix != null) {
-            if (suffix.contains(StringUtils.DOT)) {
-                path.append(suffix);
-            } else {
-                path.append(StringUtils.DOT).append(suffix);
-            }
-        }
-        return path.toString();
-    }
+		path.append(dateFormat).append("/").append(IdUtils.getYeinGid());
+
+		if (suffix != null) {
+			if (suffix.contains(StringUtils.DOT)) {
+				path.append(suffix);
+			} else {
+				path.append(StringUtils.DOT).append(suffix);
+			}
+		}
+		return path.toString();
+	}
 
 }
