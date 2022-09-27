@@ -10,34 +10,6 @@
       "type": "file",
       "path": "gear4j-spring-boot-starter/src/main/java/club/gclmit/gear4j/web/Gear4jGlobalExceptionHandler.java",
       "language": "JAVA",
-      "line": 224,
-      "offset": 5,
-      "length": 15,
-      "code": {
-        "startLine": 222,
-        "length": 15,
-        "offset": 104,
-        "surroundingCode": "\t@ExceptionHandler(RuntimeException.class)\n\tpublic ApiResult<Object> notFount(RuntimeException e) {\n\t\te.printStackTrace();\n\t\treturn ApiResult.fail(\"运行时异常：\" + e.getMessage());\n\t}"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-spring-boot-starter.main",
-    "inspectionName": "ThrowablePrintStackTrace"
-  },
-  "hash": "5b0c35404a03dabab9d00d9714c283f78caa23f288104d4d2e498165abd73cac"
-},{
-  "tool": "Code Inspection",
-  "category": "Code maturity",
-  "type": "Call to 'printStackTrace()'",
-  "severity": "High",
-  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
-  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-spring-boot-starter/src/main/java/club/gclmit/gear4j/web/Gear4jGlobalExceptionHandler.java",
-      "language": "JAVA",
       "line": 233,
       "offset": 5,
       "length": 15,
@@ -54,6 +26,34 @@
     "inspectionName": "ThrowablePrintStackTrace"
   },
   "hash": "be67f2cac547f1c75cb9f4bad78e5df994053ccf2a91dc4a350525fd02321da2"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-spring-boot-starter/src/main/java/club/gclmit/gear4j/web/Gear4jGlobalExceptionHandler.java",
+      "language": "JAVA",
+      "line": 224,
+      "offset": 5,
+      "length": 15,
+      "code": {
+        "startLine": 222,
+        "length": 15,
+        "offset": 104,
+        "surroundingCode": "\t@ExceptionHandler(RuntimeException.class)\n\tpublic ApiResult<Object> notFount(RuntimeException e) {\n\t\te.printStackTrace();\n\t\treturn ApiResult.fail(\"运行时异常：\" + e.getMessage());\n\t}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-spring-boot-starter.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "5b0c35404a03dabab9d00d9714c283f78caa23f288104d4d2e498165abd73cac"
 },{
   "tool": "Code Inspection",
   "category": "Code maturity",
@@ -94,174 +94,6 @@
       "type": "file",
       "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
       "language": "JAVA",
-      "line": 350,
-      "offset": 6,
-      "length": 15,
-      "code": {
-        "startLine": 348,
-        "length": 15,
-        "offset": 47,
-        "surroundingCode": "\t\t\treturn true;\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn false;\n\t\t}"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-redis.main",
-    "inspectionName": "ThrowablePrintStackTrace"
-  },
-  "hash": "996d6b8cba6731363026816fa6a2aceb4528811b702027e6876b33bc7a380d80"
-},{
-  "tool": "Code Inspection",
-  "category": "Code maturity",
-  "type": "Call to 'printStackTrace()'",
-  "severity": "High",
-  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
-  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
-      "language": "JAVA",
-      "line": 203,
-      "offset": 6,
-      "length": 15,
-      "code": {
-        "startLine": 201,
-        "length": 15,
-        "offset": 81,
-        "surroundingCode": "\t\t\treturn redisTemplate.opsForSet().members(key);\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn null;\n\t\t}"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-redis.main",
-    "inspectionName": "ThrowablePrintStackTrace"
-  },
-  "hash": "9ec20982c7877da85674771ac8d131d225c0a8900c6bb4c90b45ba6e996c5808"
-},{
-  "tool": "Code Inspection",
-  "category": "Code maturity",
-  "type": "Call to 'printStackTrace()'",
-  "severity": "High",
-  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
-  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
-      "language": "JAVA",
-      "line": 37,
-      "offset": 6,
-      "length": 15,
-      "code": {
-        "startLine": 35,
-        "length": 15,
-        "offset": 36,
-        "surroundingCode": "\t\t\t}\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t}\n\t}"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-redis.main",
-    "inspectionName": "ThrowablePrintStackTrace"
-  },
-  "hash": "e24b7c1f5f8b79607f99c80bcaf7440be15bff14f5592736f676bfc51ee6885b"
-},{
-  "tool": "Code Inspection",
-  "category": "Code maturity",
-  "type": "Call to 'printStackTrace()'",
-  "severity": "High",
-  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
-  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
-      "language": "JAVA",
-      "line": 51,
-      "offset": 6,
-      "length": 15,
-      "code": {
-        "startLine": 49,
-        "length": 15,
-        "offset": 89,
-        "surroundingCode": "\t\t\treturn Boolean.TRUE.equals(redisTemplate.hasKey(key));\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn false;\n\t\t}"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-redis.main",
-    "inspectionName": "ThrowablePrintStackTrace"
-  },
-  "hash": "3d901a978518c8f05e6d22db555ee7628f4326b432da88f0de57239b87c6e920"
-},{
-  "tool": "Code Inspection",
-  "category": "Code maturity",
-  "type": "Call to 'printStackTrace()'",
-  "severity": "High",
-  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
-  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
-      "language": "JAVA",
-      "line": 247,
-      "offset": 6,
-      "length": 15,
-      "code": {
-        "startLine": 245,
-        "length": 15,
-        "offset": 78,
-        "surroundingCode": "\t\t\treturn redisTemplate.opsForSet().size(key);\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn 0L;\n\t\t}"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-redis.main",
-    "inspectionName": "ThrowablePrintStackTrace"
-  },
-  "hash": "6036360ce2503f9f865d595c3ce2a2205af82ad13dcb465f08019bda78cffaf8"
-},{
-  "tool": "Code Inspection",
-  "category": "Code maturity",
-  "type": "Call to 'printStackTrace()'",
-  "severity": "High",
-  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
-  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
-      "language": "JAVA",
-      "line": 287,
-      "offset": 6,
-      "length": 15,
-      "code": {
-        "startLine": 285,
-        "length": 15,
-        "offset": 87,
-        "surroundingCode": "\t\t\treturn redisTemplate.opsForList().index(key, index);\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn null;\n\t\t}"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-redis.main",
-    "inspectionName": "ThrowablePrintStackTrace"
-  },
-  "hash": "80c42d96250e71f07c973264fc5b5004fda28717008aab265551ec88c8270265"
-},{
-  "tool": "Code Inspection",
-  "category": "Code maturity",
-  "type": "Call to 'printStackTrace()'",
-  "severity": "High",
-  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
-  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
-      "language": "JAVA",
       "line": 223,
       "offset": 6,
       "length": 15,
@@ -278,90 +110,6 @@
     "inspectionName": "ThrowablePrintStackTrace"
   },
   "hash": "c67385353a21a28ec68842b6c03d0388427e997f04eb32e5f2e4e9020072859a"
-},{
-  "tool": "Code Inspection",
-  "category": "Code maturity",
-  "type": "Call to 'printStackTrace()'",
-  "severity": "High",
-  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
-  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
-      "language": "JAVA",
-      "line": 74,
-      "offset": 6,
-      "length": 15,
-      "code": {
-        "startLine": 72,
-        "length": 15,
-        "offset": 47,
-        "surroundingCode": "\t\t\treturn true;\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn false;\n\t\t}"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-redis.main",
-    "inspectionName": "ThrowablePrintStackTrace"
-  },
-  "hash": "a3e4a7b602e0f42abfe9d7bf130aa093af2063eb65ebac5e7248fb350474e5a5"
-},{
-  "tool": "Code Inspection",
-  "category": "Code maturity",
-  "type": "Call to 'printStackTrace()'",
-  "severity": "High",
-  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
-  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
-      "language": "JAVA",
-      "line": 149,
-      "offset": 6,
-      "length": 15,
-      "code": {
-        "startLine": 147,
-        "length": 15,
-        "offset": 47,
-        "surroundingCode": "\t\t\treturn true;\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn false;\n\t\t}"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-redis.main",
-    "inspectionName": "ThrowablePrintStackTrace"
-  },
-  "hash": "6334ce15cca09fb38ad38b2b0cdf3be96338705ae104cd6d772e1a399f6daf78"
-},{
-  "tool": "Code Inspection",
-  "category": "Code maturity",
-  "type": "Call to 'printStackTrace()'",
-  "severity": "High",
-  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
-  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
-      "language": "JAVA",
-      "line": 339,
-      "offset": 6,
-      "length": 15,
-      "code": {
-        "startLine": 337,
-        "length": 15,
-        "offset": 47,
-        "surroundingCode": "\t\t\treturn true;\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn false;\n\t\t}"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-redis.main",
-    "inspectionName": "ThrowablePrintStackTrace"
-  },
-  "hash": "b11069a242783d02086748c2fcbd50aefcfe8b154c49f29dc8fad4689f5c7ff7"
 },{
   "tool": "Code Inspection",
   "category": "Code maturity",
@@ -402,14 +150,14 @@
       "type": "file",
       "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
       "language": "JAVA",
-      "line": 89,
+      "line": 237,
       "offset": 6,
       "length": 15,
       "code": {
-        "startLine": 87,
+        "startLine": 235,
         "length": 15,
-        "offset": 47,
-        "surroundingCode": "\t\t\treturn true;\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn false;\n\t\t}"
+        "offset": 48,
+        "surroundingCode": "\t\t\treturn count;\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn 0L;\n\t\t}"
       }
     }
   ],
@@ -417,7 +165,7 @@
     "module": "gear4j.gear4j-redis.main",
     "inspectionName": "ThrowablePrintStackTrace"
   },
-  "hash": "6acda50c77fc28b23547ec443174b9dc902145b74d74cab5f6f3fa9a4beba3cb"
+  "hash": "68b14401b862f40f2311a8fcf3aebf7c60b15f0de5b520286f4f3a0182bc38d8"
 },{
   "tool": "Code Inspection",
   "category": "Code maturity",
@@ -430,11 +178,11 @@
       "type": "file",
       "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
       "language": "JAVA",
-      "line": 312,
+      "line": 149,
       "offset": 6,
       "length": 15,
       "code": {
-        "startLine": 310,
+        "startLine": 147,
         "length": 15,
         "offset": 47,
         "surroundingCode": "\t\t\treturn true;\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn false;\n\t\t}"
@@ -445,7 +193,7 @@
     "module": "gear4j.gear4j-redis.main",
     "inspectionName": "ThrowablePrintStackTrace"
   },
-  "hash": "059a65570ecc9db5acabc3225a0f308ed8bcb0bab2b75c8a6d3382f3b0f3a788"
+  "hash": "6334ce15cca09fb38ad38b2b0cdf3be96338705ae104cd6d772e1a399f6daf78"
 },{
   "tool": "Code Inspection",
   "category": "Code maturity",
@@ -458,14 +206,14 @@
       "type": "file",
       "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
       "language": "JAVA",
-      "line": 99,
+      "line": 287,
       "offset": 6,
       "length": 15,
       "code": {
-        "startLine": 97,
+        "startLine": 285,
         "length": 15,
-        "offset": 47,
-        "surroundingCode": "\t\t\treturn true;\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn false;\n\t\t}"
+        "offset": 87,
+        "surroundingCode": "\t\t\treturn redisTemplate.opsForList().index(key, index);\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn null;\n\t\t}"
       }
     }
   ],
@@ -473,7 +221,7 @@
     "module": "gear4j.gear4j-redis.main",
     "inspectionName": "ThrowablePrintStackTrace"
   },
-  "hash": "5e07bc98daa65611605973d34d66148237e93505a411e2dd82c380bef658d497"
+  "hash": "80c42d96250e71f07c973264fc5b5004fda28717008aab265551ec88c8270265"
 },{
   "tool": "Code Inspection",
   "category": "Code maturity",
@@ -514,14 +262,14 @@
       "type": "file",
       "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
       "language": "JAVA",
-      "line": 370,
+      "line": 247,
       "offset": 6,
       "length": 15,
       "code": {
-        "startLine": 368,
+        "startLine": 245,
         "length": 15,
-        "offset": 84,
-        "surroundingCode": "\t\t\tredisTemplate.opsForList().trim(key, start, end);\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t}\n\t}"
+        "offset": 78,
+        "surroundingCode": "\t\t\treturn redisTemplate.opsForSet().size(key);\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn 0L;\n\t\t}"
       }
     }
   ],
@@ -529,7 +277,7 @@
     "module": "gear4j.gear4j-redis.main",
     "inspectionName": "ThrowablePrintStackTrace"
   },
-  "hash": "bf92bd9f69dda5d7ba4793161ae0aa65da65f9d0da143aa263b8751d8da84ce5"
+  "hash": "6036360ce2503f9f865d595c3ce2a2205af82ad13dcb465f08019bda78cffaf8"
 },{
   "tool": "Code Inspection",
   "category": "Code maturity",
@@ -542,14 +290,14 @@
       "type": "file",
       "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
       "language": "JAVA",
-      "line": 237,
+      "line": 360,
       "offset": 6,
       "length": 15,
       "code": {
-        "startLine": 235,
+        "startLine": 358,
         "length": 15,
-        "offset": 48,
-        "surroundingCode": "\t\t\treturn count;\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn 0L;\n\t\t}"
+        "offset": 95,
+        "surroundingCode": "\t\t\treturn redisTemplate.opsForList().remove(key, count, value);\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn 0L;\n\t\t}"
       }
     }
   ],
@@ -557,7 +305,7 @@
     "module": "gear4j.gear4j-redis.main",
     "inspectionName": "ThrowablePrintStackTrace"
   },
-  "hash": "68b14401b862f40f2311a8fcf3aebf7c60b15f0de5b520286f4f3a0182bc38d8"
+  "hash": "7c0ffd175667294fb999980250bafac2b477e5255b66513f94616a757832af72"
 },{
   "tool": "Code Inspection",
   "category": "Code maturity",
@@ -570,14 +318,14 @@
       "type": "file",
       "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
       "language": "JAVA",
-      "line": 277,
+      "line": 350,
       "offset": 6,
       "length": 15,
       "code": {
-        "startLine": 275,
+        "startLine": 348,
         "length": 15,
-        "offset": 92,
-        "surroundingCode": "\t\t\treturn redisTemplate.opsForList().range(key, start, end);\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn null;\n\t\t}"
+        "offset": 47,
+        "surroundingCode": "\t\t\treturn true;\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn false;\n\t\t}"
       }
     }
   ],
@@ -585,7 +333,203 @@
     "module": "gear4j.gear4j-redis.main",
     "inspectionName": "ThrowablePrintStackTrace"
   },
-  "hash": "ab79561d49c3be8d20442a8b3122d380e4e52d4c12df869f4418977fd9c1729d"
+  "hash": "996d6b8cba6731363026816fa6a2aceb4528811b702027e6876b33bc7a380d80"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 257,
+      "offset": 6,
+      "length": 15,
+      "code": {
+        "startLine": 255,
+        "length": 15,
+        "offset": 88,
+        "surroundingCode": "\t\t\treturn redisTemplate.opsForSet().remove(key, values);\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn 0L;\n\t\t}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "2d9cef73026ae243e79b76169d3216f49e156fc2260dbb196c4bc87424bb7a6e"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 99,
+      "offset": 6,
+      "length": 15,
+      "code": {
+        "startLine": 97,
+        "length": 15,
+        "offset": 47,
+        "surroundingCode": "\t\t\treturn true;\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn false;\n\t\t}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "5e07bc98daa65611605973d34d66148237e93505a411e2dd82c380bef658d497"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 89,
+      "offset": 6,
+      "length": 15,
+      "code": {
+        "startLine": 87,
+        "length": 15,
+        "offset": 47,
+        "surroundingCode": "\t\t\treturn true;\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn false;\n\t\t}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "6acda50c77fc28b23547ec443174b9dc902145b74d74cab5f6f3fa9a4beba3cb"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 298,
+      "offset": 6,
+      "length": 15,
+      "code": {
+        "startLine": 296,
+        "length": 15,
+        "offset": 47,
+        "surroundingCode": "\t\t\treturn true;\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn false;\n\t\t}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "ad51896c8d7a761a100c907336285d0bea0b01fecc66012d9e7fd309e70534a9"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 74,
+      "offset": 6,
+      "length": 15,
+      "code": {
+        "startLine": 72,
+        "length": 15,
+        "offset": 47,
+        "surroundingCode": "\t\t\treturn true;\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn false;\n\t\t}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "a3e4a7b602e0f42abfe9d7bf130aa093af2063eb65ebac5e7248fb350474e5a5"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 339,
+      "offset": 6,
+      "length": 15,
+      "code": {
+        "startLine": 337,
+        "length": 15,
+        "offset": 47,
+        "surroundingCode": "\t\t\treturn true;\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn false;\n\t\t}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "b11069a242783d02086748c2fcbd50aefcfe8b154c49f29dc8fad4689f5c7ff7"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 37,
+      "offset": 6,
+      "length": 15,
+      "code": {
+        "startLine": 35,
+        "length": 15,
+        "offset": 36,
+        "surroundingCode": "\t\t\t}\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t}\n\t}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "e24b7c1f5f8b79607f99c80bcaf7440be15bff14f5592736f676bfc51ee6885b"
 },{
   "tool": "Code Inspection",
   "category": "Code maturity",
@@ -654,14 +598,14 @@
       "type": "file",
       "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
       "language": "JAVA",
-      "line": 324,
+      "line": 51,
       "offset": 6,
       "length": 15,
       "code": {
-        "startLine": 322,
+        "startLine": 49,
         "length": 15,
-        "offset": 47,
-        "surroundingCode": "\t\t\treturn true;\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn false;\n\t\t}"
+        "offset": 89,
+        "surroundingCode": "\t\t\treturn Boolean.TRUE.equals(redisTemplate.hasKey(key));\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn false;\n\t\t}"
       }
     }
   ],
@@ -669,7 +613,7 @@
     "module": "gear4j.gear4j-redis.main",
     "inspectionName": "ThrowablePrintStackTrace"
   },
-  "hash": "af08276783e5cb0a18c72ea32fcf76e928e8626576d8669e565c6618de152835"
+  "hash": "3d901a978518c8f05e6d22db555ee7628f4326b432da88f0de57239b87c6e920"
 },{
   "tool": "Code Inspection",
   "category": "Code maturity",
@@ -682,14 +626,14 @@
       "type": "file",
       "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
       "language": "JAVA",
-      "line": 298,
+      "line": 277,
       "offset": 6,
       "length": 15,
       "code": {
-        "startLine": 296,
+        "startLine": 275,
         "length": 15,
-        "offset": 47,
-        "surroundingCode": "\t\t\treturn true;\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn false;\n\t\t}"
+        "offset": 92,
+        "surroundingCode": "\t\t\treturn redisTemplate.opsForList().range(key, start, end);\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn null;\n\t\t}"
       }
     }
   ],
@@ -697,7 +641,7 @@
     "module": "gear4j.gear4j-redis.main",
     "inspectionName": "ThrowablePrintStackTrace"
   },
-  "hash": "ad51896c8d7a761a100c907336285d0bea0b01fecc66012d9e7fd309e70534a9"
+  "hash": "ab79561d49c3be8d20442a8b3122d380e4e52d4c12df869f4418977fd9c1729d"
 },{
   "tool": "Code Inspection",
   "category": "Code maturity",
@@ -738,14 +682,14 @@
       "type": "file",
       "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
       "language": "JAVA",
-      "line": 360,
+      "line": 324,
       "offset": 6,
       "length": 15,
       "code": {
-        "startLine": 358,
+        "startLine": 322,
         "length": 15,
-        "offset": 95,
-        "surroundingCode": "\t\t\treturn redisTemplate.opsForList().remove(key, count, value);\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn 0L;\n\t\t}"
+        "offset": 47,
+        "surroundingCode": "\t\t\treturn true;\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn false;\n\t\t}"
       }
     }
   ],
@@ -753,7 +697,7 @@
     "module": "gear4j.gear4j-redis.main",
     "inspectionName": "ThrowablePrintStackTrace"
   },
-  "hash": "7c0ffd175667294fb999980250bafac2b477e5255b66513f94616a757832af72"
+  "hash": "af08276783e5cb0a18c72ea32fcf76e928e8626576d8669e565c6618de152835"
 },{
   "tool": "Code Inspection",
   "category": "Code maturity",
@@ -766,14 +710,14 @@
       "type": "file",
       "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
       "language": "JAVA",
-      "line": 257,
+      "line": 203,
       "offset": 6,
       "length": 15,
       "code": {
-        "startLine": 255,
+        "startLine": 201,
         "length": 15,
-        "offset": 88,
-        "surroundingCode": "\t\t\treturn redisTemplate.opsForSet().remove(key, values);\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn 0L;\n\t\t}"
+        "offset": 81,
+        "surroundingCode": "\t\t\treturn redisTemplate.opsForSet().members(key);\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn null;\n\t\t}"
       }
     }
   ],
@@ -781,7 +725,63 @@
     "module": "gear4j.gear4j-redis.main",
     "inspectionName": "ThrowablePrintStackTrace"
   },
-  "hash": "2d9cef73026ae243e79b76169d3216f49e156fc2260dbb196c4bc87424bb7a6e"
+  "hash": "9ec20982c7877da85674771ac8d131d225c0a8900c6bb4c90b45ba6e996c5808"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 370,
+      "offset": 6,
+      "length": 15,
+      "code": {
+        "startLine": 368,
+        "length": 15,
+        "offset": 84,
+        "surroundingCode": "\t\t\tredisTemplate.opsForList().trim(key, start, end);\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t}\n\t}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "bf92bd9f69dda5d7ba4793161ae0aa65da65f9d0da143aa263b8751d8da84ce5"
+},{
+  "tool": "Code Inspection",
+  "category": "Code maturity",
+  "type": "Call to 'printStackTrace()'",
+  "severity": "High",
+  "comment": "Call to 'printStackTrace()' should probably be replaced with more robust logging",
+  "detailsInfo": "Reports calls to `Throwable.printStackTrace()` without arguments.\n\nSuch statements are often used for temporary debugging and should be either removed from the production code\nor replaced with a more robust logging facility.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-redis/src/main/java/club/gclmit/gear4j/redis/cache/RedisCache.java",
+      "language": "JAVA",
+      "line": 312,
+      "offset": 6,
+      "length": 15,
+      "code": {
+        "startLine": 310,
+        "length": 15,
+        "offset": 47,
+        "surroundingCode": "\t\t\treturn true;\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t\treturn false;\n\t\t}"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-redis.main",
+    "inspectionName": "ThrowablePrintStackTrace"
+  },
+  "hash": "059a65570ecc9db5acabc3225a0f308ed8bcb0bab2b75c8a6d3382f3b0f3a788"
 },{
   "tool": "Code Inspection",
   "category": "Performance",
@@ -810,34 +810,6 @@
     "inspectionName": "TrivialStringConcatenation"
   },
   "hash": "3a6d1ac5f224f034b29d8e0548559cadd1c7e08c6bd8bb1e8f5b6697436a9cc6"
-},{
-  "tool": "Code Inspection",
-  "category": "Probable bugs",
-  "type": "Constant conditions & exceptions",
-  "severity": "High",
-  "comment": "Method invocation 'getRequest' may produce 'NullPointerException'",
-  "detailsInfo": "Reports code constructs that always produce the same result, may throw exceptions, or violates nullability contracts.\n\nExamples:\n\n    if (array.length < index) {\n      System.out.println(array[index]);\n    } // Array index is always out of bounds\n\n    if (str == null) System.out.println(\"str is null\");\n    System.out.println(str.trim());\n    // the last statement may throw an NPE\n\n    @NotNull\n    Integer square(@Nullable Integer input) {\n        // the method contract is violated\n        return input == null ? null : input * input;\n    }\n\n\nThe inspection behavior may be controlled by a number of annotations, such as\n[nullability](https://www.jetbrains.com/help/idea/nullable-and-notnull-annotations.html) annotations,\n[@Contract](https://www.jetbrains.com/help/idea/contract-annotations.html) annotation,\n`@Range` annotation and so on.\n\nConfigure the inspection:\n\n* Use the **Suggest @Nullable annotation for methods/fields/parameters where nullable values are used** option to warn when a nullable value is passed as an argument to a method with a non-annotated parameter, stored into non-annotated field, or returned from a non-annotated method. In this case, the inspection will suggest propagating the `@Nullable` annotation. You can also configure nullability annotations using the **Configure Annotations** button.\n* Use the **Treat non-annotated members and parameters as @Nullable** option to assume that non-annotated members can be null, so they must not be used in non-null context.\n* Use the **Report not-null required parameter with null-literal argument usages** option to report method parameters that cannot be null (e.g. immediately dereferenced in the method body), but there are call sites where a `null` literal is passed.\n* Use the **Report nullable methods that always return a non-null value** option to report methods that are annotated as `@Nullable`, but always return non-null value. In this case, it's suggested that you change the annotation to `@NotNull`.\n* Use the **Don't report assertions with condition statically proven to be always true** option to avoid reporting assertions that were statically proven to be always true. This also includes conditions like `if (alwaysFalseCondition) throw new IllegalArgumentException();`.\n* Use the **Ignore assert statements** option to control how the inspection treats `assert` statements. By default, the option is disabled, which means that the assertions are assumed to be executed (-ea mode). If the option is enabled, the assertions will be completely ignored (-da mode).\n* Use the **Warn when reading a value guaranteed to be constant** option to add warnings on reading variables that contain some constant values, for example: `true`, `false`, or `null`.\n* Use the **Report problems that happen only on some code paths** option to control whether to report problems that may happen only on some code path. If this option is disabled, warnings like *exception is possible* will not be reported. The inspection will report only warnings like *exception will definitely occur*. This mode may greatly reduce the number of false-positives, especially if the code is not consistently annotated with nullability and contract annotations. That is why it can be useful for finding the most important problems in legacy code bases.",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ServletUtils.java",
-      "language": "JAVA",
-      "line": 203,
-      "offset": 41,
-      "length": 10,
-      "code": {
-        "startLine": 201,
-        "length": 10,
-        "offset": 183,
-        "surroundingCode": "        ServletRequestAttributes servletRequestAttributes =\n            (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();\n        return servletRequestAttributes.getRequest().getSession();\n    }\n"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-core.main",
-    "inspectionName": "ConstantConditions"
-  },
-  "hash": "a1b2cf04d6073f0e52dc2bb1c5ecdcb09382e8c21851a5089673d5991aa0b99a"
 },{
   "tool": "Code Inspection",
   "category": "Probable bugs",
@@ -894,6 +866,34 @@
     "inspectionName": "ConstantConditions"
   },
   "hash": "ca401c5596f7f4a60aa7e766ef86b5fd1254e2b2bc44023a5f9a4fc846f3df57"
+},{
+  "tool": "Code Inspection",
+  "category": "Probable bugs",
+  "type": "Constant conditions & exceptions",
+  "severity": "High",
+  "comment": "Method invocation 'getRequest' may produce 'NullPointerException'",
+  "detailsInfo": "Reports code constructs that always produce the same result, may throw exceptions, or violates nullability contracts.\n\nExamples:\n\n    if (array.length < index) {\n      System.out.println(array[index]);\n    } // Array index is always out of bounds\n\n    if (str == null) System.out.println(\"str is null\");\n    System.out.println(str.trim());\n    // the last statement may throw an NPE\n\n    @NotNull\n    Integer square(@Nullable Integer input) {\n        // the method contract is violated\n        return input == null ? null : input * input;\n    }\n\n\nThe inspection behavior may be controlled by a number of annotations, such as\n[nullability](https://www.jetbrains.com/help/idea/nullable-and-notnull-annotations.html) annotations,\n[@Contract](https://www.jetbrains.com/help/idea/contract-annotations.html) annotation,\n`@Range` annotation and so on.\n\nConfigure the inspection:\n\n* Use the **Suggest @Nullable annotation for methods/fields/parameters where nullable values are used** option to warn when a nullable value is passed as an argument to a method with a non-annotated parameter, stored into non-annotated field, or returned from a non-annotated method. In this case, the inspection will suggest propagating the `@Nullable` annotation. You can also configure nullability annotations using the **Configure Annotations** button.\n* Use the **Treat non-annotated members and parameters as @Nullable** option to assume that non-annotated members can be null, so they must not be used in non-null context.\n* Use the **Report not-null required parameter with null-literal argument usages** option to report method parameters that cannot be null (e.g. immediately dereferenced in the method body), but there are call sites where a `null` literal is passed.\n* Use the **Report nullable methods that always return a non-null value** option to report methods that are annotated as `@Nullable`, but always return non-null value. In this case, it's suggested that you change the annotation to `@NotNull`.\n* Use the **Don't report assertions with condition statically proven to be always true** option to avoid reporting assertions that were statically proven to be always true. This also includes conditions like `if (alwaysFalseCondition) throw new IllegalArgumentException();`.\n* Use the **Ignore assert statements** option to control how the inspection treats `assert` statements. By default, the option is disabled, which means that the assertions are assumed to be executed (-ea mode). If the option is enabled, the assertions will be completely ignored (-da mode).\n* Use the **Warn when reading a value guaranteed to be constant** option to add warnings on reading variables that contain some constant values, for example: `true`, `false`, or `null`.\n* Use the **Report problems that happen only on some code paths** option to control whether to report problems that may happen only on some code path. If this option is disabled, warnings like *exception is possible* will not be reported. The inspection will report only warnings like *exception will definitely occur*. This mode may greatly reduce the number of false-positives, especially if the code is not consistently annotated with nullability and contract annotations. That is why it can be useful for finding the most important problems in legacy code bases.",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ServletUtils.java",
+      "language": "JAVA",
+      "line": 203,
+      "offset": 41,
+      "length": 10,
+      "code": {
+        "startLine": 201,
+        "length": 10,
+        "offset": 183,
+        "surroundingCode": "        ServletRequestAttributes servletRequestAttributes =\n            (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();\n        return servletRequestAttributes.getRequest().getSession();\n    }\n"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "ConstantConditions"
+  },
+  "hash": "a1b2cf04d6073f0e52dc2bb1c5ecdcb09382e8c21851a5089673d5991aa0b99a"
 },{
   "tool": "Code Inspection",
   "category": "Probable bugs",
@@ -1095,6 +1095,34 @@
   "category": "Probable bugs",
   "type": "Infinite recursion",
   "severity": "High",
+  "comment": "Method 'invokeMethod()' recurses infinitely, and can only end by throwing an exception",
+  "detailsInfo": "Reports methods that call themselves infinitely unless an exception is thrown.\n\n\nMethods reported by this inspection cannot return normally.\nWhile such behavior may be intended, in many cases this is just an oversight.\n\n**Example:**\n\n      int baz() {\n          return baz();\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
+      "language": "JAVA",
+      "line": 383,
+      "offset": 26,
+      "length": 12,
+      "code": {
+        "startLine": 381,
+        "length": 12,
+        "offset": 47,
+        "surroundingCode": "     */\n    @Nullable\n    public static Object invokeMethod(Method method, @Nullable Object target, @Nullable Object... args) {\n        makeAccessible(method);\n        return invokeMethod(method, target, args);"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "InfiniteRecursion"
+  },
+  "hash": "5986ee017fc1df3781fc1b42855147fe7072017998b42cf0bd292c63a106f40a"
+},{
+  "tool": "Code Inspection",
+  "category": "Probable bugs",
+  "type": "Infinite recursion",
+  "severity": "High",
   "comment": "Method 'getField()' recurses infinitely, and can only end by throwing an exception",
   "detailsInfo": "Reports methods that call themselves infinitely unless an exception is thrown.\n\n\nMethods reported by this inspection cannot return normally.\nWhile such behavior may be intended, in many cases this is just an oversight.\n\n**Example:**\n\n      int baz() {\n          return baz();\n      }\n",
   "sources": [
@@ -1146,34 +1174,6 @@
     "inspectionName": "InfiniteRecursion"
   },
   "hash": "41117a41252d487bfc8934bdb48406dce5644881c0bdc4ed5b647241b915ed6d"
-},{
-  "tool": "Code Inspection",
-  "category": "Probable bugs",
-  "type": "Infinite recursion",
-  "severity": "High",
-  "comment": "Method 'invokeMethod()' recurses infinitely, and can only end by throwing an exception",
-  "detailsInfo": "Reports methods that call themselves infinitely unless an exception is thrown.\n\n\nMethods reported by this inspection cannot return normally.\nWhile such behavior may be intended, in many cases this is just an oversight.\n\n**Example:**\n\n      int baz() {\n          return baz();\n      }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
-      "language": "JAVA",
-      "line": 383,
-      "offset": 26,
-      "length": 12,
-      "code": {
-        "startLine": 381,
-        "length": 12,
-        "offset": 47,
-        "surroundingCode": "     */\n    @Nullable\n    public static Object invokeMethod(Method method, @Nullable Object target, @Nullable Object... args) {\n        makeAccessible(method);\n        return invokeMethod(method, target, args);"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-core.main",
-    "inspectionName": "InfiniteRecursion"
-  },
-  "hash": "5986ee017fc1df3781fc1b42855147fe7072017998b42cf0bd292c63a106f40a"
 },{
   "tool": "Code Inspection",
   "category": "RegExp",
@@ -1235,6 +1235,34 @@
   "category": "Visibility",
   "type": "Method tries to override 'static' method of superclass",
   "severity": "High",
+  "comment": "Method 'invokeMethod()' tries to override a static method of a superclass",
+  "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
+  "sources": [
+    {
+      "type": "file",
+      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
+      "language": "JAVA",
+      "line": 383,
+      "offset": 26,
+      "length": 12,
+      "code": {
+        "startLine": 381,
+        "length": 12,
+        "offset": 47,
+        "surroundingCode": "     */\n    @Nullable\n    public static Object invokeMethod(Method method, @Nullable Object target, @Nullable Object... args) {\n        makeAccessible(method);\n        return invokeMethod(method, target, args);"
+      }
+    }
+  ],
+  "attributes": {
+    "module": "gear4j.gear4j-core.main",
+    "inspectionName": "MethodOverridesStaticMethod"
+  },
+  "hash": "44bdfdfda1f5cada35c6456a870049a23e749221563b88d711491d4347366e89"
+},{
+  "tool": "Code Inspection",
+  "category": "Visibility",
+  "type": "Method tries to override 'static' method of superclass",
+  "severity": "High",
   "comment": "Method 'getField()' tries to override a static method of a superclass",
   "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
   "sources": [
@@ -1258,34 +1286,6 @@
     "inspectionName": "MethodOverridesStaticMethod"
   },
   "hash": "37d0401e6afb7a534b857debb5898474021a503866c38037ab3fcbb6a5a634ec"
-},{
-  "tool": "Code Inspection",
-  "category": "Visibility",
-  "type": "Method tries to override 'static' method of superclass",
-  "severity": "High",
-  "comment": "Method 'invokeMethod()' tries to override a static method of a superclass",
-  "detailsInfo": "Reports `static` methods with a signature identical to a `static` method of a superclass. Such a method may look like an override when in fact it hides the method from the superclass because `static` methods in Java cannot be overridden.\n\n**Example:**\n\n\n      class Parent {\n        static void method(){}\n      }\n\n      class Example extends Parent {\n        static void method(){} //warning\n      }\n",
-  "sources": [
-    {
-      "type": "file",
-      "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
-      "language": "JAVA",
-      "line": 370,
-      "offset": 26,
-      "length": 12,
-      "code": {
-        "startLine": 368,
-        "length": 12,
-        "offset": 47,
-        "surroundingCode": "     */\n    @Nullable\n    public static Object invokeMethod(Method method, @Nullable Object target) {\n        return invokeMethod(method, target, new Object[0]);\n    }"
-      }
-    }
-  ],
-  "attributes": {
-    "module": "gear4j.gear4j-core.main",
-    "inspectionName": "MethodOverridesStaticMethod"
-  },
-  "hash": "417a21de9dfa38d8bde568d99c9098c005b0e109bb731bbffe44a0d732c7725e"
 },{
   "tool": "Code Inspection",
   "category": "Visibility",
@@ -1326,14 +1326,14 @@
       "type": "file",
       "path": "gear4j-core/src/main/java/club/gclmit/gear4j/core/utils/ReflectionUtils.java",
       "language": "JAVA",
-      "line": 383,
+      "line": 370,
       "offset": 26,
       "length": 12,
       "code": {
-        "startLine": 381,
+        "startLine": 368,
         "length": 12,
         "offset": 47,
-        "surroundingCode": "     */\n    @Nullable\n    public static Object invokeMethod(Method method, @Nullable Object target, @Nullable Object... args) {\n        makeAccessible(method);\n        return invokeMethod(method, target, args);"
+        "surroundingCode": "     */\n    @Nullable\n    public static Object invokeMethod(Method method, @Nullable Object target) {\n        return invokeMethod(method, target, new Object[0]);\n    }"
       }
     }
   ],
@@ -1341,7 +1341,7 @@
     "module": "gear4j.gear4j-core.main",
     "inspectionName": "MethodOverridesStaticMethod"
   },
-  "hash": "44bdfdfda1f5cada35c6456a870049a23e749221563b88d711491d4347366e89"
+  "hash": "417a21de9dfa38d8bde568d99c9098c005b0e109bb731bbffe44a0d732c7725e"
 },{
   "tool": "Code Inspection",
   "category": "RegExp",
