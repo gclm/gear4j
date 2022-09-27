@@ -1,3 +1,40 @@
+### 2.6.2
+
+#### 新特性：
+
+- feat: 新增redis限流方案和优化工具类函数
+- feat: 删除备注字段
+- feat: 新增自定义参数效验异常
+
+#### bug修复
+
+- fix: 修复redis cache bug
+- fix: 修复文件上传bug
+- fix: 修复redis cache bug
+- fix: 修复文件上传bug
+- fix: 修复PageResult构造器bug
+- fix: 修复返回数据无data
+- fix: 修复子模块无法生成配置文件
+
+### 代码优化
+
+- perf: 删除Jackson序列化和新增时间工具类转换
+- perf: 所有自定义异常全部继承于Gear4jException
+- perf: 使用lombok精简代码
+- perf: 优化PageResult构造
+- perf: 优化数据响应
+- perf: 优化钉钉通知参数
+- perf: 优化阿里云cos调用方法
+
+#### 其他
+
+- refactor: 移除web模块代码合并到stater模块中
+- style: 优化pageResult记录名字
+- Merge pull request #8 from gclm/dev
+- Merge pull request #7 from gclm/imgbot
+- [ImgBot] Optimize images
+- Merge pull request #6 from gclm/dev
+
 ### 2.6.1
 
 #### 新特性：
@@ -17,7 +54,7 @@
 - 🐛: 基于alibaba开发规范修复代码警告问题
 - 🐛: 基于审计插件修复cos模块的bug
 
-### 性能优化
+### 代码优化
 
 - perf: 优化filter传参问题
 - ci: 优化github action配置
