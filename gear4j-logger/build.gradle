@@ -1,6 +1,3 @@
 dependencies {
     api project(":gear4j-core")
-    api "com.baomidou:mybatis-plus-extension"
-    api "io.swagger:swagger-annotations"
-    api "io.swagger.core.v3:swagger-annotations"
 }

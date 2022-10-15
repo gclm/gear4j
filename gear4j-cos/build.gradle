@@ -1,15 +1,11 @@
 dependencies {
     api project(':gear4j-core')
-    api 'com.aliyun.oss:aliyun-sdk-oss'
-    api 'com.qiniu:qiniu-java-sdk'
-    api 'com.qcloud:cos_api'
-    api 'cn.ucloud.ufile:ufile-client-java'
-    api 'com.huaweicloud:esdk-obs-java'
-    api 'com.upyun:java-sdk'
-
-    api "com.baomidou:mybatis-plus-extension"
-    api "io.swagger:swagger-annotations"
-    api "io.swagger.core.v3:swagger-annotations"
+    compileOnly 'com.aliyun.oss:aliyun-sdk-oss'
+    compileOnly 'com.qiniu:qiniu-java-sdk'
+    compileOnly 'com.qcloud:cos_api'
+    compileOnly 'cn.ucloud.ufile:ufile-client-java'
+    compileOnly 'com.huaweicloud:esdk-obs-java'
+    compileOnly 'com.upyun:java-sdk'
 }
 
 gradle.taskGraph.whenReady {
