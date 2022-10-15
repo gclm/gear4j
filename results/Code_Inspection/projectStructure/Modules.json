@@ -563,11 +563,23 @@
           "type": "Library"
         },
         {
+          "name": "Gradle: jakarta.servlet:jakarta.servlet-api:4.0.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
+          "type": "Library"
+        },
+        {
           "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
           "type": "Library"
         },
         {
-          "name": "Gradle: jakarta.servlet:jakarta.servlet-api:4.0.4",
+          "name": "Gradle: io.swagger:swagger-annotations:1.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
           "type": "Library"
         },
         {
@@ -616,6 +628,14 @@
         },
         {
           "name": "Gradle: org.springframework:spring-expression:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
           "type": "Library"
         },
         {
@@ -683,6 +703,22 @@
           "type": "Library"
         },
         {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis:3.5.10",
+          "type": "Library"
+        },
+        {
           "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
           "type": "Library"
         },
@@ -703,6 +739,14 @@
           "type": "Library"
         },
         {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
+          "type": "Library"
+        },
+        {
           "name": "Gradle: org.apache.logging.log4j:log4j-api:2.17.2",
           "type": "Library"
         },
@@ -712,6 +756,14 @@
         },
         {
           "name": "Gradle: ch.qos.logback:logback-core:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains:annotations:13.0",
           "type": "Library"
         }
       ]
@@ -746,42 +798,6 @@
         {
           "name": "gear4j.gear4j-core.main",
           "type": "Module"
-        },
-        {
-          "name": "Gradle: com.aliyun.oss:aliyun-sdk-oss:3.15.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.qiniu:qiniu-java-sdk:7.11.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.qcloud:cos_api:5.6.93",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: cn.ucloud.ufile:ufile-client-java:2.6.6",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.huaweicloud:esdk-obs-java:3.22.3.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.upyun:java-sdk:4.2.3",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: io.swagger:swagger-annotations:1.6.6",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
-          "type": "Library"
         },
         {
           "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
@@ -825,94 +841,6 @@
         },
         {
           "name": "Gradle: org.springframework:spring-context:5.3.21",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.aliyun:aliyun-java-sdk-core:4.5.10",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.apache.httpcomponents:httpclient:4.5.13",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.aliyun:aliyun-java-sdk-ram:3.1.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.aliyun:aliyun-java-sdk-kms:2.11.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jdom:jdom2:2.0.6.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.codehaus.jettison:jettison:1.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: commons-codec:commons-codec:1.15",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-kms:3.1.213",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: joda-time:joda-time:2.9.9",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.bouncycastle:bcprov-jdk15on:1.67",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: cn.ucloud.ufile:ufile-core:2.6.6",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.google.code.gson:gson:2.8.9",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.apache.logging.log4j:log4j-core:2.17.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.apache.logging.log4j:log4j-api:2.17.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: junit:junit:4.13.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
           "type": "Library"
         },
         {
@@ -996,66 +924,6 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: org.apache.httpcomponents:httpcore:4.4.15",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: javax.xml.bind:jaxb-api:2.3.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: commons-logging:commons-logging:1.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jacoco:org.jacoco.agent:runtime:0.8.5",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.ini4j:ini4j:0.5.4",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: io.opentracing:opentracing-util:0.33.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: io.opentracing:opentracing-api:0.33.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: stax:stax-api:1.0.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-common:3.1.213",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.squareup.okio:okio:1.17.5",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.hamcrest:hamcrest-core:2.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.mybatis:mybatis:3.5.10",
-          "type": "Library"
-        },
-        {
           "name": "Gradle: org.junit.jupiter:junit-jupiter-params:5.8.2",
           "type": "Library"
         },
@@ -1104,7 +972,15 @@
           "type": "Library"
         },
         {
+          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
+          "type": "Library"
+        },
+        {
           "name": "Gradle: com.vaadin.external.google:android-json:0.0.20131108.vaadin1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
           "type": "Library"
         },
         {
@@ -1112,23 +988,11 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: javax.activation:javax.activation-api:1.2.0",
+          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
           "type": "Library"
         },
         {
-          "name": "Gradle: io.opentracing:opentracing-noop:0.33.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.squareup.okhttp:logging-interceptor:2.7.5",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
+          "name": "Gradle: com.squareup.okio:okio:1.17.5",
           "type": "Library"
         },
         {
@@ -1160,15 +1024,15 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: com.squareup.okhttp:okhttp:2.7.5",
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
           "type": "Library"
         },
         {
-          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21",
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
           "type": "Library"
         },
         {
-          "name": "Gradle: org.jetbrains:annotations:13.0",
+          "name": "Gradle: org.apache.logging.log4j:log4j-api:2.17.2",
           "type": "Library"
         },
         {
@@ -1226,6 +1090,34 @@
           "type": "Module"
         },
         {
+          "name": "Gradle: jakarta.servlet:jakarta.servlet-api:4.0.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-web:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger:swagger-annotations:1.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.projectlombok:lombok:1.18.24",
+          "type": "Library"
+        },
+        {
           "name": "Gradle: com.aliyun.oss:aliyun-sdk-oss:3.15.1",
           "type": "Library"
         },
@@ -1247,34 +1139,6 @@
         },
         {
           "name": "Gradle: com.upyun:java-sdk:4.2.3",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: io.swagger:swagger-annotations:1.6.6",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: jakarta.servlet:jakarta.servlet-api:4.0.4",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.springframework.boot:spring-boot-starter-web:2.6.9",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.projectlombok:lombok:1.18.24",
           "type": "Library"
         },
         {
@@ -1307,6 +1171,30 @@
         },
         {
           "name": "Gradle: org.springframework:spring-context:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-json:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework:spring-webmvc:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-tomcat:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
           "type": "Library"
         },
         {
@@ -1390,30 +1278,6 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.springframework.boot:spring-boot-starter-json:2.6.9",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.springframework:spring-webmvc:5.3.21",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.springframework.boot:spring-boot-starter:2.6.9",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.springframework.boot:spring-boot-starter-tomcat:2.6.9",
-          "type": "Library"
-        },
-        {
           "name": "Gradle: com.ejlchina:data-jackson:1.4.1",
           "type": "Library"
         },
@@ -1439,66 +1303,6 @@
         },
         {
           "name": "Gradle: org.springframework:spring-expression:5.3.21",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.apache.httpcomponents:httpcore:4.4.15",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: javax.xml.bind:jaxb-api:2.3.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: commons-logging:commons-logging:1.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jacoco:org.jacoco.agent:runtime:0.8.5",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.ini4j:ini4j:0.5.4",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: io.opentracing:opentracing-util:0.33.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: io.opentracing:opentracing-api:0.33.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: stax:stax-api:1.0.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-common:3.1.213",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.squareup.okio:okio:1.17.5",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.hamcrest:hamcrest-core:2.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.mybatis:mybatis:3.5.10",
           "type": "Library"
         },
         {
@@ -1546,11 +1350,91 @@
           "type": "Library"
         },
         {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis:3.5.10",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.httpcomponents:httpcore:4.4.15",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: javax.xml.bind:jaxb-api:2.3.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: commons-logging:commons-logging:1.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jacoco:org.jacoco.agent:runtime:0.8.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.ini4j:ini4j:0.5.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.opentracing:opentracing-util:0.33.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.opentracing:opentracing-api:0.33.0",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: stax:stax-api:1.0.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-common:3.1.213",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okio:okio:1.17.5",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.hamcrest:hamcrest-core:2.2",
+          "type": "Library"
+        },
+        {
           "name": "Gradle: com.ejlchina:data-core:1.4.1",
           "type": "Library"
         },
         {
           "name": "Gradle: org.springframework:spring-jcl:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.17.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: ch.qos.logback:logback-classic:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.slf4j:jul-to-slf4j:1.7.36",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
           "type": "Library"
         },
         {
@@ -1570,27 +1454,7 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.17.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: ch.qos.logback:logback-classic:1.2.11",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.slf4j:jul-to-slf4j:1.7.36",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.squareup.okhttp:okhttp:2.7.5",
+          "name": "Gradle: ch.qos.logback:logback-core:1.2.11",
           "type": "Library"
         },
         {
@@ -1602,7 +1466,7 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: ch.qos.logback:logback-core:1.2.11",
+          "name": "Gradle: com.squareup.okhttp:okhttp:2.7.5",
           "type": "Library"
         }
       ]
@@ -1923,15 +1787,27 @@
           "type": "Module"
         },
         {
-          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
-          "type": "Library"
-        },
-        {
           "name": "Gradle: jakarta.servlet:jakarta.servlet-api:4.0.4",
           "type": "Library"
         },
         {
           "name": "Gradle: org.springframework.boot:spring-boot-starter-web:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger:swagger-annotations:1.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
           "type": "Library"
         },
         {
@@ -1984,6 +1860,14 @@
         },
         {
           "name": "Gradle: org.springframework.boot:spring-boot-starter-tomcat:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
           "type": "Library"
         },
         {
@@ -2063,6 +1947,22 @@
           "type": "Library"
         },
         {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis:3.5.10",
+          "type": "Library"
+        },
+        {
           "name": "Gradle: com.ejlchina:data-core:1.4.1",
           "type": "Library"
         },
@@ -2099,6 +1999,14 @@
           "type": "Library"
         },
         {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
+          "type": "Library"
+        },
+        {
           "name": "Gradle: org.apache.logging.log4j:log4j-api:2.17.2",
           "type": "Library"
         },
@@ -2108,6 +2016,14 @@
         },
         {
           "name": "Gradle: ch.qos.logback:logback-core:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains:annotations:13.0",
           "type": "Library"
         }
       ]
@@ -2136,18 +2052,6 @@
         {
           "name": "gear4j.gear4j-core.main",
           "type": "Module"
-        },
-        {
-          "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: io.swagger:swagger-annotations:1.6.6",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
-          "type": "Library"
         },
         {
           "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
@@ -2191,14 +2095,6 @@
         },
         {
           "name": "Gradle: org.springframework:spring-context:5.3.21",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
           "type": "Library"
         },
         {
@@ -2282,22 +2178,6 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.mybatis:mybatis:3.5.10",
-          "type": "Library"
-        },
-        {
           "name": "Gradle: org.junit.jupiter:junit-jupiter-params:5.8.2",
           "type": "Library"
         },
@@ -2370,14 +2250,6 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
-          "type": "Library"
-        },
-        {
           "name": "Gradle: org.apiguardian:apiguardian-api:1.1.2",
           "type": "Library"
         },
@@ -2411,14 +2283,6 @@
         },
         {
           "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jetbrains:annotations:13.0",
           "type": "Library"
         },
         {
@@ -2475,7 +2339,19 @@
           "type": "Module"
         },
         {
+          "name": "Gradle: jakarta.servlet:jakarta.servlet-api:4.0.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.springframework.boot:spring-boot-starter-web:2.6.9",
+          "type": "Library"
+        },
+        {
           "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
           "type": "Library"
         },
         {
@@ -2484,18 +2360,6 @@
         },
         {
           "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: jakarta.servlet:jakarta.servlet-api:4.0.4",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.springframework.boot:spring-boot-starter-web:2.6.9",
           "type": "Library"
         },
         {
@@ -2535,14 +2399,6 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
-          "type": "Library"
-        },
-        {
           "name": "Gradle: org.springframework.boot:spring-boot-starter-json:2.6.9",
           "type": "Library"
         },
@@ -2556,6 +2412,14 @@
         },
         {
           "name": "Gradle: org.springframework.boot:spring-boot-starter-tomcat:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
           "type": "Library"
         },
         {
@@ -2584,22 +2448,6 @@
         },
         {
           "name": "Gradle: org.springframework:spring-expression:5.3.21",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.mybatis:mybatis:3.5.10",
           "type": "Library"
         },
         {
@@ -2651,6 +2499,22 @@
           "type": "Library"
         },
         {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis:3.5.10",
+          "type": "Library"
+        },
+        {
           "name": "Gradle: com.ejlchina:data-core:1.4.1",
           "type": "Library"
         },
@@ -2664,14 +2528,6 @@
         },
         {
           "name": "Gradle: org.springframework:spring-jcl:5.3.21",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
           "type": "Library"
         },
         {
@@ -2695,11 +2551,11 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21",
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
           "type": "Library"
         },
         {
-          "name": "Gradle: org.jetbrains:annotations:13.0",
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
           "type": "Library"
         },
         {
@@ -2712,6 +2568,14 @@
         },
         {
           "name": "Gradle: ch.qos.logback:logback-core:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains:annotations:13.0",
           "type": "Library"
         }
       ]
@@ -3027,15 +2891,27 @@
           "type": "Module"
         },
         {
-          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
-          "type": "Library"
-        },
-        {
           "name": "Gradle: jakarta.servlet:jakarta.servlet-api:4.0.4",
           "type": "Library"
         },
         {
           "name": "Gradle: org.springframework.boot:spring-boot-starter-web:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger:swagger-annotations:1.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
           "type": "Library"
         },
         {
@@ -3092,6 +2968,14 @@
         },
         {
           "name": "Gradle: org.springframework.boot:spring-boot-starter-tomcat:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
           "type": "Library"
         },
         {
@@ -3179,6 +3063,22 @@
           "type": "Library"
         },
         {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis:3.5.10",
+          "type": "Library"
+        },
+        {
           "name": "Gradle: org.springframework.data:spring-data-keyvalue:2.6.5",
           "type": "Library"
         },
@@ -3251,6 +3151,14 @@
           "type": "Library"
         },
         {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
+          "type": "Library"
+        },
+        {
           "name": "Gradle: org.springframework.data:spring-data-commons:2.6.5",
           "type": "Library"
         },
@@ -3280,6 +3188,14 @@
         },
         {
           "name": "Gradle: ch.qos.logback:logback-core:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains:annotations:13.0",
           "type": "Library"
         }
       ]
@@ -3608,15 +3524,27 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
-          "type": "Library"
-        },
-        {
           "name": "Gradle: jakarta.servlet:jakarta.servlet-api:4.0.4",
           "type": "Library"
         },
         {
           "name": "Gradle: org.springframework.boot:spring-boot-starter-web:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger:swagger-annotations:1.6.6",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
           "type": "Library"
         },
         {
@@ -3669,6 +3597,14 @@
         },
         {
           "name": "Gradle: org.springframework.boot:spring-boot-starter-tomcat:2.6.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
           "type": "Library"
         },
         {
@@ -3748,6 +3684,22 @@
           "type": "Library"
         },
         {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.mybatis:mybatis:3.5.10",
+          "type": "Library"
+        },
+        {
           "name": "Gradle: com.ejlchina:data-core:1.4.1",
           "type": "Library"
         },
@@ -3784,6 +3736,14 @@
           "type": "Library"
         },
         {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
+          "type": "Library"
+        },
+        {
           "name": "Gradle: org.apache.logging.log4j:log4j-api:2.17.2",
           "type": "Library"
         },
@@ -3793,6 +3753,14 @@
         },
         {
           "name": "Gradle: ch.qos.logback:logback-core:1.2.11",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: org.jetbrains:annotations:13.0",
           "type": "Library"
         }
       ]
@@ -3852,42 +3820,6 @@
         },
         {
           "name": "Gradle: org.springframework.boot:spring-boot-starter-test:2.6.9",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: io.swagger:swagger-annotations:1.6.6",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.aliyun.oss:aliyun-sdk-oss:3.15.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.qiniu:qiniu-java-sdk:7.11.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.qcloud:cos_api:5.6.93",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: cn.ucloud.ufile:ufile-client-java:2.6.6",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.huaweicloud:esdk-obs-java:3.22.3.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.upyun:java-sdk:4.2.3",
           "type": "Library"
         },
         {
@@ -3983,94 +3915,6 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.mybatis:mybatis-spring:2.0.7",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.aliyun:aliyun-java-sdk-core:4.5.10",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.apache.httpcomponents:httpclient:4.5.13",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.aliyun:aliyun-java-sdk-ram:3.1.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.aliyun:aliyun-java-sdk-kms:2.11.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jdom:jdom2:2.0.6.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.codehaus.jettison:jettison:1.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: commons-codec:commons-codec:1.15",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-kms:3.1.213",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: joda-time:joda-time:2.9.9",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.bouncycastle:bcprov-jdk15on:1.67",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: cn.ucloud.ufile:ufile-core:2.6.6",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.google.code.gson:gson:2.8.9",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.apache.logging.log4j:log4j-core:2.17.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.apache.logging.log4j:log4j-api:2.17.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: junit:junit:4.13.2",
-          "type": "Library"
-        },
-        {
           "name": "Gradle: com.ejlchina:data-jackson:1.4.1",
           "type": "Library"
         },
@@ -4143,71 +3987,27 @@
           "type": "Library"
         },
         {
+          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
+          "type": "Library"
+        },
+        {
           "name": "Gradle: com.vaadin.external.google:android-json:0.0.20131108.vaadin1",
           "type": "Library"
         },
         {
-          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.baomidou:mybatis-plus-annotation:3.5.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.github.jsqlparser:jsqlparser:4.4",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.mybatis:mybatis:3.5.10",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.apache.httpcomponents:httpcore:4.4.15",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: javax.xml.bind:jaxb-api:2.3.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: commons-logging:commons-logging:1.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jacoco:org.jacoco.agent:runtime:0.8.5",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.ini4j:ini4j:0.5.4",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: io.opentracing:opentracing-util:0.33.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: io.opentracing:opentracing-api:0.33.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: stax:stax-api:1.0.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-common:3.1.213",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.squareup.okio:okio:1.17.5",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.hamcrest:hamcrest-core:2.2",
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
           "type": "Library"
         },
         {
           "name": "Gradle: com.ejlchina:data-core:1.4.1",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.squareup.okio:okio:1.17.5",
           "type": "Library"
         },
         {
@@ -4239,23 +4039,15 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21",
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
           "type": "Library"
         },
         {
-          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.21",
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
           "type": "Library"
         },
         {
-          "name": "Gradle: javax.activation:javax.activation-api:1.2.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: io.opentracing:opentracing-noop:0.33.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.squareup.okhttp:logging-interceptor:2.7.5",
+          "name": "Gradle: org.apache.logging.log4j:log4j-api:2.17.2",
           "type": "Library"
         },
         {
@@ -4264,18 +4056,6 @@
         },
         {
           "name": "Gradle: org.ow2.asm:asm:9.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jetbrains:annotations:13.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.squareup.okhttp:okhttp:2.7.5",
           "type": "Library"
         },
         {
@@ -4340,10 +4120,6 @@
           "type": "Module"
         },
         {
-          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
-          "type": "Library"
-        },
-        {
           "name": "Gradle: jakarta.servlet:jakarta.servlet-api:4.0.4",
           "type": "Library"
         },
@@ -4352,15 +4128,11 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: org.projectlombok:lombok:1.18.24",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: jakarta.validation:jakarta.validation-api:2.0.2",
-          "type": "Library"
-        },
-        {
           "name": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.google.code.findbugs:jsr305:3.0.2",
           "type": "Library"
         },
         {
@@ -4372,27 +4144,11 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: com.aliyun.oss:aliyun-sdk-oss:3.15.1",
+          "name": "Gradle: org.projectlombok:lombok:1.18.24",
           "type": "Library"
         },
         {
-          "name": "Gradle: com.qiniu:qiniu-java-sdk:7.11.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.qcloud:cos_api:5.6.93",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: cn.ucloud.ufile:ufile-client-java:2.6.6",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.huaweicloud:esdk-obs-java:3.22.3.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.upyun:java-sdk:4.2.3",
+          "name": "Gradle: jakarta.validation:jakarta.validation-api:2.0.2",
           "type": "Library"
         },
         {
@@ -4456,86 +4212,6 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: com.aliyun:aliyun-java-sdk-core:4.5.10",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.apache.httpcomponents:httpclient:4.5.13",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.aliyun:aliyun-java-sdk-ram:3.1.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.aliyun:aliyun-java-sdk-kms:2.11.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jdom:jdom2:2.0.6.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.codehaus.jettison:jettison:1.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: commons-codec:commons-codec:1.15",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-kms:3.1.213",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: joda-time:joda-time:2.9.9",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.bouncycastle:bcprov-jdk15on:1.67",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: cn.ucloud.ufile:ufile-core:2.6.6",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.google.code.gson:gson:2.8.9",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.apache.logging.log4j:log4j-core:2.17.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.apache.logging.log4j:log4j-api:2.17.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: junit:junit:4.13.2",
-          "type": "Library"
-        },
-        {
           "name": "Gradle: com.ejlchina:data-jackson:1.4.1",
           "type": "Library"
         },
@@ -4564,15 +4240,19 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.3",
-          "type": "Library"
-        },
-        {
           "name": "Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3",
           "type": "Library"
         },
         {
           "name": "Gradle: com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-databind:2.13.3",
           "type": "Library"
         },
         {
@@ -4624,39 +4304,11 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: org.apache.httpcomponents:httpcore:4.4.15",
+          "name": "Gradle: com.ejlchina:data-core:1.4.1",
           "type": "Library"
         },
         {
-          "name": "Gradle: javax.xml.bind:jaxb-api:2.3.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: commons-logging:commons-logging:1.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.jacoco:org.jacoco.agent:runtime:0.8.5",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.ini4j:ini4j:0.5.4",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: io.opentracing:opentracing-util:0.33.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: io.opentracing:opentracing-api:0.33.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: stax:stax-api:1.0.1",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.tencentcloudapi:tencentcloud-sdk-java-common:3.1.213",
+          "name": "Gradle: com.squareup.okhttp3:okhttp:3.14.9",
           "type": "Library"
         },
         {
@@ -4664,15 +4316,15 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: org.hamcrest:hamcrest-core:2.2",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.ejlchina:data-core:1.4.1",
-          "type": "Library"
-        },
-        {
           "name": "Gradle: org.springframework:spring-jcl:5.3.21",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-core:2.13.3",
+          "type": "Library"
+        },
+        {
+          "name": "Gradle: com.fasterxml.jackson.core:jackson-annotations:2.13.3",
           "type": "Library"
         },
         {
@@ -4696,19 +4348,11 @@
           "type": "Library"
         },
         {
-          "name": "Gradle: javax.activation:javax.activation-api:1.2.0",
+          "name": "Gradle: org.apache.logging.log4j:log4j-api:2.17.2",
           "type": "Library"
         },
         {
-          "name": "Gradle: io.opentracing:opentracing-noop:0.33.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.squareup.okhttp:logging-interceptor:2.7.5",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: org.hamcrest:hamcrest:2.2",
+          "name": "Gradle: org.slf4j:slf4j-api:1.7.36",
           "type": "Library"
         },
         {
@@ -4721,10 +4365,6 @@
         },
         {
           "name": "Gradle: org.jetbrains:annotations:13.0",
-          "type": "Library"
-        },
-        {
-          "name": "Gradle: com.squareup.okhttp:okhttp:2.7.5",
           "type": "Library"
         }
       ]

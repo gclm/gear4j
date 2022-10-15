@@ -530,6 +530,30 @@
       "version": "4.0.4"
     },
     {
+      "ideaName": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
+      "gradleName": "com.baomidou:mybatis-plus-extension:3.5.2",
+      "unresolved": false,
+      "groupId": "com.baomidou",
+      "artifactId": "mybatis-plus-extension",
+      "version": "3.5.2"
+    },
+    {
+      "ideaName": "Gradle: io.swagger:swagger-annotations:1.6.6",
+      "gradleName": "io.swagger:swagger-annotations:1.6.6",
+      "unresolved": false,
+      "groupId": "io.swagger",
+      "artifactId": "swagger-annotations",
+      "version": "1.6.6"
+    },
+    {
+      "ideaName": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
+      "gradleName": "io.swagger.core.v3:swagger-annotations:2.2.1",
+      "unresolved": false,
+      "groupId": "io.swagger.core.v3",
+      "artifactId": "swagger-annotations",
+      "version": "2.2.1"
+    },
+    {
       "ideaName": "Gradle: org.springframework.boot:spring-boot-starter-json:2.6.9",
       "gradleName": "org.springframework.boot:spring-boot-starter-json:2.6.9",
       "unresolved": false,
@@ -552,6 +576,22 @@
       "groupId": "org.springframework.boot",
       "artifactId": "spring-boot-starter-tomcat",
       "version": "2.6.9"
+    },
+    {
+      "ideaName": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
+      "gradleName": "com.baomidou:mybatis-plus-core:3.5.2",
+      "unresolved": false,
+      "groupId": "com.baomidou",
+      "artifactId": "mybatis-plus-core",
+      "version": "3.5.2"
+    },
+    {
+      "ideaName": "Gradle: org.mybatis:mybatis-spring:2.0.7",
+      "gradleName": "org.mybatis:mybatis-spring:2.0.7",
+      "unresolved": false,
+      "groupId": "org.mybatis",
+      "artifactId": "mybatis-spring",
+      "version": "2.0.7"
     },
     {
       "ideaName": "Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3",
@@ -600,46 +640,6 @@
       "groupId": "org.apache.tomcat.embed",
       "artifactId": "tomcat-embed-el",
       "version": "9.0.64"
-    },
-    {
-      "ideaName": "Gradle: com.baomidou:mybatis-plus-extension:3.5.2",
-      "gradleName": "com.baomidou:mybatis-plus-extension:3.5.2",
-      "unresolved": false,
-      "groupId": "com.baomidou",
-      "artifactId": "mybatis-plus-extension",
-      "version": "3.5.2"
-    },
-    {
-      "ideaName": "Gradle: io.swagger:swagger-annotations:1.6.6",
-      "gradleName": "io.swagger:swagger-annotations:1.6.6",
-      "unresolved": false,
-      "groupId": "io.swagger",
-      "artifactId": "swagger-annotations",
-      "version": "1.6.6"
-    },
-    {
-      "ideaName": "Gradle: io.swagger.core.v3:swagger-annotations:2.2.1",
-      "gradleName": "io.swagger.core.v3:swagger-annotations:2.2.1",
-      "unresolved": false,
-      "groupId": "io.swagger.core.v3",
-      "artifactId": "swagger-annotations",
-      "version": "2.2.1"
-    },
-    {
-      "ideaName": "Gradle: com.baomidou:mybatis-plus-core:3.5.2",
-      "gradleName": "com.baomidou:mybatis-plus-core:3.5.2",
-      "unresolved": false,
-      "groupId": "com.baomidou",
-      "artifactId": "mybatis-plus-core",
-      "version": "3.5.2"
-    },
-    {
-      "ideaName": "Gradle: org.mybatis:mybatis-spring:2.0.7",
-      "gradleName": "org.mybatis:mybatis-spring:2.0.7",
-      "unresolved": false,
-      "groupId": "org.mybatis",
-      "artifactId": "mybatis-spring",
-      "version": "2.0.7"
     },
     {
       "ideaName": "Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21",
